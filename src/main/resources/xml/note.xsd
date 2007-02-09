@@ -25,5 +25,5 @@
 			<xs:element name="pitch" type="xs:double"></xs:element>
 			<xs:element name="rotation" type="xs:double"></xs:element>
 		</xs:sequence>
-	</xs:complexType>	
+	</xs:complexType>
 </xs:schema>

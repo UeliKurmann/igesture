@@ -23,7 +23,35 @@
 			</p>
 			
 			<source>
-			
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+	&lt;xs:element name="note" type="NoteType" /&gt;
+
+	&lt;xs:complexType name="NoteType"&gt;
+		&lt;xs:sequence minOccurs="1" maxOccurs="unbounded"&gt;
+			&lt;xs:element name="trace" type="TraceType" /&gt;
+		&lt;/xs:sequence&gt;
+	&lt;/xs:complexType&gt;
+
+	&lt;xs:complexType name="TraceType"&gt;
+		&lt;xs:sequence minOccurs="1" maxOccurs="unbounded"&gt;
+			&lt;xs:element name="point" type="PointType" /&gt;
+		&lt;/xs:sequence&gt;
+	&lt;/xs:complexType&gt;
+
+	&lt;xs:complexType name="PointType"&gt;
+		&lt;xs:sequence&gt;
+			&lt;xs:element name="x" type="xs:double"&gt;&lt;/xs:element&gt;
+			&lt;xs:element name="y" type="xs:double"&gt;&lt;/xs:element&gt;
+			&lt;xs:element name="timestamp" type="xs:long"&gt;&lt;/xs:element&gt;
+			&lt;xs:element name="force" type="xs:int"&gt;&lt;/xs:element&gt;
+			&lt;xs:element name="yaw" type="xs:double"&gt;&lt;/xs:element&gt;
+			&lt;xs:element name="pitch" type="xs:double"&gt;&lt;/xs:element&gt;
+			&lt;xs:element name="rotation" type="xs:double"&gt;&lt;/xs:element&gt;
+		&lt;/xs:sequence&gt;
+	&lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;			
 			
 			</source>
 		</section>
