@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Implementation: Event Manager</title>
+	</properties>
+	<body>
+		<section name="Implementation: Event Manager">
+			<p>
+				iGesture has an event manager providing an alternative
+				method to react on recognised gestures in addition to
+				the result set returned by the algorithm. Listeners can
+				be added to an instance of an algorithm and an event
+				manager is notified after each recognition process as
+				shown in Figure
+				<a href="#fig%3Aeventmanageruml">5</a>
+				.
+				<p>
+					<div>
+						<div align="center">
+							<img
+								src="images/implementation/eventmanager.png" />
+							<center>
+								<br />
+								Figure 5: EventManager class diagram
+								<br />
+							</center>
+						</div>
+					</div>
+				</p>
+				<p>
+					An event manager has advantages compared to the
+					processing of result sets by the caller in terms of
+					executing different actions based on the result.
+					Thereby, it is not necessary to implement different
+					behaviour for various results on the client side
+					which reduces code complexity.
+				</p>
+				<p>
+					After a notification has been triggered by an
+					algorithm the event manager looks up in the event
+					table if the recognised gesture is bound to an
+					action. If so, the action is executed by the event
+					manager.
+				</p>
+				<p>
+					Actions have to implement the
+					<tt>EventHandler</tt>
+					interface demanding for a
+					<tt>run</tt>
+					method with a
+					<tt>ResultSet</tt>
+					as parameter.
+				</p>
+				<p>
+					To be more flexible, the event manager contains
+					instantiated objects. This has the advantage that
+					the implementation of an event can be constructed
+					with arbitrary parameters and therefore it is able
+					to operate on all application data.
+				</p>
+				<p>
+					By definition, the algorithm has to notify the event
+					manager after each call of the recognise method.
+				</p>
+			</p>
+
+		</section>
+	</body>
+</document>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<algorithm name="org.ximtec.igesture.algorithm.siger.SigerRecogniser" />
+	
+	<set name="gestureSet1" id="1">
+		<class name="LeftRight" id="2"><textDescriptor><text>E</text></textDescriptor></class>
+		<class name="DownRight" id="3"><textDescriptor><text>S,E</text></textDescriptor></class>
+		<class name="UpLeft" id="4"><textDescriptor><text>N,W</text></textDescriptor></class>
+	</set>
+</configuration>

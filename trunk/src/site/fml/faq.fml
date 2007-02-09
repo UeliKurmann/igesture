@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<faqs id="General FAQ">
+  <part id="General">
+    <faq id="where">
+      <question>Where did iGesture come from?</question>
+      <answer>
+        <p>
+          bla...
+        </p>
+      </answer>
+    </faq>
+    <faq id="why">
+      <question>Why is iGesture so wildly popular?</question>
+      <answer>
+        <p>
+          bla...
+        </p>
+      </answer>
+    </faq>
+  </part>
+</faqs>

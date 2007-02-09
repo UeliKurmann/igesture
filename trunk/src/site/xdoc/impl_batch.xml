@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Implementation: Batch Processing</title>
+	</properties>
+	<body>
+		<section name="Implementation: Batch Processing">
+			iGestures provides a tool to test and evaluate different
+			recognition algorithms. The idea behind this tool is to
+			simplify the evaluation of newly developed algorithms and
+			the comparison of different algorithms. Beside the
+			comparison it allows us to test a specific algorithm with
+			different parameters to adjust them in the best possible way
+			for a given gesture set. Figure
+			<a href="#fig%3Abatchprocess">13</a>
+			shows the main classes belonging to the batch process
+			handling.
+			<p>
+				<div>
+					<div align="center">
+						<img
+							src="images/implementation/batchprocess.png" />
+						<center>
+							<br />
+							Figure 13: BatchProcess class diagram
+							<br />
+						</center>
+					</div>
+				</div>
+			</p>
+			<p>
+				A gesture test set is encapsulated in a
+				<tt>TestSet</tt>
+				instance which consists of a set of
+				<tt>GestureSample</tt>
+				instances. Each instance contains the name of the
+				gesture class the sample belongs to or the name is
+				empty, if the gesture does not exist in the gesture set.
+				This naming is necessary to check whether the input was
+				recognised correctly.
+			</p>
+			<subsection name="Test Configuration">
+				<p>
+					A batch process is configured with an XML file and
+					out of it the different configuration objects are
+					created. To be able to test different parameter
+					adjustments we provide a mechanism to define various
+					parameters.
+					<p>
+						As usual it is possible to set a parameter to a
+						fixed value. This is realised with the following
+						XML construct:
+					</p>
+					<p>
+						<source>
+							<![CDATA[ 
+<parameter name="MIN_ACCURACCY">
+  <value>0.85</value>
+</parameter>
+]]>
+						</source>
+					</p>
+
+					<p>
+						Then we can define a sequence of values a
+						parameter can have. This is done as follows:
+					</p>
+					<source>
+						<![CDATA[ 
+<parameter name="RESULTSET_SIZE">
+  <sequence>
+    <value>1</value>
+    <value>8</value>
+  </sequence>
+</parameter>
+]]>
+					</source>
+					<p>
+						The next construct acts like a for-loop. Each
+						value in the given sequence is taken as a
+						parameter. All three arguments are processed as
+						double values.
+					</p>
+					<p>
+						<source>
+							<![CDATA[ 
+<parameter name="MIN_DISTANCE">
+  <for start="1" end="3.5" step="0.5"/>
+</parameter>]]>
+						</source>
+					</p>
+					<p>
+						The last construct creates the power-set of the
+						specified length out of a comma delimited list.
+						The two parameters
+						<i>min</i>
+						and
+						<i>max</i>
+						denotes the minimal and maximal length of the
+						created power-set. The power-set of a list has
+						$2^List.length$ elements in general.
+					</p>
+					<p>
+
+						<source>
+							<![CDATA[ 
+<parameter name="FEATURE_LIST">
+    <powerset min="4" max="6">F1,F2,F3,F4,F5,F6</powerset>
+</parameter>
+]]>
+						</source>
+					</p>
+					<p>
+						Out of this XML configuration file all possible
+						parameter permutations are collected. For each
+						configuration the batch process instantiates the
+						algorithm and processes the test set. The
+						results of the batch process are collected in a
+						<tt>TestSetResult</tt>
+						data structure. For each configuration the key
+						figures are computed and collected.
+					</p>
+					<p>
+						Note that this batch process may be very memory
+						and time consuming.
+					</p>
+				</p>
+			</subsection>
+		</section>
+	</body>
+</document>

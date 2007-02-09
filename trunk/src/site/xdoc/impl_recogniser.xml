@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Implementation: Recogniser</title>
+	</properties>
+	<body>
+		<section name="Implementation: Recogniser">
+			The
+			<tt>Recogniser</tt>
+			class shown in Figure
+			<a href="#fig%3Arecogniser">6</a>
+			is the front end of the framework and hides the complexity
+			with a facade . An application developer using iGesture does
+			not have to bother about the classes in the background. They
+			only have to define an XML configuration file as shown in
+			Listing, create a gesture set and use the
+			<tt>Recogniser</tt>
+			to recognise gestures. In general, the recogniser is
+			instantiated with a configuration object containing
+			information about the algorithms to be used. To make the
+			recogniser more comfortable we provide a broad set of
+			constructors which allow to pass the configuration files
+			directly.
+			<p>
+				<div>
+					<div align="center">
+						<img src="images/implementation/recogniser.png" />
+						<center>
+							<br />
+							Figure 6: Recogniser class diagram
+							<br />
+						</center>
+					</div>
+				</div>
+			</p>
+			<p>
+				A configuration object may have multiple algorithms for
+				the recognition process. The recogniser provides two
+				methods which have a different behaviour regarding to
+				the use of multiple algorithms. The
+				<tt>recognise(Note note)</tt>
+				method goes through the algorithms in sequential order
+				and stops the recognition process as soon as one
+				algorithm returns a valid result whereas the
+				<tt>recognise(Note note, boolean recogniseAll)</tt>
+				method combines the results returned by different
+				algorithms.
+			</p>
+			<p>
+				For instance, there is an application which recognises
+				handwritten text and reacts on command gestures. For
+				both tasks a different recognition algorithm is needed.
+				These two algorithms are executed in serial order where
+				the first recognises commands and the second recognises
+				handwritten text. We draw the sign to delete a text
+				block. So the first algorithm will recognise the gesture
+				and the recogniser stops. Afterwards a note representing
+				a word is processed. The first algorithm fails to
+				recognise the input and so the second algorithm
+				recognises it as handwritten text.
+			</p>
+			<p>
+				The problem of the second method is the order of the
+				result set. The results have an accuracy value but this
+				value is computed by the algorithm and it cannot be
+				assumed that the accuracy of different algorithms has
+				the same meaning. Therefore, the result with the highest
+				accuracy value does not have to be the best result.
+			</p>
+		</section>
+	</body>
+</document>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Implementation: Return Values</title>
+	</properties>
+	<body>
+		<section name="Implementation: Return Values">
+			The result returned by the recogniser is structured into a
+			result set which contains a list of results as shown in the
+			class diagram in Figure
+			<a href="#fig%3AResultSetUML">4</a>
+			. We decided to return a set of possible results instead of
+			a single one to delegate the selection of specific results
+			to the application making use of the recogniser. The
+			advantage of this approach is that the application may
+			choose a result based on additional contextual information
+			about the captured gesture.
+			<p>
+				<div>
+					<div align="center">
+						<img src="images/implementation/resultset.png" />
+						<center>
+							<br />
+							Figure 4: Class diagram return value
+							<br />
+						</center>
+					</div>
+				</div>
+			</p>
+			<p>
+				The result set also contains a reference to the original
+				note which was used in the gesture recognition process.
+				This would not be necessary for the direct use of the
+				gesture set returned to the application but enables
+				events working on the note. Otherwise they would not be
+				aware of this information.
+			</p>
+			<p>
+				The list of returned results is always ordered by the
+				accuracy of the result or is empty if the recognition
+				was unsuccessful. To simplify the access to the most
+				likely result a convenience method is provided which
+				directly returns the first result.
+			</p>
+		</section>
+	</body>
+</document>

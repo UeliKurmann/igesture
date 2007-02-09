@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Implementation: Management Console</title>
+	</properties>
+	<body>
+		<section name="Implementation: Management Console">
+			The management console of iGesture is a Java Swing
+			application and basically consists of three parts to define
+			gestures, test them manually and a tool to create test sets.
+			The application is implemented using the MVC pattern and is
+			extendable for additional functionality.
+			<p>
+				The backbone is the model class
+				<tt>GestureMainModel</tt>
+				. It provides access to data objects and uses the
+				<tt>StorageManager</tt>
+				to make them persistence. Beside that, the main model
+				provides a set of listeners where views can register to
+				be informed about changed data. Also other component
+				models are based on the main model and so it is the only
+				instance holding data and all alterations are propagated
+				to it. Furthermore, the main model provides access to
+				registered input devices.
+			</p>
+			<p>
+				The main model is initialised with a
+				<tt>StorageEngine</tt>
+				and a list of input devices. The fact that input devices
+				are passed to the constructor allows the use of
+				different input devices.
+			</p>
+			<p>
+				The most recent note that has been captured by the input
+				device is stored in the main model and a listener
+				informs registered views when it is altered. To prevent
+				the destruction of the note by any views, the getter
+				method always returns a clone of the original note. To
+				pass the original reference would lead to non
+				deterministic behaviour because some operations on the
+				note change the note itself.
+			</p>
+			<p>
+				The management tool is structured into different tabs.
+				Each tab contains functionality for a specific task and
+				different tabs do not have any dependencies. This design
+				decision has the advantage that new tabs can be added in
+				a simple manner. The tabs are not hard coded in the main
+				view and have to extend the abstract class
+				<tt>GestureTab</tt>
+				. The list of tabs is passed to the constructor of the
+				main view and it creates the instances of the tabs using
+				dynamic class loading and shows them in the order given
+				by the list. This allows adding new tabs without a
+				recompilation of the main view. The list of tabs is
+				stored in a global property file.
+			</p>
+			<p>
+				A tab has a
+				<tt>JDesktopPane</tt>
+				as basis and all other components are attached to it.
+				The existing implementations use
+				<tt>JInternalFrames</tt>
+				as main components on the base pane. The
+				<tt>GuiFactory</tt>
+				furthermore provides static methods to simplify the
+				creation and reuse of components.
+			</p>
+			<subsection name="Test Bench Tab">
+				<p>
+					The
+					<i>Test Bench Tab</i>
+					shown in Figure
+					<a href="#fig%3AscreenShotRecogniser">9</a>
+					provides functionality to acquire a gesture from the
+					input device and recognise it with the gesture set
+					and algorithm of the user&apos;s choice. This
+					enables a simple and quick test of specific
+					gestures. All gesture sets of the currently opened
+					database are available and the algorithms can be
+					selected. The available algorithms have to be set in
+					the global property file in a comma delimited list.
+					For the recognition process default parameters are
+					used.
+					<p>
+						<div>
+							<div align="center">
+								<img
+									src="images/implementation/screenShotRecogniser.png" />
+								<center>
+									<br />
+									Figure 9: Test bench tab screenshot
+									<br />
+								</center>
+							</div>
+						</div>
+					</p>
+				</p>
+			</subsection>
+			<subsection name="Admin Tab">
+				<p>
+					The
+					<i>Admin Tab</i>
+					enables us to administrate gesture sets, classes and
+					descriptors. This view as shown in Figure
+					<a href="#fig%3AscreenShotAdmin">10</a>
+					has three main components which are always visible.
+					These are a frame for capturing gestures, a list of
+					all available classes and a tree structure to manage
+					the sets.
+					<p>
+						<div>
+							<div align="center">
+								<img
+									src="images/implementation/screenShotAdminTab.png" />
+								<center>
+									<br />
+									Figure 10: Screenshot admin tab
+									<br />
+								</center>
+							</div>
+						</div>
+					</p>
+					<p>
+						Gesture classes can be created, edited and
+						deleted in the list. These operations are
+						accessible over a context menu. For editing a
+						gesture class, a new frame opens and lists the
+						existent descriptors. Again the three basic
+						functions create, edit and delete are applicable
+						on the descriptors.
+					</p>
+					<p>
+						To manipulate a descriptor another frame opens.
+						At the moment we only have an implementation for
+						a sample-based descriptor providing
+						functionality to add and delete gesture samples
+						in a list. To add a sample, the gesture needs to
+						be gathered with the capture component and it
+						can be copied to the list of samples.
+					</p>
+					<p>
+						The tree representing the gesture sets and the
+						containing classes has several context menus for
+						the operations create, delete, export and import
+						a gesture set and to add gesture classes. For
+						adding classes to the set, another window pops
+						up to select classes from the list.
+					</p>
+					<p>
+						The export and import functionality of set level
+						allows creating and reading XML files containing
+						the set and the corresponding classes with their
+						descriptors. These files can be used for
+						initialising the recogniser and makes it
+						therefore independent of the storage manager.
+					</p>
+				</p>
+			</subsection>
+			<subsection name="Test Data Tab">
+				<p>
+					The
+					<i>Test Data Tab</i>
+					shown in Figure
+					<a href="#fig%3AscreenShotTest">11</a>
+					can be used to create test sets for testing
+					algorithms and their configuration. It also has a
+					capture component, a list of available test sets and
+					a frame to select the gesture class the input
+					belongs to.
+					<p>
+						<div>
+							<div align="center">
+								<img
+									src="images/implementation/screenShotTestTab.png" />
+								<center>
+									<br />
+									Figure 11: Screenshot test tab
+									<br />
+								</center>
+							</div>
+						</div>
+					</p>
+					<p>
+						Test sets can be created, edited and deleted.
+						Furthermore, we provide functionality to export
+						and import test sets from the corresponding XML
+						representation.
+					</p>
+				</p>
+			</subsection>
+			<subsection name="Property File">
+				The management console is configured with a Java
+				property file. It contains all parameters of the
+				application which can be set dynamically. Another
+				resource file provides language dependent names and
+				identifier used for the graphical user interface.
+				<p>
+					The global configuration file is named
+					<i>igestureTool.properties</i>
+					and contains the following parameter definitions:
+				</p>
+				<p>
+					<ul>
+						<li>Path to the input device property file</li>
+						<li>List of tabs to be shown</li>
+						<li>Filename of the database</li>
+						<li>List of available algorithms</li>
+
+					</ul>
+
+				</p>
+				<p>
+					All this parameters are mandatory to run the
+					iGesture tool. An example of a configuration file is
+					shown in Figure
+					<a href="#fig%3ApropertyFile">12</a>
+					.
+				</p>
+				<p>
+
+
+
+					<source>
+						<![CDATA[ 
+
+
+INPUT_DEVICE_CONFIG = magicommPen.properties
+
+TABS = org.ximtec.igesture.tool.CaptureTab, \
+       org.ximtec.igesture.tool.AdminTab, \
+       org.ximtec.igesture.tool.TestTab
+       
+ALGORITHM = org.ximtec.igesture.algorithm.rubine.RubineAlgorithm, \
+			org.ximtec.igesture.algorithm.signature.SignatureAlgorithm, \
+			org.ximtec.igesture.algorithm.siger.SigerRecogniser
+       
+DATABASE = igesture.db
+
+
+]]>
+					</source>
+
+					<center>
+						<br />
+						Figure 12: Property file igestureTool.properties
+						<br />
+					</center>
+
+				</p>
+			</subsection>
+		</section>
+	</body>
+</document>
