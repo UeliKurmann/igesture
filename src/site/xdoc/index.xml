@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- 
+	index.xml - Welcome to iGesture
+	
+	Copyright 2005-2006 ETH Zurich. All rights reserved.
+	
+	This software is the proprietary information of ETH Zurich.
+	Use is subject to license terms.
+	
+	@(#) $Id$
+-->
+
+<document>
+
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>iGesture: A General Gesture Recognition Framework</title>
+	</properties>
+
+	<body>
+
+		<section
+			name="iGesture: A General Gesture Recognition Framework">
+
+			<p>
+				Gestures have high potential to be used in paper and
+				pen-based user interfaces. However, so far there exists
+				no framework that on the one hand is powerful enough to
+				satisfy the requirements of recent applications and on
+				the other hand is easy to integrate. We provide an
+				overview of existing approaches and present iGesture,
+				our new solution to solve this problem. iGesture is a
+				Java-based extensible framework and a set of related
+				tools for gesture recognition, the creation and
+				management of gestures as well as the evaluation of
+				recognition algorithms. As part of the project, we
+				described and implemented two existing and a new
+				algorithm. The existing algorithms were extended to
+				improve their recognition quality. All algorithms have
+				been tested with different kind of gesture sets and
+				users proving that our framework is sound. Finally, high
+				recognition rates are achieved using our improved
+				algorithms introduced in this thesis.
+			</p>
+
+
+
+		</section>
+
+
+	</body>
+
+</document>

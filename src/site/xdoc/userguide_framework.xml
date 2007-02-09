@@ -1,0 +1,236 @@
+<html>
+		<properties>
+      <author email="kurmannu@ethz.ch">
+      Ueli Kurmann
+      </author>
+      <title>Demo: Drawing Application</title>
+   </properties>
+	<body>
+		<a name="cp:userguide"></a>
+		<h1>Framework</h1>
+
+		The use of the framework itself is demonstrated by a simple demo
+		application. This application knows three gestures, namely
+		LeftRight, DownRight and UpLeft as shown in Figure
+		<a href="#fig%3Aexamplegestures">16</a>
+		. In the first part all configuration issues are done
+		programmatically. In a second step the use of XML files is
+		described.
+		<p>
+			<a name="fig:examplegestures"></a>
+			<div>
+				<div align="center">
+					<img src="images/userguide/examplegestures.png" />
+					<center>
+						<br />
+						Figure 16: Example Gestures
+						<br />
+					</center>
+				</div>
+			</div>
+		</p>
+		<p>
+			This example uses the SiGeR algorithm which needs a text
+			descriptor for each gesture class. The Listing
+			<a href="#lst%3AcreationGestureSet">1</a>
+			shows how these gestures are created and grouped in a
+			gesture set.
+		</p>
+		<p>
+			<a name="lst:creationGestureSet"></a>
+			<div>
+
+				<source>
+GestureClass leftRightLine = new GestureClass("LeftRight");
+leftRightLine.addDescriptor(new TextDescriptor("E"));
+        
+GestureClass downRight = new GestureClass("DownRight");
+downRight.addDescriptor(new TextDescriptor("S,E"));
+		
+GestureClass upLeft = new GestureClass("UpLeft");
+upLeft.addDescriptor(new TextDescriptor("N,W"));
+				
+GestureSet gestureSet = new GestureSet("GestureSet");
+gestureSet.addGestureClass(leftRightLine);
+gestureSet.addGestureClass(upLeft);
+gestureSet.addGestureClass(downRight);
+				</source>
+
+				<center>
+					<br />
+					Listing 1: Creation of gesture classes
+					<br />
+				</center>
+			</div>
+		</p>
+		<p>
+			In the next step, the
+			<tt>Configuration</tt>
+			object is created. The gesture set created before is added
+			to the configuration and the SiGeR algorithm is set as shown
+			in Listing
+			<a href="#lst%3Aconfiguration">2</a>
+			. With this configuration the
+			<tt>Recogniser</tt>
+			can be instantiated.
+		</p>
+		<p>
+			<a naome="lst:configuration"></a>
+			<div>
+				<source>
+Configuration configuration = new Configuration();
+configuration.addGestureSet(gestureSet);
+configuration.addAlgorithm(SigerRecogniser.class.getName());
+recogniser = new Recogniser(configuration);
+
+				</source>
+				<center>
+					<br />
+					Listing 2: Creation of gesture classes
+					<br />
+				</center>
+			</div>
+		</p>
+		<p>
+			To capture the input of an appropriate device the
+			<tt>InputDeviceClient</tt>
+			is used. A list of devices has to be instantiated and the
+			<tt>MouseReader</tt>
+			is added. This allows drawing the gesture with the mouse
+			while pressing the middle mouse button. After releasing the
+			button, the gesture is recognised. To be able to react on
+			this event, this example class has to implement the
+			<tt>ButtonDeviceEventListener</tt>
+			interface. These steps are shown in Listing
+			<a href="#lst%3AinputClient">3</a>
+			.
+		</p>
+		<p>
+			<a name="lst:inputClient"></a>
+			<div>
+				<source>
+List&gt;InputDevice&lt; devices = new ArrayList&gt;InputDevice&lt;();
+devices.add(new MouseReader());
+client = new InputDeviceClient(devices);
+client.addButtonDeviceEventListener(this);	
+				</source>
+				<center>
+					<br />
+					Listing 3: Creation of gesture classes
+					<br />
+				</center>
+			</div>
+		</p>
+		<p>
+			The method shown in Listing
+			<a href="#lst%3AhandleMethod">4</a>
+			is executed after releasing the mouse button. The
+			<tt>Note</tt>
+			is created with the data stored in the buffer of the
+			<tt>InputDeviceClient</tt>
+			which is cleared afterwards. With this Note the recognise
+			method is called and the result is stored in the
+			<tt>ResultSet</tt>
+			. Depending on the result, the name of the classified
+			gesture or `recognition failed' is printed on the console.
+		</p>
+		<p>
+			<a name="lst:handleMethod"></a>
+			<div>
+				<source>
+public void handleMouseUpEvent(InputDeviceEvent event) {
+  ResultSet result = recogniser.recognise(client.createNote(0, event.getTimestamp(), 70));
+  client.clearBuffer();
+  if(result.isEmpty()){
+    System.out.println("recognition failed");
+  }else{
+    System.out.println(result.getResult().getName());
+  }
+}
+				</source>
+				<center>
+					<br />
+					Listing 4: Creation of gesture classes
+					<br />
+				</center>
+			</div>
+		</p>
+		<p>
+			Alternatively to defining the gesture set and classes
+			programmatically it can be done in an XML file as
+			illustrated in Listing
+			<a href="#lst%3AxmlConfiguration">5</a>
+			. This has the advantage that gestures can be defined
+			independently of the source code and the instantiation of an
+			algorithm is much shorter.
+			<a name="lst:xmlConfiguration"></a>
+			<div>
+				<source>
+&lt;configuration&gt;
+  &lt;algorithm name="org.ximtec.igesture.algorithm.siger.SigerRecogniser" /&gt;
+  &lt;set name="gestureSet1" id="1"&gt;
+    &lt;class name="LeftRight" id="2"&gt;
+      &lt;textDescriptor>&lt;text&gt;E&lt;/text&gt;&lt;/textDescriptor&gt;
+    &lt;/class>
+    &lt;class name="DownRight" id="3"&gt;
+      &lt;textDescriptor&gt;&lt;text&gt;S,E&lt;/text&gt;&lt;/textDescriptor&gt;
+    &lt;/class&gt;
+    &lt;class name="UpLeft" id="4"&gt;
+      &lt;textDescriptor&gt;&lt;text&gt;N,W&lt;/text&gt;&lt;/textDescriptor&gt;
+    &lt;/class&gt;
+  &lt;/set&gt;
+&lt;/configuration&gt;
+				</source>
+
+				<center>
+					<br />
+					Listing 5: XML Configuration
+					<br />
+				</center>
+			</div>
+		</p>
+		<p>
+			If the configuration is done with an XML file, Listing
+			<a href="#lst%3AcreationGestureSetXML">6</a>
+			replaces Listing
+			<a href="#lst%3AcreationGestureSet">1</a>
+			and
+			<a href="#lst%3Aconfiguration">2</a>
+			. Note that semantically the two declaration are identical.
+		</p>
+		<p>
+			<a name="lst:creationGestureSetXML"></a>
+			<div>
+				<source>
+&lt;iGestureBatch&gt;
+  &lt;algorithm name="org.ximtec.igesture.algorithm.signature.SignatureAlgorithm"&gt;
+    &lt;parameter name="GRID_SIZE"&gt;
+      &lt;for start="8" end="16" step="2" /&gt;
+    &lt;/parameter&gt;
+    &lt;parameter name="RASTER_SIZE"&gt;
+      &lt;for start="120" end="240" step="10" /&gt;
+    &lt;/parameter&gt;
+    &lt;parameter name="DISTANCE_FUNCTION"&gt;
+      &lt;sequence&gt;
+        &lt;value&gt;org.ximtec.igesture.algorithm.signature.HammingDistance&lt;/value&gt;
+        &lt;value&gt;org.ximtec.igesture.algorithm.signature.LevenshteinDistance&lt;/value&gt;
+      &lt;/sequence&gt;
+    &lt;/parameter&gt;
+    &lt;parameter name="MIN_DISTANCE"&gt;
+      &lt;for start="1" end="5" step="1" /&gt;
+    &lt;/parameter&gt;
+  &lt;/algorithm&gt;
+&lt;/iGestureBatch&gt;
+				</source>
+
+				<center>
+					<br />
+					Listing 6: Creation of gesture classes
+					<br />
+				</center>
+			</div>
+		</p>
+
+
+	</body>
+</html>

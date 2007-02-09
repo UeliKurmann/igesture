@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Implementation: Gesture Representation</title>
+	</properties>
+	<body>
+		<section name="Implementation: Gesture Representation">
+			<p>
+				The representation of gestures in the framework is an
+				important design decision and has implications on all
+				other parts. It was a requirement for the data
+				structures to manage gestures and groups of gestures.
+				Furthermore, different algorithms need different
+				descriptions of a gesture. Therefore, it is important
+				that the model classes do not make any assumptions about
+				specific algorithms or provide algorithm-specific data.
+				Figure
+				<a href="#fig%3AGestureRepresentation">2</a>
+				shows the UML diagram of our data structure for
+				representing gestures.
+				<p>
+					<div>
+						<div align="center">
+							<img
+								src="images/implementation/gesturerepresentation.png" />
+							<center>
+								<br />
+								Figure 2: Gesture representation class
+								diagram
+								<br />
+							</center>
+						</div>
+					</div>
+				</p>
+				<p>
+					<b>GestureClass</b>
+					<br></br>
+					The
+					<tt>GestureClass</tt>
+					class represents an abstract gesture and therefore
+					holds the name of the class and a list of
+					descriptors characterising it. For example to gather
+					circles as gestures, we instantiate a new
+					<tt>GestureClass</tt>
+					and set the name to &apos;Circle&apos;. The class
+					itself does not hold any information on how the
+					gesture looks like and needs at least one descriptor
+					characterising the circle as a graphical object.
+				</p>
+				<p>
+					<b>GestureSet</b>
+					<br></br>
+					The class
+					<tt>GestureSet</tt>
+					contains a collection of gesture classes. This
+					aggregation is necessary to be able to initialise an
+					algorithm with a specific set of gestures whereas a
+					gesture class can be a member of different gesture
+					sets.
+				</p>
+				<p>
+					<b>Descriptor</b>
+					<br></br>
+					<tt>Descriptor</tt>
+					is an interface that all gesture class descriptors
+					have to implement. It does not specify any methods
+					concerning the retrieval of gesture descriptions and
+					is therefore more a marker than a functional
+					interface. The idea behind this is that we do not
+					want to limit the functionality of descriptors and
+					it is not possible to provide methods for arbitrary
+					descriptors which cannot be specified in advance.
+					Each implementation of an algorithm is responsible
+					for the necessary type checks and casts to work with
+					the desired descriptor. Therefore, algorithms have
+					to know on which descriptors they can operate and
+					have to check if the necessary descriptors are
+					available for all classes in the gesture set.
+				</p>
+				<p>
+					<b>SampleDescriptor</b>
+					<br></br>
+					The
+					<tt>SampleDescriptor</tt>
+					class implements the
+					<tt>Descriptor</tt>
+					interface and describes gestures by samples whereas
+					a sample is a instance of a gesture. This descriptor
+					is used for training-based algorithms.
+				</p>
+				<p>
+					<b>GestureSample</b>
+					<br></br>
+					The
+					<tt>GestureSample</tt>
+					class is the instance of a gesture. In our case, it
+					contains the time stamped locations gathered from
+					the input device summarised as a
+					<tt>Note</tt>
+					. Despite the stroke detection the data gathered
+					from the input device is not modified. This allows
+					the algorithms to work on the original data and
+					delegates the preprocessing to them.
+				</p>
+				<p>
+					<b>TextDescriptor</b>
+					<br></br>
+					The
+					<tt>TextDescriptor</tt>
+					class implements the
+					<tt>Descriptor</tt>
+					interface and specifies a gesture in terms of text.
+					This could for example be a character string which
+					describes the directions between characteristic
+					points of the gesture.
+				</p>
+				<p>
+					<b>DigitalDescriptor</b>
+					<br></br>
+					<tt>DigitalDescriptor</tt>
+					is an abstract class describing the gesture as
+					digital image. This descriptor is not suitable for
+					the recognition but rather for the digital
+					representation and can provide a digital image of
+					the gesture. Therefore, our gesture representation
+					is powerful enough to build design oriented
+					applications. For example, we can draw a circle that
+					is recognised with the help of another descriptor
+					and the application can then present its digital
+					version based on the digital descriptor.
+				</p>
+			</p>
+
+		</section>
+
+	</body>
+</document>

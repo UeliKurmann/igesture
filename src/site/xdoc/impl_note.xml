@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Implementation: org.sigtec.ink.Note</title>
+	</properties>
+	<body>
+		<section name="Implementation: org.sigtec.ink.Note">
+			<p>
+				iGesture uses the
+				<tt>org.sigtec.ink.Note</tt>
+				class to represent gestures captured from an input
+				device. A
+				<tt>Note</tt>
+				consists of
+				<tt>Traces</tt>
+				defined by time stamped
+				<tt>Points</tt>
+				. Beside the coordinates and the timestamp a point can
+				contain additional information such as the force,
+				rotation, pitch and yaw. The schema of the XML note
+				representation is shown in Listing.
+			</p>
+			
+			<source>
+			
+			
+			</source>
+		</section>
+	</body>
+</document>

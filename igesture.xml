@@ -1,0 +1,12 @@
+<map>
+  <entry>
+    <java-class>org.ximtec.igesture.core.TestSet</java-class>
+    <list>
+      <org.ximtec.igesture.core.TestSet>
+        <samples/>
+        <name>Testset</name>
+        <objectID>6b099e98-22cf-4a74-b82e-c513960a42ff</objectID>
+      </org.ximtec.igesture.core.TestSet>
+    </list>
+  </entry>
+</map>

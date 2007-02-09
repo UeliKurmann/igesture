@@ -1,0 +1,125 @@
+<html>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>User Guide: Batch Evaluation</title>
+	</properties>
+	<body>
+		<a name="cp:userguide"></a>
+		<h1>User Guide: Batch Evaluation</h1>
+
+		<section name="Command Line Tool">
+		Our batch processing front end has a command line interface. It
+		is started with the batch.bat file located in the root directory
+		of iGesture. Starting the program without any parameters will
+		show a help screen as outlined in Figure fig:batchhelp. The
+		following table explains the possible parameters.
+		<p>
+			<table>
+				<tr>
+					<td>config</td>
+					<td>
+						Denotes the path to an XML file containing the
+						configuration of the batch process. The syntax
+						of this configuration file is described in the
+						implementation section and an example is given
+						in Listing
+						<a href="#lst%3AxmlBatchConfiguration">7</a>
+						.
+						<br />
+					</td>
+				</tr>
+				<tr>
+					<td>gestureset</td>
+					<td>
+						Denotes the path to an XML file containing a
+						gesture set. This file can be created using the
+						graphical iGesture tool. This is the gesture set
+						the algorithm specified in the configuration
+						file will work on.
+					</td>
+				</tr>
+				<tr>
+					<td>testset</td>
+					<td>
+						Denotes the path to an XML file containing a
+						test set. Again this file can be created in the
+						graphical iGesture tool and holds valid as also
+						invalid gesture samples. This set is used to
+						measure the quality of an algorithm.
+					</td>
+				</tr>
+				<tr>
+					<td>xml</td>
+					<td>
+						Denotes the path to the output XML file. It
+						contains the results of the batch process in a
+						raw format.
+					</td>
+				</tr>
+				<tr>
+					<td>xslt</td>
+					<td>
+						Denotes the path to an XSLT file. It is used to
+						render an HTML page out of the raw data. An
+						example XSLT file is located in the XML resource
+						folder of iGesture.
+					</td>
+				</tr>
+				<tr>
+					<td>html</td>
+					<td>
+						Denotes the path to the output HTML document
+						which is rendered with the XSLT file.
+					</td>
+				</tr>
+			</table>
+
+
+			<a name="fig:batchhelp"></a>
+			<div>
+				<div align="center">
+					<img src="images/userguide/batchprocessing.png" />
+					<center>
+						<br />
+						Figure 17: Batch processing help screen
+						<br />
+					</center>
+				</div>
+			</div>
+		</p>
+		<p>
+			<a name="lst:xmlBatchConfiguration"></a>
+			<div>
+
+				<source>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+  &lt;iGestureBatch&gt; 
+    &lt;algorithm name="org.ximtec.igesture.algorithm.signature.SignatureAlgorithm"&gt;
+	&lt;parameter name="GRID_SIZE"&gt; 
+	  &lt;for start="8" end="16" step="2" /&gt; 
+	&lt;/parameter&gt;
+	&lt;parameter name="RASTER_SIZE"&gt; 
+	  &lt;for start="120" end="240" step="10" /&gt;
+	&lt;/parameter&gt; 
+	&lt;parameter name="DISTANCE_FUNCTION"&gt; 
+	  &lt;sequence&gt;
+	    &lt;value&gt;org.ximtec.igesture.algorithm.signature.HammingDistance&lt;/value&gt;
+		&lt;value&gt;org.ximtec.igesture.algorithm.signature.LevenshteinDistance&lt;/value&gt;
+	  &lt;/sequence&gt; 
+	&lt;/parameter&gt; 
+	&lt;parameter name="MIN_DISTANCE"&gt; 
+	  &lt;for start="1" end="5" step="1" /&gt; 
+	&lt;/parameter&gt; 
+  &lt;/algorithm&gt;
+&lt;/iGestureBatch&gt;
+				</source>
+				<center>
+					<br />
+					Listing 7: XML Configuration
+					<br />
+				</center>
+			</div>
+		</p>
+	</section>
+	</body>
+</html>

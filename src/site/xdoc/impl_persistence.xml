@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Implementaiton: Persistence Mechanism</title>
+	</properties>
+	<body>
+		<section name="Implementaiton: Persistence Mechanism">
+			<p>
+				<p>
+					The
+					<tt>StorageManager</tt>
+					encapsulates the access to persistent data objects
+					and uses a realisation of the
+					<tt>StorageEngine</tt>
+					interface to interact with the data source. As shown
+					in Figure
+					<a href="#fig%3Astoragemanager">7</a>
+					, the
+					<tt>StorageEngine</tt>
+					interface requests the four basic functions to
+					create, read, update and delete data objects (CRUD).
+				</p>
+				<p>
+					<div>
+						<div align="center">
+							<img
+								src="images/implementation/storagemanager.png" />
+							<center>
+								<br />
+								Figure 7: Storage Manager UML diagram
+								<br />
+							</center>
+						</div>
+					</div>
+				</p>
+				<p>
+					In contrast, the storage manager provides an
+					extended version of the CRUD methods and would also
+					allow to cache data to prevent continuous updates
+					while using data sources which cannot store data on
+					object level.
+				</p>
+				<p>
+					Persistent objects have to implement the
+					<tt>DataObject</tt>
+					interface shown in Figure
+					<a href="#fig%3Adataobject">8</a>
+					. It demands for an universally unique identifier
+					which is used for the identification of persistent
+					objects as for example in XML documents. Not all
+					persistent storage engines need such an identifier
+					but anyway it simplifies the use of different
+					storage engines.
+				</p>
+				<p>
+					<div>
+						<div align="center">
+							<img
+								src="images/implementation/dataobject.png" />
+							<center>
+								<br />
+								Figure 8: DataObject UML diagram
+								<br />
+							</center>
+						</div>
+					</div>
+				</p>
+				<p>
+					We decided to use
+					<i>db4objects</i>
+					as the primary storage container which is an object
+					oriented database and among others available under
+					the GPL license. The class
+					<tt>db4oStorageEngine</tt>
+					implements the
+					<tt>StorageEngine</tt>
+					interface and realises the access to db4objects.
+				</p>
+				<p>
+					The second storage engine is implemented in the
+					class
+					<tt>XMLStorageEngine</tt>
+					and serialises the data objects into an XML
+					document. For the serialisation process we use the
+					open source library x-stream which is able to
+					serialise/deserialise arbitrary Java objects and
+					therefore enormously simplifies the implementation.
+				</p>
+				<p>
+					To support the transformation of different
+					persistent data sources we can instantiate two
+					instances of the storage manager with different
+					storage engines and copy data from one to the other
+					data source.
+				</p>
+			</p>
+		</section>
+	</body>
+</document>

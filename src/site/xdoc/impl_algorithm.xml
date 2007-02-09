@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Implementation: Recognition Algorithm</title>
+	</properties>
+	<body>
+		<section name="Implementation: Recognition Algorithm">
+			One of the main goals of iGesture is the support of
+			different algorithms. To provide maximal flexibility in the
+			design and use of algorithms, we decided to provide a
+			minimal interface as shown in Figure
+			<a href="#fig%3AAlgoUml">3</a>
+			. The
+			<tt>Algorithm</tt>
+			interface has methods for the initialisation, the
+			recognition, the registration of an event manager and to
+			retrieve possible parameters and their default values.
+			<p>
+				<div>
+					<div align="center">
+						<img src="images/implementation/algorithm.png" />
+						<center>
+							<br />
+							Figure 3: Recognition class diagram
+							<br />
+						</center>
+					</div>
+				</div>
+			</p>
+			<p>
+				An algorithm is initialised with an instance of the
+				<tt>Configuration</tt>
+				class. This object contains gesture sets, an event
+				manager and algorithm-specific parameters which are
+				managed in a name/value collection. The init method
+				throws an exception if the initialisation process fails.
+				This exception can have different types informing about
+				the specific error that happened.
+			</p>
+			<p>
+				The configuration object can be managed using the Java
+				API or by importing the data from an XML document with
+				the structure described in Appendix. The storage in an
+				external XML file has the advantage that parameters and
+				the gesture sets can be adjusted whiteout recompiling
+				the application source code. However, the full power of
+				the configuration object can only be accessed based on
+				the Java API. It is for not possible to set an event
+				manager within the XML file. However, event managers can
+				be added based on the Java API after loading the XML
+				file.
+			</p>
+			<p>
+				The implementation of an algorithm is responsible for
+				the validation of the configuration object. This means
+				that algorithms have to check if all the necessary
+				parameters have been set and if all required descriptors
+				are available. If the initialisation process does not
+				throw an exception, the user can assume that the
+				algorithm is ready to recognise gestures. Furthermore,
+				the implementation is obligated to observe the minimal
+				accuracy and the maximal result set size stored in the
+				configuration object and notifies the event manager
+				about recognised gestures.
+			</p>
+			<p>
+				The
+				<tt>AlgorithmFactory</tt>
+				class provides static methods to create algorithms with
+				a configuration instance and uses dynamic class loading
+				to instantiate the algorithms.
+			</p>
+		</section>
+	</body>
+</document>

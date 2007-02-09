@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Implementation: Introduction</title>
+	</properties>
+	<body>
+		<section name="Implementation: Introduction">
+			iGesture is developed on the
+			<a href="http://java.sun.com">Java 1.6</a>
+			platform and is based on
+			<a href="http://www.sigtec.org">sigtec</a>
+			and
+			<a href="http://www.xima.org">iPaper</a>
+			. sigtec is a library of common tool classes and is used for
+			the ink representation and the XML functionality whereas
+			iPaper provides access to Anoto-based input devices. Other
+			libraries as the
+			<i>Apache Jakarta Commons</i>
+			are used. Note that we paid attention to use only
+			third-party libraries which are available on the basis of an
+			open source license.
+			<p>
+				The iGesture framework consists of different partially
+				independent components. Roughly there is the recogniser,
+				a management console and tools for testing and
+				optimising algorithms as shown in Figure
+				<a href="#fig%3Aimp_overview">1</a>
+				. In addition to these components there exist common
+				data structures and model classes that are used by all
+				parts.
+			</p>
+			<p>
+				<div>
+					<div align="center">
+						<img src="images/implementation/overview.png" />
+						<center>
+							<br />
+							Figure 1: iGesture overview
+							<br />
+						</center>
+					</div>
+				</div>
+			</p>
+			<p>
+				The following sections provide information about the
+				implementation of the framework and on how the
+				components interact with each other.
+			</p>
+		</section>
+	</body>
+</document>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="note" type="NoteType" />
+
+	<xs:complexType name="NoteType">
+		<xs:sequence minOccurs="1" maxOccurs="unbounded">
+			<xs:element name="trace" type="TraceType" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="TraceType">
+		<xs:sequence minOccurs="1" maxOccurs="unbounded">
+			<xs:element name="point" type="PointType" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="PointType">
+		<xs:sequence>
+			<xs:element name="x" type="xs:double"></xs:element>
+			<xs:element name="y" type="xs:double"></xs:element>
+			<xs:element name="timestamp" type="xs:long"></xs:element>
+			<xs:element name="force" type="xs:int"></xs:element>
+			<xs:element name="yaw" type="xs:double"></xs:element>
+			<xs:element name="pitch" type="xs:double"></xs:element>
+			<xs:element name="rotation" type="xs:double"></xs:element>
+		</xs:sequence>
+	</xs:complexType>	
+</xs:schema>
