@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="iGesture">
 	<skin>
-		<groupId>org.apache.maven.skins</groupId>
-		<artifactId>maven-classic-skin</artifactId>
-		<version>1.0</version>
+		<groupId>ch.ethz.globis.pad</groupId>
+		<artifactId>maven-pad-skin</artifactId>
+		<version>1.0-SNAPSHOT</version>
 	</skin>
 
 	<bannerLeft>
@@ -31,6 +31,7 @@
 
 		<menu name="iGesture">
 			<item name="Introduction" href="index.html" />
+			<item name="Download" href="http://sourceforge.net/projects/igesture" />
 			<item name="FAQ" href="faq.html" />
 		</menu>
 
@@ -76,7 +77,6 @@
 		</menu>
 
 		${reports}
-
 	</body>
 </project>
 

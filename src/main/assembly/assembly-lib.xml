@@ -7,7 +7,15 @@
   -->
     <format>zip</format>
   </formats>
-  
+  <fileSets>
+    <fileSet>
+      <includes>
+        <include>README*</include>
+        <include>LICENSE*</include>
+        <include>NOTICE*</include>
+      </includes>
+    </fileSet>
+   </fileSets>
   <dependencySets>
     <dependencySet>
       <outputDirectory>lib/</outputDirectory>
@@ -16,6 +24,10 @@
       	<!-- exclude db4o, license incompatiblity -->
       	<exclude>com.db4o:db4o-java5</exclude>
       	<exclude>com.db4o:db4o-nqopt</exclude>
+      	<exclude>attjsapi:attjsapi</exclude>
+      	<exclude>myscript:engine</exclude>
+      	<exclude>myscript:inksearch</exclude>
+      	<exclude>myscript:hwr</exclude>
       </excludes>
     </dependencySet>
   </dependencySets>
