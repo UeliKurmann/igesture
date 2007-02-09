@@ -47,7 +47,7 @@ public class ActionExportGestureSet extends BaseAction {
    public ActionExportGestureSet(GestureSet gestureSet) {
       super(GestureConstants.GESTURE_CLASS_VIEW_EXPORT_SET_XML, SwingTool
             .getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.EXPORT));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.EXPORT));
       this.gestureSet = gestureSet;
    }
 

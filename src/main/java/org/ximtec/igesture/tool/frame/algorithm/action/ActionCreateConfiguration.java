@@ -50,7 +50,7 @@ public class ActionCreateConfiguration extends AbstractAction {
    public ActionCreateConfiguration(
          AlgorithmConfiguration algorithmConfiguration, String name) {
       super(name);
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.DOCUMENT_NEW));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_NEW));
       this.name = name;
       this.algorithmConfiguration = algorithmConfiguration;
    }

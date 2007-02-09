@@ -36,6 +36,7 @@ import javax.swing.UIManager;
 import org.sigtec.util.Decorator;
 import org.sigtec.util.IconTool;
 import org.ximtec.igesture.storage.StorageEngine;
+import org.ximtec.igesture.tool.action.ActionAboutDialog;
 import org.ximtec.igesture.tool.action.ActionExitApplication;
 import org.ximtec.igesture.tool.action.ActionNewDataSouce;
 import org.ximtec.igesture.tool.action.ActionOpenDataSouce;
@@ -48,7 +49,9 @@ import org.ximtec.igesture.tool.utils.SwingTool;
  */
 public class GestureToolView extends JFrame {
 
-   /**
+   private static final String ABOUT_HTML = "about.html";
+
+/**
     * 
     */
    private static final String GUI_STYLE = "org.fife.plaf.VisualStudio2005.VisualStudio2005LookAndFeel";
@@ -158,8 +161,8 @@ public class GestureToolView extends JFrame {
       final JMenu menu = SwingTool.createMenu(SwingTool.getGuiBundle().getName(
             GestureConstants.COMMON_FILE), null);
 
-      menu.add(SwingTool.createMenuItem(new ActionNewDataSouce(this),IconLoader.getActionIcon(IconLoader.DOCUMENT_NEW)));
-      menu.add(SwingTool.createMenuItem(new ActionOpenDataSouce(this),IconLoader.getActionIcon(IconLoader.DOCUMENT_OPEN)));
+      menu.add(SwingTool.createMenuItem(new ActionNewDataSouce(this),IconLoader.getIcon(IconLoader.DOCUMENT_NEW)));
+      menu.add(SwingTool.createMenuItem(new ActionOpenDataSouce(this),IconLoader.getIcon(IconLoader.DOCUMENT_OPEN)));
       menu.addSeparator();
       menu.add(SwingTool.createMenuItem(new ActionExitApplication(this)));
 
@@ -174,6 +177,9 @@ public class GestureToolView extends JFrame {
    private JMenu createInfoMenu() {
       final JMenu menu = SwingTool.createMenu(SwingTool.getGuiBundle().getName(
             GestureConstants.COMMON_HELP), null);
+      
+      menu.add(SwingTool.createMenuItem(new ActionAboutDialog(ABOUT_HTML)));
+      
       return menu;
    }
 

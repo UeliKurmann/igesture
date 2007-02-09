@@ -51,7 +51,7 @@ public class ActionExportConfiguration extends BaseAction {
 
    public ActionExportConfiguration(AlgorithmConfiguration algorithmConfiguration) {
       super(GestureConstants.CONFIG_EXPORT_ACTION, SwingTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.EXPORT));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.EXPORT));
       this.algorithmConfiguration = algorithmConfiguration;
    }
 

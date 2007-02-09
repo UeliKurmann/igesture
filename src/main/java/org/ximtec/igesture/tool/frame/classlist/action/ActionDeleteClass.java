@@ -44,7 +44,7 @@ public class ActionDeleteClass extends BaseAction {
    public ActionDeleteClass(String key, GestureToolView mainModel,
          GestureClass gestureClass) {
       super(key, SwingTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.DELETE));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DELETE));
       this.mainView = mainModel;
       this.gestureClass = gestureClass;
    }

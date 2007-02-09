@@ -1,9 +1,9 @@
 /*
- * @(#)ActionAddSample.java	1.0   Nov 15, 2006
+ * @(#)ActionAboutDialog.java	1.0   Nov 15, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Adds a sample
+ * Purpose		:   About Dialog
  *
  * -----------------------------------------------------------------------
  *
@@ -23,32 +23,30 @@
  */
 
 
-package org.ximtec.igesture.tool.frame.classlist.action;
+package org.ximtec.igesture.tool.action;
 
 import java.awt.event.ActionEvent;
 
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.frame.classlist.SampleDescriptorFrame;
 import org.ximtec.igesture.tool.utils.BaseAction;
-import org.ximtec.igesture.tool.utils.IconLoader;
+import org.ximtec.igesture.tool.utils.JAboutDialog;
 import org.ximtec.igesture.tool.utils.SwingTool;
 
 
-public class ActionAddSample extends BaseAction {
+public class ActionAboutDialog extends BaseAction {
 
-   private SampleDescriptorFrame frame;
+   JAboutDialog dialog;
 
-
-   public ActionAddSample(String key, SampleDescriptorFrame model) {
-      super(key, SwingTool.getGuiBundle());
-  
-      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.LIST_ADD));
-      this.frame = model;
+   public ActionAboutDialog(String path) {
+      super(GestureConstants.COMMON_ABOUT, SwingTool.getGuiBundle());
+      dialog = new JAboutDialog(300,500,path); 
    }
 
 
-   public void actionPerformed(ActionEvent event) {
-      frame.addSample();
+   /**
+    * Opens a JFileChooser and reloads the data model
+    */
+   public void actionPerformed(ActionEvent arg0) {
+      dialog.setVisible(true);
    }
-
 }

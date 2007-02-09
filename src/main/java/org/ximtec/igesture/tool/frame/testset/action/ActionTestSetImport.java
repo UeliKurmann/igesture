@@ -57,7 +57,7 @@ public class ActionTestSetImport extends BaseAction {
 
    public ActionTestSetImport(GestureToolView mainView) {
       super(KEY, SwingTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.IMPORT));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.IMPORT));
       this.mainView = mainView;
    }
 

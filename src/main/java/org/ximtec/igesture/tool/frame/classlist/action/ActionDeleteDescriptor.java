@@ -47,7 +47,7 @@ public class ActionDeleteDescriptor extends BaseAction {
    public ActionDeleteDescriptor(String key, GestureToolView mainView,
          GestureClass gestureClass, Descriptor descriptor) {
       super(key, SwingTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.DELETE));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DELETE));
       this.gestureClass = gestureClass;
       this.descriptor = descriptor;
       this.mainView = mainView;

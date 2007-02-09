@@ -46,9 +46,9 @@ public class ActionOpenEditClassFrame extends BaseAction {
          GestureClass gestureClass) {
       super(key, SwingTool.getGuiBundle());
       if(GestureConstants.GESTURE_CLASS_LIST_FRAME_BTN_ADD.equals(key)){
-    	  putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.DOCUMENT_NEW));
+    	  putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_NEW));
       }else{
-    	  putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.DOCUMENT_OPEN));
+    	  putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_OPEN));
       }
       this.gestureClass = gestureClass;
       this.adminTab = adminTab;

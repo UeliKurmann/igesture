@@ -47,7 +47,7 @@ public class ActionDeleteConfiguration extends BaseAction {
 
    public ActionDeleteConfiguration(AlgorithmConfiguration algorithmConfiguration) {
       super(GestureConstants.CONFIG_DELETE_ACTION, SwingTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.DELETE));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DELETE));
       this.algorithmConfiguration = algorithmConfiguration;
    }
 

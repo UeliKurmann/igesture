@@ -48,7 +48,7 @@ public class ActionTestSetDeleteSample extends BaseAction {
 
    public ActionTestSetDeleteSample(TestSetListFrame frame) {
       super(KEY, SwingTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.DELETE));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DELETE));
       this.frame = frame;
    }
 

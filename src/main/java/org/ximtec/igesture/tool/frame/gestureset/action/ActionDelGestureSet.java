@@ -49,7 +49,7 @@ public class ActionDelGestureSet extends BaseAction {
    public ActionDelGestureSet(GestureTreeModel gestureTreeModel,
          GestureSet gestureSet) {
       super(KEY, SwingTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.DELETE));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DELETE));
       this.gestureTreeModel = gestureTreeModel;
       this.gestureSet = gestureSet;
    }

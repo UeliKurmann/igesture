@@ -49,7 +49,7 @@ public class ActionTestSetNew extends BaseAction {
 
    public ActionTestSetNew(GestureToolView mainView) {
       super(KEY, SwingTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.DOCUMENT_NEW));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_NEW));
       this.mainView = mainView;
    }
 

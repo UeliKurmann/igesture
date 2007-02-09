@@ -50,7 +50,7 @@ public class ActionExportPDFGestureSet extends BaseAction {
    public ActionExportPDFGestureSet(GestureSet set) {
       super(GestureConstants.GESTURE_CLASS_VIEW_EXPORT_SET_PDF, SwingTool
             .getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.EXPORT));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.EXPORT));
       this.set = set;
    }
 

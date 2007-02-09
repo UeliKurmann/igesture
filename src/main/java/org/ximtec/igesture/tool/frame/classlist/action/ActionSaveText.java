@@ -41,7 +41,7 @@ public class ActionSaveText extends BaseAction {
 
    public ActionSaveText(TextDescriptorFrame model) {
       super(GestureConstants.COMMON_SAVE, SwingTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.SAVE));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.SAVE));
       this.frame = model;
    }
 

@@ -47,7 +47,7 @@ public class ActionLoadConfiguration extends BaseAction {
 
    public ActionLoadConfiguration(AlgorithmConfiguration algorithmConfiguration) {
       super(GestureConstants.CONFIG_OPEN_ACTION, SwingTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.DOCUMENT_OPEN));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_OPEN));
       this.algorithmConfiguration = algorithmConfiguration;
    }
 

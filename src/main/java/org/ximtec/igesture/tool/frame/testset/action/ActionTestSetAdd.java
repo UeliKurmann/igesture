@@ -52,7 +52,7 @@ public class ActionTestSetAdd extends BaseAction {
 
    public ActionTestSetAdd(TestTab testTab, TestSetFrame testSetFrame) {
       super(KEY, SwingTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.DOCUMENT_NEW));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_NEW));
       this.testTab = testTab;
       this.testSetFrame = testSetFrame;
    }

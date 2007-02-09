@@ -57,9 +57,9 @@ public class ActionOpenDescriptorDialog extends BaseAction {
          Class< ? extends Descriptor> descriptorType) {
       super(key, SwingTool.getGuiBundle());
       if(GestureConstants.COMMON_EDIT.equals(key)){
-    	  putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.DOCUMENT_OPEN));
+    	  putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_OPEN));
       }else{
-    	  putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.DOCUMENT_NEW));
+    	  putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_NEW));
       }
     
       this.mainView = adminTab.getMainView();

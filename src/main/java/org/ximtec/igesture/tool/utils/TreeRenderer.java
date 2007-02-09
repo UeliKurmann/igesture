@@ -59,11 +59,11 @@ public class TreeRenderer extends DefaultTreeCellRenderer {
       
       
       if(value instanceof GestureSet){
-    	  this.setIcon(IconLoader.getMimeTypeIcon(IconLoader.PACKAGE));
+    	  this.setIcon(IconLoader.getIcon(IconLoader.PACKAGE));
       }else if(value instanceof GestureClass){
-    	  this.setIcon(IconLoader.getMimeTypeIcon(IconLoader.TEXT_SCRIPT));
+    	  this.setIcon(IconLoader.getIcon(IconLoader.TEXT_SCRIPT));
       }else{
-    	 this.setIcon(IconLoader.getDeviceIcon(IconLoader.HARDDISK));
+    	 this.setIcon(IconLoader.getIcon(IconLoader.HARDDISK));
       }
       
 

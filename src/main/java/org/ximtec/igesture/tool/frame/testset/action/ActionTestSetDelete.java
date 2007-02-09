@@ -54,7 +54,7 @@ public class ActionTestSetDelete extends BaseAction {
 
    public ActionTestSetDelete(JList list, GestureToolView mainView) {
       super(KEY, SwingTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.DELETE));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DELETE));
       this.list = list;
       this.mainView = mainView;
    }
