@@ -58,6 +58,8 @@ public class GestureConstants {
    public static final String COMMON_UPDATE = "UPDATE";
 
    public static final String COMMON_HELP = "HELP";
+   
+   public static final String COMMON_ABOUT = "ABOUT";
 
    public static final String COMMON_NEW = "NEW";
 

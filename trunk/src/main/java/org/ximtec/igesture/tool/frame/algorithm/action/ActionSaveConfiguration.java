@@ -47,7 +47,7 @@ public class ActionSaveConfiguration extends BaseAction {
 
    public ActionSaveConfiguration(AlgorithmConfiguration algorithmConfiguration) {
       super(GestureConstants.CONFIG_OPEN_ACTION, SwingTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.SAVE));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.SAVE));
       this.algorithmConfiguration = algorithmConfiguration;
    }
 

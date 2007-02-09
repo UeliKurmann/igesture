@@ -55,7 +55,7 @@ public class ActionTestSetExport extends BaseAction {
 
    public ActionTestSetExport(JList list) {
       super(KEY, SwingTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.EXPORT));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.EXPORT));
       this.list = list;
 
    }

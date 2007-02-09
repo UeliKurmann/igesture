@@ -51,7 +51,7 @@ public class ActionAddGestureClass extends BaseAction {
 
    public ActionAddGestureClass(GestureTreeModel gestureTreeModel, GestureSet set) {
       super(KEY, SwingTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.LIST_ADD));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.LIST_ADD));
       this.set = set;
       this.gestureTreeModel = gestureTreeModel;
    }

@@ -54,7 +54,7 @@ public class ActionTestSetOpen extends BaseAction {
 
    public ActionTestSetOpen(JList list, TestSetListFrame frame) {
       super(KEY, SwingTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.DOCUMENT_OPEN));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_OPEN));
       this.list = list;
       this.frame = frame;
    }

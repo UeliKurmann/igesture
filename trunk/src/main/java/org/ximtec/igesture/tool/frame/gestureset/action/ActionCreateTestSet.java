@@ -49,7 +49,7 @@ public class ActionCreateTestSet extends BaseAction {
    public ActionCreateTestSet(GestureSet set) {
       super(GestureConstants.GESTURE_CLASS_VIEW_EXPORT_TEST_SET, SwingTool
             .getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.DOCUMENT_NEW));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_NEW));
       this.set = set;
    }
 

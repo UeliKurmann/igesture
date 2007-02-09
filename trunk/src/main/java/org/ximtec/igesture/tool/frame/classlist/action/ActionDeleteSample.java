@@ -40,7 +40,7 @@ public class ActionDeleteSample extends BaseAction {
 
    public ActionDeleteSample(String key, SampleDescriptorFrame listModel) {
       super(key, SwingTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.DELETE));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DELETE));
       this.frame = listModel;
    }
 

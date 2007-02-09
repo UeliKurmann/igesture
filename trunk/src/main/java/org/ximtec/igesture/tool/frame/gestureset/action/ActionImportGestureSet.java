@@ -49,7 +49,7 @@ public class ActionImportGestureSet extends BaseAction {
 
    public ActionImportGestureSet(GestureToolView frame) {
       super(KEY, SwingTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getActionIcon(IconLoader.IMPORT));
+      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.IMPORT));
       this.mainView = frame;
    }
 
