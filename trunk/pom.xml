@@ -7,7 +7,7 @@
 		<artifactId>pad</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-
+ 
 	<groupId>org.ximtec.igesture</groupId>
 	<artifactId>igesture</artifactId>
 	<packaging>jar</packaging>
