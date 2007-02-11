@@ -10,7 +10,7 @@
 		This chapter gives an overview of the graphical iGesture tool
 		shown in Figure
 		<a href="#fig%3Aitoolshot">1</a>
-		.
+		. The tool is started with the shell script located in the bin folder of the binary distribution available at <a href="http://sourceforge.net/projects/igesture">Sourceforge</a>.
 		<p>
 			<a name="fig:itoolshot"></a>
 			<div>
