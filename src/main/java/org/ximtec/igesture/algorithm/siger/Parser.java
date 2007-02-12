@@ -31,43 +31,29 @@ import java.util.regex.Pattern;
 
 public class Parser {
 
+	/**
+	 * Tokens of SiGeR's description language
+	 * 
+	 */
    enum Tokens {
       N, NE, E, SE, S, SW, W, NW, STRAIGHT, DIAGONAL, PROXIMITY;
-
-      public static Tokens parse(String s) {
-         for (final Tokens d : Tokens.values()) {
-            if (d.name().equals(s.trim())) {
-               return d;
-            }
-         }
-         return null;
-      }
    }
 
+   /**
+    * Operators of Sigers descritpion language
+    * @author kurmannu
+    *
+    */
    public enum Operator {
       EQ, GT, LT, GTE, LTE;
-
-      public static Operator parse(String s) {
-         for (final Operator d : Operator.values()) {
-            if (d.name().equals(s.trim())) {
-               return d;
-            }
-         }
-         return null;
-      }
    }
 
+   /**
+    * Boolean operators
+    * TODO: other operators should be implemented to enhance the description language
+    */
    public enum BooleanOperators {
       AND;
-
-      public static Operator parse(String s) {
-         for (final Operator d : Operator.values()) {
-            if (d.name().equals(s.trim())) {
-               return d;
-            }
-         }
-         return null;
-      }
    }
 
    private String expression;
@@ -79,6 +65,10 @@ public class Parser {
    private Pattern pattern;
 
 
+   /**
+    * Parses an string containing a description
+    * @param expression
+    */
    public Parser(String expression) {
 
       this.expression = expression.trim();
@@ -95,6 +85,10 @@ public class Parser {
    }
 
 
+   /**
+    * Returns the pattern 
+    * @return the pattern
+    */
    public Pattern getPattern() {
       if (pattern == null) {
          final StringTokenizer tokenizer = new StringTokenizer(regexExpression,
@@ -115,6 +109,11 @@ public class Parser {
    }
 
 
+   /**
+    * Evaluates the constraints
+    * @param strokeStatistic the stroke statistics
+    * @return true if the constraint is satisfied
+    */
    public boolean evaluateConstraints(Statistics strokeStatistic) {
       final String tmpExpression = constraintExpression.replace(
             BooleanOperators.AND.name(), "#");
@@ -128,7 +127,7 @@ public class Parser {
 
             final double left = parseDoubleToken(tokenizer.nextToken().trim(),
                   strokeStatistic);
-            final Operator op = Operator.parse(tokenizer.nextToken().trim());
+            final Operator op = Operator.valueOf(tokenizer.nextToken().trim());
             final double right = parseDoubleToken(tokenizer.nextToken().trim(),
                   strokeStatistic);
             if (!evaluateComparation(op, left, right)) {
@@ -140,21 +139,32 @@ public class Parser {
    }
 
 
-   private double parseDoubleToken(String s, Statistics ss) {
+   /**
+    * Parses a double token
+    * @param s a string holding the double
+    * @param statistic the statistic
+    * @return the double value
+    */
+   private double parseDoubleToken(String s, Statistics statistic) {
       final double d = 0;
       if (isDouble(s)) {
          return Double.parseDouble(s);
       }
       else {
-         final Tokens t = Tokens.parse(s);
+         final Tokens t = Tokens.valueOf(s);
          if (t != null) {
-            return evaluateFunction(t, ss);
+            return evaluateFunction(t, statistic);
          }
       }
       return d;
    }
 
 
+   /**
+    * Returns true if the input represents a double value
+    * @param s
+    * @return
+    */
    private static boolean isDouble(String s) {
       try {
          Double.parseDouble(s);
@@ -166,6 +176,12 @@ public class Parser {
    }
 
 
+   /**
+    * Evaluates the given function
+    * @param token
+    * @param strokeStatistic
+    * @return
+    */
    public static double evaluateFunction(Tokens token, Statistics strokeStatistic) {
       switch (token) {
          case N:
@@ -195,6 +211,13 @@ public class Parser {
    }
 
 
+   /**
+    * Evaluates a comparaison
+    * @param operator
+    * @param left
+    * @param right
+    * @return true if the condition is hold
+    */
    public static boolean evaluateComparation(Operator operator, double left,
          double right) {
 

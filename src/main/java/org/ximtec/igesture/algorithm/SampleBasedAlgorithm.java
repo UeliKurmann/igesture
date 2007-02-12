@@ -35,7 +35,7 @@ import org.ximtec.igesture.core.SampleDescriptor;
 public abstract class SampleBasedAlgorithm extends DefaultAlgorithm {
 
    /**
-    * this is an abstract base class for sample oriented recognition algorithms.
+    * this is an abstract base class for sample based recognition algorithms.
     * all implementations of this class use samples during the training or
     * recognition process.
     */

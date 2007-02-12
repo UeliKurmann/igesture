@@ -22,13 +22,11 @@
  * 
  */
 
-
 package org.ximtec.igesture.algorithm.siger;
 
 import java.util.List;
 
 import org.sigtec.ink.Note;
-
 
 /**
  * Comment
@@ -38,199 +36,265 @@ import org.sigtec.ink.Note;
  */
 public class Statistics {
 
-   // statistical information
-   private double numOfLeft;
+	// statistical information
+	private double numOfLeft;
 
-   private double numOfRight;
+	private double numOfRight;
 
-   private double numOfUp;
+	private double numOfUp;
 
-   private double numOfDown;
+	private double numOfDown;
 
-   private double numOfLeftUp;
+	private double numOfLeftUp;
 
-   private double numOfLeftDown;
+	private double numOfLeftDown;
 
-   private double numOfRightUp;
+	private double numOfRightUp;
 
-   private double numOfRightDown;
+	private double numOfRightDown;
 
-   // list of directions
-   private List<Direction> directions;
+	// list of directions
+	private List<Direction> directions;
 
-   private Note note;
+	private Note note;
 
+	public Statistics(List<Direction> directions, Note note) {
+		this.directions = directions;
+		this.note = note;
+		numOfLeft = 0;
+		numOfRight = 0;
+		numOfUp = 0;
+		numOfDown = 0;
+		numOfLeftUp = 0;
+		numOfRightUp = 0;
+		numOfLeftDown = 0;
+		numOfRightDown = 0;
+		initialise(directions);
+	}
 
-   public Statistics(List<Direction> directions, Note note) {
-      this.directions = directions;
-      this.note = note;
-      numOfLeft = 0;
-      numOfRight = 0;
-      numOfUp = 0;
-      numOfDown = 0;
-      numOfLeftUp = 0;
-      numOfRightUp = 0;
-      numOfLeftDown = 0;
-      numOfRightDown = 0;
-      initialise(directions);
-   }
+	private void initialise(List<Direction> directions) {
+		for (final Direction direction : directions) {
+			switch (direction) {
+			case W:
+				numOfLeft++;
+				break;
+			case E:
+				numOfRight++;
+				break;
+			case N:
+				numOfUp++;
+				break;
+			case S:
+				numOfDown++;
+				break;
+			case NW:
+				numOfLeftUp++;
+				break;
+			case SW:
+				numOfLeftDown++;
+				break;
+			case NE:
+				numOfRightUp++;
+				break;
+			case SE:
+				numOfRightDown++;
+				break;
+			}
+		}
+	}
 
+	/**
+	 * Returns the number of direction elements
+	 * 
+	 * @return the number of direction elements
+	 */
+	public int getTotalDirections() {
+		return directions.size();
+	}
 
-   private void initialise(List<Direction> directions) {
-      for (final Direction direction : directions) {
-         switch (direction) {
-            case W:
-               numOfLeft++;
-               break;
-            case E:
-               numOfRight++;
-               break;
-            case N:
-               numOfUp++;
-               break;
-            case S:
-               numOfDown++;
-               break;
-            case NW:
-               numOfLeftUp++;
-               break;
-            case SW:
-               numOfLeftDown++;
-               break;
-            case NE:
-               numOfRightUp++;
-               break;
-            case SE:
-               numOfRightDown++;
-               break;
-         }
-      }
-   }
+	/**
+	 * Returns the number of straight elements
+	 * 
+	 * @return the number of straight elements
+	 */
+	@SuppressWarnings("cast")
+	public double getStraight() {
+		return (double) (numOfLeft + numOfRight + numOfUp + numOfDown)
+				/ getTotalDirections();
+	}
 
+	/**
+	 * Returns the number of diagonal elemetns
+	 * 
+	 * @return the number of diagonal elemetns
+	 */
+	@SuppressWarnings("cast")
+	public double getDiagonal() {
+		return (double) (numOfRightDown + numOfRightUp + numOfLeftDown + numOfLeftUp)
+				/ getTotalDirections();
+	}
 
-   public int getTotalDirections() {
-      return directions.size();
-   }
+	/**
+	 * Returns the proportional distance between the first and last point
+	 * 
+	 * @return the proportional distance between the first and last point
+	 */
+	@SuppressWarnings("cast")
+	public double getProximity() {
+		final double diag = Math.sqrt(Math
+				.pow(note.getBounds2D().getWidth(), 2)
+				+ Math.pow(note.getBounds2D().getHeight(), 2));
+		return (double) note.getStartPoint().distance(note.getEndPoint())
+				/ (double) diag;
+	}
 
+	/**
+	 * Returns the number of East directions
+	 * 
+	 * @return the number of East directions
+	 */
+	@SuppressWarnings("cast")
+	public double getEast() {
 
-   @SuppressWarnings("cast")
-   public double getStraight() {
-      return (double) (numOfLeft + numOfRight + numOfUp + numOfDown)
-            / getTotalDirections();
-   }
+		return (double) numOfRight / getTotalDirections();
+	}
 
+	/**
+	 * Returns the number of west directions
+	 * 
+	 * @return the number of west directions
+	 */
+	@SuppressWarnings("cast")
+	public double getWest() {
+		return (double) numOfLeft / getTotalDirections();
+	}
 
-   @SuppressWarnings("cast")
-   public double getDiagonal() {
-      return (double) (numOfRightDown + numOfRightUp + numOfLeftDown + numOfLeftUp)
-            / getTotalDirections();
-   }
+	/**
+	 * Returns the number of north directions
+	 * 
+	 * @return the number of north directions
+	 */
+	@SuppressWarnings("cast")
+	public double getNorth() {
+		return (double) numOfUp / getTotalDirections();
+	}
 
+	/**
+	 * Returns the number of south directions
+	 * 
+	 * @return the number of south directions
+	 */
+	@SuppressWarnings("cast")
+	public double getSouth() {
+		return (double) numOfDown / getTotalDirections();
+	}
 
-   @SuppressWarnings("cast")
-   public double getProximity() {
-      final double diag = Math.sqrt(Math.pow(note.getBounds2D().getWidth(), 2)
-            + Math.pow(note.getBounds2D().getHeight(), 2));
-      return (double) note.getStartPoint().distance(note.getEndPoint())
-            / (double) diag;
-   }
+	/**
+	 * Returns the number of nort/west directions
+	 * 
+	 * @return the number of nort/west directions
+	 */
+	@SuppressWarnings("cast")
+	public double getNorthWest() {
+		return (double) numOfLeftUp / getTotalDirections();
+	}
 
+	/**
+	 * Returns the number of south/west directions
+	 * 
+	 * @return the number of south/west directions
+	 */
+	@SuppressWarnings("cast")
+	public double getSouthWest() {
+		return (double) numOfLeftDown / getTotalDirections();
+	}
 
-   @SuppressWarnings("cast")
-   public double getEast() {
+	/**
+	 * Returns the number of north/east directions
+	 * 
+	 * @return the number of north/east directions
+	 */
+	@SuppressWarnings("cast")
+	public double getNorthEast() {
+		return (double) numOfRightUp / getTotalDirections();
+	}
 
-      return (double) numOfRight / getTotalDirections();
-   }
+	/**
+	 * Returns the number of south/east directions
+	 * 
+	 * @return the number of south/east directions
+	 */
+	@SuppressWarnings("cast")
+	public double getSouthEast() {
+		return (double) numOfRightDown / getTotalDirections();
+	}
 
+	/**
+	 * Returns the number of traces
+	 * 
+	 * @return the number of traces
+	 */
+	public int getTraces() {
+		return note.getTraces().size();
+	}
 
-   @SuppressWarnings("cast")
-   public double getWest() {
-      return (double) numOfLeft / getTotalDirections();
-   }
+	/**
+	 * Returns true if the directions is straight
+	 * 
+	 * @param direction
+	 *            the direction
+	 * @return true if the directions is straight
+	 */
+	public boolean isStraight(Direction direction) {
+		switch (direction) {
+		case N:
+			return true;
+		case E:
+			return true;
+		case S:
+			return true;
+		case W:
+			return true;
+		default:
+			return false;
+		}
+	}
 
+	/**
+	 * Returns true if the direction is diagonal
+	 * 
+	 * @param direction
+	 *            the direction
+	 * @return true if the direction is diagonal
+	 */
+	public boolean isDiagonal(Direction direction) {
+		return !isStraight(direction);
+	}
 
-   @SuppressWarnings("cast")
-   public double getNorth() {
-      return (double) numOfUp / getTotalDirections();
-   }
+	/**
+	 * Returns the number of corners
+	 * @return the number of corners
+	 */
+	public int getCorners() {
+		int corners = 0;
+		for (int i = 1; i < directions.size(); i++) {
+			if ((isStraight(directions.get(i - 1)) && isDiagonal(directions
+					.get(i)))
+					|| isDiagonal(directions.get(i - 1))
+					&& isStraight(directions.get(i))) {
+				corners++;
+			}
+		}
+		return corners;
+	}
 
-
-   @SuppressWarnings("cast")
-   public double getSouth() {
-      return (double) numOfDown / getTotalDirections();
-   }
-
-
-   @SuppressWarnings("cast")
-   public double getNorthWest() {
-      return (double) numOfLeftUp / getTotalDirections();
-   }
-
-
-   @SuppressWarnings("cast")
-   public double getSouthWest() {
-      return (double) numOfLeftDown / getTotalDirections();
-   }
-
-
-   @SuppressWarnings("cast")
-   public double getNorthEast() {
-      return (double) numOfRightUp / getTotalDirections();
-   }
-
-
-   @SuppressWarnings("cast")
-   public double getSouthEast() {
-      return (double) numOfRightDown / getTotalDirections();
-   }
-
-
-   public int getTraces() {
-      return note.getTraces().size();
-   }
-
-
-   public boolean isStraight(Direction direction) {
-      switch (direction) {
-         case N:
-            return true;
-         case E:
-            return true;
-         case S:
-            return true;
-         case W:
-            return true;
-         default:
-            return false;
-      }
-   }
-
-
-   public boolean isDiagonal(Direction direction) {
-      return !isStraight(direction);
-   }
-
-
-   public int getCorners() {
-      int corners = 0;
-      for (int i = 1; i < directions.size(); i++) {
-         if ((isStraight(directions.get(i - 1)) && isDiagonal(directions.get(i)))
-               || isDiagonal(directions.get(i - 1))
-               && isStraight(directions.get(i))) {
-            corners++;
-         }
-      }
-      return corners;
-   }
-
-
-   @Override
-   public String toString() {
-      final StringBuilder sb = new StringBuilder();
-      sb.append("[");
-      sb.append("PROXIMITY=" + getProximity());
-      sb.append("]");
-      return sb.toString();
-   }
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		sb.append("PROXIMITY=" + getProximity());
+		sb.append("]");
+		return sb.toString();
+	}
 
 }

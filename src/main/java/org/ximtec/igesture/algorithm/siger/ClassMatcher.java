@@ -56,6 +56,11 @@ public class ClassMatcher {
    }
 
 
+   /**
+    * Tests if a stroke matches the gesture class
+    * @param strokeInfo
+    * @return
+    */
    public boolean isMatch(StrokeInfo strokeInfo) {
       final Matcher m = pattern.matcher(strokeInfo.getString());
       final boolean regexMatches = m.matches();
