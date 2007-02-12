@@ -6,17 +6,66 @@
 	</properties>
 	<body>
 		<section name="Gesture Sets">
-		
+			We provide training data of 4 different gesture sets. The
+			sets are available in the download section. (the -data
+			archive)
 			<subsection name="Graffiti Numbers">
-			
+				<img src="images/sets/graffiti_numbers.png" />
+				
+				<table>
+					<tr>
+						<td><b>Number of Samples</b></td>
+						<td>30</td>
+					</tr>
+					<tr>
+						<td><b>Number of Users</b></td>
+						<td>4</td>
+					</tr>
+				</table>
 			</subsection>
-			
+
 			<subsection name="Graffiti Letters">
+				<img src="images/sets/graffiti_letters.png" />
+				
+				<table>
+					<tr>
+						<td><b>Number of Samples</b></td>
+						<td>30</td>
+					</tr>
+					<tr>
+						<td><b>Number of Users</b></td>
+						<td>4</td>
+					</tr>
+				</table>
+			</subsection>
+
+			<subsection name="Microsoft Application Gestures">
+ 				<a href="http://msdn2.microsoft.com/en-us/library/ms704830.aspx" target="_blank">Microsoft Application Gestures</a>
+				<table>
+					<tr>
+						<td><b>Number of Samples</b></td>
+						<td>20</td>
+					</tr>
+					<tr>
+						<td><b>Number of Users</b></td>
+						<td>1</td>
+					</tr>
+				</table>
 			
 			</subsection>
-			
-			<subsection name="Microsoft Application Gestures">
-			
+
+			<subsection name="Multistroke Gestures">
+			  <img src="images/sets/multistroke_gestures.png" />
+			  <table>
+					<tr>
+						<td><b>Number of Samples</b></td>
+						<td>20</td>
+					</tr>
+					<tr>
+						<td><b>Number of Users</b></td>
+						<td>2</td>
+					</tr>
+				</table>
 			</subsection>
 
 		</section>

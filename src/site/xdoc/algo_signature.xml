@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Signature Algorithm</title>
+	</properties>
+	<body>
+		<section name="Signature Algorithm">
+			<subsection name="Parameters">
+
+
+
+				<table>
+					<tr>
+						<td>
+							<b>GRID_SIZE</b>
+						</td>
+						<td>
+							The grid size defines the number of cells
+							the grid should have within a line.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<b>RASTER_SIZE</b>
+						</td>
+						<td>
+							The raster size defines the width of and
+							height a gesture is stretched to.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<b>DISTANCE_FUNCTION</b>
+						</td>
+						<td>
+							The full qualified class name of the
+							distance function. The class has to
+							implement the DistanceFunction interface.
+						</td>
+					</tr>
+				</table>
+			</subsection>
+
+			<subsection name="Example Configuration">
+
+			</subsection>
+		</section>
+	</body>
+</document>

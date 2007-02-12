@@ -40,6 +40,12 @@
 			<item name="Framework" href="userguide_framework.html" />
 			<item name="Evaluation" href="userguide_batch.html" />
 		</menu>
+		
+		<menu name="Algorithm">
+			<item name="Rubine" href="algo_rubine.html" />
+			<item name="SiGeR" href="algo_siger.html" />
+			<item name="Signature" href="algo_signature.html" />
+		</menu>
 
 		<menu name="Implementation">
 			<item name="Introduction" href="impl_introduction.html" />
