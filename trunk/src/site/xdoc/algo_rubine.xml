@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Rubine Algorithm</title>
+	</properties>
+	<body>
+		<section name="Rubine Algorithm">
+			Short description...
+
+			<subsection name="Parameters">
+				<table>
+					<tr>
+						<td>
+							<b>MIN_DISTANCE</b>
+						</td>
+						<td>
+							The minimal distance denotes the minimal
+							space between two succeeding points of a
+							gesture. Succeeding points which are too
+							close may have a negative influence for the
+							computation of particular features and are
+							not meaningful in the context of the entire
+							gesture.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<b>FEATURE_LIST</b>
+						</td>
+						<td>
+							A feature has to implement the Feature
+							interface. This parameter holds a list of
+							comma separated full qualified class names
+							of feature objects. These classes are
+							instantiated during the initialisation of
+							the algorithm using dynamic class loading.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<b>MAHALANOBIS_DISTANCE</b>
+						</td>
+						<td>
+							This parameter holds the maximal distance an
+							input gesture can have so that it is not
+							detected as outlier. Rubine proposed to use
+							half of the squared number of features as
+							value for this parameter, but in practise
+							this value seems to be too small.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<b>AMBIGUITY</b>
+						</td>
+						<td>
+							This parameter is used to prevent ambiguous
+							results. Rubine proposes to reject results
+							which have a value lower than 0.95.
+						</td>
+					</tr>
+				</table>
+
+			</subsection>
+
+			<subsection name="Example Configuration">
+				<source>
+  &lt;configuration&gt;
+      &lt;algorithm
+             name="org.ximtec.igesture.algorithm.rubine.RubineAlgorithm"&gt;
+             &lt;parameter name="MAHALANOBIS_DISTANCE"&gt;100&lt;/parameter&gt;
+             &lt;parameter name="MIN_DISTANCE"&gt;1&lt;/parameter&gt;
+             &lt;parameter name="FEATURE_LIST"&gt;
+                     org.ximtec.igesture.algorithm.feature.F1,
+                     org.ximtec.igesture.algorithm.feature.F2,
+                     org.ximtec.igesture.algorithm.feature.F3,
+                     org.ximtec.igesture.algorithm.feature.F4,
+                     org.ximtec.igesture.algorithm.feature.F5,
+                     org.ximtec.igesture.algorithm.feature.F6,
+                     org.ximtec.igesture.algorithm.feature.F7,
+                     org.ximtec.igesture.algorithm.feature.F8,
+                     org.ximtec.igesture.algorithm.feature.F9,
+                     org.ximtec.igesture.algorithm.feature.F10,
+                     org.ximtec.igesture.algorithm.feature.F11,
+                     org.ximtec.igesture.algorithm.feature.F12,
+                     org.ximtec.igesture.algorithm.feature.F13
+             &lt;/parameter&gt;
+             &lt;parameter name="PROPABILITY"&gt;0.95&lt;/parameter&gt;
+     &lt;/algorithm&gt;
+  &lt;/configuration&gt;
+				</source>
+
+			</subsection>
+		</section>
+	</body>
+
+
+</document>

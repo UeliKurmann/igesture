@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>SiGeR Algorithm</title>
+	</properties>
+	<body>
+		<section name="SiGeR Algorithm">
+			<subsection name="Parameters">
+				<table>
+					<tr>
+						<td>
+							<b>MIN_DISTANCE</b>
+						</td>
+						<td>
+							The minimal distance denotes the minimal
+							space between two succeeding points of a
+							gesture. Succeeding points which are too
+							close may have a negative influence for the
+							computation of particular features and are
+							not meaningful in the context of the entire
+							gesture.
+						</td>
+					</tr>
+				</table>
+			</subsection>
+
+			<subsection name="Example Configuration">
+
+			</subsection>
+		</section>
+	</body>
+</document>
