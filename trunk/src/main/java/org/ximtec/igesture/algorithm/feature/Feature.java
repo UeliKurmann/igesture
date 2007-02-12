@@ -22,20 +22,19 @@
  * 
  */
 
-
 package org.ximtec.igesture.algorithm.feature;
 
 import org.sigtec.ink.Note;
 
-
 public interface Feature {
 
-   /**
-    * Computes the feature
-    * 
-    * @param note the note to be used
-    * @return the value of the feature
-    */
-   public double compute(Note note);
+	/**
+	 * Computes the feature
+	 * 
+	 * @param note
+	 *            the note to be used
+	 * @return the value of the feature
+	 */
+	public double compute(Note note);
 
 }

@@ -1,9 +1,9 @@
 /*
- * @(#)Direction.java   1.0   Dec 26, 2006
+ * @(#)HWRecogniser.java   1.0   Dec 26, 2006
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 
+ * Purpose      : 	MyScript wrapper
  *
  * -----------------------------------------------------------------------
  *
