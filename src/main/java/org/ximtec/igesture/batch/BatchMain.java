@@ -44,7 +44,7 @@ import org.ximtec.igesture.util.XMLTools;
 
 
 /**
- * Comment
+ * Command Line interace for batch processing
  * 
  * @version 1.0 Dec 16, 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
@@ -69,7 +69,7 @@ public class BatchMain {
 
 
    /**
-    * Front End of the Batch RPocess
+    * Front End of the Batch Process
     * 
     * @param args
     */

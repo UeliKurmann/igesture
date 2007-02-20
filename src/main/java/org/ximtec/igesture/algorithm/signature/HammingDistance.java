@@ -29,13 +29,14 @@ import java.util.BitSet;
 
 
 /**
- * Comment
+ * Computes the hamming distance
  * 
  * @version 1.0 Dec 11, 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  */
 public class HammingDistance implements DistanceFunction {
 
+	
    public int computeDistance(GestureSignature sig1, GestureSignature sig2) {
       final int minLen = Math.min(sig1.getNumberOfPoints(), sig2
             .getNumberOfPoints());

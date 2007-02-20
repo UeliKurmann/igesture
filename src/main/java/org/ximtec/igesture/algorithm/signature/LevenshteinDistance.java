@@ -28,7 +28,7 @@
 package org.ximtec.igesture.algorithm.signature;
 
 /**
- * Comment
+ * Computes the Levenshtein Distance
  * 
  * @version 1.0 Dec 11, 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

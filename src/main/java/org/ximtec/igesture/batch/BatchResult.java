@@ -34,7 +34,13 @@ import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.TestSet;
 
-
+/**
+ * Represents the result with key figures, etc. of the
+ * batch process
+ * @author Ueli Kurmann
+ * @version 1.0
+ *
+ */
 public class BatchResult {
 
    private int numberOfSamples;

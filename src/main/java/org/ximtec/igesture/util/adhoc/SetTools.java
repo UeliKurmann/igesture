@@ -6,12 +6,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.core.SampleDescriptor;
-import org.ximtec.igesture.core.TestSet;
-import org.ximtec.igesture.core.TextDescriptor;
 import org.ximtec.igesture.util.GestureTools;
 import org.ximtec.igesture.util.XMLTools;
 
