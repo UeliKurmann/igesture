@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Holds a set of BatchResults
+ * Purpose      : 	Contains a set of BatchResults
  *
  * -----------------------------------------------------------------------
  *
@@ -28,7 +28,11 @@ package org.ximtec.igesture.batch;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Contains a set of BatchResults
+ * @author Ueli Kurmann
+ *
+ */
 public class BatchResultSet {
 
    List<BatchResult> results;

@@ -25,7 +25,12 @@
 
 
 package org.ximtec.igesture.batch;
-
+/**
+ * Statistic for a specific gesture class
+ * @author Ueli Kurmann
+ * @version 1.0
+ *
+ */
 public class ClassStatistic {
 
    private int correct;

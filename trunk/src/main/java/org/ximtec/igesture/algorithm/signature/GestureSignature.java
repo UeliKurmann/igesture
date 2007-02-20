@@ -22,7 +22,6 @@
  * 
  */
 
-
 package org.ximtec.igesture.algorithm.signature;
 
 import java.util.ArrayList;
@@ -37,178 +36,163 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.util.GestureTools;
 import org.ximtec.ipaper.graphics2D.Location;
 
-
 public class GestureSignature {
 
-   private BitSet signatures;
+	private BitSet signatures;
 
-   private Note note;
+	private Note note;
 
-   private int numberOfPoints;
+	private int numberOfPoints;
 
-   private int rasterSize;
+	private int rasterSize;
 
-   private int gridSize;
+	private int gridSize;
 
-   private GestureClass gestureClass;
+	private GestureClass gestureClass;
 
-   private Position lastPosition;
+	private Position lastPosition;
 
-   private Grid grid;
+	private Grid grid;
 
-   public class Position {
+	public class Position {
 
-      public int x;
+		public int x;
 
-      public int y;
+		public int y;
 
-      Location location;
+		Location location;
 
+		public Position(int x, int y) {
+			this.x = x;
+			this.y = y;
+		}
 
-      public Position(int x, int y) {
-         this.x = x;
-         this.y = y;
-      }
+		public boolean equals(Position p) {
+			return (p.x == this.x && p.y == this.y);
+		}
 
+		@Override
+		public String toString() {
+			return "X=" + x + " Y=" + y;
+		}
+	}
 
-      public boolean equals(Position p) {
-         return (p.x == this.x && p.y == this.y);
-      }
+	/**
+	 * Constructor
+	 * 
+	 * @param note the note
+	 * @param gestureClass the gesture class
+	 * @param rasterSize the raster's size
+	 * @param gridSize the number of cells the grid have in a row
+	 */
+	public GestureSignature(Note note, GestureClass gestureClass,
+			int rasterSize, int gridSize) {
+		this.signatures = new BitSet();
+		this.numberOfPoints = 0;
+		this.rasterSize = rasterSize;
+		this.gridSize = gridSize;
 
+		this.grid = Grid.createInstance(gridSize);
+		this.gestureClass = gestureClass;
+		this.note = note;
 
-      @Override
-      public String toString() {
-         return "X=" + x + " Y=" + y;
-      }
+		initialize();
+	}
 
-   }
+	private void initialize() {
+		final List<GestureSignature.Position> points = new ArrayList<GestureSignature.Position>();
+		final Trace trace = FeatureTools.createTrace((Note) note.clone());
+		final double scale = GestureTools.scaleTraceTo(trace, rasterSize,
+				rasterSize);
+		trace.scale(scale, scale);
 
+		for (final Point point : trace.getPoints()) {
+			final Position p = getPosition(point);
+			if (lastPosition == null || !p.equals(lastPosition)) {
+				addSignature(grid.getSignature(p.x, p.y));
+				lastPosition = p;
+			}
+			points.add(lastPosition);
+		}
+	}
 
-   public GestureSignature(Note note, GestureClass gestureClass, int rasterSize,
-         int gridSize) {
-      this.signatures = new BitSet();
-      this.numberOfPoints = 0;
-      this.rasterSize = rasterSize;
-      this.gridSize = gridSize;
+	/**
+	 * Computes the position in the grid
+	 * 
+	 * @param point
+	 * @return
+	 */
+	private Position getPosition(Point point) {
+		final Position result = new Position(0, 0);
+		result.x = (int) (point.getX() / ((rasterSize / gridSize) + 1));
+		result.y = (int) (point.getY() / ((rasterSize / gridSize) + 1));
+		return result;
+	}
 
-      this.grid = Grid.createInstance(gridSize);
-      this.gestureClass = gestureClass;
-      this.note = note;
+	/**
+	 * Appends a point (signature point) to the gesture signature
+	 * 
+	 * @param bit
+	 */
+	public void addSignature(BitSet bit) {
+		for (int i = 0; i < grid.getBitStringLength(); i++) {
+			this.signatures.set(grid.getBitStringLength() * numberOfPoints + i,
+					bit.get(i));
+		}
+		numberOfPoints++;
+	}
 
-      initialize();
-   }
+	/**
+	 * returns the signature for the ith point
+	 * 
+	 * @param i
+	 * @return
+	 */
+	public BitSet getPointSignature(int i) {
+		signatures.length();
+		return signatures.get(i * grid.getBitStringLength(), (i + 1)
+				* grid.getBitStringLength());
+	}
 
+	/**
+	 * Returns the number of points in the signature
+	 * 
+	 * @return
+	 */
+	public int getNumberOfPoints() {
+		return this.numberOfPoints;
+	}
 
-   private void initialize() {
-      final List<GestureSignature.Position> points = new ArrayList<GestureSignature.Position>();
-      final Trace trace = FeatureTools.createTrace((Note) note.clone());
-      final double scale = GestureTools.scaleTraceTo(trace, rasterSize,
-            rasterSize);
-      trace.scale(scale, scale);
+	/**
+	 * Returns the lenght of the bit string for one point
+	 * 
+	 * @return
+	 */
+	public int getBitStringLength() {
+		return grid.getBitStringLength();
+	}
 
-      for (final Point point : trace.getPoints()) {
-         final Position p = getPosition(point);
-         if (lastPosition == null || !p.equals(lastPosition)) {
-            /**
-             * - Abstand zum letzten Punkt berechnen - Punkte einfügen, damit es
-             * keine Lücke gibt. - Die Diagonale muss erlaubt sein - >
-             * N,NE,E,SE,S,SW,W,NW muss es einen Punkt haben. Sonst muss
-             * irgendwie interpoliert werden. - alter und neuer Punkt verbinden.
-             * Dann in der M - Interpolationsfunktion aus Sigtec taugt nicht fuer
-             * das. Gibt doppelte Punkte.
-             */
+	/**
+	 * Returns the gesture class this signature belongs to
+	 * 
+	 * @return
+	 */
+	public GestureClass getGestureClass() {
+		return gestureClass;
+	}
 
-            addSignature(grid.getSignature(p.x, p.y));
-            lastPosition = p;
-         }
-         points.add(lastPosition);
-      }
-   }
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < getNumberOfPoints(); i++) {
+			final BitSet bitSet = getPointSignature(i);
+			for (int j = 0; j < grid.getBitStringLength(); j++) {
+				sb.append(bitSet.get(j) ? "1" : "0");
+			}
+			// sb.append(",");
+		}
 
-
-   /**
-    * Computes the position in the grid
-    * 
-    * @param point
-    * @return
-    */
-   private Position getPosition(Point point) {
-      final Position result = new Position(0, 0);
-      result.x = (int) (point.getX() / ((rasterSize / gridSize) + 1));
-      result.y = (int) (point.getY() / ((rasterSize / gridSize) + 1));
-      return result;
-   }
-
-
-   /**
-    * appends a point (signature point) to the gesture signature
-    * 
-    * @param bit
-    */
-   public void addSignature(BitSet bit) {
-      for (int i = 0; i < grid.getBitStringLength(); i++) {
-         this.signatures.set(grid.getBitStringLength() * numberOfPoints + i, bit
-               .get(i));
-      }
-      numberOfPoints++;
-   }
-
-
-   /**
-    * returns the signature for the ith point
-    * 
-    * @param i
-    * @return
-    */
-   public BitSet getPointSignature(int i) {
-      signatures.length();
-      return signatures.get(i * grid.getBitStringLength(), (i + 1)
-            * grid.getBitStringLength());
-   }
-
-
-   /**
-    * Returns the number of points in the signature
-    * 
-    * @return
-    */
-   public int getNumberOfPoints() {
-      return this.numberOfPoints;
-   }
-
-
-   /**
-    * Returns the lenght of the bit string for one point
-    * 
-    * @return
-    */
-   public int getBitStringLength() {
-      return grid.getBitStringLength();
-   }
-
-
-   /**
-    * Returns the gesture class this signature belongs to
-    * 
-    * @return
-    */
-   public GestureClass getGestureClass() {
-      return gestureClass;
-   }
-
-
-   @Override
-   public String toString() {
-      final StringBuilder sb = new StringBuilder();
-      for (int i = 0; i < getNumberOfPoints(); i++) {
-         final BitSet bitSet = getPointSignature(i);
-         for (int j = 0; j < grid.getBitStringLength(); j++) {
-            sb.append(bitSet.get(j) ? "1" : "0");
-         }
-         // sb.append(",");
-      }
-
-      return sb.toString();
-   }
+		return sb.toString();
+	}
 
 }

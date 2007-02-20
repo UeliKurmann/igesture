@@ -203,7 +203,8 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
    }
 
 
-   public Enum[] getConfigParameters() {
+   @SuppressWarnings("unchecked")
+	public Enum[] getConfigParameters() {
       return Config.values();
    }
 }

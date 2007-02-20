@@ -102,6 +102,9 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
     */
    private RealMatrix matrix;
 
+   /**
+    * inverse of the common covariant matrix
+    */
    private RealMatrix inverse;
 
    /**
@@ -124,6 +127,9 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
    private double probability;
 
+   /**
+    * Set default parameter values
+    */
    static {
       /**
        * Parameter Default Values

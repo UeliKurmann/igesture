@@ -31,7 +31,12 @@ import java.util.List;
 
 import org.jdom.Element;
 
-
+/**
+ * Datastructure for an Algorithm
+ * @author Ueli Kurmann
+ * @version 1.00
+ *
+ */
 public class BatchAlgorithm {
 
    public static String ROOT_TAG = "algorithm";
