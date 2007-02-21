@@ -31,13 +31,13 @@ import java.util.HashSet;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.TraceTool;
-import org.ximtec.ipaper.graphics2D.util.CapturingTool;
-import org.ximtec.ipaper.input.InputHandler;
-import org.ximtec.ipaper.io.BufferedInputDeviceEventListener;
-import org.ximtec.ipaper.io.InputDevice;
-import org.ximtec.ipaper.io.InputDeviceEvent;
-import org.ximtec.ipaper.io.InputDeviceEventListener;
-import org.ximtec.ipaper.util.TimestampedLocation;
+import org.sigtec.ink.input.TimestampedLocation;
+import org.sigtec.input.BufferedInputDeviceEventListener;
+import org.sigtec.input.InputDevice;
+import org.sigtec.input.InputDeviceEvent;
+import org.sigtec.input.InputDeviceEventListener;
+import org.sigtec.input.InputHandler;
+import org.sigtec.input.util.CaptureTool;
 
 
 public class InputDeviceClient implements ButtonDeviceEventListener,
@@ -123,7 +123,7 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
             start, end);
       clearBuffer();
 
-      final Note note = new Note(TraceTool.detectTraces(CapturingTool
+      final Note note = new Note(TraceTool.detectTraces(CaptureTool
             .toPoints(new ArrayList<TimestampedLocation>(locations)), maxTime));
 
       return note;

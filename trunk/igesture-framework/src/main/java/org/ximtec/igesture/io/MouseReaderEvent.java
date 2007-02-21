@@ -25,8 +25,8 @@
 
 package org.ximtec.igesture.io;
 
-import org.ximtec.ipaper.io.InputDeviceEvent;
-import org.ximtec.ipaper.util.TimestampedLocation;
+import org.sigtec.ink.input.TimestampedLocation;
+import org.sigtec.input.InputDeviceEvent;
 
 
 public class MouseReaderEvent implements InputDeviceEvent {

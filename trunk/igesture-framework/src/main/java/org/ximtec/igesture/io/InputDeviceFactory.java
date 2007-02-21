@@ -3,14 +3,12 @@ package org.ximtec.igesture.io;
 import java.util.List;
 
 import org.apache.commons.configuration.XMLConfiguration;
-import org.ximtec.ipaper.io.BufferedInputDeviceEventListener;
-import org.ximtec.ipaper.io.InputDevice;
-import org.ximtec.ipaper.io.InputDeviceEventListener;
-import org.ximtec.ipaper.io.MagicommPenEventListener;
-import org.ximtec.ipaper.io.MagicommPenSocket;
-import org.ximtec.ipaper.mapper.DocumentHandler;
-import org.ximtec.ipaper.mapper.jdom.JdomDocuments;
-import org.ximtec.ipaper.transformer.AnotoTransformer;
+import org.sigtec.input.BufferedInputDeviceEventListener;
+import org.sigtec.input.InputDevice;
+import org.sigtec.input.InputDeviceEventListener;
+import org.sigtec.jdom.JdomDocument;
+
+
 
 public class InputDeviceFactory {
 
@@ -74,9 +72,10 @@ public class InputDeviceFactory {
 	 * @param configuration
 	 * @return a new MagicommPenSocket device
 	 */
-	private static MagicommPenSocket createMagicommPenSocketInputDevice(
+	private static InputDevice createMagicommPenSocketInputDevice(
 			XMLConfiguration configuration) {	
-		return MagicommPenSocket.createPens(getParameter(configuration,MAGICOM_PEN_SOCKET,PORT)).get(0);
+		throw new RuntimeException("not implemented yet.");
+		//return MagicommPenSocket.createPens(getParameter(configuration,MAGICOM_PEN_SOCKET,PORT)).get(0);
 	}
 
 	/**
@@ -115,11 +114,14 @@ public class InputDeviceFactory {
 	 */
 	private static BufferedInputDeviceEventListener getMagicommListener(XMLConfiguration configuration) {
 		String mappingFile = getParameter(configuration, MAGICOM_PEN_SOCKET, MAPPING_FILE);
-		
+		/**
 		return new BufferedInputDeviceEventListener(
 				new MagicommPenEventListener(new AnotoTransformer(
 						getAnotoMappings(mappingFile))),
 				DEFAULT_BUFFER_SIZE);
+				**/
+		throw new RuntimeException("not implemented yet.");
+		
 	}
 
 	/**
@@ -138,15 +140,16 @@ public class InputDeviceFactory {
 	 * @param filename
 	 *            filename of the xml mapping file
 	 * @return an anoto document handler
-	 */
+	 
 	public static DocumentHandler getAnotoMappings(String filename) {
 		try {
-			return JdomDocuments.load(InputDeviceFactory.class.getClassLoader()
+			return JdomDocument.load(InputDeviceFactory.class.getClassLoader()
 					.getResourceAsStream(filename.trim()));
 		} catch (final NullPointerException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
+	*/
 
 }

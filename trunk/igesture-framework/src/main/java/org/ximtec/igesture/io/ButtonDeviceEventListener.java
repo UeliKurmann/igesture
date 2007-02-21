@@ -25,7 +25,7 @@
 
 package org.ximtec.igesture.io;
 
-import org.ximtec.ipaper.io.InputDeviceEvent;
+import org.sigtec.input.InputDeviceEvent;
 
 
 public interface ButtonDeviceEventListener {

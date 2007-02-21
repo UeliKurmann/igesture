@@ -25,10 +25,10 @@
 
 package org.ximtec.igesture.io;
 
-import org.ximtec.ipaper.io.AbstractInputDeviceEventListener;
-import org.ximtec.ipaper.io.InputDevice;
-import org.ximtec.ipaper.io.InputDeviceEvent;
-import org.ximtec.ipaper.io.InputDeviceEventListener;
+import org.sigtec.input.AbstractInputDeviceEventListener;
+import org.sigtec.input.InputDevice;
+import org.sigtec.input.InputDeviceEvent;
+import org.sigtec.input.InputDeviceEventListener;
 
 
 public class MouseReaderEventListener extends AbstractInputDeviceEventListener
