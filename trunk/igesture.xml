@@ -1,5 +1,20 @@
 <map>
   <entry>
+    <java-class>org.ximtec.igesture.core.GestureSet</java-class>
+    <list>
+      <org.ximtec.igesture.core.GestureSet>
+        <gestureClasses/>
+        <name>asdf</name>
+        <objectID>6d75860b-292c-4d5e-a45b-f2f70a2c4983</objectID>
+      </org.ximtec.igesture.core.GestureSet>
+      <org.ximtec.igesture.core.GestureSet>
+        <gestureClasses/>
+        <name>zxcv</name>
+        <objectID>a2a1f1f8-27e3-4420-bd7b-55ee6d0248c9</objectID>
+      </org.ximtec.igesture.core.GestureSet>
+    </list>
+  </entry>
+  <entry>
     <java-class>org.ximtec.igesture.core.TestSet</java-class>
     <list>
       <org.ximtec.igesture.core.TestSet>
