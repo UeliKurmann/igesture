@@ -9,7 +9,7 @@
 	</parent>
 
 	<groupId>org.ximtec.igesture</groupId>
-	<artifactId>igesture-tool</artifactId>
+	<artifactId>tool</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<inceptionYear>2007</inceptionYear>
@@ -43,6 +43,7 @@
 		</resources>
 
 		<plugins>
+		<!--
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.2-SNAPSHOT</version>
@@ -72,16 +73,17 @@
 				<executions>
 					<execution>
 						<id>make-assembly</id>
-						<!-- this is used for inheritance merges -->
+						
 						<phase>package</phase>
-						<!-- append to the packaging phase. -->
+						
 						<goals>
 							<goal>assembly</goal>
-							<!-- goals == mojos -->
+							
 						</goals>
 					</execution>
 				</executions>
 			</plugin>
+			-->
 		</plugins>
 	</build>
 
@@ -117,133 +119,7 @@
  	
 
 	<dependencies>
-
-			<dependency>
-			<groupId>org.safehaus.jug</groupId>
-			<artifactId>jug-asl</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>commons-cli</groupId>
-			<artifactId>commons-cli</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.db4o</groupId>
-			<artifactId>db4o-java5</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.db4o</groupId>
-			<artifactId>db4o-nqopt</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>xerces</groupId>
-			<artifactId>xercesImpl</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>jaxen</groupId>
-			<artifactId>jaxen</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>xalan</groupId>
-			<artifactId>xalan</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.sigtec</groupId>
-			<artifactId>sigtec-graphix</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.sigtec</groupId>
-			<artifactId>sigtec-ink</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.sigtec</groupId>
-			<artifactId>sigtec-jdom</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.sigtec</groupId>
-			<artifactId>sigtec-util</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.ximtec.ipaper</groupId>
-			<artifactId>ipaper</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-math</groupId>
-			<artifactId>commons-math</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.lowagie</groupId>
-			<artifactId>itext</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>de.johannburkard.nativecall</groupId>
-			<artifactId>nativecall</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>xstream</groupId>
-			<artifactId>xstream</artifactId>
-		</dependency>
-	
-		<dependency>
-			<groupId>jdom</groupId>
-			<artifactId>jdom-contrib</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>de.johannburkard.nativecall</groupId>
-			<artifactId>nativeloader</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.fife.plaf</groupId>
-			<artifactId>officeLnFs</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-configuration</groupId>
-			<artifactId>commons-configuration</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>jdom</groupId>
-			<artifactId>jdom</artifactId>
-		</dependency>
-
-			<dependency>
+       	<dependency>
 			<groupId>org.safehaus.jug</groupId>
 			<artifactId>jug-asl</artifactId>
 		</dependency>
@@ -372,216 +248,13 @@
 			<groupId>org.freedesktop.tango</groupId>
 			<artifactId>tango-theme</artifactId>
 		</dependency>
-		
-			<dependency>
-			<groupId>org.safehaus.jug</groupId>
-			<artifactId>jug-asl</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>commons-cli</groupId>
-			<artifactId>commons-cli</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.db4o</groupId>
-			<artifactId>db4o-java5</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.db4o</groupId>
-			<artifactId>db4o-nqopt</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>xerces</groupId>
-			<artifactId>xercesImpl</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>jaxen</groupId>
-			<artifactId>jaxen</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>xalan</groupId>
-			<artifactId>xalan</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.sigtec</groupId>
-			<artifactId>sigtec-graphix</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.sigtec</groupId>
-			<artifactId>sigtec-ink</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.sigtec</groupId>
-			<artifactId>sigtec-jdom</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.sigtec</groupId>
-			<artifactId>sigtec-util</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.ximtec.ipaper</groupId>
-			<artifactId>ipaper</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-math</groupId>
-			<artifactId>commons-math</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.lowagie</groupId>
-			<artifactId>itext</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>de.johannburkard.nativecall</groupId>
-			<artifactId>nativecall</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>xstream</groupId>
-			<artifactId>xstream</artifactId>
-		</dependency>
-	
-		<dependency>
-			<groupId>jdom</groupId>
-			<artifactId>jdom-contrib</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>de.johannburkard.nativecall</groupId>
-			<artifactId>nativeloader</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.fife.plaf</groupId>
-			<artifactId>officeLnFs</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-configuration</groupId>
-			<artifactId>commons-configuration</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>jdom</groupId>
-			<artifactId>jdom</artifactId>
-		</dependency>
-
+       
 		<dependency>
 			<groupId>org.ximtec.igesture</groupId>
 			<artifactId>framework</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>	
 	</dependencies>
-	<reporting>
-		<plugins>
-
-			<!--  
-				<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				</plugin>
-			-->
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>
-					maven-project-info-reports-plugin
-				</artifactId>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>dependencies</report>
-							<report>project-team</report>
-							<!--
-								<report>mailing-list</report>
-								<report>cim</report>
-								
-								Issue tracking report will be omitted
-								<report>issue-tracking</report>
-							-->
-							<report>license</report>
-							<report>scm</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-report-plugin</artifactId>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<configuration>
-					<author>true</author>
-					<version>true</version>
-					<source>1.5</source>
-					<groups>
-						<group>
-							<title>iGesture</title>
-							<packages>org.ximtec.igesture*</packages>
-						</group>
-					</groups>
-					<links>
-						<link>
-							http://java.sun.com/j2se/1.5.0/docs/api/
-						</link>
-					</links>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jxr-plugin</artifactId>
-			</plugin>
-
-			<!--
-				<plugin>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<configuration>
-				<enableRSS>true</enableRSS>
-				<enableRulesSummary>false</enableRulesSummary>
-				<configLocation>
-				http://www.igesture.org/sun_checks.xml
-				</configLocation>
-				</configuration>
-				</plugin>
-			-->
-
-		</plugins>
-	</reporting>
+	
+	
 </project>
