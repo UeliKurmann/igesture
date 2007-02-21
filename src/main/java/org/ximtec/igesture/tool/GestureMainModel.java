@@ -462,7 +462,7 @@ public class GestureMainModel {
    }
 
 
-   public synchronized void addTestCaseListener(TestSetListener listener) {
+   public synchronized void addTestSetListener(TestSetListener listener) {
       if (listener != null) {
          this.testCaseListeners.add(listener);
       }

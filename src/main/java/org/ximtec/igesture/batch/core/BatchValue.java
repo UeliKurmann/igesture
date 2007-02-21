@@ -22,32 +22,44 @@
  * 
  */
 
-
 package org.ximtec.igesture.batch.core;
 
 import org.jdom.Element;
 
-
 public class BatchValue {
 
-   public static String ROOT_TAG = "value";
+	public static String ROOT_TAG = "value";
 
-   private String value;
+	private String value;
 
+	/**
+	 * Returns the value
+	 * 
+	 * @return
+	 */
+	public String getValue() {
+		return this.value;
+	}
 
-   public String getValue() {
-      return this.value;
-   }
+	/**
+	 * Sets the value
+	 * 
+	 * @param value
+	 */
+	public void setValue(String value) {
+		this.value = value;
+	}
 
-
-   public void setValue(String value) {
-      this.value = value;
-   }
-
-
-   public static BatchValue unmarshal(Element parameterValue) {
-      final BatchValue value = new BatchValue();
-      value.setValue(parameterValue.getText());
-      return value;
-   }
+	/**
+	 * Imports a simple value from an XML document
+	 * 
+	 * @param parameterValue
+	 *            the XML element
+	 * @return a BatchValue
+	 */
+	public static BatchValue unmarshal(Element parameterValue) {
+		final BatchValue value = new BatchValue();
+		value.setValue(parameterValue.getText());
+		return value;
+	}
 }

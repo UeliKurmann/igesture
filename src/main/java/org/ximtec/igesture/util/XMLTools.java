@@ -23,7 +23,6 @@
  * 
  */
 
-
 package org.ximtec.igesture.util;
 
 import java.io.File;
@@ -67,271 +66,304 @@ import org.ximtec.igesture.core.jdom.JdomGestureSet;
 import org.ximtec.igesture.core.jdom.JdomTestSet;
 import org.xml.sax.InputSource;
 
-
 public class XMLTools {
 
-   public static final String ROOT_TAG = "sets";
+	public static final String ROOT_TAG = "sets";
 
+	/**
+	 * Imports a GestureSet
+	 * 
+	 * @param file
+	 *            the XML file
+	 * @return a list of GestureSets
+	 */
+	@SuppressWarnings("unchecked")
+	public static List<GestureSet> importGestureSet(File file) {
+		final List<GestureSet> sets = new ArrayList<GestureSet>();
 
-   /**
-    * Imports a GestureSet
-    * 
-    * @param file the XML file
-    * @return a list of GestureSets
-    */
-   @SuppressWarnings("unchecked")
-   public static List<GestureSet> importGestureSet(File file) {
-      final List<GestureSet> sets = new ArrayList<GestureSet>();
+		final Document document = importDocument(file);
+		final List<Element> algorithmElements = document.getRootElement()
+				.getChildren(JdomGestureSet.ROOT_TAG);
+		for (final Element setElement : algorithmElements) {
+			sets.add((GestureSet) JdomGestureSet.unmarshal(setElement));
+		}
 
-      final Document document = importDocument(file);
-      final List<Element> algorithmElements = document.getRootElement()
-            .getChildren(JdomGestureSet.ROOT_TAG);
-      for (final Element setElement : algorithmElements) {
-         sets.add((GestureSet) JdomGestureSet.unmarshal(setElement));
-      }
+		return sets;
+	}
 
-      return sets;
-   }
+	/**
+	 * Exports a GestureSet
+	 * 
+	 * @param set
+	 *            the GestureSet to be exported
+	 * @param file
+	 *            the XML file
+	 */
+	public static void exportGestureSet(GestureSet set, File file) {
+		final List<GestureSet> list = new ArrayList<GestureSet>();
+		list.add(set);
+		exportGestureSet(list, file);
+	}
 
+	/**
+	 * Exports a list of GestureSets
+	 * 
+	 * @param sets
+	 *            the GestureSets to be exported
+	 * @param file
+	 *            the XML file
+	 */
+	public static void exportGestureSet(List<GestureSet> sets, File file) {
 
-   /**
-    * Exports a GestureSet
-    * 
-    * @param set the GestureSet to be exported
-    * @param file the XML file
-    */
-   public static void exportGestureSet(GestureSet set, File file) {
-      final List<GestureSet> list = new ArrayList<GestureSet>();
-      list.add(set);
-      exportGestureSet(list, file);
-   }
+		final JdomDocument igestureDocument = new JdomDocument(ROOT_TAG);
+		final HashSet<GestureClass> hashSet = new HashSet<GestureClass>();
 
+		for (final GestureSet set : sets) {
+			for (final GestureClass gestureClass : set.getGestureClasses()) {
+				hashSet.add(gestureClass);
+			}
+		}
 
-   /**
-    * Exports a list of GestureSets
-    * 
-    * @param sets the GestureSets to be exported
-    * @param file the XML file
-    */
-   public static void exportGestureSet(List<GestureSet> sets, File file) {
+		for (final GestureClass gestureClass : hashSet) {
+			igestureDocument.attach(new JdomGestureClass(gestureClass));
+		}
 
-      final JdomDocument igestureDocument = new JdomDocument(ROOT_TAG);
-      final HashSet<GestureClass> hashSet = new HashSet<GestureClass>();
+		for (final GestureSet set : sets) {
+			igestureDocument.attach(new JdomGestureSet(set));
+		}
 
-      for (final GestureSet set : sets) {
-         for (final GestureClass gestureClass : set.getGestureClasses()) {
-            hashSet.add(gestureClass);
-         }
-      }
+		FileHandler.writeFile(file.getPath(), igestureDocument.toXml());
+	}
 
-      for (final GestureClass gestureClass : hashSet) {
-          igestureDocument.attach(new JdomGestureClass(gestureClass));
-      }
+	/**
+	 * Exports a TestSet
+	 * 
+	 * @param testSet
+	 *            the TestSet to be exported
+	 * @param file
+	 *            the XML file
+	 */
+	public static void exportTestSet(TestSet testSet, File file) {
+		final List<TestSet> list = new ArrayList<TestSet>();
+		list.add(testSet);
+		exportTestSet(list, file);
+	}
 
-      for (final GestureSet set : sets) {
-         igestureDocument.attach(new JdomGestureSet(set));
-      }
+	/**
+	 * Exports a list of TestSets
+	 * 
+	 * @param testSetList
+	 *            the list of TestSets to be exported
+	 * @param file
+	 *            the XML file
+	 */
+	public static void exportTestSet(List<TestSet> testSetList, File file) {
 
-      FileHandler.writeFile(file.getPath(), igestureDocument.toXml());
-   }
+		final JdomDocument igestureDocument = new JdomDocument(ROOT_TAG);
 
+		for (final TestSet set : testSetList) {
+			igestureDocument.attach(new JdomTestSet(set));
+		}
 
-   /**
-    * Exports a TestSet
-    * 
-    * @param testSet the TestSet to be exported
-    * @param file the XML file
-    */
-   public static void exportTestSet(TestSet testSet, File file) {
-      final List<TestSet> list = new ArrayList<TestSet>();
-      list.add(testSet);
-      exportTestSet(list, file);
-   }
+		FileHandler.writeFile(file.getPath(), igestureDocument.toXml());
+	}
 
+	/**
+	 * Imports a List of TestSets
+	 * 
+	 * @param file
+	 *            the XML File
+	 * @return a list of GestureSets
+	 */
+	@SuppressWarnings("unchecked")
+	public static List<TestSet> importTestSet(File file) {
+		final List<TestSet> sets = new ArrayList<TestSet>();
+		final Document document = importDocument(file);
 
-   /**
-    * Exports a list of TestSets
-    * 
-    * @param testSetList the list of TestSets to be exported
-    * @param file the XML file
-    */
-   public static void exportTestSet(List<TestSet> testSetList, File file) {
+		final List<Element> testSetElements = document.getRootElement()
+				.getChildren(JdomTestSet.ROOT_TAG);
+		for (final Element setElement : testSetElements) {
+			sets.add((TestSet) JdomTestSet.unmarshal(setElement));
+		}
 
-      final JdomDocument igestureDocument = new JdomDocument(ROOT_TAG);
+		return sets;
+	}
 
-      for (final TestSet set : testSetList) {
-         igestureDocument.attach(new JdomTestSet(set));
-      }
+	/**
+	 * Imports a Configuration
+	 * 
+	 * @param file
+	 *            the XML file
+	 * @return the Configuration
+	 */
+	public static Configuration importConfiguration(File file) {
+		Configuration configuration = new Configuration();
+		final Document document = importDocument(file);
 
-      FileHandler.writeFile(file.getPath(), igestureDocument.toXml());
-   }
+		configuration = (Configuration) JdomConfiguration.unmarshal(document
+				.getRootElement());
 
+		return configuration;
+	}
 
-   /**
-    * Imports a List of TestSets
-    * 
-    * @param file the XML File
-    * @return a list of GestureSets
-    */
-   @SuppressWarnings("unchecked")
-   public static List<TestSet> importTestSet(File file) {
-      final List<TestSet> sets = new ArrayList<TestSet>();
-      final Document document = importDocument(file);
+	/**
+	 * Exports a Configuration
+	 * 
+	 * @param configuration
+	 *            the Configuration to be exported
+	 * @param file
+	 *            the XML file
+	 */
+	public static void exportConfiguration(Configuration configuration,
+			File file) {
 
-      final List<Element> testSetElements = document.getRootElement()
-            .getChildren(JdomTestSet.ROOT_TAG);
-      for (final Element setElement : testSetElements) {
-         sets.add((TestSet) JdomTestSet.unmarshal(setElement));
-      }
+		final JdomDocument ipaperDocument = new JdomDocument(
+				new JdomConfiguration(configuration));
 
-      return sets;
-   }
+		FileHandler.writeFile(file.getPath(), ipaperDocument.toXml());
+	}
 
+	/**
+	 * Exports a BatchResultSet
+	 * 
+	 * @param resultSet
+	 *            the BatchResultSet to be exported
+	 * @param file
+	 *            the XML file
+	 */
+	public static void exportBatchResultSet(BatchResultSet resultSet, File file) {
+		FileHandler.writeFile(file.getPath(), XMLTools
+				.exportBatchResultSet(resultSet));
+	}
 
-   /**
-    * Imports a Configuration
-    * 
-    * @param file the XML file
-    * @return the Configuration
-    */
-   public static Configuration importConfiguration(File file) {
-      Configuration configuration = new Configuration();
-      final Document document = importDocument(file);
+	/**
+	 * Exports a BatchResultSet to its XML representation
+	 * 
+	 * @param resultSet
+	 *            the BatchResultSet to be exported
+	 * @return the String containing the XML representation
+	 */
+	public static String exportBatchResultSet(BatchResultSet resultSet) {
+		final JdomDocument document = new JdomDocument(new JdomBatchResultSet(
+				resultSet));
+		return document.toXml();
+	}
 
-      configuration = (Configuration) JdomConfiguration.unmarshal(document
-            .getRootElement());
+	/**
+	 * Imports an XML Document
+	 * 
+	 * @param file
+	 *            the XML file
+	 * @return the JDOM Document
+	 */
+	private static Document importDocument(File file) {
+		Document document = null;
+		try {
+			final InputStream inputStream = new FileInputStream(file);
+			final SAXBuilder builder = new SAXBuilder(false);
+			builder.setFactory(new Factory());
+			builder.setIgnoringElementContentWhitespace(true);
+			final InputSource is = new InputSource(inputStream);
+			document = builder.build(is);
+		} catch (final IOException e) {
+			e.printStackTrace();
+		} catch (final JDOMException e) {
+			e.printStackTrace();
+		}
+		return document;
+	}
 
-      return configuration;
-   }
+	/**
+	 * Imports an XML File and builds up the object tree. The result is a list
+	 * of BatchAlgorithm instances.
+	 * 
+	 * @param file
+	 *            the XML file to import
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public static BatchProcessContainer importBatchProcessContainer(File file) {
+		final BatchProcessContainer container = new BatchProcessContainer();
 
+		final Document document = importDocument(file);
 
-   /**
-    * Exports a Configuration
-    * 
-    * @param configuration the Configuration to be exported
-    * @param file the XML file
-    */
-   public static void exportConfiguration(Configuration configuration, File file) {
+		for (final Element elem : (List<Element>) document.getRootElement()
+				.getChildren(BatchAlgorithm.ROOT_TAG)) {
+			container.addAlgorithm(BatchAlgorithm.unmarshal(elem));
+		}
 
-      final JdomDocument ipaperDocument = new JdomDocument(
-            new JdomConfiguration(configuration));
+		for (final Element set : (List<Element>) document.getRootElement()
+				.getChildren(JdomGestureSet.ROOT_TAG)) {
+			container.addGestureSet((GestureSet) JdomGestureSet.unmarshal(set));
+		}
 
-      FileHandler.writeFile(file.getPath(), ipaperDocument.toXml());
-   }
+		return container;
+	}
 
+	/**
+	 * transform
+	 * 
+	 * @author Ueli Kurmann
+	 * @version 1.0
+	 * @param xmlDocument
+	 *            (String)
+	 * @param xslFile
+	 *            (String)
+	 * @return xmlDocument (String)
+	 */
+	public static String transform(String xmlDocument, String xslFile)
+			throws TransformerException, TransformerConfigurationException,
+			TransformerFactoryConfigurationError {
 
-   /**
-    * Exports a BatchResultSet
-    * 
-    * @param resultSet the BatchResultSet to be exported
-    * @param file the XML file
-    */
-   public static void exportBatchResultSet(BatchResultSet resultSet, File file) {
-      FileHandler.writeFile(file.getPath(), XMLTools
-            .exportBatchResultSet(resultSet));
-   }
+		final StringReader xmlSR = new StringReader(xmlDocument);
+		final StreamSource xmlIn = new StreamSource(xmlSR);
 
+		final StringWriter xmlSW = new StringWriter();
+		final StreamResult xmlOut = new StreamResult(xmlSW);
 
-   /**
-    * Exports a BatchResultSet to its XML representation
-    * 
-    * @param resultSet the BatchResultSet to be exported
-    * @return the String containing the XML representation
-    */
-   public static String exportBatchResultSet(BatchResultSet resultSet) {
-      final JdomDocument document = new JdomDocument(new JdomBatchResultSet(
-            resultSet));
-      return document.toXml();
-   }
+		FileReader xslSR = null;
+		try {
+			xslSR = new FileReader(new File(xslFile));
+		} catch (final FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
+		final TransformerFactory tFactory = TransformerFactory.newInstance();
+		final Transformer transformer = tFactory
+				.newTransformer(new StreamSource(xslSR));
 
-   /**
-    * Imports an XML Document
-    * 
-    * @param file the XML file
-    * @return the JDOM Document
-    */
-   private static Document importDocument(File file) {
-      Document document = null;
-      try {
-         final InputStream inputStream = new FileInputStream(file);
-         final SAXBuilder builder = new SAXBuilder(false);
-         builder.setFactory(new Factory());
-         builder.setIgnoringElementContentWhitespace(true);
-         final InputSource is = new InputSource(inputStream);
-         document = builder.build(is);
-      }
-      catch (final IOException e) {
-         e.printStackTrace();
-      }
-      catch (final JDOMException e) {
-         e.printStackTrace();
-      }
-      return document;
-   }
+		transformer.transform(xmlIn, xmlOut);
 
+		return xmlSW.toString();
+	}
 
-   /**
-    * Imports an XML File and builds up the object tree. The result is a list of
-    * BatchAlgorithm instances.
-    * 
-    * @param file the XML file to import
-    * @return
-    */
-   @SuppressWarnings("unchecked")
-   public static BatchProcessContainer importBatchProcessContainer(File file) {
-      final BatchProcessContainer container = new BatchProcessContainer();
+	/**
+	 * xsl transformation
+	 * @param xmlDocument xml document (String)
+	 * @param xsl xsl document (InputStream)
+	 * @return
+	 * @throws TransformerException
+	 * @throws TransformerConfigurationException
+	 * @throws TransformerFactoryConfigurationError
+	 */
+	public static String transform(String xmlDocument, InputStream xsl)
+			throws TransformerException, TransformerConfigurationException,
+			TransformerFactoryConfigurationError {
 
-      final Document document = importDocument(file);
+		final StringReader xmlSR = new StringReader(xmlDocument);
+		final StreamSource xmlIn = new StreamSource(xmlSR);
 
-      for (final Element elem : (List<Element>) document.getRootElement()
-            .getChildren(BatchAlgorithm.ROOT_TAG)) {
-         container.addAlgorithm(BatchAlgorithm.unmarshal(elem));
-      }
+		final StringWriter xmlSW = new StringWriter();
+		final StreamResult xmlOut = new StreamResult(xmlSW);
 
-      for (final Element set : (List<Element>) document.getRootElement()
-            .getChildren(JdomGestureSet.ROOT_TAG)) {
-         container.addGestureSet((GestureSet) JdomGestureSet.unmarshal(set));
-      }
+		StreamSource xslSR = new StreamSource(xsl);
 
-      return container;
-   }
+		final TransformerFactory tFactory = TransformerFactory.newInstance();
+		final Transformer transformer = tFactory
+				.newTransformer(xslSR);
 
+		transformer.transform(xmlIn, xmlOut);
 
-   /**
-    * transform
-    * 
-    * @author Ueli Kurmann
-    * @version 1.0
-    * @param xmlDocument (String)
-    * @param xslDocument (String)
-    * @return xmlDocument (String)
-    */
-   public static String transform(String xmlDocument, String xslDocument)
-         throws TransformerException, TransformerConfigurationException,
-         TransformerFactoryConfigurationError {
-
-      final StringReader xmlSR = new StringReader(xmlDocument);
-      final StreamSource xmlIn = new StreamSource(xmlSR);
-
-      final StringWriter xmlSW = new StringWriter();
-      final StreamResult xmlOut = new StreamResult(xmlSW);
-
-      // StringReader xslSR = new StringReader(xslDocument);
-      FileReader xslSR = null;
-      try {
-         xslSR = new FileReader(new File(xslDocument));
-      }
-      catch (final FileNotFoundException e) {
-         e.printStackTrace();
-      }
-
-      final TransformerFactory tFactory = TransformerFactory.newInstance();
-      final Transformer transformer = tFactory.newTransformer(new StreamSource(
-            xslSR));
-
-      transformer.transform(xmlIn, xmlOut);
-
-      return xmlSW.toString();
-   }
+		return xmlSW.toString();
+	}
 }
