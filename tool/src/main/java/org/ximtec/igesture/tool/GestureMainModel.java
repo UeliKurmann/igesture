@@ -128,7 +128,7 @@ public class GestureMainModel {
 
       loadData(engine);
 
-      penClient = new InputDeviceClient(configuration);
+      penClient = new InputDeviceClient(configuration.getInputDevice(), configuration.getInputDeviceEventListener());
       penClient.init();
    }
 
