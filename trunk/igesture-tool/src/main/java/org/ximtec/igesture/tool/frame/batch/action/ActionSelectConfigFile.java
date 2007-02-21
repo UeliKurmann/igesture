@@ -20,7 +20,7 @@ public class ActionSelectConfigFile extends BasicAction {
 		this.textField = textField;
 	}
 
-	@Override
+
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() instanceof JButton) {
 			final JFileChooser fileChooser = new JFileChooser();

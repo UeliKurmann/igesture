@@ -29,9 +29,9 @@ import java.util.List;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.commons.configuration.tree.xpath.XPathExpressionEngine;
+import org.sigtec.input.InputDevice;
+import org.sigtec.input.InputDeviceEventListener;
 import org.ximtec.igesture.io.InputDeviceFactory;
-import org.ximtec.ipaper.io.InputDevice;
-import org.ximtec.ipaper.io.InputDeviceEventListener;
 
 
 /**

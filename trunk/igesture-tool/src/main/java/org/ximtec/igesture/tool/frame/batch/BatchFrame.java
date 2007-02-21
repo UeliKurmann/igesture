@@ -99,13 +99,12 @@ public class BatchFrame extends BasicInternalFrame implements
 		return list;
 	}
 
-	@Override
+	
 	public void gestureSetChanged(EventObject event) {
 		gestureSets.setModel(new SimpleListModel<GestureSet>(mainView
 				.getModel().getGestureSets()));
 	}
 
-	@Override
 	public void testSetChanged(EventObject event) {
 		testSets.setModel(new SimpleListModel<TestSet>(mainView.getModel()
 				.getTestSets()));
