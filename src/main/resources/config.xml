@@ -29,6 +29,7 @@
 		<class>org.ximtec.igesture.tool.CaptureTab</class>
 		<class>org.ximtec.igesture.tool.AdminTab</class>
 		<class>org.ximtec.igesture.tool.TestTab</class>
+		<class>org.ximtec.igesture.tool.BatchTab</class>
 	</tab>
 	<database>igesture.xml</database>
 	<gui-state>
