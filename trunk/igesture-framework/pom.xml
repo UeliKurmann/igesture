@@ -186,11 +186,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.ximtec.ipaper</groupId>
-			<artifactId>ipaper</artifactId>
-		</dependency>
-
-		<dependency>
 			<groupId>commons-math</groupId>
 			<artifactId>commons-math</artifactId>
 		</dependency>
@@ -223,6 +218,11 @@
 		<dependency>
 			<groupId>jdom</groupId>
 			<artifactId>jdom</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.sigtec</groupId>
+			<artifactId>sigtec-input</artifactId>
 		</dependency>
 
 	
