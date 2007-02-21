@@ -22,13 +22,13 @@
 
 	<scm>
 		<connection>
-			scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk
+			scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/framework
 		</connection>
 		<developerConnection>
-			scm:svn:https://igesture.svn.sourceforge.net/svnroot/igesture/trunk
+			scm:svn:https://igesture.svn.sourceforge.net/svnroot/igesture/trunk/framework
 		</developerConnection>
 		<url>
-			http://igesture.svn.sourceforge.net/viewvc/igesture/trunk
+			http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/framework
 		</url>
 	</scm>
 
@@ -153,12 +153,6 @@
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
 		</dependency>
 
 		<dependency>
