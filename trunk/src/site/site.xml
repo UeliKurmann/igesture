@@ -81,8 +81,10 @@
 			<item name="Gesture Sets" href="res_gesturesets.html" />
 			<item name="Test Sets" href="res_testsets.html" />
 		</menu>
+		<menu ref="modules" />
 
-		${reports}
+		<menu ref="reports" />
+		
 	</body>
 </project>
 

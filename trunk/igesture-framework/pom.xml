@@ -9,7 +9,7 @@
 	</parent>
 
 	<groupId>org.ximtec.igesture</groupId>
-	<artifactId>framework</artifactId>
+	<artifactId>igesture-framework</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<inceptionYear>2007</inceptionYear>
@@ -17,7 +17,7 @@
 		iGesture: a general gesture recognition framework.
 	</description>
 
-	<name>igesture</name>
+	<name>igesture-framework</name>
 	<url>http://www.igesture.org</url>
 
 	<scm>
