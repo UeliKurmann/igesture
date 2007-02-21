@@ -1,9 +1,11 @@
 package org.ximtec.igesture.app.helloworld;
 
-import java.util.List;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
+import org.sigtec.input.InputDevice;
+import org.sigtec.input.InputDeviceEvent;
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.configuration.Configuration;
@@ -13,8 +15,6 @@ import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.MouseReader;
 import org.ximtec.igesture.tool.GestureConfiguration;
 import org.ximtec.igesture.util.XMLTools;
-import org.ximtec.ipaper.io.InputDevice;
-import org.ximtec.ipaper.io.InputDeviceEvent;
 
 public class HelloWorldXML implements ButtonDeviceEventListener {
 
@@ -32,7 +32,7 @@ public class HelloWorldXML implements ButtonDeviceEventListener {
 
 		List<InputDevice> pens = new ArrayList<InputDevice>();
 		pens.add(new MouseReader());
-		client = new InputDeviceClient(appConfig);
+		client = new InputDeviceClient(appConfig.getInputDevice(),appConfig.getInputDeviceEventListener());
 
 		client.addButtonDeviceEventListener(this);
 

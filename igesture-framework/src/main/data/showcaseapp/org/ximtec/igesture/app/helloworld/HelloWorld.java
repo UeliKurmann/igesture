@@ -2,6 +2,7 @@
 
 package org.ximtec.igesture.app.helloworld;
 
+import org.sigtec.input.InputDeviceEvent;
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.siger.SigerRecogniser;
@@ -13,7 +14,6 @@ import org.ximtec.igesture.core.TextDescriptor;
 import org.ximtec.igesture.io.ButtonDeviceEventListener;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.tool.GestureConfiguration;
-import org.ximtec.ipaper.io.InputDeviceEvent;
 
 
 public class HelloWorld implements ButtonDeviceEventListener {
@@ -45,7 +45,7 @@ public class HelloWorld implements ButtonDeviceEventListener {
 
       recogniser = new Recogniser(configuration);
     
-      client = new InputDeviceClient(appConfig);
+      client = new InputDeviceClient(appConfig.getInputDevice(), appConfig.getInputDeviceEventListener());
 
       client.addButtonDeviceEventListener(this);
 

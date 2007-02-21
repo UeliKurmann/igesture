@@ -4,14 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import org.sigtec.ink.Note;
+import org.sigtec.input.InputDeviceEvent;
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.app.showcaseapp.descriptor.ArrowDescriptor;
@@ -28,11 +27,8 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.EventManager;
 import org.ximtec.igesture.io.ButtonDeviceEventListener;
 import org.ximtec.igesture.io.InputDeviceClient;
-import org.ximtec.igesture.io.MagicommPenSocketModified;
 import org.ximtec.igesture.tool.GestureConfiguration;
 import org.ximtec.igesture.util.XMLTools;
-import org.ximtec.ipaper.io.InputDevice;
-import org.ximtec.ipaper.io.InputDeviceEvent;
 
 public class Application implements ButtonDeviceEventListener {
 
@@ -46,12 +42,7 @@ public class Application implements ButtonDeviceEventListener {
 
 	public Application() {
 		initialiseGUI();
-		
-		
-		
 		initGestures();
-		
-		
 	}
 
 	private void initGestures() {
@@ -103,7 +94,7 @@ public class Application implements ButtonDeviceEventListener {
 			e.printStackTrace();
 		}
 		
-		client = new InputDeviceClient(appConfig);
+		client = new InputDeviceClient(appConfig.getInputDevice(), appConfig.getInputDeviceEventListener());
 		client.addButtonDeviceEventListener(this);
 	}
 
