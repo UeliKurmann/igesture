@@ -149,7 +149,7 @@ public class AlgorithmFactory {
    public static Algorithm createAlgorithmInstance(String className) {
       Algorithm algorithm = null;
       try {
-         final Class clazz = Class.forName(className);
+         final Class<? extends Algorithm> clazz = (Class<? extends Algorithm>)Class.forName(className);
          algorithm = (Algorithm) clazz.newInstance();
       }
       catch (final ClassNotFoundException e) {

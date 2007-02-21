@@ -32,6 +32,11 @@ import java.util.List;
 
 import org.jdom.Element;
 
+/**
+ * Represents a for loop
+ * @author Ueli Kurmann
+ * @version 1.0
+ */
 
 public class BatchForValue {
 
@@ -68,36 +73,64 @@ public class BatchForValue {
    }
 
 
+   /**
+    * Returns the upper bound of the loop
+    * @return the upper bound of the loop
+    */
    public double getEnd() {
       return end;
    }
 
 
+   /**
+    * Sets the upper bound of the loop
+    * @param end the upper bound of the loop
+    */
    public void setEnd(double end) {
       this.end = end;
    }
 
 
+   /**
+    * Returns the lower bound of the loop
+    * @return the lower bound of the loop
+    */
    public double getStart() {
       return start;
    }
 
 
+   /**
+    * Sets the lower bound of the loop
+    * @param start the lower bound of the loop
+    */
    public void setStart(double start) {
       this.start = start;
    }
 
 
+   /**
+    * Returns the step size for iterating between the lower and upper bound
+    * @return the step size for iterating between the lower and upper bound
+    */
    public double getStep() {
       return step;
    }
 
 
+   /**
+    * Sets the step size for iterating between the lower and upper bound
+    * @param step the step size for iterating between the lower and upper bound
+    */
    public void setStep(double step) {
       this.step = step;
    }
 
 
+   /**
+    * Returns a list of all values matching the constraints
+    * @return a list of all values matching the constraints
+    */
    public List<String> getValues() {
       final List<String> result = new ArrayList<String>();
       for (double value = getStart(); value <= getEnd(); value = value

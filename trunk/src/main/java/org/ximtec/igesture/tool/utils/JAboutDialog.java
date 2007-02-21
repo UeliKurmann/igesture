@@ -24,40 +24,48 @@
 
 package org.ximtec.igesture.tool.utils;
 
+import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URL;
 
-import javax.swing.Box;
-import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.plaf.basic.BasicHTML;
 
 import org.sigtec.graphix.widget.BasicButton;
+import org.sigtec.graphix.widget.BasicDialog;
 import org.ximtec.igesture.tool.GestureConstants;
 
-public class JAboutDialog extends JDialog {
+public class JAboutDialog extends BasicDialog {
 
-	public JAboutDialog(int width, int height, String path) {
-		super();
+	public JAboutDialog(int width, int height, URL path) {
+		super(GestureConstants.COMMON_ABOUT,SwingTool.getGuiBundle());
 		init(width, height, path);
 	}
 
-	private void init(int width, int height, String path) {
+	private void init(int width, int height, URL path) {
 		this.setIconImage(IconLoader.getImage(IconLoader.INFORMATION));
 		this.setSize(width, height);
 
-		Box box = Box.createVerticalBox();
-
-		JEditorPane aboutField = new JEditorPane();
-		aboutField.setEditable(false);
-		aboutField.setContentType("text/html");
-		aboutField.setSize(width - 10, height - 50);
-		aboutField.setText(loadText(path));
-		JScrollPane scrollPane = new JScrollPane(aboutField);
-		box.add(scrollPane);
+		JEditorPane aboutField;
+		try {
+			aboutField = new JEditorPane(path);
+			aboutField.setEditable(false);
+			aboutField.setContentType("text/html");
+			aboutField.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
+			aboutField.putClientProperty(BasicHTML.documentBaseKey, JAboutDialog.class.getResource("/"));
+			aboutField.setSize(width - 10, height - 50);
+			JScrollPane scrollPane = new JScrollPane(aboutField);
+			scrollPane.setPreferredSize(new Dimension(width - 10, height - 50));
+			scrollPane.setAutoscrolls(true);
+			addComponent(scrollPane,SwingTool.createGridBagConstraint(0, 0));	
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
 		BasicButton okButton = new BasicButton(GestureConstants.COMMON_CLOSE,
 				SwingTool.getGuiBundle());
 		okButton.addMouseListener(new MouseAdapter(){
@@ -67,31 +75,12 @@ public class JAboutDialog extends JDialog {
 				closeDialog();
 			}
 		});
-		box.add(okButton);
-
-		this.add(box);
+		addComponent(okButton,SwingTool.createGridBagConstraint(0, 1));
+		this.pack();
 	}
 	
 	private void closeDialog(){
 		this.setVisible(false);
 		this.dispose();
 	}
-
-	private String loadText(String path) {
-		InputStream stream = JAboutDialog.class.getClassLoader()
-				.getResourceAsStream(path);
-		if (stream != null) {
-			try {
-				return org.apache.commons.io.IOUtils.toString(stream);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
-
-	public static void main(String[] args) {
-		new JAboutDialog(300, 300, "about.html").setVisible(true);
-	}
-
 }

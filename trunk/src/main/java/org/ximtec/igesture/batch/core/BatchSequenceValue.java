@@ -23,7 +23,6 @@
  * 
  */
 
-
 package org.ximtec.igesture.batch.core;
 
 import java.util.ArrayList;
@@ -31,38 +30,47 @@ import java.util.List;
 
 import org.jdom.Element;
 
-
 public class BatchSequenceValue extends BatchParameter {
 
-   public static String ROOT_TAG = "sequence";
+	public static String ROOT_TAG = "sequence";
 
-   public static String CHILD_TAG = "value";
+	public static String CHILD_TAG = "value";
 
-   List<String> values;
+	List<String> values;
 
+	public BatchSequenceValue() {
+		values = new ArrayList<String>();
+	}
 
-   public BatchSequenceValue() {
-      values = new ArrayList<String>();
-   }
+	/**
+	 * Adds a value
+	 * @param value
+	 */
+	public void addValue(String value) {
+		values.add(value);
+	}
 
+	/**
+	 * Returns the list of values of the sequence
+	 * 
+	 * @return the list of values of the sequence
+	 */
+	public List<String> getValues() {
+		return values;
+	}
 
-   public void addValue(String value) {
-      values.add(value);
-   }
-
-
-   public List<String> getValues() {
-      return values;
-   }
-
-
-   @SuppressWarnings("unchecked")
-   public static BatchSequenceValue unmarshal(Element parameterValue) {
-      final BatchSequenceValue value = new BatchSequenceValue();
-      final List<Element> children = parameterValue.getChildren(CHILD_TAG);
-      for (final Element elem : children) {
-         value.addValue(elem.getText());
-      }
-      return value;
-   }
+	/**
+	 * Imports a BatchSequenceValue from an XML element
+	 * @param parameterValue an XML element
+	 * @return a BatchSequenceValue from an XML element
+	 */
+	@SuppressWarnings("unchecked")
+	public static BatchSequenceValue unmarshal(Element parameterValue) {
+		final BatchSequenceValue value = new BatchSequenceValue();
+		final List<Element> children = parameterValue.getChildren(CHILD_TAG);
+		for (final Element elem : children) {
+			value.addValue(elem.getText());
+		}
+		return value;
+	}
 }

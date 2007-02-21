@@ -48,7 +48,7 @@ public class TestSetListFrame extends BasicInternalFrame implements
       super(GestureConstants.TESTSET_VIEW_FRAME_KEY, SwingTool.getGuiBundle());
       SwingTool.initFrame(this);
       this.mainView = mainView;
-      mainView.getModel().addTestCaseListener(this);
+      mainView.getModel().addTestSetListener(this);
       this.testSet = testSet;
       initialize();
    }

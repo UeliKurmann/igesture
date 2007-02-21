@@ -60,6 +60,8 @@ public class GestureConstants {
    public static final String COMMON_HELP = "HELP";
    
    public static final String COMMON_ABOUT = "ABOUT";
+   
+   public static final String COMMON_BROWSE = "BROWSE";
 
    public static final String COMMON_NEW = "NEW";
 
@@ -70,6 +72,8 @@ public class GestureConstants {
    public static final String GESTUREVIEW_TAB_ADMIN = "mainFrame.Admin";
 
    public static final String GESTUREVIEW_TAB_TESTCASE = "mainFrame.TestCase";
+   
+   public static final String GESTUREVIEW_TAB_BATCH = "mainFrame.Batch";
 
    public static final String ALGORITHM_FRAME_KEY = "Algorithm";
 
@@ -130,5 +134,10 @@ public class GestureConstants {
    public static final String TESTSET_SELECTION_FRAME_KEY = "testBenchGesture";
 
    public static final String TESTSET_VIEW_FRAME_KEY = "testBenchSets";
+   
+   public static final String BATCHPROCESSING_CONFIG = "BP.Config";
+   public static final String BATCHPROCESSING_OUTPUT = "BP.Output";
+   public static final String BATCHPROCESSING_GESTURESET = "BP.GestureSet";
+   public static final String BATCHPROCESSING_TESTSET = "BP.TestSet";
 
 }

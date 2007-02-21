@@ -56,9 +56,7 @@ public class BatchParameter {
 
 
    public static BatchParameter unmarshal(Element parameter) {
-      /**
-       * Diese Methode diet als eine art factory f[r diek;nritetn subtypes
-       */
+      
       final BatchParameter batchParameter = new BatchParameter();
       batchParameter.setName(parameter.getAttributeValue(ATTRIBUTE_NAME));
 

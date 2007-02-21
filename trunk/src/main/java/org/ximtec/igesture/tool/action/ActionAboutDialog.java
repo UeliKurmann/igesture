@@ -39,7 +39,7 @@ public class ActionAboutDialog extends BaseAction {
 
    public ActionAboutDialog(String path) {
       super(GestureConstants.COMMON_ABOUT, SwingTool.getGuiBundle());
-      dialog = new JAboutDialog(300,500,path); 
+      dialog = new JAboutDialog(300,500,ActionAboutDialog.class.getClassLoader().getResource("about.html")); 
    }
 
 
