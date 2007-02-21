@@ -29,13 +29,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import org.ximtec.ipaper.graphics2D.Location;
-import org.ximtec.ipaper.io.AbstractInputDevice;
-import org.ximtec.ipaper.io.InputDeviceEvent;
-import org.ximtec.ipaper.util.TimestampedLocation;
+import org.sigtec.ink.input.Location;
+import org.sigtec.ink.input.TimestampedLocation;
+import org.sigtec.input.InputDeviceEvent;
 
 
-public class MouseReader extends AbstractInputDevice implements ButtonDevice {
+
+
+public class MouseReader extends org.sigtec.input.AbstractInputDevice implements ButtonDevice {
 
    private static final int FREQUENCE = 20;
 

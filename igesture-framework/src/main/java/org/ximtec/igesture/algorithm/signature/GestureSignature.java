@@ -31,10 +31,10 @@ import java.util.List;
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Point;
 import org.sigtec.ink.Trace;
+import org.sigtec.ink.input.Location;
 import org.ximtec.igesture.algorithm.feature.FeatureTools;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.util.GestureTools;
-import org.ximtec.ipaper.graphics2D.Location;
 
 public class GestureSignature {
 
