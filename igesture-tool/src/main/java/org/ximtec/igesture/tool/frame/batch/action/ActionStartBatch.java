@@ -34,7 +34,7 @@ public class ActionStartBatch extends BasicAction {
 		this.testSets = testSets;
 	}
 
-	@Override
+
 	public void actionPerformed(ActionEvent arg0) {
 		File configFile = new File(config.getText());
 		File resultFile = new File(result.getText());

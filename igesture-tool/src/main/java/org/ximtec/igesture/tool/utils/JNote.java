@@ -43,8 +43,8 @@ import javax.swing.JLabel;
 import org.sigtec.graphix.Points;
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Point;
-import org.ximtec.ipaper.input.InputHandler;
-import org.ximtec.ipaper.util.TimestampedLocation;
+import org.sigtec.ink.input.TimestampedLocation;
+import org.sigtec.input.InputHandler;
 
 
 @SuppressWarnings("serial")
