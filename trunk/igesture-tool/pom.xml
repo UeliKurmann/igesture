@@ -192,8 +192,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.ximtec.ipaper</groupId>
-			<artifactId>ipaper</artifactId>
+			<groupId>org.sigtec</groupId>
+			<artifactId>sigtec-input</artifactId>
 		</dependency>
 
 		<dependency>
@@ -248,7 +248,7 @@
        
 		<dependency>
 			<groupId>org.ximtec.igesture</groupId>
-			<artifactId>framework</artifactId>
+			<artifactId>igesture-framework</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>	
 	</dependencies>
