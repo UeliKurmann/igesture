@@ -23,7 +23,7 @@
  */
 
 
-package org.ximtec.igesture.util;
+package org.ximtec.igesture.tool.utils;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -35,7 +35,6 @@ import java.io.IOException;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.SampleDescriptor;
-import org.ximtec.igesture.tool.utils.JNote;
 
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Document;

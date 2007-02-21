@@ -31,7 +31,6 @@ import java.util.HashSet;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.TraceTool;
-import org.ximtec.igesture.tool.GestureConfiguration;
 import org.ximtec.ipaper.graphics2D.util.CapturingTool;
 import org.ximtec.ipaper.input.InputHandler;
 import org.ximtec.ipaper.io.BufferedInputDeviceEventListener;
@@ -56,9 +55,9 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
    private HashSet<InputHandler> inputHandlerListeners;
 
 
-   public InputDeviceClient(GestureConfiguration configuration) {
-	  pen = configuration.getInputDevice();
-      listener = configuration.getInputDeviceEventListener();
+   public InputDeviceClient(InputDevice pen, InputDeviceEventListener listener) {
+	  this.pen = pen;
+      this.listener = listener;
       
       inputDeviceListeners = new HashSet<InputDeviceEventListener>();
       buttonDeviceListeners = new HashSet<ButtonDeviceEventListener>();
