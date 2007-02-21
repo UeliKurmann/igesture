@@ -76,8 +76,8 @@
 	</developers>
 	
 	<modules>
-		<module>framework</module>
-		<module>tool</module>
+		<module>igesture-framework</module>
+		<module>igesture-tool</module>
 	</modules>
 
 	<build>
