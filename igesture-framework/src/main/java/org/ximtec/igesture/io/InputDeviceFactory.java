@@ -6,7 +6,6 @@ import org.apache.commons.configuration.XMLConfiguration;
 import org.sigtec.input.BufferedInputDeviceEventListener;
 import org.sigtec.input.InputDevice;
 import org.sigtec.input.InputDeviceEventListener;
-import org.sigtec.jdom.JdomDocument;
 
 
 
