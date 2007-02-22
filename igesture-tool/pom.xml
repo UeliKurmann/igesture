@@ -253,5 +253,12 @@
 		</dependency>	
 	</dependencies>
 	
+	<distributionManagement>
+		<site>
+			<id>ftp-repository</id>
+			<url>ftp://www.igesture.org/httpdocs/igesture-framework</url>
+		</site>
+	</distributionManagement>
+	
 	
 </project>

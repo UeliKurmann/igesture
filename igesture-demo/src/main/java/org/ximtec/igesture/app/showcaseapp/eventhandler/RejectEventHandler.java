@@ -1,5 +1,6 @@
 package org.ximtec.igesture.app.showcaseapp.eventhandler;
 
+import org.sigtec.sound.SoundTool;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.EventHandler;
 
@@ -17,6 +18,6 @@ public class RejectEventHandler implements EventHandler {
 	}
 	
 	public void run(ResultSet resultSet) {
-		//SoundTool.play(filename);
+		SoundTool.play(filename);
 	}
 }

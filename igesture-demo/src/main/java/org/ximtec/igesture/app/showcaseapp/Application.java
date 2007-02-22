@@ -10,7 +10,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import org.sigtec.ink.Note;
+import org.sigtec.input.BufferedInputDeviceEventListener;
+import org.sigtec.input.InputDevice;
 import org.sigtec.input.InputDeviceEvent;
+import org.sigtec.input.InputDeviceEventListener;
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.app.showcaseapp.descriptor.ArrowDescriptor;
@@ -27,7 +30,8 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.EventManager;
 import org.ximtec.igesture.io.ButtonDeviceEventListener;
 import org.ximtec.igesture.io.InputDeviceClient;
-import org.ximtec.igesture.tool.GestureConfiguration;
+import org.ximtec.igesture.io.MouseReader;
+import org.ximtec.igesture.io.MouseReaderEventListener;
 import org.ximtec.igesture.util.XMLTools;
 
 public class Application implements ButtonDeviceEventListener {
@@ -46,7 +50,6 @@ public class Application implements ButtonDeviceEventListener {
 	}
 
 	private void initGestures() {
-		GestureConfiguration appConfig = new GestureConfiguration("config.xml");
 		Configuration configuration = XMLTools.importConfiguration(new File(
 				ClassLoader.getSystemResource(
 						"rubineconfiguration.xml").getFile()));
@@ -94,7 +97,11 @@ public class Application implements ButtonDeviceEventListener {
 			e.printStackTrace();
 		}
 		
-		client = new InputDeviceClient(appConfig.getInputDevice(), appConfig.getInputDeviceEventListener());
+		InputDevice device = new MouseReader();
+		InputDeviceEventListener listener = new BufferedInputDeviceEventListener(
+				new MouseReaderEventListener(), 10000);
+
+		client = new InputDeviceClient(device, listener);
 		client.addButtonDeviceEventListener(this);
 	}
 

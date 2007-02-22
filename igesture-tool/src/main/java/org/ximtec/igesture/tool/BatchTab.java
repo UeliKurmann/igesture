@@ -1,10 +1,6 @@
 package org.ximtec.igesture.tool;
 
-import javax.swing.JLabel;
-
-import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.tool.frame.batch.BatchFrame;
-import org.ximtec.igesture.tool.utils.SwingTool;
 
 public class BatchTab extends GestureTab {
 

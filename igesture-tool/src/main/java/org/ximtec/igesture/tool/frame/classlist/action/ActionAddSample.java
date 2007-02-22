@@ -27,7 +27,6 @@ package org.ximtec.igesture.tool.frame.classlist.action;
 
 import java.awt.event.ActionEvent;
 
-import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.frame.classlist.SampleDescriptorFrame;
 import org.ximtec.igesture.tool.utils.BaseAction;
 import org.ximtec.igesture.tool.utils.IconLoader;
