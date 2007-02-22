@@ -24,14 +24,6 @@
     <fileSet>
       <directory>src/main/resources</directory>
       <outputDirectory>src/main/resources</outputDirectory>
-    </fileSet>
-   
-    <fileSet>
-      <directory>src/main/lib</directory>
-      <outputDirectory>/src/main/lib</outputDirectory>
-      <includes>
-        <include>**</include>
-      </includes>
-    </fileSet>   
+    </fileSet>  
   </fileSets>
 </assembly>

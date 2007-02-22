@@ -136,13 +136,22 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<configuration>
+					<aggregate>true</aggregate>
 					<author>true</author>
 					<version>true</version>
 					<source>1.5</source>
 					<groups>
 						<group>
-							<title>iGesture</title>
-							<packages>org.ximtec.igesture*</packages>
+							<title>iGesture - Framework</title>
+							<packages>org.ximtec.igesture.algorithm*:org.ximtec.igesture.batch*:org.ximtec.igesture.configuration*:org.ximtec.igesture.core*:org.ximtec.igesture.event*:org.ximtec.igesture.io*:org.ximtec.igesture.storage*:org.ximtec.igesture.util*:org.ximtec.igesture</packages>
+						</group>
+						<group>
+							<title>iGesture - Tools</title>
+							<packages>org.ximtec.igesture.tool*</packages>
+						</group>
+						<group>
+							<title>iGesture - Demo</title>
+							<packages>org.ximtec.igesture.app*</packages>
 						</group>
 					</groups>
 					<links>
@@ -156,6 +165,9 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
+				<configuration>
+					<aggregate>true</aggregate>
+				</configuration>
 			</plugin>
 
 			<!--
