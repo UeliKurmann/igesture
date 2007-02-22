@@ -9,7 +9,7 @@
 	</parent>
 
 	<groupId>org.ximtec.igesture</groupId>
-	<artifactId>igesture-framework</artifactId>
+	<artifactId>igesture-demo</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<inceptionYear>2007</inceptionYear>
@@ -17,7 +17,7 @@
 		iGesture: a general gesture recognition framework.
 	</description>
 
-	<name>igesture-framework</name>
+	<name>igesture-demo</name>
 	<url>http://www.igesture.org</url>
 
 	<scm>
@@ -224,15 +224,105 @@
 			<groupId>org.sigtec</groupId>
 			<artifactId>sigtec-input</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.sigtec</groupId>
+			<artifactId>sigtec-multimedia</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.ximtec.igesture</groupId>
+			<artifactId>igesture-framework</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
 
 	
 	</dependencies>
+	<reporting>
+		<plugins>
 
+			<!--  
+				<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				</plugin>
+			-->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>
+					maven-project-info-reports-plugin
+				</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>dependencies</report>
+							<report>project-team</report>
+							<!--
+								<report>mailing-list</report>
+								<report>cim</report>
+								
+								Issue tracking report will be omitted
+								<report>issue-tracking</report>
+							-->
+							<report>license</report>
+							<report>scm</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<author>true</author>
+					<version>true</version>
+					<source>1.5</source>
+					<groups>
+						<group>
+							<title>iGesture</title>
+							<packages>org.ximtec.igesture*</packages>
+						</group>
+					</groups>
+					<links>
+						<link>
+							http://java.sun.com/j2se/1.5.0/docs/api/
+						</link>
+					</links>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+			</plugin>
+
+			<!--
+				<plugin>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<configuration>
+				<enableRSS>true</enableRSS>
+				<enableRulesSummary>false</enableRulesSummary>
+				<configLocation>
+				http://www.igesture.org/sun_checks.xml
+				</configLocation>
+				</configuration>
+				</plugin>
+			-->
+
+		</plugins>
+	</reporting>
 
 	<distributionManagement>
 		<site>
 			<id>ftp-repository</id>
-			<url>ftp://www.igesture.org/httpdocs/igesture-framework</url>
+			<url>ftp://www.igesture.org/httpdocs</url>
 		</site>
 	</distributionManagement>
 </project>

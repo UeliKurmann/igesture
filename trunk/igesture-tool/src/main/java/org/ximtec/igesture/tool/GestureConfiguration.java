@@ -50,8 +50,6 @@ public class GestureConfiguration {
    private static final String PROPERTY_ALGORITHM = "algorithm/class";
    private static final String PROPERTY_TAB = "tab/class";
     
- 
-   
    private XMLConfiguration configuration;
    
    public GestureConfiguration(String file){
@@ -130,7 +128,7 @@ public class GestureConfiguration {
       for(String deviceName:(List<String>)configuration.getList(SELECTED_INPUT_DEVICE2)){
         // configuration.setProperty("inputdevices/device["+i+"] @selected", "true");
          
-         System.out.println("...");
+       
          i++;
       }
       

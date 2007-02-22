@@ -81,7 +81,12 @@
 			<item name="Gesture Sets" href="res_gesturesets.html" />
 			<item name="Test Sets" href="res_testsets.html" />
 		</menu>
-		<menu ref="modules" />
+		
+		<menu name="Modules">
+			<item name="Framework" href="igesture-framework/index.html" />
+			<item name="Tool" href="igesture-tool/index.html" />
+			<item name="Demo" href="igesture-demo/index.html" />
+		</menu>
 		
 		<menu ref="reports" />
 		
