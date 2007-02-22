@@ -97,19 +97,6 @@
 				<updatePolicy>daily</updatePolicy>
 			</releases>
 			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<id>localrepository</id>
-			<name>LocalRepository</name>
-			<url>http://www.igesture.org/lib</url>
-		</repository>
-
-		<repository>
-			<releases>
-				<enabled>true</enabled>
-				<updatePolicy>daily</updatePolicy>
-			</releases>
-			<snapshots>
 				<enabled>true</enabled>
 				<updatePolicy>daily</updatePolicy>
 			</snapshots>
@@ -117,21 +104,12 @@
 			<name>Globis Maven Repository</name>
 			<url>http://maven.globis.ethz.ch/repository/</url>
 		</repository>
-
 	</repositories>
  	
 
 	
 	<reporting>
 		<plugins>
-
-			<!--  
-				<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				</plugin>
-			-->
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>
@@ -142,13 +120,6 @@
 						<reports>
 							<report>dependencies</report>
 							<report>project-team</report>
-							<!--
-								<report>mailing-list</report>
-								<report>cim</report>
-								
-								Issue tracking report will be omitted
-								<report>issue-tracking</report>
-							-->
 							<report>license</report>
 							<report>scm</report>
 						</reports>
