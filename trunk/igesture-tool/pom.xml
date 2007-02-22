@@ -179,6 +179,25 @@
 		<dependency>
 			<groupId>org.sigtec</groupId>
 			<artifactId>sigtec-ink</artifactId>
+		
+			<exclusions>
+        		<exclusion>
+         		  <groupId>myscript</groupId>
+			<artifactId>engine</artifactId>
+			</exclusion>
+			<exclusion>
+			<groupId>myscript</groupId>
+			<artifactId>hwr</artifactId>
+			</exclusion>
+		
+			<exclusion>
+			<groupId>myscript</groupId>
+			<artifactId>inksearch</artifactId>
+            </exclusion>
+            
+			
+            </exclusions>
+
 		</dependency>
 
 		<dependency>
