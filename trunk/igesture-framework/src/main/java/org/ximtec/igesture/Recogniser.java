@@ -54,6 +54,7 @@ public class Recogniser {
 
    /**
     * Creates a new recogniser.
+    * 
     * @param config the configuration object.
     */
    public Recogniser(Configuration config) throws AlgorithmException {
@@ -63,6 +64,7 @@ public class Recogniser {
 
    /**
     * Creates a new recogniser.
+    * 
     * @param config the configuration object.
     * @param eventManager the event manager.
     */
@@ -76,6 +78,7 @@ public class Recogniser {
 
    /**
     * Creates a new recogniser.
+    * 
     * @param config the configuration object.
     * @param gestureSet the gesture set to be used.
     */
@@ -88,6 +91,7 @@ public class Recogniser {
 
    /**
     * Creates a new recogniser.
+    * 
     * @param configFile the file containing the XML configuration.
     */
    public Recogniser(File configFile) throws AlgorithmException {
@@ -97,6 +101,7 @@ public class Recogniser {
 
    /**
     * Creates a new recogniser.
+    * 
     * @param configFile the file containing the XML configuration.
     * @param setFile the file containing the gesture set in XML format.
     * @param eventManager the event manager
@@ -115,6 +120,7 @@ public class Recogniser {
     * comination of the results returned by the different algorithms if
     * 'recogniseAll' is set to true or the result of the first algorithm that
     * recognised the given note if 'recogniseAll' is set to false.
+    * 
     * @param note the note to be recognised.
     * @param recogniseAll true if the combination of all algorithms has to be
     *           returned, false if the result of the first algorithm that
@@ -142,6 +148,7 @@ public class Recogniser {
    /**
     * Recognies a gesture. The method uses all registered algorithms and stops as
     * soon as the first algorithm returns a result.
+    * 
     * @param note the note to be recognised.
     * @return the result set containing the recognised gesture classes.
     */
