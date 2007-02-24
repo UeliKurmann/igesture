@@ -32,9 +32,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 
+import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.frame.testset.TestSetListModel;
-import org.ximtec.igesture.tool.utils.BaseAction;
 import org.ximtec.igesture.tool.utils.IconLoader;
 import org.ximtec.igesture.tool.utils.SwingTool;
 import org.ximtec.igesture.util.XMLTools;
@@ -46,7 +46,7 @@ import org.ximtec.igesture.util.XMLTools;
  * @version 1.0 Nov 21, 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  */
-public class ActionTestSetExport extends BaseAction {
+public class ActionTestSetExport extends BasicAction {
 
    public static final String KEY = "ActionTestSetExport";
 

@@ -31,16 +31,16 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 
+import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureToolView;
-import org.ximtec.igesture.tool.utils.BaseAction;
 import org.ximtec.igesture.tool.utils.IconLoader;
 import org.ximtec.igesture.tool.utils.SwingTool;
 import org.ximtec.igesture.util.XMLTools;
 
 
-public class ActionImportGestureSet extends BaseAction {
+public class ActionImportGestureSet extends BasicAction {
 
    public static final String KEY = "ImportGestureSet";
 

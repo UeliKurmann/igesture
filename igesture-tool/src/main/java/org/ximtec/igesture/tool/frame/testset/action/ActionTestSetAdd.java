@@ -27,10 +27,10 @@ package org.ximtec.igesture.tool.frame.testset.action;
 
 import java.awt.event.ActionEvent;
 
+import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.TestTab;
 import org.ximtec.igesture.tool.frame.testset.TestSetFrame;
-import org.ximtec.igesture.tool.utils.BaseAction;
 import org.ximtec.igesture.tool.utils.IconLoader;
 import org.ximtec.igesture.tool.utils.SwingTool;
 
@@ -41,7 +41,7 @@ import org.ximtec.igesture.tool.utils.SwingTool;
  * @version 1.0 Nov 21, 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  */
-public class ActionTestSetAdd extends BaseAction {
+public class ActionTestSetAdd extends BasicAction {
 
    public static final String KEY = "ActionTestSetAdd";
 

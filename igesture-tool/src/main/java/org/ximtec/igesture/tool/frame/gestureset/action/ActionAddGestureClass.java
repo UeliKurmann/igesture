@@ -31,16 +31,16 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 
+import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.frame.gestureset.AddGestureClassDialog;
 import org.ximtec.igesture.tool.frame.gestureset.GestureTreeModel;
-import org.ximtec.igesture.tool.utils.BaseAction;
 import org.ximtec.igesture.tool.utils.IconLoader;
 import org.ximtec.igesture.tool.utils.SwingTool;
 
 
-public class ActionAddGestureClass extends BaseAction {
+public class ActionAddGestureClass extends BasicAction {
 
    public static final String KEY = "PopUpAddClassToGestureSet";
 

@@ -27,6 +27,7 @@ package org.ximtec.igesture.tool.frame.classlist.action;
 
 import java.awt.event.ActionEvent;
 
+import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.SampleDescriptor;
@@ -34,12 +35,11 @@ import org.ximtec.igesture.core.TextDescriptor;
 import org.ximtec.igesture.tool.AdminTab;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
-import org.ximtec.igesture.tool.utils.BaseAction;
 import org.ximtec.igesture.tool.utils.IconLoader;
 import org.ximtec.igesture.tool.utils.SwingTool;
 
 
-public class ActionOpenDescriptorDialog extends BaseAction {
+public class ActionOpenDescriptorDialog extends BasicAction {
 
    private Descriptor descriptor;
 

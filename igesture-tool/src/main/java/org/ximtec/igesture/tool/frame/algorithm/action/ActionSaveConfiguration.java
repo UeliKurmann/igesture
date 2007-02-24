@@ -27,9 +27,9 @@ package org.ximtec.igesture.tool.frame.algorithm.action;
 
 import java.awt.event.ActionEvent;
 
+import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.frame.algorithm.AlgorithmConfiguration;
-import org.ximtec.igesture.tool.utils.BaseAction;
 import org.ximtec.igesture.tool.utils.IconLoader;
 import org.ximtec.igesture.tool.utils.SwingTool;
 
@@ -40,7 +40,7 @@ import org.ximtec.igesture.tool.utils.SwingTool;
  * @version 1.0 Dec 4, 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  */
-public class ActionSaveConfiguration extends BaseAction {
+public class ActionSaveConfiguration extends BasicAction {
 
    private AlgorithmConfiguration algorithmConfiguration;
 

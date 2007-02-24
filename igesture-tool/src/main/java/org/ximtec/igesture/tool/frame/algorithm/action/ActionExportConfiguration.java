@@ -30,9 +30,9 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
+import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.frame.algorithm.AlgorithmConfiguration;
-import org.ximtec.igesture.tool.utils.BaseAction;
 import org.ximtec.igesture.tool.utils.IconLoader;
 import org.ximtec.igesture.tool.utils.SwingTool;
 import org.ximtec.igesture.util.XMLTools;
@@ -44,7 +44,7 @@ import org.ximtec.igesture.util.XMLTools;
  * @version 1.0 Dec 4, 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  */
-public class ActionExportConfiguration extends BaseAction {
+public class ActionExportConfiguration extends BasicAction {
 
    private AlgorithmConfiguration algorithmConfiguration;
 

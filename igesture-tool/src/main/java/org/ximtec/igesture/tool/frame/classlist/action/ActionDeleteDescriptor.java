@@ -27,15 +27,15 @@ package org.ximtec.igesture.tool.frame.classlist.action;
 
 import java.awt.event.ActionEvent;
 
+import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.tool.GestureToolView;
-import org.ximtec.igesture.tool.utils.BaseAction;
 import org.ximtec.igesture.tool.utils.IconLoader;
 import org.ximtec.igesture.tool.utils.SwingTool;
 
 
-public class ActionDeleteDescriptor extends BaseAction {
+public class ActionDeleteDescriptor extends BasicAction {
 
    private GestureClass gestureClass;
 

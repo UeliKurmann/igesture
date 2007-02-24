@@ -31,15 +31,15 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 
+import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.utils.BaseAction;
 import org.ximtec.igesture.tool.utils.IconLoader;
 import org.ximtec.igesture.tool.utils.SwingTool;
 import org.ximtec.igesture.util.XMLTools;
 
 
-public class ActionExportGestureSet extends BaseAction {
+public class ActionExportGestureSet extends BasicAction {
 
    private GestureSet gestureSet;
 

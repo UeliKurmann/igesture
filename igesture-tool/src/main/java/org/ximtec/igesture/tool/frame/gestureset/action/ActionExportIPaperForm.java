@@ -33,10 +33,10 @@ import java.util.Comparator;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 
+import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.utils.BaseAction;
 import org.ximtec.igesture.tool.utils.IconLoader;
 import org.ximtec.igesture.tool.utils.PDFTool;
 import org.ximtec.igesture.tool.utils.SwingTool;
@@ -46,7 +46,7 @@ import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.PdfPTable;
 
 
-public class ActionExportIPaperForm extends BaseAction {
+public class ActionExportIPaperForm extends BasicAction {
 
    private GestureSet set;
 

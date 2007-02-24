@@ -27,13 +27,13 @@ package org.ximtec.igesture.tool.action;
 
 import java.awt.event.ActionEvent;
 
+import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.utils.BaseAction;
 import org.ximtec.igesture.tool.utils.JAboutDialog;
 import org.ximtec.igesture.tool.utils.SwingTool;
 
 
-public class ActionAboutDialog extends BaseAction {
+public class ActionAboutDialog extends BasicAction {
 
    JAboutDialog dialog;
 

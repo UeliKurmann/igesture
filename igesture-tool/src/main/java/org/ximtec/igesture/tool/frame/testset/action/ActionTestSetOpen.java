@@ -29,10 +29,10 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JList;
 
+import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.frame.testset.TestSetListFrame;
 import org.ximtec.igesture.tool.frame.testset.TestSetListModel;
-import org.ximtec.igesture.tool.utils.BaseAction;
 import org.ximtec.igesture.tool.utils.IconLoader;
 import org.ximtec.igesture.tool.utils.SwingTool;
 
@@ -43,7 +43,7 @@ import org.ximtec.igesture.tool.utils.SwingTool;
  * @version 1.0 Nov 21, 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  */
-public class ActionTestSetOpen extends BaseAction {
+public class ActionTestSetOpen extends BasicAction {
 
    public static final String KEY = "ActionTestSetOpen";
 
