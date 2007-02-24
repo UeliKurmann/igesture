@@ -27,13 +27,13 @@ package org.ximtec.igesture.tool.frame.capture.action;
 
 import java.awt.event.ActionEvent;
 
+import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.frame.capture.GestureCaptureArea;
-import org.ximtec.igesture.tool.utils.BaseAction;
 import org.ximtec.igesture.tool.utils.SwingTool;
 
 
-public class ActionCaptureGestureClear extends BaseAction {
+public class ActionCaptureGestureClear extends BasicAction {
 
    private GestureCaptureArea area;
 

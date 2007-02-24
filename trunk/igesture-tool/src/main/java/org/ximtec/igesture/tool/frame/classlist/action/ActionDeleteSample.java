@@ -27,13 +27,13 @@ package org.ximtec.igesture.tool.frame.classlist.action;
 
 import java.awt.event.ActionEvent;
 
+import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.frame.classlist.SampleDescriptorFrame;
-import org.ximtec.igesture.tool.utils.BaseAction;
 import org.ximtec.igesture.tool.utils.IconLoader;
 import org.ximtec.igesture.tool.utils.SwingTool;
 
 
-public class ActionDeleteSample extends BaseAction {
+public class ActionDeleteSample extends BasicAction {
 
    private SampleDescriptorFrame frame;
 

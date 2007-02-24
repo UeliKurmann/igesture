@@ -30,6 +30,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JDialog;
 
+import org.sigtec.graphix.widget.BasicAction;
+
 
 /**
  * Action to close a JDialog
@@ -37,7 +39,7 @@ import javax.swing.JDialog;
  * @version 1.0 09.06.2006
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class CloseDialogAction extends BaseAction {
+public class CloseDialogAction extends BasicAction {
 
    public CloseDialogAction(String key) {
       super(key, SwingTool.getGuiBundle());

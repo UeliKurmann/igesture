@@ -30,14 +30,14 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
+import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.storage.Db4oStorageEngine;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
-import org.ximtec.igesture.tool.utils.BaseAction;
 import org.ximtec.igesture.tool.utils.SwingTool;
 
 
-public class ActionNewDataSouce extends BaseAction {
+public class ActionNewDataSouce extends BasicAction {
 
    private GestureToolView mainView;
 

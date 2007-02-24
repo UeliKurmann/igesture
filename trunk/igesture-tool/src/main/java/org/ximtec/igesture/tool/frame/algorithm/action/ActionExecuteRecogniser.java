@@ -30,6 +30,7 @@ import java.util.Vector;
 
 import javax.swing.JList;
 
+import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.AlgorithmFactory;
@@ -40,12 +41,11 @@ import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.tool.CaptureTab;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureMainModel;
-import org.ximtec.igesture.tool.utils.BaseAction;
 import org.ximtec.igesture.tool.utils.SimpleListModel;
 import org.ximtec.igesture.tool.utils.SwingTool;
 
 
-public class ActionExecuteRecogniser extends BaseAction {
+public class ActionExecuteRecogniser extends BasicAction {
 
    private GestureMainModel mainModel;
 

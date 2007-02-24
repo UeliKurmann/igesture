@@ -30,14 +30,14 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 
+import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.frame.gestureset.GestureTreeModel;
-import org.ximtec.igesture.tool.utils.BaseAction;
 import org.ximtec.igesture.tool.utils.IconLoader;
 import org.ximtec.igesture.tool.utils.SwingTool;
 
 
-public class ActionDelGestureSet extends BaseAction {
+public class ActionDelGestureSet extends BasicAction {
 
    public static final String KEY = "PopUpDelGestureSet";
 

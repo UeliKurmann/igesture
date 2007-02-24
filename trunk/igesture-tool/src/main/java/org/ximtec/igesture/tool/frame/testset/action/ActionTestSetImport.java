@@ -33,10 +33,10 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 
+import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.storage.StorageManager;
 import org.ximtec.igesture.tool.GestureToolView;
-import org.ximtec.igesture.tool.utils.BaseAction;
 import org.ximtec.igesture.tool.utils.IconLoader;
 import org.ximtec.igesture.tool.utils.SwingTool;
 import org.ximtec.igesture.util.XMLTools;
@@ -48,7 +48,7 @@ import org.ximtec.igesture.util.XMLTools;
  * @version 1.0 Nov 21, 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  */
-public class ActionTestSetImport extends BaseAction {
+public class ActionTestSetImport extends BasicAction {
 
    public static final String KEY = "ActionTestSetImport";
 
