@@ -27,7 +27,7 @@ package org.ximtec.igesture.tool;
 
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.tool.frame.algorithm.AlgorithmConfiguration;
-import org.ximtec.igesture.tool.utils.GuiFactory;
+import org.ximtec.igesture.tool.util.GuiFactory;
 
 
 /**

@@ -31,8 +31,8 @@ import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.graphix.widget.BasicTextField;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.frame.gestureset.action.ActionAddGestureSet;
-import org.ximtec.igesture.tool.utils.CloseDialogAction;
-import org.ximtec.igesture.tool.utils.SwingTool;
+import org.ximtec.igesture.tool.util.CloseDialogAction;
+import org.ximtec.igesture.tool.util.SwingTool;
 
 
 public class AddGestureSetDialog extends BasicDialog {

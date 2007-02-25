@@ -25,9 +25,9 @@ import org.ximtec.igesture.tool.frame.testset.action.ActionTestSetExport;
 import org.ximtec.igesture.tool.frame.testset.action.ActionTestSetImport;
 import org.ximtec.igesture.tool.frame.testset.action.ActionTestSetNew;
 import org.ximtec.igesture.tool.frame.testset.action.ActionTestSetOpen;
-import org.ximtec.igesture.tool.utils.CustomCellRenderer;
-import org.ximtec.igesture.tool.utils.ScrollableList;
-import org.ximtec.igesture.tool.utils.SwingTool;
+import org.ximtec.igesture.tool.util.CustomCellRenderer;
+import org.ximtec.igesture.tool.util.ScrollableList;
+import org.ximtec.igesture.tool.util.SwingTool;
 
 
 public class TestSetListFrame extends BasicInternalFrame implements

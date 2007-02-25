@@ -15,8 +15,8 @@ import org.ximtec.igesture.batch.BatchResultSet;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.utils.ScrollableList;
-import org.ximtec.igesture.tool.utils.SwingTool;
+import org.ximtec.igesture.tool.util.ScrollableList;
+import org.ximtec.igesture.tool.util.SwingTool;
 import org.ximtec.igesture.util.XMLTools;
 
 public class ActionStartBatch extends BasicAction {

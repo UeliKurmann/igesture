@@ -31,7 +31,7 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.tool.frame.classlist.GestureClassListFrame;
 import org.ximtec.igesture.tool.frame.classlist.GestureClassViewFrame;
 import org.ximtec.igesture.tool.frame.gestureset.GestureSetFrame;
-import org.ximtec.igesture.tool.utils.GuiFactory;
+import org.ximtec.igesture.tool.util.GuiFactory;
 
 
 /**

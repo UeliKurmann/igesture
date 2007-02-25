@@ -30,7 +30,7 @@ import java.awt.event.ActionEvent;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.frame.capture.GestureCaptureArea;
-import org.ximtec.igesture.tool.utils.SwingTool;
+import org.ximtec.igesture.tool.util.SwingTool;
 
 
 public class ActionCaptureGesture extends BasicAction {

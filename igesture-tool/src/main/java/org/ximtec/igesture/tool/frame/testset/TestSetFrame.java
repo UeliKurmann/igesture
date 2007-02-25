@@ -41,7 +41,7 @@ import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.TestTab;
 import org.ximtec.igesture.tool.event.CurrentGestureListener;
 import org.ximtec.igesture.tool.frame.testset.action.ActionTestSetAdd;
-import org.ximtec.igesture.tool.utils.SwingTool;
+import org.ximtec.igesture.tool.util.SwingTool;
 import org.ximtec.igesture.util.GestureTools;
 
 

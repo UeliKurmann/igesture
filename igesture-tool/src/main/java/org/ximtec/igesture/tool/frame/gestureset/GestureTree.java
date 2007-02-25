@@ -29,7 +29,7 @@ import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
-import org.ximtec.igesture.tool.utils.TreeRenderer;
+import org.ximtec.igesture.tool.util.TreeRenderer;
 
 
 public class GestureTree extends JTree implements TreeSelectionListener {

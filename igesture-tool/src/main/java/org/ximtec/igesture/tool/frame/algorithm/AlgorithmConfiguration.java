@@ -55,8 +55,8 @@ import org.ximtec.igesture.tool.frame.algorithm.action.ActionDeleteConfiguration
 import org.ximtec.igesture.tool.frame.algorithm.action.ActionExportConfiguration;
 import org.ximtec.igesture.tool.frame.algorithm.action.ActionLoadConfiguration;
 import org.ximtec.igesture.tool.frame.algorithm.action.ActionSaveConfiguration;
-import org.ximtec.igesture.tool.utils.ScrollableList;
-import org.ximtec.igesture.tool.utils.SwingTool;
+import org.ximtec.igesture.tool.util.ScrollableList;
+import org.ximtec.igesture.tool.util.SwingTool;
 
 
 public class AlgorithmConfiguration extends BasicInternalFrame implements

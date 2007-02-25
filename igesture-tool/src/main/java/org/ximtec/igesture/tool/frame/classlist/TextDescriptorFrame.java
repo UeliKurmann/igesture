@@ -34,8 +34,8 @@ import org.ximtec.igesture.core.TextDescriptor;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.frame.classlist.action.ActionSaveText;
-import org.ximtec.igesture.tool.utils.CloseFrameAction;
-import org.ximtec.igesture.tool.utils.SwingTool;
+import org.ximtec.igesture.tool.util.CloseFrameAction;
+import org.ximtec.igesture.tool.util.SwingTool;
 
 
 /**

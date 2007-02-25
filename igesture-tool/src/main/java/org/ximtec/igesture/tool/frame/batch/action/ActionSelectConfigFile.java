@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 
 import org.sigtec.graphix.BasicAction;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.utils.SwingTool;
+import org.ximtec.igesture.tool.util.SwingTool;
 
 public class ActionSelectConfigFile extends BasicAction {
 
