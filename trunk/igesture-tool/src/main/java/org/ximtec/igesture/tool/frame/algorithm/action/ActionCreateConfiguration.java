@@ -31,7 +31,7 @@ import javax.swing.AbstractAction;
 
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.tool.frame.algorithm.AlgorithmConfiguration;
-import org.ximtec.igesture.tool.utils.IconLoader;
+import org.ximtec.igesture.tool.util.IconLoader;
 
 
 /**

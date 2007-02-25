@@ -18,9 +18,9 @@ import org.ximtec.igesture.tool.event.TestSetListener;
 import org.ximtec.igesture.tool.frame.batch.action.ActionSelectConfigFile;
 import org.ximtec.igesture.tool.frame.batch.action.ActionSelectResultFile;
 import org.ximtec.igesture.tool.frame.batch.action.ActionStartBatch;
-import org.ximtec.igesture.tool.utils.ScrollableList;
-import org.ximtec.igesture.tool.utils.SimpleListModel;
-import org.ximtec.igesture.tool.utils.SwingTool;
+import org.ximtec.igesture.tool.util.ScrollableList;
+import org.ximtec.igesture.tool.util.SimpleListModel;
+import org.ximtec.igesture.tool.util.SwingTool;
 
 public class BatchFrame extends BasicInternalFrame implements
 		GestureSetListener, TestSetListener {

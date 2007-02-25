@@ -42,7 +42,7 @@ import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.GestureSetListener;
 import org.ximtec.igesture.tool.frame.algorithm.action.ActionExecuteRecogniser;
-import org.ximtec.igesture.tool.utils.SwingTool;
+import org.ximtec.igesture.tool.util.SwingTool;
 
 
 public class AlgorithmFrame extends BasicInternalFrame implements

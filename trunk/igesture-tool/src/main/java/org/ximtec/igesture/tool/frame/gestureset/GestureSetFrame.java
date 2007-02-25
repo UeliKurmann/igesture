@@ -47,7 +47,7 @@ import org.ximtec.igesture.tool.frame.gestureset.action.ActionExportGestureSet;
 import org.ximtec.igesture.tool.frame.gestureset.action.ActionExportIPaperForm;
 import org.ximtec.igesture.tool.frame.gestureset.action.ActionExportPDFGestureSet;
 import org.ximtec.igesture.tool.frame.gestureset.action.ActionImportGestureSet;
-import org.ximtec.igesture.tool.utils.SwingTool;
+import org.ximtec.igesture.tool.util.SwingTool;
 
 
 public class GestureSetFrame extends BasicInternalFrame implements

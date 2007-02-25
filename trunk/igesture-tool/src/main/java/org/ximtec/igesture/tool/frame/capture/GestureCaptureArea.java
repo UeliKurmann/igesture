@@ -39,8 +39,8 @@ import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.CurrentGestureListener;
 import org.ximtec.igesture.tool.frame.capture.action.ActionCaptureGesture;
 import org.ximtec.igesture.tool.frame.capture.action.ActionCaptureGestureClear;
-import org.ximtec.igesture.tool.utils.JNote;
-import org.ximtec.igesture.tool.utils.SwingTool;
+import org.ximtec.igesture.tool.util.JNote;
+import org.ximtec.igesture.tool.util.SwingTool;
 
 public class GestureCaptureArea extends BasicInternalFrame implements
 		CurrentGestureListener {

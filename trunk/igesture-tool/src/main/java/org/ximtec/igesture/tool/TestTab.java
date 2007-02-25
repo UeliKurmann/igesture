@@ -27,7 +27,7 @@ package org.ximtec.igesture.tool;
 
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.frame.testset.TestSetListFrame;
-import org.ximtec.igesture.tool.utils.GuiFactory;
+import org.ximtec.igesture.tool.util.GuiFactory;
 
 
 /**

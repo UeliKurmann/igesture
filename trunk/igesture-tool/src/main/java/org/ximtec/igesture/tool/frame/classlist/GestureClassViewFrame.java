@@ -50,10 +50,10 @@ import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.GestureClassListener;
 import org.ximtec.igesture.tool.frame.classlist.action.ActionDeleteDescriptor;
 import org.ximtec.igesture.tool.frame.classlist.action.ActionOpenDescriptorDialog;
-import org.ximtec.igesture.tool.utils.CloseFrameAction;
-import org.ximtec.igesture.tool.utils.ScrollableList;
-import org.ximtec.igesture.tool.utils.SimpleListModel;
-import org.ximtec.igesture.tool.utils.SwingTool;
+import org.ximtec.igesture.tool.util.CloseFrameAction;
+import org.ximtec.igesture.tool.util.ScrollableList;
+import org.ximtec.igesture.tool.util.SimpleListModel;
+import org.ximtec.igesture.tool.util.SwingTool;
 
 
 public class GestureClassViewFrame extends BasicInternalFrame implements

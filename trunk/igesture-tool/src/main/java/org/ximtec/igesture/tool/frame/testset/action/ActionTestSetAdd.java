@@ -31,8 +31,8 @@ import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.TestTab;
 import org.ximtec.igesture.tool.frame.testset.TestSetFrame;
-import org.ximtec.igesture.tool.utils.IconLoader;
-import org.ximtec.igesture.tool.utils.SwingTool;
+import org.ximtec.igesture.tool.util.IconLoader;
+import org.ximtec.igesture.tool.util.SwingTool;
 
 
 /**
