@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Custom cell renderer
+ * Purpose		: 	Custom cell renderer.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 					ukurmann	Initial Release
+ * Dec 22, 2006		ukurmann	Initial Release
+ * Feb 26, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -32,13 +33,21 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
 
+/**
+ * Custom cell renderer.
+ * 
+ * @version 1.0 Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class CustomCellRenderer implements ListCellRenderer {
 
    public Component getListCellRendererComponent(JList list, Object value,
          int index, boolean isSelected, boolean cellHasFocus) {
-      final Component component = (Component) value;
+      final Component component = (Component)value;
       component.setBackground(isSelected ? Color.gray : Color.white);
       component.setForeground(isSelected ? Color.white : Color.gray);
       return component;
-   }
+   } // getListCellRendererComponent
+
 }
