@@ -25,9 +25,9 @@
 
 package org.ximtec.igesture.tool.frame.algorithm;
 
+import org.sigtec.graphix.SimpleListModel;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.tool.GestureMainModel;
-import org.ximtec.igesture.tool.util.SimpleListModel;
 
 
 /**

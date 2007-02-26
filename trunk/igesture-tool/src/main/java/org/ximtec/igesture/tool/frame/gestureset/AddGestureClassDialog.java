@@ -28,6 +28,7 @@ package org.ximtec.igesture.tool.frame.gestureset;
 import java.awt.Component;
 import java.awt.GridBagLayout;
 
+import org.sigtec.graphix.SimpleListModel;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
@@ -35,7 +36,6 @@ import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.frame.gestureset.action.ActionAddGestureClass;
 import org.ximtec.igesture.tool.util.CloseDialogAction;
 import org.ximtec.igesture.tool.util.ScrollableList;
-import org.ximtec.igesture.tool.util.SimpleListModel;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 

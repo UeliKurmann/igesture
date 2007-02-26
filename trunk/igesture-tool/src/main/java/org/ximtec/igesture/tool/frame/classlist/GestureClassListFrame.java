@@ -34,6 +34,7 @@ import javax.swing.Action;
 import javax.swing.JPopupMenu;
 import javax.swing.ListModel;
 
+import org.sigtec.graphix.SimpleListModel;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.tool.AdminTab;
@@ -42,7 +43,6 @@ import org.ximtec.igesture.tool.event.GestureClassListener;
 import org.ximtec.igesture.tool.frame.classlist.action.ActionDeleteClass;
 import org.ximtec.igesture.tool.frame.classlist.action.ActionOpenEditClassFrame;
 import org.ximtec.igesture.tool.util.ScrollableList;
-import org.ximtec.igesture.tool.util.SimpleListModel;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
