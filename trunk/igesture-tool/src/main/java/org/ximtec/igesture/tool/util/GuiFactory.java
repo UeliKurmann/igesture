@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	static methods for creating gui components
+ * Purpose		: 	Static methods to create GUI components.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 					ukurmann	Initial Release
+ * Nov 28, 2006		ukurmann	Initial Release
+ * Feb 26, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -48,10 +49,11 @@ import org.ximtec.igesture.tool.frame.testset.TestSetListFrame;
 
 
 /**
- * Comment
+ * Static methods to create GUI components.
  * 
  * @version 1.0 Nov 28, 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class GuiFactory {
 
@@ -60,7 +62,7 @@ public class GuiFactory {
       final GestureCaptureArea gestureDrawArea = new GestureCaptureArea(mainView);
       gestureDrawArea.setBounds(x, y, 200, 280);
       return gestureDrawArea;
-   }
+   } // createGestureDrawArea
 
 
    public static BasicInternalFrame createGestureView(
@@ -73,7 +75,7 @@ public class GuiFactory {
       gestureSetArea.setBounds(x, y, 200, 280);
       gestureSetArea.setResizable(false);
       return gestureSetArea;
-   }
+   } // createGestureView
 
 
    public static BasicInternalFrame createTestView(TestTab testTab, int x, int y) {
@@ -87,7 +89,7 @@ public class GuiFactory {
       testFrame.setBounds(x, y, 200, 280);
       testFrame.setResizable(false);
       return testFrame;
-   }
+   } // createTestView
 
 
    public static BasicInternalFrame createGestureClassTable(
@@ -100,7 +102,7 @@ public class GuiFactory {
       final GestureClassListFrame table = new GestureClassListFrame(adminTab);
       table.setBounds(x, y, 200, 280);
       return table;
-   }
+   } // createGestureClassTable
 
 
    public static BasicInternalFrame createAlgorithmFrame(
@@ -108,7 +110,7 @@ public class GuiFactory {
       final AlgorithmFrame frame = new AlgorithmFrame(mainView, tab);
       frame.setBounds(x, y, 200, 400);
       return frame;
-   }
+   } // createAlgorithmFrame
 
 
    public static BasicInternalFrame createClassView(AdminTab adminTab,
@@ -117,7 +119,7 @@ public class GuiFactory {
             gestureClass, adminTab);
       frame.setBounds(200, 280, 200, 280);
       return frame;
-   }
+   } // createClassView
 
 
    public static BasicInternalFrame createTestSetList(GestureToolView mainView,
@@ -128,23 +130,24 @@ public class GuiFactory {
       testSetListFrame.setBounds(x, y, 200, 560);
       testSetListFrame.setResizable(false);
       return testSetListFrame;
-   }
+   } // createTestSetList
 
 
    public static BasicInternalFrame createDescriptorView(
          GestureToolView mainView, Descriptor descriptor) {
-
       BasicInternalFrame frame = null;
+
       if (descriptor instanceof TextDescriptor) {
-         frame = new TextDescriptorFrame(mainView, (TextDescriptor) descriptor);
+         frame = new TextDescriptorFrame(mainView, (TextDescriptor)descriptor);
       }
       else if (descriptor instanceof SampleDescriptor) {
          frame = new SampleDescriptorFrame(mainView,
-               (SampleDescriptor) descriptor);
+               (SampleDescriptor)descriptor);
       }
+
       frame.setBounds(400, 0, 200, 560);
       return frame;
-   }
+   } // createDescriptorView
 
 
    public static AlgorithmConfiguration createAlgorithmConfigurationFrame(
@@ -153,6 +156,6 @@ public class GuiFactory {
             mainView);
       algorithmConfiguration.setBounds(x, y, 400, 560);
       return algorithmConfiguration;
-   }
+   } // createAlgorithmConfigurationFrame
 
 }
