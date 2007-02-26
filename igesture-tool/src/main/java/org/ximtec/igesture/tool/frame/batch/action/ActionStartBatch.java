@@ -8,7 +8,7 @@ import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
-import org.sigtec.graphix.BasicAction;
+import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.FileHandler;
 import org.ximtec.igesture.batch.BatchProcess;
 import org.ximtec.igesture.batch.BatchResultSet;

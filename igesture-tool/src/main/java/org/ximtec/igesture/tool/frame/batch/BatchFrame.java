@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import org.sigtec.graphix.SimpleListModel;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.GestureSet;
@@ -19,7 +20,6 @@ import org.ximtec.igesture.tool.frame.batch.action.ActionSelectConfigFile;
 import org.ximtec.igesture.tool.frame.batch.action.ActionSelectResultFile;
 import org.ximtec.igesture.tool.frame.batch.action.ActionStartBatch;
 import org.ximtec.igesture.tool.util.ScrollableList;
-import org.ximtec.igesture.tool.util.SimpleListModel;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 public class BatchFrame extends BasicInternalFrame implements
