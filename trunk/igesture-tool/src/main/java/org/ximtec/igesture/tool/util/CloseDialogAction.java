@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Closes a dialog
+ * Purpose		:   Action to close a dialog.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006		ukurmann	Initial Release
+ * Feb 26, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -34,9 +35,10 @@ import org.sigtec.graphix.widget.BasicAction;
 
 
 /**
- * Action to close a JDialog
+ * Action to close a dialog.
  * 
- * @version 1.0 09.06.2006
+ * @version 1.0 Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class CloseDialogAction extends BasicAction {
@@ -46,12 +48,14 @@ public class CloseDialogAction extends BasicAction {
    }
 
 
-   public void actionPerformed(ActionEvent e) {
-      Component comp = (Component) e.getSource();
-      while (!(comp instanceof JDialog)) {
-         comp = comp.getParent();
+   public void actionPerformed(ActionEvent event) {
+      Component component = (Component)event.getSource();
+
+      while (!(component instanceof JDialog)) {
+         component = component.getParent();
       }
-      comp.setVisible(false);
-   }
+
+      component.setVisible(false);
+   } // actionPerformed
 
 }
