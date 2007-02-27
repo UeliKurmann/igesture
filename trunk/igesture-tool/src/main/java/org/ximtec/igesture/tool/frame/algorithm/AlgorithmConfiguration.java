@@ -185,7 +185,7 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
       configuration.addAlgorithm(algorithm.getClass().getCanonicalName());
       for (final Enum e : algorithm.getConfigParameters()) {
          configuration.addAlgorithmParameter(algorithm.getClass().getName(), e
-               .name(), algorithm.getDefaultParameter(e.name()));
+               .name(), algorithm.getDefaultParameterValue(e.name()));
       }
       return configuration;
    }
