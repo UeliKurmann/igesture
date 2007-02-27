@@ -28,6 +28,8 @@ package org.ximtec.igesture.algorithm.siger;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
+import org.sigtec.util.Constant;
+
 
 public class Parser {
 
@@ -80,7 +82,7 @@ public class Parser {
       }
       else {
          regexExpression = this.expression;
-         constraintExpression = "";
+         constraintExpression = Constant.EMPTY_STRING;
       }
    }
 

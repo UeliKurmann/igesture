@@ -80,7 +80,7 @@ public class SigerRecogniser extends DefaultAlgorithm {
       result.setNote(note);
       for (final ClassMatcher regex : gestures.keySet()) {
          if (regex.isMatch(si)) {
-            result.add(new Result(gestures.get(regex), 1));
+            result.addResult(new Result(gestures.get(regex), 1));
          }
       }
 

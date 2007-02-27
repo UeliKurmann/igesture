@@ -31,6 +31,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.sigtec.ink.Note;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.DataObject;
@@ -174,10 +175,10 @@ public class GestureMainModel {
          testSets.add(dataObject);
       }
 
-      fireConfigurationChanged(new EventObject(""));
-      fireGesturedClassChanged(new EventObject(""));
-      fireGesturedSetChanged(new EventObject(""));
-      fireTestSetChanged(new EventObject(""));
+      fireConfigurationChanged(new EventObject(Constant.EMPTY_STRING));
+      fireGesturedClassChanged(new EventObject(Constant.EMPTY_STRING));
+      fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
+      fireTestSetChanged(new EventObject(Constant.EMPTY_STRING));
    }
 
 
@@ -223,7 +224,7 @@ public class GestureMainModel {
       }
 
       storageManager.store(gestureSet);
-      fireGesturedSetChanged(new EventObject(""));
+      fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
    }
 
 
@@ -238,7 +239,7 @@ public class GestureMainModel {
          gestureClasses.add(gestureClass);
       }
       storageManager.store(gestureClass);
-      fireGesturedClassChanged(new EventObject(""));
+      fireGesturedClassChanged(new EventObject(Constant.EMPTY_STRING));
    }
 
 
@@ -250,7 +251,7 @@ public class GestureMainModel {
    public void removeGestureClass(GestureClass gestureClass) {
       gestureClasses.remove(gestureClass);
       storageManager.remove(gestureClass);
-      fireGesturedClassChanged(new EventObject(""));
+      fireGesturedClassChanged(new EventObject(Constant.EMPTY_STRING));
    }
 
 
@@ -265,7 +266,7 @@ public class GestureMainModel {
       }
 
       storageManager.store(configuration);
-      fireConfigurationChanged(new EventObject(""));
+      fireConfigurationChanged(new EventObject(Constant.EMPTY_STRING));
    }
 
 
@@ -277,7 +278,7 @@ public class GestureMainModel {
    public void removeConfiguration(Configuration configuration) {
       storageManager.remove(configuration);
       configurations.remove(configuration);
-      fireConfigurationChanged(new EventObject(""));
+      fireConfigurationChanged(new EventObject(Constant.EMPTY_STRING));
    }
 
 
@@ -290,7 +291,7 @@ public class GestureMainModel {
    public void addClassToSet(GestureSet set, GestureClass gestureClass) {
       set.addGestureClass(gestureClass);
       storageManager.update(set);
-      fireGesturedSetChanged(new EventObject(""));
+      fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
    }
 
 
@@ -303,7 +304,7 @@ public class GestureMainModel {
    public void removeClassFromSet(GestureSet set, GestureClass gestureClass) {
       set.delGestureClass(gestureClass);
       storageManager.update(set);
-      fireGesturedSetChanged(new EventObject(""));
+      fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
    }
 
 
@@ -315,7 +316,7 @@ public class GestureMainModel {
    public void removeGestureSet(GestureSet set) {
       storageManager.remove(set);
       gestureSets.remove(set);
-      fireGesturedSetChanged(new EventObject(""));
+      fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
    }
 
 
@@ -326,7 +327,7 @@ public class GestureMainModel {
     */
    public void setCurrentNote(Note note) {
       this.currentNote = note;
-      fireCurrentGestureChanged(new EventObject(""));
+      fireCurrentGestureChanged(new EventObject(Constant.EMPTY_STRING));
    }
 
 
@@ -364,7 +365,7 @@ public class GestureMainModel {
    public void addTestSet(TestSet testSet) {
       storageManager.store(testSet);
       testSets.add(testSet);
-      fireTestSetChanged(new EventObject(""));
+      fireTestSetChanged(new EventObject(Constant.EMPTY_STRING));
    }
 
 
@@ -376,7 +377,7 @@ public class GestureMainModel {
    public void removeTestSet(TestSet testSet) {
       storageManager.remove(testSet);
       testSets.remove(testSet);
-      fireTestSetChanged(new EventObject(""));
+      fireTestSetChanged(new EventObject(Constant.EMPTY_STRING));
    }
 
 
