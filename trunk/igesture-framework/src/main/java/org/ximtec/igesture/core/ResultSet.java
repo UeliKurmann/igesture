@@ -183,7 +183,7 @@ public class ResultSet {
       final StringBuilder sb = new StringBuilder();
       sb.append("[ResultSet");
       for (final Result r : this.getResults()) {
-         sb.append("  [" + r.getName() + ", " + r.getAccuracy() + "]");
+         sb.append("  [" + r.getGestureClassName() + ", " + r.getAccuracy() + "]");
       }
       sb.append("]");
       return sb.toString();

@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Result of the recognition process
+ * Purpose      : 	A single result of the recognition process.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Feb 27, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -25,13 +26,15 @@
 
 package org.ximtec.igesture.core;
 
-/**
- * this class represents a single result of a recognition process
- * 
- * @author Ueli Kurmann
- * 
- */
+import org.sigtec.util.Constant;
 
+
+/**
+ * A single result of the recognition process.
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class Result {
 
    private GestureClass gestureClass;
@@ -42,10 +45,10 @@ public class Result {
 
 
    /**
-    * Constructor
+    * Constructs a new result.
     * 
-    * @param gestureClass
-    * @param accuracy
+    * @param gestureClass the recognised gesture class.
+    * @param accuracy the accurancy for the recognised gesture class.
     */
    public Result(GestureClass gestureClass, double accuracy) {
       this.gestureClass = gestureClass;
@@ -54,23 +57,23 @@ public class Result {
 
 
    /**
-    * Returns the accuracy computed by the algorithm.
+    * Sets the accuracy for the gesture class of this result object.
     * 
-    * @return the accuracy
-    */
-   public double getAccuracy() {
-      return accuracy;
-   }
-
-
-   /**
-    * Sets the accuracy
-    * 
-    * @param accuracy
+    * @param accuracy the accuracy for the gesture class of this result object.
     */
    public void setAccuracy(double accuracy) {
       this.accuracy = accuracy;
-   }
+   } // setAccuracy
+
+
+   /**
+    * Returns the accuracy for the gesture class of this result object.
+    * 
+    * @return the accuracy for the gesture class of this result object.
+    */
+   public double getAccuracy() {
+      return accuracy;
+   } // getAccuracy
 
 
    /**
@@ -84,40 +87,38 @@ public class Result {
 
 
    /**
-    * Returns the name of the Gesture Class of this Result
+    * Sets a a user object. A user object enables an algorithm to return an
+    * arbritary object. However, the user is responsible for the correct handling
+    * since no explicit type information is available.
     * 
-    * @return the name of the gesture class
-    */
-   public String getName() {
-      if (gestureClass != null & gestureClass.getName() != null) {
-         return gestureClass.getName();
-      }
-      else {
-         return "";
-      }
-   }
-
-
-   /**
-    * Returns the userObject. A user object allows the returnment of an arbritary
-    * object by the algorithm. the user is responsible to use this functionality.
-    * no guarantee about the type is possible.
-    * 
-    * @return the user object
-    */
-   public Object getUserObject() {
-      return userObject;
-   }
-
-
-   /**
-    * Sets the userObject.
-    * 
-    * @see getUserObject()
-    * @param userObject
+    * @param userObject the user object to be set.
     */
    public void setUserObject(Object userObject) {
       this.userObject = userObject;
-   }
+   } // setUserObject
+
+
+   /**
+    * Returns a user object. A user object enables an algorithm to return an
+    * arbritary object. However, the user is responsible for the correct handling
+    * since no explicit type information is available.
+    * 
+    * @return the user object.
+    */
+   public Object getUserObject() {
+      return userObject;
+   } // getUserObject
+
+
+   /**
+    * Returns the name of the gesture class represented by this result or an
+    * empty string if no gesture class is associated with this result object.
+    * 
+    * @return the name of the gesture class represented by this result.
+    */
+   public String getGestureClassName() {
+      return (gestureClass != null & gestureClass.getName() != null)
+            ? gestureClass.getName() : Constant.EMPTY_STRING;
+   } // getGestureClassName
 
 }

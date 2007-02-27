@@ -3,7 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Interface for persistent objects
+ * Purpose      : 	Interface to be implemented by persistent-capable
+ *                  objects.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +12,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Feb 27, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -25,21 +27,27 @@
 
 package org.ximtec.igesture.core;
 
+/**
+ * Interface to be implemented by persistent-capable objects.
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public interface DataObject {
 
    /**
-    * Returns the UUID of the object
+    * Returns the object's Universally Unique Identifier (UUID).
     * 
-    * @return the UUID of the object
+    * @return the object's UUID.
     */
    public String getID();
 
 
    /**
-    * Sets the UUID of the Object
+    * Sets the object's Universally Unique Identifier (UUID).
     * 
-    * @param objectID the UUID
+    * @param id the objects UUID.
     */
-   public void setID(String objectID);
+   public void setID(String id);
 
 }
