@@ -439,7 +439,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       final ResultSet resultSet = new ResultSet();
       if (probability >= this.probability
             && distance <= this.mahalanobisDistance) {
-         resultSet.add(new Result(classifiedGesture, 1));
+         resultSet.addResult(new Result(classifiedGesture, 1));
          LOGGER.info("Distance: " + distance);
       }
       else {

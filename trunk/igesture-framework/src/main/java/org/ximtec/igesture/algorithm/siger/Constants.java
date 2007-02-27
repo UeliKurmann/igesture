@@ -24,6 +24,8 @@
 
 package org.ximtec.igesture.algorithm.siger;
 
+import org.sigtec.util.Constant;
+
 /**
  * Comment
  * 
@@ -80,7 +82,7 @@ public class Constants {
 		case NE:
 			return NE;
 		default:
-			return "";
+			return Constant.EMPTY_STRING;
 		}
 	}
 }

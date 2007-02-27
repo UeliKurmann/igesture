@@ -32,6 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.sigtec.ink.Note;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.algorithm.AlgorithmTool;
 import org.ximtec.igesture.algorithm.SampleBasedAlgorithm;
 import org.ximtec.igesture.configuration.Configuration;
@@ -89,12 +90,12 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
       final HashMap<String, String> parameters = config
             .getAlgorithmParameters(this.getClass().getCanonicalName());
 
-      gridSize = (int) AlgorithmTool.getDoubleParameterValue(Config.GRID_SIZE
+      gridSize = (int)AlgorithmTool.getDoubleParameterValue(Config.GRID_SIZE
             .name(), parameters, DEFAULT_CONFIGURATION);
       LOGGER.info(Config.GRID_SIZE.name() + ": " + gridSize);
 
-      rasterSize = (int) AlgorithmTool.getDoubleParameterValue(
-            Config.RASTER_SIZE.name(), parameters, DEFAULT_CONFIGURATION);
+      rasterSize = (int)AlgorithmTool.getDoubleParameterValue(Config.RASTER_SIZE
+            .name(), parameters, DEFAULT_CONFIGURATION);
       LOGGER.info(Config.RASTER_SIZE.name() + ": " + rasterSize);
 
       distanceAlgorithm = createDistanceAlgorithm(AlgorithmTool
@@ -120,7 +121,7 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
       signatures = new ArrayList<GestureSignature>();
       for (final GestureClass gestureClass : gestureSet.getGestureClasses()) {
          for (final GestureSample sample : getSamples(gestureClass)) {
-            signatures.add(new GestureSignature((Note) sample.getNote().clone(),
+            signatures.add(new GestureSignature((Note)sample.getNote().clone(),
                   gestureClass, rasterSize, gridSize));
          }
       }
@@ -128,7 +129,7 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
 
 
    public ResultSet recognise(Note note) {
-      final GestureSignature input = new GestureSignature((Note) note.clone(),
+      final GestureSignature input = new GestureSignature((Note)note.clone(),
             null, rasterSize, gridSize);
 
       final ResultSet resultSet = new ResultSet(maxResultSetSize);
@@ -146,7 +147,7 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
                + "; Accuracy = " + computeAccuracy(d, numOfBits) + "]");
          if (computeAccuracy(d, numOfBits) >= minAccuracy) {
             if (!resultSet.contains(signature.getGestureClass())) {
-               resultSet.add(new Result(signature.getGestureClass(),
+               resultSet.addResult(new Result(signature.getGestureClass(),
                      computeAccuracy(d, numOfBits)));
             }
             else {
@@ -175,7 +176,7 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
     * @return
     */
    private static double computeAccuracy(int distance, int numOfBits) {
-      final double accuracy = (1 - (double) distance / numOfBits);
+      final double accuracy = (1 - (double)distance / numOfBits);
       return accuracy > 0 ? accuracy : 0;
    }
 
@@ -188,23 +189,23 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
     */
    private static DistanceFunction createDistanceAlgorithm(String className) {
       try {
-         return (DistanceFunction) Class.forName(className.trim()).newInstance();
+         return (DistanceFunction)Class.forName(className.trim()).newInstance();
       }
       catch (final InstantiationException e) {
-         LOGGER.throwing("", "", e);
+         LOGGER.throwing(Constant.EMPTY_STRING, Constant.EMPTY_STRING, e);
       }
       catch (final IllegalAccessException e) {
-         LOGGER.throwing("", "", e);
+         LOGGER.throwing(Constant.EMPTY_STRING, Constant.EMPTY_STRING, e);
       }
       catch (final ClassNotFoundException e) {
-         LOGGER.throwing("", "", e);
+         LOGGER.throwing(Constant.EMPTY_STRING, Constant.EMPTY_STRING, e);
       }
       return null;
    }
 
 
    @SuppressWarnings("unchecked")
-	public Enum[] getConfigParameters() {
+   public Enum[] getConfigParameters() {
       return Config.values();
    }
 }

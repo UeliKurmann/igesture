@@ -28,6 +28,8 @@ package org.ximtec.igesture.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.sigtec.util.Constant;
+
 
 public class GestureSet extends DefaultDataObject {
 
@@ -41,7 +43,7 @@ public class GestureSet extends DefaultDataObject {
     * 
     */
    public GestureSet() {
-      this("");
+      this(Constant.EMPTY_STRING);
    }
 
 

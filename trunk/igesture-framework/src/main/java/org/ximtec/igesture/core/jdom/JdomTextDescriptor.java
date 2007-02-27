@@ -27,6 +27,7 @@ package org.ximtec.igesture.core.jdom;
 
 import org.jdom.Element;
 import org.sigtec.jdom.element.JdomStringElement;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.TextDescriptor;
 
 
@@ -48,7 +49,7 @@ public class JdomTextDescriptor extends Element {
 
    public static Object unmarshal(Element descriptor) {
       final String uuid = descriptor.getAttributeValue(UUID_ATTRIBUTE);
-      final TextDescriptor textDescriptor = new TextDescriptor("");
+      final TextDescriptor textDescriptor = new TextDescriptor();
       textDescriptor.setID(uuid);
       textDescriptor.setText(descriptor.getChild(TEXT).getText());
       return textDescriptor;

@@ -32,6 +32,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.SampleDescriptor;
@@ -90,7 +91,7 @@ public class PDFTool {
       }
 
       for (int i = 0; i <= set.size() % 3; i++) {
-         table.addCell("");
+         table.addCell(Constant.EMPTY_STRING);
       }
 
       return table;

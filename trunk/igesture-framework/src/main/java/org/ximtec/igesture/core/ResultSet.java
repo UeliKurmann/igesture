@@ -1,9 +1,9 @@
 /*
- * @(#)Direction.java   1.0   Dec 26, 2006
+ * @(#)ResultSet.java   1.0   Dec 26, 2006
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Holds a set of results
+ * Purpose      : 	Holds a set of result objects.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Feb 27, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -20,11 +21,6 @@
  * This software is the proprietary information of ETH Zurich.
  * Use is subject to license terms.
  * 
- */
-
-/**
- * This class groups a set of results. 
- * @author Ueli Kurmann
  */
 
 
@@ -38,6 +34,12 @@ import java.util.List;
 import org.sigtec.ink.Note;
 
 
+/**
+ * Holds a set of result objects.
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ResultSet {
 
    private List<Result> results;
@@ -48,18 +50,17 @@ public class ResultSet {
 
 
    /**
-    * Constructor
-    * 
+    * Constructs a new result set.
     */
    public ResultSet() {
       this(Integer.MAX_VALUE);
    }
 
 
-   /*****************************************************************************
-    * Constructor
+   /**
+    * Constructs a new result set with a specific maximal size.
     * 
-    * @param maxSize maximal size of the result set
+    * @param maxSize the maximal size of the result set.
     */
    public ResultSet(int maxSize) {
       results = new ArrayList<Result>();
@@ -68,47 +69,12 @@ public class ResultSet {
 
 
    /**
-    * Returns the list of all results
+    * Adds a result object to the result set. The result set is always ordered by
+    * the accuracy value of the result objects.
     * 
-    * @return the list of results
+    * @param result the result object to be added.
     */
-   public List<Result> getResults() {
-      final List<Result> results = new ArrayList<Result>();
-      for (int i = 0; i < maxSize && i < this.results.size(); i++) {
-         results.add(this.results.get(i));
-      }
-      return results;
-   }
-
-
-   /**
-    * returns the ith result
-    * 
-    * @param i the index of the result
-    * @return the ith result
-    */
-   public Result getResult(int i) {
-      return results.get(i);
-   }
-
-
-   /**
-    * returns the first, most suitable result
-    * 
-    * @return
-    */
-   public Result getResult() {
-      return !results.isEmpty() ? getResult(0) : null;
-   }
-
-
-   /**
-    * add a result to the result set. the result set is always ordered by the
-    * accuracy of the results
-    * 
-    * @param result the result to add
-    */
-   public synchronized void add(Result result) {
+   public synchronized void addResult(Result result) {
       results.add(result);
 
       /**
@@ -121,6 +87,43 @@ public class ResultSet {
          }
       });
    }
+
+
+   /**
+    * Returns a list containing all result objects.
+    * 
+    * @return the list of result objects.
+    */
+   public List<Result> getResults() {
+      final List<Result> results = new ArrayList<Result>();
+      for (int i = 0; i < maxSize && i < this.results.size(); i++) {
+         results.add(this.results.get(i));
+      }
+      return results;
+   }
+
+
+   /**
+    * Returns the result for a given index.
+    * 
+    * @param index the index of the result object to be returned.
+    * @return the result object for the given index position.
+    */
+   public Result getResult(int index) {
+      return results.get(index);
+   } // getResult
+
+
+   /**
+    * Returns the first result object which is also the result object with the
+    * highest recognition accuracy.
+    * 
+    * @return the first result object or null if the result set does not contain
+    *         any result obejcts.
+    */
+   public Result getResult() {
+      return !results.isEmpty() ? getResult(0) : null;
+   } // getResult
 
 
    /**
@@ -183,7 +186,8 @@ public class ResultSet {
       final StringBuilder sb = new StringBuilder();
       sb.append("[ResultSet");
       for (final Result r : this.getResults()) {
-         sb.append("  [" + r.getGestureClassName() + ", " + r.getAccuracy() + "]");
+         sb.append("  [" + r.getGestureClassName() + ", " + r.getAccuracy()
+               + "]");
       }
       sb.append("]");
       return sb.toString();

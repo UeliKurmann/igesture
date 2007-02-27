@@ -25,6 +25,8 @@
 
 package org.ximtec.igesture.core;
 
+import org.sigtec.util.Constant;
+
 public class TextDescriptor extends DefaultDescriptor {
 
    private String text;
@@ -35,7 +37,7 @@ public class TextDescriptor extends DefaultDescriptor {
     * 
     */
    public TextDescriptor() {
-      this("");
+      this(Constant.EMPTY_STRING);
    }
 
 

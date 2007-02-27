@@ -138,7 +138,7 @@ public class Recogniser {
       for (final Algorithm algorithm : algorithms) {
 
          for (final Result r : algorithm.recognise(note).getResults()) {
-            result.add(r);
+            result.addResult(r);
          }
 
          if (!result.isEmpty() && !recogniseAll) {

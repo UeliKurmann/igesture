@@ -29,6 +29,7 @@ import java.awt.GridBagLayout;
 
 import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.graphix.widget.BasicTextField;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.frame.gestureset.action.ActionAddGestureSet;
 import org.ximtec.igesture.tool.util.CloseDialogAction;
@@ -56,7 +57,7 @@ public class AddGestureSetDialog extends BasicDialog {
       addComponent(SwingTool.createLabel(GestureConstants.COMMON_NAME),
             SwingTool.createGridBagConstraint(0, 0));
 
-      txtName = SwingTool.createTextField("");
+      txtName = SwingTool.createTextField(Constant.EMPTY_STRING);
 
       addComponent(txtName, SwingTool.createGridBagConstraint(1, 0));
 

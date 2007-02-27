@@ -39,6 +39,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.sigtec.util.Constant;
 import org.sigtec.util.FileHandler;
 import org.ximtec.igesture.util.XMLTools;
 
@@ -116,7 +117,7 @@ public class BatchMain {
                   xmlDocument);
          }
          if (line.hasOption(XSL) && line.hasOption(HTML)) {
-            String htmlPage = "";
+            String htmlPage = Constant.EMPTY_STRING;
             try {
                htmlPage = XMLTools.transform(xmlDocument, line
                      .getOptionValue(XSL));

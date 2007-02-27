@@ -52,7 +52,7 @@ public class HWRecogniser extends DefaultAlgorithm {
       final Note clone = (Note) note.clone();
       final Result result = recogniser.recognise(clone);
       final ResultSet resultSet = new ResultSet();
-      resultSet.add(new org.ximtec.igesture.core.Result(new GestureClass(result
+      resultSet.addResult(new org.ximtec.igesture.core.Result(new GestureClass(result
             .getText()), result.getConfidence()));
 
       fireEvent(resultSet);

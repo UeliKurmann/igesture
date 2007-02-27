@@ -28,6 +28,7 @@ package org.ximtec.igesture.tool.frame.classlist.action;
 import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.widget.BasicAction;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.tool.AdminTab;
 import org.ximtec.igesture.tool.GestureConstants;
@@ -57,7 +58,7 @@ public class ActionOpenEditClassFrame extends BasicAction {
 
    public void actionPerformed(ActionEvent arg0) {
       if (gestureClass == null) {
-         gestureClass = new GestureClass("");
+         gestureClass = new GestureClass(Constant.EMPTY_STRING);
       }
       adminTab.addClassView(gestureClass);
    }
