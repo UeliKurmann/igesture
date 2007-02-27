@@ -56,6 +56,7 @@ public class Recogniser {
     * Creates a new recogniser.
     * 
     * @param config the configuration object.
+    * @throws AlgorithmException if the recogniser could not be created.
     */
    public Recogniser(Configuration config) throws AlgorithmException {
       algorithms = AlgorithmFactory.createAlgorithms(config);
@@ -67,6 +68,7 @@ public class Recogniser {
     * 
     * @param config the configuration object.
     * @param eventManager the event manager.
+    * @throws AlgorithmException if the recogniser could not be created.
     */
    public Recogniser(Configuration config, EventManager eventManager)
          throws AlgorithmException {
@@ -81,6 +83,7 @@ public class Recogniser {
     * 
     * @param config the configuration object.
     * @param gestureSet the gesture set to be used.
+    * @throws AlgorithmException if the recogniser could not be created.
     */
    public Recogniser(Configuration config, GestureSet gestureSet)
          throws AlgorithmException {
@@ -93,6 +96,7 @@ public class Recogniser {
     * Creates a new recogniser.
     * 
     * @param configFile the file containing the XML configuration.
+    * @throws AlgorithmException if the recogniser could not be created.
     */
    public Recogniser(File configFile) throws AlgorithmException {
       this(XMLTools.importConfiguration(configFile));
@@ -104,7 +108,8 @@ public class Recogniser {
     * 
     * @param configFile the file containing the XML configuration.
     * @param setFile the file containing the gesture set in XML format.
-    * @param eventManager the event manager
+    * @param eventManager the event manager to be informed about results.
+    * @throws AlgorithmException if the recogniser could not be created.
     */
    public Recogniser(File configFile, File setFile, EventManager eventManager)
          throws AlgorithmException {

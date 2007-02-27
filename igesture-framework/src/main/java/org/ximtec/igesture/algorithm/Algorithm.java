@@ -3,15 +3,17 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Interface for Algorithm implementations
+ * Purpose      : 	Interface to be implemented by any gesture recognition
+ *                  algorithms.
  *
  * -----------------------------------------------------------------------
  *
  * Revision Information:
- *
+ * 
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Feb 27, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -31,47 +33,57 @@ import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.EventManager;
 
 
+/**
+ * Interface to be implemented by any gesture recognition algorithms.
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public interface Algorithm {
 
    /**
-    * Initialises the algorithm
+    * Initialises the algorithm.
     * 
-    * @param gestureSet
+    * @param configuration the configuration to be used for the initialisation of
+    *           the algorithm.
+    * @throws AlgorithmException if there is a problem in the algorithm's
+    *            initialisation phase.
     */
    public void init(Configuration configuration) throws AlgorithmException;
 
 
    /**
-    * Runs the recogniser with the given gesture
+    * Runs the recogniser on a given set of strokes represented by a note.
     * 
-    * @param gesture
-    * @return
+    * @param note the note to be recognised.
+    * @return the result set containing the recognised gesture classes.
     */
    public ResultSet recognise(Note note);
 
 
    /**
-    * Registers the Eventmanager. So the algorithm is able to fire results as
-    * events.
+    * Registers an event manager to be informed about any results.
     * 
-    * @param eventManager
+    * @param eventManager the event manager to be informed about results of the
+    *           recognition process.
     */
    public void addEventManagerListener(EventManager eventManager);
 
 
    /**
-    * Returns an array of configuration parameters
+    * Returns an array of containing the configuration parameters.
     * 
-    * @return the configuration parameters
+    * @return the configuration parameters.
     */
    public Enum[] getConfigParameters();
 
 
    /**
-    * Returns the default value of the given parameter
+    * Returns the default value for a given parameter.
     * 
-    * @param paramaterName the parameter name
-    * @return the default value of the parameter
+    * @param parameterName the name of the parameter whose default value has to
+    *           be returned.
+    * @return the default value for the specified parameter.
     */
-   public String getDefaultParameter(String paramaterName);
+   public String getDefaultParameterValue(String parameterName);
 }

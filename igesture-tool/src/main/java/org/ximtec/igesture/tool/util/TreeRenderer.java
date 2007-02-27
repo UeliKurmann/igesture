@@ -38,7 +38,6 @@ import org.ximtec.igesture.core.GestureSet;
 
 
 public class TreeRenderer extends DefaultTreeCellRenderer {
-   
 
    private static final ImageIcon PLUS_ICON = IconTool.getIcon("icons/plus",
          Decorator.SIZE_16);
@@ -56,16 +55,16 @@ public class TreeRenderer extends DefaultTreeCellRenderer {
 
       this.setOpenIcon(PLUS_ICON);
       this.setClosedIcon(MINUS_ICON);
-      
-      
-      if(value instanceof GestureSet){
-    	  this.setIcon(IconLoader.getIcon(IconLoader.PACKAGE));
-      }else if(value instanceof GestureClass){
-    	  this.setIcon(IconLoader.getIcon(IconLoader.TEXT_SCRIPT));
-      }else{
-    	 this.setIcon(IconLoader.getIcon(IconLoader.HARDDISK));
+
+      if (value instanceof GestureSet) {
+         this.setIcon(IconLoader.getIcon(IconLoader.PACKAGE));
       }
-      
+      else if (value instanceof GestureClass) {
+         this.setIcon(IconLoader.getIcon(IconLoader.TEXT_SCRIPT));
+      }
+      else {
+         this.setIcon(IconLoader.getIcon(IconLoader.HARDDISK));
+      }
 
       return this;
    }
