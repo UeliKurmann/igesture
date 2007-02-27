@@ -51,7 +51,7 @@ public class HelloWorldXML implements ButtonDeviceEventListener {
 		if (result.isEmpty()) {
 			System.out.println("not recognised");
 		} else {
-			System.out.println(result.getResult().getName());
+			System.out.println(result.getResult().getGestureClassName());
 		}
 	}
 }

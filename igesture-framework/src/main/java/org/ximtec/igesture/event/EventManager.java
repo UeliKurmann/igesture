@@ -106,7 +106,7 @@ public class EventManager {
          }
          else {
             EventHandler eventHandler;
-            if ((eventHandler = events.get(resultSet.getResult().getName())) != null) {
+            if ((eventHandler = events.get(resultSet.getResult().getGestureClassName())) != null) {
                eventHandler.run(resultSet);
             }
          }

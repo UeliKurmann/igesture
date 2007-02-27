@@ -15,7 +15,7 @@ public class StyleEventHandler implements EventHandler {
 	}
 
 	public void run(ResultSet resultSet) {
-		String command = resultSet.getResult().getName();
+		String command = resultSet.getResult().getGestureClassName();
 		if(command.equals("Red")){
 			style.setColor(Color.RED);
 		}else if(command.equals("Black")){

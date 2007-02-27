@@ -23,7 +23,7 @@ public class DrawEventHandler implements EventHandler {
 	public void run(ResultSet resultSet) {
 		Result result = resultSet.getResult();
 		Note note = resultSet.getNote();
-		System.out.println(result.getName());
+		System.out.println(result.getGestureClassName());
 		graphic.setStroke(style.getStroke());
 		graphic.setColor(style.getColor());
 		DigitalDescriptor descriptor = result.getGestureClass().getDescriptor(DigitalDescriptor.class);

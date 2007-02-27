@@ -132,7 +132,7 @@ public class BatchProcess {
 							batchResult.incRejectError(sample.getName());
 						}
 					} else {
-						if (resultSet.getResult().getName().equals(
+						if (resultSet.getResult().getGestureClassName().equals(
 								sample.getName())) {
 							batchResult.incCorrect(sample.getName());
 						} else {
