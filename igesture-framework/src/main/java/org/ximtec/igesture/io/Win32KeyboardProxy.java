@@ -87,6 +87,11 @@ public class Win32KeyboardProxy {
 	public static int F10 = 0x79;
 	public static int F11 = 0x7A;
 	public static int F12 = 0x7B;
+	
+	public static int LEFT = 0x25;
+	public static int UP = 0x26;
+	public static int RIGHT = 0x27;	
+	public static int DOWN = 0x28;
 
 	private static int KEY_DOWN = 0x0;
 	private static int KEY_UP = 0x2;
@@ -110,6 +115,16 @@ public class Win32KeyboardProxy {
 	public static void main(String[] args) {
 		pressKey(new int[]{ALT,F4});
 	}
+	
+	public static void pressKey(Integer[] keys){
+		for(int key:keys){
+			keyDown(key);
+		}
+		for(int key:keys){
+			keyUp(key);
+		}
+	}
+	
 	
 	public static void pressKey(int[] keys){
 		for(int key:keys){
