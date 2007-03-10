@@ -112,10 +112,6 @@ public class Win32KeyboardProxy {
 		}
 	}
 
-	public static void main(String[] args) {
-		pressKey(new int[]{ALT,F4});
-	}
-	
 	public static void pressKey(Integer[] keys){
 		for(int key:keys){
 			keyDown(key);
