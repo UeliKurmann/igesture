@@ -1,3 +1,27 @@
+/*
+ * @(#)PressKeystroke.java   1.0   March 09, 2007
+ *
+ * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ *
+ * Purpose      : 	
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Revision Information:
+ *
+ * Date             Who         Reason
+ *
+ * 09.03.2007       ukurmann    Initial Release
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Copyright 1999-2007 ETH Zurich. All Rights Reserved.
+ *
+ * This software is the proprietary information of ETH Zurich.
+ * Use is subject to license terms.
+ * 
+ */
+
 package org.igesture.app.keyboard;
 
 import org.ximtec.igesture.core.ResultSet;
@@ -13,7 +37,6 @@ public class PressKeystroke implements EventHandler {
 	}
 
 	public void run(ResultSet resultSet) {
-		System.out.println(resultSet.getResult().getGestureClassName());
 		Win32KeyboardProxy.pressKey(keys);
 	}
 
