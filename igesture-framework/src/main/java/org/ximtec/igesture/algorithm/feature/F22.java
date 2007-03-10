@@ -1,5 +1,5 @@
 /*
- * @(#)Direction.java   1.0   Dec 26, 2006
+ * @(#)F22.java   1.0   Dec 26, 2006
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
