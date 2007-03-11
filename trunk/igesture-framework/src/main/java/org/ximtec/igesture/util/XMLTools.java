@@ -256,7 +256,7 @@ public class XMLTools {
 	 *            the XML file
 	 * @return the JDOM Document
 	 */
-	private static Document importDocument(File file) {
+	public static Document importDocument(File file) {
 		Document document = null;
 		try {
 			final InputStream inputStream = new FileInputStream(file);
