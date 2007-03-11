@@ -25,6 +25,7 @@
 package org.igesture.app.keyboard;
 
 import java.io.File;
+import java.util.logging.Logger;
 
 import org.sigtec.ink.Note;
 import org.sigtec.input.BufferedInputDeviceEventListener;
@@ -33,6 +34,7 @@ import org.sigtec.input.InputDeviceEvent;
 import org.sigtec.input.InputDeviceEventListener;
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.AlgorithmException;
+import org.ximtec.igesture.algorithm.AlgorithmFactory;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.EventManager;
@@ -43,7 +45,9 @@ import org.ximtec.igesture.io.MouseReaderEventListener;
 import org.ximtec.igesture.util.XMLTools;
 import static org.ximtec.igesture.io.Win32KeyboardProxy.*;
 
-public class GestureKeyboard implements ButtonDeviceEventListener{
+public class GestureKeyboard implements ButtonDeviceEventListener {
+
+	private static final String MAPPING_FILE = "gestureMapping.xml";
 
 	private static final String RUBINE_CONFIGURATION = "rubineconfiguration.xml";
 
@@ -54,13 +58,18 @@ public class GestureKeyboard implements ButtonDeviceEventListener{
 	private InputDeviceClient client;
 
 	private EventManager eventManager;
+	
+	private static final Logger LOGGER = Logger.getLogger(GestureKeyboard.class
+	         .getName());
 
 	public GestureKeyboard() throws AlgorithmException {
 		initEventManager();
 		initRecogniser();
 		initDevice();
 		
-		System.out.println("initialised...");
+		LOGGER.info("initialised...");
+
+		
 	}
 
 	private void initDevice() {
@@ -87,14 +96,12 @@ public class GestureKeyboard implements ButtonDeviceEventListener{
 	}
 
 	private void initEventManager() {
-		
 		eventManager = new EventManager();
-		eventManager.registerEventHandler("Left", new PressKeystroke(new Integer[]{ALT,LEFT}));
-		eventManager.registerEventHandler("Right", new PressKeystroke(new Integer[]{ALT,RIGHT}));
-		eventManager.registerEventHandler("Curlicue", new PressKeystroke(new Integer[]{ALT,F4}));
-		eventManager.registerEventHandler("Up-right", new PressKeystroke(new Integer[]{CONTROL,C}));
-		eventManager.registerEventHandler("Up-left", new PressKeystroke(new Integer[]{CONTROL,V}));
-
+		for (GestureKeyMapping mapping : XMLImport.importKeyMappings(new File(GestureKeyboard.class
+				.getClassLoader().getResource(MAPPING_FILE).getFile()))) {
+			LOGGER.info(mapping.toString());
+			eventManager.registerEventHandler(mapping.getGestureName(), new PressKeystroke(mapping.getKeys()));
+		}
 	}
 
 	public static void main(String[] args) throws AlgorithmException {
@@ -103,8 +110,8 @@ public class GestureKeyboard implements ButtonDeviceEventListener{
 
 	public void handleButtonPressedEvent(InputDeviceEvent event) {
 		Note note = client.createNote(0, event.getTimestamp(), 70);
-		if(note.getPoints().size() > 5){
-			recogniser.recognise(note);	
+		if (note.getPoints().size() > 5) {
+			recogniser.recognise(note);
 		}
 	}
 

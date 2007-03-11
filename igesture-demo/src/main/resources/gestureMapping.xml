@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<gestureMappings>
+	<gestureMapping>
+		<key>ALT+LEFT</key>
+		<gesture>Left</gesture>
+	</gestureMapping>
+	<gestureMapping>
+		<key>ALT+RIGHT</key>
+		<gesture>Right</gesture>
+	</gestureMapping>
+	<gestureMapping>
+		<key>ALT+F4</key>
+		<gesture>Curlicue</gesture>
+	</gestureMapping>
+	<gestureMapping>
+		<key>CONTROL+C</key>
+		<gesture>Up-right</gesture>
+	</gestureMapping>
+	<gestureMapping>
+		<key>CONTROL+V</key>
+		<gesture>Up-left</gesture>
+	</gestureMapping>
+</gestureMappings>
