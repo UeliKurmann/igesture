@@ -25,6 +25,7 @@
 package org.ximtec.igesture.io;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 
 import sun.misc.ServiceConfigurationError;
 
@@ -141,6 +142,26 @@ public class Win32KeyboardProxy {
 	
 	public static void pressKey(int key1, int key2, int key3){
 		pressKey(new int[]{key1,key2,key3});
+	}
+	
+	
+	/**
+	 * Returns the integer encoding of the key. if the encoding is not present, 0 is returned.
+	 * @param key the key to be encoded
+	 * @return the integer encoding of the key
+	 */
+	public static int getKey(String key){
+		int code = 0;
+		
+		try {
+			Class<Win32KeyboardProxy> clazz = Win32KeyboardProxy.class;
+			Field field = clazz.getField(key);
+			code = field.getInt(null);
+		} catch (Exception e) {
+			
+		} 
+		
+		return code;
 	}
 	
 	private static void keyDown(int key) {
