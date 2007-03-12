@@ -188,7 +188,7 @@
 
 	<distributionManagement>
 		<site>
-			<id>ftp-repository</id>
+			<id>igesture-repository</id>
 			<url>ftp://www.igesture.org/httpdocs</url>
 		</site>
 	</distributionManagement>
