@@ -34,7 +34,6 @@ import org.sigtec.input.InputDeviceEvent;
 import org.sigtec.input.InputDeviceEventListener;
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.AlgorithmException;
-import org.ximtec.igesture.algorithm.AlgorithmFactory;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.EventManager;
@@ -43,7 +42,6 @@ import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.MouseReader;
 import org.ximtec.igesture.io.MouseReaderEventListener;
 import org.ximtec.igesture.util.XMLTools;
-import static org.ximtec.igesture.io.Win32KeyboardProxy.*;
 
 public class GestureKeyboard implements ButtonDeviceEventListener {
 
