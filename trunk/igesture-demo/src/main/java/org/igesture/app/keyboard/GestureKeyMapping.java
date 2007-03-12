@@ -71,7 +71,8 @@ public class GestureKeyMapping {
 		this.gestureName = gesture;
 	}
 	
-	public String toString(){
+	@Override
+   public String toString(){
 		StringBuilder sb = new StringBuilder();
 		sb.append("[");
 		for(int key:keys){
