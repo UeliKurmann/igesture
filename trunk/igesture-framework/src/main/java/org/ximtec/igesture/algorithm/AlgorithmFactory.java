@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :	 
+ * Purpose      :	The factory used to create algorithms.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 14, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -36,6 +37,12 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.util.XMLTools;
 
 
+/**
+ * The factory used to create algorithms.
+ * @version 1.0 Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class AlgorithmFactory {
 
    private static final Logger LOGGER = Logger.getLogger(AlgorithmFactory.class
@@ -44,23 +51,25 @@ public class AlgorithmFactory {
 
    /**
     * Creates a list of algorithms and inistialises them with the parameters
-    * given in the configuration object
+    * provided in the configuration object.
     * 
-    * @param file the xml file with the configuration
-    * @return the list of algorithms
+    * @param file the xml file that contains the configuration.
+    * @return the list of algorithms.
+    * @throws AlgorithmException if the algorithms could not be created.
     */
    public static List<Algorithm> createAlgorithms(File file)
          throws AlgorithmException {
       return createAlgorithms(XMLTools.importConfiguration(file));
-   }
+   } // createAlgorithms
 
 
    /**
     * Creates a list of algorithms and inistialises them with the parameters
-    * given in the configuration object
+    * provided in the configuration object.
     * 
-    * @param config the configuration object
-    * @return the list of algorithms
+    * @param config the configuration object.
+    * @return the list of algorithms.
+    * @throws AlgorithmException if the algorithms could not be created.
     */
    public static List<Algorithm> createAlgorithms(Configuration config)
          throws AlgorithmException {
@@ -79,27 +88,28 @@ public class AlgorithmFactory {
          }
       }
       return algorithms;
-   }
+   } // createAlgorithms
 
 
    /**
-    * Instantiates an algorithm with the configuration object
+    * Instantiates an algorithm with a specific configuration object.
     * 
-    * @param file the XML file with the configuration
-    * @return the initialised algorithm
+    * @param file the XML file with the configuration.
+    * @return the initialised algorithm.
+    * @throws AlgorithmException if the algorithm could not be created.
     */
    public static Algorithm createAlgorithm(File file) throws AlgorithmException {
       return createAlgorithm(XMLTools.importConfiguration(file));
-   }
+   } // createAlgorithm
 
 
    /**
     * Creates a new Algorithm instance.
     * 
-    * @param config the XML file with the configuration
-    * @param set the XML file with the gesture set
-    * @return
-    * @throws AlgorithmException
+    * @param config the XML file that contains the configuration.
+    * @param set the XML file with the gesture set.
+    * @return the initialised algorithm.
+    * @throws AlgorithmException if the algorithm could not be created.
     */
    public static Algorithm createAlgorithm(File config, File set)
          throws AlgorithmException {
@@ -107,14 +117,15 @@ public class AlgorithmFactory {
       final List<GestureSet> sets = XMLTools.importGestureSet(set);
       configuration.addGestureSets(sets);
       return createAlgorithm(configuration);
-   }
+   } // createAlgorithm
 
 
    /**
-    * Instantiates an algorithm with the configuration object
+    * Instantiates an algorithm with a given configuration object.
     * 
-    * @param config the configuration of the algorithm
-    * @return the initialised algorithm
+    * @param config the configuration of the algorithm.
+    * @return the initialised algorithm.
+    * @throws AlgorithmException if the algorithm could not be created.
     */
    public static Algorithm createAlgorithm(Configuration config)
          throws AlgorithmException {
@@ -137,20 +148,21 @@ public class AlgorithmFactory {
       }
 
       return algorithm;
-   }
+   } // createAlgorithm
 
 
    /**
-    * Creates an algorithm instance
+    * Creates an algorithm instance.
     * 
-    * @param className the full qualified name of the algorithm
-    * @return the instance of the algorithm
+    * @param className the full qualified name of the algorithm.
+    * @return the instance of the algorithm.
     */
    public static Algorithm createAlgorithmInstance(String className) {
       Algorithm algorithm = null;
       try {
-         final Class<? extends Algorithm> clazz = (Class<? extends Algorithm>)Class.forName(className);
-         algorithm = (Algorithm) clazz.newInstance();
+         final Class< ? extends Algorithm> clazz = (Class< ? extends Algorithm>)Class
+               .forName(className);
+         algorithm = (Algorithm)clazz.newInstance();
       }
       catch (final ClassNotFoundException e) {
          LOGGER.log(Level.SEVERE, null, e);
@@ -162,6 +174,6 @@ public class AlgorithmFactory {
          LOGGER.log(Level.SEVERE, null, e);
       }
       return algorithm;
-   }
+   } // createAlgorithmInstance
 
 }
