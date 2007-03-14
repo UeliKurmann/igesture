@@ -43,6 +43,7 @@ import org.ximtec.igesture.util.XMLTools;
 
 /**
  * Front-end of the iGesture framework.
+ * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch

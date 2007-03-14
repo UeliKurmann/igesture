@@ -28,6 +28,7 @@ package org.ximtec.igesture.algorithm;
 
 /**
  * Exception thrown by algorithms.
+ * 
  * @version 1.0 Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch

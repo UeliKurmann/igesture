@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Static helper methods used by different algorithms
+ * Purpose		: 	Static helper methods used by different algorithms.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 2006/12/11		ukurmann	Initial Release
+ * Dec 11 2006      ukurmann	Initial Release
+ * Mar 14, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -33,36 +34,39 @@ import org.ximtec.igesture.core.GestureSet;
 
 
 /**
- * Comment
+ * Static helper methods used by different algorithms.
  * 
  * @version 1.0 Dec 11, 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class AlgorithmTool {
 
    /**
     * Returns a string parameter value. given is a parameter name and two maps
-    * with name/value parameters. if the parameter is not available in the first
+    * with name/value parameters. If the parameter is not available in the first
     * set, the default value is returned.
     * 
-    * @param parameter the parameter name
-    * @param parameters the map with parameter name/value pairs
-    * @param defaultParameters the map with default parameter name/value pairs
-    * @return the parameter value
+    * @param parameter the parameter name.
+    * @param parameters the map with parameter name/value pairs.
+    * @param defaultParameters the map with default parameter name/value pairs.
+    * @return the parameter value.
     */
    public static String getParameterValue(String parameter,
          HashMap<String, String> parameters,
          HashMap<String, String> defaultParameters) {
       String result = parameters.get(parameter);
+
       if (result == null) {
          result = defaultParameters.get(parameter);
       }
+
       return result;
-   }
+   } // getParameter
 
 
    /**
-    * Rutrns a Double parameter
+    * Returns a Double parameter.
     * 
     * @see AlgorithmTool.getParameterValue
     * @param parameter the parameter name
