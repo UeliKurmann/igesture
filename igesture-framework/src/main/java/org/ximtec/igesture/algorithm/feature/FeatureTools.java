@@ -101,11 +101,11 @@ public class FeatureTools {
 
 
    /**
-    * Computes the angle in respect to the X axis in point i and i-1.
+    * Computes the angle in respect to the x axis in point i and i-1.
     * 
-    * @param i
-    * @param points
-    * @return
+    * @param i th eindex of the point to be used in the computation.
+    * @param points the set of points.
+    * @return the angle relative to the x axis for point i and i-1.
     */
    public static double roh(int i, Point[] points) {
       final double divisor = getDeltaX(i, points) * getDeltaY(i - 1, points)

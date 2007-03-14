@@ -96,13 +96,14 @@ public class AlgorithmTool {
 
 
    /**
-    * Returns true if all Gesture Classes of the Gesture Set has the required
+    * Returns true if all Gesture Classes of the Gesture Set have the required
     * descriptor. As soon that one Class does not fullfill the requirements the
     * result is false.
     * 
     * @param set the gesture set to test
     * @param descriptorType the descriptor type
-    * @return
+    * @return true if all gesture classes of the gesture set have the specified
+    *         descriptor.
     */
    public static boolean verifyDescriptor(GestureSet set,
          Class< ? extends Descriptor> descriptorType) {

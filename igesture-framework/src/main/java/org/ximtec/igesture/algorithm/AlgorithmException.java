@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Exception thrown by algorithms
+ * Purpose		: 	Exception thrown by algorithms.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 					ukurmann	Initial Release
+ * Nov 23, 2006		ukurmann	Initial Release
+ * Mar 14, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -26,10 +27,10 @@
 package org.ximtec.igesture.algorithm;
 
 /**
- * Comment
- * 
- * @version 1.0 Nov 23, 2006
+ * Exception thrown by algorithms.
+ * @version 1.0 Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class AlgorithmException extends Exception {
 
@@ -51,11 +52,11 @@ public class AlgorithmException extends Exception {
       switch (exceptionType) {
          case Initialisation:
             break;
-
          case Recognition:
             break;
       }
+
       return super.getMessage();
-   }
+   } // getMessage
 
 }
