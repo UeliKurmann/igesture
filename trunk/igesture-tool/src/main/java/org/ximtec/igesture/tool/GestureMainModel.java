@@ -115,7 +115,8 @@ public class GestureMainModel {
    /**
     * Constructs a new MainModel.
     * 
-    * @param engine the storage engine used by the storage manager
+    * @param engine the storage engine used by the storage manager.
+    * @param configuration the configuration to be used.
     */
    public GestureMainModel(StorageEngine engine,
          GestureConfiguration configuration) {
@@ -124,11 +125,8 @@ public class GestureMainModel {
       configurationListeners = new HashSet<ConfigurationListener>();
       currentGestureListeners = new HashSet<CurrentGestureListener>();
       testCaseListeners = new HashSet<TestSetListener>();
-
       algorithms = configuration.getAlgorithms();
-
       loadData(engine);
-
       penClient = new InputDeviceClient(configuration.getInputDevice(),
             configuration.getInputDeviceEventListener());
       penClient.init();
