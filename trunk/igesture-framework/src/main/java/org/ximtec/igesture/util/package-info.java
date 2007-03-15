@@ -1,5 +1,5 @@
 /**
- * Various iGesture utilities.
+ * Some utilities.
  */
 
 

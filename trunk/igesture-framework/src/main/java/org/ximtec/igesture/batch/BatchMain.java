@@ -75,9 +75,7 @@ public class BatchMain {
     * @param args
     */
    public static void main(String args[]) {
-
       final Options options = new Options();
-
       options.addOption(createOption(HELP, FILE, "Print this message"));
       options.addOption(createOption(CONFIG, FILE, "XML configuration file"));
       options.addOption(createOption(GESTURESET, FILE, "XML gesture set file"));
@@ -85,9 +83,9 @@ public class BatchMain {
       options.addOption(createOption(XML, FILE, "XML output file"));
       options.addOption(createOption(XSL, FILE, "XSLT file"));
       options.addOption(createOption(HTML, FILE, "HTML output file"));
-
       final CommandLineParser parser = new GnuParser();
       CommandLine line = null;
+      
       try {
          line = parser.parse(options, args);
       }
@@ -112,10 +110,12 @@ public class BatchMain {
 
          final BatchResultSet resultSet = batchProcess.run();
          final String xmlDocument = XMLTool.exportBatchResultSet(resultSet);
+         
          if (line.hasOption(XML)) {
             org.sigtec.util.FileHandler.writeFile(line.getOptionValue(XML),
                   xmlDocument);
          }
+         
          if (line.hasOption(XSL) && line.hasOption(HTML)) {
             String htmlPage = Constant.EMPTY_STRING;
             try {
@@ -134,7 +134,9 @@ public class BatchMain {
 
             FileHandler.writeFile(line.getOptionValue(HTML), htmlPage);
          }
+         
       }
+      
    }
 
 
