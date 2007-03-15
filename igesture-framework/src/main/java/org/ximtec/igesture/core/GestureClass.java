@@ -67,15 +67,16 @@ public class GestureClass extends DefaultDataObject {
 
 
    /**
-    * Returns the GestureClassDescriptor with the given key
+    * Returns the GestureClassDescriptor for a given key.
     * 
-    * @param key
+    * @param classname 
+    * @param <T> 
     * @return
     */
    @SuppressWarnings("unchecked")
    public <T extends Descriptor> T getDescriptor(Class<T> classname) {
       return (T) descriptors.get(classname);
-   }
+   } // getDescriptor
 
 
    /**

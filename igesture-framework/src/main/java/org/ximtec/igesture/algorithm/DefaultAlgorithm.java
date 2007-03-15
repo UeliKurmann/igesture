@@ -62,7 +62,11 @@ public abstract class DefaultAlgorithm implements Algorithm {
 
 
    /**
-    * Returns the value of the default parameter
+    * Returns the value of the default parameter.
+    * 
+    * @param parameterName the name of the parameter whose default value has to
+    *           be returned.
+    * @return the value of a specific default parameter.
     */
    public String getDefaultParameterValue(String parameterName) {
       return DEFAULT_CONFIGURATION.get(parameterName);
