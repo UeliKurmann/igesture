@@ -36,7 +36,7 @@ import org.ximtec.igesture.core.GestureSet;
 /**
  * Static helper methods used by different algorithms.
  * 
- * @version 1.0 Dec 11, 2006
+ * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
@@ -66,37 +66,37 @@ public class AlgorithmTool {
 
 
    /**
-    * Returns a Double parameter.
+    * Returns a double parameter.
     * 
-    * @see AlgorithmTool.getParameterValue
-    * @param parameter the parameter name
-    * @param parameters the map with parameter name/value pairs
-    * @param defaultParameters the map with default parameter name/value pairs
-    * @return the parameter value
+    * @see org.ximtec.igesture.algorithm.AlgorithmTool#getParameterValue
+    * @param parameter the parameter name.
+    * @param parameters the map with parameter name/value pairs.
+    * @param defaultParameters the map with default parameter name/value pairs.
+    * @return the parameter value.
     */
    public static double getDoubleParameterValue(String parameter,
          HashMap<String, String> parameters,
          HashMap<String, String> defaultParameters) {
       return Double.parseDouble(getParameterValue(parameter, parameters,
             defaultParameters));
-   }
+   } // getDoubleParameterValue
 
 
    /**
-    * Returns an Int parameter
+    * Returns an int parameter.
     * 
-    * @see AlgorithmTool.getParameterValue
-    * @param parameter the parameter name
-    * @param parameters the map with parameter name/value pairs
-    * @param defaultParameters the map with default parameter name/value pairs
-    * @return the parameter value
+    * @see org.ximtec.igesture.algorithm.AlgorithmTool#getParameterValue
+    * @param parameter the parameter name.
+    * @param parameters the map with parameter name/value pairs.
+    * @param defaultParameters the map with default parameter name/value pairs.
+    * @return the parameter value.
     */
    public static int getIntParameterValue(String parameter,
          HashMap<String, String> parameters,
          HashMap<String, String> defaultParameters) {
       return Integer.parseInt(getParameterValue(parameter, parameters,
             defaultParameters));
-   }
+   } // getIntParameterValue
 
 
    /**
@@ -104,19 +104,22 @@ public class AlgorithmTool {
     * descriptor. As soon that one Class does not fullfill the requirements the
     * result is false.
     * 
-    * @param set the gesture set to test
-    * @param descriptorType the descriptor type
+    * @param set the gesture set to test.
+    * @param descriptorType the descriptor type.
     * @return true if all gesture classes of the gesture set have the specified
     *         descriptor.
     */
    public static boolean verifyDescriptor(GestureSet set,
          Class< ? extends Descriptor> descriptorType) {
       for (final GestureClass gestureClass : set.getGestureClasses()) {
+
          if (gestureClass.getDescriptor(descriptorType) == null) {
             return false;
          }
+
       }
+
       return true;
-   }
+   } // verifyDescriptor
 
 }
