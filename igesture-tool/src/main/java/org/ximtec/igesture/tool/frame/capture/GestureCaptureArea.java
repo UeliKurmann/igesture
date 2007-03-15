@@ -22,6 +22,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.frame.capture;
 
 import java.util.ArrayList;
@@ -42,92 +43,96 @@ import org.ximtec.igesture.tool.frame.capture.action.ActionCaptureGestureClear;
 import org.ximtec.igesture.tool.util.JNote;
 import org.ximtec.igesture.tool.util.SwingTool;
 
+
 public class GestureCaptureArea extends BasicInternalFrame implements
-		CurrentGestureListener {
+      CurrentGestureListener {
 
-	private GestureToolView mainView;
+   private GestureToolView mainView;
 
-	private JNote image;
+   private JNote image;
 
-	/**
-	 * This is the default constructor
-	 */
-	public GestureCaptureArea(GestureToolView mainView) {
-		super(GestureConstants.DRAW_AREA_KEY, SwingTool.getGuiBundle());
-		SwingTool.initFrame(this);
 
-		this.mainView = mainView;
-		mainView.getModel().addCurrentGestureListener(this);
-		initialize();
-	}
+   /**
+    * Constructs a new gesture capture area.
+    * 
+    * @param mainView the main view.
+    */
+   public GestureCaptureArea(GestureToolView mainView) {
+      super(GestureConstants.DRAW_AREA_KEY, SwingTool.getGuiBundle());
+      SwingTool.initFrame(this);
+      this.mainView = mainView;
+      mainView.getModel().addCurrentGestureListener(this);
+      initialize();
+   }
 
-	/**
-	 * This method initializes this
-	 * 
-	 * @return void
-	 */
-	private void initialize() {
 
-		image = new JNote(200, 200);
-		mainView.getModel().getPenClient().addInputHandler(image);
+   /**
+    * This method initialises this
+    * 
+    * @return void
+    */
+   private void initialize() {
 
-		this.addComponent(image, SwingTool.createGridBagConstraint(0, 0,2,1));
+      image = new JNote(200, 200);
+      mainView.getModel().getPenClient().addInputHandler(image);
 
-		
-		
-		this.addComponent(SwingTool
-				.createButton(new ActionCaptureGestureClear(this)), SwingTool
-				.createGridBagConstraint(0, 1));
-		
-		this.addComponent(SwingTool
-				.createButton(new ActionCaptureGesture(this)), SwingTool
-				.createGridBagConstraint(1, 1));
+      this.addComponent(image, SwingTool.createGridBagConstraint(0, 0, 2, 1));
 
-		if (mainView.getModel().getCurrentNote() != null) {
-			drawCurrentGesture();
-		}
+      this.addComponent(SwingTool.createButton(new ActionCaptureGestureClear(
+            this)), SwingTool.createGridBagConstraint(0, 1));
 
-		this.repaint();
-	}
+      this.addComponent(SwingTool.createButton(new ActionCaptureGesture(this)),
+            SwingTool.createGridBagConstraint(1, 1));
 
-	public void updateCurrentGesture() {
-		try {
-			final InputDeviceClient client = mainView.getModel().getPenClient();
-			final Collection<TimestampedLocation> locations = client
-					.getTimestampedLocations(0, System.currentTimeMillis());
+      if (mainView.getModel().getCurrentNote() != null) {
+         drawCurrentGesture();
+      }
 
-			client.clearBuffer();
+      this.repaint();
+   }
 
-			final Note note = new Note(TraceTool.detectTraces(CaptureTool
-					.toPoints(new ArrayList<TimestampedLocation>(locations)),
-					150));
 
-			note.moveTo(0, 0);
-			note.scaleTo(200, 200);
+   public void updateCurrentGesture() {
+      try {
+         final InputDeviceClient client = mainView.getModel().getPenClient();
+         final Collection<TimestampedLocation> locations = client
+               .getTimestampedLocations(0, System.currentTimeMillis());
 
-			mainView.getModel().setCurrentNote(note);
-		} catch (final Exception e) {
-			e.printStackTrace();
-			mainView.getModel().setCurrentNote(new Note());
-		}
+         client.clearBuffer();
 
-	}
+         final Note note = new Note(TraceTool.detectTraces(CaptureTool
+               .toPoints(new ArrayList<TimestampedLocation>(locations)), 150));
 
-	public void clearCurrentGesture() {
-		final InputDeviceClient client = mainView.getModel().getPenClient();
-		client.clearBuffer();
-		mainView.getModel().setCurrentNote(new Note());
-		image.clear();
-		this.repaint();
-	}
+         note.moveTo(0, 0);
+         note.scaleTo(200, 200);
 
-	private void drawCurrentGesture() {
-		image.freeze();
-		this.repaint();
-	}
+         mainView.getModel().setCurrentNote(note);
+      }
+      catch (final Exception e) {
+         e.printStackTrace();
+         mainView.getModel().setCurrentNote(new Note());
+      }
 
-	public void currentGestureChanged(EventObject event) {
-		drawCurrentGesture();
-	}
+   }
+
+
+   public void clearCurrentGesture() {
+      final InputDeviceClient client = mainView.getModel().getPenClient();
+      client.clearBuffer();
+      mainView.getModel().setCurrentNote(new Note());
+      image.clear();
+      this.repaint();
+   }
+
+
+   private void drawCurrentGesture() {
+      image.freeze();
+      this.repaint();
+   }
+
+
+   public void currentGestureChanged(EventObject event) {
+      drawCurrentGesture();
+   }
 
 }

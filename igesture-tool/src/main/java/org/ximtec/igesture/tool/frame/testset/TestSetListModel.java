@@ -45,17 +45,20 @@ public class TestSetListModel extends AbstractListModel {
       this.mapping = new HashMap<String, TestSet>();
 
       for (int i = 0; i < getSize(); i++) {
-         mapping.put((String) getElementAt(i), getTestSet(i));
+         mapping.put((String)getElementAt(i), getTestSet(i));
       }
    }
 
 
    /**
-    * Returns the name of the ith TestSet
+    * Returns the name of the test set at position index.
+    * 
+    * @param index the position of the test set to be returned.
+    * @return the test set at position index.
     */
    public Object getElementAt(int index) {
       return mainModel.getTestSets().get(index).getName();
-   }
+   }  // getElementAt
 
 
    /**

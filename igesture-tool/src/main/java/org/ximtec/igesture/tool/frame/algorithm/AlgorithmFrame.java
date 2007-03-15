@@ -58,16 +58,17 @@ public class AlgorithmFrame extends BasicInternalFrame implements
 
 
    /**
-    * This is the default constructor
+    * Constructs a new algorithm frame.
+    * 
+    * @param mainView the main view.
+    * @param tab the capture tab to be added.
     */
    public AlgorithmFrame(GestureToolView mainView, CaptureTab tab) {
       super(GestureConstants.ALGORITHM_FRAME_KEY, SwingTool.getGuiBundle());
       SwingTool.initFrame(this);
       this.mainView = mainView;
       this.tab = tab;
-
       this.mainView.getModel().addGestureSetListener(this);
-
       initialize();
    }
 
