@@ -24,7 +24,7 @@
  */
 
 
-package org.ximtec.igesture.event.examples;
+package org.ximtec.igesture.event.example;
 
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.EventHandler;
