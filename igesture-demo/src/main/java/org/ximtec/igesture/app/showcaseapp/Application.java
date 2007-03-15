@@ -32,7 +32,7 @@ import org.ximtec.igesture.io.ButtonDeviceEventListener;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.MouseReader;
 import org.ximtec.igesture.io.MouseReaderEventListener;
-import org.ximtec.igesture.util.XMLTools;
+import org.ximtec.igesture.util.XMLTool;
 
 public class Application implements ButtonDeviceEventListener {
 
@@ -50,11 +50,11 @@ public class Application implements ButtonDeviceEventListener {
 	}
 
 	private void initGestures() {
-		Configuration configuration = XMLTools.importConfiguration(new File(
+		Configuration configuration = XMLTool.importConfiguration(new File(
 				ClassLoader.getSystemResource(
 						"rubineconfiguration.xml").getFile()));
 
-		GestureSet gestureSet = XMLTools.importGestureSet(
+		GestureSet gestureSet = XMLTool.importGestureSet(
 				new File(ClassLoader.getSystemResource(
 						"demogestures.xml").getFile())).get(0);
 

@@ -54,9 +54,7 @@ public class HWRecogniser extends DefaultAlgorithm {
       final ResultSet resultSet = new ResultSet();
       resultSet.addResult(new org.ximtec.igesture.core.Result(new GestureClass(result
             .getText()), result.getConfidence()));
-
       fireEvent(resultSet);
-
       return resultSet;
    }
 

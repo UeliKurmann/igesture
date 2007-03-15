@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.jdom.Document;
 import org.jdom.Element;
-import org.ximtec.igesture.util.XMLTools;
+import org.ximtec.igesture.util.XMLTool;
 
 public class XMLImport {
 
@@ -17,7 +17,7 @@ public class XMLImport {
 	public static List<GestureKeyMapping> importKeyMappings(File file) {
 		final List<GestureKeyMapping> mappings = new ArrayList<GestureKeyMapping>();
 
-		final Document document = XMLTools.importDocument(file);
+		final Document document = XMLTool.importDocument(file);
 		final List<Element> mappingElements = document.getRootElement()
 				.getChildren(ROOT_TAG);
 		for (final Element mappingElement : mappingElements) {

@@ -36,7 +36,7 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.tool.util.SwingTool;
-import org.ximtec.igesture.util.XMLTools;
+import org.ximtec.igesture.util.XMLTool;
 
 
 public class ActionExportGestureSet extends BasicAction {
@@ -59,7 +59,7 @@ public class ActionExportGestureSet extends BasicAction {
          fileChooser.showSaveDialog((JMenuItem) event.getSource());
          final File selectedFile = fileChooser.getSelectedFile();
          if (selectedFile != null) {
-            XMLTools.exportGestureSet(gestureSet, selectedFile);
+            XMLTool.exportGestureSet(gestureSet, selectedFile);
          }
       }
    }

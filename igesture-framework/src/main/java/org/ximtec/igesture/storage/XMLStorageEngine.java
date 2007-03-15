@@ -40,7 +40,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class XMLStorageEngine implements StorageEngine {
 
-	private File xmlFile;;
+	private File xmlFile;
 
 	private HashMap<Class<? extends DataObject>, List<DataObject>> dataObjects;
 

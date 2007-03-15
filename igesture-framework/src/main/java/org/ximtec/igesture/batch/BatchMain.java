@@ -41,7 +41,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.sigtec.util.Constant;
 import org.sigtec.util.FileHandler;
-import org.ximtec.igesture.util.XMLTools;
+import org.ximtec.igesture.util.XMLTool;
 
 
 /**
@@ -104,14 +104,14 @@ public class BatchMain {
 
          final BatchProcess batchProcess = new BatchProcess(new File(line
                .getOptionValue(CONFIG)));
-         batchProcess.addGestureSets(XMLTools.importGestureSet(new File(line
+         batchProcess.addGestureSets(XMLTool.importGestureSet(new File(line
                .getOptionValue(GESTURESET))));
 
-         batchProcess.setTestSet(XMLTools.importTestSet(
+         batchProcess.setTestSet(XMLTool.importTestSet(
                new File(line.getOptionValue(TESTSET))).get(0));
 
          final BatchResultSet resultSet = batchProcess.run();
-         final String xmlDocument = XMLTools.exportBatchResultSet(resultSet);
+         final String xmlDocument = XMLTool.exportBatchResultSet(resultSet);
          if (line.hasOption(XML)) {
             org.sigtec.util.FileHandler.writeFile(line.getOptionValue(XML),
                   xmlDocument);
@@ -119,7 +119,7 @@ public class BatchMain {
          if (line.hasOption(XSL) && line.hasOption(HTML)) {
             String htmlPage = Constant.EMPTY_STRING;
             try {
-               htmlPage = XMLTools.transform(xmlDocument, line
+               htmlPage = XMLTool.transform(xmlDocument, line
                      .getOptionValue(XSL));
             }
             catch (final TransformerConfigurationException e) {

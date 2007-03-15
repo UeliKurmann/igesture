@@ -38,7 +38,7 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.EventManager;
-import org.ximtec.igesture.util.XMLTools;
+import org.ximtec.igesture.util.XMLTool;
 
 
 /**
@@ -100,7 +100,7 @@ public class Recogniser {
     * @throws AlgorithmException if the recogniser could not be created.
     */
    public Recogniser(File configFile) throws AlgorithmException {
-      this(XMLTools.importConfiguration(configFile));
+      this(XMLTool.importConfiguration(configFile));
    }
 
 
@@ -114,9 +114,9 @@ public class Recogniser {
     */
    public Recogniser(File configFile, File setFile, EventManager eventManager)
          throws AlgorithmException {
-      final Configuration config = XMLTools.importConfiguration(configFile);
+      final Configuration config = XMLTool.importConfiguration(configFile);
       config.setEventManager(eventManager);
-      config.addGestureSets(XMLTools.importGestureSet(setFile));
+      config.addGestureSets(XMLTool.importGestureSet(setFile));
       algorithms = AlgorithmFactory.createAlgorithms(config);
    }
 

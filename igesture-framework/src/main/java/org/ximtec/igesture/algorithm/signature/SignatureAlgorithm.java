@@ -41,7 +41,7 @@ import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.util.GestureTools;
+import org.ximtec.igesture.util.GestureTool;
 
 
 public class SignatureAlgorithm extends SampleBasedAlgorithm {
@@ -108,7 +108,7 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
       // minAccuracy = config.getMinAccuracy();
       maxResultSetSize = config.getMaxResultSetSize();
 
-      preprocess(GestureTools.combine(config.getGestureSets()));
+      preprocess(GestureTool.combine(config.getGestureSets()));
    }
 
 

@@ -41,7 +41,7 @@ import org.ximtec.igesture.io.ButtonDeviceEventListener;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.MouseReader;
 import org.ximtec.igesture.io.MouseReaderEventListener;
-import org.ximtec.igesture.util.XMLTools;
+import org.ximtec.igesture.util.XMLTool;
 
 public class GestureKeyboard implements ButtonDeviceEventListener {
 
@@ -80,10 +80,10 @@ public class GestureKeyboard implements ButtonDeviceEventListener {
 	}
 
 	private void initRecogniser() throws AlgorithmException {
-		Configuration configuration = XMLTools.importConfiguration(new File(
+		Configuration configuration = XMLTool.importConfiguration(new File(
 				ClassLoader.getSystemResource(RUBINE_CONFIGURATION).getFile()));
 
-		GestureSet gestureSet = XMLTools.importGestureSet(
+		GestureSet gestureSet = XMLTool.importGestureSet(
 				new File(ClassLoader.getSystemResource(GESTURE_SET).getFile()))
 				.get(0);
 

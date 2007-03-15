@@ -31,7 +31,7 @@ import java.util.List;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Point;
-import org.ximtec.igesture.util.GestureTools;
+import org.ximtec.igesture.util.GestureTool;
 
 
 /**
@@ -50,11 +50,11 @@ public class StrokeInfo {
 
 
    public StrokeInfo(Note note) {
-      this.note = GestureTools.getCharacteristicNote((Note) note.clone(), 3, 10);
+      this.note = GestureTool.getCharacteristicNote((Note) note.clone(), 3, 10);
       directions = new ArrayList<Direction>();
-      final List<Point> points = GestureTools.getPoints(this.note);
+      final List<Point> points = GestureTool.getPoints(this.note);
       for (int i = 1; i < points.size(); i++) {
-         final double angle = GestureTools.getAngle(points.get(i - 1), points
+         final double angle = GestureTool.getAngle(points.get(i - 1), points
                .get(i));
          if (!Double.isNaN(angle)) {
             directions.add(getDirection(angle));

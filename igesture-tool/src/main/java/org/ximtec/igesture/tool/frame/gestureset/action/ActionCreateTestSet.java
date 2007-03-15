@@ -37,8 +37,8 @@ import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.tool.util.SwingTool;
-import org.ximtec.igesture.util.GestureTools;
-import org.ximtec.igesture.util.XMLTools;
+import org.ximtec.igesture.util.GestureTool;
+import org.ximtec.igesture.util.XMLTool;
 
 
 public class ActionCreateTestSet extends BasicAction {
@@ -60,8 +60,8 @@ public class ActionCreateTestSet extends BasicAction {
       fileChooser.showSaveDialog((JMenuItem) event.getSource());
       final File selectedFile = fileChooser.getSelectedFile();
       if (selectedFile != null) {
-         final TestSet testSet = GestureTools.createTestSet(set);
-         XMLTools.exportTestSet(testSet, selectedFile);
+         final TestSet testSet = GestureTool.createTestSet(set);
+         XMLTool.exportTestSet(testSet, selectedFile);
       }
    }
 }

@@ -35,7 +35,7 @@ import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.frame.algorithm.AlgorithmConfiguration;
 import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.tool.util.SwingTool;
-import org.ximtec.igesture.util.XMLTools;
+import org.ximtec.igesture.util.XMLTool;
 
 
 /**
@@ -61,7 +61,7 @@ public class ActionExportConfiguration extends BasicAction {
       fileChooser.showSaveDialog(algorithmConfiguration);
       final File file = fileChooser.getSelectedFile();
       if (file != null) {
-         XMLTools.exportConfiguration(algorithmConfiguration
+         XMLTool.exportConfiguration(algorithmConfiguration
                .getCurrentConfiguration(), file);
       }
    }

@@ -44,7 +44,7 @@ import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.core.TestSet;
-import org.ximtec.igesture.util.XMLTools;
+import org.ximtec.igesture.util.XMLTool;
 
 public class BatchProcess {
 
@@ -65,12 +65,11 @@ public class BatchProcess {
 	 *            the XML file with the configration
 	 */
 	public BatchProcess(File file) {
-		this.batchProcessContainer = XMLTools.importBatchProcessContainer(file);
+		this.batchProcessContainer = XMLTool.importBatchProcessContainer(file);
 		this.configurations = createConfigurations(batchProcessContainer
 				.getAlgorithms());
 
 		this.sets = batchProcessContainer.getGestureSets();
-		;
 	}
 
 	/**
@@ -181,7 +180,7 @@ public class BatchProcess {
 	 * @return
 	 */
 	public static List<Configuration> createConfigurations(File file) {
-		final BatchProcessContainer container = XMLTools
+		final BatchProcessContainer container = XMLTool
 				.importBatchProcessContainer(file);
 		final List<Configuration> configurations = createConfigurations(container
 				.getAlgorithms());
