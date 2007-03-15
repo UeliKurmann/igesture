@@ -255,13 +255,13 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
 
    /**
-    * Computes the feature vector for a sample. the features to compute are
-    * passed as array. the method returns a DoubleVector which represents the
+    * Computes the feature vector for a given sample. The features to compute are
+    * passed as an array. The method returns a DoubleVector representing the
     * feature vector.
     * 
-    * @param sample The sample
-    * @param featureList The features to compute
-    * @return
+    * @param sample the sample.
+    * @param featureList the features to compute.
+    * @return the feature vector for the given sample.
     */
    private DoubleVector computeFeatureVector(Note note, Feature[] featureList) {
 
@@ -274,14 +274,14 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
       // create the feature vector
       final DoubleVector featureVector = new DoubleVector(featureList.length);
+      
       for (int i = 0; i < featureList.length; i++) {
          featureVector.set(i, featureList[i].compute(clone));
       }
 
       LOGGER.info(featureVector.toString());
-
       return featureVector;
-   }
+   } // computeFeatureVector
 
 
    /**

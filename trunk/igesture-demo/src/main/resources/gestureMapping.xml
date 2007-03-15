@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <gestureMappings>
 	<gestureMapping>
-		<key>ALT+LEFT</key>
+		<key>CONTROL+Z</key>
 		<gesture>Left</gesture>
 	</gestureMapping>
 	<gestureMapping>
-		<key>ALT+RIGHT</key>
+		<key>CONTROL+Y</key>
 		<gesture>Right</gesture>
 	</gestureMapping>
 	<gestureMapping>

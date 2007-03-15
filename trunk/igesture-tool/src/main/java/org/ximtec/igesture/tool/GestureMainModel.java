@@ -129,9 +129,11 @@ public class GestureMainModel {
 
       loadData(engine);
 
-      penClient = new InputDeviceClient(configuration.getInputDevice(), configuration.getInputDeviceEventListener());
+      penClient = new InputDeviceClient(configuration.getInputDevice(),
+            configuration.getInputDeviceEventListener());
       penClient.init();
    }
+
 
    /**
     * loads the data
@@ -321,14 +323,14 @@ public class GestureMainModel {
 
 
    /**
-    * Sets the current trace
+    * Sets the current note.
     * 
-    * @param currentTrace
+    * @param note the note to be set.
     */
    public void setCurrentNote(Note note) {
       this.currentNote = note;
       fireCurrentGestureChanged(new EventObject(Constant.EMPTY_STRING));
-   }
+   } // setCurrentNote
 
 
    /**
@@ -338,7 +340,7 @@ public class GestureMainModel {
     */
    public Note getCurrentNote() {
       if (currentNote != null) {
-         final Note note = (Note) currentNote.clone();
+         final Note note = (Note)currentNote.clone();
          return note;
       }
       else {
@@ -431,13 +433,17 @@ public class GestureMainModel {
    }
 
 
-   /** ******************** - Event Handling - *********************** */
-
+   /**
+    * Adds a gesture class listener.
+    * 
+    * @param listener the gesture class listener to be added.
+    */
    public synchronized void addGestureClassListener(GestureClassListener listener) {
       if (listener != null) {
          this.gestureClassListeners.add(listener);
       }
-   }
+
+   } // addGestureClassListener
 
 
    public synchronized void addGestureSetListener(GestureSetListener listener) {

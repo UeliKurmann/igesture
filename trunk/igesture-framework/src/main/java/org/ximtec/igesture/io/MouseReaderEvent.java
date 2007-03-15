@@ -35,9 +35,9 @@ public class MouseReaderEvent implements InputDeviceEvent {
 
 
    /**
-    * Constructs a new MagicommPenEvent.
+    * Constructs a new MouseReaderEvent.
     * 
-    * @param message the Anoto data packet captured by the Magicomm G303 pen.
+    * @param location the position captured by the mouse.
     */
    public MouseReaderEvent(TimestampedLocation location) {
       this.location = location;

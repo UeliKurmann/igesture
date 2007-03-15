@@ -50,8 +50,9 @@ public class ActionOpenDataSouce extends BasicAction {
 
    /**
     * Opens a JFileChooser and reloads the data model
+    * @param e the action event.
     */
-   public void actionPerformed(ActionEvent arg0) {
+   public void actionPerformed(ActionEvent e) {
       final JFileChooser fileChooser = new JFileChooser();
       fileChooser.showOpenDialog(mainView);
       final File file = fileChooser.getSelectedFile();

@@ -203,12 +203,12 @@ public class FeatureTools {
 
 
    /**
-    * Computes the Feature Vector
+    * Computes the feature vector.
     * 
-    * @param note the note
-    * @param minDistance the minimal distance between two points
-    * @param featureList an array of features
-    * @return
+    * @param note the note the feature vector has to be computed of.
+    * @param minDistance the minimal distance between two points.
+    * @param featureList an array of features.
+    * @return the feature vector.
     */
    public static DoubleVector computeFeatureVector(Note note, int minDistance,
          Feature[] featureList) {
@@ -221,10 +221,12 @@ public class FeatureTools {
 
       // create the feature vector
       final DoubleVector featureVector = new DoubleVector(featureList.length);
+      
       for (int i = 0; i < featureList.length; i++) {
          featureVector.set(i, featureList[i].compute(clone));
       }
+      
       return featureVector;
-   }
+   } // computeFeatureVector
 
 }
