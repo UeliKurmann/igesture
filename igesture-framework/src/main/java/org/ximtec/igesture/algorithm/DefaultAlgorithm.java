@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Default implementation of the Algorithm interface
+ * Purpose		: 	Default implementation of the Algorithm interface.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 2006/12/11		ukurmann	Initial Release
+ * Dec 11, 2006     ukurmann	Initial Release
+ * Mar 15, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -32,10 +33,11 @@ import org.ximtec.igesture.event.EventManager;
 
 
 /**
- * Comment
+ * Default implementation of the Algorithm interface.
  * 
- * @version 1.0 Dec 7, 2006
+ * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public abstract class DefaultAlgorithm implements Algorithm {
 
@@ -46,19 +48,21 @@ public abstract class DefaultAlgorithm implements Algorithm {
 
    public void addEventManagerListener(EventManager eventManager) {
       this.eventManager = eventManager;
-   }
+   } // addEventManagerListener
 
 
    /**
-    * Fires an event
+    * Fires an event.
     * 
-    * @param resultSet
+    * @param resultSet the result set to be used as an argument for the fire
+    *           event.
     */
    protected void fireEvent(ResultSet resultSet) {
       if (eventManager != null) {
          eventManager.fireEvent(resultSet);
       }
-   }
+
+   } // fireEvent
 
 
    /**
@@ -70,6 +74,6 @@ public abstract class DefaultAlgorithm implements Algorithm {
     */
    public String getDefaultParameterValue(String parameterName) {
       return DEFAULT_CONFIGURATION.get(parameterName);
-   }
+   } // getDefaultParameterValue
 
 }
