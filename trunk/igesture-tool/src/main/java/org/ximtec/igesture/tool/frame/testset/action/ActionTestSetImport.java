@@ -39,7 +39,7 @@ import org.ximtec.igesture.storage.StorageManager;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.tool.util.SwingTool;
-import org.ximtec.igesture.util.XMLTools;
+import org.ximtec.igesture.util.XMLTool;
 
 
 /**
@@ -68,7 +68,7 @@ public class ActionTestSetImport extends BasicAction {
          fileChooser.showOpenDialog((JMenuItem) event.getSource());
          final File selectedFile = fileChooser.getSelectedFile();
          if (selectedFile != null) {
-            final List<TestSet> testSets = XMLTools.importTestSet(selectedFile);
+            final List<TestSet> testSets = XMLTool.importTestSet(selectedFile);
             final StorageManager storageManager = mainView.getModel()
                   .getStorageManager();
             for (final TestSet testSet : testSets) {

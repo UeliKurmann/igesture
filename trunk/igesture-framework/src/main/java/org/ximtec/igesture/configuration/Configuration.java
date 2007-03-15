@@ -43,7 +43,7 @@ import java.util.List;
 import org.ximtec.igesture.core.DefaultDataObject;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.EventManager;
-import org.ximtec.igesture.util.GestureTools;
+import org.ximtec.igesture.util.GestureTool;
 
 
 public class Configuration extends DefaultDataObject implements Cloneable {
@@ -135,7 +135,7 @@ public class Configuration extends DefaultDataObject implements Cloneable {
     * @return
     */
    public GestureSet getGestureSet() {
-      return GestureTools.combine(getGestureSets());
+      return GestureTool.combine(getGestureSets());
    }
 
 

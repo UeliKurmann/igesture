@@ -34,7 +34,7 @@ import java.util.logging.Logger;
 
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.util.XMLTools;
+import org.ximtec.igesture.util.XMLTool;
 
 
 /**
@@ -60,7 +60,7 @@ public class AlgorithmFactory {
     */
    public static List<Algorithm> createAlgorithms(File file)
          throws AlgorithmException {
-      return createAlgorithms(XMLTools.importConfiguration(file));
+      return createAlgorithms(XMLTool.importConfiguration(file));
    } // createAlgorithms
 
 
@@ -100,7 +100,7 @@ public class AlgorithmFactory {
     * @throws AlgorithmException if the algorithm could not be created.
     */
    public static Algorithm createAlgorithm(File file) throws AlgorithmException {
-      return createAlgorithm(XMLTools.importConfiguration(file));
+      return createAlgorithm(XMLTool.importConfiguration(file));
    } // createAlgorithm
 
 
@@ -114,8 +114,8 @@ public class AlgorithmFactory {
     */
    public static Algorithm createAlgorithm(File config, File set)
          throws AlgorithmException {
-      final Configuration configuration = XMLTools.importConfiguration(config);
-      final List<GestureSet> sets = XMLTools.importGestureSet(set);
+      final Configuration configuration = XMLTool.importConfiguration(config);
+      final List<GestureSet> sets = XMLTool.importGestureSet(set);
       configuration.addGestureSets(sets);
       return createAlgorithm(configuration);
    } // createAlgorithm

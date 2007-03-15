@@ -17,7 +17,7 @@ import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.util.ScrollableList;
 import org.ximtec.igesture.tool.util.SwingTool;
-import org.ximtec.igesture.util.XMLTools;
+import org.ximtec.igesture.util.XMLTool;
 
 public class ActionStartBatch extends BasicAction {
 
@@ -46,9 +46,9 @@ public class ActionStartBatch extends BasicAction {
 			batchProcess.addGestureSet(gestureSet);
 			batchProcess.setTestSet(testSet);
 			BatchResultSet brs = batchProcess.run();
-			String xmlDocument = XMLTools.exportBatchResultSet(brs);
+			String xmlDocument = XMLTool.exportBatchResultSet(brs);
 			try {
-				String htmlPage = XMLTools.transform(xmlDocument, ActionStartBatch.class.getClassLoader().getResourceAsStream("xml/batch.xsl"));
+				String htmlPage = XMLTool.transform(xmlDocument, ActionStartBatch.class.getClassLoader().getResourceAsStream("xml/batch.xsl"));
 				FileHandler.writeFile(resultFile.getPath(), htmlPage);
 			} catch (TransformerConfigurationException e) {
 				e.printStackTrace();

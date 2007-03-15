@@ -1,5 +1,5 @@
 /*
- * @(#)GestureTools.java   1.0   Dec 26, 2006
+ * @(#)GestureTool.java   1.0   Dec 26, 2006
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -46,7 +46,7 @@ import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.TestSet;
 
 
-public class GestureTools {
+public class GestureTool {
 
    public static double scaleTraceTo(org.sigtec.ink.Trace trace,
          double maxWidth, double maxHeight) {

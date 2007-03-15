@@ -34,7 +34,7 @@ import org.sigtec.ink.Trace;
 import org.sigtec.ink.input.Location;
 import org.ximtec.igesture.algorithm.feature.FeatureTools;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.util.GestureTools;
+import org.ximtec.igesture.util.GestureTool;
 
 public class GestureSignature {
 
@@ -102,7 +102,7 @@ public class GestureSignature {
 	private void initialize() {
 		final List<GestureSignature.Position> points = new ArrayList<GestureSignature.Position>();
 		final Trace trace = FeatureTools.createTrace((Note) note.clone());
-		final double scale = GestureTools.scaleTraceTo(trace, rasterSize,
+		final double scale = GestureTool.scaleTraceTo(trace, rasterSize,
 				rasterSize);
 		trace.scale(scale, scale);
 

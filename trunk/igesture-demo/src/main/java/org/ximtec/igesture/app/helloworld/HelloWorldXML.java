@@ -14,7 +14,7 @@ import org.ximtec.igesture.io.ButtonDeviceEventListener;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.MouseReader;
 import org.ximtec.igesture.io.MouseReaderEventListener;
-import org.ximtec.igesture.util.XMLTools;
+import org.ximtec.igesture.util.XMLTool;
 
 public class HelloWorldXML implements ButtonDeviceEventListener {
 
@@ -24,7 +24,7 @@ public class HelloWorldXML implements ButtonDeviceEventListener {
 
 	public HelloWorldXML() throws AlgorithmException {
 		
-		Configuration configuration = XMLTools.importConfiguration(new File(
+		Configuration configuration = XMLTool.importConfiguration(new File(
 				this.getClass().getClassLoader().getResource(
 						"configuration.xml").getFile()));
 

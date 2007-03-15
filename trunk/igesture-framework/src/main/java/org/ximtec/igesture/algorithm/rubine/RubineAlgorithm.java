@@ -59,7 +59,7 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.core.VectorTools;
-import org.ximtec.igesture.util.GestureTools;
+import org.ximtec.igesture.util.GestureTool;
 
 
 public class RubineAlgorithm extends SampleBasedAlgorithm {
@@ -200,7 +200,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
       addEventManagerListener(config.getEventManager());
 
-      preprocess(GestureTools.combine(config.getGestureSets()));
+      preprocess(GestureTool.combine(config.getGestureSets()));
    }
 
 

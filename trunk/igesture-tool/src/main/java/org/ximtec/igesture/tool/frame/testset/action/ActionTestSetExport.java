@@ -37,7 +37,7 @@ import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.frame.testset.TestSetListModel;
 import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.tool.util.SwingTool;
-import org.ximtec.igesture.util.XMLTools;
+import org.ximtec.igesture.util.XMLTool;
 
 
 /**
@@ -69,7 +69,7 @@ public class ActionTestSetExport extends BasicAction {
          if (selectedFile != null) {
             final TestSet testSet = ((TestSetListModel) list.getModel())
                   .getTestSet((String) list.getSelectedValue());
-            XMLTools.exportTestSet(testSet, selectedFile);
+            XMLTool.exportTestSet(testSet, selectedFile);
          }
       }
    }

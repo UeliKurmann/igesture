@@ -42,7 +42,7 @@ import org.ximtec.igesture.tool.TestTab;
 import org.ximtec.igesture.tool.event.CurrentGestureListener;
 import org.ximtec.igesture.tool.frame.testset.action.ActionTestSetAdd;
 import org.ximtec.igesture.tool.util.SwingTool;
-import org.ximtec.igesture.util.GestureTools;
+import org.ximtec.igesture.util.GestureTool;
 
 
 /**
@@ -98,7 +98,7 @@ public class TestSetFrame extends BasicInternalFrame implements
       final Note note = (Note) currentNote.clone();
 
       if (!note.getTraces().isEmpty()) {
-         gestureImage.setIcon(new ImageIcon(GestureTools.createNoteImage(note,
+         gestureImage.setIcon(new ImageIcon(GestureTool.createNoteImage(note,
                180, 180)));
       }
       this.repaint();

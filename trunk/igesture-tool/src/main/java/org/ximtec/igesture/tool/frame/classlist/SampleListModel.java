@@ -36,7 +36,7 @@ import javax.swing.JPanel;
 
 import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.GestureSample;
-import org.ximtec.igesture.util.GestureTools;
+import org.ximtec.igesture.util.GestureTool;
 
 
 public class SampleListModel extends AbstractListModel {
@@ -85,7 +85,7 @@ public class SampleListModel extends AbstractListModel {
    private JPanel createImage(Note note) {
       final JPanel pane = new JPanel();
       if (!note.getTraces().isEmpty()) {
-         pane.add(new JLabel(new ImageIcon(GestureTools.createNoteImage(note,
+         pane.add(new JLabel(new ImageIcon(GestureTool.createNoteImage(note,
                100, 100))));
       }
       return pane;

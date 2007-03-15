@@ -66,7 +66,7 @@ import org.ximtec.igesture.core.jdom.JdomGestureSet;
 import org.ximtec.igesture.core.jdom.JdomTestSet;
 import org.xml.sax.InputSource;
 
-public class XMLTools {
+public class XMLTool {
 
 	public static final String ROOT_TAG = "sets";
 
@@ -232,7 +232,7 @@ public class XMLTools {
 	 *            the XML file
 	 */
 	public static void exportBatchResultSet(BatchResultSet resultSet, File file) {
-		FileHandler.writeFile(file.getPath(), XMLTools
+		FileHandler.writeFile(file.getPath(), XMLTool
 				.exportBatchResultSet(resultSet));
 	}
 
