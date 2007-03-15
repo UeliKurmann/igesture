@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Implementation of the Rubine algorithm
+ * Purpose      : 	Implementation of the Rubine algorithm.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,7 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -62,6 +62,13 @@ import org.ximtec.igesture.core.VectorTools;
 import org.ximtec.igesture.util.GestureTool;
 
 
+/**
+ * Implementation of the Rubine algorithm.
+ * 
+ * @version 1.0 Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class RubineAlgorithm extends SampleBasedAlgorithm {
 
    private static final Logger LOGGER = Logger.getLogger(AlgorithmFactory.class
@@ -172,36 +179,30 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
       fireEvent(resultSet);
       return resultSet;
-   }
+   } // recognise
 
 
    public void init(Configuration config) throws AlgorithmException {
       final HashMap<String, String> parameters = config
             .getAlgorithmParameters(this.getClass().getCanonicalName());
-
       minDistance = AlgorithmTool.getDoubleParameterValue(Config.MIN_DISTANCE
             .name(), parameters, DEFAULT_CONFIGURATION);
       LOGGER.info(Config.MIN_DISTANCE + ": " + minDistance);
-
       mahalanobisDistance = AlgorithmTool.getDoubleParameterValue(
             Config.MAHALANOBIS_DISTANCE.name(), parameters,
             DEFAULT_CONFIGURATION);
       LOGGER.info(Config.MAHALANOBIS_DISTANCE + ": " + mahalanobisDistance);
-
       final String featureNames = AlgorithmTool.getParameterValue(
             Config.FEATURE_LIST.name(), parameters, DEFAULT_CONFIGURATION);
       LOGGER.info(Config.FEATURE_LIST + ": " + featureNames);
       featureList = FeatureTool.createFeatureList(featureNames).toArray(
             new Feature[0]);
-
       probability = AlgorithmTool.getDoubleParameterValue(Config.PROPABILITY
             .name(), parameters, DEFAULT_CONFIGURATION);
       LOGGER.info(Config.PROPABILITY + ": " + probability);
-
       addEventManagerListener(config.getEventManager());
-
       preprocess(GestureTool.combine(config.getGestureSets()));
-   }
+   } // init
 
 
    private void preprocess(GestureSet gestureSet) throws AlgorithmException {
@@ -266,7 +267,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    private DoubleVector computeFeatureVector(Note note, Feature[] featureList) {
 
       // clone the note to avoid side effects
-      final Note clone = (Note) note.clone();
+      final Note clone = (Note)note.clone();
       clone.scaleTo(200, 200);
 
       // filter the note using the min distance
@@ -274,7 +275,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
       // create the feature vector
       final DoubleVector featureVector = new DoubleVector(featureList.length);
-      
+
       for (int i = 0; i < featureList.length; i++) {
          featureVector.set(i, featureList[i].compute(clone));
       }

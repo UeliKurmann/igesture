@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	MyScript wrapper
+ * Purpose      : 	MyScript wrapper.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 15, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -36,6 +37,13 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.ResultSet;
 
 
+/**
+ * MyScript wrapper.
+ * 
+ * @version 1.0 Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class HWRecogniser extends DefaultAlgorithm {
 
    private Recogniser recogniser;
@@ -45,22 +53,22 @@ public class HWRecogniser extends DefaultAlgorithm {
       recogniser = new Recogniser();
       recogniser.loadResource(MyScript.getResource(MyScript.EN_UK_AK_CUR));
       recogniser.loadResource(MyScript.getResource(MyScript.EN_UK_LK_TEXT));
-   }
+   } // init
 
 
    public ResultSet recognise(Note note) {
-      final Note clone = (Note) note.clone();
+      final Note clone = (Note)note.clone();
       final Result result = recogniser.recognise(clone);
       final ResultSet resultSet = new ResultSet();
-      resultSet.addResult(new org.ximtec.igesture.core.Result(new GestureClass(result
-            .getText()), result.getConfidence()));
+      resultSet.addResult(new org.ximtec.igesture.core.Result(new GestureClass(
+            result.getText()), result.getConfidence()));
       fireEvent(resultSet);
       return resultSet;
-   }
+   } // recognise
 
 
    public Enum[] getConfigParameters() {
       return Config.values();
-   }
+   } // getConfigParameters
 
 }
