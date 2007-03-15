@@ -50,7 +50,7 @@ import org.ximtec.igesture.algorithm.feature.F7;
 import org.ximtec.igesture.algorithm.feature.F8;
 import org.ximtec.igesture.algorithm.feature.F9;
 import org.ximtec.igesture.algorithm.feature.Feature;
-import org.ximtec.igesture.algorithm.feature.FeatureTools;
+import org.ximtec.igesture.algorithm.feature.FeatureTool;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.DoubleVector;
 import org.ximtec.igesture.core.GestureClass;
@@ -191,7 +191,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       final String featureNames = AlgorithmTool.getParameterValue(
             Config.FEATURE_LIST.name(), parameters, DEFAULT_CONFIGURATION);
       LOGGER.info(Config.FEATURE_LIST + ": " + featureNames);
-      featureList = FeatureTools.createFeatureList(featureNames).toArray(
+      featureList = FeatureTool.createFeatureList(featureNames).toArray(
             new Feature[0]);
 
       probability = AlgorithmTool.getDoubleParameterValue(Config.PROPABILITY

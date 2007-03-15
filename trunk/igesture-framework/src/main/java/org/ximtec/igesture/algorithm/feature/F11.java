@@ -42,7 +42,7 @@ import org.sigtec.ink.Trace;
 public class F11 implements Feature {
 
    public double compute(Note note) {
-      final Trace trace = FeatureTools.createTrace(note);
+      final Trace trace = FeatureTool.createTrace(note);
       final Point[] points = new Point[trace.getPoints().size()];
       int j = 0;
 
@@ -54,7 +54,7 @@ public class F11 implements Feature {
       double result = 0;
 
       for (int i = 1; i < trace.getPoints().size() - 1; i++) {
-         result += Math.pow(FeatureTools.roh(i, points), 2);
+         result += Math.pow(FeatureTool.roh(i, points), 2);
       }
 
       return result;

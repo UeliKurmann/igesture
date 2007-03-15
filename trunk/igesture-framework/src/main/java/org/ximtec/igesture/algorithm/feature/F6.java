@@ -3,7 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 
+ * Purpose      :   Rubine Feature F6. The cosine of the angle between
+ *                  the first and last point.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +12,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 15, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -22,11 +24,6 @@
  * 
  */
 
-/****************************************************************************************
- * Rubine Feature F6
- * The cosine of the angle between the first and last point
- ****************************************************************************************/
-
 
 package org.ximtec.igesture.algorithm.feature;
 
@@ -34,21 +31,27 @@ import org.sigtec.ink.Note;
 import org.sigtec.ink.Trace;
 
 
+/**
+ * Rubine Feature F6. The cosine of the angle between the first and last pointt.
+ * 
+ * @version 1.0 Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class F6 implements Feature {
 
    public double compute(Note note) {
-      final Trace trace = FeatureTools.createTrace(note);
-
+      final Trace trace = FeatureTool.createTrace(note);
       final double xn = trace.getEndPoint().getX();
       final double x0 = trace.getStartPoint().getX();
-
       final F5 f5 = new F5();
       double divisor = f5.compute(note);
+
       if (divisor == 0) {
          divisor = 1;
       }
 
       return (xn - x0) / divisor;
-   }
+   } // compute
 
 }
