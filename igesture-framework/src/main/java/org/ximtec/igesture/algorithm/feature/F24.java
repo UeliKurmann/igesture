@@ -3,7 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 
+ * Purpose      :   UK Feature F18. Proportion of the stroke lenghts
+ *                  (first/last point) to each other.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +12,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 15, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -22,11 +24,6 @@
  * 
  */
 
-/****************************************************************************************
- * UK Feature F18
- * Proportion of the stroke lenghts (first/last point) to each other
- ****************************************************************************************/
-
 
 package org.ximtec.igesture.algorithm.feature;
 
@@ -36,17 +33,26 @@ import org.sigtec.ink.Note;
 import org.sigtec.ink.Trace;
 
 
+/**
+ * UK Feature F18. Proportion of the stroke lenghts (first/last point) to each
+ * other.
+ * 
+ * @version 1.0 Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class F24 implements Feature {
 
    public double compute(Note note) {
       double proportion = 0;
-
       final List<Trace> traces = note.getTraces();
 
       if (traces.size() > 1) {
+
          for (final Trace trace : traces) {
             final double divisor = trace.getStartPoint().distance(
                   trace.getEndPoint());
+
             if (proportion == 0) {
                proportion = divisor;
             }
@@ -56,12 +62,15 @@ public class F24 implements Feature {
             else {
                proportion = 1;
             }
+
          }
+
       }
       else {
          proportion = 1;
       }
 
       return proportion;
-   }
+   } // compute
+
 }

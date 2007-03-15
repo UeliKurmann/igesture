@@ -42,7 +42,7 @@ import org.sigtec.ink.Trace;
 public class F1 implements Feature {
 
    public double compute(Note note) {
-      final Trace trace = FeatureTools.createTrace(note);
+      final Trace trace = FeatureTool.createTrace(note);
       final Point p0 = trace.get(0);
       Point p2 = trace.get(2);
       

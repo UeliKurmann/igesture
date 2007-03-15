@@ -3,7 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 
+ * Purpose      :   UK Feature F15. The sum of the relative distances
+ *                  between the strokes.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +12,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 15, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -21,10 +23,6 @@
  * Use is subject to license terms.
  * 
  */
-/****************************************************************************************
- * UK Feature F15
- * The sum of the relative distances between the strokes
- ****************************************************************************************/
 
 
 package org.ximtec.igesture.algorithm.feature;
@@ -35,16 +33,25 @@ import org.sigtec.ink.Note;
 import org.sigtec.ink.Trace;
 
 
+/**
+ * UK Feature F15. The sum of the relative distances between the strokes.
+ * 
+ * @version 1.0 Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class F22 implements Feature {
 
    public double compute(Note note) {
       double distance = 0;
       final List<Trace> traces = note.getTraces();
+
       for (int i = 1; i < traces.size(); i++) {
          final Trace t1 = traces.get(i - 1);
          final Trace t2 = traces.get(i);
          distance += Math.abs(t2.getStartPoint().distance(t1.getEndPoint()));
       }
+
       final double width = note.getBounds2D().getWidth();
       final double height = note.getBounds2D().getHeight();
       final double diag = Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2));
@@ -54,5 +61,6 @@ public class F22 implements Feature {
       }
 
       return 1;
-   }
+   } // compute
+
 }

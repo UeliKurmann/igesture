@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 
+ * Purpose      :   UK Feature F19. Proportion of stroke duration.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 15, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -22,11 +23,6 @@
  * 
  */
 
-/****************************************************************************************
- * UK Feature F19
- * Proportion of stroke duration
- ****************************************************************************************/
-
 
 package org.ximtec.igesture.algorithm.feature;
 
@@ -36,16 +32,24 @@ import org.sigtec.ink.Note;
 import org.sigtec.ink.Trace;
 
 
+/**
+ * UK Feature F19. Proportion of stroke duration.
+ * 
+ * @version 1.0 Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class F25 implements Feature {
 
    public double compute(Note note) {
       double proportion = 0;
-
       final List<Trace> traces = note.getTraces();
-      if (traces.size() > 1) {
-         for (final Trace trace : traces) {
 
+      if (traces.size() > 1) {
+
+         for (final Trace trace : traces) {
             final double divisor = trace.getDuration();
+
             if (proportion == 0) {
                proportion = divisor;
             }
@@ -55,11 +59,15 @@ public class F25 implements Feature {
             else {
                proportion = 1;
             }
+
          }
+
       }
       else {
          proportion = 1;
       }
+
       return proportion;
-   }
+   } // compute
+
 }
