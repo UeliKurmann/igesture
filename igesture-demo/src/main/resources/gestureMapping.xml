@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <gestureMappings>
 	<gestureMapping>
-		<key>CONTROL+Z</key>
+		<key>CONTROL+C</key>
 		<gesture>Left</gesture>
 	</gestureMapping>
 	<gestureMapping>
-		<key>CONTROL+Y</key>
+		<key>CONTROL+V</key>
 		<gesture>Right</gesture>
 	</gestureMapping>
 	<gestureMapping>
@@ -13,11 +13,11 @@
 		<gesture>Curlicue</gesture>
 	</gestureMapping>
 	<gestureMapping>
-		<key>CONTROL+C</key>
+		<key>CONTROL+Y</key>
 		<gesture>Up-right</gesture>
 	</gestureMapping>
 	<gestureMapping>
-		<key>CONTROL+V</key>
+		<key>CONTROL+Z</key>
 		<gesture>Up-left</gesture>
 	</gestureMapping>
 </gestureMappings>

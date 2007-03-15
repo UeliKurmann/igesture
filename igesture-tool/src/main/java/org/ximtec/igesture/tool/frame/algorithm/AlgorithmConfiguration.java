@@ -90,15 +90,12 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
       scrollPane = new JScrollPane(null);
       scrollPane.setAutoscrolls(true);
       scrollPane.setPreferredSize(new Dimension(380, 300));
-
       saveButton = new JButton();
       saveButton.setAction(new ActionSaveConfiguration(this));
-
       addComponent(createConfigurationList(), SwingTool.createGridBagConstraint(
             0, 0));
       addComponent(scrollPane, SwingTool.createGridBagConstraint(0, 1));
       addComponent(saveButton, SwingTool.createGridBagConstraint(0, 2));
-
       loadConfiguration(null);
    }
 
@@ -123,12 +120,10 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
 
    private JPopupMenu createPopupMenu() {
       final JPopupMenu menu = new JPopupMenu();
-
       menu.add(SwingTool.createMenuItem(new ActionLoadConfiguration(this)));
       menu.add(SwingTool.createMenuItem(new ActionDeleteConfiguration(this)));
       menu.add(createAlgorithmPopupMenu());
       menu.add(SwingTool.createMenuItem(new ActionExportConfiguration(this)));
-
       return menu;
    }
 
@@ -233,7 +228,7 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
 
 
    public void deleteCurrentConfiguration() {
-      final Configuration config = ((ConfigurationListModel) configurationList
+      final Configuration config = ((ConfigurationListModel)configurationList
             .getList().getModel()).getInstanceAt(configurationList
             .getSelectedIndex());
       mainView.getModel().removeConfiguration(config);
@@ -241,7 +236,7 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
 
 
    public void openSelectedConfiguration() {
-      final Configuration config = ((ConfigurationListModel) configurationList
+      final Configuration config = ((ConfigurationListModel)configurationList
             .getList().getModel()).getInstanceAt(configurationList
             .getSelectedIndex());
       loadConfiguration(config);
