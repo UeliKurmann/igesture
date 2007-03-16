@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Instantiated Regex of a gesture class
+ * Purpose		: 	Instantiated Regex of a gesture class.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 					ukurmann	Initial Release
+ * Dec 7, 2006		ukurmann	Initial Release
+ * Mar 16, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -30,10 +31,11 @@ import java.util.regex.Pattern;
 
 
 /**
- * Comment
+ * Instantiated Regex of a gesture class.
  * 
- * @version 1.0 Dec 7, 2006
+ * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class ClassMatcher {
 
@@ -53,20 +55,20 @@ public class ClassMatcher {
    private void init() {
       parser = new Parser(description);
       pattern = parser.getPattern();
-   }
+   } // init
 
 
    /**
-    * Tests if a stroke matches the gesture class
-    * @param strokeInfo
-    * @return
+    * Tests if a stroke matches the gesture class.
+    * @param strokeInfo the stroke to be tested.
+    * @return true if there is a match.
     */
    public boolean isMatch(StrokeInfo strokeInfo) {
       final Matcher m = pattern.matcher(strokeInfo.getString());
       final boolean regexMatches = m.matches();
       final boolean constraints = parser.evaluateConstraints(strokeInfo
             .getStatistics());
-
       return regexMatches && constraints;
-   }
+   } // isMatch
+
 }

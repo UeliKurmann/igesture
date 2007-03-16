@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Directions used by the Siger algorithm
+ * Purpose		: 	Directions used by the Siger algorithm.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 					ukurmann	Initial Release
+ * Dec 6, 2006	    ukurmann	Initial Release
+ * Mar 16, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -26,20 +27,24 @@
 package org.ximtec.igesture.algorithm.siger;
 
 /**
- * Comment
+ * Directions used by the Siger algorithm.
  * 
- * @version 1.0 Dec 6, 2006
+ * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public enum Direction {
    N, NE, E, SE, S, SW, W, NW;
 
    public static Direction parse(String s) {
       for (final Direction d : Direction.values()) {
+
          if (d.name().equals(s.trim())) {
             return d;
          }
+
       }
       return null;
-   }
+   } // parse
+
 }
