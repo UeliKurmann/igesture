@@ -444,8 +444,8 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
          }
 
          if (Double.isNaN(v)) {
-            // FIXME: logger information?
-            System.out.println("Bloed...");
+            LOGGER.warning("Computation failed because of NaN fields in the matrix");
+            return new ResultSet();
          }
 
       }
