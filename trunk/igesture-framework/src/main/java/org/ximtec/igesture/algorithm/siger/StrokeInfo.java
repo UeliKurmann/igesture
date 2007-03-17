@@ -12,7 +12,7 @@
  *
  * Date				Who			Reason
  *
- * Dec 2006			ukurmann	Initial Release
+ * Dec 6, 2006		ukurmann	Initial Release
  * Mar 16, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
@@ -32,6 +32,7 @@ import java.util.List;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Point;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.util.GestureTool;
 
 
@@ -55,42 +56,45 @@ public class StrokeInfo {
       this.note = GestureTool.getCharacteristicNote((Note)note.clone(), 3, 10);
       directions = new ArrayList<Direction>();
       final List<Point> points = GestureTool.getPoints(this.note);
-      
+
       for (int i = 1; i < points.size(); i++) {
          final double angle = GestureTool.getAngle(points.get(i - 1), points
                .get(i));
-         
+
          if (!Double.isNaN(angle)) {
             directions.add(getDirection(angle));
          }
-      
+
       }
-      
+
       this.statistics = new Statistics(directions, this.note);
    } // StrokeInfo
 
 
    /**
-    * Creats
+    * Returns a string representation of the stroke info.
     * 
-    * @return
+    * @return string representation of the stroke info.
     */
    public String getString() {
       final StringBuilder sb = new StringBuilder();
+
       for (final Direction d : directions) {
-         sb.append(d.name() + ",");
+         sb.append(d.name() + Constant.COMMA);
       }
+
       return sb.toString();
-   }
+   } // getString
 
 
    /**
-    * Returns the direction on the basis the gradient's angle
+    * Returns the direction based on the gradient's angle.
     * 
-    * @param angle the angle of the gradient
-    * @return the direction (8 cardial points)
+    * @param angle the angle of the gradient.
+    * @return the direction (8 cardial points).
     */
    private Direction getDirection(double angle) {
+      // FIXME: use constants with meaningful names instead of 67.5 etc.
       if ((angle >= 337.5 && angle < 360) || (angle >= 0 && angle < 22.5)) {
          return Direction.E;
       }
@@ -116,28 +120,30 @@ public class StrokeInfo {
          return Direction.NE;
       }
       throw new IllegalStateException();
-   }
+   } // getDirection
 
 
    /**
-    * Returns the statistic object
+    * Returns the statistics object.
     * 
-    * @return
+    * @return the statistic obejct.
     */
    public Statistics getStatistics() {
       return statistics;
-   }
+   } // getStatistics
 
 
    @Override
    public String toString() {
       final StringBuilder sb = new StringBuilder();
-      sb.append("[");
+      sb.append(Constant.OPEN_ANGULAR_BRACKET);
+      
       for (final Direction d : directions) {
-         sb.append(d.name() + ",");
+         sb.append(d.name() + Constant.COMMA);
       }
-      sb.append("]");
+      
+      sb.append(Constant.CLOSE_ANGULAR_BRACKET);
       return sb.toString();
-   }
+   } // toString
 
 }

@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Interface for Distance functions
+ * Purpose		: 	Interface for distance functions.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 					ukurmann	Initial Release
+ * Dec 11, 2006		ukurmann	Initial Release
+ * Mar 17, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -26,18 +27,19 @@
 package org.ximtec.igesture.algorithm.signature;
 
 /**
- * Comment
+ * Interface for distance functions.
  * 
  * @version 1.0 Dec 11, 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public interface DistanceFunction {
 
    /**
-    * Computes the distance between two signatures
+    * Computes the distance between two signatures.
     * 
-    * @param s1 Signature 1
-    * @param s2 Signature 2
+    * @param s1 the first signature.
+    * @param s2 the second signature.
     * @return the distance between signature 1 and 2
     */
    public int computeDistance(GestureSignature s1, GestureSignature s2);
