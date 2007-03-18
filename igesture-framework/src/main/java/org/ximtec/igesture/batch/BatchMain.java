@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Front-End Batch Processing
+ * Purpose		:   Front-end for the batch processing.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 					ukurmann	Initial Release
+ * Dec 16, 2006     ukurmann	Initial Release
+ * Mar 18, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -45,10 +46,11 @@ import org.ximtec.igesture.util.XMLTool;
 
 
 /**
- * Command Line interace for batch processing
+ * Front-end for the batch processing.
  * 
  * @version 1.0 Dec 16, 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class BatchMain {
 
@@ -70,7 +72,7 @@ public class BatchMain {
 
 
    /**
-    * Front End of the Batch Process
+    * Front-end for the batch process.
     * 
     * @param args
     */
@@ -85,7 +87,7 @@ public class BatchMain {
       options.addOption(createOption(HTML, FILE, "HTML output file"));
       final CommandLineParser parser = new GnuParser();
       CommandLine line = null;
-      
+
       try {
          line = parser.parse(options, args);
       }
@@ -99,25 +101,23 @@ public class BatchMain {
       }
       else if ((line.hasOption(CONFIG) && line.hasOption(GESTURESET) && line
             .hasOption(TESTSET))) {
-
          final BatchProcess batchProcess = new BatchProcess(new File(line
                .getOptionValue(CONFIG)));
          batchProcess.addGestureSets(XMLTool.importGestureSet(new File(line
                .getOptionValue(GESTURESET))));
-
          batchProcess.setTestSet(XMLTool.importTestSet(
                new File(line.getOptionValue(TESTSET))).get(0));
-
          final BatchResultSet resultSet = batchProcess.run();
          final String xmlDocument = XMLTool.exportBatchResultSet(resultSet);
-         
+
          if (line.hasOption(XML)) {
             org.sigtec.util.FileHandler.writeFile(line.getOptionValue(XML),
                   xmlDocument);
          }
-         
+
          if (line.hasOption(XSL) && line.hasOption(HTML)) {
             String htmlPage = Constant.EMPTY_STRING;
+
             try {
                htmlPage = XMLTool.transform(xmlDocument, line
                      .getOptionValue(XSL));
@@ -134,9 +134,9 @@ public class BatchMain {
 
             FileHandler.writeFile(line.getOptionValue(HTML), htmlPage);
          }
-         
+
       }
-      
+
    }
 
 
@@ -145,5 +145,6 @@ public class BatchMain {
          String description) {
       return OptionBuilder.withArgName(argument).hasArg().withDescription(
             description).create(name);
-   }
+   } // createOption
+
 }

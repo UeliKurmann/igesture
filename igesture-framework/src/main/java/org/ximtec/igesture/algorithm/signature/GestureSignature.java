@@ -43,7 +43,7 @@ import org.ximtec.igesture.util.GestureTool;
 /**
  * Interface for distance functions.
  * 
- * @version 1.0 Dec 11, 2006
+ * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
@@ -159,7 +159,7 @@ public class GestureSignature {
       }
 
       numberOfPoints++;
-   }
+   } // addSignature
 
 
    /**
