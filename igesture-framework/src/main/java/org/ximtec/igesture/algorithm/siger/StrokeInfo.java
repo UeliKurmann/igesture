@@ -14,6 +14,7 @@
  *
  * Dec 6, 2006		ukurmann	Initial Release
  * Mar 16, 2007     bsigner     Cleanup
+ * Mar 19, 2007		ukurmann	Add Constants
  *
  * -----------------------------------------------------------------------
  *
@@ -45,7 +46,27 @@ import org.ximtec.igesture.util.GestureTool;
  */
 public class StrokeInfo {
 
-   private List<Direction> directions;
+   private static final int ANGLE_E0 = 0;
+
+private static final double ANGLE_N_NE = 292.5;
+
+private static final double ANGLE_NW_N = 247.5;
+
+private static final double ANGLE_W_NW = 202.5;
+
+private static final double ANGLE_SW_W = 157.5;
+
+private static final double ANGLE_S_SW = 112.5;
+
+private static final double ANGLE_SE_S = 67.5;
+
+private static final double ANGLE_E_SE = 22.5;
+
+private static final int ANGLE_E = 360;
+
+private static final double ANGLE_NE_E = 337.5;
+
+private List<Direction> directions;
 
    private Note note;
 
@@ -94,29 +115,29 @@ public class StrokeInfo {
     * @return the direction (8 cardial points).
     */
    private Direction getDirection(double angle) {
-      // FIXME: use constants with meaningful names instead of 67.5 etc.
-      if ((angle >= 337.5 && angle < 360) || (angle >= 0 && angle < 22.5)) {
+      if ((angle >= ANGLE_NE_E && angle < ANGLE_E)
+				|| (angle >= ANGLE_E0 && angle < ANGLE_E_SE)) {
          return Direction.E;
       }
-      else if (angle >= 22.5 && angle < 67.5) {
+      else if (angle >= ANGLE_E_SE && angle < ANGLE_SE_S) {
          return Direction.SE;
       }
-      else if (angle >= 67.5 && angle < 112.5) {
+      else if (angle >= ANGLE_SE_S && angle < ANGLE_S_SW) {
          return Direction.S;
       }
-      else if (angle >= 112.5 && angle < 157.5) {
+      else if (angle >= ANGLE_S_SW && angle < ANGLE_SW_W) {
          return Direction.SW;
       }
-      else if (angle >= 157.5 && angle < 202.5) {
+      else if (angle >= ANGLE_SW_W && angle < ANGLE_W_NW) {
          return Direction.W;
       }
-      else if (angle >= 202.5 && angle < 247.5) {
+      else if (angle >= ANGLE_W_NW && angle < ANGLE_NW_N) {
          return Direction.NW;
       }
-      else if (angle >= 247.5 && angle < 292.5) {
+      else if (angle >= ANGLE_NW_N && angle < ANGLE_N_NE) {
          return Direction.N;
       }
-      else if (angle >= 292.5 && angle < 337.5) {
+      else if (angle >= ANGLE_N_NE && angle < ANGLE_NE_E) {
          return Direction.NE;
       }
       throw new IllegalStateException();
