@@ -47,14 +47,18 @@ public class JdomGestureClass extends Element {
       super(ROOT_TAG);
       setAttribute(NAME_ATTRIBUTE, gestureClass.getName());
       setAttribute(UUID_ATTRIBUTE, gestureClass.getID());
+
       for (final Descriptor descriptor : gestureClass.getDescriptors()) {
+
          if (descriptor instanceof SampleDescriptor) {
-            addContent(new JdomSampleDescriptor((SampleDescriptor) descriptor));
+            addContent(new JdomSampleDescriptor((SampleDescriptor)descriptor));
          }
          else if (descriptor instanceof TextDescriptor) {
-            addContent(new JdomTextDescriptor((TextDescriptor) descriptor));
+            addContent(new JdomTextDescriptor((TextDescriptor)descriptor));
          }
+
       }
+
    }
 
 
@@ -64,18 +68,21 @@ public class JdomGestureClass extends Element {
       final String uuid = gestureClassElement.getAttributeValue(UUID_ATTRIBUTE);
       final GestureClass gestureClass = new GestureClass(name);
       gestureClass.setID(uuid);
-      for (final Element descriptorElement : (List<Element>) gestureClassElement
+
+      for (final Element descriptorElement : (List<Element>)gestureClassElement
             .getChildren(JdomSampleDescriptor.ROOT_TAG)) {
-         final SampleDescriptor sampleDescriptor = (SampleDescriptor) JdomSampleDescriptor
+         final SampleDescriptor sampleDescriptor = (SampleDescriptor)JdomSampleDescriptor
                .unmarshal(descriptorElement);
          gestureClass.addDescriptor(sampleDescriptor);
       }
-      for (final Element descriptorElement : (List<Element>) gestureClassElement
+
+      for (final Element descriptorElement : (List<Element>)gestureClassElement
             .getChildren(JdomTextDescriptor.ROOT_TAG)) {
-         final TextDescriptor textDescriptor = (TextDescriptor) JdomTextDescriptor
+         final TextDescriptor textDescriptor = (TextDescriptor)JdomTextDescriptor
                .unmarshal(descriptorElement);
          gestureClass.addDescriptor(textDescriptor);
       }
+
       return gestureClass;
    } // unmarshal
 

@@ -101,11 +101,15 @@ public class TestSet extends DefaultDataObject {
     */
    public int getNoiseSize() {
       int i = 0;
+
       for (final GestureSample sample : getSamples()) {
+
          if (sample.getName().equals(NOISE)) {
             i++;
          }
+
       }
+
       return i;
    }
 
@@ -119,6 +123,7 @@ public class TestSet extends DefaultDataObject {
       if (name == null) {
          name = String.valueOf(System.currentTimeMillis());
       }
+
       return name;
    }
 
@@ -151,9 +156,11 @@ public class TestSet extends DefaultDataObject {
    public void setName(String name) {
       this.name = name;
    }
-   
+
+
    @Override
-	public String toString(){
-	   return name;
+   public String toString() {
+      return name;
    }
+
 }

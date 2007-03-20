@@ -31,11 +31,12 @@ import java.util.List;
 
 import org.jdom.Element;
 
+
 /**
  * Datastructure for an Algorithm
  * @author Ueli Kurmann
  * @version 1.00
- *
+ * 
  */
 public class BatchAlgorithm {
 
@@ -81,9 +82,11 @@ public class BatchAlgorithm {
 
       final List<Element> parameterElements = algorithm
             .getChildren(BatchParameter.ROOT_TAG);
+
       for (final Element elem : parameterElements) {
          batchAlgorithm.addParameter(BatchParameter.unmarshal(elem));
       }
+
       return batchAlgorithm;
    } // unmarshal
 

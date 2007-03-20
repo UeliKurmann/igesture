@@ -53,15 +53,18 @@ public class JdomConfiguration extends Element {
 
    public JdomConfiguration(Configuration configuration) {
       super(ROOT_TAG);
+
       for (final String algorithmName : configuration.getAlgorithms()) {
          final Element element = new Element(ALGORITHM_TAG);
          element.setAttribute(NAME_ATTRIBUTE, algorithmName);
          final HashMap<String, String> parameters = configuration
                .getAlgorithmParameters(algorithmName);
+
          for (final String parameterName : parameters.keySet()) {
             element.addContent(new JdomConfigurationParameter(parameterName,
                   parameters.get(parameterName)));
          }
+
          this.addContent(element);
       }
 
@@ -73,11 +76,14 @@ public class JdomConfiguration extends Element {
       // sets
       if (!configuration.getGestureSets().isEmpty()) {
          final Element sets = new Element(SETS_TAG);
+
          for (final GestureSet set : configuration.getGestureSets()) {
             sets.addContent(new JdomGestureSet(set));
          }
+
          this.addContent(sets);
       }
+
    }
 
 
@@ -85,7 +91,7 @@ public class JdomConfiguration extends Element {
    public static Object unmarshal(Element configurationElement) {
       final Configuration configuration = new Configuration();
 
-      for (final Element algorithmElem : (List<Element>) configurationElement
+      for (final Element algorithmElem : (List<Element>)configurationElement
             .getChildren(ALGORITHM_TAG)) {
          /**
           * set the algorithm name
@@ -96,33 +102,35 @@ public class JdomConfiguration extends Element {
          /**
           * add parameters
           */
-         for (final Element parameter : (List<Element>) algorithmElem
+         for (final Element parameter : (List<Element>)algorithmElem
                .getChildren(JdomConfigurationParameter.ROOT_TAG)) {
-
             final String[] parameterList = JdomConfigurationParameter
                   .unmarshal(parameter);
-
             configuration.addAlgorithmParameter(algorithmName, parameterList[0],
                   parameterList[1]);
          }
+
       }
 
-      for (final Element parameter : (List<Element>) configurationElement
+      for (final Element parameter : (List<Element>)configurationElement
             .getChildren(JdomConfigurationParameter.ROOT_TAG)) {
          final String[] tuple = JdomConfigurationParameter.unmarshal(parameter);
+
          if (tuple[0].equals(PARAMETER_ACCURACY)) {
             configuration.setMinAccuracy(Double.parseDouble(tuple[1]));
          }
          else if (tuple[0].equals(PARAMETER_RESULT_SET_SIZE)) {
             configuration.setMaxresultSetSize(Integer.parseInt(tuple[1]));
          }
+
       }
 
-      for (final Element set : (List<Element>) configurationElement
+      for (final Element set : (List<Element>)configurationElement
             .getChildren(JdomGestureSet.ROOT_TAG)) {
-         configuration.addGestureSet((GestureSet) JdomGestureSet.unmarshal(set));
+         configuration.addGestureSet((GestureSet)JdomGestureSet.unmarshal(set));
       }
 
       return configuration;
    } // unmarshal
+
 }

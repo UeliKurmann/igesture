@@ -47,9 +47,11 @@ public class JdomTestSet extends Element {
       super(ROOT_TAG);
       setAttribute(NAME_ATTRIBUTE, testSet.getName());
       setAttribute(UUID_ATTRIBUTE, testSet.getID());
+
       for (final GestureSample sample : testSet.getSamples()) {
          addContent(new JdomGestureSample(sample));
       }
+
    }
 
 
@@ -59,10 +61,12 @@ public class JdomTestSet extends Element {
       final String uuid = setElement.getAttributeValue(UUID_ATTRIBUTE);
       final TestSet testSet = new TestSet(name);
       testSet.setID(uuid);
-      for (final Element sampleElement : (List<Element>) setElement
+
+      for (final Element sampleElement : (List<Element>)setElement
             .getChildren(JdomGestureSample.ROOT_TAG)) {
-         testSet.add((GestureSample) JdomGestureSample.unmarshal(sampleElement));
+         testSet.add((GestureSample)JdomGestureSample.unmarshal(sampleElement));
       }
+
       return testSet;
    } // unmarshal
 

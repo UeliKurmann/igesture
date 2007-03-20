@@ -32,6 +32,7 @@ import java.util.List;
 
 import org.jdom.Element;
 
+
 /**
  * Represents a for loop
  * @author Ueli Kurmann
@@ -61,14 +62,12 @@ public class BatchForValue {
 
    public static BatchForValue unmarshal(Element parameter) {
       final BatchForValue value = new BatchForValue();
-
       value.setStart(Double.parseDouble(parameter
             .getAttributeValue(ATTRIBUTE_START)));
       value.setEnd(Double
             .parseDouble(parameter.getAttributeValue(ATTRIBUTE_END)));
       value.setStep(Double.parseDouble(parameter
             .getAttributeValue(ATTRIBUTE_STEP)));
-
       return value;
    }
 
@@ -133,10 +132,12 @@ public class BatchForValue {
     */
    public List<String> getValues() {
       final List<String> result = new ArrayList<String>();
+
       for (double value = getStart(); value <= getEnd(); value = value
             + getStep()) {
          result.add(String.valueOf(value));
       }
+
       return result;
    }
 

@@ -34,6 +34,8 @@ package org.ximtec.igesture.core;
 
 import java.util.Vector;
 
+import org.sigtec.util.Constant;
+
 
 @SuppressWarnings("serial")
 public class DoubleVector extends Vector<Double> {
@@ -45,9 +47,11 @@ public class DoubleVector extends Vector<Double> {
     */
    public DoubleVector(int size) {
       super(size);
+
       for (int i = 0; i < size; i++) {
          add(i, 0d);
       }
+
    }
 
 
@@ -58,9 +62,11 @@ public class DoubleVector extends Vector<Double> {
     */
    public double[] toDoubleArray() {
       final double[] result = new double[size()];
+
       for (int i = 0; i < size(); i++) {
          result[i] = get(i);
       }
+
       return result;
    }
 
@@ -68,14 +74,21 @@ public class DoubleVector extends Vector<Double> {
    @Override
    public String toString() {
       final StringBuilder sb = new StringBuilder();
+
       for (final double d : this) {
+
          if (String.valueOf(d).length() > 6) {
-            sb.append(String.valueOf(d).substring(0, 6) + " ");
+            sb.append(String.valueOf(d).substring(0, 6) + Constant.BLANK);
          }
          else {
-            sb.append((String.valueOf(d) + "     ").substring(0, 6) + " ");
+            sb.append((String.valueOf(d) + "     ").substring(0, 6)
+                  + Constant.BLANK);
          }
+
       }
-      return "[" + sb.toString().trim() + "]";
+
+      return Constant.OPEN_ANGULAR_BRACKET + sb.toString().trim()
+            + Constant.CLOSE_ANGULAR_BRACKET;
    }
+
 }

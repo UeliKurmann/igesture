@@ -56,11 +56,10 @@ public class BatchParameter {
 
 
    public static BatchParameter unmarshal(Element parameter) {
-      
       final BatchParameter batchParameter = new BatchParameter();
       batchParameter.setName(parameter.getAttributeValue(ATTRIBUTE_NAME));
-
       final Element parameterValue = ((Element) parameter.getChildren().get(0));
+      
       if (parameterValue.getName().equals(BatchForValue.ROOT_TAG)) {
          batchParameter.setIncrementalValue(BatchForValue
                .unmarshal(parameterValue));
@@ -76,6 +75,7 @@ public class BatchParameter {
       else if (parameterValue.getName().equals(BatchValue.ROOT_TAG)) {
          batchParameter.setValue(BatchValue.unmarshal(parameterValue));
       }
+      
       return batchParameter;
    }
 
