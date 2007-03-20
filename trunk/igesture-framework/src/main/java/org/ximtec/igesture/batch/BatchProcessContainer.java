@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Used for the configurations of the batch process
+ * Purpose      : 	Used for the configurations of the batch process.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 20, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -32,6 +33,13 @@ import org.ximtec.igesture.batch.core.BatchAlgorithm;
 import org.ximtec.igesture.core.GestureSet;
 
 
+/**
+ * Used for the configurations of the batch process.
+ * 
+ * @version 1.0 Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class BatchProcessContainer {
 
    private List<BatchAlgorithm> algorithms;
@@ -40,7 +48,7 @@ public class BatchProcessContainer {
 
 
    /**
-    * Constructor
+    * Constructs a new batch process container.
     * 
     */
    public BatchProcessContainer() {
@@ -50,42 +58,42 @@ public class BatchProcessContainer {
 
 
    /**
-    * Returns the BatchAlgorithms
+    * Returns the batch algorithm.
     * 
-    * @return
+    * @return the batch algorithm.
     */
    public List<BatchAlgorithm> getAlgorithms() {
       return algorithms;
-   }
+   } // getAlgorithms
 
 
    /**
-    * Adds a Batch Algorithm
+    * Adds a batch algorithm.
     * 
-    * @param algorithm
+    * @param algorithm the algorithm to be added.
     */
    public void addAlgorithm(BatchAlgorithm algorithm) {
       algorithms.add(algorithm);
-   }
+   } // addAlgorithm
 
 
    /**
-    * Returns a list of gesture sets
+    * Returns a list of gesture sets.
     * 
-    * @return
+    * @return list of gesture sets.
     */
    public List<GestureSet> getGestureSets() {
       return sets;
-   }
+   } // getGestureSets
 
 
    /**
-    * Adds a gesture set
+    * Adds a gesture set.
     * 
-    * @param set
+    * @param set the gesture set to be added.
     */
    public void addGestureSet(GestureSet set) {
       sets.add(set);
-   }
+   } // addGestureSet
 
 }
