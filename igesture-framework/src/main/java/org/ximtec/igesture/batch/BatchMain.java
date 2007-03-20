@@ -48,7 +48,7 @@ import org.ximtec.igesture.util.XMLTool;
 /**
  * Front-end for the batch processing.
  * 
- * @version 1.0 Dec 16, 2006
+ * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */

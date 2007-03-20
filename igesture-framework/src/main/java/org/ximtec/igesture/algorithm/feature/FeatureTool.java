@@ -33,6 +33,7 @@ import java.util.StringTokenizer;
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Point;
 import org.sigtec.ink.Trace;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.DoubleVector;
 
 
@@ -186,7 +187,7 @@ public class FeatureTool {
     */
    public static List<Feature> createFeatureList(String featureList) {
       final ArrayList<Feature> result = new ArrayList<Feature>();
-      final StringTokenizer tokenizer = new StringTokenizer(featureList, ",");
+      final StringTokenizer tokenizer = new StringTokenizer(featureList, Constant.COMMA);
 
       while (tokenizer.hasMoreElements()) {
          result.add(createFeature(tokenizer.nextToken()));

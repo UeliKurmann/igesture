@@ -36,6 +36,7 @@ import org.apache.commons.math.linear.InvalidMatrixException;
 import org.apache.commons.math.linear.RealMatrix;
 import org.apache.commons.math.linear.RealMatrixImpl;
 import org.sigtec.ink.Note;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.AlgorithmFactory;
 import org.ximtec.igesture.algorithm.AlgorithmTool;
@@ -74,6 +75,16 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
    private static final Logger LOGGER = Logger.getLogger(AlgorithmFactory.class
          .getName());
+
+   private static final String RESULT = "Result :";
+
+   private static final String NO_RESULT = "No result";
+
+   private static final String DISTANCE = "Distance: ";
+
+   private static final String PROBABILITY = "Probability: ";
+
+   private static final String COMPUTATION_FAILED = "Computation failed because of NaN fields in the matrix";
 
    /**
     * datastructure for storing the samples per gesture class
@@ -147,11 +158,12 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       DEFAULT_CONFIGURATION.put(Config.MAHALANOBIS_DISTANCE.name(), "100");
       DEFAULT_CONFIGURATION.put(Config.PROPABILITY.name(), "0.95");
       DEFAULT_CONFIGURATION.put(Config.FEATURE_LIST.name(), F1.class.getName()
-            + "," + F2.class.getName() + "," + F3.class.getName() + ","
-            + F4.class.getName() + "," + F5.class.getName() + ","
-            + F6.class.getName() + "," + F7.class.getName() + ","
-            + F8.class.getName() + "," + F9.class.getName() + ","
-            + F10.class.getName());
+            + Constant.COMMA + F2.class.getName() + Constant.COMMA
+            + F3.class.getName() + Constant.COMMA + F4.class.getName()
+            + Constant.COMMA + F5.class.getName() + Constant.COMMA
+            + F6.class.getName() + Constant.COMMA + F7.class.getName()
+            + Constant.COMMA + F8.class.getName() + Constant.COMMA
+            + F9.class.getName() + Constant.COMMA + F10.class.getName());
 
       LOGGER.setLevel(Level.WARNING);
    }
@@ -170,11 +182,10 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       resultSet.setNote(note);
 
       if (resultSet.getResult() != null) {
-         LOGGER.info("Result: "
-               + resultSet.getResult().getGestureClass().getName());
+         LOGGER.info(RESULT + resultSet.getResult().getGestureClass().getName());
       }
       else {
-         LOGGER.info("No result");
+         LOGGER.info(NO_RESULT);
       }
 
       fireEvent(resultSet);
@@ -187,19 +198,20 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
             .getAlgorithmParameters(this.getClass().getCanonicalName());
       minDistance = AlgorithmTool.getDoubleParameterValue(Config.MIN_DISTANCE
             .name(), parameters, DEFAULT_CONFIGURATION);
-      LOGGER.info(Config.MIN_DISTANCE + ": " + minDistance);
+      LOGGER.info(Config.MIN_DISTANCE + Constant.COLON_BLANK + minDistance);
       mahalanobisDistance = AlgorithmTool.getDoubleParameterValue(
             Config.MAHALANOBIS_DISTANCE.name(), parameters,
             DEFAULT_CONFIGURATION);
-      LOGGER.info(Config.MAHALANOBIS_DISTANCE + ": " + mahalanobisDistance);
+      LOGGER.info(Config.MAHALANOBIS_DISTANCE + Constant.COLON_BLANK
+            + mahalanobisDistance);
       final String featureNames = AlgorithmTool.getParameterValue(
             Config.FEATURE_LIST.name(), parameters, DEFAULT_CONFIGURATION);
-      LOGGER.info(Config.FEATURE_LIST + ": " + featureNames);
+      LOGGER.info(Config.FEATURE_LIST + Constant.COLON_BLANK + featureNames);
       featureList = FeatureTool.createFeatureList(featureNames).toArray(
             new Feature[0]);
       probability = AlgorithmTool.getDoubleParameterValue(Config.PROPABILITY
             .name(), parameters, DEFAULT_CONFIGURATION);
-      LOGGER.info(Config.PROPABILITY + ": " + probability);
+      LOGGER.info(Config.PROPABILITY + Constant.COLON_BLANK + probability);
       addEventManagerListener(config.getEventManager());
       preprocess(GestureTool.combine(config.getGestureSets()));
    } // init
@@ -435,7 +447,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
             v += weightVector.get(i) * inputFeatureVector.get(i);
          }
 
-         LOGGER.info(currentGestureClass.getName() + ": " + v);
+         LOGGER.info(currentGestureClass.getName() + Constant.COLON_BLANK + v);
          classifiers.put(currentGestureClass, v);
 
          if (v > max) {
@@ -444,7 +456,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
          }
 
          if (Double.isNaN(v)) {
-            LOGGER.warning("Computation failed because of NaN fields in the matrix");
+            LOGGER.warning(COMPUTATION_FAILED);
             return new ResultSet();
          }
 
@@ -469,11 +481,11 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       if (probability >= this.probability
             && distance <= this.mahalanobisDistance) {
          resultSet.addResult(new Result(classifiedGesture, 1));
-         LOGGER.info("Distance: " + distance);
+         LOGGER.info(DISTANCE + distance);
       }
       else {
-         LOGGER.info("Distance: " + distance);
-         LOGGER.info("Probability: " + probability);
+         LOGGER.info(DISTANCE + distance);
+         LOGGER.info(PROBABILITY + probability);
       }
 
       return resultSet;
@@ -502,9 +514,9 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
          }
 
       }
-      
+
       return result;
-   } //getMahalanobisDistance
+   } // getMahalanobisDistance
 
 
    public Enum[] getConfigParameters() {
