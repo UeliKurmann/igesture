@@ -32,6 +32,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.sigtec.ink.Note;
+import org.sigtec.util.Constant;
 
 
 /**
@@ -96,9 +97,11 @@ public class ResultSet {
     */
    public List<Result> getResults() {
       final List<Result> results = new ArrayList<Result>();
+
       for (int i = 0; i < maxSize && i < this.results.size(); i++) {
          results.add(this.results.get(i));
       }
+
       return results;
    }
 
@@ -134,9 +137,11 @@ public class ResultSet {
     */
    public boolean contains(GestureClass gestureClass) {
       for (final Result result : results) {
+
          if (result.getGestureClass() == gestureClass) {
             return true;
          }
+
       }
       return false;
    }
@@ -185,11 +190,13 @@ public class ResultSet {
    public String toString() {
       final StringBuilder sb = new StringBuilder();
       sb.append("[ResultSet");
+
       for (final Result r : this.getResults()) {
-         sb.append("  [" + r.getGestureClassName() + ", " + r.getAccuracy()
-               + "]");
+         sb.append("  [" + r.getGestureClassName() + Constant.COMMA_BLANK
+               + r.getAccuracy() + Constant.CLOSE_ANGULAR_BRACKET);
       }
-      sb.append("]");
+
+      sb.append(Constant.CLOSE_ANGULAR_BRACKET);
       return sb.toString();
    }
 }

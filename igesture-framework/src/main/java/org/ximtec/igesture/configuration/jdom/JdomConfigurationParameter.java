@@ -48,4 +48,5 @@ public class JdomConfigurationParameter extends Element {
       result[1] = parameter.getText();
       return result;
    } // unmarshal
+
 }

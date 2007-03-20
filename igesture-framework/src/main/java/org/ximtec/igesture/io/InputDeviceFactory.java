@@ -40,6 +40,7 @@ public class InputDeviceFactory {
       else if (identifier.equals(MAGICOM_PEN_SOCKET)) {
          return createMagicommPenSocketInputDevice(configuration);
       }
+      
       return null;
    }
 
@@ -58,6 +59,7 @@ public class InputDeviceFactory {
       else if (identifier.equals(MAGICOM_PEN_SOCKET)) {
          return getMagicommListener(configuration);
       }
+      
       return null;
    }
 
@@ -111,9 +113,11 @@ public class InputDeviceFactory {
          String deviceIdentifier, String parameterName) {
       List list = configuration.getList(getParameterXPathString(
             deviceIdentifier, parameterName));
+      
       if (!list.isEmpty()) {
          return (String)list.get(0);
       }
+      
       return null;
    }
 
