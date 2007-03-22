@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Contains a set of BatchResults
+ * Purpose      : 	Container for a set of batch results.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -28,10 +29,13 @@ package org.ximtec.igesture.batch;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * Contains a set of BatchResults
- * @author Ueli Kurmann
- *
+ * Container for a set of batch results.
+ * 
+ * @version 1.0 Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class BatchResultSet {
 
@@ -39,8 +43,7 @@ public class BatchResultSet {
 
 
    /**
-    * Costructor
-    * 
+    * Constructs a new batch result set.
     */
    public BatchResultSet() {
       results = new ArrayList<BatchResult>();
@@ -48,21 +51,22 @@ public class BatchResultSet {
 
 
    /**
-    * Add a batch result
+    * Adds a batch result.
     * 
-    * @param result batch result to be added
+    * @param result the batch result to be added.
     */
    public void addResult(BatchResult result) {
       results.add(result);
-   }
+   } // addResult
 
 
    /**
-    * Returns the batch results
+    * Returns a list with all batch results.
     * 
-    * @return
+    * @return the list with all batch results.
     */
    public List<BatchResult> getBatchResults() {
       return results;
-   }
+   } // getBatchResults
+
 }

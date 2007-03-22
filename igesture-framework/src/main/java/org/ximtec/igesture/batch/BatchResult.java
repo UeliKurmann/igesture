@@ -159,100 +159,100 @@ public class BatchResult {
 
 
    /**
-    * Increases the number of corrects
+    * Increases the number of correct recognitions.
     * 
-    * @param className the name of the gesture class
+    * @param className the name of the gesture class.
     */
    public void incCorrect(String className) {
       numberOfCorrects++;
       classStatistics.get(className).incCorrect();
-   }
+   } // incCorrect
 
 
    /**
-    * Increments the number of correclty rejected gestures
+    * Increments the number of correclty rejected gestures.
     * 
-    * @param className the name of the gesture class
+    * @param className the name of the gesture class.
     */
    public void incRejectCorrect(String className) {
       numberOfRejectCorrect++;
       classStatistics.get(className).incRejectCorrect();
-   }
+   } // incRejectCorrect
 
 
    /**
-    * Increments the number of wrong rejected gestures
+    * Increments the number of wrongly rejected gestures.
     * 
-    * @param className the name of the gesture class
+    * @param className the name of the gesture class.
     */
    public void incRejectError(String className) {
       numberOfRejectError++;
       classStatistics.get(className).incRejectError();
-   }
+   } // incRejectError
 
 
    /**
-    * Computes the precision
+    * Computes the precision.
     * 
-    * @return the precision
+    * @return the precision.
     */
    public double getPrecision() {
       return (double)numberOfCorrects / (numberOfCorrects + numberOfErrors);
-   }
+   } // getPrecision
 
 
    /**
-    * Computes the recall
+    * Computes the recall.
     * 
-    * @return the recall
+    * @return the recall.
     */
    public double getRecall() {
       return (double)numberOfCorrects / (numberOfSamples - numberOfNoise);
-   }
+   } // getRecall
 
 
    /**
-    * Sets the start time
+    * Sets the start time to the current system time.
     * 
     */
    public void setStartTime() {
       this.startTime = System.currentTimeMillis();
-   }
+   } // setStartTime
 
 
    /**
-    * Sets the end time
+    * Sets the end time to the current system time.
     * 
     */
    public void setEndTime() {
       this.endTime = System.currentTimeMillis();
-   }
+   } // setEndTime
 
 
    /**
-    * Returns the running time
+    * Returns the running time in milliseconds.
     * 
-    * @return the running time
+    * @return the running time ind milliseconds.
     */
    public long getRunningTime() {
       return endTime - startTime;
-   }
+   } // getRunningTime
 
 
    /**
-    * Returns the configuration
+    * Returns the configuration.
     * 
-    * @return the configuration
+    * @return the configuration.
     */
    public Configuration getConfiguration() {
       return configuration;
-   }
+   } // getConfiguration
 
 
    /**
-    * Returns a list of statistics
+    * Returns a list of statistics.
     * 
-    * @return
+    * @return the list of statistaics.
     */
    public List<ClassStatistic> getStatistics() {
       return new ArrayList<ClassStatistic>(classStatistics.values());
