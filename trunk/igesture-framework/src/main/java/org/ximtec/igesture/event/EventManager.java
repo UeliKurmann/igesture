@@ -3,9 +3,9 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	The EventManager holds a set of EventHandler which
- * 					are executed after an Event was fired. 
- * 					The EventManager is registred by Algorithms.
+ * Purpose      : 	The event manager holds a set of event handlers which
+ * 					are executed after an event has been fired. The event
+ *                  manager is registred by algorithms.
  *
  * -----------------------------------------------------------------------
  *
@@ -13,7 +13,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -33,6 +34,14 @@ import java.util.LinkedList;
 import org.ximtec.igesture.core.ResultSet;
 
 
+/**
+ * The event manager holds a set of event handlers which are executed after an
+ * event has been fired. The event manager is registred by algorithms.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class EventManager {
 
    Thread thread = null;
@@ -51,7 +60,7 @@ public class EventManager {
 
 
    /**
-    * Constructor
+    * Constructs a new event manager.
     */
    public EventManager() {
       eventQueue = new LinkedList<ResultSet>();
@@ -60,56 +69,67 @@ public class EventManager {
 
 
    /**
-    * Registers an event
+    * Registers an event.
     * 
-    * @param event
+    * @param className the classname for which the event handler has to be
+    *           registered.
+    * @param event the event to be registered.
     */
    public void registerEventHandler(String className, EventHandler event) {
       events.put(className, event);
-   }
+   } // registerEventHandler
 
 
    /**
     * Register the reject event handler. This event handler is executed if no
     * other handler is used.
     * 
-    * @param rejectEventHandler
+    * @param rejectEventHandler the event handler to be registered.
     */
    public void registerRejectEvent(EventHandler rejectEventHandler) {
       this.rejectEventHandler = rejectEventHandler;
-   }
+   } // registerRejectEvent
 
 
    /**
-    * Adds the ResultSet to the queue and starts the handler in an asynchronous
-    * mode if it isn't running.
+    * Adds the result set to the queue and starts the handler in an asynchronous
+    * mode if it is not running.
     * 
-    * @param resultSet
+    * @param resultSet the result set to be added to the queue.
     */
    public synchronized void fireEvent(ResultSet resultSet) {
       eventQueue.add(resultSet);
       handleEvents();
-   }
+   } // fireEvent
 
 
    /**
     * As long as elements are in the queue they are taken and the action is
-    * started. The handler works sequential.
+    * started. The handler works sequentially.
     */
    private synchronized void handleEvents() {
       while (!eventQueue.isEmpty()) {
          final ResultSet resultSet = eventQueue.poll();
+
          if (resultSet.isEmpty()) {
+
             if (rejectEventHandler != null) {
                rejectEventHandler.run(resultSet);
             }
+
          }
          else {
             EventHandler eventHandler;
-            if ((eventHandler = events.get(resultSet.getResult().getGestureClassName())) != null) {
+
+            if ((eventHandler = events.get(resultSet.getResult()
+                  .getGestureClassName())) != null) {
                eventHandler.run(resultSet);
             }
+
          }
+
       }
-   }
+
+   } // handleEvents
+
 }

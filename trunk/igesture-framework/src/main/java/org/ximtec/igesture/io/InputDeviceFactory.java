@@ -1,3 +1,27 @@
+/*
+ * @(#)InputDeviceClient.java   1.0   Dec 26, 2006
+ *
+ * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ *
+ * Purpose      :   Factory to create different input devices.
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Revision Information:
+ *
+ * Date             Who         Reason
+ *
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Copyright 1999-2007 ETH Zurich. All Rights Reserved.
+ *
+ * This software is the proprietary information of ETH Zurich.
+ * Use is subject to license terms.
+ * 
+ */
 
 
 package org.ximtec.igesture.io;
@@ -11,6 +35,13 @@ import org.sigtec.input.InputDevice;
 import org.sigtec.input.InputDeviceEventListener;
 
 
+/**
+ * Factory to create different input devices.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class InputDeviceFactory {
 
    public static final String MAGICOM_PEN_SOCKET = "MagicommPenSocket";
@@ -27,10 +58,10 @@ public class InputDeviceFactory {
 
 
    /**
-    * Creates a new InputDevice based on the identifier
-    * @param identifier the identifier of the input device
-    * @param configuration the configuration object holding parameters
-    * @return the input device
+    * Creates a new input device based on the identifier.
+    * @param identifier the identifier of the input device.
+    * @param configuration the configuration object containing the parameters.
+    * @return the newly created input device.
     */
    public static InputDevice createInputDevice(String identifier,
          XMLConfiguration configuration) {
@@ -40,16 +71,16 @@ public class InputDeviceFactory {
       else if (identifier.equals(MAGICOM_PEN_SOCKET)) {
          return createMagicommPenSocketInputDevice(configuration);
       }
-      
+
       return null;
-   }
+   } // createInputDevice
 
 
    /**
-    * Creates a new InputDeviceEventListener
-    * @param identifier the identifier of the input device
-    * @param configuration the configuration object holding parameters
-    * @return
+    * Creates a new input event device listener.
+    * @param identifier the identifier of the input device.
+    * @param configuration the configuration object containing the parameters.
+    * @return the newly created input event device listener.
     */
    public static InputDeviceEventListener createInputDeviceEventListener(
          String identifier, XMLConfiguration configuration) {
@@ -59,73 +90,68 @@ public class InputDeviceFactory {
       else if (identifier.equals(MAGICOM_PEN_SOCKET)) {
          return getMagicommListener(configuration);
       }
-      
+
       return null;
-   }
+   } // createInputDeviceEventListener
 
 
    /**
-    * Creates a new Mouse device
+    * Creates a new mouse input device.
     * 
-    * @return a new Mouse device
+    * @return the newly created mouse input device.
     */
    private static MouseReader createMouseInputDevice() {
       return new MouseReader();
-   }
+   } // createMouseInputDevice
 
 
    /**
-    * Creates a new MagicommPenSocket device
+    * Creates a new MagicommPenSocket device.
     * 
-    * @param configuration
-    * @return a new MagicommPenSocket device
+    * @param configuration the configuration object containing the parameters.
+    * @return a newly created MagicommPenSocket device.
     */
    private static InputDevice createMagicommPenSocketInputDevice(
          XMLConfiguration configuration) {
       throw new NotImplementedException();
       // return
       // MagicommPenSocket.createPens(getParameter(configuration,MAGICOM_PEN_SOCKET,PORT)).get(0);
-   }
+   } // createMagicommPenSocketInputDevice
 
 
    /**
-    * Returns an XPath expression
+    * Returns an XPath expression.
     * 
-    * @param deviceIdentifier
-    * @param parameterName
-    * @return
+    * @return the XPath expression.
     */
    private static String getParameterXPathString(String deviceIdentifier,
          String parameterName) {
       return "inputdevices/device[@name='" + deviceIdentifier
             + "']/parameters/parameter[@name='" + parameterName + "']";
-   }
+   } // getParameterXPathString
 
 
    /**
-    * Returns the parameter value as string
-    * @param configuration
-    * @param deviceIdentifier
-    * @param parameterName
-    * @return
+    * Returns the parameter value as string.
+    * @return the parameter value as string.
     */
    private static String getParameter(XMLConfiguration configuration,
          String deviceIdentifier, String parameterName) {
       List list = configuration.getList(getParameterXPathString(
             deviceIdentifier, parameterName));
-      
+
       if (!list.isEmpty()) {
          return (String)list.get(0);
       }
-      
+
       return null;
-   }
+   } // getParameter
 
 
    /**
-    * Returns a buffered MagicommPenEventListener
+    * Returns a buffered MagicommPenEventListener.
     * 
-    * @return a buffered MagicommPenEventListener
+    * @return a buffered MagicommPenEventListener.
     */
    private static BufferedInputDeviceEventListener getMagicommListener(
          XMLConfiguration configuration) {
@@ -137,18 +163,18 @@ public class InputDeviceFactory {
        * getAnotoMappings(mappingFile))), DEFAULT_BUFFER_SIZE);
        */
       throw new NotImplementedException();
-   }
+   } // getMagicommListener
 
 
    /**
-    * Returns a buffered MouseReaderEventListener
+    * Returns a buffered MouseReaderEventListener.
     * 
-    * @return a buffered MouseReaderEventListener
+    * @return a buffered MouseReaderEventListener.
     */
    private static BufferedInputDeviceEventListener getMouseListener() {
       return new BufferedInputDeviceEventListener(
             new MouseReaderEventListener(), DEFAULT_BUFFER_SIZE);
-   }
+   } // getMouseListener
 
    /**
     * Returns an Anoto document handler

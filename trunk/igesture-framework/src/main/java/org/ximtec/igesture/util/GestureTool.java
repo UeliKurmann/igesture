@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   Collection of common used static methods
+ * Purpose      :   Collection of commonly used static methods.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -46,6 +47,13 @@ import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.TestSet;
 
 
+/**
+ * Collection of commonly used static methods.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class GestureTool {
 
    public static double scaleTraceTo(org.sigtec.ink.Trace trace,
@@ -56,32 +64,34 @@ public class GestureTool {
       final double scaleX = maxWidth / width;
       final double scaleY = maxHeight / height;
       return (scaleX < scaleY) ? scaleX : scaleY;
-   } // scaleTo
+   } // scaleTraceTo
 
 
    /**
-    * Combines a list of gesture set to one gesture set
+    * Combines a list of gesture set to one gesture set.
     * 
-    * @param sets list of gesture sets to combine
-    * @return the combined gesture set
+    * @param sets the list of gesture sets to be combined.
+    * @return the combined gesture set.
     */
    public static GestureSet combine(List<GestureSet> sets) {
       final Set<GestureClass> gestureClasses = new HashSet<GestureClass>();
+
       for (final GestureSet set : sets) {
          gestureClasses.addAll(set.getGestureClasses());
       }
+
       return new GestureSet(new ArrayList<GestureClass>(gestureClasses));
-   }
+   } // combine
 
 
    /**
-    * Detects characteristic points of a trace. a point is characteristic if it
-    * is involved in a significant change of direction
+    * Detects characteristic points of a trace. A point is characteristic if it
+    * is involved in a significant change of direction.
     * 
-    * @param trace the trace to be filtered
-    * @param minAngle the minimal angle between two sequences
-    * @param minDistance the minimal distance between two points
-    * @return the filtered trace
+    * @param trace the trace to be filtered.
+    * @param minAngle the minimal angle between two sequences.
+    * @param minDistance the minimal distance between two points.
+    * @return the filtered trace.
     */
    public static Trace getCharacteristicTrace(Trace trace, double minAngle,
          double minDistance) {
@@ -89,14 +99,11 @@ public class GestureTool {
       Trace resultTrace = new Trace();
 
       if (inputTrace.size() > 2) {
-
          Point p1 = trace.get(0);
          Point p2 = trace.get(2);
          Point p3 = null;
-
          double angle1 = getAngle(p1, p2);
          double angle2 = 0;
-
          // add the first point to the result
          resultTrace.add(p1);
 
@@ -117,170 +124,168 @@ public class GestureTool {
                // removed
                p2 = p3;
             }
+
             angle1 = getAngle(p1, p2);
          }
+
          // add the end point of the input trace
          resultTrace.add(inputTrace.get(inputTrace.size() - 1));
       }
       else {
          resultTrace = inputTrace;
       }
+
       return resultTrace;
-   }
+   } // getCharacteristicTrace
 
 
    /**
-    * Creates a characteristic Note
+    * Creates a characteristic note.
     * 
     * @see getCharacteristicTrace
-    * @param note
-    * @param minAngle
-    * @param minDistance
-    * @return the characteristic note
     */
    public static Note getCharacteristicNote(Note note, double minAngle,
          double minDistance) {
       final Note result = new Note();
+
       for (final Trace trace : note.getTraces()) {
          result.add(getCharacteristicTrace(trace, minAngle, minDistance));
       }
+
       return result;
-   }
+   } // getCharacteristicNote
 
 
    /**
-    * Computes the angle between two points
+    * Computes the angle between two points.
     * 
-    * @param p1 the first point
-    * @param p2 the second point
-    * @return the angle between p1 and p2
+    * @param p1 the first point.
+    * @param p2 the second point.
+    * @return the angle between p1 and p2.
     */
    public static double getAngle(Point p1, Point p2) {
       final double r = p1.distance(p2);
       final double x = p2.getX() - p1.getX();
-
       double alpha = Math.toDegrees(Math.acos(x / r));
+
       if (p2.getY() - p1.getY() < 0) {
          alpha = 360 - alpha;
       }
+
       return alpha;
-   }
+   } // getAngle
 
 
    /**
-    * Returns all points of the note as list
-    * 
-    * @param note
-    * @return the points of the list
-    */
-   public static List<Point> getPoints(Note note) {
-      final List<Point> points = new ArrayList<Point>();
-      for (final Trace t : note.getTraces()) {
-         points.addAll(t.getPoints());
-      }
-      return points;
-   }
-
-
-   /**
-    * Creates an image from the note
-    * @param n the note
-    * @param width the width
-    * @param height the height
-    * @return the buffered image
+    * Creates an image from the note.
+    * @param n the note for which an image has to be created.
+    * @param width the width of the image.
+    * @param height the height of the image.
+    * @return the buffered image.
     */
    public static BufferedImage createNoteImage(Note n, int width, int height) {
-      final Note note = (Note) n.clone();
+      final Note note = (Note)n.clone();
       final BufferedImage bufferedImage = new BufferedImage(width, height,
             BufferedImage.TYPE_INT_ARGB);
       final Graphics graphic = bufferedImage.getGraphics();
       graphic.setColor(Color.BLACK);
-
       note.scaleTo(width - 10, height - 10);
       note.moveTo(5, 5);
-
       note.paint(graphic);
-
       return bufferedImage;
-   }
+   } // createNoteImage
 
 
    /**
-    * Combines samples from different gesture sets
-    * @param sets a list of gesture sets
-    * @return
+    * Combines samples from different gesture sets.
+    * @param sets a list of gesture sets.
+    * @return samples from different gesture sets.
     */
    public static GestureSet combineSampleData(List<GestureSet> sets) {
       final HashMap<String, GestureClass> samples = new HashMap<String, GestureClass>();
       final GestureSet result = new GestureSet("CombinedGestureSet");
+
       for (final GestureSet set : sets) {
+
          for (final GestureClass gestureClass : set.getGestureClasses()) {
+
             if (samples.containsKey(gestureClass.getName())) {
                final GestureClass target = samples.get(gestureClass.getName());
+
                for (final GestureSample sample : gestureClass.getDescriptor(
                      SampleDescriptor.class).getSamples()) {
                   target.getDescriptor(SampleDescriptor.class).addSample(sample);
                }
+
             }
             else {
                samples.put(gestureClass.getName(), gestureClass);
                result.addGestureClass(gestureClass);
             }
+
          }
+
       }
       return result;
-   }
+   } // combineSampleData
 
 
    /**
-    * Transforms a GestureSet into a TestSet
-    * @param set the gesture set to transform
-    * @return
+    * Transforms a gesture set into a test set.
+    * @param set the gesture set to be transformed.
+    * @return the test set.
     */
    public static TestSet createTestSet(GestureSet set) {
       final TestSet testSet = new TestSet("Name");
 
       for (final GestureClass gestureClass : set.getGestureClasses()) {
+
          for (final GestureSample sample : gestureClass.getDescriptor(
                SampleDescriptor.class).getSamples()) {
             testSet.add(new GestureSample(gestureClass.getName(), sample
                   .getNote()));
          }
+
       }
+
       return testSet;
-   }
+   } // createTestSet
 
 
    /**
-    * Creates a noise test set from the gesture set
-    * @param set the gesture set
-    * @return
+    * Creates a noise test set from the gesture set.
+    * @param set the gesture set.
+    * @return a noise test set.
     */
    public static TestSet createNoise(GestureSet set) {
       final TestSet testSet = new TestSet("Name");
 
       for (final GestureClass gestureClass : set.getGestureClasses()) {
+
          for (final GestureSample sample : gestureClass.getDescriptor(
                SampleDescriptor.class).getSamples()) {
             testSet.add(new GestureSample(TestSet.NOISE, sample.getNote()));
          }
+
       }
+
       return testSet;
-   }
+   } // createNoise
 
 
    /**
-    * Combines Testsets
-    * @param args
-    * @return
+    * Combines different test sets.
+    * @param testSets the test sets to be combined.
+    * @return the combined test sets.
     */
-   public static TestSet combineTestSet(TestSet[] args) {
+   public static TestSet combineTestSet(TestSet[] testSets) {
       final TestSet result = new TestSet("testset");
-      for (final TestSet set : args) {
+      
+      for (final TestSet set : testSets) {
          result.addAll(set.getSamples());
       }
 
       return result;
-   }
+   } // combineTestSet
 
 }

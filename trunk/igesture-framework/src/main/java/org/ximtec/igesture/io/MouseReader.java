@@ -1,9 +1,9 @@
 /*
- * @(#)MouseReader.java    1.0   May 04, 2004
+ * @(#)MouseReader.java    1.0   Dec 10, 2006
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   Mouse Reader
+ * Purpose      :   A mouse reader.
  *                  
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * Dez. 10.2006		uk			initial release
+ * Dec 10, 2006		ukurmann	Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -34,9 +35,15 @@ import org.sigtec.ink.input.TimestampedLocation;
 import org.sigtec.input.InputDeviceEvent;
 
 
-
-
-public class MouseReader extends org.sigtec.input.AbstractInputDevice implements ButtonDevice {
+/**
+ * A mouse reader.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
+public class MouseReader extends org.sigtec.input.AbstractInputDevice implements
+      ButtonDevice {
 
    private static final int FREQUENCE = 20;
 
@@ -52,12 +59,11 @@ public class MouseReader extends org.sigtec.input.AbstractInputDevice implements
 
 
    /**
-    * Initialises the mouse reader and starts a new thread polling the mouse
+    * Initialises the mouse reader and starts a new thread polling the mouse.
     * 
     */
    public void init() {
       final MouseReader mouseReader = this;
-
       final Thread t = new Thread() {
 
          @Override
@@ -73,6 +79,7 @@ public class MouseReader extends org.sigtec.input.AbstractInputDevice implements
                   lastKeyState = true;
                }
                else {
+
                   if (lastKeyState) {
                      mouseReader.fireMouseButtonEvent(new InputDeviceEvent() {
 
@@ -82,6 +89,7 @@ public class MouseReader extends org.sigtec.input.AbstractInputDevice implements
                      });
                      lastKeyState = false;
                   }
+
                }
                try {
                   Thread.sleep(1000 / FREQUENCE);
@@ -89,38 +97,44 @@ public class MouseReader extends org.sigtec.input.AbstractInputDevice implements
                catch (InterruptedException e) {
                   e.printStackTrace();
                }
+
             }
+
          }
+
       };
+
       t.start();
-   }
+   } // init
 
 
    /**
-    * Creates a list of mouse reader. only one mouse reader is created.
+    * Creates a list of mouse readers. Only one mouse reader is created.
     * 
-    * @return a list of mouse reader
+    * @return a list of mouse readers.
     */
    public static List<MouseReader> createMouse() {
       final List<MouseReader> list = new ArrayList<MouseReader>();
       list.add(new MouseReader());
       return list;
-   }
+   } // createMouse
 
 
    public void addButtonDeviceEventListener(ButtonDeviceEventListener listener) {
       buttonUpEvents.add(listener);
-   }
+   } // addButtonDeviceEventListener
 
 
    public void removeButtonDeviceEventListener(ButtonDeviceEventListener listener) {
       buttonUpEvents.remove(listener);
-   }
+   } // removeButtonDeviceEventListener
 
 
    private void fireMouseButtonEvent(InputDeviceEvent event) {
       for (final ButtonDeviceEventListener listener : buttonUpEvents) {
          listener.handleButtonPressedEvent(event);
       }
-   }
+
+   } // fireMouseButtonEvent
+
 }

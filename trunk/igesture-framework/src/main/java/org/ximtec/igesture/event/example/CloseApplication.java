@@ -3,8 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   Example Implementation of an EventHanlder. It will close
- *                  the application.
+ * Purpose      :   Example implementation of an event handler. It will
+ *                  close the application.
  *
  * -----------------------------------------------------------------------
  *
@@ -12,7 +12,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -30,14 +31,18 @@ import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.EventHandler;
 
 
+/**
+ * Example implementation of an event handler. It will close the application.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class CloseApplication implements EventHandler {
 
+   private static final String SHUTTING_DOWN = "Application is shutting down...";
+
    private String name;
-
-
-   public String getName() {
-      return name;
-   }
 
 
    public CloseApplication(String name) {
@@ -45,9 +50,14 @@ public class CloseApplication implements EventHandler {
    }
 
 
+   public String getName() {
+      return name;
+   } // getName
+
+
    public void run(ResultSet resultSet) {
-      System.out.println("Application is shutting down...");
+      System.out.println(SHUTTING_DOWN);
       System.exit(0);
-   }
+   } // run
 
 }
