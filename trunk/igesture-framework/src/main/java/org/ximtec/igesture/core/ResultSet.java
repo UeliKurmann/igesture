@@ -37,6 +37,7 @@ import org.sigtec.util.Constant;
 
 /**
  * Holds a set of result objects.
+ * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
@@ -76,6 +77,8 @@ public class ResultSet {
     * @param result the result object to be added.
     */
    public synchronized void addResult(Result result) {
+      // FIXME: add the single result at the correct position -> we do not have
+      // to sort the list anymore -> faster.
       results.add(result);
 
       /**
@@ -87,7 +90,8 @@ public class ResultSet {
             return Double.compare(result2.getAccuracy(), result1.getAccuracy());
          }
       });
-   }
+
+   } // addResult
 
 
    /**
@@ -103,7 +107,7 @@ public class ResultSet {
       }
 
       return results;
-   }
+   } // getResults
 
 
    /**
@@ -130,10 +134,10 @@ public class ResultSet {
 
 
    /**
-    * Returns true if the result set contains the given gesture class
+    * Returns true if the result set contains the given gesture class.
     * 
-    * @param gestureClass
-    * @return
+    * @param gestureClass the gesture class to be tested.
+    * @return true if the result set contains the specified gesture class.
     */
    public boolean contains(GestureClass gestureClass) {
       for (final Result result : results) {
@@ -144,46 +148,47 @@ public class ResultSet {
 
       }
       return false;
-   }
+   } // contains
 
 
    /**
-    * Returns the number of results
+    * Returns the number of results.
     * 
-    * @return the number of results in the result set
+    * @return the number of results in the result set.
     */
    public int size() {
       return results.size() > maxSize ? maxSize : results.size();
-   }
+   } // size
 
 
    /**
+    * Return true if the result set is empty.
     * 
-    * @return
+    * @return true if the result set is empty.
     */
    public boolean isEmpty() {
       return results.isEmpty();
-   }
+   } // isEmpty
 
 
    /**
-    * Sets the note containing the gesture
+    * Sets the note containing the gesture.
     * 
-    * @param note
+    * @param note the note containing the gesture.
     */
    public void setNote(Note note) {
       this.note = note;
-   }
+   } // setNote
 
 
    /**
-    * Returns the note containing the gesture to recognise
+    * Returns the note containing the gesture to be recognised.
     * 
-    * @return the note
+    * @return the note containing the gesture to be recognised.
     */
    public Note getNote() {
       return note;
-   }
+   } // getNote
 
 
    @Override
@@ -192,11 +197,13 @@ public class ResultSet {
       sb.append("[ResultSet");
 
       for (final Result r : this.getResults()) {
-         sb.append("  [" + r.getGestureClassName() + Constant.COMMA_BLANK
+         sb.append(Constant.DOUBLE_BLANK + Constant.OPEN_ANGULAR_BRACKET
+               + r.getGestureClassName() + Constant.COMMA_BLANK
                + r.getAccuracy() + Constant.CLOSE_ANGULAR_BRACKET);
       }
 
       sb.append(Constant.CLOSE_ANGULAR_BRACKET);
       return sb.toString();
-   }
+   } // toString
+
 }

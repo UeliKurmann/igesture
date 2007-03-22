@@ -3,7 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Interface for gesture class descriptor implementations
+ * Purpose      : 	Interface for gesture class descriptor
+ *                  implementations.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +12,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -25,12 +27,20 @@
 
 package org.ximtec.igesture.core;
 
+/**
+ * Interface for gesture class descriptor implementations.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public interface Descriptor extends DataObject {
 
    /**
-    * Returns the type of the descriptor
+    * Returns the type of the descriptor.
     * 
-    * @return the type of the descriptor
+    * @return the type of the descriptor.
     */
    public Class< ? extends Descriptor> getType();
+
 }

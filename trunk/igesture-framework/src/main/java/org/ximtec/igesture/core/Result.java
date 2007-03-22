@@ -31,6 +31,7 @@ import org.sigtec.util.Constant;
 
 /**
  * A single result of the recognition process.
+ * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch

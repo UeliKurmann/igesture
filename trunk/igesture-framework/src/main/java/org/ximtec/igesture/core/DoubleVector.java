@@ -3,8 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Implements a vector of double values and 
- * 					provides some basic functionaliy
+ * Purpose      : 	Implements a vector of double values and provides
+ *                  some basic functionaliy.
  *
  * -----------------------------------------------------------------------
  *
@@ -12,7 +12,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -23,12 +24,6 @@
  * 
  */
 
-/**
- * 
- * 
- * @author Ueli Kurmann
- */
-
 
 package org.ximtec.igesture.core;
 
@@ -37,13 +32,19 @@ import java.util.Vector;
 import org.sigtec.util.Constant;
 
 
-@SuppressWarnings("serial")
+/**
+ * Implements a vector of double values and provides some basic functionaliy.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class DoubleVector extends Vector<Double> {
 
    /**
-    * Constructor
+    * Constructs a new double vector.
     * 
-    * @param size
+    * @param size the initial size of the double vector.
     */
    public DoubleVector(int size) {
       super(size);
@@ -56,9 +57,9 @@ public class DoubleVector extends Vector<Double> {
 
 
    /**
-    * Returns a double array of the list
+    * Returns a double array of the vector's content.
     * 
-    * @return
+    * @return a double array of the vector's content.
     */
    public double[] toDoubleArray() {
       final double[] result = new double[size()];
@@ -68,7 +69,7 @@ public class DoubleVector extends Vector<Double> {
       }
 
       return result;
-   }
+   } // toDoubleArray
 
 
    @Override
@@ -89,6 +90,6 @@ public class DoubleVector extends Vector<Double> {
 
       return Constant.OPEN_ANGULAR_BRACKET + sb.toString().trim()
             + Constant.CLOSE_ANGULAR_BRACKET;
-   }
+   } // toString
 
 }

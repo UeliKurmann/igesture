@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	XML support for ConfigurationParameter
+ * Purpose      : 	XML support for ConfigurationParameter class.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -28,6 +29,13 @@ package org.ximtec.igesture.configuration.jdom;
 import org.jdom.Element;
 
 
+/**
+ * XML support for ConfigurationParameter class.
+ * 
+ * @version 1.0 Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class JdomConfigurationParameter extends Element {
 
    public static final String ROOT_TAG = "parameter";
