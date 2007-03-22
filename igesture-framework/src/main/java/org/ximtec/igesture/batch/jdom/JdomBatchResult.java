@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	XML support for BatchResult
+ * Purpose      : 	XML support for the BatchResult class.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -33,6 +34,13 @@ import org.ximtec.igesture.batch.ClassStatistic;
 import org.ximtec.igesture.configuration.jdom.JdomConfiguration;
 
 
+/**
+ * XML support for the BatchResult class.
+ * 
+ * @version 1.0 Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class JdomBatchResult extends Element {
 
    public static final String RUNNING_TIME = "runningTime";
@@ -62,7 +70,6 @@ public class JdomBatchResult extends Element {
 
    public JdomBatchResult(BatchResult result) {
       super(ROOT_TAG);
-
       this.addContent(new JdomIntegerElement(NUMBER_OF_CORRECTS, result
             .getNumberOfCorrects()));
       this.addContent(new JdomIntegerElement(NUMBER_OF_ERRORS, result
@@ -75,13 +82,10 @@ public class JdomBatchResult extends Element {
             .getNumberOfSamples()));
       this.addContent(new JdomIntegerElement(NUMBER_OF_NOISE, result
             .getNumberOfNoise()));
-
       this.addContent(new JdomDoubleElement(RECALL, result.getRecall()));
       this.addContent(new JdomDoubleElement(PRECISION, result.getPrecision()));
-
       this.addContent(new JdomDoubleElement(RUNNING_TIME, result
             .getRunningTime()));
-
       this.addContent(new JdomConfiguration(result.getConfiguration()));
 
       for (final ClassStatistic statistic : result.getStatistics()) {

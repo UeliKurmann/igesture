@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Holds statatic information about a gesture class. Used
+ * Purpose      : 	Holds static information about a gesture class. Used
  * 					by the BatchProcess.
  *
  * -----------------------------------------------------------------------
@@ -12,7 +12,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -25,11 +26,13 @@
 
 
 package org.ximtec.igesture.batch;
+
 /**
- * Statistic for a specific gesture class
- * @author Ueli Kurmann
- * @version 1.0
- *
+ * Holds static information about a gesture class. Used by the BatchProcess.
+ * 
+ * @version 1.0 Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class ClassStatistic {
 
@@ -45,7 +48,7 @@ public class ClassStatistic {
 
 
    /**
-    * Constructor
+    * Constructs a new class statistic.
     * 
     * @param className the name of the gesture class
     */
@@ -59,82 +62,83 @@ public class ClassStatistic {
 
 
    /**
-    * Returns the number of correct recognised gestures
-    * 
-    * @return number of correct recognised gestures
-    */
-   public int getCorrect() {
-      return correct;
-   }
-
-
-   /**
-    * Returns the number of errors
-    * 
-    * @return the number of errors
-    */
-   public int getError() {
-      return error;
-   }
-
-
-   public int getRejectError() {
-      return rejectError;
-   }
-
-
-   /**
-    * Returns the number of correct rejected gestures
-    * 
-    * @return the number of correct rejected gestures
-    */
-   public int getRejectCorrect() {
-      return rejectCorrect;
-   }
-
-
-   /**
-    * Increments the number of corrects
+    * Increments the number of correctly recognised gestures.
     * 
     */
    public void incCorrect() {
       this.correct++;
-   }
+   } // incCorrect
 
 
    /**
-    * Increments the number of errors
+    * Returns the number of correctly recognised gestures.
+    * 
+    * @return the number of correctly recognised gesture.
+    */
+   public int getCorrect() {
+      return correct;
+   } // getCorrect
+
+
+   /**
+    * Increments the number of errors.
     * 
     */
    public void incError() {
       this.error++;
-   }
+   } // incError
 
 
    /**
-    * Increments the number of correct rejects
+    * Returns the number of errors.
     * 
+    * @return the number of errors.
     */
-   public void incRejectCorrect() {
-      this.rejectCorrect++;
-   }
+   public int getError() {
+      return error;
+   } // getError
 
 
    /**
-    * Increments the number of wrong rejects
+    * Increments the number of wrongly rejected gestures.
     * 
     */
    public void incRejectError() {
       this.rejectError++;
-   }
+   } // incRejectError
+
+
+   public int getRejectError() {
+      return rejectError;
+   } // getRejectError
 
 
    /**
-    * Returns the gesture class name
+    * Increments the number of correctly rejected gestured.
     * 
-    * @return the gesture class name
+    */
+   public void incRejectCorrect() {
+      this.rejectCorrect++;
+   } // incRejectCorrect
+
+
+   /**
+    * Returns the number of correctly rejected gestures.
+    * 
+    * @return the number of correctly rejected gestures.
+    */
+   public int getRejectCorrect() {
+      return rejectCorrect;
+   } // getRejectCorrect
+
+
+   /**
+    * Returns the gesture class name.
+    * 
+    * @return the gesture class name.
     */
    public String getClassName() {
-      return this.className;
-   }
+      return className;
+   } // getClassName
+
 }

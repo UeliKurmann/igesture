@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Configuration Object used by algorithms
+ * Purpose      : 	Configuration object used by the algorithms.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -20,17 +21,6 @@
  * This software is the proprietary information of ETH Zurich.
  * Use is subject to license terms.
  * 
- */
-
-/**
- * This class represents the configuration of a session. it contains information
- * about:
- * - the used gesture set (1..*)
- * - the algorithms to use (1..*)
- * - parameters for the algorithms
- * - the minimum accuracy
- * - the size of the result list in resultset
- * - 
  */
 
 
@@ -46,6 +36,16 @@ import org.ximtec.igesture.event.EventManager;
 import org.ximtec.igesture.util.GestureTool;
 
 
+/**
+ * Configuration object used by the algorithms. The configuration objects
+ * contains information about the used gesture set (1..*), the algorithm(s) to be
+ * used (1..*), the parameters for the algorithms, the minimal accuracy as well
+ * as the size of the result list in the result set.
+ * 
+ * @version 1.0 Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class Configuration extends DefaultDataObject implements Cloneable {
 
    /**
@@ -81,8 +81,7 @@ public class Configuration extends DefaultDataObject implements Cloneable {
 
 
    /**
-    * Constructor initalises the used containers
-    * 
+    * Constructs a new configuration and initalises the used containers.
     */
    public Configuration() {
       super();
@@ -95,174 +94,170 @@ public class Configuration extends DefaultDataObject implements Cloneable {
 
 
    /**
-    * Adds a gesture set to the collection
+    * Adds a gesture set to the configuration.
     * 
-    * @param gestureSet the gesture set to add
+    * @param gestureSet the gesture set to be added.
     */
    public void addGestureSet(GestureSet gestureSet) {
       gestureSets.add(gestureSet);
-   }
+   } // addGestureSet
 
 
    public void addGestureSets(List<GestureSet> gestureSets) {
       this.gestureSets.addAll(gestureSets);
-   }
+   } // addGestureSets
 
 
    /**
-    * Removes a gesture set from the collection
+    * Removes a gesture set from the configuration.
     * 
-    * @param gestureSet
+    * @param gestureSet the gesture set to be removed.
     */
    public void removeGestureSet(GestureSet gestureSet) {
       gestureSets.remove(gestureSet);
-   }
+   } // removeGestureSet
 
 
    /**
-    * Returns the collection of gesture sets
+    * Returns the list of gesture sets.
     * 
     * @return List<GestureSet> the list of gesture sets
     */
    public List<GestureSet> getGestureSets() {
       return gestureSets;
-   }
+   } // getGestureSets
 
 
    /**
     * Returns the combined gesture set
     * 
-    * @return
+    * @return the combined gesture set.
     */
    public GestureSet getGestureSet() {
       return GestureTool.combine(getGestureSets());
-   }
+   } // getGestureSet
 
 
    /**
-    * Adds an algorithm to the collection
+    * Adds an algorithm to the configuration.
     * 
-    * @param algorithm
+    * @param algorithm the algorithm to be added to teh configuration.
     */
    public void addAlgorithm(String algorithm) {
       algorithms.add(algorithm);
       algorithmParameters.put(algorithm, new HashMap<String, String>());
-   }
+   } // addAlgorithm
 
 
    /**
-    * Removes an algorithm from the gesture set
+    * Removes an algorithm from the configuratiion.
     * 
-    * @param algorithm the algorithm to remove
+    * @param algorithm the algorithm to be removed.
     */
    public void removeAlgorithm(String algorithm) {
       algorithms.remove(algorithm);
       algorithmParameters.remove(algorithm);
-   }
+   } // removeAlgorithm
 
 
    /**
-    * Returns the collection of all algorithms
+    * Returns the list with all algorithms.
     * 
-    * @return
+    * @return the list with all algorithms.
     */
    public List<String> getAlgorithms() {
       return algorithms;
-   }
+   } // getAlgorithms
 
 
    /**
-    * Adds a name/value parameter to the specified algorithm. If the parameter
-    * map doesn't exist it will be created.
+    * Adds a key/value parameter to the specified algorithm. If the parameter map
+    * does not exist it will be created.
     * 
-    * @param algorithm the algorithm to add the parameter
-    * @param name the parameter name
-    * @param value the parameter value
+    * @param algorithm the algorithm the parameter has to be added to.
+    * @param key the key of the parameter to be added.
+    * @param value the parameter value the value of the parameter to be added.
     */
-   public void addAlgorithmParameter(String algorithm, String name, String value) {
-      final HashMap<String, String> parameters = getAlgorithmParameters(algorithm);
-      parameters.put(name, value);
-   }
+   public void addParameter(String algorithm, String key, String value) {
+      final HashMap<String, String> parameters = getParameters(algorithm);
+      parameters.put(key, value);
+   } // addParameter
 
 
    /**
-    * Returns the map of parameters of a specified algorithm.
+    * Returns the map of parameters for a specific algorithm.
     * 
-    * @param classname
-    * @return HashMap<String,String>
+    * @param classname the classname of the algorithm whose parameters have to be
+    *           returned.
+    * @return a hasmap with the algorithms parameters.
     */
-   public HashMap<String, String> getAlgorithmParameters(String classname) {
+   public HashMap<String, String> getParameters(String classname) {
       HashMap<String, String> parameters = algorithmParameters.get(classname);
+
       if (parameters == null) {
          parameters = new HashMap<String, String>();
          algorithmParameters.put(classname, parameters);
       }
+
       return parameters;
-   }
+   } // getParameters
 
 
    /**
-    * Removes all algorithm parameters
+    * Removes all parameter for a specific algorithm.
     * 
-    * @param classname
+    * @param classname the classname of the algorithm whose parameters have to be
+    *           removed.
     */
-   public void removeAlgorithmParameter(String classname) {
+   public void removeParameters(String classname) {
       algorithmParameters.remove(classname);
-   }
+   } // removeParameters
 
 
    /**
-    * Returns the Event Manager
+    * Sets the event manager.
     * 
-    * @return
-    */
-   public EventManager getEventManager() {
-      return eventManager;
-   }
-
-
-   /**
-    * Sets the Event Manager
+    * @param eventManager the event manager to be set.
     */
    public void setEventManager(EventManager eventManager) {
       this.eventManager = eventManager;
-   }
+   } // setEventManager
 
 
    /**
-    * Returns the minimal accuracy
+    * Returns the event manager.
     * 
-    * @return minimal accuracy
+    * @return the event manager.
     */
-   public double getMinAccuracy() {
-      return minAccuracy;
-   }
+   public EventManager getEventManager() {
+      return eventManager;
+   } // getEventManager
 
 
    /**
-    * Sets the minimal accuracy
+    * Sets the minimal accuracy.
     * 
-    * @param minAccuracy
+    * @param minAccuracy the minimal accuracy to be set.
     */
    public void setMinAccuracy(double minAccuracy) {
       this.minAccuracy = minAccuracy;
-   }
+   } // setMinAccuracy
 
 
    /**
-    * Returns the maximal result set size
+    * Returns the minimal accuracy.
     * 
-    * @return maximal result set size
+    * @return minimal accuracy.
     */
-   public int getMaxResultSetSize() {
-      return maxResultSetSize;
-   }
+   public double getMinAccuracy() {
+      return minAccuracy;
+   } // getMinAccuracy
 
 
    /**
-    * Sets the maximal result set size
+    * Sets the maximal result set size.
     * 
-    * @param maxResultSetSize
+    * @param maxResultSetSize the maximal result set size.
     */
    public void setMaxresultSetSize(int maxResultSetSize) {
       this.maxResultSetSize = maxResultSetSize;
@@ -270,30 +265,44 @@ public class Configuration extends DefaultDataObject implements Cloneable {
 
 
    /**
-    * Clones the Configuration instance - GestureSet is not cloned - EventManager
-    * is not cloned
+    * Returns the maximal result set size.
+    * 
+    * @return the maximal result set size.
+    */
+   public int getMaxResultSetSize() {
+      return maxResultSetSize;
+   } // getMaxResultSetSize
+
+
+   /**
+    * Clones the Configuration instance. The GestureSet and the EventManager are
+    * not cloned.
     */
    @Override
    public Object clone() {
       Configuration clone = null;
 
       try {
-         clone = (Configuration) super.clone();
+         clone = (Configuration)super.clone();
          // Clone Algorithm Parameters
          clone.algorithmParameters = new HashMap<String, HashMap<String, String>>();
+         
          for (final String key : algorithmParameters.keySet()) {
             final HashMap<String, String> paramsClone = new HashMap<String, String>();
             final HashMap<String, String> paramsOriginal = algorithmParameters
                   .get(key);
+            
             for (final String paramKey : paramsOriginal.keySet()) {
                paramsClone
                      .put(paramKey, paramsOriginal.get(paramKey).toString());
             }
+            
             clone.algorithmParameters.put(key, paramsClone);
          }
 
          // Clone Algorithm Names
          clone.algorithms = new ArrayList<String>();
+         
          for (final String s : algorithms) {
             clone.algorithms.add(s.toString());
          }
@@ -307,6 +316,8 @@ public class Configuration extends DefaultDataObject implements Cloneable {
       catch (final CloneNotSupportedException e) {
          e.printStackTrace();
       }
+      
       return clone;
-   }
+   } // clone
+
 }

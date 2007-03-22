@@ -3,8 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Datastructure to handle algorithm in batch process.
- * 					Provides also XML import functionality.
+ * Purpose      : 	Datastructure to handle algorithms in batch process.
+ * 					This class aslo provides XML import functionality.
  *
  * -----------------------------------------------------------------------
  *
@@ -12,7 +12,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -33,10 +34,12 @@ import org.jdom.Element;
 
 
 /**
- * Datastructure for an Algorithm
- * @author Ueli Kurmann
- * @version 1.00
+ * Datastructure to handle algorithms in batch process. This class aslo provides
+ * XML import functionality.
  * 
+ * @version 1.0 Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class BatchAlgorithm {
 
@@ -54,24 +57,24 @@ public class BatchAlgorithm {
    }
 
 
-   public String getName() {
-      return name;
-   }
-
-
    public void setName(String name) {
       this.name = name;
-   }
+   } // setName
+
+
+   public String getName() {
+      return name;
+   } // getName
 
 
    public void addParameter(BatchParameter parameter) {
       parameters.add(parameter);
-   }
+   } // addParameter
 
 
    public List<BatchParameter> getParameters() {
       return parameters;
-   }
+   } // getParameters
 
 
    @SuppressWarnings("unchecked")

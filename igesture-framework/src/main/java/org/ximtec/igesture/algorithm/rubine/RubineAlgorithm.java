@@ -195,7 +195,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
    public void init(Configuration config) throws AlgorithmException {
       final HashMap<String, String> parameters = config
-            .getAlgorithmParameters(this.getClass().getCanonicalName());
+            .getParameters(this.getClass().getCanonicalName());
       minDistance = AlgorithmTool.getDoubleParameterValue(Config.MIN_DISTANCE
             .name(), parameters, DEFAULT_CONFIGURATION);
       LOGGER.info(Config.MIN_DISTANCE + Constant.COLON_BLANK + minDistance);

@@ -3,8 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Represents the value of a sequence. 
- * 					Used by the BatchProcess.
+ * Purpose      : 	Represents the value of a sequence. Used by the
+ *                  BatchProcess.
  *
  * -----------------------------------------------------------------------
  *
@@ -12,7 +12,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -23,6 +24,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.batch.core;
 
 import java.util.ArrayList;
@@ -30,47 +32,62 @@ import java.util.List;
 
 import org.jdom.Element;
 
+
+/**
+ * Represents the value of a sequence. Used by the BatchProcess.
+ * 
+ * @version 1.0 Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class BatchSequenceValue extends BatchParameter {
 
-	public static String ROOT_TAG = "sequence";
+   public static String ROOT_TAG = "sequence";
 
-	public static String CHILD_TAG = "value";
+   public static String CHILD_TAG = "value";
 
-	List<String> values;
+   List<String> values;
 
-	public BatchSequenceValue() {
-		values = new ArrayList<String>();
-	}
 
-	/**
-	 * Adds a value
-	 * @param value
-	 */
-	public void addValue(String value) {
-		values.add(value);
-	}
+   public BatchSequenceValue() {
+      values = new ArrayList<String>();
+   }
 
-	/**
-	 * Returns the list of values of the sequence
-	 * 
-	 * @return the list of values of the sequence
-	 */
-	public List<String> getValues() {
-		return values;
-	}
 
-	/**
-	 * Imports a BatchSequenceValue from an XML element
-	 * @param parameterValue an XML element
-	 * @return a BatchSequenceValue from an XML element
-	 */
-	@SuppressWarnings("unchecked")
-	public static BatchSequenceValue unmarshal(Element parameterValue) {
-		final BatchSequenceValue value = new BatchSequenceValue();
-		final List<Element> children = parameterValue.getChildren(CHILD_TAG);
-		for (final Element elem : children) {
-			value.addValue(elem.getText());
-		}
-		return value;
-	}
+   /**
+    * Adds a value to the batch sequence value.
+    * @param value the value to be added.
+    */
+   public void addValue(String value) {
+      values.add(value);
+   } // addValue
+
+
+   /**
+    * Returns the list of values of the sequence.
+    * 
+    * @return the list of values of the sequence.
+    */
+   public List<String> getValues() {
+      return values;
+   } // getValues
+
+
+   /**
+    * Imports a BatchSequenceValue from an XML element.
+    * @param parameterValue the XML element th evalue has to be imported from.
+    * @return the BatchSequenceValue imported from the XML element.
+    */
+   @SuppressWarnings("unchecked")
+   public static BatchSequenceValue unmarshal(Element parameterValue) {
+      final BatchSequenceValue value = new BatchSequenceValue();
+      final List<Element> children = parameterValue.getChildren(CHILD_TAG);
+
+      for (final Element element : children) {
+         value.addValue(element.getText());
+      }
+
+      return value;
+   } // unmarshal
+
 }
