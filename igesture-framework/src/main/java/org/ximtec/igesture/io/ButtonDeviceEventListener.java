@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Event Listenr for Button Devices
+ * Purpose      : 	Event listener for button devices.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -28,12 +29,19 @@ package org.ximtec.igesture.io;
 import org.sigtec.input.InputDeviceEvent;
 
 
+/**
+ * Event listener for button devices.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public interface ButtonDeviceEventListener {
 
    /**
-    * Handles the event
+    * Handles the button pressed event.
     * 
-    * @param event
+    * @param event the event to be handled.
     */
    public void handleButtonPressedEvent(InputDeviceEvent event);
 

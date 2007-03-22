@@ -3,8 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Interface for EventHandler. The EventManager executes
- *  				the run method if an event is fired. 
+ * Purpose      : 	Interface for event handlers. The event manager
+ *                  executes the run method when an event is fired. 
  *
  * -----------------------------------------------------------------------
  *
@@ -12,7 +12,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -29,12 +30,20 @@ package org.ximtec.igesture.event;
 import org.ximtec.igesture.core.ResultSet;
 
 
+/**
+ * Interface for event handlers. The event manager executes the run method when
+ * an event is fired.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public interface EventHandler {
 
    /**
-    * Runs the event handler
+    * Runs the event handler.
     * 
-    * @param resultSet the result set
+    * @param resultSet the result set.
     */
    public void run(ResultSet resultSet);
 }

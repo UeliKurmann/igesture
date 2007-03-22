@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Mouse Reader Event
+ * Purpose      : 	Mouse reader event.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -29,13 +30,20 @@ import org.sigtec.ink.input.TimestampedLocation;
 import org.sigtec.input.InputDeviceEvent;
 
 
+/**
+ * Mouse reader event.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class MouseReaderEvent implements InputDeviceEvent {
 
    private TimestampedLocation location;
 
 
    /**
-    * Constructs a new MouseReaderEvent.
+    * Constructs a new mouse reader event.
     * 
     * @param location the position captured by the mouse.
     */
@@ -55,11 +63,12 @@ public class MouseReaderEvent implements InputDeviceEvent {
 
 
    /**
-    * Returns the timestamped location
+    * Returns the timestamped location.
     * 
-    * @return the timestamped location
+    * @return the timestamped location.
     */
    public TimestampedLocation getTimestampedLocation() {
       return location;
-   }
+   } // getTimestampedLocation
+
 }

@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   XML support for TextDescriptor
+ * Purpose      :   XML support for the TextDescriptor class.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -27,10 +28,16 @@ package org.ximtec.igesture.core.jdom;
 
 import org.jdom.Element;
 import org.sigtec.jdom.element.JdomStringElement;
-import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.TextDescriptor;
 
 
+/**
+ * XML support for the TextDescriptor class.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class JdomTextDescriptor extends Element {
 
    public static final String ROOT_TAG = "textDescriptor";

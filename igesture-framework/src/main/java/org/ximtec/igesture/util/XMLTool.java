@@ -4,7 +4,7 @@
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
  * Purpose      : 	Provides static methods with XML import/export 
- * 					functionality
+ * 					functionality.
  *
  * -----------------------------------------------------------------------
  *
@@ -12,7 +12,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 23, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -68,16 +69,23 @@ import org.ximtec.igesture.core.jdom.JdomTestSet;
 import org.xml.sax.InputSource;
 
 
+/**
+ * Provides static methods with XML import/export functionality.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class XMLTool {
 
    public static final String ROOT_TAG = "sets";
 
 
    /**
-    * Imports a GestureSet
+    * Imports a gesture set.
     * 
-    * @param file the XML file
-    * @return a list of GestureSets
+    * @param file the XML file.
+    * @return a list of gesture sets.
     */
    @SuppressWarnings("unchecked")
    public static List<GestureSet> importGestureSet(File file) {
@@ -91,27 +99,27 @@ public class XMLTool {
       }
 
       return sets;
-   }
+   } // importGestureSet
 
 
    /**
-    * Exports a GestureSet
+    * Exports a gesture set.
     * 
-    * @param set the GestureSet to be exported
-    * @param file the XML file
+    * @param set the gesture set to be exported.
+    * @param file the XML file.
     */
    public static void exportGestureSet(GestureSet set, File file) {
       final List<GestureSet> list = new ArrayList<GestureSet>();
       list.add(set);
       exportGestureSet(list, file);
-   }
+   } // exportGestureSet
 
 
    /**
-    * Exports a list of GestureSets
+    * Exports a list of gesture sets.
     * 
-    * @param sets the GestureSets to be exported
-    * @param file the XML file
+    * @param sets the gesture sets to be exported.
+    * @param file the XML file.
     */
    public static void exportGestureSet(List<GestureSet> sets, File file) {
       final JdomDocument igestureDocument = new JdomDocument(ROOT_TAG);
@@ -134,27 +142,27 @@ public class XMLTool {
       }
 
       FileHandler.writeFile(file.getPath(), igestureDocument.toXml());
-   }
+   } // exportGestureSet
 
 
    /**
-    * Exports a TestSet
+    * Exports a test set.
     * 
-    * @param testSet the TestSet to be exported
-    * @param file the XML file
+    * @param testSet the test set to be exported.
+    * @param file the XML file.
     */
    public static void exportTestSet(TestSet testSet, File file) {
       final List<TestSet> list = new ArrayList<TestSet>();
       list.add(testSet);
       exportTestSet(list, file);
-   }
+   } // exportTestSet
 
 
    /**
-    * Exports a list of TestSets
+    * Exports a list of test sets.
     * 
-    * @param testSetList the list of TestSets to be exported
-    * @param file the XML file
+    * @param testSetList the list of test sets to be exported.
+    * @param file the XML file.
     */
    public static void exportTestSet(List<TestSet> testSetList, File file) {
       final JdomDocument igestureDocument = new JdomDocument(ROOT_TAG);
@@ -164,11 +172,11 @@ public class XMLTool {
       }
 
       FileHandler.writeFile(file.getPath(), igestureDocument.toXml());
-   }
+   } // exportTestSet
 
 
    /**
-    * Imports a List of TestSets
+    * Imports a list of test sets.
     * 
     * @param file the XML File
     * @return a list of GestureSets
@@ -185,14 +193,14 @@ public class XMLTool {
       }
 
       return sets;
-   }
+   } // importTestSet
 
 
    /**
-    * Imports a Configuration
+    * Imports a configuration.
     * 
     * @param file the XML file
-    * @return the Configuration
+    * @return the configuration.
     */
    public static Configuration importConfiguration(File file) {
       Configuration configuration = new Configuration();
@@ -200,55 +208,56 @@ public class XMLTool {
       configuration = (Configuration)JdomConfiguration.unmarshal(document
             .getRootElement());
       return configuration;
-   }
+   } // importConfiguration
 
 
    /**
-    * Exports a Configuration
+    * Exports a configuration.
     * 
-    * @param configuration the Configuration to be exported
-    * @param file the XML file
+    * @param configuration the configuration to be exported.
+    * @param file the XML file.
     */
    public static void exportConfiguration(Configuration configuration, File file) {
       final JdomDocument ipaperDocument = new JdomDocument(
             new JdomConfiguration(configuration));
       FileHandler.writeFile(file.getPath(), ipaperDocument.toXml());
-   }
+   } // exportConfiguration
 
 
    /**
-    * Exports a BatchResultSet
+    * Exports a batch result set.
     * 
-    * @param resultSet the BatchResultSet to be exported
+    * @param resultSet the batch result set to be exported
     * @param file the XML file
     */
    public static void exportBatchResultSet(BatchResultSet resultSet, File file) {
       FileHandler.writeFile(file.getPath(), XMLTool
             .exportBatchResultSet(resultSet));
-   }
+   } // exportBatchResultSet
 
 
    /**
-    * Exports a BatchResultSet to its XML representation
+    * Exports a batch result set to its XML representation.
     * 
-    * @param resultSet the BatchResultSet to be exported
-    * @return the String containing the XML representation
+    * @param resultSet the batch result set to be exported.
+    * @return the string containing the XML representation.
     */
    public static String exportBatchResultSet(BatchResultSet resultSet) {
       final JdomDocument document = new JdomDocument(new JdomBatchResultSet(
             resultSet));
       return document.toXml();
-   }
+   } // exportBatchResultSet
 
 
    /**
-    * Imports an XML Document
+    * Imports an XML document.
     * 
-    * @param file the XML file
-    * @return the JDOM Document
+    * @param file the XML file.
+    * @return the JDOM document.
     */
    public static Document importDocument(File file) {
       Document document = null;
+
       try {
          final InputStream inputStream = new FileInputStream(file);
          final SAXBuilder builder = new SAXBuilder(false);
@@ -265,15 +274,15 @@ public class XMLTool {
       }
 
       return document;
-   }
+   } // importDocument
 
 
    /**
     * Imports an XML File and builds up the object tree. The result is a list of
-    * BatchAlgorithm instances.
+    * batch algorithm instances.
     * 
-    * @param file the XML file to import
-    * @return
+    * @param file the XML file to be imported.
+    * @return list of batch algorithm instances.
     */
    @SuppressWarnings("unchecked")
    public static BatchProcessContainer importBatchProcessContainer(File file) {
@@ -291,18 +300,9 @@ public class XMLTool {
       }
 
       return container;
-   }
+   } // importBatchProcessContainer
 
 
-   /**
-    * transform
-    * 
-    * @author Ueli Kurmann
-    * @version 1.0
-    * @param xmlDocument (String)
-    * @param xslFile (String)
-    * @return xmlDocument (String)
-    */
    public static String transform(String xmlDocument, String xslFile)
          throws TransformerException, TransformerConfigurationException,
          TransformerFactoryConfigurationError {
@@ -324,11 +324,11 @@ public class XMLTool {
             xslSR));
       transformer.transform(xmlIn, xmlOut);
       return xmlSW.toString();
-   }
+   } // transform
 
 
    /**
-    * xsl transformation
+    * XSL transformation.
     * @param xmlDocument xml document (String)
     * @param xsl xsl document (InputStream)
     * @return
@@ -348,6 +348,6 @@ public class XMLTool {
       final Transformer transformer = tFactory.newTransformer(xslSR);
       transformer.transform(xmlIn, xmlOut);
       return xmlSW.toString();
-   }
+   } // transform
 
 }

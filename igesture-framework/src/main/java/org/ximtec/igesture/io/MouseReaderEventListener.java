@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Mouse Reader Event Listener
+ * Purpose      : 	Mouse reader event listener.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -31,14 +32,23 @@ import org.sigtec.input.InputDeviceEvent;
 import org.sigtec.input.InputDeviceEventListener;
 
 
+/**
+ * Mouse reader event listener.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class MouseReaderEventListener extends AbstractInputDeviceEventListener
       implements InputDeviceEventListener {
 
    public void inputDeviceEvent(InputDevice arg0, InputDeviceEvent event) {
-      final MouseReaderEvent mouseEvent = (MouseReaderEvent) event;
+      final MouseReaderEvent mouseEvent = (MouseReaderEvent)event;
 
       if (mouseEvent.getTimestampedLocation() != null) {
          fireLocationEvent(mouseEvent.getTimestampedLocation());
       }
+
    }
+
 }

@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :  	Interface for devices having a button
+ * Purpose      :  	Interface for devices with a button.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -25,20 +26,27 @@
 
 package org.ximtec.igesture.io;
 
+/**
+ * Interface for devices with a button.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public interface ButtonDevice {
 
    /**
-    * Adds a listener
+    * Adds a listener to the button device.
     * 
-    * @param listener
+    * @param listener the listener to be added.
     */
    void addButtonDeviceEventListener(ButtonDeviceEventListener listener);
 
 
    /**
-    * Remoes a listener
+    * Removes a listener from the button device.
     * 
-    * @param listener
+    * @param listener the listener to be removed.
     */
    void removeButtonDeviceEventListener(ButtonDeviceEventListener listener);
 

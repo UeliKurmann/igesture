@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Reads the mouse position 
+ * Purpose      : 	Reads the mouse position.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -36,6 +37,13 @@ import com.eaio.nativecall.IntCall;
 import com.eaio.nativecall.NativeCall;
 
 
+/**
+ * Reads the mouse position.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class Win32MouseProxy {
 
    public static int LEFT = 0X01;
@@ -63,61 +71,63 @@ public class Win32MouseProxy {
       catch (final ServiceConfigurationError e) {
          e.printStackTrace();
       }
+
    }
 
 
    /**
-    * Returns true if the right mouse button is pressed
+    * Returns true if the right mouse button is pressed.
     * 
-    * @return true if the right mouse button is pressed
+    * @return true if the right mouse button is pressed.
     */
    public static boolean isRightButtonPressed() {
       return _GetAsyncKeyState(RIGHT) != 0 ? true : false;
-   }
+   } // isRightButtonPressed
 
 
    /**
-    * Returns true if the middle mouse button is pressed
+    * Returns true if the middle mouse button is pressed.
     * 
-    * @return true if the middle mouse button is pressed
+    * @return true if the middle mouse button is pressed.
     */
    public static boolean isMiddleButtonPressed() {
       return _GetAsyncKeyState(MIDDLE) != 0 ? true : false;
-   }
+   } // isMiddleButtonPressed
 
 
    /**
-    * Returns true if the left mouse button is pressed
+    * Returns true if the left mouse button is pressed.
     * 
-    * @return true if the left mouse button is pressed
+    * @return true if the left mouse button is pressed.
     */
    public static boolean isLeftButtonPressed() {
       return _GetAsyncKeyState(LEFT) != 0 ? true : false;
-   }
+   } // isLeftButtonPressed
 
 
    /**
-    * Returns the location of the mouse cursor on the screen
+    * Returns the location of the mouse cursor on the screen.
     * 
-    * @return Returns the location of the mouse cursor on the screen
+    * @return the location of the mouse cursor on the screen.
     */
    public static Point getCursorLocation() {
       final PointerInfo pi = MouseInfo.getPointerInfo();
       return pi.getLocation();
-   }
+   } // getCursorLocation
 
 
    /**
     * Calls the native user32.dll fucntion GetAsyncKeyState. This functions
     * checks if the given key is pressed.
     * 
-    * @param input the key to test
-    * @return true if the given key is pressed
+    * @param input the key to test.
+    * @return true if the given key is pressed.
     */
    private static int _GetAsyncKeyState(int input) {
       final IntCall ic = new IntCall("user32", "GetAsyncKeyState");
       final int i = ic.executeCall(input);
       ic.destroy();
       return i;
-   }
+   } // _GetAsyncKeyState
+   
 }

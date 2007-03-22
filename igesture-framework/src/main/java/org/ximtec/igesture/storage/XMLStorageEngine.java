@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Storage Engine implementation XML
+ * Purpose      : 	XML storage engine implementation.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -21,6 +22,7 @@
  * Use is subject to license terms.
  * 
  */
+
 
 package org.ximtec.igesture.storage;
 
@@ -38,140 +40,171 @@ import org.ximtec.igesture.core.DataObject;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+
+/**
+ * XML storage engine implementation.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class XMLStorageEngine implements StorageEngine {
 
-	private File xmlFile;
+   private File xmlFile;
 
-	private HashMap<Class<? extends DataObject>, List<DataObject>> dataObjects;
+   private HashMap<Class< ? extends DataObject>, List<DataObject>> dataObjects;
 
-	public XMLStorageEngine(String filename) {
-		xmlFile = new File(filename);
-		if(xmlFile.exists()){
-			dataObjects = deserialize(xmlFile);
-		}else{
-			dataObjects = new HashMap<Class<? extends DataObject>, List<DataObject>>();
-		}
-	}
 
-	/**
-	 * Serialize the internal datastructure to an XML fiel
-	 * 
-	 * @param objects
-	 * @param file
-	 */
-	private void serialize(
-			HashMap<Class<? extends DataObject>, List<DataObject>> objects,
-			File file) {
-		final XStream xstream = new XStream(new DomDriver());
-		final String xml = xstream.toXML(objects);
+   public XMLStorageEngine(String filename) {
+      xmlFile = new File(filename);
 
-		try {
-			final FileWriter fw = new FileWriter(file);
-			fw.write(xml);
-			fw.flush();
-			fw.close();
-		} catch (final IOException e) {
-			e.printStackTrace();
-		}
-	}
+      if (xmlFile.exists()) {
+         dataObjects = deserialize(xmlFile);
+      }
+      else {
+         dataObjects = new HashMap<Class< ? extends DataObject>, List<DataObject>>();
+      }
 
-	/**
-	 * deserialize an XML file
-	 * 
-	 * @param file
-	 *            the file to be deserialized
-	 * @return the internal data structure handling the data objects
-	 */
-	@SuppressWarnings("unchecked")
-	private HashMap<Class<? extends DataObject>, List<DataObject>> deserialize(
-			File file) {
-		final XStream xstream = new XStream(new DomDriver());
-		HashMap<Class<? extends DataObject>, List<DataObject>> dataObjects = null;
-		try {
-			
-			final FileReader fr = new FileReader(file);
-			dataObjects = (HashMap<Class<? extends DataObject>, List<DataObject>>) xstream
-					.fromXML(fr);
-			fr.close();
-		} catch (final FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (final IOException e) {
-			e.printStackTrace();
-		} catch (final ClassCastException e) {
-			e.printStackTrace();
-		}
-		if (dataObjects == null) {
-			dataObjects = new HashMap<Class<? extends DataObject>, List<DataObject>>();
-		}
-		return dataObjects;
-	}
+   }
 
-	public void dispose() {
-		serialize(dataObjects, xmlFile);
-	}
 
-	@SuppressWarnings("unchecked")
-	public <T extends DataObject> T load(final Class<T> clazz, final String id) {
-		T dataObject = null;
-		if (dataObjects.get(clazz) != null) {
-			for (final DataObject tmp : dataObjects.get(clazz)) {
-				if (tmp.getID().equals(id)) {
-					dataObject = (T) tmp;
-					break;
-				}
-			}
-		}
-		return dataObject;
-	}
+   /**
+    * Serialize the internal data structure to an XML file.
+    */
+   private void serialize(
+         HashMap<Class< ? extends DataObject>, List<DataObject>> objects,
+         File file) {
+      final XStream xstream = new XStream(new DomDriver());
+      final String xml = xstream.toXML(objects);
 
-	@SuppressWarnings("unchecked")
-	public <T extends DataObject> List<T> load(Class<T> clazz) {
-		if (dataObjects.get(clazz) != null) {
-			return (List<T>) dataObjects.get(clazz);
-		}
-		return new ArrayList<T>();
-	}
+      try {
+         final FileWriter fw = new FileWriter(file);
+         fw.write(xml);
+         fw.flush();
+         fw.close();
+      }
+      catch (final IOException e) {
+         e.printStackTrace();
+      }
 
-	public void store(DataObject dataObject) {
-		addDataObject(dataObject);
-	}
+   } // serialize
 
-	public void update(DataObject dataObject) {
-		addDataObject(dataObject);
-	}
 
-	public void remove(DataObject dataObject) {
-		removeDataObject(dataObject);
-	}
+   /**
+    * Deserialize an XML file.
+    * 
+    * @param file the file to be deserialized.
+    * @return the internal data structure handling the data objects.
+    */
+   @SuppressWarnings("unchecked")
+   private HashMap<Class< ? extends DataObject>, List<DataObject>> deserialize(
+         File file) {
+      final XStream xstream = new XStream(new DomDriver());
+      HashMap<Class< ? extends DataObject>, List<DataObject>> dataObjects = null;
 
-	/**
-	 * Adds a DataObject to the object container.
-	 * 
-	 * @param dataObject
-	 *            the DataObject to add
-	 */
-	private void addDataObject(DataObject dataObject) {
-		// create a list for a specific type if it doesn't exist
-		if (dataObjects.get(dataObject.getClass()) == null) {
-			dataObjects.put(dataObject.getClass(), new ArrayList<DataObject>());
-		}
+      try {
+         final FileReader fr = new FileReader(file);
+         dataObjects = (HashMap<Class< ? extends DataObject>, List<DataObject>>)xstream
+               .fromXML(fr);
+         fr.close();
+      }
+      catch (final FileNotFoundException e) {
+         e.printStackTrace();
+      }
+      catch (final IOException e) {
+         e.printStackTrace();
+      }
+      catch (final ClassCastException e) {
+         e.printStackTrace();
+      }
+      if (dataObjects == null) {
+         dataObjects = new HashMap<Class< ? extends DataObject>, List<DataObject>>();
+      }
 
-		// only add dataObject if it isn't already present in the list
-		if (!dataObjects.get(dataObject.getClass()).contains(dataObject)) {
-			dataObjects.get(dataObject.getClass()).add(dataObject);
-		}
-	}
+      return dataObjects;
+   }
 
-	/**
-	 * Removes a DataObject from the object container
-	 * 
-	 * @param dataObject
-	 *            the DataObject to remove
-	 */
-	private void removeDataObject(DataObject dataObject) {
-		if (dataObjects.get(dataObject.getClass()) != null) {
-			dataObjects.get(dataObject.getClass()).remove(dataObject);
-		}
-	}
+
+   public void dispose() {
+      serialize(dataObjects, xmlFile);
+   } // dispose
+
+
+   @SuppressWarnings("unchecked")
+   public <T extends DataObject> T load(final Class<T> clazz, final String id) {
+      T dataObject = null;
+
+      if (dataObjects.get(clazz) != null) {
+
+         for (final DataObject tmp : dataObjects.get(clazz)) {
+
+            if (tmp.getID().equals(id)) {
+               dataObject = (T)tmp;
+               break;
+            }
+
+         }
+
+      }
+
+      return dataObject;
+   } // load
+
+
+   @SuppressWarnings("unchecked")
+   public <T extends DataObject> List<T> load(Class<T> clazz) {
+      if (dataObjects.get(clazz) != null) {
+         return (List<T>)dataObjects.get(clazz);
+      }
+
+      return new ArrayList<T>();
+   } // load
+
+
+   public void store(DataObject dataObject) {
+      addDataObject(dataObject);
+   } // store
+
+
+   public void update(DataObject dataObject) {
+      addDataObject(dataObject);
+   } // update
+
+
+   public void remove(DataObject dataObject) {
+      removeDataObject(dataObject);
+   } // remove
+
+
+   /**
+    * Adds a data object to the object container.
+    * 
+    * @param dataObject the data object to be added.
+    */
+   private void addDataObject(DataObject dataObject) {
+      // create a list for a specific type if it doesn't exist
+      if (dataObjects.get(dataObject.getClass()) == null) {
+         dataObjects.put(dataObject.getClass(), new ArrayList<DataObject>());
+      }
+
+      // only add dataObject if it isn't already present in the list
+      if (!dataObjects.get(dataObject.getClass()).contains(dataObject)) {
+         dataObjects.get(dataObject.getClass()).add(dataObject);
+      }
+
+   } // addDataObject
+
+
+   /**
+    * Removes a data object from the object container.
+    * 
+    * @param dataObject the data object to be removed.
+    */
+   private void removeDataObject(DataObject dataObject) {
+      if (dataObjects.get(dataObject.getClass()) != null) {
+         dataObjects.get(dataObject.getClass()).remove(dataObject);
+      }
+
+   } // removeDataObject
 
 }

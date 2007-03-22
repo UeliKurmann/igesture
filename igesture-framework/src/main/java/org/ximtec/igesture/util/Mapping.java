@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   Name value mapping
+ * Purpose      :   Name value mapping.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -41,6 +42,13 @@ import org.sigtec.jdom.id.Factory;
 import org.xml.sax.InputSource;
 
 
+/**
+ * Name value mapping.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class Mapping {
 
    public static final int UNDEFINED = -1;
@@ -74,13 +82,15 @@ public class Mapping {
          builder.setIgnoringElementContentWhitespace(true);
          final InputSource is = new InputSource(inputStream);
          final Document document = builder.build(is);
-         for (final Element element : (List<Element>) document.getRootElement()
+
+         for (final Element element : (List<Element>)document.getRootElement()
                .getChildren(MAP_TAG)) {
             final String value = element.getAttributeValue(VALUE_ATTRIBUTE);
             final String name = element.getAttributeValue(NAME_ATTRIBUTE);
             str2int.put(name, Integer.valueOf(value));
             int2str.put(Integer.valueOf(value), name);
          }
+
       }
       catch (final FileNotFoundException e) {
          e.printStackTrace();
@@ -91,36 +101,40 @@ public class Mapping {
       catch (final IOException e) {
          e.printStackTrace();
       }
+      
       initialised = true;
-   }
+   } // init
 
 
    private static void testInit() {
       if (!initialised) {
          throw new RuntimeException("Mapping: Class not initialised!");
       }
-   }
+      
+   } // testInit
 
 
    /**
-    * Converts a name to an integer
-    * @param name the name to convert
-    * @return the integer value
+    * Converts a name to an integer.
+    * @param name the name to be converted.
+    * @return the integer value.
     */
    public static final int toInt(String name) {
       testInit();
       final Integer result = str2int.get(name);
       return (result != null) ? result.intValue() : UNDEFINED;
-   }
+   } // toInt
+
 
    /**
-    * Returns the name
-    * @param i the integer value
-    * @return the name
+    * Returns the name.
+    * @param value the integer value.
+    * @return the name.
     */
-   public static final String toString(int i) {
+   public static final String toString(int value) {
       testInit();
-      final String result = int2str.get(i);
+      final String result = int2str.get(value);
       return (result != null) ? result : null;
-   }
+   } // toString
+   
 }

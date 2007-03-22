@@ -3,9 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Interface for StorageEngines
- * 					Implementations realising access functionaliy
- * 					for data sources.  
+ * Purpose      : 	Interface for StorageEngines implementations
+ *                  realising access functionaliy for data sources.  
  *
  * -----------------------------------------------------------------------
  *
@@ -13,7 +12,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -32,52 +32,51 @@ import java.util.List;
 import org.ximtec.igesture.core.DataObject;
 
 
+/**
+ * Interface for StorageEngines implementations realising access functionaliy for
+ * data sources.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public interface StorageEngine {
 
    /**
-    * loads a dataobject of a specific type
+    * Loads a data object of a specific type.
     */
    public <T extends DataObject> T load(Class<T> clazz, String id);
 
 
    /**
-    * loads a collection of dataobjects of a given type. in general this method
+    * Loads a collection of data objects of a given type. In general this method
     * retuns all instances of the specific type.
-    * 
-    * @param clazz
-    * @return
     */
    public <T extends DataObject> List<T> load(Class<T> clazz);
 
 
    /**
-    * stores a dataobject. the engine is responsible to set an unique id to the
-    * dataobject.
-    * 
-    * @param dataObjects
-    * @return
+    * Stores a data object. The engine is responsible to set an unique id to the
+    * data object.
     */
    public void store(DataObject dataObjects);
 
 
    /**
-    * updates a dataobject
-    * 
-    * @param obj
+    * Updates a data object.
     */
    public void update(DataObject obj);
 
 
    /**
-    * Removes a data object
-    * 
-    * @param ojb
+    * Removes a data object.
     */
    public void remove(DataObject ojb);
 
 
    /**
-    * Disposes the Engine
+    * Disposes the engine.
     */
    public void dispose();
+
 }

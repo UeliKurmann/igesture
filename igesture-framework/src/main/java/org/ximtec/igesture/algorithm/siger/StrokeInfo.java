@@ -76,7 +76,7 @@ private List<Direction> directions;
    public StrokeInfo(Note note) {
       this.note = GestureTool.getCharacteristicNote((Note)note.clone(), 3, 10);
       directions = new ArrayList<Direction>();
-      final List<Point> points = GestureTool.getPoints(this.note);
+      final List<Point> points = this.note.getPoints();
 
       for (int i = 1; i < points.size(); i++) {
          final double angle = GestureTool.getAngle(points.get(i - 1), points

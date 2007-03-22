@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *	
- * Purpose      : 	Storage Engine implementation db4objects
+ * Purpose      : 	Storage engine implementation for db4o.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -38,15 +39,22 @@ import com.db4o.ObjectSet;
 import com.db4o.query.Predicate;
 
 
+/**
+ * Storage engine implementation for db4o.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class Db4oStorageEngine implements StorageEngine {
 
    ObjectContainer db;
 
 
    /**
-    * Constructor
+    * Constructs a new db4o engine.
     * 
-    * @param filename the database file
+    * @param filename the database file.
     */
    public Db4oStorageEngine(String filename) {
       Db4o.configure().activationDepth(Integer.MAX_VALUE);
@@ -65,7 +73,7 @@ public class Db4oStorageEngine implements StorageEngine {
 
    public void dispose() {
       db.close();
-   }
+   } // dispose
 
 
    @SuppressWarnings("serial")
@@ -85,26 +93,26 @@ public class Db4oStorageEngine implements StorageEngine {
       }
 
       return result;
-   }
+   } // load
 
 
    public <T extends DataObject> List<T> load(Class<T> clazz) {
       return db.query(clazz);
-   }
+   } // load
 
 
    public void store(DataObject dataObject) {
       db.set(dataObject);
-   }
+   } // store
 
 
    public void update(DataObject dataObject) {
       db.set(dataObject);
-   }
+   } // update
 
 
    public void remove(DataObject dataObject) {
       db.delete(dataObject);
-   }
+   } // remove
 
 }
