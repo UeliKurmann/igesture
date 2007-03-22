@@ -302,7 +302,7 @@ public class GestureMainModel {
     * @param gestureClass the gesture calss to remove
     */
    public void removeClassFromSet(GestureSet set, GestureClass gestureClass) {
-      set.delGestureClass(gestureClass);
+      set.removeGestureClass(gestureClass);
       storageManager.update(set);
       fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
    }

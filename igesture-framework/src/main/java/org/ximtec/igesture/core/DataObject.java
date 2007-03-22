@@ -29,6 +29,7 @@ package org.ximtec.igesture.core;
 
 /**
  * Interface to be implemented by persistent-capable objects.
+ * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch

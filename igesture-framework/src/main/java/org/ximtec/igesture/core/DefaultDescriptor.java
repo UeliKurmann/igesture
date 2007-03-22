@@ -5,11 +5,9 @@
  *
  * Purpose      : 	Default implementation of an descriptor. It implements
  *                  the necessary methods and extends the default
- *                  implementation of a DataObject.
- *                  
- *                  Usually a new implementation of a gesture class 
- *                  descriptor will extend this abstract class to 
- *                  avoid code duplication.
+ *                  implementation of a data object. Normally a new
+ *                  implementation of a gesture class descriptor will
+ *                  extend this abstract class to avoid code duplication.
  *
  * -----------------------------------------------------------------------
  *
@@ -17,7 +15,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -31,6 +30,16 @@
 
 package org.ximtec.igesture.core;
 
+/**
+ * Default implementation of an descriptor. It implements the necessary methods
+ * and extends the default implementation of a data object. Normally a new
+ * implementation of a gesture class descriptor will extend this abstract class
+ * to avoid code duplication.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public abstract class DefaultDescriptor extends DefaultDataObject implements
       Descriptor {
 
@@ -41,6 +50,6 @@ public abstract class DefaultDescriptor extends DefaultDataObject implements
 
    public Class< ? extends Descriptor> getType() {
       return this.getClass();
-   }
+   } // getType
 
 }

@@ -3,11 +3,11 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   this class represents the concept of a certain gesture. 
- * 					(e.g. circles, rectangles, triangles, ...)
- * 
- * it provides a storage container for managing descriptors as samples, 
- * character strings, etc.
+ * Purpose      :   This class represents the concept of a specific
+ *                  gesture. (e.g. circles, rectangles, triangles, ...).
+ *                  The class provides a storage container for managing
+ *                  descriptors in the form of samples, character
+ *                  strings, etc.
  * 
  * -----------------------------------------------------------------------
  *
@@ -15,7 +15,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -34,20 +35,29 @@ import java.util.HashMap;
 import java.util.List;
 
 
+/**
+ * This class represents the concept of a specific gesture. (e.g. circles,
+ * rectangles, triangles, ...). The class provides a storage container for
+ * managing descriptors in the form of samples, character strings, etc.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class GestureClass extends DefaultDataObject {
 
    private HashMap<Class< ? extends Descriptor>, Descriptor> descriptors;
 
    /**
-    * The name of the Gesture Class. E.g. Circle, etc.
+    * The name of the gesture class (e.g. circle).
     */
    private String name;
 
 
    /**
-    * Constructs a new Gesture Class instance
+    * Constructs a new gesture class instance.
     * 
-    * @param name
+    * @param name th ename of the gesture class to be created.
     */
    public GestureClass(String name) {
       super();
@@ -57,83 +67,84 @@ public class GestureClass extends DefaultDataObject {
 
 
    /**
-    * Returns the name of the Gesture Class
+    * Sets the name of the gesture class.
     * 
-    * @return
+    * @param name the name of the gesture class.
     */
-   public String getName() {
-      return name;
-   }
+   public void setName(String name) {
+      this.name = name;
+   } // setName
 
 
    /**
-    * Returns the GestureClassDescriptor for a given key.
+    * Returns the name of the gesture class.
     * 
-    * @param classname 
-    * @param <T> 
-    * @return
+    * @return the name of the gesture class.
+    */
+   public String getName() {
+      return name;
+   } // getName
+
+
+   /**
+    * Returns the gesture class descriptor for a given key.
+    * 
+    * @param classname the classname for which the gesture class descriptor has
+    *           to be returned.
+    * @param <T>
+    * @return the gesture class descriptor.
     */
    @SuppressWarnings("unchecked")
    public <T extends Descriptor> T getDescriptor(Class<T> classname) {
-      return (T) descriptors.get(classname);
+      return (T)descriptors.get(classname);
    } // getDescriptor
 
 
    /**
-    * Returns all GestureClassDescriptors
+    * Returns all gesture class descriptors.
     * 
-    * @return
+    * @return all gesture class descriptors.
     */
    public List<Descriptor> getDescriptors() {
       return new ArrayList<Descriptor>(descriptors.values());
-   }
+   } // getDescriptors
 
 
    /**
-    * Adds a descriptor
+    * Adds a descriptor.
     * 
-    * @param descriptor the descriptor to be added
+    * @param descriptor the descriptor to be added.
     */
    public void addDescriptor(Descriptor descriptor) {
       descriptors.put(descriptor.getType(), descriptor);
-   }
+   } // addDescriptor
 
 
    /**
-    * Add a descriptor
+    * Adds a descriptor.
     * 
-    * @param classname type of the descriptor
-    * @param descriptor the descriptor to be added
+    * @param classname the type of the descriptor.
+    * @param descriptor the descriptor to be added.
     */
    public void addDescriptor(Class< ? extends Descriptor> classname,
          Descriptor descriptor) {
       descriptors.put(classname, descriptor);
-   }
+   } // addDescriptor
 
 
    /**
-    * Removes the given descriptor
+    * Removes the given descriptor.
     * 
-    * @param descriptor the descriptor to be removed
+    * @param descriptor the descriptor to be removed.
     */
    public void removeDescriptor(Class< ? extends Descriptor> descriptor) {
       descriptors.remove(descriptor);
-   }
-
-
-   /**
-    * Sets the name of the gesture class
-    * 
-    * @param name
-    */
-   public void setName(String name) {
-      this.name = name;
-   }
+   } // removeDescriptor
 
 
    @Override
    public String toString() {
       return this.name;
-   }
+   } // toString
 
 }

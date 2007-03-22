@@ -3,7 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Describes the digital representation of a gesture class
+ * Purpose      : 	Describes the digital representation of a
+ *                  gesture class.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +12,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -30,6 +32,13 @@ import java.awt.Graphics2D;
 import org.sigtec.ink.Note;
 
 
+/**
+ * Describes the digital representation of a gesture class.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public abstract class DigitalDescriptor extends DefaultDescriptor {
 
    public DigitalDescriptor() {
@@ -38,10 +47,10 @@ public abstract class DigitalDescriptor extends DefaultDescriptor {
 
 
    /**
-    * Draws the digital object
+    * Draws the digital object.
     * 
-    * @param graphics the graphic object on which the drawing is done
-    * @param note the note
+    * @param graphics the graphics context on which the drawing is done.
+    * @param note the note.
     */
    public abstract void getDigitalObject(Graphics2D graphics, Note note);
 
@@ -49,5 +58,6 @@ public abstract class DigitalDescriptor extends DefaultDescriptor {
    @Override
    public String toString() {
       return DigitalDescriptor.class.getName();
-   }
+   } // toString
+
 }
