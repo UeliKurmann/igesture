@@ -96,7 +96,7 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
 
    public void init(Configuration config) {
       final HashMap<String, String> parameters = config
-            .getAlgorithmParameters(this.getClass().getCanonicalName());
+            .getParameters(this.getClass().getCanonicalName());
       gridSize = (int)AlgorithmTool.getDoubleParameterValue(Config.GRID_SIZE
             .name(), parameters, DEFAULT_CONFIGURATION);
       LOGGER.info(Config.GRID_SIZE.name() + Constant.COLON_BLANK + gridSize);

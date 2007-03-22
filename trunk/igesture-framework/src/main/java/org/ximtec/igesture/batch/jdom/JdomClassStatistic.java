@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	XML support for ClassStatistic
+ * Purpose      : 	XML support for the ClassStatistic class.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -30,6 +31,13 @@ import org.sigtec.jdom.element.JdomIntegerElement;
 import org.ximtec.igesture.batch.ClassStatistic;
 
 
+/**
+ * XML support for the ClassStatistic class.
+ * 
+ * @version 1.0 Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class JdomClassStatistic extends Element {
 
    public static final String ROOT_TAG = "classStatistic";

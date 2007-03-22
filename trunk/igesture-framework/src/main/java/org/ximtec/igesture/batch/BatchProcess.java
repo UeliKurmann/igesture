@@ -282,7 +282,7 @@ public class BatchProcess {
          final BatchValue value = param.getValue();
          final Configuration conf = (Configuration)configuration.clone();
          conf
-               .addAlgorithmParameter(algorithm, param.getName(), value
+               .addParameter(algorithm, param.getName(), value
                      .getValue());
          permuteParameters(algorithm, parameters, index + 1, conf,
                configurations);
@@ -311,7 +311,7 @@ public class BatchProcess {
 
          for (final String value : values.getValues()) {
             final Configuration conf = (Configuration)configuration.clone();
-            conf.addAlgorithmParameter(algorithm, param.getName(), value);
+            conf.addParameter(algorithm, param.getName(), value);
             permuteParameters(algorithm, parameters, index + 1, conf,
                   configurations);
          }
@@ -341,7 +341,7 @@ public class BatchProcess {
 
          for (final String value : values.getValues()) {
             final Configuration conf = (Configuration)configuration.clone();
-            conf.addAlgorithmParameter(algorithm, param.getName(), value);
+            conf.addParameter(algorithm, param.getName(), value);
             permuteParameters(algorithm, parameters, index + 1, conf,
                   configurations);
          }
@@ -371,7 +371,7 @@ public class BatchProcess {
 
          for (final String value : values.getValues()) {
             final Configuration conf = (Configuration)configuration.clone();
-            conf.addAlgorithmParameter(algorithm, param.getName(), value);
+            conf.addParameter(algorithm, param.getName(), value);
             permuteParameters(algorithm, parameters, index + 1, conf,
                   configurations);
          }

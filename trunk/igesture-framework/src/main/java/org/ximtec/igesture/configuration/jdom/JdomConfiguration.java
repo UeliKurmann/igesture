@@ -58,7 +58,7 @@ public class JdomConfiguration extends Element {
          final Element element = new Element(ALGORITHM_TAG);
          element.setAttribute(NAME_ATTRIBUTE, algorithmName);
          final HashMap<String, String> parameters = configuration
-               .getAlgorithmParameters(algorithmName);
+               .getParameters(algorithmName);
 
          for (final String parameterName : parameters.keySet()) {
             element.addContent(new JdomConfigurationParameter(parameterName,
@@ -106,7 +106,7 @@ public class JdomConfiguration extends Element {
                .getChildren(JdomConfigurationParameter.ROOT_TAG)) {
             final String[] parameterList = JdomConfigurationParameter
                   .unmarshal(parameter);
-            configuration.addAlgorithmParameter(algorithmName, parameterList[0],
+            configuration.addParameter(algorithmName, parameterList[0],
                   parameterList[1]);
          }
 

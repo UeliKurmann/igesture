@@ -3,7 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Implements the power set parameter of the batch process
+ * Purpose      : 	Implements the power set parameter of the batch
+ *                  process.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +12,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -35,6 +37,13 @@ import org.sigtec.util.Constant;
 import org.ximtec.igesture.batch.BatchTools;
 
 
+/**
+ * Implements the power set parameter of the batch process.
+ * 
+ * @version 1.0 Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class BatchPowerSetValue {
 
    public static String ROOT_TAG = "powerset";
@@ -57,12 +66,12 @@ public class BatchPowerSetValue {
 
    public void addValue(String value) {
       values.add(value);
-   }
+   } // addValue
 
 
    public List<String> getValues() {
       return values;
-   }
+   } // getValues
 
 
    public static BatchPowerSetValue unmarshal(Element parameter) {
@@ -76,84 +85,93 @@ public class BatchPowerSetValue {
       }
 
       return value;
-   }
+   } // unmarshal
 
 
    /**
-    * Creates the powerset of the given list
+    * Creates the powerset for the given list.
     * 
-    * @param list the comma seperated list
-    * @param min the minimal lenght of the lists
-    * @param max the maximal lenght of the lists
-    * @return the list containing the powerset of lists with the given constraint
+    * @param list the comma seperated list.
+    * @param min the minimal lenght of the lists.
+    * @param max the maximal lenght of the lists.
+    * @return the list containing the powerset of lists with the given
+    *         constraint.
     */
    private static List<String> createPowerSet(String list, int min, int max) {
       final List<String> result = new ArrayList<String>();
       final StringTokenizer tokenizer = new StringTokenizer(list.trim(),
             Constant.COMMA);
       final HashSet<String> set = new HashSet<String>();
+
       while (tokenizer.hasMoreTokens()) {
          final String token = tokenizer.nextToken();
          set.add(token);
       }
+
       HashSet<HashSet<String>> powerSet = BatchTools.getPowerSet(set);
       powerSet = BatchTools.filterSet(powerSet, min, max);
-      for (final HashSet<String> hs : powerSet) {
-         final StringBuilder sb = new StringBuilder();
-         for (final String s : hs) {
-            sb.append(s + Constant.COMMA);
+
+      for (final HashSet<String> hashSet : powerSet) {
+         final StringBuilder stringBuilder = new StringBuilder();
+
+         for (final String s : hashSet) {
+            stringBuilder.append(s + Constant.COMMA);
          }
-         if (sb.length() > 0) {
-            result.add(sb.toString().substring(0, sb.length() - 1));
+
+         if (stringBuilder.length() > 0) {
+            result.add(stringBuilder.toString().substring(0,
+                  stringBuilder.length() - 1));
          }
          else {
-            result.add(sb.toString());
+            result.add(stringBuilder.toString());
          }
+
       }
       return result;
-   }
+   } // createPowerSet
 
 
    /**
-    * Returns the maximal lenght of the list
+    * Sets the maximal lenght of the list,
     * 
-    * @return the maximal lenght of the list
-    */
-   public int getMax() {
-      return max;
-   }
-
-
-   /**
-    * Sets the maximal lenght of the list
-    * 
-    * @param max the maximal lenght of the list. the value should be not greater
-    *           than the lenght of the original list and greater than getMin()
+    * @param max the maximal lenght of the list. The value should be not larger
+    *           than the lenght of the original list but it should be larger than
+    *           getMin().
     */
    public void setMax(int max) {
       this.max = max;
-   }
+   } // setMax
 
 
    /**
-    * Returns the minimal lenght of the list
+    * Returns the maximal lenght of the list.
     * 
-    * @return the minimal lenght of the powerset. the lenght should be greater
-    *         than 0 and lower the getMax()
+    * @return the maximal lenght of the list.
     */
-   public int getMin() {
-      return min;
-   }
+   public int getMax() {
+      return max;
+   } // getMax
 
 
    /**
-    * Sets the minimal lenght of the list
+    * Sets the minimal lenght of the list.
     * 
-    * @param min the minimal lenght of the list the lenght should be greater than
-    *           0 and lower the getMax()
+    * @param min the minimal lenght of the list. Th evalue should be larger than
+    *           0 and smaller than getMax().
     */
    public void setMin(int min) {
       this.min = min;
-   }
+   } // setMin
+
+
+   /**
+    * Returns the minimal lenght of the list.
+    * 
+    * @return the minimal lenght of the powerset. The lenght should be larger
+    *         than 0 and smaller than getMax().
+    */
+   public int getMin() {
+      return min;
+   } // getMin
 
 }

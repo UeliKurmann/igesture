@@ -150,10 +150,10 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
          configurationParameters.add(new ConfigParameter(ALGORITHM_NAME,
                algorithmName));
 
-         for (final String key : configuration.getAlgorithmParameters(
+         for (final String key : configuration.getParameters(
                algorithmName).keySet()) {
             configurationParameters.add(new ConfigParameter(key, configuration
-                  .getAlgorithmParameters(algorithmName).get(key)));
+                  .getParameters(algorithmName).get(key)));
          }
 
          final JPanel panel = new JPanel();
@@ -179,7 +179,7 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
       final Configuration configuration = new Configuration();
       configuration.addAlgorithm(algorithm.getClass().getCanonicalName());
       for (final Enum e : algorithm.getConfigParameters()) {
-         configuration.addAlgorithmParameter(algorithm.getClass().getName(), e
+         configuration.addParameter(algorithm.getClass().getName(), e
                .name(), algorithm.getDefaultParameterValue(e.name()));
       }
       return configuration;
@@ -212,14 +212,14 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
       }
 
       if (!newAlgorithmName.equals(currentAlgorithmName)) {
-         currentConfiguration.removeAlgorithmParameter(currentAlgorithmName);
+         currentConfiguration.removeParameters(currentAlgorithmName);
          currentConfiguration.removeAlgorithm(currentAlgorithmName);
          currentConfiguration.addAlgorithm(newAlgorithmName);
       }
 
       for (final ConfigParameter cp : configurationParameters) {
          if (!cp.getParameterName().equals(ALGORITHM_NAME)) {
-            currentConfiguration.addAlgorithmParameter(newAlgorithmName, cp
+            currentConfiguration.addParameter(newAlgorithmName, cp
                   .getParameterName(), cp.getParameterValue());
          }
       }
