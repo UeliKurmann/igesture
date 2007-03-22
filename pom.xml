@@ -153,12 +153,12 @@
 							<title>iGesture - Demo</title>
 							<packages>org.ximtec.igesture.app*</packages>
 						</group>
-					</groups>
+					</groups>					
 					<links>
-						<link>
-							http://java.sun.com/j2se/1.5.0/docs/api/
-						</link>
+						<link>http://java.sun.com/javase/6/docs/api/</link>
 					</links>
+					<stylesheetfile>javadoc.css</stylesheetfile>
+					<additionalparam>-header '&lt;table border=0 cellpadding=0&gt;&lt;tr&gt;&lt;td align=center&gt;&lt;img src=http://www.igesture.org/resources/images/igesture.png /&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=center&gt;&lt;font size=1&gt;&amp;copy; 2006-2007 ETH Zurich&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;'</additionalparam>
 				</configuration>
 			</plugin>
 
