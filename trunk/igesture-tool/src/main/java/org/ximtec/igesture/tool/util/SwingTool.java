@@ -46,7 +46,7 @@ import org.sigtec.util.GuiBundle;
 
 public class SwingTool {
 
-	private static final String GUI_BUNDLE_FILE = "iserverMenu";
+	private static final String GUI_BUNDLE_FILE = "igestureMenu";
 
 	public static final Dimension BUTTON_PREFERRED_SIZE = new java.awt.Dimension(
 			80, 26);
