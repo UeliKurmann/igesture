@@ -52,7 +52,7 @@ public class GestureToolView extends JFrame {
 	 */
 	private static final String GUI_STYLE = "org.fife.plaf.VisualStudio2005.VisualStudio2005LookAndFeel";
 
-	private static final String ISERVER_ICON = "icons/iserver";
+	private static final String IGESTURE_ICON = "icons/iserver";
 
 	private GestureConfiguration configuration;
 
@@ -86,7 +86,7 @@ public class GestureToolView extends JFrame {
 			e.printStackTrace();
 		}
 
-		setIconImage(IconTool.getIcon(ISERVER_ICON, Decorator.SIZE_16)
+		setIconImage(IconTool.getIcon(IGESTURE_ICON, Decorator.SIZE_16)
 				.getImage());
 		this.setBounds(0, 0, 900, 650);
 		this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
