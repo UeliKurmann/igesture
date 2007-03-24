@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   PopUp listener.
+ * Purpose		:   Pop-up listener.
  *
  * -----------------------------------------------------------------------
  *
@@ -37,7 +37,7 @@ import org.ximtec.igesture.core.GestureSet;
 
 
 /**
- * PopUp listener.
+ * Pop-up listener.
  * 
  * @version 1.0, Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

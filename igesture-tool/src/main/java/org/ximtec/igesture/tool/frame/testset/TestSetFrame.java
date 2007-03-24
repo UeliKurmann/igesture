@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   test set frame
+ * Purpose		:   Test set frame.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 4.12.2006		ukurmann	Initial Release
+ * Nov 17, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -46,10 +47,11 @@ import org.ximtec.igesture.util.GestureTool;
 
 
 /**
- * Comment
+ * Test set frame.
  * 
- * @version 1.0 Nov 17, 2006
+ * @version 1.0, Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class TestSetFrame extends BasicInternalFrame implements
       CurrentGestureListener {
@@ -80,29 +82,29 @@ public class TestSetFrame extends BasicInternalFrame implements
       gestureImage = new JLabel();
       gestureImage.setSize(180, 180);
       gestureImage.setPreferredSize(new Dimension(180, 180));
-      this.addComponent(gestureImage, SwingTool.createGridBagConstraint(0, 0));
-      this.addComponent(createDropDownMenu(), SwingTool.createGridBagConstraint(
-            0, 1));
-      this.addComponent(SwingTool.createButton(new ActionTestSetAdd(testTab,
-            this)), SwingTool.createGridBagConstraint(0, 2));
-   }
+      addComponent(gestureImage, SwingTool.createGridBagConstraint(0, 0));
+      addComponent(createDropDownMenu(), SwingTool.createGridBagConstraint(0, 1));
+      addComponent(SwingTool.createButton(new ActionTestSetAdd(testTab, this)),
+            SwingTool.createGridBagConstraint(0, 2));
+   } // init
 
 
    public void currentGestureChanged(EventObject event) {
       drawCurrentGesture();
-   }
+   } // currentGestureChanged
 
 
    private void drawCurrentGesture() {
       currentNote = mainView.getModel().getCurrentNote();
-      final Note note = (Note) currentNote.clone();
+      final Note note = (Note)currentNote.clone();
 
       if (!note.getTraces().isEmpty()) {
          gestureImage.setIcon(new ImageIcon(GestureTool.createNoteImage(note,
                180, 180)));
       }
+
       this.repaint();
-   }
+   } // drawCurrentGesture
 
 
    private JComboBox createDropDownMenu() {
@@ -113,14 +115,14 @@ public class TestSetFrame extends BasicInternalFrame implements
       gestureClasses[mainView.getModel().getGestureClasses().size()] = new GestureClass(
             "None");
       dropDownMenu = new JComboBox(gestureClasses);
-
       return dropDownMenu;
-   }
+   } // createDropDownMenu
 
 
    public GestureSample getGestureSample() {
-      final String name = ((GestureClass) dropDownMenu.getSelectedItem())
+      final String name = ((GestureClass)dropDownMenu.getSelectedItem())
             .getName();
       return new GestureSample(name, currentNote);
-   }
+   } // getGestureSample
+
 }
