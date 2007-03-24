@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   DataModel Configuration Listener
+ * Purpose		:   
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -33,6 +34,11 @@ import org.ximtec.igesture.tool.frame.capture.GestureCaptureArea;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ActionCaptureGesture extends BasicAction {
 
    private GestureCaptureArea area;
@@ -46,5 +52,6 @@ public class ActionCaptureGesture extends BasicAction {
 
    public void actionPerformed(ActionEvent event) {
       area.updateCurrentGesture();
-   }
+   } // actionPerformed
+   
 }
