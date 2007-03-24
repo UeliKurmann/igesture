@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Configuration List Model
+ * Purpose		: 	Configuration list model.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 4.12.2006		ukurmann	Initial Release
+ * Dec 04, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -31,10 +32,11 @@ import org.ximtec.igesture.tool.GestureMainModel;
 
 
 /**
- * Comment
+ * Configuration list model.
  * 
- * @version 1.0 Dec 4, 2006
+ * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class ConfigurationListModel extends SimpleListModel<Configuration> {
 
@@ -44,14 +46,15 @@ public class ConfigurationListModel extends SimpleListModel<Configuration> {
 
 
    @Override
-   public Object getElementAt(int i) {
-      final String algoName = ((Configuration) super.getElementAt(i))
+   public Object getElementAt(int index) {
+      final String algoName = ((Configuration)super.getElementAt(index))
             .getAlgorithms().get(0);
       return algoName.substring(algoName.lastIndexOf(".") + 1);
-   }
+   } // getElementAt
 
 
-   public Configuration getInstanceAt(int i) {
-      return (Configuration) super.getElementAt(i);
-   }
+   public Configuration getInstanceAt(int index) {
+      return (Configuration)super.getElementAt(index);
+   } // getInstanceAt
+
 }

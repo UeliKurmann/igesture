@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Deletes a configuration
+ * Purpose		: 	Deletes a configuration.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 4.12.2006		ukurmann	Initial Release
+ * Dec 04, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -35,10 +36,11 @@ import org.ximtec.igesture.tool.util.SwingTool;
 
 
 /**
- * Comment
+ * Deletes a configuration.
  * 
- * @version 1.0 Dec 4, 2006
+ * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class ActionDeleteConfiguration extends BasicAction {
 
@@ -52,8 +54,8 @@ public class ActionDeleteConfiguration extends BasicAction {
    }
 
 
-   public void actionPerformed(ActionEvent arg0) {
+   public void actionPerformed(ActionEvent event) {
       algorithmConfiguration.deleteCurrentConfiguration();
-   }
+   } // actionPerformed
 
 }

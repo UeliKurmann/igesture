@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Exports a configuration
+ * Purpose		: 	Exports a configuration.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 					ukurmann	Initial Release
+ * Dec 04, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -39,10 +40,11 @@ import org.ximtec.igesture.util.XMLTool;
 
 
 /**
- * Comment
+ * Exports a configuration.
  * 
- * @version 1.0 Dec 4, 2006
+ * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class ActionExportConfiguration extends BasicAction {
 
@@ -60,10 +62,12 @@ public class ActionExportConfiguration extends BasicAction {
       final JFileChooser fileChooser = new JFileChooser();
       fileChooser.showSaveDialog(algorithmConfiguration);
       final File file = fileChooser.getSelectedFile();
+
       if (file != null) {
          XMLTool.exportConfiguration(algorithmConfiguration
                .getCurrentConfiguration(), file);
       }
-   }
+
+   } // actionPerformed
 
 }

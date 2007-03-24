@@ -36,7 +36,6 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 
 import org.sigtec.graphix.widget.BasicInternalFrame;
-import org.sigtec.graphix.widget.BasicLabel;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.CaptureTab;
 import org.ximtec.igesture.tool.GestureConstants;
@@ -46,6 +45,13 @@ import org.ximtec.igesture.tool.frame.algorithm.action.ActionExecuteRecogniser;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * Algorithm frame.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class AlgorithmFrame extends BasicInternalFrame implements
       GestureSetListener {
 
@@ -79,7 +85,7 @@ public class AlgorithmFrame extends BasicInternalFrame implements
     */
    private void init() {
       addComponent(createSetList(), SwingTool.createGridBagConstraint(0, 2));
-      addComponent(createResultLable(), SwingTool.createGridBagConstraint(0, 3,
+      addComponent(createResultLabel(), SwingTool.createGridBagConstraint(0, 3,
             1, 1, GridBagConstraints.WEST));
       addComponent(createResultList(), SwingTool.createGridBagConstraint(0, 4));
       addComponent(createRunButton(), SwingTool.createGridBagConstraint(0, 0));
@@ -90,34 +96,34 @@ public class AlgorithmFrame extends BasicInternalFrame implements
    private Component createRunButton() {
       return SwingTool.createButton(new ActionExecuteRecogniser(mainView
             .getModel(), tab, setList, resultList));
-   }
+   } // createRunButton
 
 
    private Component createSetList() {
       setList = new JList();
       final JScrollPane pane = new JScrollPane(setList);
       pane.setPreferredSize(new Dimension(180, 60));
-
       updateSetList();
       return pane;
-   }
+   } // createSetList
 
 
    private void updateSetList() {
       final Vector<GestureSet> sets = new Vector<GestureSet>();
+
       for (final GestureSet set : mainView.getModel().getGestureSets()) {
          sets.add(set);
       }
+
       setList.setListData(sets);
       this.repaint();
-   }
+   } // updateSetList
 
 
-   private Component createResultLable() {
-      final BasicLabel label = SwingTool
+   private Component createResultLabel() {
+      return SwingTool
             .createLabel(GestureConstants.ALGORITHM_FRAME_RESULT_LABEL);
-      return label;
-   }
+   } // createResultLabel
 
 
    private Component createResultList() {
@@ -125,10 +131,11 @@ public class AlgorithmFrame extends BasicInternalFrame implements
       final JScrollPane pane = new JScrollPane(resultList);
       pane.setPreferredSize(new Dimension(180, 100));
       return pane;
-   }
+   } // createResultList
 
 
    public void gestureSetChanged(EventObject event) {
       updateSetList();
-   }
+   } // gestureSetChanged
+
 }
