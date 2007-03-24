@@ -27,11 +27,14 @@ package org.ximtec.igesture.tool.frame.gestureset.action;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 
 import org.sigtec.graphix.widget.BasicAction;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.util.IconLoader;
@@ -43,6 +46,9 @@ import com.lowagie.text.DocumentException;
 
 
 public class ActionExportPDFGestureSet extends BasicAction {
+
+   private static final Logger LOGGER = Logger
+         .getLogger(ActionExportPDFGestureSet.class.getName());
 
    private GestureSet set;
 
@@ -59,7 +65,7 @@ public class ActionExportPDFGestureSet extends BasicAction {
 
       Document.compress = false;
       final JFileChooser fileChooser = new JFileChooser();
-      fileChooser.showSaveDialog((JMenuItem) event.getSource());
+      fileChooser.showSaveDialog((JMenuItem)event.getSource());
       final File selectedFile = fileChooser.getSelectedFile();
       if (selectedFile != null) {
          final Document document = PDFTool.createDocument(selectedFile);
@@ -68,7 +74,7 @@ public class ActionExportPDFGestureSet extends BasicAction {
             document.add(PDFTool.createGestureSetTable(set));
          }
          catch (final DocumentException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
          }
          document.close();
       }

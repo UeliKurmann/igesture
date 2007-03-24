@@ -27,6 +27,8 @@
 package org.ximtec.igesture.batch;
 
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -53,6 +55,9 @@ import org.ximtec.igesture.util.XMLTool;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class BatchMain {
+
+   private static final Logger LOGGER = Logger.getLogger(BatchMain.class
+         .getName());
 
    private static final String FILE = "file";
 
@@ -92,7 +97,7 @@ public class BatchMain {
          line = parser.parse(options, args);
       }
       catch (final ParseException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
 
       if (line.getOptions().length == 0 || line.hasOption(HELP)) {
@@ -123,13 +128,13 @@ public class BatchMain {
                      .getOptionValue(XSL));
             }
             catch (final TransformerConfigurationException e) {
-               e.printStackTrace();
+               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
             }
             catch (final TransformerException e) {
-               e.printStackTrace();
+               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
             }
             catch (final TransformerFactoryConfigurationError e) {
-               e.printStackTrace();
+               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
             }
 
             FileHandler.writeFile(line.getOptionValue(HTML), htmlPage);

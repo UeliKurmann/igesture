@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Deletes a gesture set
+ * Purpose		:   Deletes a gesture set.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -37,6 +38,13 @@ import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * Deletes a gesture set.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ActionDelGestureSet extends BasicAction {
 
    public static final String KEY = "PopUpDelGestureSet";
@@ -56,13 +64,13 @@ public class ActionDelGestureSet extends BasicAction {
 
 
    public void actionPerformed(ActionEvent event) {
-
       if (event.getSource() instanceof JButton) {
-
+         // FIXME: add something or reduce to simple if statement.
       }
       else if (event.getSource() instanceof JMenuItem) {
          gestureTreeModel.getModel().removeGestureSet(gestureSet);
       }
-   }
+
+   } // actionPerformed
 
 }

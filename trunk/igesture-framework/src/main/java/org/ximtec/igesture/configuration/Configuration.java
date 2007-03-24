@@ -29,7 +29,10 @@ package org.ximtec.igesture.configuration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.DefaultDataObject;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.EventManager;
@@ -47,6 +50,9 @@ import org.ximtec.igesture.util.GestureTool;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class Configuration extends DefaultDataObject implements Cloneable {
+
+   private static final Logger LOGGER = Logger.getLogger(Configuration.class
+         .getName());
 
    /**
     * The list of gesture sets which are selected for the recognition process
@@ -286,23 +292,23 @@ public class Configuration extends DefaultDataObject implements Cloneable {
          clone = (Configuration)super.clone();
          // Clone Algorithm Parameters
          clone.algorithmParameters = new HashMap<String, HashMap<String, String>>();
-         
+
          for (final String key : algorithmParameters.keySet()) {
             final HashMap<String, String> paramsClone = new HashMap<String, String>();
             final HashMap<String, String> paramsOriginal = algorithmParameters
                   .get(key);
-            
+
             for (final String paramKey : paramsOriginal.keySet()) {
                paramsClone
                      .put(paramKey, paramsOriginal.get(paramKey).toString());
             }
-            
+
             clone.algorithmParameters.put(key, paramsClone);
          }
 
          // Clone Algorithm Names
          clone.algorithms = new ArrayList<String>();
-         
+
          for (final String s : algorithms) {
             clone.algorithms.add(s.toString());
          }
@@ -314,9 +320,9 @@ public class Configuration extends DefaultDataObject implements Cloneable {
          clone.gestureSets = new ArrayList<GestureSet>();
       }
       catch (final CloneNotSupportedException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
-      
+
       return clone;
    } // clone
 

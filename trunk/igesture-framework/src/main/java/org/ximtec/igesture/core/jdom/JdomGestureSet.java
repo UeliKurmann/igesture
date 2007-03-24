@@ -27,10 +27,13 @@
 package org.ximtec.igesture.core.jdom;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.xpath.XPath;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 
@@ -43,6 +46,9 @@ import org.ximtec.igesture.core.GestureSet;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class JdomGestureSet extends Element {
+
+   private static final Logger LOGGER = Logger.getLogger(JdomGestureSet.class
+         .getName());
 
    public static final String ROOT_TAG = "set";
 
@@ -92,7 +98,7 @@ public class JdomGestureSet extends Element {
 
             }
             catch (final JDOMException e) {
-               e.printStackTrace();
+               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
             }
 
          }

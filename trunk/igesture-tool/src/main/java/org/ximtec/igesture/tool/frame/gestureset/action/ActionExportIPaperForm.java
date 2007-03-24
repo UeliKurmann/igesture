@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Creates a PDF Form used by appGesture
+ * Purpose		:   Creates a PDF Form used by appGesture.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 15.01.2007		ukurmann	Initial Release
+ * Jan 15, 2007     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -29,11 +30,15 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 
+import org.igesture.app.keyboard.GestureKeyboard;
 import org.sigtec.graphix.widget.BasicAction;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureConstants;
@@ -46,7 +51,17 @@ import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.PdfPTable;
 
 
+/**
+ * Creates a PDF Form used by appGesture.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ActionExportIPaperForm extends BasicAction {
+
+   private static final Logger LOGGER = Logger
+         .getLogger(ActionExportIPaperForm.class.getName());
 
    private GestureSet set;
 
@@ -62,11 +77,11 @@ public class ActionExportIPaperForm extends BasicAction {
 
 
    public void actionPerformed(ActionEvent event) {
-
       Document.compress = false;
       final JFileChooser fileChooser = new JFileChooser();
-      fileChooser.showSaveDialog((JMenuItem) event.getSource());
+      fileChooser.showSaveDialog((JMenuItem)event.getSource());
       final File selectedFile = fileChooser.getSelectedFile();
+
       if (selectedFile != null) {
          Collections.sort(set.getGestureClasses(),
                new Comparator<GestureClass>() {
@@ -78,20 +93,28 @@ public class ActionExportIPaperForm extends BasicAction {
 
          final Document document = PDFTool.createDocument(selectedFile);
          document.open();
+
          try {
             final PdfPTable table = PDFTool.createTable(numberOfColumns);
+
             for (final GestureClass gestureClass : set.getGestureClasses()) {
                table.addCell(PDFTool.createImageCell(gestureClass));
+
                for (int i = 0; i < numberOfColumns - 1; i++) {
                   table.addCell(PDFTool.createEmptyCell());
                }
+
             }
+
             document.add(table);
          }
          catch (final DocumentException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
          }
+
          document.close();
       }
-   }
+
+   } // actionPerformed
+
 }

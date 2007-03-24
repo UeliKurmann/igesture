@@ -28,6 +28,10 @@ package org.ximtec.igesture.io;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.sigtec.util.Constant;
 
 import sun.misc.ServiceConfigurationError;
 
@@ -43,6 +47,9 @@ import com.eaio.nativecall.NativeCall;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class Win32KeyboardProxy {
+
+   private static final Logger LOGGER = Logger
+         .getLogger(Win32KeyboardProxy.class.getName());
 
    public static int SHIFT = 0x10;
    public static int CONTROL = 0x11;
@@ -112,19 +119,19 @@ public class Win32KeyboardProxy {
          NativeCall.init();
       }
       catch (final SecurityException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       catch (final UnsatisfiedLinkError e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       catch (final UnsupportedOperationException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       catch (final IOException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       catch (final ServiceConfigurationError e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
 
    }
