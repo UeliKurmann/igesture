@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Opens the gesture class detail view
+ * Purpose		:   Opens the gesture class detail view.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -36,6 +37,13 @@ import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * Opens the gesture class detail view.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ActionOpenEditClassFrame extends BasicAction {
 
    private GestureClass gestureClass;
@@ -46,11 +54,14 @@ public class ActionOpenEditClassFrame extends BasicAction {
    public ActionOpenEditClassFrame(String key, AdminTab adminTab,
          GestureClass gestureClass) {
       super(key, SwingTool.getGuiBundle());
-      if(GestureConstants.GESTURE_CLASS_LIST_FRAME_BTN_ADD.equals(key)){
-    	  putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_NEW));
-      }else{
-    	  putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_OPEN));
+
+      if (GestureConstants.GESTURE_CLASS_LIST_FRAME_BTN_ADD.equals(key)) {
+         putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_NEW));
       }
+      else {
+         putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_OPEN));
+      }
+
       this.gestureClass = gestureClass;
       this.adminTab = adminTab;
    }
@@ -60,7 +71,8 @@ public class ActionOpenEditClassFrame extends BasicAction {
       if (gestureClass == null) {
          gestureClass = new GestureClass(Constant.EMPTY_STRING);
       }
+
       adminTab.addClassView(gestureClass);
-   }
+   } // actionPerformed
 
 }

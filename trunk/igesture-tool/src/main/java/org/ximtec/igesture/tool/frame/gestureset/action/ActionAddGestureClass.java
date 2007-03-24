@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Adds a gesture class
+ * Purpose		:   Adds a gesture class.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -40,6 +41,13 @@ import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * Adds a gesture class.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ActionAddGestureClass extends BasicAction {
 
    public static final String KEY = "PopUpAddClassToGestureSet";
@@ -58,34 +66,33 @@ public class ActionAddGestureClass extends BasicAction {
 
 
    public void actionPerformed(ActionEvent event) {
-
       if (event.getSource() instanceof JButton) {
-         /**
-          * instantiate new gesture set and add it to the mdoel
-          */
-         for (final Object gestureClass : getDialog((JButton) event.getSource())
+
+         for (final Object gestureClass : getDialog((JButton)event.getSource())
                .getSelectedGestureClass()) {
             gestureTreeModel.getModel().addClassToSet(set,
-                  (GestureClass) gestureClass);
+                  (GestureClass)gestureClass);
          }
+
       }
       else if (event.getSource() instanceof JMenuItem) {
          new AddGestureClassDialog(gestureTreeModel, set);
       }
-   }
+
+   } // actionPerformed
 
 
    /**
-    * climp up the tree and returns AddGestureSetDialog instance
+    * Climps up the tree and returns an AddGestureSetDialog instance.
     * 
-    * @param comp
-    * @return
+    * @return the AddGestureSetDialog instance
     */
    private AddGestureClassDialog getDialog(Component comp) {
       while (!(comp instanceof AddGestureClassDialog)) {
          comp = comp.getParent();
       }
-      return (AddGestureClassDialog) comp;
-   }
+
+      return (AddGestureClassDialog)comp;
+   } // getDialog
 
 }

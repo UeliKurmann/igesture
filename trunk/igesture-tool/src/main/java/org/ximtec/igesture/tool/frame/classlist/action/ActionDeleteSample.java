@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Deletes a gesture sample
+ * Purpose		:   Deletes a gesture sample.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -33,6 +34,13 @@ import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * Deletes a gesture sample.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ActionDeleteSample extends BasicAction {
 
    private SampleDescriptorFrame frame;
@@ -47,5 +55,6 @@ public class ActionDeleteSample extends BasicAction {
 
    public void actionPerformed(ActionEvent event) {
       frame.deleteSelectedSample();
-   }
+   } // actionPerformed
+   
 }

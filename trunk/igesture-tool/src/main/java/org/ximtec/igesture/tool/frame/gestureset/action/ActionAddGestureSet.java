@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Adds a gesture set
+ * Purpose		:   Adds a gesture set.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -38,6 +39,13 @@ import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * Adds a gesture set.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ActionAddGestureSet extends BasicAction {
 
    public static final String KEY = "PopUpAddGestureSet";
@@ -50,40 +58,32 @@ public class ActionAddGestureSet extends BasicAction {
       putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_NEW));
       this.gestureTreeModel = gestureTreeModel;
    }
-   
-  
 
 
    public void actionPerformed(ActionEvent event) {
-
       if (event.getSource() instanceof JButton) {
-         /**
-          * instantiate new gesture set and add it to the mdoel
-          */
          gestureTreeModel.addGestureSet(new GestureSet(getDialog(
-               (JButton) event.getSource()).getName()));
-
-         /**
-          * close the dialog
-          */
-         getDialog((JButton) event.getSource()).setVisible(false);
+               (JButton)event.getSource()).getName()));
+         getDialog((JButton)event.getSource()).setVisible(false);
       }
       else {
          new AddGestureSetDialog(gestureTreeModel);
       }
-   }
+      
+   } // actionPerformed
 
 
    /**
-    * climp up the tree and returns AddGestureSetDialog instance
+    * Climps up the tree and returns a AddGestureSetDialog instance.
     * 
-    * @param comp
-    * @return
+    * @return the AddGestureSetDialog instance.
     */
    private AddGestureSetDialog getDialog(Component comp) {
       while (!(comp instanceof AddGestureSetDialog)) {
          comp = comp.getParent();
       }
-      return (AddGestureSetDialog) comp;
-   }
+      
+      return (AddGestureSetDialog)comp;
+   } // getDialog
+   
 }

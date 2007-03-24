@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Opens the descriptor frame
+ * Purpose		:   Opens the descriptor frame.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -39,6 +40,13 @@ import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * Opens the descriptor frame.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ActionOpenDescriptorDialog extends BasicAction {
 
    private Descriptor descriptor;
@@ -56,12 +64,14 @@ public class ActionOpenDescriptorDialog extends BasicAction {
          GestureClass gestureClass, Descriptor descriptor,
          Class< ? extends Descriptor> descriptorType) {
       super(key, SwingTool.getGuiBundle());
-      if(GestureConstants.COMMON_EDIT.equals(key)){
-    	  putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_OPEN));
-      }else{
-    	  putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_NEW));
+
+      if (GestureConstants.COMMON_EDIT.equals(key)) {
+         putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_OPEN));
       }
-    
+      else {
+         putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_NEW));
+      }
+
       this.mainView = adminTab.getMainView();
       this.descriptor = descriptor;
       this.gestureClass = gestureClass;
@@ -72,6 +82,7 @@ public class ActionOpenDescriptorDialog extends BasicAction {
 
    public void actionPerformed(ActionEvent event) {
       if (descriptor == null) {
+
          if (descriptorType.equals(SampleDescriptor.class)) {
             descriptor = new SampleDescriptor();
          }
@@ -82,6 +93,8 @@ public class ActionOpenDescriptorDialog extends BasicAction {
          gestureClass.addDescriptor(descriptor);
          mainView.getModel().updateDataObject(gestureClass);
       }
+
       adminTab.addDescriptorView(descriptor);
-   }
+   } // actionPerformed
+
 }

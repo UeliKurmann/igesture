@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Deletes a descriptor 
+ * Purpose		:   Deletes a descriptor.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -35,6 +36,13 @@ import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * Deletes a descriptor.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ActionDeleteDescriptor extends BasicAction {
 
    private GestureClass gestureClass;
@@ -59,6 +67,7 @@ public class ActionDeleteDescriptor extends BasicAction {
          gestureClass.removeDescriptor(descriptor.getType());
          mainView.getModel().updateDataObject(gestureClass);
       }
-   }
+
+   } // actionPerformed
 
 }

@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Tree Model used by GestureTree.java
+ * Purpose		:   Tree model used by the GestureTree class.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -39,6 +40,13 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureMainModel;
 
 
+/**
+ * Tree model used by the GestureTree class.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class GestureTreeModel implements TreeModel {
 
    private JTree tree;
@@ -58,18 +66,19 @@ public class GestureTreeModel implements TreeModel {
       @Override
       public String toString() {
          return "Gestures";
-      }
+      } // toString
+
    }
 
 
    public void setTree(JTree tree) {
       this.tree = tree;
-   }
+   } // setTree
 
 
    public JTree getTree() {
       return this.tree;
-   }
+   } // getTree
 
    rootElement root;
 
@@ -79,82 +88,75 @@ public class GestureTreeModel implements TreeModel {
    public GestureTreeModel(GestureMainModel model) {
       this.model = model;
       root = new rootElement(model.getGestureSets());
-      this.listeners = new EventListenerList();
+      listeners = new EventListenerList();
    }
 
 
    public void valueChanged(TreeSelectionEvent e) {
-      // TODO Auto-generated method stub
-
-   }
+   } // valueChanged
 
 
    public Object getChild(Object col, int i) {
       if (col instanceof GestureSet) {
-         return ((GestureSet) col).getGestureClasses().toArray()[i];
+         return ((GestureSet)col).getGestureClasses().toArray()[i];
       }
       else if (col instanceof rootElement) {
-         return ((rootElement) col).childs.toArray()[i];
+         return ((rootElement)col).childs.toArray()[i];
       }
-      return null;
 
-   }
+      return null;
+   } // getChild
 
 
    public int getChildCount(Object col) {
       if (col instanceof GestureSet) {
-         return ((GestureSet) col).getGestureClasses().size();
+         return ((GestureSet)col).getGestureClasses().size();
       }
       else if (col instanceof GestureClass) {
          return 0;
       }
       else if (col instanceof rootElement) {
-         return ((rootElement) col).childs.size();
+         return ((rootElement)col).childs.size();
       }
+
       return 0;
-   }
+   } // getChildCount
 
 
    public int getIndexOfChild(Object arg0, Object arg1) {
       return 0;
-   }
+   } // getIndexOfChild
 
 
    public Object getRoot() {
       return root;
-   }
+   } // getRoot
 
 
    public boolean isLeaf(Object obj) {
       return obj instanceof GestureClass;
-   }
+   } // isLeaf
 
 
    public void addGestureSet(GestureSet set) {
       model.addGestureSet(set);
-   }
+   } // addGestureSet
 
 
    public GestureMainModel getModel() {
       return model;
-   }
+   } // getModel
 
 
    public void addTreeModelListener(TreeModelListener arg0) {
-      // TODO Auto-generated method stub
-
-   }
+   } // addTreeModelListener
 
 
    public void removeTreeModelListener(TreeModelListener arg0) {
-      // TODO Auto-generated method stub
-
-   }
+   } // removeTreeModelListener
 
 
    public void valueForPathChanged(TreePath arg0, Object arg1) {
-      // TODO Auto-generated method stub
-
-   }
+   } // valueForPathChanged
 
 }
