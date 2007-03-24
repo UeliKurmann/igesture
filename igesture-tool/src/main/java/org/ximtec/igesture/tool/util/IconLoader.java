@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Icon Loader
+ * Purpose		:   Icon loader.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.02.2007		ukurmann	Initial Release
+ * Feb 01, 2007     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -37,6 +38,13 @@ import javax.swing.ImageIcon;
 import org.sigtec.util.Constant;
 
 
+/**
+ * Icon loader.
+ * 
+ * @version 1.0 Feb 2007
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class IconLoader {
 
    private static final Logger LOGGER = Logger.getLogger(IconLoader.class
@@ -66,12 +74,12 @@ public class IconLoader {
 
    public static ImageIcon getIcon(String name) {
       return loadImageIcon(loadImage(load(PATH + name + TYPE)));
-   }
+   } // getIcon
 
 
    public static Image getImage(String name) {
       return loadImage(load(PATH + name + TYPE));
-   }
+   } // getImage
 
 
    private static Image loadImage(InputStream stream) {
@@ -81,17 +89,18 @@ public class IconLoader {
       catch (IOException e) {
          LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
+
       return null;
-   }
+   } // loadImage
 
 
    private static ImageIcon loadImageIcon(Image image) {
       return new ImageIcon(image);
-   }
+   } // loadImageIcon
 
 
    private static InputStream load(String path) {
       return IconLoader.class.getClassLoader().getResourceAsStream(path);
-   }
+   } // load
 
 }

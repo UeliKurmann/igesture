@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   PDF Tools
+ * Purpose      :   PDF tools.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 26.12.2006       ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -52,6 +53,13 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
 
+/**
+ * PDF tools.
+ * 
+ * @version 1.0 Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class PDFTool {
 
    private static final Logger LOGGER = Logger
@@ -61,13 +69,14 @@ public class PDFTool {
 
 
    /**
-    * Creates a new PDF document
+    * Creates a new PDF document.
     * 
-    * @param file the file of the new PDF document
-    * @return the pdf document
+    * @param file the file of the new PDF document.
+    * @return the pdf document.
     */
    public static Document createDocument(File file) {
       final Document document = new Document();
+
       try {
          PdfWriter.getInstance(document, new FileOutputStream(file));
       }
@@ -77,20 +86,21 @@ public class PDFTool {
       catch (final DocumentException e) {
          LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
-      return document;
 
-   }
+      return document;
+   } // createDocument
 
 
    /**
-    * Creates a Table filled with a sample gesture and the corresponding name
+    * Creates a table filled with a sample gesture and the corresponding name.
     * 
-    * @param set the gesture set
-    * @param columns the number of columns of the table
-    * @return the pdf table
+    * @param set the gesture set.
+    * @param columns the number of columns in the table.
+    * @return the PDF table.
     */
    public static PdfPTable createGestureSetTable(GestureSet set, int columns) {
       final PdfPTable table = createTable(columns);
+
       for (final GestureClass gestureClass : set.getGestureClasses()) {
          table.addCell(createImageCell(gestureClass));
       }
@@ -100,33 +110,33 @@ public class PDFTool {
       }
 
       return table;
-
-   }
+   } // createGestureSetTable
 
 
    public static PdfPTable createTable(int columns) {
       return new PdfPTable(columns);
-   }
+   } // createTables
 
 
    /**
     * @see createGestureSetTable
-    * @param set the gesture set
-    * @return the pdf table
+    * @param set the gesture set.
+    * @return the PDF table.
     */
    public static PdfPTable createGestureSetTable(GestureSet set) {
       return createGestureSetTable(set, NUMBER_OF_COLUMNS);
-   }
+   } // createGestureSetTable
 
 
    /**
-    * Creates a table cell with a gesture sample and the name
+    * Creates a table cell with a gesture sample and the name.
     * 
-    * @param gestureClass the gesture class
-    * @return the table cell
+    * @param gestureClass the gesture class.
+    * @return the table cell.
     */
    public static PdfPCell createImageCell(GestureClass gestureClass) {
       final PdfPCell cell = new PdfPCell();
+
       try {
          final Image img = Image
                .getInstance(getImage(gestureClass), Color.black);
@@ -142,40 +152,41 @@ public class PDFTool {
       catch (final IOException e) {
          LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
+
       return cell;
-   }
+   } // createImageCell
 
 
    /**
-    * Creates an empty table cell
+    * Creates an empty table cell.
     * 
-    * @return the empty table cell
+    * @return the empty table cell.
     */
    public static PdfPCell createEmptyCell() {
       final PdfPCell cell = new PdfPCell();
       return cell;
-   }
+   } // createEmptyCell
 
 
    /**
-    * Creates a buffered image of the gesture class
+    * Creates a buffered image of the gesture class.
     * 
-    * @param gestureClass
-    * @return
+    * @param gestureClass the gesture class.
+    * @return the buffered image of the gesture class.
     */
    private static BufferedImage getImage(GestureClass gestureClass) {
       final JNote jnote = new JNote(200, 200);
       jnote.setNote(gestureClass.getDescriptor(SampleDescriptor.class)
             .getSamples().get(0).getNote());
       return jnote.getImage();
-   }
+   } // getImage
 
 
    /**
-    * Creates the Title of the Gesture Class
+    * Creates the title of the gesture class.
     * 
-    * @param text
-    * @return
+    * @param text the title.
+    * @return the title of the gesture class
     */
    private static Element createTitle(String text) {
       final Font font = FontFactory.getFont("Helvetica", 10, Font.BOLDITALIC,
@@ -184,6 +195,6 @@ public class PDFTool {
       p.setAlignment(Element.ALIGN_CENTER);
       p.setLeading(font.size() * 1.2f);
       return p;
-   }
+   } // createTitle
 
 }

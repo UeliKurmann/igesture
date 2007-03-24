@@ -51,7 +51,7 @@ import org.ximtec.igesture.tool.frame.testset.TestSetListFrame;
 /**
  * Static methods to create GUI components.
  * 
- * @version 1.0 Nov 28, 2006
+ * @version 1.0 Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
