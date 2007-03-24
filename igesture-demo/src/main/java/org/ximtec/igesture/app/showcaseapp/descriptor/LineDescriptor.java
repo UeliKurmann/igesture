@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 					ukurmann	Initial Release
+ * Nov 24, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -33,10 +34,9 @@ import org.ximtec.igesture.core.DigitalDescriptor;
 
 
 /**
- * Comment
- * 
- * @version 1.0 Nov 24, 2006
+ * @version 1.0 Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class LineDescriptor extends DigitalDescriptor {
 
@@ -49,12 +49,10 @@ public class LineDescriptor extends DigitalDescriptor {
    public void getDigitalObject(Graphics2D graphic, Note note) {
       graphic.setRenderingHint(RenderingHints.KEY_RENDERING,
             RenderingHints.VALUE_RENDER_QUALITY);
-
       int x1 = (int)note.getBounds2D().getMinX();
       int x2 = (int)note.getBounds2D().getMaxX();
       int y = (int)((note.getBounds2D().getMinY() + note.getBounds2D().getMaxY()) / 2);
-
       graphic.drawLine(x1, y, x2, y);
-   }
+   } // getDigitalObject
 
 }

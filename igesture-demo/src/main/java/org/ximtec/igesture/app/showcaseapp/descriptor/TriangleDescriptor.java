@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 					ukurmann	Initial Release
+ * Nov 24, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -22,6 +23,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.app.showcaseapp.descriptor;
 
 import java.awt.Graphics2D;
@@ -30,32 +32,30 @@ import java.awt.RenderingHints;
 import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.DigitalDescriptor;
 
+
 /**
- * Comment
- * 
- * @version 1.0 Nov 24, 2006
+ * @version 1.0 Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class TriangleDescriptor extends DigitalDescriptor {
 
-	public TriangleDescriptor() {
-		super();
-	}
+   public TriangleDescriptor() {
+      super();
+   }
 
-	@Override
-	public void getDigitalObject(Graphics2D graphic, Note note) {
 
-		int x1 = (int) note.getBounds2D().getMinX();
-		int x2 = (int) note.getBounds2D().getMaxX();
-		int y = (int) note.getBounds2D().getMaxY();
-		int y2 = (int) note.getBounds2D().getMinY();
-
-		graphic.setRenderingHint(RenderingHints.KEY_RENDERING,
-				RenderingHints.VALUE_RENDER_QUALITY);
-
-		graphic.drawLine(x1, y, x2, y);
-		graphic.drawLine(x1, y, (x1 + x2) / 2, y2);
-		graphic.drawLine(x2, y, (x1 + x2) / 2, y2);
-	}
+   @Override
+   public void getDigitalObject(Graphics2D graphic, Note note) {
+      int x1 = (int)note.getBounds2D().getMinX();
+      int x2 = (int)note.getBounds2D().getMaxX();
+      int y = (int)note.getBounds2D().getMaxY();
+      int y2 = (int)note.getBounds2D().getMinY();
+      graphic.setRenderingHint(RenderingHints.KEY_RENDERING,
+            RenderingHints.VALUE_RENDER_QUALITY);
+      graphic.drawLine(x1, y, x2, y);
+      graphic.drawLine(x1, y, (x1 + x2) / 2, y2);
+      graphic.drawLine(x2, y, (x1 + x2) / 2, y2);
+   } // getDigitalObject
 
 }

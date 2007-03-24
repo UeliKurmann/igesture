@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 09.03.2007       ukurmann    Initial Release
+ * Mar 09, 2007     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -22,22 +23,31 @@
  * 
  */
 
+
 package org.igesture.app.keyboard;
 
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.EventHandler;
 import org.ximtec.igesture.io.Win32KeyboardProxy;
 
+
+/**
+ * @version 1.0 Mar 2007
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class PressKeystroke implements EventHandler {
 
-	private Integer[] keys;
+   private Integer[] keys;
 
-	public PressKeystroke(Integer[] keys) {
-		this.keys = keys;
-	}
 
-	public void run(ResultSet resultSet) {
-		Win32KeyboardProxy.pressKey(keys);
-	}
+   public PressKeystroke(Integer[] keys) {
+      this.keys = keys;
+   }
+
+
+   public void run(ResultSet resultSet) {
+      Win32KeyboardProxy.pressKey(keys);
+   } // run
 
 }

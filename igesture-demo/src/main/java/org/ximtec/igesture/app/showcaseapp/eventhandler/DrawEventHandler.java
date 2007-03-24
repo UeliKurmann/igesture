@@ -1,3 +1,27 @@
+/*
+ * @(#)DrawEventHandler.java 1.0   Nov 24, 2006
+ *
+ * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ *
+ * Purpose      : 
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Revision Information:
+ *
+ * Date             Who         Reason
+ *
+ * Nov 24, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Copyright 1999-2007 ETH Zurich. All Rights Reserved.
+ *
+ * This software is the proprietary information of ETH Zurich.
+ * Use is subject to license terms.
+ * 
+ */
 
 
 package org.ximtec.igesture.app.showcaseapp.eventhandler;
@@ -14,6 +38,11 @@ import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.EventHandler;
 
 
+/**
+ * @version 1.0 Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class DrawEventHandler implements EventHandler {
 
    private static final Logger LOGGER = Logger.getLogger(DrawEventHandler.class
@@ -40,5 +69,6 @@ public class DrawEventHandler implements EventHandler {
       DigitalDescriptor descriptor = result.getGestureClass().getDescriptor(
             DigitalDescriptor.class);
       descriptor.getDigitalObject(graphic, note);
-   }
+   } // run
+
 }
