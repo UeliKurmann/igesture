@@ -3,7 +3,8 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Static String Variables for the GUI Application
+ * Purpose		:   This class represents the data model of the iGesture
+ *                  Tool application.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +12,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -49,41 +51,41 @@ import org.ximtec.igesture.tool.event.TestSetListener;
 
 
 /**
- * This class represents the datamodel of the IGestureTool Application.
+ * This class represents the data model of the iGesture Tool application.
  * 
- * @author Ueli Kurmann
- * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
-
 public class GestureMainModel {
 
    /**
-    * Datastructure to manage the Gesture Classes
+    * Data structure to manage the gesture classes
     */
    private List<GestureClass> gestureClasses;
 
    /**
-    * Datastructure to manage the Gesture Sets
+    * Data structure to manage the gesture sets
     */
    private List<GestureSet> gestureSets;
 
    /**
-    * Datastructure to manage the Configurations
+    * Data structure to manage the configurations
     */
    private List<Configuration> configurations;
 
    /**
-    * Datastructure to manage the test cases
+    * Data structure to manage the test cases
     */
    private List<TestSet> testSets;
 
    /**
-    * Datastructure to manage the Algorithms
+    * Data structure to manage the algorithms
     */
    private List<String> algorithms;
 
    /**
-    * The storage manager. this instance is used to abstract all database
+    * The storage manager. This instance is used to abstract all database
     * accesses.
     */
    private StorageManager storageManager;
@@ -94,7 +96,7 @@ public class GestureMainModel {
    private Note currentNote;
 
    /**
-    * The PenClient
+    * The pen client
     */
    private InputDeviceClient penClient;
 
@@ -113,7 +115,7 @@ public class GestureMainModel {
 
 
    /**
-    * Constructs a new MainModel.
+    * Constructs a new main model.
     * 
     * @param engine the storage engine used by the storage manager.
     * @param configuration the configuration to be used.
@@ -134,43 +136,47 @@ public class GestureMainModel {
 
 
    /**
-    * loads the data
+    * Loads the data.
     * 
-    * @param engine the storage engine used by the storage manager
+    * @param engine the storage engine used by the storage manager.
     */
    public void loadData(StorageEngine engine) {
       if (storageManager != null) {
          storageManager.dispose();
       }
+
       storageManager = new StorageManager(engine);
       loadData();
-   }
+   } // loadData
 
 
    /**
-    * loads the data out of the database. all elements are available in memory
-    * and write operations are forwarded to the database.
-    * 
+    * Loads the data from the database. All elements are available in memory and
+    * write operations are forwarded to the database.
     */
    private void loadData() {
       gestureClasses = new ArrayList<GestureClass>();
+
       for (final GestureClass dataObject : storageManager
             .load(GestureClass.class)) {
          gestureClasses.add(dataObject);
       }
 
       gestureSets = new ArrayList<GestureSet>();
+
       for (final GestureSet dataObject : storageManager.load(GestureSet.class)) {
          gestureSets.add(dataObject);
       }
 
       configurations = new ArrayList<Configuration>();
+
       for (final Configuration dataObject : storageManager
             .load(Configuration.class)) {
          configurations.add(dataObject);
       }
 
       testSets = new ArrayList<TestSet>();
+
       for (final TestSet dataObject : storageManager.load(TestSet.class)) {
          testSets.add(dataObject);
       }
@@ -179,44 +185,44 @@ public class GestureMainModel {
       fireGesturedClassChanged(new EventObject(Constant.EMPTY_STRING));
       fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
       fireTestSetChanged(new EventObject(Constant.EMPTY_STRING));
-   }
+   } // loadData
 
 
    /**
-    * Returns the list of configurations
+    * Returns the list of configurations.
     * 
     * @return List<Algoritm>
     */
    public List<Configuration> getConfigurations() {
       return configurations;
-   }
+   } // getConfigurations
 
 
    /**
-    * Returns the list of Gesture Classes
+    * Returns the list of gesture classes.
     * 
-    * @return
+    * @return the list of gesture classes.
     */
    public List<GestureClass> getGestureClasses() {
       return gestureClasses;
-   }
+   } // getGestureClasses
 
 
    /**
-    * Returns the list of Gesture Sets
+    * Returns the list of gesture sets.
     * 
-    * @return
+    * @return the list of gesture sets.
     */
    public List<GestureSet> getGestureSets() {
       return gestureSets;
-   }
+   } // getGestureSets
 
 
    /**
-    * Adds the gesture set to the collection and propagates the changes to the
-    * database and fire the corresponding event.
+    * Adds the gesture set to the gesture main model, propagates the changes to
+    * the database and fires the corresponding event.
     * 
-    * @param gestureSet the gesture set to add
+    * @param gestureSet the gesture set to be added.
     */
    public void addGestureSet(GestureSet gestureSet) {
       if (!gestureSets.contains(gestureSet)) {
@@ -225,40 +231,41 @@ public class GestureMainModel {
 
       storageManager.store(gestureSet);
       fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
-   }
+   } // addGestureSet
 
 
    /**
-    * Adds the gesture class to the collection and propagates the changes to the
-    * database. an event is fired to notify listening instances.
+    * Adds the gesture class to the gesture main model and propagates the changes
+    * to the database. An event is fired to notify listening instances.
     * 
-    * @param gestureClass
+    * @param gestureClass the gesture class to be added.
     */
    public void addGestureClass(GestureClass gestureClass) {
       if (!gestureClasses.contains(gestureClass)) {
          gestureClasses.add(gestureClass);
       }
+
       storageManager.store(gestureClass);
       fireGesturedClassChanged(new EventObject(Constant.EMPTY_STRING));
-   }
+   } // addGestureClass
 
 
    /**
-    * Removes the given class from the collection
+    * Removes the given class from the gesture main model.
     * 
-    * @param gestureClass the gesture class to remove
+    * @param gestureClass the gesture class to be removed.
     */
    public void removeGestureClass(GestureClass gestureClass) {
       gestureClasses.remove(gestureClass);
       storageManager.remove(gestureClass);
       fireGesturedClassChanged(new EventObject(Constant.EMPTY_STRING));
-   }
+   } // removeGestureClass
 
 
    /**
-    * Adds an algorithm to the collection
+    * Adds an algorithm to the gesture main model.
     * 
-    * @param algorithm the algorithm to add
+    * @param algorithm the algorithm to be added.
     */
    public void addConfiguration(Configuration configuration) {
       if (!configurations.contains(configuration)) {
@@ -267,57 +274,57 @@ public class GestureMainModel {
 
       storageManager.store(configuration);
       fireConfigurationChanged(new EventObject(Constant.EMPTY_STRING));
-   }
+   } // addConfiguration
 
 
    /**
-    * Remove a Configuration from the collection
+    * Removes a configuration from the gesture main model.
     * 
-    * @param testCase
+    * @param configuration the configuration to be removed.
     */
    public void removeConfiguration(Configuration configuration) {
       storageManager.remove(configuration);
       configurations.remove(configuration);
       fireConfigurationChanged(new EventObject(Constant.EMPTY_STRING));
-   }
+   } // removeConfiguration
 
 
    /**
-    * Adds a gesture class to a gesture set
+    * Adds a gesture class to a gesture set.
     * 
-    * @param set
-    * @param gestureClass
+    * @param set the gesture set the gesture class has to be added to.
+    * @param gestureClass the gesture class to be added.
     */
    public void addClassToSet(GestureSet set, GestureClass gestureClass) {
       set.addGestureClass(gestureClass);
       storageManager.update(set);
       fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
-   }
+   } // addClassToSet
 
 
    /**
-    * Deletes the gesture class from the gesutre set
+    * Deletes the gesture class from the gesutre set.
     * 
-    * @param set the gesture set from whitch the class should be removed
-    * @param gestureClass the gesture calss to remove
+    * @param set the gesture set from which the class has to be removed.
+    * @param gestureClass the gesture calss to be removed.
     */
    public void removeClassFromSet(GestureSet set, GestureClass gestureClass) {
       set.removeGestureClass(gestureClass);
       storageManager.update(set);
       fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
-   }
+   } // removeClassFromSet
 
 
    /**
-    * Removes the given gesture set from the collection
+    * Removes the given gesture set from the gesture main model.
     * 
-    * @param set
+    * @param set the set to be removed.
     */
    public void removeGestureSet(GestureSet set) {
       storageManager.remove(set);
       gestureSets.remove(set);
       fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
-   }
+   } // removeGestureSet
 
 
    /**
@@ -332,82 +339,77 @@ public class GestureMainModel {
 
 
    /**
-    * Returns a clone of the last captured note.
+    * Returns a clone of the most recently captured note.
     * 
-    * @return the cloned Note
+    * @return the cloned note.
     */
    public Note getCurrentNote() {
-      if (currentNote != null) {
-         final Note note = (Note)currentNote.clone();
-         return note;
-      }
-      else {
-         return null;
-      }
-   }
+      return (currentNote != null) ? (Note)currentNote.clone() : null;
+   } // getCurrentNote
 
 
    /**
-    * Returns the Magicomm Pen Client
+    * Returns the pen client.
     * 
-    * @return
+    * @return the pen client.
     */
    public InputDeviceClient getPenClient() {
       return penClient;
-   }
+   } // getPenClient
 
 
    /**
-    * Add a TestCase to the collection
+    * Adds a test case to the main gesture model.
     * 
-    * @param testSet
+    * @param testSet the test set to be added.
     */
    public void addTestSet(TestSet testSet) {
       storageManager.store(testSet);
       testSets.add(testSet);
       fireTestSetChanged(new EventObject(Constant.EMPTY_STRING));
-   }
+   } // addTestSet
 
 
    /**
-    * Remove a TestCase from the collection
+    * Removes a test set from the main gesture model.
     * 
-    * @param testCase
+    * @param testSet the test case to be removed.
     */
    public void removeTestSet(TestSet testSet) {
       storageManager.remove(testSet);
       testSets.remove(testSet);
       fireTestSetChanged(new EventObject(Constant.EMPTY_STRING));
-   }
+   } // removeTestSet
 
 
    /**
-    * Returns the list of TestCases
+    * Returns the list of test sets.
     * 
-    * @return list of test cases
+    * @return list of test sets.
     */
    public List<TestSet> getTestSets() {
       return testSets;
-   }
+   } // getTestSets
 
 
    /**
-    * Returns the list of Algorithms
+    * Returns the list of algorithms.
     * 
-    * @return
+    * @return the list of algorithms.
     */
    public List<String> getAlgorithms() {
       return algorithms;
-   }
+   } // getAlgorithms
 
 
    /**
-    * This methods provides update access to the datasource
+    * Updates a data object in the data source.
     * 
-    * @param dataObject
+    * @param dataObject the data objec to be updated.
     */
    public void updateDataObject(DataObject dataObject) {
       storageManager.store(dataObject);
+      
       if (dataObject instanceof GestureClass) {
          fireGesturedClassChanged(new EventObject(dataObject));
       }
@@ -423,12 +425,13 @@ public class GestureMainModel {
       else if (dataObject instanceof Configuration) {
          fireConfigurationChanged(new EventObject(dataObject));
       }
-   }
+      
+   } // updateDataObject
 
 
    public StorageManager getStorageManager() {
       return storageManager;
-   }
+   } // getStorageManager
 
 
    /**
@@ -448,7 +451,8 @@ public class GestureMainModel {
       if (listener != null) {
          this.gestureSetListeners.add(listener);
       }
-   }
+      
+   } // addGestureSetListener
 
 
    public synchronized void addConfigurationListener(
@@ -456,7 +460,8 @@ public class GestureMainModel {
       if (listener != null) {
          this.configurationListeners.add(listener);
       }
-   }
+      
+   } // addConfigurationListener
 
 
    public synchronized void addCurrentGestureListener(
@@ -464,28 +469,32 @@ public class GestureMainModel {
       if (listener != null) {
          this.currentGestureListeners.add(listener);
       }
-   }
+      
+   } // addCurrentGestureListener
 
 
    public synchronized void addTestSetListener(TestSetListener listener) {
       if (listener != null) {
          this.testCaseListeners.add(listener);
       }
-   }
+      
+   } // addTestSetListener
 
 
    public synchronized void fireGesturedSetChanged(EventObject event) {
       for (final GestureSetListener gestureSetListener : this.gestureSetListeners) {
          gestureSetListener.gestureSetChanged(event);
       }
-   }
+      
+   } // fireGesturedSetChanged
 
 
    public synchronized void fireGesturedClassChanged(EventObject event) {
       for (final GestureClassListener gestureSetListener : this.gestureClassListeners) {
          gestureSetListener.gestureClassChanged(event);
       }
-   }
+      
+   } // fireGesturedClassChanged
 
 
    public synchronized void fireConfigurationChanged(EventObject event) {
@@ -499,13 +508,15 @@ public class GestureMainModel {
       for (final CurrentGestureListener currentGestureListener : this.currentGestureListeners) {
          currentGestureListener.currentGestureChanged(event);
       }
-   }
+      
+   } // fireConfigurationChanged
 
 
    public synchronized void fireTestSetChanged(EventObject event) {
       for (final TestSetListener testCaseListener : this.testCaseListeners) {
          testCaseListener.testSetChanged(event);
       }
-   }
+      
+   } // fireTestSetChanged
 
 }

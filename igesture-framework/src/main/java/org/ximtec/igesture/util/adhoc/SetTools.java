@@ -3,8 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   Provides static methods with XML import/export 
- *                  functionality.
+ * Purpose      :   
  *
  * -----------------------------------------------------------------------
  *
@@ -36,6 +35,11 @@ import org.ximtec.igesture.util.GestureTool;
 import org.ximtec.igesture.util.XMLTool;
 
 
+/**
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class SetTools {
 
    private static String PATH = "C:/workspace/igesture/src/main/data/sets/";

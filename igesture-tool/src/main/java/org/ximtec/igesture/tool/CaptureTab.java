@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Capturing Tab
+ * Purpose		: 	Capture tab.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 					ukurmann	Initial Release
+ * Nov 28, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -31,10 +32,11 @@ import org.ximtec.igesture.tool.util.GuiFactory;
 
 
 /**
- * Comment
+ * Capture tab.
  * 
- * @version 1.0 Nov 28, 2006
+ * @version 1.0, Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class CaptureTab extends GestureTab {
 
@@ -49,13 +51,12 @@ public class CaptureTab extends GestureTab {
    @Override
    public String getName() {
       return GestureConstants.GESTUREVIEW_TAB_RECOGNISER;
-   }
+   } // getName
 
 
    @Override
    public void init(GestureToolView mainView) {
       super.init(mainView);
-
       getDesktopPane()
             .add(GuiFactory.createGestureDrawArea(getMainView(), 0, 0));
       getDesktopPane().add(
@@ -63,17 +64,17 @@ public class CaptureTab extends GestureTab {
       algorithmConfiguration = GuiFactory.createAlgorithmConfigurationFrame(
             getMainView(), 400, 0);
       getDesktopPane().add(algorithmConfiguration);
-   }
+   } // init
 
 
    /**
-    * Retruns the selected configuration from the "Configuration Frame"
+    * Retruns the selected configuration from the "Configuration Frame".
     * 
-    * @return
+    * @return the selected configuration.
     */
    public Configuration getCurrentConfiguration() {
-      return (Configuration) algorithmConfiguration.getCurrentConfiguration()
+      return (Configuration)algorithmConfiguration.getCurrentConfiguration()
             .clone();
-   }
+   } // getCurrentConfiguration
 
 }

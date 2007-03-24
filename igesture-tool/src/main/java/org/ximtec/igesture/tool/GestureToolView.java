@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Main View of the Application
+ * Purpose		:   Main application view.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann	Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -22,7 +23,11 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -30,6 +35,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
+import org.sigtec.util.Constant;
 import org.sigtec.util.Decorator;
 import org.sigtec.util.IconTool;
 import org.ximtec.igesture.storage.StorageEngine;
@@ -40,148 +46,155 @@ import org.ximtec.igesture.tool.action.ActionOpenDataSouce;
 import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.tool.util.SwingTool;
 
+
 /**
- * Main application window.
+ * Main application view.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class GestureToolView extends JFrame {
 
-	private static final String ABOUT_HTML = "about.html";
+   private static final Logger LOGGER = Logger.getLogger(GestureToolView.class
+         .getName());
 
-	/**
-	 * 
-	 */
-	private static final String GUI_STYLE = "org.fife.plaf.VisualStudio2005.VisualStudio2005LookAndFeel";
+   private static final String ABOUT_HTML = "about.html";
 
-	private static final String IGESTURE_ICON = "icons/iserver";
+   private static final String GUI_STYLE = "org.fife.plaf.VisualStudio2005.VisualStudio2005LookAndFeel";
 
-	private GestureConfiguration configuration;
+   private static final String IGESTURE_ICON = "icons/iserver";
 
-	private GestureMainModel model;
+   private GestureConfiguration configuration;
 
-	private JTabbedPane tabbedPane = null;
+   private GestureMainModel model;
 
-	/**
-	 * Constructs a new main view.
-	 * 
-	 * @param model
-	 *            the model for this main view.
-	 */
-	public GestureToolView(GestureMainModel model,
-			GestureConfiguration configuration) {
-		super();
-		this.configuration = configuration;
-		this.model = model;
-		initialise();
-	}
+   private JTabbedPane tabbedPane = null;
 
-	/**
-	 * This method initializes this.
-	 * 
-	 */
-	private void initialise() {
 
-		try {
-			UIManager.setLookAndFeel(GUI_STYLE);
-		} catch (final Exception e) {
-			e.printStackTrace();
-		}
+   /**
+    * Constructs a new main view.
+    * 
+    * @param model the model for this main view.
+    */
+   public GestureToolView(GestureMainModel model,
+         GestureConfiguration configuration) {
+      super();
+      this.configuration = configuration;
+      this.model = model;
+      initialise();
+   }
 
-		setIconImage(IconTool.getIcon(IGESTURE_ICON, Decorator.SIZE_16)
-				.getImage());
-		this.setBounds(0, 0, 900, 650);
-		this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-		this.setJMenuBar(createMenuBar());
 
-		this.setTitle(SwingTool.getGuiBundle().getName(
-				GestureConstants.GESTUREVIEW_MAINFRAME_KEY));
-		this.setVisible(true);
+   /**
+    * Initialises the main view.
+    */
+   private void initialise() {
+      try {
+         UIManager.setLookAndFeel(GUI_STYLE);
+      }
+      catch (Exception e) {
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+      }
 
-		this.tabbedPane = new JTabbedPane();
-		this.setContentPane(tabbedPane);
+      setIconImage(IconTool.getIcon(IGESTURE_ICON, Decorator.SIZE_16).getImage());
+      setBounds(0, 0, 900, 650);
+      setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+      setJMenuBar(createMenuBar());
+      setTitle(SwingTool.getGuiBundle().getName(
+            GestureConstants.GESTUREVIEW_MAINFRAME_KEY));
+      setVisible(true);
+      tabbedPane = new JTabbedPane();
+      setContentPane(tabbedPane);
+      loadTabs();
+      this.repaint();
+   } // initialise
 
-		loadTabs();
 
-		this.repaint();
-	} // initialise
+   /**
+    * Initialises the tabs.
+    */
+   private void loadTabs() {
+      for (final String className : configuration.getTabs()) {
 
-	/**
-	 * Initialises the tabs
-	 * 
-	 */
-	private void loadTabs() {
-		for (final String className : configuration.getTabs()) {
-			try {
-				final GestureTab tab = (GestureTab) Class.forName(className)
-						.newInstance();
-				tab.init(this);
-				tabbedPane.add(SwingTool.getGuiBundle().getName(tab.getName()),
-						tab.getDesktopPane());
-			} catch (final InstantiationException e) {
-				e.printStackTrace();
-			} catch (final IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (final ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+         try {
+            final GestureTab tab = (GestureTab)Class.forName(className)
+                  .newInstance();
+            tab.init(this);
+            tabbedPane.add(SwingTool.getGuiBundle().getName(tab.getName()), tab
+                  .getDesktopPane());
+         }
+         catch (InstantiationException e) {
+            LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+         }
+         catch (IllegalAccessException e) {
+            LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+         }
+         catch (ClassNotFoundException e) {
+            LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+         }
 
-	/**
-	 * Reloads the Main Model with a new DataSource
-	 * 
-	 * @param engine
-	 *            the new datasource
-	 */
-	public void reloadModelData(StorageEngine engine) {
-		this.model.loadData(engine);
-	}
+      }
 
-	/**
-	 * Creates the Menubar
-	 * 
-	 * @return
-	 */
-	private JMenuBar createMenuBar() {
-		final JMenuBar menuBar = new JMenuBar();
-		menuBar.add(createFileMenu());
-		menuBar.add(createInfoMenu());
-		return menuBar;
-	}
+   } // loadTabs
 
-	private JMenu createFileMenu() {
-		final JMenu menu = SwingTool.createMenu(SwingTool.getGuiBundle()
-				.getName(GestureConstants.COMMON_FILE), null);
 
-		menu.add(SwingTool.createMenuItem(new ActionNewDataSouce(this),
-				IconLoader.getIcon(IconLoader.DOCUMENT_NEW)));
-		menu.add(SwingTool.createMenuItem(new ActionOpenDataSouce(this),
-				IconLoader.getIcon(IconLoader.DOCUMENT_OPEN)));
-		menu.addSeparator();
-		menu.add(SwingTool.createMenuItem(new ActionExitApplication(this)));
+   /**
+    * Reloads the main model with a new data source.
+    * 
+    * @param engine the storage engine for reloading the new data source.
+    */
+   public void reloadModelData(StorageEngine engine) {
+      this.model.loadData(engine);
+   } // reloadModelData
 
-		return menu;
-	}
 
-	/**
-	 * Creats the info Model
-	 * 
-	 * @return
-	 */
-	private JMenu createInfoMenu() {
-		final JMenu menu = SwingTool.createMenu(SwingTool.getGuiBundle()
-				.getName(GestureConstants.COMMON_HELP), null);
+   /**
+    * Creates the menu bar.
+    * 
+    * @return the newly created menu bar.
+    */
+   private JMenuBar createMenuBar() {
+      final JMenuBar menuBar = new JMenuBar();
+      menuBar.add(createFileMenu());
+      menuBar.add(createInfoMenu());
+      return menuBar;
+   } // createMenuBar
 
-		menu.add(SwingTool.createMenuItem(new ActionAboutDialog(ABOUT_HTML)));
 
-		return menu;
-	}
+   private JMenu createFileMenu() {
+      final JMenu menu = SwingTool.createMenu(SwingTool.getGuiBundle().getName(
+            GestureConstants.COMMON_FILE), null);
+      menu.add(SwingTool.createMenuItem(new ActionNewDataSouce(this), IconLoader
+            .getIcon(IconLoader.DOCUMENT_NEW)));
+      menu.add(SwingTool.createMenuItem(new ActionOpenDataSouce(this),
+            IconLoader.getIcon(IconLoader.DOCUMENT_OPEN)));
+      menu.addSeparator();
+      menu.add(SwingTool.createMenuItem(new ActionExitApplication(this)));
+      return menu;
+   } // createFileMenu
 
-	/**
-	 * Returns the MainModel.
-	 * 
-	 * @return the MainModel
-	 */
-	public GestureMainModel getModel() {
-		return model;
-	} // getModel
+
+   /**
+    * Creates the info model.
+    * 
+    * @return the newly created info model.
+    */
+   private JMenu createInfoMenu() {
+      final JMenu menu = SwingTool.createMenu(SwingTool.getGuiBundle().getName(
+            GestureConstants.COMMON_HELP), null);
+      menu.add(SwingTool.createMenuItem(new ActionAboutDialog(ABOUT_HTML)));
+      return menu;
+   } // createInfoMenu
+
+
+   /**
+    * Returns the main model.
+    * 
+    * @return the main model.
+    */
+   public GestureMainModel getModel() {
+      return model;
+   } // getModel
+
 }
