@@ -27,6 +27,9 @@
 
 package org.ximtec.igesture.event.example;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.EventHandler;
 
@@ -39,6 +42,9 @@ import org.ximtec.igesture.event.EventHandler;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class CloseApplication implements EventHandler {
+
+   private static final Logger LOGGER = Logger.getLogger(CloseApplication.class
+         .getName());
 
    private static final String SHUTTING_DOWN = "Application is shutting down...";
 
@@ -56,7 +62,7 @@ public class CloseApplication implements EventHandler {
 
 
    public void run(ResultSet resultSet) {
-      System.out.println(SHUTTING_DOWN);
+      LOGGER.log(Level.INFO, SHUTTING_DOWN);
       System.exit(0);
    } // run
 

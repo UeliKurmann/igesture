@@ -27,6 +27,8 @@
 package org.ximtec.igesture.storage;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.GestureClass;
@@ -48,6 +50,11 @@ import com.db4o.query.Predicate;
  */
 public class Db4oStorageEngine implements StorageEngine {
 
+   private static final Logger LOGGER = Logger.getLogger(Db4oStorageEngine.class
+         .getName());
+
+   private static final String OPEN_DB = "Opening DB: file = ";
+
    ObjectContainer db;
 
 
@@ -66,7 +73,7 @@ public class Db4oStorageEngine implements StorageEngine {
       Db4o.configure().objectClass(SampleDescriptor.class.getName())
             .cascadeOnUpdate(true);
       Db4o.configure().allowVersionUpdates(true);
-      System.out.println(filename);
+      LOGGER.log(Level.INFO, OPEN_DB);
       db = Db4o.openFile(filename);
    }
 
