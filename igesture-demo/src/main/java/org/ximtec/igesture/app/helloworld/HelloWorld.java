@@ -1,4 +1,9 @@
+
+
 package org.ximtec.igesture.app.helloworld;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.sigtec.input.BufferedInputDeviceEventListener;
 import org.sigtec.input.InputDevice;
@@ -17,56 +22,67 @@ import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.MouseReader;
 import org.ximtec.igesture.io.MouseReaderEventListener;
 
+
 public class HelloWorld implements ButtonDeviceEventListener {
 
-	private Recogniser recogniser;
-	private InputDeviceClient client;
+   private static final Logger LOGGER = Logger.getLogger(HelloWorld.class
+         .getName());
 
-	public HelloWorld() throws AlgorithmException {
+   private static final String INITIALISED = "Initialised...";
 
-		GestureClass leftRightLine = new GestureClass("LeftRight");
-		leftRightLine.addDescriptor(new TextDescriptor("E"));
+   private static final String NOT_RECOGNISED = "Not recognised...";
 
-		GestureClass downRight = new GestureClass("DownRight");
-		downRight.addDescriptor(new TextDescriptor("S,E"));
+   private Recogniser recogniser;
+   private InputDeviceClient client;
 
-		GestureClass upLeft = new GestureClass("UpLeft");
-		upLeft.addDescriptor(new TextDescriptor("N,W"));
 
-		GestureSet gestureSet = new GestureSet("GestureSet");
-		gestureSet.addGestureClass(leftRightLine);
-		gestureSet.addGestureClass(upLeft);
-		gestureSet.addGestureClass(downRight);
+   public HelloWorld() throws AlgorithmException {
 
-		Configuration configuration = new Configuration();
-		configuration.addGestureSet(gestureSet);
-		configuration.addAlgorithm(SigerRecogniser.class.getName());
+      GestureClass leftRightLine = new GestureClass("LeftRight");
+      leftRightLine.addDescriptor(new TextDescriptor("E"));
 
-		recogniser = new Recogniser(configuration);
+      GestureClass downRight = new GestureClass("DownRight");
+      downRight.addDescriptor(new TextDescriptor("S,E"));
 
-		InputDevice device = new MouseReader();
-		InputDeviceEventListener listener = new BufferedInputDeviceEventListener(
-				new MouseReaderEventListener(), 10000);
+      GestureClass upLeft = new GestureClass("UpLeft");
+      upLeft.addDescriptor(new TextDescriptor("N,W"));
 
-		client = new InputDeviceClient(device, listener);
+      GestureSet gestureSet = new GestureSet("GestureSet");
+      gestureSet.addGestureClass(leftRightLine);
+      gestureSet.addGestureClass(upLeft);
+      gestureSet.addGestureClass(downRight);
 
-		client.addButtonDeviceEventListener(this);
+      Configuration configuration = new Configuration();
+      configuration.addGestureSet(gestureSet);
+      configuration.addAlgorithm(SigerRecogniser.class.getName());
 
-		System.out.println("initialised...");
-	}
+      recogniser = new Recogniser(configuration);
 
-	public static void main(String[] args) throws AlgorithmException {
-		new HelloWorld();
-	}
+      InputDevice device = new MouseReader();
+      InputDeviceEventListener listener = new BufferedInputDeviceEventListener(
+            new MouseReaderEventListener(), 10000);
 
-	public void handleButtonPressedEvent(InputDeviceEvent event) {
-		ResultSet result = recogniser.recognise(client.createNote(0, event
-				.getTimestamp(), 70));
-		client.clearBuffer();
-		if (result.isEmpty()) {
-			System.out.println("not recognised");
-		} else {
-			System.out.println(result.getResult().getGestureClassName());
-		}
-	}
+      client = new InputDeviceClient(device, listener);
+
+      client.addButtonDeviceEventListener(this);
+      LOGGER.log(Level.INFO, INITIALISED);
+   }
+
+
+   public static void main(String[] args) throws AlgorithmException {
+      new HelloWorld();
+   }
+
+
+   public void handleButtonPressedEvent(InputDeviceEvent event) {
+      ResultSet result = recogniser.recognise(client.createNote(0, event
+            .getTimestamp(), 70));
+      client.clearBuffer();
+      if (result.isEmpty()) {
+         LOGGER.log(Level.INFO, NOT_RECOGNISED);
+      }
+      else {
+         LOGGER.log(Level.INFO, result.getResult().getGestureClassName());
+      }
+   }
 }

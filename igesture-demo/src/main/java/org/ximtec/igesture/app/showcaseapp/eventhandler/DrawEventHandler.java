@@ -1,6 +1,10 @@
+
+
 package org.ximtec.igesture.app.showcaseapp.eventhandler;
 
 import java.awt.Graphics2D;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.sigtec.ink.Note;
 import org.ximtec.igesture.app.showcaseapp.Style;
@@ -9,24 +13,32 @@ import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.EventHandler;
 
+
 public class DrawEventHandler implements EventHandler {
 
-	private Graphics2D graphic;
-	private Style style;
-	
-	
-	public DrawEventHandler(Graphics2D graphic,Style style){
-		this.graphic = graphic;
-		this.style = style;
-	}
-	
-	public void run(ResultSet resultSet) {
-		Result result = resultSet.getResult();
-		Note note = resultSet.getNote();
-		System.out.println(result.getGestureClassName());
-		graphic.setStroke(style.getStroke());
-		graphic.setColor(style.getColor());
-		DigitalDescriptor descriptor = result.getGestureClass().getDescriptor(DigitalDescriptor.class);
-		descriptor.getDigitalObject(graphic, note);
-	}
+   private static final Logger LOGGER = Logger.getLogger(DrawEventHandler.class
+         .getName());
+
+   private static final String GESTURE_CLASS_NAME = "Gesture class name = ";
+
+   private Graphics2D graphic;
+   private Style style;
+
+
+   public DrawEventHandler(Graphics2D graphic, Style style) {
+      this.graphic = graphic;
+      this.style = style;
+   }
+
+
+   public void run(ResultSet resultSet) {
+      Result result = resultSet.getResult();
+      Note note = resultSet.getNote();
+      LOGGER.log(Level.INFO, GESTURE_CLASS_NAME + result.getGestureClassName());
+      graphic.setStroke(style.getStroke());
+      graphic.setColor(style.getColor());
+      DigitalDescriptor descriptor = result.getGestureClass().getDescriptor(
+            DigitalDescriptor.class);
+      descriptor.getDigitalObject(graphic, note);
+   }
 }

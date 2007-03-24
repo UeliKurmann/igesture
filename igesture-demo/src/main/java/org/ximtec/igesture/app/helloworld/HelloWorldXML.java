@@ -1,6 +1,10 @@
+
+
 package org.ximtec.igesture.app.helloworld;
 
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.sigtec.input.BufferedInputDeviceEventListener;
 import org.sigtec.input.InputDevice;
@@ -16,42 +20,53 @@ import org.ximtec.igesture.io.MouseReader;
 import org.ximtec.igesture.io.MouseReaderEventListener;
 import org.ximtec.igesture.util.XMLTool;
 
+
 public class HelloWorldXML implements ButtonDeviceEventListener {
 
-	private Recogniser recogniser;
+   private static final Logger LOGGER = Logger.getLogger(HelloWorldXML.class
+         .getName());
 
-	private InputDeviceClient client;
+   private static final String INITIALISED = "Initialised...";
 
-	public HelloWorldXML() throws AlgorithmException {
-		
-		Configuration configuration = XMLTool.importConfiguration(new File(
-				this.getClass().getClassLoader().getResource(
-						"configuration.xml").getFile()));
+   private static final String NOT_RECOGNISED = "Not recognised...";
 
-		recogniser = new Recogniser(configuration);
+   private Recogniser recogniser;
 
-		InputDevice device = new MouseReader();
-		InputDeviceEventListener listener = new BufferedInputDeviceEventListener(
-				new MouseReaderEventListener(), 10000);
+   private InputDeviceClient client;
 
-		client = new InputDeviceClient(device, listener);
-		client.addButtonDeviceEventListener(this);
 
-		System.out.println("initialised...");
-	}
+   public HelloWorldXML() throws AlgorithmException {
 
-	public static void main(String[] args) throws AlgorithmException {
-		new HelloWorldXML();
-	}
+      Configuration configuration = XMLTool.importConfiguration(new File(this
+            .getClass().getClassLoader().getResource("configuration.xml")
+            .getFile()));
 
-	public void handleButtonPressedEvent(InputDeviceEvent event) {
-		ResultSet result = recogniser.recognise(client.createNote(0, event
-				.getTimestamp(), 70));
-		client.clearBuffer();
-		if (result.isEmpty()) {
-			System.out.println("not recognised");
-		} else {
-			System.out.println(result.getResult().getGestureClassName());
-		}
-	}
+      recogniser = new Recogniser(configuration);
+
+      InputDevice device = new MouseReader();
+      InputDeviceEventListener listener = new BufferedInputDeviceEventListener(
+            new MouseReaderEventListener(), 10000);
+
+      client = new InputDeviceClient(device, listener);
+      client.addButtonDeviceEventListener(this);
+      LOGGER.log(Level.INFO, INITIALISED);
+   }
+
+
+   public static void main(String[] args) throws AlgorithmException {
+      new HelloWorldXML();
+   }
+
+
+   public void handleButtonPressedEvent(InputDeviceEvent event) {
+      ResultSet result = recogniser.recognise(client.createNote(0, event
+            .getTimestamp(), 70));
+      client.clearBuffer();
+      if (result.isEmpty()) {
+         LOGGER.log(Level.INFO, NOT_RECOGNISED);
+      }
+      else {
+         LOGGER.log(Level.INFO, result.getResult().getGestureClassName());
+      }
+   }
 }
