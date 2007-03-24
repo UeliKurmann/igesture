@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Detail view of a gesture class
+ * Purpose		:   Detail view of a gesture class.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -56,6 +57,13 @@ import org.ximtec.igesture.tool.util.ScrollableList;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * Detail view of a gesture class.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class GestureClassViewFrame extends BasicInternalFrame implements
       GestureClassListener {
 
@@ -84,6 +92,7 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
          descriptorModel = new SimpleListModel<Descriptor>(gestureClass
                .getDescriptors());
       }
+
       init();
    }
 
@@ -92,22 +101,15 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
       this.addComponent(SwingTool
             .createLabel(GestureConstants.GESTURE_CLASS_VIEW_NAME_LABEL),
             SwingTool.createGridBagConstraint(0, 0));
-
-      this.addComponent(createNameTextField(), SwingTool
+      addComponent(createNameTextField(), SwingTool
             .createGridBagConstraint(1, 0));
-
-      this.addComponent(createList(), SwingTool.createGridBagConstraint(0, 1, 2,
-            1));
-
-      this.addComponent(createSaveButton(), SwingTool.createGridBagConstraint(0,
-            2));
-
-      this.addComponent(SwingTool.createButton(new CloseFrameAction(
+      addComponent(createList(), SwingTool.createGridBagConstraint(0, 1, 2, 1));
+      addComponent(createSaveButton(), SwingTool.createGridBagConstraint(0, 2));
+      addComponent(SwingTool.createButton(new CloseFrameAction(
             GestureConstants.COMMON_CANCEL)), SwingTool.createGridBagConstraint(
             1, 2));
-
-      this.setVisible(true);
-   }
+      setVisible(true);
+   } // init
 
 
    private Component createNameTextField() {
@@ -115,12 +117,11 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
             .createTextField(GestureConstants.GESTURE_CLASS_VIEW_NAME_TEXT);
       nameTextField.setText(gestureClass.getName());
       return nameTextField;
-   }
+   } // createNameTextField
 
 
    private Component createList() {
       scrollList = SwingTool.createScrollableList(descriptorModel, 180, 140);
-
       scrollList.getList().addMouseListener(new MouseAdapter() {
 
          @Override
@@ -132,7 +133,7 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
       });
 
       return scrollList;
-   }
+   } // createList
 
 
    private Component createSaveButton() {
@@ -145,13 +146,13 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
             mainView.getModel().addGestureClass(gestureClass);
          }
       });
+
       return button;
-   }
+   } // createSaveButton
 
 
    private void showPopUpMenu(MouseEvent e) {
       final JPopupMenu popupMenu = new JPopupMenu();
-
       final JMenu createMenu = SwingTool.createMenu(SwingTool.getGuiBundle()
             .getName(GestureConstants.COMMON_ADD), new Action[] {
             new ActionOpenDescriptorDialog(
@@ -161,30 +162,27 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
             new ActionOpenDescriptorDialog(
                   GestureConstants.GESTURE_CLASS_VIEW_ADD_TEXT, adminTab,
                   gestureClass, null, TextDescriptor.class) });
-
       popupMenu.add(createMenu);
       popupMenu.add(SwingTool.createMenuItem(new ActionOpenDescriptorDialog(
             GestureConstants.COMMON_EDIT, adminTab, gestureClass,
-            (Descriptor) scrollList.getList().getSelectedValue(), null)));
-
+            (Descriptor)scrollList.getList().getSelectedValue(), null)));
       popupMenu.add(SwingTool.createMenuItem(new ActionDeleteDescriptor(
             GestureConstants.COMMON_DEL, mainView, gestureClass,
-            (Descriptor) scrollList.getList().getSelectedValue())));
-
+            (Descriptor)scrollList.getList().getSelectedValue())));
       popupMenu.show(e.getComponent(), e.getX(), e.getY());
-   }
+   } // showPopUpMenu
 
 
    public void gestureClassChanged(EventObject event) {
       scrollList.getList().setModel(
             new SimpleListModel<Descriptor>(gestureClass.getDescriptors()));
-   }
+   } // gestureClassChanged
 
 
    @Override
    public void dispose() {
       this.setVisible(false);
       super.dispose();
-   }
+   } // dispose
 
 }

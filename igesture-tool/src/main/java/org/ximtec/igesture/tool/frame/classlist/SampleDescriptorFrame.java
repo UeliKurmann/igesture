@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Shows a sample descriptor
+ * Purpose		:   Shows a sample descriptor.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -47,6 +48,13 @@ import org.ximtec.igesture.tool.util.ScrollableList;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * Shows a sample descriptor.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class SampleDescriptorFrame extends BasicInternalFrame {
 
    private GestureToolView mainView;
@@ -69,26 +77,23 @@ public class SampleDescriptorFrame extends BasicInternalFrame {
 
 
    private void init() {
-
       addComponent(createList(), SwingTool.createGridBagConstraint(0, 1, 2, 1));
-
       addComponent(createAddButton(), SwingTool.createGridBagConstraint(0, 0));
       addComponent(createCloseButton(), SwingTool.createGridBagConstraint(1, 0));
-
-      this.setVisible(true);
-   }
+      setVisible(true);
+   } // init
 
 
    private Component createAddButton() {
       return SwingTool.createButton(new ActionAddSample(
             GestureConstants.COMMON_ADD, this));
-   }
+   } // createAddButton
 
 
    private Component createCloseButton() {
       return SwingTool.createButton(new CloseFrameAction(
             GestureConstants.COMMON_CLOSE));
-   }
+   } // createCloseButton
 
 
    private Component createList() {
@@ -97,7 +102,7 @@ public class SampleDescriptorFrame extends BasicInternalFrame {
       scrollableList.getList().addMouseListener(getMouseListener());
       scrollableList.getList().setCellRenderer(new CustomCellRenderer());
       return scrollableList;
-   }
+   } // createList
 
 
    private MouseListener getMouseListener() {
@@ -110,44 +115,44 @@ public class SampleDescriptorFrame extends BasicInternalFrame {
             }
          }
       });
-   }
+
+   } // getMouseListener
 
 
    private void showPopupMenu(MouseEvent event) {
       final JPopupMenu popUp = SwingTool
             .createPopupMenu(new Action[] { new ActionDeleteSample(
                   GestureConstants.COMMON_DEL, this) });
-
       popUp.show(event.getComponent(), event.getX(), event.getY());
-   }
+   } // showPopupMenu
 
 
    private GestureSample getSelectedSample() {
-      final JPanel panel = (JPanel) scrollableList.getSelectedValue();
-      return ((SampleListModel) scrollableList.getList().getModel())
+      final JPanel panel = (JPanel)scrollableList.getSelectedValue();
+      return ((SampleListModel)scrollableList.getList().getModel())
             .getSample(panel);
-   }
+   } // getSelectedSample
 
 
    public void deleteSelectedSample() {
       descriptor.removeSample(getSelectedSample());
       mainView.getModel().updateDataObject(descriptor);
       reloadList();
-   }
+   } // deleteSelectedSample
 
 
    public void addSample() {
       final GestureSample sample = new GestureSample(new Long(System
             .currentTimeMillis()).toString(), mainView.getModel()
             .getCurrentNote());
-
       descriptor.addSample(sample);
       mainView.getModel().updateDataObject(descriptor);
       reloadList();
-   }
+   } // addSample
 
 
    private void reloadList() {
       scrollableList.setModel(new SampleListModel(descriptor.getSamples()));
-   }
+   } // reloadList
+
 }

@@ -90,11 +90,11 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
       SwingTool.initFrame(this);
       this.mainView = mainView;
       mainView.getModel().addConfigurationListener(this);
-      initialise();
+      init();
    }
 
 
-   private void initialise() {
+   private void init() {
       scrollPane = new JScrollPane(null);
       scrollPane.setAutoscrolls(true);
       scrollPane.setPreferredSize(new Dimension(380, 300));
@@ -105,7 +105,7 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
       addComponent(scrollPane, SwingTool.createGridBagConstraint(0, 1));
       addComponent(saveButton, SwingTool.createGridBagConstraint(0, 2));
       loadConfiguration(null);
-   } // initialise
+   } // init
 
 
    private Component createConfigurationList() {

@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Sample List Model
+ * Purpose		:   Sample list model.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -39,6 +40,13 @@ import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.util.GestureTool;
 
 
+/**
+ * Sample list model.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class SampleListModel extends AbstractListModel {
 
    private Vector<JPanel> data;
@@ -52,43 +60,47 @@ public class SampleListModel extends AbstractListModel {
       data = new Vector<JPanel>();
       this.samples = samples;
       this.mapping = new HashMap<JPanel, GestureSample>();
-      initialise();
+      init();
    }
 
 
-   private void initialise() {
+   private void init() {
       mapping.clear();
       data.removeAllElements();
+
       for (final GestureSample sample : samples) {
-         final JPanel panel = createImage((Note) sample.getNote().clone());
+         final JPanel panel = createImage((Note)sample.getNote().clone());
          mapping.put(panel, sample);
          data.add(panel);
       }
-   }
+
+   } // init
 
 
    public GestureSample getSample(JPanel panel) {
       return mapping.get(panel);
-   }
+   } // getSample
 
 
    public Object getElementAt(int i) {
       return data.get(i);
-   }
+   } // getElementAt
 
 
    public int getSize() {
       return data.size();
-   }
+   } // getSize
 
 
    private JPanel createImage(Note note) {
       final JPanel pane = new JPanel();
+
       if (!note.getTraces().isEmpty()) {
          pane.add(new JLabel(new ImageIcon(GestureTool.createNoteImage(note,
                100, 100))));
       }
+
       return pane;
-   }
+   } // createImage
 
 }

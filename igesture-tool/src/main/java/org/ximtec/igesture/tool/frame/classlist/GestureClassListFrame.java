@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Gesture Class List Frame
+ * Purpose		:   Gesture class list frame.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -46,6 +47,13 @@ import org.ximtec.igesture.tool.util.ScrollableList;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * Gesture class list frame.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class GestureClassListFrame extends BasicInternalFrame implements
       GestureClassListener {
 
@@ -65,19 +73,16 @@ public class GestureClassListFrame extends BasicInternalFrame implements
 
 
    private void init() {
-      this.addComponent(SwingTool
+      addComponent(SwingTool
             .createLabel(GestureConstants.GESTURE_CLASS_LIST_FRAME_TITLE),
             SwingTool.createGridBagConstraint(0, 0, 2, 1));
-
-      this.addComponent(createList(), SwingTool.createGridBagConstraint(0, 1, 2,
-            1));
-   }
+      addComponent(createList(), SwingTool.createGridBagConstraint(0, 1, 2, 1));
+   } // init
 
 
    private Component createList() {
       final ListModel listModel = new SimpleListModel<GestureClass>(adminTab
             .getMainView().getModel().getGestureClasses());
-
       scrollableList = new ScrollableList(listModel, 180, 160);
       scrollableList.getList().addMouseListener(new MouseAdapter() {
 
@@ -88,8 +93,9 @@ public class GestureClassListFrame extends BasicInternalFrame implements
             }
          }
       });
+
       return scrollableList;
-   }
+   } // createList
 
 
    private void showPopUpMenu(MouseEvent e) {
@@ -97,22 +103,20 @@ public class GestureClassListFrame extends BasicInternalFrame implements
             new ActionOpenEditClassFrame(
                   GestureConstants.GESTURE_CLASS_LIST_FRAME_BTN_ADD, adminTab,
                   null),
-
             new ActionOpenEditClassFrame(
                   GestureConstants.GESTURE_CLASS_LIST_FRAME_BTN_EDIT, adminTab,
-                  (GestureClass) scrollableList.getSelectedValue()),
-
+                  (GestureClass)scrollableList.getSelectedValue()),
             new ActionDeleteClass(
                   GestureConstants.GESTURE_CLASS_LIST_FRAME_BTN_DEL, adminTab
-                        .getMainView(), (GestureClass) scrollableList
+                        .getMainView(), (GestureClass)scrollableList
                         .getSelectedValue()) });
-
       popupMenu.show(e.getComponent(), e.getX(), e.getY());
-   }
+   } // showPopUpMenu
 
 
    public void gestureClassChanged(EventObject event) {
       scrollableList.setModel(new SimpleListModel<GestureClass>(adminTab
             .getMainView().getModel().getGestureClasses()));
-   }
+   } // gestureClassChanged
+
 }

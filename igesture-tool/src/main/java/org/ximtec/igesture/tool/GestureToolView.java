@@ -82,14 +82,14 @@ public class GestureToolView extends JFrame {
       super();
       this.configuration = configuration;
       this.model = model;
-      initialise();
+      init();
    }
 
 
    /**
     * Initialises the main view.
     */
-   private void initialise() {
+   private void init() {
       try {
          UIManager.setLookAndFeel(GUI_STYLE);
       }
@@ -108,7 +108,7 @@ public class GestureToolView extends JFrame {
       setContentPane(tabbedPane);
       loadTabs();
       this.repaint();
-   } // initialise
+   } // init
 
 
    /**
