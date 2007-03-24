@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Starts the recogniser
+ * Purpose		:   Starts the recogniser.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -27,11 +28,14 @@ package org.ximtec.igesture.tool.frame.algorithm.action;
 
 import java.awt.event.ActionEvent;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JList;
 
 import org.sigtec.graphix.SimpleListModel;
 import org.sigtec.graphix.widget.BasicAction;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.AlgorithmFactory;
@@ -45,7 +49,17 @@ import org.ximtec.igesture.tool.GestureMainModel;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * Starts the recogniser.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ActionExecuteRecogniser extends BasicAction {
+
+   private static final Logger LOGGER = Logger
+         .getLogger(ActionExecuteRecogniser.class.getName());
 
    private GestureMainModel mainModel;
 
@@ -66,34 +80,28 @@ public class ActionExecuteRecogniser extends BasicAction {
    }
 
 
-   public void actionPerformed(ActionEvent arg0) {
-      /**
-       * instantiate the algorithm
-       */
-
+   public void actionPerformed(ActionEvent event) {
       try {
-
          final Configuration config = tab.getCurrentConfiguration();
-         config.addGestureSet((GestureSet) this.set.getSelectedValue());
+         config.addGestureSet((GestureSet)this.set.getSelectedValue());
          final Algorithm algo = AlgorithmFactory.createAlgorithm(config);
-
          final ResultSet resultSet = algo.recognise(mainModel.getCurrentNote());
-
          final Vector<String> results = new Vector<String>();
+
          for (final Result result : resultSet.getResults()) {
             results.add(result.getGestureClass().getName() + ": "
                   + result.getAccuracy());
          }
+
          final SimpleListModel<String> model = new SimpleListModel<String>(
                results);
          this.result.setModel(model);
          this.result.repaint();
-
       }
-      catch (final AlgorithmException e) {
-         e.printStackTrace();
+      catch (AlgorithmException e) {
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
 
-   }
+   } // actionPerformed
 
 }
