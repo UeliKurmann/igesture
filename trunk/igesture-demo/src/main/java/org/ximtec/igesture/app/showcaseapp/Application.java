@@ -1,3 +1,27 @@
+/*
+ * @(#)Application.java   1.0   Nov 15, 2006
+ *
+ * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ *
+ * Purpose      :   
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Revision Information:
+ *
+ * Date             Who         Reason
+ *
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Copyright 1999-2007 ETH Zurich. All Rights Reserved.
+ *
+ * This software is the proprietary information of ETH Zurich.
+ * Use is subject to license terms.
+ * 
+ */
 
 
 package org.ximtec.igesture.app.showcaseapp;
@@ -37,10 +61,14 @@ import org.ximtec.igesture.io.ButtonDeviceEventListener;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.MouseReader;
 import org.ximtec.igesture.io.MouseReaderEventListener;
-import org.ximtec.igesture.tool.frame.gestureset.action.ActionExportIPaperForm;
 import org.ximtec.igesture.util.XMLTool;
 
 
+/**
+ * @version 1.0 Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class Application implements ButtonDeviceEventListener {
 
    private static final Logger LOGGER = Logger.getLogger(Application.class
@@ -64,22 +92,16 @@ public class Application implements ButtonDeviceEventListener {
    private void initGestures() {
       Configuration configuration = XMLTool.importConfiguration(new File(
             ClassLoader.getSystemResource("rubineconfiguration.xml").getFile()));
-
       GestureSet gestureSet = XMLTool
             .importGestureSet(
                   new File(ClassLoader.getSystemResource("demogestures.xml")
                         .getFile())).get(0);
-
       EventManager eventManager = new EventManager();
       eventManager.registerRejectEvent(new RejectEventHandler());
-
       Style style = new Style();
       StyleEventHandler styleEventHandler = new StyleEventHandler(style);
-
       Graphics2D graphic = (Graphics2D)bufferedImage.getGraphics();
-
       DrawEventHandler drawEventHandler = new DrawEventHandler(graphic, style);
-
       gestureSet.getGestureClass("Rectangle").addDescriptor(
             DigitalDescriptor.class, new RectangleDescriptor());
       gestureSet.getGestureClass("LeftRight").addDescriptor(
@@ -88,7 +110,6 @@ public class Application implements ButtonDeviceEventListener {
             DigitalDescriptor.class, new TriangleDescriptor());
       gestureSet.getGestureClass("Arrow").addDescriptor(DigitalDescriptor.class,
             new ArrowDescriptor());
-
       eventManager.registerEventHandler("Rectangle", drawEventHandler);
       eventManager.registerEventHandler("LeftRight", drawEventHandler);
       eventManager.registerEventHandler("Triangle", drawEventHandler);
@@ -100,7 +121,6 @@ public class Application implements ButtonDeviceEventListener {
       eventManager.registerEventHandler("Yellow", styleEventHandler);
       eventManager.registerEventHandler("Thin", styleEventHandler);
       eventManager.registerEventHandler("Fat", styleEventHandler);
-
       configuration.addGestureSet(gestureSet);
       configuration.setEventManager(eventManager);
 
@@ -114,10 +134,9 @@ public class Application implements ButtonDeviceEventListener {
       InputDevice device = new MouseReader();
       InputDeviceEventListener listener = new BufferedInputDeviceEventListener(
             new MouseReaderEventListener(), 10000);
-
       client = new InputDeviceClient(device, listener);
       client.addButtonDeviceEventListener(this);
-   }
+   } // initGestures
 
 
    private void initialiseGUI() {
@@ -133,12 +152,7 @@ public class Application implements ButtonDeviceEventListener {
       label.setIcon(new ImageIcon(bufferedImage));
       frame.add(label);
       frame.setVisible(true);
-   }
-
-
-   public static void main(String[] args) {
-      new Application();
-   }
+   } // initialiseGUI
 
 
    public void handleButtonPressedEvent(InputDeviceEvent event) {
@@ -147,6 +161,11 @@ public class Application implements ButtonDeviceEventListener {
       clone.scale(2);
       recogniser.recognise(clone);
       frame.repaint();
+   } // handleButtonPressedEvent
+
+
+   public static void main(String[] args) {
+      new Application();
    }
 
 }

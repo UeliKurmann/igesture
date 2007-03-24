@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 					ukurmann	Initial Release
+ * Nov 24, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -33,15 +34,15 @@ import org.ximtec.igesture.core.DigitalDescriptor;
 
 
 /**
- * Comment
- * 
- * @version 1.0 Nov 24, 2006
+ * @version 1.0 Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class ArrowDescriptor extends DigitalDescriptor {
 
    private static final int SPACE = 20;
-   
+
+
    public ArrowDescriptor() {
       super();
    }
@@ -49,20 +50,16 @@ public class ArrowDescriptor extends DigitalDescriptor {
 
    @Override
    public void getDigitalObject(Graphics2D graphic, Note note) {
-
-      int x1 = (int) note.getBounds2D().getMinX();
-      int x2 = (int) note.getBounds2D().getMaxX();
-      int y = (int) ((note.getBounds2D().getMinY() + note.getBounds2D()
+      int x1 = (int)note.getBounds2D().getMinX();
+      int x2 = (int)note.getBounds2D().getMaxX();
+      int y = (int)((note.getBounds2D().getMinY() + note.getBounds2D().getMaxY()) / 2);
+      int diff = (int)((note.getBounds2D().getMinY() - note.getBounds2D()
             .getMaxY()) / 2);
-      int diff = (int) ((note.getBounds2D().getMinY() - note.getBounds2D()
-            .getMaxY()) / 2);
-
       graphic.setRenderingHint(RenderingHints.KEY_RENDERING,
             RenderingHints.VALUE_RENDER_QUALITY);
-
       graphic.drawLine(x1, y, x2, y);
       graphic.drawLine(x2, y, x2 - SPACE, y - diff);
       graphic.drawLine(x2, y, x2 - SPACE, y + diff);
-   }
+   } // getDigitalObject
 
 }

@@ -1,3 +1,27 @@
+/*
+ * @(#)HelloWorldXML.java   1.0   Nov 15, 2006
+ *
+ * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ *
+ * Purpose      :   
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Revision Information:
+ *
+ * Date             Who         Reason
+ *
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Copyright 1999-2007 ETH Zurich. All Rights Reserved.
+ *
+ * This software is the proprietary information of ETH Zurich.
+ * Use is subject to license terms.
+ * 
+ */
 
 
 package org.ximtec.igesture.app.helloworld;
@@ -21,6 +45,11 @@ import org.ximtec.igesture.io.MouseReaderEventListener;
 import org.ximtec.igesture.util.XMLTool;
 
 
+/**
+ * @version 1.0 Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class HelloWorldXML implements ButtonDeviceEventListener {
 
    private static final Logger LOGGER = Logger.getLogger(HelloWorldXML.class
@@ -36,17 +65,13 @@ public class HelloWorldXML implements ButtonDeviceEventListener {
 
 
    public HelloWorldXML() throws AlgorithmException {
-
       Configuration configuration = XMLTool.importConfiguration(new File(this
             .getClass().getClassLoader().getResource("configuration.xml")
             .getFile()));
-
       recogniser = new Recogniser(configuration);
-
       InputDevice device = new MouseReader();
       InputDeviceEventListener listener = new BufferedInputDeviceEventListener(
             new MouseReaderEventListener(), 10000);
-
       client = new InputDeviceClient(device, listener);
       client.addButtonDeviceEventListener(this);
       LOGGER.log(Level.INFO, INITIALISED);
@@ -62,11 +87,14 @@ public class HelloWorldXML implements ButtonDeviceEventListener {
       ResultSet result = recogniser.recognise(client.createNote(0, event
             .getTimestamp(), 70));
       client.clearBuffer();
+
       if (result.isEmpty()) {
          LOGGER.log(Level.INFO, NOT_RECOGNISED);
       }
       else {
          LOGGER.log(Level.INFO, result.getResult().getGestureClassName());
       }
-   }
+
+   } // handleButtonPressedEvent
+
 }

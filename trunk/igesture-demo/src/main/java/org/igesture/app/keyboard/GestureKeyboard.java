@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 09.03.2007       ukurmann    Initial Release
+ * Mar 09, 2007     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -21,6 +22,7 @@
  * Use is subject to license terms.
  * 
  */
+
 
 package org.igesture.app.keyboard;
 
@@ -43,74 +45,90 @@ import org.ximtec.igesture.io.MouseReader;
 import org.ximtec.igesture.io.MouseReaderEventListener;
 import org.ximtec.igesture.util.XMLTool;
 
+
+/**
+ * @version 1.0 Mar 2007
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class GestureKeyboard implements ButtonDeviceEventListener {
 
-	private static final String MAPPING_FILE = "gestureMapping.xml";
+   private static final Logger LOGGER = Logger.getLogger(GestureKeyboard.class
+         .getName());
 
-	private static final String RUBINE_CONFIGURATION = "rubineconfiguration.xml";
+   private static final String INITIALISING = "Initialising.";
 
-	private static final String GESTURE_SET = "gestureSets/ms_application_gestures.xml";
+   private static final String INITIALISED = "Initialised.";
 
-	private Recogniser recogniser;
+   private static final String MAPPING_FILE = "gestureMapping.xml";
 
-	private InputDeviceClient client;
+   private static final String RUBINE_CONFIGURATION = "rubineconfiguration.xml";
 
-	private EventManager eventManager;
-	
-	private static final Logger LOGGER = Logger.getLogger(GestureKeyboard.class
-	         .getName());
+   private static final String GESTURE_SET = "gestureSets/ms_application_gestures.xml";
 
-	public GestureKeyboard() throws AlgorithmException {
-		initEventManager();
-		initRecogniser();
-		initDevice();
-		
-		LOGGER.info("initialised...");
+   private Recogniser recogniser;
 
-		
-	}
+   private InputDeviceClient client;
 
-	private void initDevice() {
-		InputDevice device = new MouseReader();
-		InputDeviceEventListener listener = new BufferedInputDeviceEventListener(
-				new MouseReaderEventListener(), 10000);
+   private EventManager eventManager;
 
-		client = new InputDeviceClient(device, listener);
-		client.addButtonDeviceEventListener(this);
-	}
 
-	private void initRecogniser() throws AlgorithmException {
-		Configuration configuration = XMLTool.importConfiguration(new File(
-				ClassLoader.getSystemResource(RUBINE_CONFIGURATION).getFile()));
+   public GestureKeyboard() throws AlgorithmException {
+      LOGGER.info(INITIALISING);
+      initEventManager();
+      initRecogniser();
+      initDevice();
+      LOGGER.info(INITIALISED);
+   }
 
-		GestureSet gestureSet = XMLTool.importGestureSet(
-				new File(ClassLoader.getSystemResource(GESTURE_SET).getFile()))
-				.get(0);
 
-		configuration.addGestureSet(gestureSet);
-		configuration.setEventManager(eventManager);
+   private void initDevice() {
+      InputDevice device = new MouseReader();
+      InputDeviceEventListener listener = new BufferedInputDeviceEventListener(
+            new MouseReaderEventListener(), 10000);
+      client = new InputDeviceClient(device, listener);
+      client.addButtonDeviceEventListener(this);
+   } // initDevice
 
-		recogniser = new Recogniser(configuration);
-	}
 
-	private void initEventManager() {
-		eventManager = new EventManager();
-		for (GestureKeyMapping mapping : XMLImport.importKeyMappings(new File(GestureKeyboard.class
-				.getClassLoader().getResource(MAPPING_FILE).getFile()))) {
-			LOGGER.info(mapping.toString());
-			eventManager.registerEventHandler(mapping.getGestureName(), new PressKeystroke(mapping.getKeys()));
-		}
-	}
+   private void initRecogniser() throws AlgorithmException {
+      Configuration configuration = XMLTool.importConfiguration(new File(
+            ClassLoader.getSystemResource(RUBINE_CONFIGURATION).getFile()));
+      GestureSet gestureSet = XMLTool.importGestureSet(
+            new File(ClassLoader.getSystemResource(GESTURE_SET).getFile())).get(
+            0);
+      configuration.addGestureSet(gestureSet);
+      configuration.setEventManager(eventManager);
+      recogniser = new Recogniser(configuration);
+   } // initRecogniser
 
-	public static void main(String[] args) throws AlgorithmException {
-		new GestureKeyboard();
-	}
 
-	public void handleButtonPressedEvent(InputDeviceEvent event) {
-		Note note = client.createNote(0, event.getTimestamp(), 70);
-		if (note.getPoints().size() > 5) {
-			recogniser.recognise(note);
-		}
-	}
+   private void initEventManager() {
+      eventManager = new EventManager();
+
+      for (GestureKeyMapping mapping : XMLImport.importKeyMappings(new File(
+            GestureKeyboard.class.getClassLoader().getResource(MAPPING_FILE)
+                  .getFile()))) {
+         LOGGER.info(mapping.toString());
+         eventManager.registerEventHandler(mapping.getGestureName(),
+               new PressKeystroke(mapping.getKeys()));
+      }
+
+   } // initEventManager
+
+
+   public static void main(String[] args) throws AlgorithmException {
+      new GestureKeyboard();
+   }
+
+
+   public void handleButtonPressedEvent(InputDeviceEvent event) {
+      Note note = client.createNote(0, event.getTimestamp(), 70);
+
+      if (note.getPoints().size() > 5) {
+         recogniser.recognise(note);
+      }
+
+   } // handleButtonPressedEvent
 
 }

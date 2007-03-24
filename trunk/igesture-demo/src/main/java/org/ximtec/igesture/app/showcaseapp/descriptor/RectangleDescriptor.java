@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 					ukurmann	Initial Release
+ * Nov 24, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -33,10 +34,9 @@ import org.ximtec.igesture.core.DigitalDescriptor;
 
 
 /**
- * Comment
- * 
- * @version 1.0 Nov 24, 2006
+ * @version 1.0 Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class RectangleDescriptor extends DigitalDescriptor {
 
@@ -52,6 +52,6 @@ public class RectangleDescriptor extends DigitalDescriptor {
       graphic.drawRect((int)note.getBounds2D().getMinX(), (int)note
             .getBounds2D().getMinY(), (int)note.getBounds2D().getWidth(),
             (int)note.getBounds2D().getHeight());
-   }
+   } // getDigitalObject
 
 }

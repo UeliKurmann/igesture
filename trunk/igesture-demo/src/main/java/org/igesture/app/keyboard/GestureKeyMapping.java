@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Gesture - Keyboard Mapping
+ * Purpose      : 	Gesture-to-keyboard mapping.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 09.03.2007       ukurmann    Initial Release
+ * Mar 09, 2007     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -22,64 +23,88 @@
  * 
  */
 
+
 package org.igesture.app.keyboard;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.io.Win32KeyboardProxy;
 
-public class GestureKeyMapping {
-	
-	private Integer[] keys;
-	private String gestureName;
-	
-	
-	public String getGestureName() {
-		return gestureName;
-	}
-	
-	public void setGestureName(String gestureName) {
-		this.gestureName = gestureName;
-	}
-	
-	public Integer[] getKeys() {
-		return keys;
-	}
-	
-	public void setKeys(Integer[] keys) {
-		this.keys = keys;
-	}
-	
-	public void setKeys(String keys){
-		List<Integer> codes = new ArrayList<Integer>();
-		for(String key:keys.split("\\+")){
-			key = key.trim();
-			int code = Win32KeyboardProxy.getKey(key);
-			if(code > 0){
-				codes.add(code);
-			}else{
-				throw new IllegalStateException("Key not recognised!");
-			}
-		}
-		this.keys = codes.toArray(new Integer[0]);
-	}
 
-	public GestureKeyMapping(String gesture, String keys) {
-		super();
-		setKeys(keys);
-		this.gestureName = gesture;
-	}
-	
-	@Override
-   public String toString(){
-		StringBuilder sb = new StringBuilder();
-		sb.append("[");
-		for(int key:keys){
-			sb.append(key+"+");
-		}
-		sb.deleteCharAt(sb.length()-1);
-		sb.append(" -> "+gestureName+"]");
-		return sb.toString();
-	}
+/**
+ * Gesture-to-keyboard mapping.
+ * 
+ * @version 1.0 Mar 2007
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
+public class GestureKeyMapping {
+
+   private Integer[] keys;
+   private String gestureName;
+
+
+   public GestureKeyMapping(String gesture, String keys) {
+      super();
+      setKeys(keys);
+      this.gestureName = gesture;
+   }
+
+
+   public void setGestureName(String gestureName) {
+      this.gestureName = gestureName;
+   } // setGestureName
+
+
+   public String getGestureName() {
+      return gestureName;
+   } // getGestureName
+
+
+   public void setKeys(Integer[] keys) {
+      this.keys = keys;
+   } // setKeys
+
+
+   public void setKeys(String keys) {
+      List<Integer> codes = new ArrayList<Integer>();
+
+      for (String key : keys.split("\\+")) {
+         key = key.trim();
+         int code = Win32KeyboardProxy.getKey(key);
+
+         if (code > 0) {
+            codes.add(code);
+         }
+         else {
+            throw new IllegalStateException("Key not recognised!");
+         }
+
+      }
+
+      this.keys = codes.toArray(new Integer[0]);
+   } // setKeys
+
+
+   public Integer[] getKeys() {
+      return keys;
+   } // getKeys
+
+
+   @Override
+   public String toString() {
+      StringBuilder sb = new StringBuilder();
+      sb.append(Constant.OPEN_ANGULAR_BRACKET);
+
+      for (int key : keys) {
+         sb.append(key + Constant.PLUS);
+      }
+
+      sb.deleteCharAt(sb.length() - 1);
+      sb.append(" -> " + gestureName + Constant.CLOSE_ANGULAR_BRACKET);
+      return sb.toString();
+   } // toString
+
 }
