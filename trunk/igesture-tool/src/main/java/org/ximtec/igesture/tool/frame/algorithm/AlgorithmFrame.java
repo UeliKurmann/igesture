@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Algorithm Frame
+ * Purpose		:   Algorithm frame.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -69,29 +70,21 @@ public class AlgorithmFrame extends BasicInternalFrame implements
       this.mainView = mainView;
       this.tab = tab;
       this.mainView.getModel().addGestureSetListener(this);
-      initialize();
+      init();
    }
 
 
    /**
-    * This method initializes this
-    * 
-    * @return void
+    * Initialises the tab.
     */
-   private void initialize() {
-
-      this
-            .addComponent(createSetList(), SwingTool.createGridBagConstraint(0,
-                  2));
-      this.addComponent(createResultLable(), SwingTool.createGridBagConstraint(
-            0, 3, 1, 1, GridBagConstraints.WEST));
-      this.addComponent(createResultList(), SwingTool.createGridBagConstraint(0,
-            4));
-      this.addComponent(createRunButton(), SwingTool.createGridBagConstraint(0,
-            0));
-
-      this.repaint();
-   }
+   private void init() {
+      addComponent(createSetList(), SwingTool.createGridBagConstraint(0, 2));
+      addComponent(createResultLable(), SwingTool.createGridBagConstraint(0, 3,
+            1, 1, GridBagConstraints.WEST));
+      addComponent(createResultList(), SwingTool.createGridBagConstraint(0, 4));
+      addComponent(createRunButton(), SwingTool.createGridBagConstraint(0, 0));
+      repaint();
+   } // init
 
 
    private Component createRunButton() {

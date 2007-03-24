@@ -84,11 +84,11 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
          descriptorModel = new SimpleListModel<Descriptor>(gestureClass
                .getDescriptors());
       }
-      initialize();
+      init();
    }
 
 
-   private void initialize() {
+   private void init() {
       this.addComponent(SwingTool
             .createLabel(GestureConstants.GESTURE_CLASS_VIEW_NAME_LABEL),
             SwingTool.createGridBagConstraint(0, 0));

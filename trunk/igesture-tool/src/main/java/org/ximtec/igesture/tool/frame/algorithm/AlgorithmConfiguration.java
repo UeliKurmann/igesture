@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Algorithm Configuration
+ * Purpose		:   Algorithm configuration.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -59,6 +60,13 @@ import org.ximtec.igesture.tool.util.ScrollableList;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * Algorithm configuration.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class AlgorithmConfiguration extends BasicInternalFrame implements
       ConfigurationListener {
 
@@ -97,14 +105,13 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
       addComponent(scrollPane, SwingTool.createGridBagConstraint(0, 1));
       addComponent(saveButton, SwingTool.createGridBagConstraint(0, 2));
       loadConfiguration(null);
-   }
+   } // initialise
 
 
    private Component createConfigurationList() {
       final ConfigurationListModel listModel = new ConfigurationListModel(
             mainView.getModel());
       configurationList = new ScrollableList(listModel, 180, 100);
-
       configurationList.getList().addMouseListener(new MouseAdapter() {
 
          @Override
@@ -114,8 +121,9 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
             }
          }
       });
+
       return configurationList;
-   }
+   } // createConfigurationList
 
 
    private JPopupMenu createPopupMenu() {
@@ -125,41 +133,41 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
       menu.add(createAlgorithmPopupMenu());
       menu.add(SwingTool.createMenuItem(new ActionExportConfiguration(this)));
       return menu;
-   }
+   } // createPopupMenu
 
 
    public JMenu createAlgorithmPopupMenu() {
       final JMenu menu = new JMenu();
       menu.setText(SwingTool.getGuiBundle().getName(
             GestureConstants.CONFIG_CREATE_ACTION));
+
       for (final String name : mainView.getModel().getAlgorithms()) {
          menu.add(SwingTool.createMenuItem(new ActionCreateConfiguration(this,
                name)));
       }
+
       return menu;
-   }
+   } // createAlgorithmPopupMenu
 
 
    public void loadConfiguration(Configuration configuration) {
-
       if (configuration != null) {
          final String algorithmName = getAlgorithmName(configuration);
-
          currentConfiguration = configuration;
          configurationParameters = new ArrayList<ConfigParameter>();
          configurationParameters.add(new ConfigParameter(ALGORITHM_NAME,
                algorithmName));
 
-         for (final String key : configuration.getParameters(
-               algorithmName).keySet()) {
+         for (final String key : configuration.getParameters(algorithmName)
+               .keySet()) {
             configurationParameters.add(new ConfigParameter(key, configuration
                   .getParameters(algorithmName).get(key)));
          }
 
          final JPanel panel = new JPanel();
          panel.setLayout(new GridBagLayout());
-
          int i = 0;
+
          for (final ConfigParameter cp : configurationParameters) {
             panel.add(cp.getLabel(), SwingTool.createGridBagConstraint(0, i, 1,
                   1, GridBagConstraints.WEST));
@@ -171,34 +179,39 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
 
          scrollPane.setViewportView(panel);
       }
-   }
+
+   } // loadConfiguration
 
 
    public Configuration createConfiguration(String name) {
       final Algorithm algorithm = AlgorithmFactory.createAlgorithmInstance(name);
       final Configuration configuration = new Configuration();
       configuration.addAlgorithm(algorithm.getClass().getCanonicalName());
+
       for (final Enum e : algorithm.getConfigParameters()) {
-         configuration.addParameter(algorithm.getClass().getName(), e
-               .name(), algorithm.getDefaultParameterValue(e.name()));
+         configuration.addParameter(algorithm.getClass().getName(), e.name(),
+               algorithm.getDefaultParameterValue(e.name()));
       }
+
       return configuration;
-   }
+   } // createConfiguration
 
 
    private static Algorithm getAlgorithm(Configuration config) {
       Algorithm algorithm = null;
+
       if (!config.getAlgorithms().isEmpty()) {
          algorithm = AlgorithmFactory.createAlgorithmInstance(config
                .getAlgorithms().get(0));
       }
+
       return algorithm;
-   }
+   } // getAlgorithm
 
 
    private static String getAlgorithmName(Configuration configuration) {
       return getAlgorithm(configuration).getClass().getCanonicalName();
-   }
+   } // getAlgorithmName
 
 
    public void updateCurrentConfiguration() {
@@ -206,9 +219,11 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
       String newAlgorithmName = null;
 
       for (final ConfigParameter cp : configurationParameters) {
+
          if (cp.getParameterName().equals(ALGORITHM_NAME)) {
             newAlgorithmName = cp.getParameterValue();
          }
+
       }
 
       if (!newAlgorithmName.equals(currentAlgorithmName)) {
@@ -218,13 +233,15 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
       }
 
       for (final ConfigParameter cp : configurationParameters) {
+
          if (!cp.getParameterName().equals(ALGORITHM_NAME)) {
             currentConfiguration.addParameter(newAlgorithmName, cp
                   .getParameterName(), cp.getParameterValue());
          }
+
       }
       mainView.getModel().updateDataObject(currentConfiguration);
-   }
+   } // updateCurrentConfiguration
 
 
    public void deleteCurrentConfiguration() {
@@ -232,7 +249,7 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
             .getList().getModel()).getInstanceAt(configurationList
             .getSelectedIndex());
       mainView.getModel().removeConfiguration(config);
-   }
+   } // deleteCurrentConfiguration
 
 
    public void openSelectedConfiguration() {
@@ -240,30 +257,30 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
             .getList().getModel()).getInstanceAt(configurationList
             .getSelectedIndex());
       loadConfiguration(config);
-   }
+   } // openSelectedConfiguration
 
 
    public void configurationChanged(EventObject event) {
       configurationList
             .setModel(new ConfigurationListModel(mainView.getModel()));
-   }
+   } // configurationChanged
 
 
    public GestureToolView getMainView() {
       return mainView;
-   }
+   } // getMainView
 
 
    public Configuration getCurrentConfiguration() {
       return currentConfiguration;
-   }
+   } // getCurrentConfiguration
 
    /**
-    * Inner helper class for handling the parameter/value tuples
+    * Inner helper class for handling the parameter/value tuples.
     * 
-    * @author kurmannu
-    * @version 1.0
-    * @since igesture
+    * @version 1.0, Nov 2006
+    * @author Ueli Kurmann, kurmannu@ethz.ch
+    * @author Beat Signer, signer@inf.ethz.ch
     */
    private class ConfigParameter {
 
@@ -289,22 +306,24 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
 
       public String getParameterName() {
          return key.trim();
-      }
+      } // getParameterName
 
 
       public String getParameterValue() {
          return fieldValue.getText().trim();
-      }
+      } // getParameterValue
 
 
       public JTextField getTextField() {
          fieldValue.setPreferredSize(new Dimension(200, 20));
          return fieldValue;
-      }
+      } // getTextField
 
 
       public JLabel getLabel() {
          return labelName;
-      }
+      } // getLabel
+
    }
+
 }

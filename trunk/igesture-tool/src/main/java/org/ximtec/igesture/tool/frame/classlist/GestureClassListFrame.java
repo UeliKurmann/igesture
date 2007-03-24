@@ -60,11 +60,11 @@ public class GestureClassListFrame extends BasicInternalFrame implements
       SwingTool.initFrame(this);
       this.adminTab = adminTab;
       adminTab.getMainView().getModel().addGestureClassListener(this);
-      initialize();
+      init();
    }
 
 
-   private void initialize() {
+   private void init() {
       this.addComponent(SwingTool
             .createLabel(GestureConstants.GESTURE_CLASS_LIST_FRAME_TITLE),
             SwingTool.createGridBagConstraint(0, 0, 2, 1));

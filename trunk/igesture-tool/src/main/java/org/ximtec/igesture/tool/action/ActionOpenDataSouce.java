@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Opens a data source
+ * Purpose		:   Opens a data source.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -37,6 +38,13 @@ import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * Opens a data source.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ActionOpenDataSouce extends BasicAction {
 
    private GestureToolView mainView;
@@ -49,15 +57,17 @@ public class ActionOpenDataSouce extends BasicAction {
 
 
    /**
-    * Opens a JFileChooser and reloads the data model
-    * @param e the action event.
+    * Opens a JFileChooser and reloads the data model.
+    * @param event the action event.
     */
-   public void actionPerformed(ActionEvent e) {
+   public void actionPerformed(ActionEvent event) {
       final JFileChooser fileChooser = new JFileChooser();
       fileChooser.showOpenDialog(mainView);
       final File file = fileChooser.getSelectedFile();
+      
       if (file != null) {
          mainView.reloadModelData(StorageManager.createStorageEngine(file));
       }
+   
    }
 }

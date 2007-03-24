@@ -52,11 +52,11 @@ public class AddGestureClassDialog extends BasicDialog {
       super(GestureConstants.ADD_CLASS_DIALOG_KEY, SwingTool.getGuiBundle());
       this.model = model;
       this.set = set;
-      initialize();
+      init();
    }
 
 
-   private void initialize() {
+   private void init() {
       this.setLayout(new GridBagLayout());
       this.setSize(SwingTool.DIALOG_SIZE);
 

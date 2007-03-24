@@ -81,7 +81,7 @@ public class Grid {
       bitStringLength = (int)Math.ceil(Math.log(this.size * this.size)
             / Math.log(2));
       grid = new BitSet[this.size][this.size];
-      initialize();
+      init();
    }
 
 
@@ -151,12 +151,12 @@ public class Grid {
    /**
     * Initialises the grid.
     */
-   private void initialize() {
+   private void init() {
       final BitSet bitSet = new BitSet(size);
       bitSet.clear();
       grid[0][0] = bitSet;
       recursive(1, 1, Direction.UP);
-   } // initialize
+   } // init
 
 
    /**

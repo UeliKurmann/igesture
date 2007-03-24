@@ -108,11 +108,11 @@ public class GestureSignature {
       this.grid = Grid.createInstance(gridSize);
       this.gestureClass = gestureClass;
       this.note = note;
-      initialize();
+      init();
    }
 
 
-   private void initialize() {
+   private void init() {
       final List<GestureSignature.Position> points = new ArrayList<GestureSignature.Position>();
       final Trace trace = FeatureTool.createTrace((Note)note.clone());
       final double scale = GestureTool.scaleTraceTo(trace, rasterSize,
@@ -130,7 +130,7 @@ public class GestureSignature {
          points.add(lastPosition);
       }
 
-   } // initialize
+   } // init
 
 
    /**

@@ -66,16 +66,16 @@ public class GestureSetFrame extends BasicInternalFrame implements
       this.mainView = mainView;
       this.gestureTreeModel = new GestureTreeModel(mainView.getModel());
       mainView.getModel().addGestureSetListener(this);
-      initialize();
+      init();
    }
 
 
    /**
-    * This method initializes this.
+    * This method initialises this.
     * 
     * @return void
     */
-   private void initialize() {
+   private void init() {
       gestureTree = new GestureTree(gestureTreeModel);
 
       final JScrollPane pane = new JScrollPane(gestureTree);
