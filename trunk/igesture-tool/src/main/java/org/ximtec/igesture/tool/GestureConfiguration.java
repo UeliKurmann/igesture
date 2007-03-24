@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   Gesture Configuration
+ * Purpose      :   Gesture configuration.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * 24.1.2007        ukurmann    Initial Release
+ * Jan 24, 2007     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -21,6 +22,7 @@
  * Use is subject to license terms.
  * 
  */
+
 
 package org.ximtec.igesture.tool;
 
@@ -35,102 +37,114 @@ import org.ximtec.igesture.io.InputDeviceFactory;
 
 
 /**
- * @author Ueli Kurmann
- *
+ * Gesture configuration.
+ * 
+ * @version 1.0, Jan 2007
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class GestureConfiguration {
-   
-   /**
-    * 
-    */
+
    private static final String SELECTED_INPUT_DEVICE = "inputdevices/device[@selected='true']/@name";
    private static final String SELECTED_INPUT_DEVICE2 = "inputdevices/device/name";
-   
+
    private static final String PROPERTY_DATABASE = "database";
    private static final String PROPERTY_ALGORITHM = "algorithm/class";
    private static final String PROPERTY_TAB = "tab/class";
-    
+
    private XMLConfiguration configuration;
-   
-   public GestureConfiguration(String file){
+
+
+   public GestureConfiguration(String file) {
       try {
          configuration = new XMLConfiguration();
          configuration.setFileName(file);
          configuration.setExpressionEngine(new XPathExpressionEngine());
          configuration.setAutoSave(true);
          configuration.load();
-         
          selectDevice();
       }
       catch (ConfigurationException e) {
          e.printStackTrace();
       }
+
    }
-   
+
+
    /**
-    * Returns the filename of the database
-    * @return the filename of the database
+    * Returns the filename of the database.
+    * @return the filename of the database.
     */
-   public String getDatabase(){
+   public String getDatabase() {
       return configuration.getString(PROPERTY_DATABASE);
-   }
-   
+   } // getDatabase
+
+
    /**
-    * Returns the list of algorithm
-    * @return the list of algorithm
+    * Returns the list of algorithms.
+    * @return the list of algorithms.
     */
    @SuppressWarnings("unchecked")
-   public List<String> getAlgorithms(){
-        return configuration.getList(PROPERTY_ALGORITHM);
-   }
-   
+   public List<String> getAlgorithms() {
+      return configuration.getList(PROPERTY_ALGORITHM);
+   } // getAlgorithms
+
+
    /**
-    * Returns the list of tabs
-    * @return the list of tabs
+    * Returns the list of tabs.
+    * @return the list of tabs.
     */
    @SuppressWarnings("unchecked")
-   public List<String> getTabs(){
+   public List<String> getTabs() {
       return configuration.getList(PROPERTY_TAB);
-   }
-   
+   } // getTabs
+
+
    /**
-    * Returns the input device
-    * @return the input device
+    * Returns the input device.
+    * @return the input device.
     * 
     */
-   public InputDevice getInputDevice(){
+   public InputDevice getInputDevice() {
       List list = configuration.getList(SELECTED_INPUT_DEVICE);
-      if(!list.isEmpty()){
+
+      if (!list.isEmpty()) {
          String deviceName = (String)list.get(0);
          return InputDeviceFactory.createInputDevice(deviceName, configuration);
       }
-      
+
       return null;
-   }
-   
+   } // getInputDevice
+
+
    /**
-    * Returns the input device
-    * @return the input device
+    * Returns the input device.
+    * @return the input device.
     * 
     */
-   public InputDeviceEventListener getInputDeviceEventListener(){
+   public InputDeviceEventListener getInputDeviceEventListener() {
       List list = configuration.getList(SELECTED_INPUT_DEVICE);
-      if(!list.isEmpty()){
+
+      if (!list.isEmpty()) {
          String deviceName = (String)list.get(0);
-         return InputDeviceFactory.createInputDeviceEventListener(deviceName, configuration);
+         return InputDeviceFactory.createInputDeviceEventListener(deviceName,
+               configuration);
       }
+
       return null;
-   }
-   
-   
-   private synchronized void selectDevice(){
+   } // getInputDeviceEventListener
+
+
+   private synchronized void selectDevice() {
       int i = 1;
-      for(String deviceName:(List<String>)configuration.getList(SELECTED_INPUT_DEVICE2)){
-        // configuration.setProperty("inputdevices/device["+i+"] @selected", "true");
-         
-       
+
+      for (String deviceName : (List<String>)configuration
+            .getList(SELECTED_INPUT_DEVICE2)) {
+         // configuration.setProperty("inputdevices/device["+i+"] @selected",
+         // "true");
          i++;
       }
-      
-   }
+
+   } // selectDevice
+
 }

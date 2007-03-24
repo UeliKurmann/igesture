@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Tab interface
+ * Purpose		: 	Tab interface.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 					ukurmann	Initial Release
+ * Nov 28, 2006		ukurmann	Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -29,10 +30,11 @@ import javax.swing.JDesktopPane;
 
 
 /**
- * Comment
+ * Tab interface.
  * 
- * @version 1.0 Nov 28, 2006
+ * @version 1.0, Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public abstract class GestureTab {
 
@@ -47,39 +49,39 @@ public abstract class GestureTab {
 
 
    /**
-    * Returns the JDesktopPane of the tab
+    * Returns the tab's JDesktopPane.
     * 
-    * @return
+    * @return the tab's JDesktopPane.
     */
    public JDesktopPane getDesktopPane() {
       return desktopPane;
-   }
+   } // getDesktopPane
 
 
    /**
-    * Initialise the component
+    * Initialises the component.
     * 
-    * @param mainView
+    * @param mainView the main view.
     */
    public void init(GestureToolView mainView) {
       this.mainView = mainView;
-   }
+   } // init
 
 
    /**
-    * Returns the main view of the iGesture application
+    * Returns the main view of the iGesture application.
     * 
-    * @return
+    * @return the main view of the iGesture application.
     */
    public GestureToolView getMainView() {
       return mainView;
-   }
+   } // getMainView
 
 
    /**
-    * Returns the name of the tab
+    * Returns the name of the tab.
     * 
-    * @return
+    * @return the tab's name.
     */
    public abstract String getName();
 

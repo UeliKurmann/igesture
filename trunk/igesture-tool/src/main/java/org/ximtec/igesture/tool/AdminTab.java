@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Gesture Administration Tab
+ * Purpose		: 	Gesture administration tab.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 					ukurmann	Initial Release
+ * Nov 28, 2006		ukurmann	Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -35,10 +36,11 @@ import org.ximtec.igesture.tool.util.GuiFactory;
 
 
 /**
- * Comment
+ * Gesture administration tab.
  * 
- * @version 1.0 Nov 28, 2006
+ * @version 1.0, Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class AdminTab extends GestureTab {
 
@@ -59,15 +61,13 @@ public class AdminTab extends GestureTab {
    @Override
    public void init(GestureToolView mainView) {
       super.init(mainView);
-
       getDesktopPane().add(GuiFactory.createGestureDrawArea(mainView, 0, 0));
       getDesktopPane().add(
             GuiFactory.createGestureView(gestureSetArea, mainView, 0, 280));
       getDesktopPane().add(
             GuiFactory.createGestureClassTable(gestureClassListFrame, this, 200,
                   0));
-
-   }
+   } // init
 
 
    public void addClassView(GestureClass gestureClass) {
@@ -75,15 +75,16 @@ public class AdminTab extends GestureTab {
          descriptorFrame.dispose();
          descriptorFrame = null;
       }
+
       if (gestureClassViewFrame != null) {
          gestureClassViewFrame.dispose();
          gestureClassViewFrame = null;
       }
 
-      gestureClassViewFrame = (GestureClassViewFrame) GuiFactory
-            .createClassView(this, gestureClass);
+      gestureClassViewFrame = (GestureClassViewFrame)GuiFactory.createClassView(
+            this, gestureClass);
       getDesktopPane().add(gestureClassViewFrame);
-   }
+   } // addClassView
 
 
    public void addDescriptorView(Descriptor descriptor) {
@@ -91,14 +92,15 @@ public class AdminTab extends GestureTab {
          descriptorFrame.dispose();
          descriptorFrame = null;
       }
+
       descriptorFrame = GuiFactory.createDescriptorView(mainView, descriptor);
       getDesktopPane().add(descriptorFrame);
-   }
+   } // addDescriptorView
 
 
    @Override
    public String getName() {
       return GestureConstants.GESTUREVIEW_TAB_ADMIN;
-   }
+   } // getName
 
 }

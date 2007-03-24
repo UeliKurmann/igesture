@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Test Set Tab
+ * Purpose		: 	Test set tab.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 					ukurmann	Initial Release
+ * Nov 28, 2006		ukurmann	Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -31,10 +32,11 @@ import org.ximtec.igesture.tool.util.GuiFactory;
 
 
 /**
- * Comment
+ * Test set tab.
  * 
- * @version 1.0 Nov 28, 2006
+ * @version 1.0, Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class TestTab extends GestureTab {
 
@@ -50,12 +52,9 @@ public class TestTab extends GestureTab {
    @Override
    public void init(GestureToolView mainView) {
       super.init(mainView);
-
       getDesktopPane().add(GuiFactory.createGestureDrawArea(mainView, 0, 0));
       getDesktopPane().add(GuiFactory.createTestView(this, 0, 280));
-
       TestSet testSet = null;
-
       final GestureMainModel mainModel = getMainView().getModel();
 
       if (mainModel.getTestSets().size() == 0) {
@@ -66,19 +65,19 @@ public class TestTab extends GestureTab {
          testSet = mainModel.getTestSets().get(0);
       }
 
-      testSetListFrame = (TestSetListFrame) GuiFactory.createTestSetList(
+      testSetListFrame = (TestSetListFrame)GuiFactory.createTestSetList(
             mainView, testSet, 200, 0);
       getDesktopPane().add(testSetListFrame);
-   }
+   } // init
 
 
    /**
-    * Returns the TestSetListFrame
+    * Returns the TestSetListFrame.
     * 
-    * @return
+    * @return the TestSetListFrame.
     */
    public TestSetListFrame getTestSetListFrame() {
       return testSetListFrame;
-   }
+   } // getTestSetListFrame
 
 }
