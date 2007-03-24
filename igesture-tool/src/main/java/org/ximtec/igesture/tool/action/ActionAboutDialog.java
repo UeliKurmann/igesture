@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   About Dialog
+ * Purpose		:   About dialog.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006		ukurmann	Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -33,20 +34,31 @@ import org.ximtec.igesture.tool.util.JAboutDialog;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * About dialog.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ActionAboutDialog extends BasicAction {
 
    JAboutDialog dialog;
 
+
    public ActionAboutDialog(String path) {
       super(GestureConstants.COMMON_ABOUT, SwingTool.getGuiBundle());
-      dialog = new JAboutDialog(300,500,ActionAboutDialog.class.getClassLoader().getResource("about.html")); 
+      dialog = new JAboutDialog(300, 500, ActionAboutDialog.class
+            .getClassLoader().getResource(path));
    }
 
 
    /**
-    * Opens a JFileChooser and reloads the data model
+    * Makes the dialoge visible.
+    * @param event the action event.
     */
-   public void actionPerformed(ActionEvent arg0) {
+   public void actionPerformed(ActionEvent event) {
       dialog.setVisible(true);
-   }
+   } // actionPerformed
+
 }

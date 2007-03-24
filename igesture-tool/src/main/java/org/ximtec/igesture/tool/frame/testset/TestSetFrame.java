@@ -72,11 +72,11 @@ public class TestSetFrame extends BasicInternalFrame implements
       this.mainView = testTab.getMainView();
       this.testTab = testTab;
       this.mainView.getModel().addCurrentGestureListener(this);
-      initialize();
+      init();
    }
 
 
-   public void initialize() {
+   public void init() {
       gestureImage = new JLabel();
       gestureImage.setSize(180, 180);
       gestureImage.setPreferredSize(new Dimension(180, 180));

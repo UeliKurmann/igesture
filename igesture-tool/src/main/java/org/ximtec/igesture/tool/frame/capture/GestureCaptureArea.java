@@ -62,7 +62,7 @@ public class GestureCaptureArea extends BasicInternalFrame implements
       SwingTool.initFrame(this);
       this.mainView = mainView;
       mainView.getModel().addCurrentGestureListener(this);
-      initialize();
+      init();
    }
 
 
@@ -71,7 +71,7 @@ public class GestureCaptureArea extends BasicInternalFrame implements
     * 
     * @return void
     */
-   private void initialize() {
+   private void init() {
 
       image = new JNote(200, 200);
       mainView.getModel().getPenClient().addInputHandler(image);

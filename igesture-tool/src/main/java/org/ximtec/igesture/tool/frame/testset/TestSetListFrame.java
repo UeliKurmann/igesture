@@ -50,11 +50,11 @@ public class TestSetListFrame extends BasicInternalFrame implements
       this.mainView = mainView;
       mainView.getModel().addTestSetListener(this);
       this.testSet = testSet;
-      initialize();
+      init();
    }
 
 
-   private void initialize() {
+   private void init() {
       addComponent(createGestureList(), SwingTool.createGridBagConstraint(0, 1,
             2, 1));
 

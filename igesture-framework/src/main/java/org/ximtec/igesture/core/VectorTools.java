@@ -63,12 +63,12 @@ public class VectorTools {
     * @param vector the vector to be initialised.
     * @param initValue the initialisation value.
     */
-   public static void initialize(DoubleVector vector, double initValue) {
+   public static void init(DoubleVector vector, double initValue) {
       for (int i = 0; i < vector.size(); i++) {
          vector.add(i, initValue);
       }
 
-   } // initialize
+   } // init
 
 
    /**

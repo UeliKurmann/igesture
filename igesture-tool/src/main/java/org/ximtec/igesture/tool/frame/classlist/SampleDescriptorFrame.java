@@ -64,11 +64,11 @@ public class SampleDescriptorFrame extends BasicInternalFrame {
       SwingTool.initFrame(this);
       this.mainView = mainView;
       this.descriptor = descriptor;
-      initialize();
+      init();
    }
 
 
-   private void initialize() {
+   private void init() {
 
       addComponent(createList(), SwingTool.createGridBagConstraint(0, 1, 2, 1));
 

@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Creates a new data source
+ * Purpose		:   Creates a new data source.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -37,6 +38,13 @@ import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * Creates a new data source.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ActionNewDataSouce extends BasicAction {
 
    private GestureToolView mainView;
@@ -49,14 +57,19 @@ public class ActionNewDataSouce extends BasicAction {
 
 
    /**
-    * Opens a file save dialog and reloads the data model
+    * Opens a file save dialog and reloads the data model.
+    * 
+    * @param event the action event.
     */
-   public void actionPerformed(ActionEvent arg0) {
+   public void actionPerformed(ActionEvent event) {
       final JFileChooser fileChooser = new JFileChooser();
       fileChooser.showSaveDialog(mainView);
       final File file = fileChooser.getSelectedFile();
+
       if (file != null) {
          mainView.reloadModelData(new Db4oStorageEngine(file.getAbsolutePath()));
       }
-   }
+
+   } // actionPerformed
+   
 }

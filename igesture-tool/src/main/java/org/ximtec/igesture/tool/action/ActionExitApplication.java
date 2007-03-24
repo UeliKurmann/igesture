@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Terminates the application
+ * Purpose		:   Terminates the application.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -33,9 +34,17 @@ import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * Terminates the application.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ActionExitApplication extends BasicAction {
-	
-	private GestureToolView mainView;
+
+   private GestureToolView mainView;
+
 
    public ActionExitApplication(GestureToolView mainView) {
       super(GestureConstants.COMMON_EXIT, SwingTool.getGuiBundle());
@@ -43,9 +52,12 @@ public class ActionExitApplication extends BasicAction {
    }
 
 
-   public void actionPerformed(ActionEvent arg0) {
-	  mainView.getModel().getStorageManager().dispose();
+   /**
+    * @param event the action event.
+    */
+   public void actionPerformed(ActionEvent event) {
+      mainView.getModel().getStorageManager().dispose();
       System.exit(0);
-   }
+   } // actionPerformed
 
 }
