@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Frame showing the gesture sets
+ * Purpose		:   Frame showing the gesture sets.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -50,6 +51,13 @@ import org.ximtec.igesture.tool.frame.gestureset.action.ActionImportGestureSet;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * Frame showing the gesture sets.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class GestureSetFrame extends BasicInternalFrame implements
       GestureSetListener {
 
@@ -71,30 +79,23 @@ public class GestureSetFrame extends BasicInternalFrame implements
 
 
    /**
-    * This method initialises this.
-    * 
-    * @return void
+    * Initialises the gesture set frame.
     */
    private void init() {
       gestureTree = new GestureTree(gestureTreeModel);
-
       final JScrollPane pane = new JScrollPane(gestureTree);
       pane.setPreferredSize(new Dimension(180, 180));
-
-      this.addComponent(pane, SwingTool.createGridBagConstraint(0, 0));
-
+      addComponent(pane, SwingTool.createGridBagConstraint(0, 0));
       final PopUpListener popUpListener = new PopUpListener(this);
       gestureTree.addMouseListener(popUpListener);
-   }
+   } // init
 
 
    public JPopupMenu getNewGestureSetPopUp() {
       return SwingTool.createPopupMenu(new Action[] {
             new ActionAddGestureSet(gestureTreeModel),
-            new ActionImportGestureSet(mainView)
-
-      });
-   }
+            new ActionImportGestureSet(mainView) });
+   } // getNewGestureSetPopUp
 
 
    public JPopupMenu getAddGestureClassPopUp(GestureSet set) {
@@ -103,26 +104,27 @@ public class GestureSetFrame extends BasicInternalFrame implements
             new ActionDelGestureSet(gestureTreeModel, set),
             new ActionExportGestureSet(set), new ActionExportPDFGestureSet(set),
             new ActionCreateTestSet(set), new ActionExportIPaperForm(set) });
-   }
+   } // getAddGestureClassPopUp
 
 
    public JPopupMenu getDelGestureClassPopUp(GestureSet set,
          GestureClass gestureClass) {
       return SwingTool.createPopupMenu(new Action[] { new ActionDelGestureClass(
             gestureTreeModel, gestureClass, set) });
-   }
+   } // getDelGestureClassPopUp
 
 
    /**
-    * Returns the selected tree item
-    * @return
+    * Returns the selected item.
+    * @return the selected item.
     */
    public Object getSelectedItem() {
       return gestureTree.getLastSelectedPathComponent();
-   }
+   } // getSelectedItem
 
 
    public void gestureSetChanged(EventObject event) {
       gestureTree.setModel(new GestureTreeModel(mainView.getModel()));
-   }
+   } // gestureSetChanged
+
 }

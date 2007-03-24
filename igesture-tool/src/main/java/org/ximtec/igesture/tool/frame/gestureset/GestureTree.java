@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Tree showing gesture sets and classes
+ * Purpose		:   Tree showing gesture sets and classes.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -32,20 +33,24 @@ import javax.swing.event.TreeSelectionListener;
 import org.ximtec.igesture.tool.util.TreeRenderer;
 
 
+/**
+ * Tree showing gesture sets and classes.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class GestureTree extends JTree implements TreeSelectionListener {
 
    public GestureTree(GestureTreeModel model) {
       super(model);
       model.setTree(this);
-
-      this.setCellRenderer(new TreeRenderer());
-      this.setEditable(false);
+      setCellRenderer(new TreeRenderer());
+      setEditable(false);
    }
 
 
-   public void valueChanged(TreeSelectionEvent arg0) {
-      /**
-       * empty
-       */
-   }
+   public void valueChanged(TreeSelectionEvent event) {
+   } // valueChanged
+   
 }

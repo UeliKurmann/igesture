@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   PopUp Listener
+ * Purpose		:   PopUp listener.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -35,6 +36,13 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 
 
+/**
+ * PopUp listener.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class PopUpListener extends MouseAdapter {
 
    /** The UserView this MouseAdapter listens to. */
@@ -42,7 +50,7 @@ public class PopUpListener extends MouseAdapter {
 
 
    /**
-    * The default Constructor.
+    * Constructs a new popup listener.
     * 
     * @param gestureView the UserView to listen to
     */
@@ -56,7 +64,7 @@ public class PopUpListener extends MouseAdapter {
       if (e.isPopupTrigger()) {
 
          // find out witch element was selected when popup was triggered
-         final JTree tree = (JTree) e.getSource();
+         final JTree tree = (JTree)e.getSource();
          final TreePath closestPathForLocation = tree.getClosestPathForLocation(
                e.getX(), e.getY());
 
@@ -77,21 +85,22 @@ public class PopUpListener extends MouseAdapter {
          else if (tree.getLastSelectedPathComponent() instanceof GestureSet) {
             tree.getLastSelectedPathComponent();
             gestureView.getAddGestureClassPopUp(
-                  (GestureSet) tree.getLastSelectedPathComponent()).show(
+                  (GestureSet)tree.getLastSelectedPathComponent()).show(
                   e.getComponent(), e.getX(), e.getY());
          }
          else if (tree.getLastSelectedPathComponent() instanceof GestureClass) {
             tree.getLastSelectedPathComponent();
             final TreePath path = tree.getSelectionPath();
-            final GestureClass gestureClass = (GestureClass) path
+            final GestureClass gestureClass = (GestureClass)path
                   .getLastPathComponent();
-            final GestureSet gestureSet = (GestureSet) path.getParentPath()
+            final GestureSet gestureSet = (GestureSet)path.getParentPath()
                   .getLastPathComponent();
-
             gestureView.getDelGestureClassPopUp(gestureSet, gestureClass).show(
                   e.getComponent(), e.getX(), e.getY());
          }
 
-      } // endif event is popup event
-   }
+      }
+
+   } // mouseReleased
+
 }
