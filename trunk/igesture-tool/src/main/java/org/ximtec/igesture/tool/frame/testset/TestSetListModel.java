@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Test set list model
+ * Purpose		:   Test set list model.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -33,6 +34,13 @@ import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.GestureMainModel;
 
 
+/**
+ * Test set list model.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class TestSetListModel extends AbstractListModel {
 
    private GestureMainModel mainModel;
@@ -47,46 +55,48 @@ public class TestSetListModel extends AbstractListModel {
       for (int i = 0; i < getSize(); i++) {
          mapping.put((String)getElementAt(i), getTestSet(i));
       }
+
    }
 
 
    /**
     * Returns the name of the test set at position index.
     * 
-    * @param index the position of the test set to be returned.
-    * @return the test set at position index.
+    * @param index the position of the test set whose name has to be returned.
+    * @return the name of the test set at position index.
     */
    public Object getElementAt(int index) {
       return mainModel.getTestSets().get(index).getName();
-   }  // getElementAt
+   } // getElementAt
 
 
    /**
-    * Returns the ith TestSet
+    * Returns the test set at position index.
     * 
-    * @param index
-    * @return
+    * @param index the position of the test set to be returned.
+    * @return the test set at position index.
     */
    private TestSet getTestSet(int index) {
       return mainModel.getTestSets().get(index);
-   }
+   } // getTestSet
 
 
    /**
-    * Returns the number of TestSets
+    * Returns the number of test sets.
     */
    public int getSize() {
       return mainModel.getTestSets().size();
-   }
+   } // getSize
 
 
    /**
-    * Returns the TestSet which belongs to the given name
+    * Returns the test set for a given name.
     * 
-    * @param name the name of the TestSet
-    * @return the TestSet
+    * @param name the name of the test set.
+    * @return the test set for a given name.
     */
    public TestSet getTestSet(String name) {
       return mapping.get(name);
-   }
+   } // getTestSet
+
 }

@@ -1,3 +1,27 @@
+/*
+ * @(#)TestSetListFrame.java    1.0   Nov 15, 2006
+ *
+ * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ *
+ * Purpose      :   Test set list frame.
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Revision Information:
+ *
+ * Date             Who         Reason
+ *
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Copyright 1999-2007 ETH Zurich. All Rights Reserved.
+ *
+ * This software is the proprietary information of ETH Zurich.
+ * Use is subject to license terms.
+ * 
+ */
 
 
 package org.ximtec.igesture.tool.frame.testset;
@@ -30,6 +54,13 @@ import org.ximtec.igesture.tool.util.ScrollableList;
 import org.ximtec.igesture.tool.util.SwingTool;
 
 
+/**
+ * Test set list frame.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class TestSetListFrame extends BasicInternalFrame implements
       TestSetListener {
 
@@ -57,12 +88,10 @@ public class TestSetListFrame extends BasicInternalFrame implements
    private void init() {
       addComponent(createGestureList(), SwingTool.createGridBagConstraint(0, 1,
             2, 1));
-
       addComponent(createTestSetList(), SwingTool.createGridBagConstraint(0, 0,
             2, 1));
-
-      this.setVisible(true);
-   }
+      setVisible(true);
+   } // init
 
 
    private Component createGestureList() {
@@ -70,16 +99,15 @@ public class TestSetListFrame extends BasicInternalFrame implements
       loadGestureListData(testSet);
       scrollableList.getList().setCellRenderer(new CustomCellRenderer());
       scrollableList.getList().addMouseListener(getMouseListener());
-
       return scrollableList;
-   }
+   } // createGestureList
 
 
    public void loadGestureListData(TestSet testSet) {
       this.testSet = testSet;
       sampleListModel = new SampleListModel(testSet.getSamples());
       scrollableList.setModel(sampleListModel);
-   }
+   } // loadGestureListData
 
 
    private Component createTestSetList() {
@@ -87,14 +115,14 @@ public class TestSetListFrame extends BasicInternalFrame implements
       loadTestSetData();
       testSetList.getList().addMouseListener(getMouseListenerTestSetList());
       return testSetList;
-   }
+   } // createTestSetList
 
 
    public void loadTestSetData() {
       final TestSetListModel listModel = new TestSetListModel(mainView
             .getModel());
       testSetList.setModel(listModel);
-   }
+   } // loadTestSetData
 
 
    private MouseListener getMouseListener() {
@@ -107,7 +135,8 @@ public class TestSetListFrame extends BasicInternalFrame implements
             }
          }
       });
-   }
+
+   } // getMouseListener
 
 
    private MouseListener getMouseListenerTestSetList() {
@@ -120,28 +149,31 @@ public class TestSetListFrame extends BasicInternalFrame implements
             }
          }
       });
-   }
+
+   } // getMouseListenerTestSetList
 
 
    private void showPopupMenu(MouseEvent event) {
       final JPopupMenu popUp = new JPopupMenu();
       popUp.add(SwingTool.createMenuItem(new ActionTestSetDeleteSample(this)));
       popUp.show(event.getComponent(), event.getX(), event.getY());
-   }
+   } // showPopupMenu
 
 
    private void showTestSetPopupMenu(MouseEvent event) {
       final JPopupMenu popUp = createGestureSetPopUpMenu();
       popUp.show(event.getComponent(), event.getX(), event.getY());
-   }
+   } // showTestSetPopupMenu
 
 
    public void testSetChanged(EventObject event) {
       loadTestSetData();
+
       if (this.testSet == event.getSource()) {
          loadGestureListData(testSet);
       }
-   }
+
+   } // testSetChanged
 
 
    private JPopupMenu createGestureSetPopUpMenu() {
@@ -152,40 +184,40 @@ public class TestSetListFrame extends BasicInternalFrame implements
             new ActionTestSetExport(testSetList.getList()),
             new ActionTestSetImport(mainView) });
       return menu;
-   }
+   } // createGestureSetPopUpMenu
 
 
    private GestureSample getSelectedSample() {
-      final JPanel panel = (JPanel) scrollableList.getSelectedValue();
-      return ((SampleListModel) scrollableList.getList().getModel())
+      final JPanel panel = (JPanel)scrollableList.getSelectedValue();
+      return ((SampleListModel)scrollableList.getList().getModel())
             .getSample(panel);
-   }
+   } // getSelectedSample
 
 
    public void deleteSelectedSample() {
       testSet.remove(getSelectedSample());
       mainView.getModel().updateDataObject(testSet);
       loadGestureListData(testSet);
-   }
+   } // deleteSelectedSample
 
 
    public void addSample() {
       final GestureSample sample = new GestureSample(new Long(System
             .currentTimeMillis()).toString(), mainView.getModel()
             .getCurrentNote());
-
       testSet.add(sample);
       mainView.getModel().updateDataObject(testSet);
       loadGestureListData(testSet);
-   }
+   } // addSample
 
 
    /**
-    * Returns the TestSet
+    * Returns the test set.
     * 
-    * @return
+    * @return the test set.
     */
    public TestSet getTestSet() {
       return testSet;
-   }
+   } // getTestSet
+
 }

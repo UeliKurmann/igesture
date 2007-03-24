@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Imports a gesture set
+ * Purpose		:   Imports a gesture set.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -40,6 +41,13 @@ import org.ximtec.igesture.tool.util.SwingTool;
 import org.ximtec.igesture.util.XMLTool;
 
 
+/**
+ * Imports a gesture set.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ActionImportGestureSet extends BasicAction {
 
    public static final String KEY = "ImportGestureSet";
@@ -55,22 +63,28 @@ public class ActionImportGestureSet extends BasicAction {
 
 
    public void actionPerformed(ActionEvent event) {
-
       if (event.getSource() instanceof JMenuItem) {
          final JFileChooser fileChooser = new JFileChooser();
-         fileChooser.showOpenDialog((JMenuItem) event.getSource());
+         fileChooser.showOpenDialog((JMenuItem)event.getSource());
          final File selectedFile = fileChooser.getSelectedFile();
+
          if (selectedFile != null) {
+
             for (final GestureSet gestureSet : XMLTool
                   .importGestureSet(selectedFile)) {
                mainView.getModel().addGestureSet(gestureSet);
+
                for (final GestureClass gestureClass : gestureSet
                      .getGestureClasses()) {
                   mainView.getModel().addGestureClass(gestureClass);
                }
+
             }
+
          }
+
       }
-   }
+
+   } // actionPerformed
 
 }

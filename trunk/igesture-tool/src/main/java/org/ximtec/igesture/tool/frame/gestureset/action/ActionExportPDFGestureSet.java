@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Creates a PDF document containing the gesture classes
+ * Purpose		:   Creates a PDF document containing the gesture classes.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -45,6 +46,13 @@ import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 
 
+/**
+ * Creates a PDF document containing the gesture classes.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ActionExportPDFGestureSet extends BasicAction {
 
    private static final Logger LOGGER = Logger
@@ -62,21 +70,25 @@ public class ActionExportPDFGestureSet extends BasicAction {
 
 
    public void actionPerformed(ActionEvent event) {
-
       Document.compress = false;
       final JFileChooser fileChooser = new JFileChooser();
       fileChooser.showSaveDialog((JMenuItem)event.getSource());
       final File selectedFile = fileChooser.getSelectedFile();
+
       if (selectedFile != null) {
          final Document document = PDFTool.createDocument(selectedFile);
          document.open();
+
          try {
             document.add(PDFTool.createGestureSetTable(set));
          }
          catch (final DocumentException e) {
             LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
          }
+
          document.close();
       }
-   }
+
+   } // actionPerformed
+
 }
