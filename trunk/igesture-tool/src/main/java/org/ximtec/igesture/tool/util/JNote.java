@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Visualises a sigtec note
+ * Purpose		:   Visualises a sigtec note.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -50,7 +51,13 @@ import org.sigtec.input.InputHandler;
 import org.sigtec.util.Constant;
 
 
-@SuppressWarnings("serial")
+/**
+ * Visualises a sigtec note.
+ * 
+ * @version 1.0 Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class JNote extends JLabel implements InputHandler {
 
    private static final Logger LOGGER = Logger.getLogger(JNote.class.getName());
@@ -93,7 +100,7 @@ public class JNote extends JLabel implements InputHandler {
 
 
    /**
-    * Constructor
+    * Constructs a new JNote.
     * 
     * @param width width of the component
     * @param height height of the component
@@ -104,12 +111,12 @@ public class JNote extends JLabel implements InputHandler {
 
 
    /**
-    * Constructor
+    * Constructs a new JNote.
     * 
-    * @param width width of the component
-    * @param height height of the component
-    * @param spaceWidth the initial width of the space to be represented
-    * @param spaceHeight the initial height of the space to be represented
+    * @param width width of the component.
+    * @param height height of the component.
+    * @param spaceWidth the initial width of the space to be represented.
+    * @param spaceHeight the initial height of the space to be represented.
     */
    public JNote(int width, int height, int spaceWidth, int spaceHeight) {
       super();
@@ -118,16 +125,14 @@ public class JNote extends JLabel implements InputHandler {
       freeze = false;
       this.initialSpaceHeight = spaceHeight;
       this.initialSpaceWidth = spaceWidth;
-
       space = new int[] { spaceWidth, spaceHeight };
-
-      this.setSize(width, height);
+      setSize(width, height);
       bufferedImage = new BufferedImage(width, height,
             BufferedImage.TYPE_INT_ARGB);
       graphic = bufferedImage.getGraphics();
       ((Graphics2D)graphic).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
             RenderingHints.VALUE_ANTIALIAS_ON);
-      this.setIcon(new ImageIcon(bufferedImage));
+      setIcon(new ImageIcon(bufferedImage));
       graphic.setColor(Color.BLACK);
    }
 
@@ -137,21 +142,24 @@ public class JNote extends JLabel implements InputHandler {
          clear();
          freeze = false;
       }
-      drawNextPoint(convert(location));
-   }
+
+      drawNextPoint(location.toPoint());
+   } // handle
 
 
    /**
-    * Sets a complete note to be drawn
+    * Sets a complete note to be drawn.
     * 
-    * @param note
+    * @param note the note to be drawn.
     */
    public void setNote(Note note) {
       clear();
+
       for (final Point point : note.getPoints()) {
          drawNextPoint(point);
       }
-   }
+
+   } // setNote
 
 
    /**
@@ -161,14 +169,14 @@ public class JNote extends JLabel implements InputHandler {
     */
    public void freeze() {
       freeze = true;
-   }
+   } // freeze
 
 
    /**
-    * Exports the Drawing as Image File
+    * Exports the drawing as an image file.
     * 
-    * @param file
-    * @param format
+    * @param file the file in which the image of the note has to be stored.
+    * @param format the format of the stored image.
     */
    public void exportImage(File file, String format) {
       try {
@@ -177,23 +185,22 @@ public class JNote extends JLabel implements InputHandler {
       catch (final IOException e) {
          LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
-   }
+
+   } // exportImage
 
 
    /**
-    * Exports the Drawing PNG file
+    * Exports the drawing as a PNG file.
     * 
-    * @param file
+    * @param file the file in which the image of the note has to be stored.
     */
    public void exportPNGImage(File file) {
       exportImage(file, PNG);
-   }
+   } // exportPNGImage
 
 
    /**
-    * Draws the next point
-    * 
-    * @param currentPoint
+    * Draws the next point.
     */
    public synchronized void drawNextPoint(Point currentPoint) {
       if (!locationBuffer.contains(currentPoint)) {
@@ -216,107 +223,98 @@ public class JNote extends JLabel implements InputHandler {
          drawPoint(translate(currentPoint), MARKER_RADIUS);
          numberTrace(translate(currentPoint), traceNumber++);
       }
-      this.repaint();
+
+      repaint();
       lastPoint = currentPoint;
-   }
+   } // drawNextPoint
 
 
    /**
-    * Update the middle point
-    * 
-    * @param point
+    * Update the middle point.
     */
    private synchronized void updateMiddlePoint(Point point) {
       scale = Math.min((double)bufferedImage.getWidth() / space[0],
             (double)bufferedImage.getHeight() / space[1]);
-
       translation = new int[2];
       translation[0] = (int)(bufferedImage.getWidth() / 2 - point.getX() * scale);
       translation[1] = (int)(bufferedImage.getHeight() / 2 - point.getY()
             * scale);
-
-      this.refresh();
-   }
+      refresh();
+   } // updateMiddlePoint
 
 
    /**
-    * Redraw the full drawing
+    * Redraw the entire drawing.
     * 
     */
    private synchronized void refresh() {
       clearBufferedImage();
-
       traceNumber = 0;
       final Point tmp = lastPoint;
       lastPoint = null;
+
       for (final Point ts : locationBuffer) {
          drawNextPoint(ts);
       }
+
       lastPoint = tmp;
-   }
+   } // refresh
 
 
    /**
-    * Draws a line between two given points
+    * Draws a line between two given points.
     * 
-    * @param startPoint the start point
-    * @param endPoint the end point
+    * @param startPoint the start point.
+    * @param endPoint the end point.
     */
    private void drawLine(Point startPoint, Point endPoint) {
       graphic.drawLine((int)startPoint.getX(), (int)startPoint.getY(),
             (int)endPoint.getX(), (int)endPoint.getY());
-   }
+   } // drawLine
 
 
    /**
-    * Draws a point marking the beginning of a stroke
+    * Draws a point marking the start of a stroke.
     * 
-    * @param point the point hold location information
-    * @param radius the radius of the point
+    * @param point the point hold location information.
+    * @param radius the radius of the point.
     */
    private void drawPoint(Point point, int radius) {
       graphic.setColor(Color.RED);
       graphic.fillOval((int)point.getX() - radius / 2, (int)point.getY()
             - radius / 2, radius, radius);
-
       graphic.setColor(Color.BLACK);
-   }
+   } // drawPoint
 
 
    /**
-    * Numbers the traces
-    * 
-    * @param point
-    * @param number
+    * Numbers the traces.
     */
    private void numberTrace(Point point, int number) {
       graphic.setColor(Color.RED);
-
       graphic.drawString(String.valueOf(number), (int)point.getX() - 5,
             (int)point.getY() - 5);
-
       graphic.setColor(Color.BLACK);
-   }
+   } // numberTrace
 
 
    /**
-    * Translate the point
-    * 
-    * @param point the original point
-    * @return the transformed point
+    * Translates the point.
+    * @param point the original point.
+    * @return the transformed point.
     */
    private Point translate(Point point) {
       final double x = (point.getX() * scale + translation[0]);
       final double y = (point.getY() * scale + translation[1]);
       return new Point((int)x, (int)y);
-   }
+   } // translate
 
 
    /**
-    * Test if the point is located in the drawing area
+    * Tests if the point lies within the drawing area.
     * 
-    * @param point
-    * @return
+    * @param point the point to be tested.
+    * @return true if the point lies within the drawing area.
     */
    private boolean isInArea(Point point) {
       if (point.getX() > bufferedImage.getWidth()
@@ -324,51 +322,38 @@ public class JNote extends JLabel implements InputHandler {
             || point.getY() < 0) {
          return false;
       }
+
       return true;
-   }
+   } // isInArea
 
 
    /**
-    * Computes the cetner point of a drawing
+    * Computes the cetner point of a drawing.
     * 
-    * @return the center point
+    * @return the drawing's center point.
     */
    private Point computeCenterPoint() {
       final List<Point2D> points = new ArrayList<Point2D>();
+
       for (final Point ts : locationBuffer) {
          points.add(new Point2D.Double(ts.getX(), ts.getY()));
       }
+
       final Point2D point = Points.getCentre(points);
       return new Point((int)point.getX(), (int)point.getY());
-   }
+   } // computeCenterPoint
 
 
    /**
-    * Tests if a new strace was started
-    * 
-    * @param loc1 point 1
-    * @param loc2 point 2
-    * @return
+    * Tests if a new strace was been started.
     */
    private boolean isNewTrace(Point loc1, Point loc2) {
       return loc2.getTimestamp() - loc1.getTimestamp() < MAX_TIME;
-   }
+   } // isNewTrace
 
 
    /**
-    * Converts a timestamped location into a point
-    * 
-    * @param location
-    * @return
-    */
-   private Point convert(TimestampedLocation location) {
-      return new Point(location.getPosition().getX(), location.getPosition()
-            .getY(), location.getTimestamp());
-   }
-
-
-   /**
-    * Clears the drawing area
+    * Clears the drawing area.
     * 
     */
    public void clear() {
@@ -378,7 +363,7 @@ public class JNote extends JLabel implements InputHandler {
       space = new int[] { initialSpaceWidth, initialSpaceHeight };
       clearBufferedImage();
       traceNumber = 0;
-   }
+   } // clear
 
 
    private void clearBufferedImage() {
@@ -386,11 +371,11 @@ public class JNote extends JLabel implements InputHandler {
       graphic
             .fillRect(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight());
       graphic.setColor(Color.BLACK);
-   }
+   } // clearBufferedImage
 
 
    public BufferedImage getImage() {
       return bufferedImage;
-   }
+   } // getImage
 
 }

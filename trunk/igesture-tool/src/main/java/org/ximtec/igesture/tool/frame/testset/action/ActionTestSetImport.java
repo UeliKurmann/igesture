@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Imports a test set from an XML file
+ * Purpose		: 	Imports a test set from an XML file.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 23.12.2006 		ukurmann	Initial Release
+ * Nov 21, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -43,10 +44,11 @@ import org.ximtec.igesture.util.XMLTool;
 
 
 /**
- * Comment
+ * Imports a test set from an XML file.
  * 
- * @version 1.0 Nov 21, 2006
+ * @version 1.0, Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class ActionTestSetImport extends BasicAction {
 
@@ -65,13 +67,16 @@ public class ActionTestSetImport extends BasicAction {
    public void actionPerformed(ActionEvent event) {
       if (event.getSource() instanceof JMenuItem) {
          final JFileChooser fileChooser = new JFileChooser();
-         fileChooser.showOpenDialog((JMenuItem) event.getSource());
+         fileChooser.showOpenDialog((JMenuItem)event.getSource());
          final File selectedFile = fileChooser.getSelectedFile();
+
          if (selectedFile != null) {
             final List<TestSet> testSets = XMLTool.importTestSet(selectedFile);
             final StorageManager storageManager = mainView.getModel()
                   .getStorageManager();
+
             for (final TestSet testSet : testSets) {
+
                if (storageManager.load(TestSet.class, testSet.getID()) == null) {
                   mainView.getModel().addTestSet(testSet);
                }
@@ -80,8 +85,11 @@ public class ActionTestSetImport extends BasicAction {
                }
 
             }
+
          }
+
       }
-   }
+
+   } // actionPerformed
 
 }

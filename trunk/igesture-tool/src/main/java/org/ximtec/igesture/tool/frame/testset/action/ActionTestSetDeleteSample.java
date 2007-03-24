@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Deletes a sample of the test set
+ * Purpose		: 	Deletes a sample of the test set.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 					ukurmann	Initial Release
+ * Nov 21, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -34,10 +35,11 @@ import org.ximtec.igesture.tool.util.SwingTool;
 
 
 /**
- * Comment
+ * Deletes a sample of the test set.
  * 
- * @version 1.0 Nov 21, 2006
+ * @version 1.0, Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class ActionTestSetDeleteSample extends BasicAction {
 
@@ -55,6 +57,6 @@ public class ActionTestSetDeleteSample extends BasicAction {
 
    public void actionPerformed(ActionEvent event) {
       frame.deleteSelectedSample();
-   }
+   } // actionPerformed
 
 }

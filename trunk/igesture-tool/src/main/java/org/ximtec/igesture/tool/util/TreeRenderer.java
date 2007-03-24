@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   TreeRenderer
+ * Purpose		:   A tree renderer.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -37,6 +38,13 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 
 
+/**
+ * A tree renderer.
+ * 
+ * @version 1.0 Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class TreeRenderer extends DefaultTreeCellRenderer {
 
    private static final ImageIcon PLUS_ICON = IconTool.getIcon("icons/plus",
@@ -49,24 +57,22 @@ public class TreeRenderer extends DefaultTreeCellRenderer {
    @Override
    public Component getTreeCellRendererComponent(JTree tree, Object value,
          boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
-
       super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row,
             hasFocus);
-
-      this.setOpenIcon(PLUS_ICON);
-      this.setClosedIcon(MINUS_ICON);
+      setOpenIcon(PLUS_ICON);
+      setClosedIcon(MINUS_ICON);
 
       if (value instanceof GestureSet) {
-         this.setIcon(IconLoader.getIcon(IconLoader.PACKAGE));
+         setIcon(IconLoader.getIcon(IconLoader.PACKAGE));
       }
       else if (value instanceof GestureClass) {
-         this.setIcon(IconLoader.getIcon(IconLoader.TEXT_SCRIPT));
+         setIcon(IconLoader.getIcon(IconLoader.TEXT_SCRIPT));
       }
       else {
-         this.setIcon(IconLoader.getIcon(IconLoader.HARDDISK));
+         setIcon(IconLoader.getIcon(IconLoader.HARDDISK));
       }
 
       return this;
-   }
+   } // getTreeCellRendererComponent
 
 }

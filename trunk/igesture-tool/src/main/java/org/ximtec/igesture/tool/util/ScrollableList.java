@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Implementation of a scrollable list
+ * Purpose		:   Implementation of a scrollable list.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -34,7 +35,13 @@ import javax.swing.ListModel;
 import javax.swing.border.LineBorder;
 
 
-@SuppressWarnings("serial")
+/**
+ * Implementation of a scrollable list.
+ * 
+ * @version 1.0 Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ScrollableList extends JScrollPane {
 
    private JList list;
@@ -42,8 +49,8 @@ public class ScrollableList extends JScrollPane {
 
    public ScrollableList(ListModel listModel, int width, int height) {
       super();
-      this.setPreferredSize(new Dimension(width, height));
-      this.setAutoscrolls(true);
+      setPreferredSize(new Dimension(width, height));
+      setAutoscrolls(true);
 
       if (listModel == null) {
          list = new JList();
@@ -55,14 +62,13 @@ public class ScrollableList extends JScrollPane {
       list.setVisible(true);
       list.setBorder(new LineBorder(Color.BLACK));
       list.setAutoscrolls(true);
-
-      this.setViewportView(list);
+      setViewportView(list);
    }
 
 
    public JList getList() {
       return list;
-   }
+   } // getList
 
 
    public int getSelectedIndex() {
@@ -72,10 +78,10 @@ public class ScrollableList extends JScrollPane {
 
    public Object getSelectedValue() {
       return list.getSelectedValue();
-   }
+   } // getSelectedValue
 
 
    public void setModel(ListModel model) {
       list.setModel(model);
-   }
+   } // setModel
 }

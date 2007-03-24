@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   About Dialog
+ * Purpose		:   About dialog.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 09.02.2007		ukurmann	Initial Release
+ * Feb 01, 2007     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -43,6 +44,13 @@ import org.sigtec.util.Constant;
 import org.ximtec.igesture.tool.GestureConstants;
 
 
+/**
+ * About dialog.
+ * 
+ * @version 1.0 Feb 2007
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class JAboutDialog extends BasicDialog {
 
    private static final Logger LOGGER = Logger.getLogger(JAboutDialog.class
@@ -56,10 +64,10 @@ public class JAboutDialog extends BasicDialog {
 
 
    private void init(int width, int height, URL path) {
-      this.setIconImage(IconLoader.getImage(IconLoader.INFORMATION));
-      this.setSize(width, height);
-
+      setIconImage(IconLoader.getImage(IconLoader.INFORMATION));
+      setSize(width, height);
       JEditorPane aboutField;
+
       try {
          aboutField = new JEditorPane(path);
          aboutField.setEditable(false);
@@ -88,13 +96,15 @@ public class JAboutDialog extends BasicDialog {
             closeDialog();
          }
       });
+
       addComponent(okButton, SwingTool.createGridBagConstraint(0, 1));
       this.pack();
-   }
+   } // init
 
 
    private void closeDialog() {
-      this.setVisible(false);
-      this.dispose();
-   }
+      setVisible(false);
+      dispose();
+   } // closeDialog
+
 }
