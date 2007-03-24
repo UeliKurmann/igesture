@@ -34,7 +34,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.DataObject;
 
 import com.thoughtworks.xstream.XStream;
@@ -49,6 +52,9 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class XMLStorageEngine implements StorageEngine {
+
+   private static final Logger LOGGER = Logger.getLogger(XMLStorageEngine.class
+         .getName());
 
    private File xmlFile;
 
@@ -84,7 +90,7 @@ public class XMLStorageEngine implements StorageEngine {
          fw.close();
       }
       catch (final IOException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
 
    } // serialize
@@ -109,13 +115,13 @@ public class XMLStorageEngine implements StorageEngine {
          fr.close();
       }
       catch (final FileNotFoundException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       catch (final IOException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       catch (final ClassCastException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       if (dataObjects == null) {
          dataObjects = new HashMap<Class< ? extends DataObject>, List<DataObject>>();

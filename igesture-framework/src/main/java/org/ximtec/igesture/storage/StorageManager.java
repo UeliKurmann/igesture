@@ -32,8 +32,11 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.sigtec.util.Constant;
+import org.ximtec.igesture.batch.BatchMain;
 import org.ximtec.igesture.core.DataObject;
 
 
@@ -46,6 +49,9 @@ import org.ximtec.igesture.core.DataObject;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class StorageManager {
+
+   private static final Logger LOGGER = Logger.getLogger(StorageManager.class
+         .getName());
 
    private StorageEngine storageEngine;
 
@@ -178,25 +184,25 @@ public class StorageManager {
                      .newInstance(new Object[] { file.getPath() });
             }
             catch (SecurityException e) {
-               e.printStackTrace();
+               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
             }
             catch (NoSuchMethodException e) {
-               e.printStackTrace();
+               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
             }
             catch (IllegalArgumentException e) {
-               e.printStackTrace();
+               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
             }
             catch (InstantiationException e) {
-               e.printStackTrace();
+               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
             }
             catch (IllegalAccessException e) {
-               e.printStackTrace();
+               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
             }
             catch (InvocationTargetException e) {
-               e.printStackTrace();
+               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
             }
             catch (ClassNotFoundException e) {
-               e.printStackTrace();
+               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
             }
             break;
          case xml:

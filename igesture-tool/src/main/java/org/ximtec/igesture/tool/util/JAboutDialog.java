@@ -22,6 +22,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.util;
 
 import java.awt.Dimension;
@@ -29,6 +30,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
@@ -36,51 +39,62 @@ import javax.swing.plaf.basic.BasicHTML;
 
 import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicDialog;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.tool.GestureConstants;
+
 
 public class JAboutDialog extends BasicDialog {
 
-	public JAboutDialog(int width, int height, URL path) {
-		super(GestureConstants.COMMON_ABOUT,SwingTool.getGuiBundle());
-		init(width, height, path);
-	}
+   private static final Logger LOGGER = Logger.getLogger(JAboutDialog.class
+         .getName());
 
-	private void init(int width, int height, URL path) {
-		this.setIconImage(IconLoader.getImage(IconLoader.INFORMATION));
-		this.setSize(width, height);
 
-		JEditorPane aboutField;
-		try {
-			aboutField = new JEditorPane(path);
-			aboutField.setEditable(false);
-			aboutField.setContentType("text/html");
-			aboutField.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
-			aboutField.putClientProperty(BasicHTML.documentBaseKey, JAboutDialog.class.getResource("/"));
-			aboutField.setSize(width - 10, height - 50);
-			JScrollPane scrollPane = new JScrollPane(aboutField);
-			scrollPane.setPreferredSize(new Dimension(width - 10, height - 50));
-			scrollPane.setAutoscrolls(true);
-			addComponent(scrollPane,SwingTool.createGridBagConstraint(0, 0));	
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		
-		BasicButton okButton = new BasicButton(GestureConstants.COMMON_CLOSE,
-				SwingTool.getGuiBundle());
-		okButton.addMouseListener(new MouseAdapter(){
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				super.mouseClicked(arg0);
-				closeDialog();
-			}
-		});
-		addComponent(okButton,SwingTool.createGridBagConstraint(0, 1));
-		this.pack();
-	}
-	
-	private void closeDialog(){
-		this.setVisible(false);
-		this.dispose();
-	}
+   public JAboutDialog(int width, int height, URL path) {
+      super(GestureConstants.COMMON_ABOUT, SwingTool.getGuiBundle());
+      init(width, height, path);
+   }
+
+
+   private void init(int width, int height, URL path) {
+      this.setIconImage(IconLoader.getImage(IconLoader.INFORMATION));
+      this.setSize(width, height);
+
+      JEditorPane aboutField;
+      try {
+         aboutField = new JEditorPane(path);
+         aboutField.setEditable(false);
+         aboutField.setContentType("text/html");
+         aboutField.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES,
+               Boolean.TRUE);
+         aboutField.putClientProperty(BasicHTML.documentBaseKey,
+               JAboutDialog.class.getResource("/"));
+         aboutField.setSize(width - 10, height - 50);
+         JScrollPane scrollPane = new JScrollPane(aboutField);
+         scrollPane.setPreferredSize(new Dimension(width - 10, height - 50));
+         scrollPane.setAutoscrolls(true);
+         addComponent(scrollPane, SwingTool.createGridBagConstraint(0, 0));
+      }
+      catch (IOException e) {
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+      }
+
+      BasicButton okButton = new BasicButton(GestureConstants.COMMON_CLOSE,
+            SwingTool.getGuiBundle());
+      okButton.addMouseListener(new MouseAdapter() {
+
+         @Override
+         public void mouseClicked(MouseEvent arg0) {
+            super.mouseClicked(arg0);
+            closeDialog();
+         }
+      });
+      addComponent(okButton, SwingTool.createGridBagConstraint(0, 1));
+      this.pack();
+   }
+
+
+   private void closeDialog() {
+      this.setVisible(false);
+      this.dispose();
+   }
 }

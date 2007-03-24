@@ -29,6 +29,8 @@ package org.ximtec.igesture.algorithm.feature;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Point;
@@ -46,8 +48,12 @@ import org.ximtec.igesture.core.DoubleVector;
  */
 public class FeatureTool {
 
+   private static final Logger LOGGER = Logger.getLogger(FeatureTool.class
+         .getName());
+
+
    /**
-    * Takes a note and returns one trace whicht contains ALL points.
+    * Takes a note and returns one trace whicht contains all points.
     * 
     * @param note the note to extract the points.
     * @return the trace with all points of the note.
@@ -187,7 +193,8 @@ public class FeatureTool {
     */
    public static List<Feature> createFeatureList(String featureList) {
       final ArrayList<Feature> result = new ArrayList<Feature>();
-      final StringTokenizer tokenizer = new StringTokenizer(featureList, Constant.COMMA);
+      final StringTokenizer tokenizer = new StringTokenizer(featureList,
+            Constant.COMMA);
 
       while (tokenizer.hasMoreElements()) {
          result.add(createFeature(tokenizer.nextToken()));
@@ -208,13 +215,13 @@ public class FeatureTool {
          return (Feature)Class.forName(classname.trim()).newInstance();
       }
       catch (final InstantiationException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       catch (final IllegalAccessException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       catch (final ClassNotFoundException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
 
       return null;

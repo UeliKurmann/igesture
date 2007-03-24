@@ -27,12 +27,15 @@
 package org.ximtec.igesture.tool;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.commons.configuration.tree.xpath.XPathExpressionEngine;
 import org.sigtec.input.InputDevice;
 import org.sigtec.input.InputDeviceEventListener;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.io.InputDeviceFactory;
 
 
@@ -44,6 +47,9 @@ import org.ximtec.igesture.io.InputDeviceFactory;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class GestureConfiguration {
+
+   private static final Logger LOGGER = Logger
+         .getLogger(GestureConfiguration.class.getName());
 
    private static final String SELECTED_INPUT_DEVICE = "inputdevices/device[@selected='true']/@name";
    private static final String SELECTED_INPUT_DEVICE2 = "inputdevices/device/name";
@@ -65,7 +71,7 @@ public class GestureConfiguration {
          selectDevice();
       }
       catch (ConfigurationException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
 
    }

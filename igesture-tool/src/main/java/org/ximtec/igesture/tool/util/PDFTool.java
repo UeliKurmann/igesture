@@ -31,6 +31,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureClass;
@@ -52,6 +54,9 @@ import com.lowagie.text.pdf.PdfWriter;
 
 public class PDFTool {
 
+   private static final Logger LOGGER = Logger
+         .getLogger(PDFTool.class.getName());
+
    public static int NUMBER_OF_COLUMNS = 3;
 
 
@@ -67,10 +72,10 @@ public class PDFTool {
          PdfWriter.getInstance(document, new FileOutputStream(file));
       }
       catch (final FileNotFoundException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       catch (final DocumentException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       return document;
 
@@ -132,10 +137,10 @@ public class PDFTool {
          cell.addElement(createTitle(gestureClass.getName()));
       }
       catch (final BadElementException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       catch (final IOException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       return cell;
    }

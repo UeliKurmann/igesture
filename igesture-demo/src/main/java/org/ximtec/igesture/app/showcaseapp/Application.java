@@ -1,9 +1,13 @@
+
+
 package org.ximtec.igesture.app.showcaseapp;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -14,6 +18,7 @@ import org.sigtec.input.BufferedInputDeviceEventListener;
 import org.sigtec.input.InputDevice;
 import org.sigtec.input.InputDeviceEvent;
 import org.sigtec.input.InputDeviceEventListener;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.app.showcaseapp.descriptor.ArrowDescriptor;
@@ -32,108 +37,116 @@ import org.ximtec.igesture.io.ButtonDeviceEventListener;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.MouseReader;
 import org.ximtec.igesture.io.MouseReaderEventListener;
+import org.ximtec.igesture.tool.frame.gestureset.action.ActionExportIPaperForm;
 import org.ximtec.igesture.util.XMLTool;
+
 
 public class Application implements ButtonDeviceEventListener {
 
-	private Recogniser recogniser;
+   private static final Logger LOGGER = Logger.getLogger(Application.class
+         .getName());
 
-	private InputDeviceClient client;
+   private Recogniser recogniser;
 
-	private JFrame frame;
+   private InputDeviceClient client;
 
-	private BufferedImage bufferedImage;
+   private JFrame frame;
 
-	public Application() {
-		initialiseGUI();
-		initGestures();
-	}
+   private BufferedImage bufferedImage;
 
-	private void initGestures() {
-		Configuration configuration = XMLTool.importConfiguration(new File(
-				ClassLoader.getSystemResource(
-						"rubineconfiguration.xml").getFile()));
 
-		GestureSet gestureSet = XMLTool.importGestureSet(
-				new File(ClassLoader.getSystemResource(
-						"demogestures.xml").getFile())).get(0);
+   public Application() {
+      initialiseGUI();
+      initGestures();
+   }
 
-		EventManager eventManager = new EventManager();
-		eventManager.registerRejectEvent(new RejectEventHandler());
 
-		Style style = new Style();
-		StyleEventHandler styleEventHandler = new StyleEventHandler(style);
+   private void initGestures() {
+      Configuration configuration = XMLTool.importConfiguration(new File(
+            ClassLoader.getSystemResource("rubineconfiguration.xml").getFile()));
 
-		Graphics2D graphic = (Graphics2D) bufferedImage.getGraphics();
+      GestureSet gestureSet = XMLTool
+            .importGestureSet(
+                  new File(ClassLoader.getSystemResource("demogestures.xml")
+                        .getFile())).get(0);
 
-		DrawEventHandler drawEventHandler = new DrawEventHandler(graphic, style);
+      EventManager eventManager = new EventManager();
+      eventManager.registerRejectEvent(new RejectEventHandler());
 
-		gestureSet.getGestureClass("Rectangle").addDescriptor(
-				DigitalDescriptor.class, new RectangleDescriptor());
-		gestureSet.getGestureClass("LeftRight").addDescriptor(
-				DigitalDescriptor.class, new LineDescriptor());
-		gestureSet.getGestureClass("Triangle").addDescriptor(
-				DigitalDescriptor.class, new TriangleDescriptor());
-		gestureSet.getGestureClass("Arrow").addDescriptor(
-				DigitalDescriptor.class, new ArrowDescriptor());
+      Style style = new Style();
+      StyleEventHandler styleEventHandler = new StyleEventHandler(style);
 
-		eventManager.registerEventHandler("Rectangle", drawEventHandler);
-		eventManager.registerEventHandler("LeftRight", drawEventHandler);
-		eventManager.registerEventHandler("Triangle", drawEventHandler);
-		eventManager.registerEventHandler("Arrow", drawEventHandler);
-		eventManager.registerEventHandler("Delete", new DeleteEventHandler(graphic));
-		eventManager.registerEventHandler("Red", styleEventHandler);
-		eventManager.registerEventHandler("Black", styleEventHandler);
-		eventManager.registerEventHandler("Yellow", styleEventHandler);
-		eventManager.registerEventHandler("Thin", styleEventHandler);
-		eventManager.registerEventHandler("Fat", styleEventHandler);
+      Graphics2D graphic = (Graphics2D)bufferedImage.getGraphics();
 
-		configuration.addGestureSet(gestureSet);
-		configuration.setEventManager(eventManager);
+      DrawEventHandler drawEventHandler = new DrawEventHandler(graphic, style);
 
-		try {
-			recogniser = new Recogniser(configuration);
-		} catch (AlgorithmException e) {
-			e.printStackTrace();
-		}
-		
-		InputDevice device = new MouseReader();
-		InputDeviceEventListener listener = new BufferedInputDeviceEventListener(
-				new MouseReaderEventListener(), 10000);
+      gestureSet.getGestureClass("Rectangle").addDescriptor(
+            DigitalDescriptor.class, new RectangleDescriptor());
+      gestureSet.getGestureClass("LeftRight").addDescriptor(
+            DigitalDescriptor.class, new LineDescriptor());
+      gestureSet.getGestureClass("Triangle").addDescriptor(
+            DigitalDescriptor.class, new TriangleDescriptor());
+      gestureSet.getGestureClass("Arrow").addDescriptor(DigitalDescriptor.class,
+            new ArrowDescriptor());
 
-		client = new InputDeviceClient(device, listener);
-		client.addButtonDeviceEventListener(this);
-	}
+      eventManager.registerEventHandler("Rectangle", drawEventHandler);
+      eventManager.registerEventHandler("LeftRight", drawEventHandler);
+      eventManager.registerEventHandler("Triangle", drawEventHandler);
+      eventManager.registerEventHandler("Arrow", drawEventHandler);
+      eventManager.registerEventHandler("Delete",
+            new DeleteEventHandler(graphic));
+      eventManager.registerEventHandler("Red", styleEventHandler);
+      eventManager.registerEventHandler("Black", styleEventHandler);
+      eventManager.registerEventHandler("Yellow", styleEventHandler);
+      eventManager.registerEventHandler("Thin", styleEventHandler);
+      eventManager.registerEventHandler("Fat", styleEventHandler);
 
-	private void initialiseGUI() {
-		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(440, 620);
+      configuration.addGestureSet(gestureSet);
+      configuration.setEventManager(eventManager);
 
-		bufferedImage = new BufferedImage(420, 600, BufferedImage.TYPE_INT_ARGB);
-		bufferedImage.getGraphics().setColor(Color.WHITE);
-		bufferedImage.getGraphics().fillRect(0, 0, 420, 600);
-		bufferedImage.getGraphics().setColor(Color.BLACK);
+      try {
+         recogniser = new Recogniser(configuration);
+      }
+      catch (AlgorithmException e) {
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+      }
 
-		JLabel label = new JLabel();
-		label.setSize(420, 620);
-		label.setIcon(new ImageIcon(bufferedImage));
-		frame.add(label);
-		frame.setVisible(true);
-	}
+      InputDevice device = new MouseReader();
+      InputDeviceEventListener listener = new BufferedInputDeviceEventListener(
+            new MouseReaderEventListener(), 10000);
 
-	public static void main(String[] args) {
-		new Application();
-	}
+      client = new InputDeviceClient(device, listener);
+      client.addButtonDeviceEventListener(this);
+   }
 
-	public void handleButtonPressedEvent(InputDeviceEvent event) {
-		Note note = client.createNote(0, event.getTimestamp(), 70);
 
-		Note clone = (Note) note.clone();
-		clone.scale(2);
+   private void initialiseGUI() {
+      frame = new JFrame();
+      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      frame.setSize(440, 620);
+      bufferedImage = new BufferedImage(420, 600, BufferedImage.TYPE_INT_ARGB);
+      bufferedImage.getGraphics().setColor(Color.WHITE);
+      bufferedImage.getGraphics().fillRect(0, 0, 420, 600);
+      bufferedImage.getGraphics().setColor(Color.BLACK);
+      JLabel label = new JLabel();
+      label.setSize(420, 620);
+      label.setIcon(new ImageIcon(bufferedImage));
+      frame.add(label);
+      frame.setVisible(true);
+   }
 
-		recogniser.recognise(clone);
-		frame.repaint();
-	}
+
+   public static void main(String[] args) {
+      new Application();
+   }
+
+
+   public void handleButtonPressedEvent(InputDeviceEvent event) {
+      Note note = client.createNote(0, event.getTimestamp(), 70);
+      Note clone = (Note)note.clone();
+      clone.scale(2);
+      recogniser.recognise(clone);
+      frame.repaint();
+   }
 
 }

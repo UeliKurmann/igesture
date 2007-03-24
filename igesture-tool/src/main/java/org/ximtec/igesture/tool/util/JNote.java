@@ -35,6 +35,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -45,10 +47,13 @@ import org.sigtec.ink.Note;
 import org.sigtec.ink.Point;
 import org.sigtec.ink.input.TimestampedLocation;
 import org.sigtec.input.InputHandler;
+import org.sigtec.util.Constant;
 
 
 @SuppressWarnings("serial")
 public class JNote extends JLabel implements InputHandler {
+
+   private static final Logger LOGGER = Logger.getLogger(JNote.class.getName());
 
    private BufferedImage bufferedImage;
 
@@ -120,7 +125,7 @@ public class JNote extends JLabel implements InputHandler {
       bufferedImage = new BufferedImage(width, height,
             BufferedImage.TYPE_INT_ARGB);
       graphic = bufferedImage.getGraphics();
-      ((Graphics2D) graphic).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+      ((Graphics2D)graphic).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
             RenderingHints.VALUE_ANTIALIAS_ON);
       this.setIcon(new ImageIcon(bufferedImage));
       graphic.setColor(Color.BLACK);
@@ -128,7 +133,7 @@ public class JNote extends JLabel implements InputHandler {
 
 
    public void handle(Object invoker, TimestampedLocation location) {
-	   if (freeze) {
+      if (freeze) {
          clear();
          freeze = false;
       }
@@ -170,7 +175,7 @@ public class JNote extends JLabel implements InputHandler {
          ImageIO.write(bufferedImage, format, file);
       }
       catch (final IOException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
    }
 
@@ -222,13 +227,12 @@ public class JNote extends JLabel implements InputHandler {
     * @param point
     */
    private synchronized void updateMiddlePoint(Point point) {
-      scale = Math.min((double) bufferedImage.getWidth() / space[0],
-            (double) bufferedImage.getHeight() / space[1]);
+      scale = Math.min((double)bufferedImage.getWidth() / space[0],
+            (double)bufferedImage.getHeight() / space[1]);
 
       translation = new int[2];
-      translation[0] = (int) (bufferedImage.getWidth() / 2 - point.getX()
-            * scale);
-      translation[1] = (int) (bufferedImage.getHeight() / 2 - point.getY()
+      translation[0] = (int)(bufferedImage.getWidth() / 2 - point.getX() * scale);
+      translation[1] = (int)(bufferedImage.getHeight() / 2 - point.getY()
             * scale);
 
       this.refresh();
@@ -259,8 +263,8 @@ public class JNote extends JLabel implements InputHandler {
     * @param endPoint the end point
     */
    private void drawLine(Point startPoint, Point endPoint) {
-      graphic.drawLine((int) startPoint.getX(), (int) startPoint.getY(),
-            (int) endPoint.getX(), (int) endPoint.getY());
+      graphic.drawLine((int)startPoint.getX(), (int)startPoint.getY(),
+            (int)endPoint.getX(), (int)endPoint.getY());
    }
 
 
@@ -272,7 +276,7 @@ public class JNote extends JLabel implements InputHandler {
     */
    private void drawPoint(Point point, int radius) {
       graphic.setColor(Color.RED);
-      graphic.fillOval((int) point.getX() - radius / 2, (int) point.getY()
+      graphic.fillOval((int)point.getX() - radius / 2, (int)point.getY()
             - radius / 2, radius, radius);
 
       graphic.setColor(Color.BLACK);
@@ -288,8 +292,8 @@ public class JNote extends JLabel implements InputHandler {
    private void numberTrace(Point point, int number) {
       graphic.setColor(Color.RED);
 
-      graphic.drawString(String.valueOf(number), (int) point.getX() - 5,
-            (int) point.getY() - 5);
+      graphic.drawString(String.valueOf(number), (int)point.getX() - 5,
+            (int)point.getY() - 5);
 
       graphic.setColor(Color.BLACK);
    }
@@ -304,7 +308,7 @@ public class JNote extends JLabel implements InputHandler {
    private Point translate(Point point) {
       final double x = (point.getX() * scale + translation[0]);
       final double y = (point.getY() * scale + translation[1]);
-      return new Point((int) x, (int) y);
+      return new Point((int)x, (int)y);
    }
 
 
@@ -335,7 +339,7 @@ public class JNote extends JLabel implements InputHandler {
          points.add(new Point2D.Double(ts.getX(), ts.getY()));
       }
       final Point2D point = Points.getCentre(points);
-      return new Point((int) point.getX(), (int) point.getY());
+      return new Point((int)point.getX(), (int)point.getY());
    }
 
 

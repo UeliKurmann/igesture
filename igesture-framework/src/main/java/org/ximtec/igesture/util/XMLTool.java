@@ -38,6 +38,8 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -53,6 +55,7 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.sigtec.jdom.JdomDocument;
 import org.sigtec.jdom.id.Factory;
+import org.sigtec.util.Constant;
 import org.sigtec.util.FileHandler;
 import org.ximtec.igesture.batch.BatchProcessContainer;
 import org.ximtec.igesture.batch.BatchResultSet;
@@ -77,6 +80,9 @@ import org.xml.sax.InputSource;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class XMLTool {
+
+   private static final Logger LOGGER = Logger
+         .getLogger(XMLTool.class.getName());
 
    public static final String ROOT_TAG = "sets";
 
@@ -267,10 +273,10 @@ public class XMLTool {
          document = builder.build(is);
       }
       catch (final IOException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       catch (final JDOMException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
 
       return document;
@@ -316,7 +322,7 @@ public class XMLTool {
          xslSR = new FileReader(new File(xslFile));
       }
       catch (final FileNotFoundException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
 
       final TransformerFactory tFactory = TransformerFactory.newInstance();

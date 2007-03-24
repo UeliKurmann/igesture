@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   creates a test set out of a gesture set
+ * Purpose		:   Creates a test set out of a gesture set.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 1.12.2006		ukurmann	Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
+ * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -41,6 +42,13 @@ import org.ximtec.igesture.util.GestureTool;
 import org.ximtec.igesture.util.XMLTool;
 
 
+/**
+ * Creates a test set out of a gesture set.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ActionCreateTestSet extends BasicAction {
 
    private GestureSet set;
@@ -55,13 +63,15 @@ public class ActionCreateTestSet extends BasicAction {
 
 
    public void actionPerformed(ActionEvent event) {
-
       final JFileChooser fileChooser = new JFileChooser();
-      fileChooser.showSaveDialog((JMenuItem) event.getSource());
+      fileChooser.showSaveDialog((JMenuItem)event.getSource());
       final File selectedFile = fileChooser.getSelectedFile();
+
       if (selectedFile != null) {
          final TestSet testSet = GestureTool.createTestSet(set);
          XMLTool.exportTestSet(testSet, selectedFile);
       }
-   }
+
+   } // actionPerformed
+
 }

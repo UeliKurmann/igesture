@@ -29,10 +29,13 @@ package org.ximtec.igesture.io;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.sigtec.ink.input.Location;
 import org.sigtec.ink.input.TimestampedLocation;
 import org.sigtec.input.InputDeviceEvent;
+import org.sigtec.util.Constant;
 
 
 /**
@@ -44,6 +47,9 @@ import org.sigtec.input.InputDeviceEvent;
  */
 public class MouseReader extends org.sigtec.input.AbstractInputDevice implements
       ButtonDevice {
+
+   private static final Logger LOGGER = Logger.getLogger(MouseReader.class
+         .getName());
 
    private static final int FREQUENCE = 20;
 
@@ -95,7 +101,7 @@ public class MouseReader extends org.sigtec.input.AbstractInputDevice implements
                   Thread.sleep(1000 / FREQUENCE);
                }
                catch (InterruptedException e) {
-                  e.printStackTrace();
+                  LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
                }
 
             }

@@ -33,12 +33,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.sigtec.jdom.id.Factory;
+import org.sigtec.util.Constant;
 import org.xml.sax.InputSource;
 
 
@@ -50,6 +53,9 @@ import org.xml.sax.InputSource;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class Mapping {
+
+   private static final Logger LOGGER = Logger
+         .getLogger(Mapping.class.getName());
 
    public static final int UNDEFINED = -1;
 
@@ -93,15 +99,15 @@ public class Mapping {
 
       }
       catch (final FileNotFoundException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       catch (final JDOMException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       catch (final IOException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
-      
+
       initialised = true;
    } // init
 
@@ -110,7 +116,7 @@ public class Mapping {
       if (!initialised) {
          throw new RuntimeException("Mapping: Class not initialised!");
       }
-      
+
    } // testInit
 
 
@@ -136,5 +142,5 @@ public class Mapping {
       final String result = int2str.get(value);
       return (result != null) ? result : null;
    } // toString
-   
+
 }

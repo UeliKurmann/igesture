@@ -30,6 +30,10 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.PointerInfo;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.sigtec.util.Constant;
 
 import sun.misc.ServiceConfigurationError;
 
@@ -46,6 +50,9 @@ import com.eaio.nativecall.NativeCall;
  */
 public class Win32MouseProxy {
 
+   private static final Logger LOGGER = Logger.getLogger(Win32MouseProxy.class
+         .getName());
+
    public static int LEFT = 0X01;
 
    public static int RIGHT = 0X02;
@@ -57,19 +64,19 @@ public class Win32MouseProxy {
          NativeCall.init();
       }
       catch (final SecurityException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       catch (final UnsatisfiedLinkError e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       catch (final UnsupportedOperationException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       catch (final IOException e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
       catch (final ServiceConfigurationError e) {
-         e.printStackTrace();
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
 
    }
@@ -129,5 +136,5 @@ public class Win32MouseProxy {
       ic.destroy();
       return i;
    } // _GetAsyncKeyState
-   
+
 }
