@@ -26,7 +26,9 @@
 
 package org.ximtec.igesture.algorithm.siger;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.sigtec.ink.Note;
 import org.ximtec.igesture.algorithm.AlgorithmException;
@@ -79,19 +81,19 @@ public class SigerRecogniser extends DefaultAlgorithm {
 
    public ResultSet recognise(Note note) {
       final StrokeInfo si = new StrokeInfo(note);
+      final List<Result> resultList = new ArrayList<Result>();
       final ResultSet result = new ResultSet();
       result.setNote(note);
 
       for (final ClassMatcher regex : gestures.keySet()) {
-
          if (regex.isMatch(si)) {
-            result.addResult(new Result(gestures.get(regex), 1));
+            resultList.add(new Result(gestures.get(regex), 1));
          }
-
       }
 
-      for (final Result r : result.getResults()) {
-         r.setAccuracy((double)1 / result.size());
+      for (final Result r : resultList) {
+         r.setAccuracy((double)1 / resultList.size());
+         result.addResult(r);
       }
 
       fireEvent(result);
