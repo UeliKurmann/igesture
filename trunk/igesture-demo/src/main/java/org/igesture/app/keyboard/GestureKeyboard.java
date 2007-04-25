@@ -56,7 +56,7 @@ public class GestureKeyboard implements ButtonDeviceEventListener {
    private static final Logger LOGGER = Logger.getLogger(GestureKeyboard.class
          .getName());
 
-   private static final String INITIALISING = "Initialising.";
+   private static final String INITIALISING = "Initialising...";
 
    private static final String INITIALISED = "Initialised.";
 

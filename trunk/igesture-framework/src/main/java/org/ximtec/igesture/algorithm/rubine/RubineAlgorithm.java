@@ -76,7 +76,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    private static final Logger LOGGER = Logger.getLogger(AlgorithmFactory.class
          .getName());
 
-   private static final String RESULT = "Result :";
+   private static final String RESULT = "Result: ";
 
    private static final String NO_RESULT = "No result";
 

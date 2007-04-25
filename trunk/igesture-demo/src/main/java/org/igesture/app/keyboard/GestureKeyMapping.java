@@ -42,6 +42,9 @@ import org.ximtec.igesture.io.Win32KeyboardProxy;
  */
 public class GestureKeyMapping {
 
+   private static final String REGEX = "\\+";
+   private static final String KEY_NOT_RECOGNISED = "Key not recognised!";
+
    private Integer[] keys;
    private String gestureName;
 
@@ -71,7 +74,7 @@ public class GestureKeyMapping {
    public void setKeys(String keys) {
       List<Integer> codes = new ArrayList<Integer>();
 
-      for (String key : keys.split("\\+")) {
+      for (String key : keys.split(REGEX)) {
          key = key.trim();
          int code = Win32KeyboardProxy.getKey(key);
 
@@ -79,7 +82,7 @@ public class GestureKeyMapping {
             codes.add(code);
          }
          else {
-            throw new IllegalStateException("Key not recognised!");
+            throw new IllegalStateException(KEY_NOT_RECOGNISED);
          }
 
       }
@@ -103,7 +106,8 @@ public class GestureKeyMapping {
       }
 
       sb.deleteCharAt(sb.length() - 1);
-      sb.append(" -> " + gestureName + Constant.CLOSE_ANGULAR_BRACKET);
+      sb.append(Constant.BLANK + Constant.SHORT_ARROW_RIGHT + Constant.BLANK
+            + gestureName + Constant.CLOSE_ANGULAR_BRACKET);
       return sb.toString();
    } // toString
 
