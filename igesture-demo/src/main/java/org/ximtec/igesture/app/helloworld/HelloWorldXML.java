@@ -55,9 +55,9 @@ public class HelloWorldXML implements ButtonDeviceEventListener {
    private static final Logger LOGGER = Logger.getLogger(HelloWorldXML.class
          .getName());
 
-   private static final String INITIALISED = "Initialised...";
+   private static final String INITIALISED = "Initialised.";
 
-   private static final String NOT_RECOGNISED = "Not recognised...";
+   private static final String NOT_RECOGNISED = "Not recognised.";
 
    private Recogniser recogniser;
 
