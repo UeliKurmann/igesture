@@ -30,6 +30,7 @@ package org.ximtec.igesture.algorithm.siger;
 import java.util.List;
 
 import org.sigtec.ink.Note;
+import org.sigtec.util.Constant;
 
 
 /**
@@ -41,6 +42,8 @@ import org.sigtec.ink.Note;
  */
 public class Statistics {
 
+   private static final String PROXIMITY = "PROXIMITY=";
+   
    // statistical information
    private double numOfLeft;
 
@@ -311,9 +314,9 @@ public class Statistics {
    @Override
    public String toString() {
       final StringBuilder sb = new StringBuilder();
-      sb.append("[");
-      sb.append("PROXIMITY=" + getProximity());
-      sb.append("]");
+      sb.append(Constant.OPEN_ANGULAR_BRACKET);
+      sb.append(PROXIMITY + getProximity());
+      sb.append(Constant.CLOSE_ANGULAR_BRACKET);
       return sb.toString();
    }
 
