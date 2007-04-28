@@ -76,6 +76,12 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    private static final Logger LOGGER = Logger.getLogger(AlgorithmFactory.class
          .getName());
 
+   private static final String DEFAULT_MAHALANOBIS_DISTANCE = "100";
+
+   private static final String DEFAULT_PROBABILITY = "0.95";
+
+   private static final String DEFAULT_MIN_DISTANCE = "1";
+
    private static final String RESULT = "Result: ";
 
    private static final String NO_RESULT = "No result";
@@ -132,7 +138,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    GestureSet gestureSet;
 
    public enum Config {
-      MIN_DISTANCE, FEATURE_LIST, MAHALANOBIS_DISTANCE, PROPABILITY
+      MIN_DISTANCE, FEATURE_LIST, MAHALANOBIS_DISTANCE, PROBABILITY
    }
 
    /**
@@ -151,12 +157,13 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
     */
    static {
       /**
-       * Parameter Default Values
+       * Parameter default values
        */
-      DEFAULT_CONFIGURATION.put(Config.MIN_DISTANCE.name(), "1");
-
-      DEFAULT_CONFIGURATION.put(Config.MAHALANOBIS_DISTANCE.name(), "100");
-      DEFAULT_CONFIGURATION.put(Config.PROPABILITY.name(), "0.95");
+      DEFAULT_CONFIGURATION
+            .put(Config.MIN_DISTANCE.name(), DEFAULT_MIN_DISTANCE);
+      DEFAULT_CONFIGURATION.put(Config.MAHALANOBIS_DISTANCE.name(),
+            DEFAULT_MAHALANOBIS_DISTANCE);
+      DEFAULT_CONFIGURATION.put(Config.PROBABILITY.name(), DEFAULT_PROBABILITY);
       DEFAULT_CONFIGURATION.put(Config.FEATURE_LIST.name(), F1.class.getName()
             + Constant.COMMA + F2.class.getName() + Constant.COMMA
             + F3.class.getName() + Constant.COMMA + F4.class.getName()
@@ -164,7 +171,6 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
             + F6.class.getName() + Constant.COMMA + F7.class.getName()
             + Constant.COMMA + F8.class.getName() + Constant.COMMA
             + F9.class.getName() + Constant.COMMA + F10.class.getName());
-
       LOGGER.setLevel(Level.WARNING);
    }
 
@@ -194,8 +200,8 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
 
    public void init(Configuration config) throws AlgorithmException {
-      final HashMap<String, String> parameters = config
-            .getParameters(this.getClass().getCanonicalName());
+      final HashMap<String, String> parameters = config.getParameters(this
+            .getClass().getCanonicalName());
       minDistance = AlgorithmTool.getDoubleParameterValue(Config.MIN_DISTANCE
             .name(), parameters, DEFAULT_CONFIGURATION);
       LOGGER.info(Config.MIN_DISTANCE + Constant.COLON_BLANK + minDistance);
@@ -209,9 +215,9 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       LOGGER.info(Config.FEATURE_LIST + Constant.COLON_BLANK + featureNames);
       featureList = FeatureTool.createFeatureList(featureNames).toArray(
             new Feature[0]);
-      probability = AlgorithmTool.getDoubleParameterValue(Config.PROPABILITY
+      probability = AlgorithmTool.getDoubleParameterValue(Config.PROBABILITY
             .name(), parameters, DEFAULT_CONFIGURATION);
-      LOGGER.info(Config.PROPABILITY + Constant.COLON_BLANK + probability);
+      LOGGER.info(Config.PROBABILITY + Constant.COLON_BLANK + probability);
       addEventManagerListener(config.getEventManager());
       preprocess(GestureTool.combine(config.getGestureSets()));
    } // init
