@@ -56,6 +56,9 @@ import org.ximtec.igesture.core.TestSet;
  */
 public class GestureTool {
 
+   private static final String COMBINED_SET = "CombinedGestureSet";
+   private static final String DEFAULT_NAME = "Name";
+   
    public static double scaleTraceTo(org.sigtec.ink.Trace trace,
          double maxWidth, double maxHeight) {
       final Rectangle2D bounds = trace.getBounds2D();
@@ -203,7 +206,7 @@ public class GestureTool {
     */
    public static GestureSet combineSampleData(List<GestureSet> sets) {
       final HashMap<String, GestureClass> samples = new HashMap<String, GestureClass>();
-      final GestureSet result = new GestureSet("CombinedGestureSet");
+      final GestureSet result = new GestureSet(COMBINED_SET);
 
       for (final GestureSet set : sets) {
 
@@ -236,7 +239,7 @@ public class GestureTool {
     * @return the test set.
     */
    public static TestSet createTestSet(GestureSet set) {
-      final TestSet testSet = new TestSet("Name");
+      final TestSet testSet = new TestSet(DEFAULT_NAME);
 
       for (final GestureClass gestureClass : set.getGestureClasses()) {
 
@@ -258,7 +261,7 @@ public class GestureTool {
     * @return a noise test set.
     */
    public static TestSet createNoise(GestureSet set) {
-      final TestSet testSet = new TestSet("Name");
+      final TestSet testSet = new TestSet(DEFAULT_NAME);
 
       for (final GestureClass gestureClass : set.getGestureClasses()) {
 
@@ -279,7 +282,7 @@ public class GestureTool {
     * @return the combined test sets.
     */
    public static TestSet combineTestSet(TestSet[] testSets) {
-      final TestSet result = new TestSet("testset");
+      final TestSet result = new TestSet(DEFAULT_NAME);
       
       for (final TestSet set : testSets) {
          result.addAll(set.getSamples());
