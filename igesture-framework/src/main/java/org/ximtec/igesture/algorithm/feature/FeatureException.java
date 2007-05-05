@@ -1,5 +1,5 @@
 /*
- * @(#)FeatureException.java   1.0   May 5, 2007
+ * $Id$
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
