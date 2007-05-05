@@ -40,9 +40,14 @@ import org.sigtec.ink.Trace;
  */
 public class F17 implements Feature {
 
-	private static int minimalNumberOfPoints = 3;
-	
-   public double compute(Note note) throws FeatureException{
+   private static final int MINIMAL_NUMBER_OF_POINTS = 3;
+
+
+   public double compute(Note note) throws FeatureException {
+      if (note.getPoints().size() < MINIMAL_NUMBER_OF_POINTS) {
+         throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
+      }
+
       final Trace trace = FeatureTool.createTrace(note);
       final double a1 = FeatureTool.getAngle(trace.getStartPoint(), trace
             .get(trace.size() / 2));
@@ -50,9 +55,10 @@ public class F17 implements Feature {
             .getEndPoint());
       return Math.sin(Math.toRadians(a1 - a2));
    } // compute
-   
+
+
    public int getMinimalNumberOfPoints() {
-		return minimalNumberOfPoints;
-	} // getMinimalNumberOfPoints
+      return MINIMAL_NUMBER_OF_POINTS;
+   } // getMinimalNumberOfPoints
 
 }

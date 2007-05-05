@@ -40,30 +40,35 @@ import org.sigtec.ink.Trace;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class F12 implements Feature {
-	
-	private static int minimalNumberOfPoints = 2;
 
-   public double compute(Note note) throws FeatureException{
+   private static final int MINIMAL_NUMBER_OF_POINTS = 2;
+
+
+   public double compute(Note note) throws FeatureException {
+      if (note.getPoints().size() < MINIMAL_NUMBER_OF_POINTS) {
+         throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
+      }
+
       final Trace trace = FeatureTool.createTrace(note);
       final Point[] points = new Point[trace.getPoints().size()];
       int j = 0;
-      
+
       for (final Point p : trace.getPoints()) {
          points[j] = p;
          j++;
       }
-      
+
       double max = Double.MIN_VALUE;
-      
+
       for (int i = 0; i < trace.getPoints().size() - 1; i++) {
          final double result = getFraction(i, points);
-         
+
          if (result > max) {
             max = result;
          }
-      
+
       }
-      
+
       return max;
    } // compute
 
@@ -74,9 +79,10 @@ public class F12 implements Feature {
       final double dividend = Math.pow(FeatureTool.getDeltaT(i, points), 2);
       return Math.atan(divisor / dividend);
    } // getFraction
-   
+
+
    public int getMinimalNumberOfPoints() {
-		return minimalNumberOfPoints;
-	} // getMinimalNumberOfPoints
+      return MINIMAL_NUMBER_OF_POINTS;
+   } // getMinimalNumberOfPoints
 
 }

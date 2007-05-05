@@ -23,10 +23,12 @@
  * 
  */
 
+
 package org.ximtec.igesture.algorithm.feature;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Trace;
+
 
 /**
  * UK Feature F24. Cos to x axis midpoint - endpoint.
@@ -37,17 +39,23 @@ import org.sigtec.ink.Trace;
  */
 public class F19 implements Feature {
 
-	private static int minimalNumberOfPoints = 3;
+   private static final int MINIMAL_NUMBER_OF_POINTS = 3;
 
-	public double compute(Note note) throws FeatureException{
-		final Trace trace = FeatureTool.createTrace(note);
-		final double a1 = FeatureTool.getAngle(trace.get(trace.size() / 2),
-				trace.getEndPoint());
-		return Math.cos(Math.toRadians(a1));
-	} // compute
 
-	public int getMinimalNumberOfPoints() {
-		return minimalNumberOfPoints;
-	} // getMinimalNumberOfPoints
+   public double compute(Note note) throws FeatureException {
+      if (note.getPoints().size() < MINIMAL_NUMBER_OF_POINTS) {
+         throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
+      }
+
+      final Trace trace = FeatureTool.createTrace(note);
+      final double a1 = FeatureTool.getAngle(trace.get(trace.size() / 2), trace
+            .getEndPoint());
+      return Math.cos(Math.toRadians(a1));
+   } // compute
+
+
+   public int getMinimalNumberOfPoints() {
+      return MINIMAL_NUMBER_OF_POINTS;
+   } // getMinimalNumberOfPoints
 
 }

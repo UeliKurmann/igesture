@@ -24,10 +24,12 @@
  * 
  */
 
+
 package org.ximtec.igesture.algorithm.feature;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Trace;
+
 
 /**
  * Rubine Feature F3. Length of the bounding box diagonal.
@@ -38,19 +40,25 @@ import org.sigtec.ink.Trace;
  */
 public class F3 implements Feature {
 
-	private static int minimalNumberOfPoints = 2;
+   private static final int MINIMAL_NUMBER_OF_POINTS = 2;
 
-	public double compute(Note note) throws FeatureException{
-		final Trace trace = FeatureTool.createTrace(note);
-		final double minX = trace.getBounds2D().getMinX();
-		final double minY = trace.getBounds2D().getMinY();
-		final double maxX = trace.getBounds2D().getMaxX();
-		final double maxY = trace.getBounds2D().getMaxY();
-		return Math.sqrt(Math.pow(maxX - minX, 2) + Math.pow(maxY - minY, 2));
-	} // compute
 
-	public int getMinimalNumberOfPoints() {
-		return minimalNumberOfPoints;
-	} // getMinimalNumberOfPoints
+   public double compute(Note note) throws FeatureException {
+      if (note.getPoints().size() < MINIMAL_NUMBER_OF_POINTS) {
+         throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
+      }
+
+      final Trace trace = FeatureTool.createTrace(note);
+      final double minX = trace.getBounds2D().getMinX();
+      final double minY = trace.getBounds2D().getMinY();
+      final double maxX = trace.getBounds2D().getMaxX();
+      final double maxY = trace.getBounds2D().getMaxY();
+      return Math.sqrt(Math.pow(maxX - minX, 2) + Math.pow(maxY - minY, 2));
+   } // compute
+
+
+   public int getMinimalNumberOfPoints() {
+      return MINIMAL_NUMBER_OF_POINTS;
+   } // getMinimalNumberOfPoints
 
 }

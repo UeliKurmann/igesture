@@ -46,7 +46,8 @@ public interface Feature {
     * @return the value of the feature.
     */
    public double compute(Note note) throws FeatureException;
-   
+
+
    public int getMinimalNumberOfPoints();
 
 }

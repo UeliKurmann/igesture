@@ -35,4 +35,10 @@ package org.ximtec.igesture.algorithm.feature;
  */
 public class FeatureException extends Exception {
 
+   public static final String NOT_ENOUGH_POINTS = "Not enough points";
+ 
+   public FeatureException(String message) {
+      super(message);
+   }
+   
 }

@@ -39,10 +39,15 @@ import org.sigtec.ink.Trace;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class F5 implements Feature {
-	
-	private static int minimalNumberOfPoints = 2;
 
-   public double compute(Note note) throws FeatureException{
+   private static final int MINIMAL_NUMBER_OF_POINTS = 2;
+
+
+   public double compute(Note note) throws FeatureException {
+      if (note.getPoints().size() < MINIMAL_NUMBER_OF_POINTS) {
+         throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
+      }
+
       final Trace trace = FeatureTool.createTrace(note);
       final double xn = trace.getEndPoint().getX();
       final double x0 = trace.getStartPoint().getX();
@@ -50,9 +55,10 @@ public class F5 implements Feature {
       final double y0 = trace.getStartPoint().getY();
       return Math.sqrt(Math.pow(xn - x0, 2) + Math.pow(yn - y0, 2));
    } // compute
-   
+
+
    public int getMinimalNumberOfPoints() {
-		return minimalNumberOfPoints;
-	} // getMinimalNumberOfPoints
+      return MINIMAL_NUMBER_OF_POINTS;
+   } // getMinimalNumberOfPoints
 
 }
