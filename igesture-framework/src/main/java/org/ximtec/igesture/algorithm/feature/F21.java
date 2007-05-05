@@ -38,8 +38,14 @@ import org.sigtec.ink.Note;
  */
 public class F21 implements Feature {
 
-   public double compute(Note note) {
+	private static int minimalNumberOfPoints = 1;
+	
+   public double compute(Note note) throws FeatureException{
       return note.getTraces().size();
    } // compute
+   
+   public int getMinimalNumberOfPoints() {
+		return minimalNumberOfPoints;
+	} // getMinimalNumberOfPoints
 
 }

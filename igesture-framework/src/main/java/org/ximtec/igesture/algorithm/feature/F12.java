@@ -40,8 +40,10 @@ import org.sigtec.ink.Trace;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class F12 implements Feature {
+	
+	private static int minimalNumberOfPoints = 2;
 
-   public double compute(Note note) {
+   public double compute(Note note) throws FeatureException{
       final Trace trace = FeatureTool.createTrace(note);
       final Point[] points = new Point[trace.getPoints().size()];
       int j = 0;
@@ -72,5 +74,9 @@ public class F12 implements Feature {
       final double dividend = Math.pow(FeatureTool.getDeltaT(i, points), 2);
       return Math.atan(divisor / dividend);
    } // getFraction
+   
+   public int getMinimalNumberOfPoints() {
+		return minimalNumberOfPoints;
+	} // getMinimalNumberOfPoints
 
 }

@@ -41,7 +41,9 @@ import org.sigtec.ink.Trace;
  */
 public class F2 implements Feature {
 
-   public double compute(Note note) {
+	private static int minimalNumberOfPoints = 5;
+	
+   public double compute(Note note) throws FeatureException{
       final Trace trace = FeatureTool.createTrace(note);
       final Point p0 = trace.get(0);
       Point p2 = trace.get(2);
@@ -54,5 +56,9 @@ public class F2 implements Feature {
             / (Math.sqrt(Math.pow(p2.getX() - p0.getX(), 2)
                   + Math.pow(p2.getY() - p0.getY(), 2)));
    } // compute
+   
+   public int getMinimalNumberOfPoints() {
+		return minimalNumberOfPoints;
+	} // getMinimalNumberOfPoints
 
 }

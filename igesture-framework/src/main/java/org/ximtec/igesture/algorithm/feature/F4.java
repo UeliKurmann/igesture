@@ -40,7 +40,9 @@ import org.sigtec.ink.Trace;
  */
 public class F4 implements Feature {
 
-   public double compute(Note note) {
+	private static int minimalNumberOfPoints = 2;
+	
+   public double compute(Note note) throws FeatureException{
       final Trace trace = FeatureTool.createTrace(note);
       final double minX = trace.getBounds2D().getMinX();
       final double minY = trace.getBounds2D().getMinY();
@@ -48,5 +50,9 @@ public class F4 implements Feature {
       final double maxY = trace.getBounds2D().getMaxY();
       return Math.atan((maxY - minY) / (maxX - minX));
    } // compute
+   
+   public int getMinimalNumberOfPoints() {
+		return minimalNumberOfPoints;
+	} // getMinimalNumberOfPoints
 
 }

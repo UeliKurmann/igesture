@@ -42,7 +42,9 @@ import org.sigtec.ink.TraceTool;
  */
 public class F23 implements Feature {
 
-   public double compute(Note note) {
+	private static int minimalNumberOfPoints = 2;
+	
+   public double compute(Note note) throws FeatureException{
       double angleSum = 0;
       final List<Trace> traces = FeatureTool.removeShortTraces(
             note.getTraces(), 3);
@@ -59,5 +61,9 @@ public class F23 implements Feature {
 
       return angleSum;
    } // compute
+   
+   public int getMinimalNumberOfPoints() {
+		return minimalNumberOfPoints;
+	} // getMinimalNumberOfPoints
 
 }

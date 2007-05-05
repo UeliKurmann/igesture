@@ -24,12 +24,10 @@
  * 
  */
 
-
 package org.ximtec.igesture.algorithm.feature;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Trace;
-
 
 /**
  * Rubine Feature F7. The sine of the angle between the first and last point.
@@ -40,18 +38,24 @@ import org.sigtec.ink.Trace;
  */
 public class F7 implements Feature {
 
-   public double compute(Note note) {
-      final Trace trace = FeatureTool.createTrace(note);
-      final double yn = trace.getEndPoint().getY();
-      final double y0 = trace.getStartPoint().getY();
-      final F5 f5 = new F5();
-      double divisor = f5.compute(note);
+	private static int minimalNumberOfPoints = 2;
 
-      if (divisor == 0) {
-         divisor = 1;
-      }
+	public double compute(Note note) throws FeatureException {
+		final Trace trace = FeatureTool.createTrace(note);
+		final double yn = trace.getEndPoint().getY();
+		final double y0 = trace.getStartPoint().getY();
+		final F5 f5 = new F5();
+		double divisor = f5.compute(note);
 
-      return (yn - y0) / divisor;
-   } // compute
+		if (divisor == 0) {
+			divisor = 1;
+		}
+
+		return (yn - y0) / divisor;
+	} // compute
+
+	public int getMinimalNumberOfPoints() {
+		return minimalNumberOfPoints;
+	} // getMinimalNumberOfPoints
 
 }

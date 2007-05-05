@@ -42,7 +42,9 @@ import org.sigtec.ink.Trace;
  */
 public class F22 implements Feature {
 
-   public double compute(Note note) {
+	private static int minimalNumberOfPoints = 2;
+	
+   public double compute(Note note) throws FeatureException {
       double distance = 0;
       final List<Trace> traces = note.getTraces();
 
@@ -62,5 +64,9 @@ public class F22 implements Feature {
 
       return 1;
    } // compute
+   
+   public int getMinimalNumberOfPoints() {
+		return minimalNumberOfPoints;
+	} // getMinimalNumberOfPoints
 
 }
