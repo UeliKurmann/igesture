@@ -237,7 +237,7 @@ public class FeatureTool {
     * @return the feature vector.
     */
    public static DoubleVector computeFeatureVector(Note note, int minDistance,
-         Feature[] featureList) {
+         Feature[] featureList) throws FeatureException{
 
       // clone the note to avoid side effects
       final Note clone = (Note)note.clone();
@@ -254,5 +254,18 @@ public class FeatureTool {
 
       return featureVector;
    } // computeFeatureVector
+   
+   /**
+    * Returns the minimal number of points a note must contain to be processed 
+    * @param list the list of features
+    * @return the minimal number of points a note must contain
+    */
+   public static int computeMinimalNumberOfRequiredPoints(Feature[] list){
+	   int result = 0;
+	   for(Feature feature:list){
+		  result = Math.max(result, feature.getMinimalNumberOfPoints());
+	   } 
+	   return result;
+   }
 
 }

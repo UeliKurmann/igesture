@@ -24,13 +24,11 @@
  * 
  */
 
-
 package org.ximtec.igesture.algorithm.feature;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Point;
 import org.sigtec.ink.Trace;
-
 
 /**
  * Rubine Feature F10. The sum of the absolute value of the angle at each point.
@@ -41,23 +39,29 @@ import org.sigtec.ink.Trace;
  */
 public class F10 implements Feature {
 
-   public double compute(Note note) {
-      final Trace trace = FeatureTool.createTrace(note);
-      final Point[] points = new Point[trace.getPoints().size()];
-      int j = 0;
+	private static int minimalNumberOfPoints = 3;
+	
+	public double compute(Note note) throws FeatureException{
+		final Trace trace = FeatureTool.createTrace(note);
+		final Point[] points = new Point[trace.getPoints().size()];
+		int j = 0;
 
-      for (final Point p : trace.getPoints()) {
-         points[j] = p;
-         j++;
-      }
+		for (final Point p : trace.getPoints()) {
+			points[j] = p;
+			j++;
+		}
 
-      double result = 0;
+		double result = 0;
 
-      for (int i = 1; i < trace.getPoints().size() - 1; i++) {
-         result += Math.abs(FeatureTool.roh(i, points));
-      }
+		for (int i = 1; i < trace.getPoints().size() - 1; i++) {
+			result += Math.abs(FeatureTool.roh(i, points));
+		}
 
-      return result;
-   } // compute
+		return result;
+	} // compute
+
+	public int getMinimalNumberOfPoints() {
+		return minimalNumberOfPoints;
+	} // getMinimalNumberOfPoints
 
 }

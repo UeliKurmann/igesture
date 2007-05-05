@@ -44,8 +44,9 @@ public class F15 implements Feature {
 
    private static final double AVERAGE_DIVISOR = 3;
 
+   private static int minimalNumberOfPoints = 3;
 
-   public double compute(Note note) {
+   public double compute(Note note) throws FeatureException{
       final Trace trace = FeatureTool.createTrace(note);
       final List<Double> velocities = new ArrayList<Double>();
 
@@ -57,7 +58,6 @@ public class F15 implements Feature {
          if (deltaT > 0) {
             velocities.add(distance / deltaT);
          }
-
       }
 
       return detectLocalMinima(velocities);
@@ -90,5 +90,9 @@ public class F15 implements Feature {
 
       return sum / list.size();
    } // computeAverage
+   
+   public int getMinimalNumberOfPoints() {
+		return minimalNumberOfPoints;
+	} // getMinimalNumberOfPoints
 
 }

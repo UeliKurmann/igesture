@@ -42,7 +42,9 @@ import org.sigtec.ink.Trace;
  */
 public class F14 implements Feature {
 
-   public double compute(Note note) {
+	private static int minimalNumberOfPoints = 2;
+	
+   public double compute(Note note) throws FeatureException{
       double traceLength = 0;
       double gestureLength = 0;
 
@@ -62,5 +64,9 @@ public class F14 implements Feature {
 
       return gestureLength / traceLength;
    } // compute
+   
+   public int getMinimalNumberOfPoints() {
+		return minimalNumberOfPoints;
+	} // getMinimalNumberOfPoints
 
 }

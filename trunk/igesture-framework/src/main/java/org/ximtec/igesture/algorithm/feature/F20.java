@@ -40,10 +40,16 @@ import org.sigtec.ink.Trace;
  */
 public class F20 implements Feature {
 
-   public double compute(Note note) {
+	private static int minimalNumberOfPoints = 2;
+	
+   public double compute(Note note) throws FeatureException{
       final Trace trace = FeatureTool.createTrace(note);
       final double d1 = trace.getStartPoint().distance(trace.getEndPoint());
       return d1 / new F3().compute(note);
    } // compute
+   
+   public int getMinimalNumberOfPoints() {
+		return minimalNumberOfPoints;
+	} // getMinimalNumberOfPoints
 
 }

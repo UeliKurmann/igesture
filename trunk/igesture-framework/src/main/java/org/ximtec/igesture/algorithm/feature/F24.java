@@ -43,7 +43,9 @@ import org.sigtec.ink.Trace;
  */
 public class F24 implements Feature {
 
-   public double compute(Note note) {
+	private static int minimalNumberOfPoints = 2;
+	
+   public double compute(Note note) throws FeatureException{
       double proportion = 0;
       final List<Trace> traces = note.getTraces();
 
@@ -72,5 +74,9 @@ public class F24 implements Feature {
 
       return proportion;
    } // compute
+   
+   public int getMinimalNumberOfPoints() {
+		return minimalNumberOfPoints;
+	} // getMinimalNumberOfPoints
 
 }
