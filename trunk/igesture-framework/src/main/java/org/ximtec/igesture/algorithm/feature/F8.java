@@ -40,20 +40,25 @@ import org.sigtec.ink.Trace;
  */
 public class F8 implements Feature {
 
-	private static int minimalNumberOfPoints = 2;
-	
-   public double compute(Note note) throws FeatureException{
+   private static final int MINIMAL_NUMBER_OF_POINTS = 2;
+
+
+   public double compute(Note note) throws FeatureException {
+      if (note.getPoints().size() < MINIMAL_NUMBER_OF_POINTS) {
+         throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
+      }
+
       final Trace trace = FeatureTool.createTrace(note);
       final Point[] points = new Point[trace.getPoints().size()];
       int j = 0;
-      
+
       for (final Point p : trace.getPoints()) {
          points[j] = p;
          j++;
       }
 
       double result = 0;
-      
+
       for (int i = 0; i < trace.getPoints().size() - 1; i++) {
          final double deltaX = points[i + 1].getX() - points[i].getX();
          final double deltaY = points[i + 1].getY() - points[i].getY();
@@ -62,9 +67,10 @@ public class F8 implements Feature {
 
       return result;
    } // compute
-   
+
+
    public int getMinimalNumberOfPoints() {
-		return minimalNumberOfPoints;
-	} // getMinimalNumberOfPoints
+      return MINIMAL_NUMBER_OF_POINTS;
+   } // getMinimalNumberOfPoints
 
 }

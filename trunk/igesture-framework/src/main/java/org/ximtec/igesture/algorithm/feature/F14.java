@@ -42,9 +42,14 @@ import org.sigtec.ink.Trace;
  */
 public class F14 implements Feature {
 
-	private static int minimalNumberOfPoints = 2;
-	
-   public double compute(Note note) throws FeatureException{
+   private static final int MINIMAL_NUMBER_OF_POINTS = 2;
+
+
+   public double compute(Note note) throws FeatureException {
+      if (note.getPoints().size() < MINIMAL_NUMBER_OF_POINTS) {
+         throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
+      }
+
       double traceLength = 0;
       double gestureLength = 0;
 
@@ -64,9 +69,10 @@ public class F14 implements Feature {
 
       return gestureLength / traceLength;
    } // compute
-   
+
+
    public int getMinimalNumberOfPoints() {
-		return minimalNumberOfPoints;
-	} // getMinimalNumberOfPoints
+      return MINIMAL_NUMBER_OF_POINTS;
+   } // getMinimalNumberOfPoints
 
 }

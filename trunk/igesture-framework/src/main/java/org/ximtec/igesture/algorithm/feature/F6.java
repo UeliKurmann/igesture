@@ -24,10 +24,12 @@
  * 
  */
 
+
 package org.ximtec.igesture.algorithm.feature;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Trace;
+
 
 /**
  * Rubine Feature F6. The cosine of the angle between the first and last point.
@@ -38,24 +40,30 @@ import org.sigtec.ink.Trace;
  */
 public class F6 implements Feature {
 
-	private static int minimalNumberOfPoints = 2;
+   private static final int MINIMAL_NUMBER_OF_POINTS = 2;
 
-	public double compute(Note note) throws FeatureException{
-		final Trace trace = FeatureTool.createTrace(note);
-		final double xn = trace.getEndPoint().getX();
-		final double x0 = trace.getStartPoint().getX();
-		final F5 f5 = new F5();
-		double divisor = f5.compute(note);
 
-		if (divisor == 0) {
-			divisor = 1;
-		}
+   public double compute(Note note) throws FeatureException {
+      if (note.getPoints().size() < MINIMAL_NUMBER_OF_POINTS) {
+         throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
+      }
 
-		return (xn - x0) / divisor;
-	} // compute
+      final Trace trace = FeatureTool.createTrace(note);
+      final double xn = trace.getEndPoint().getX();
+      final double x0 = trace.getStartPoint().getX();
+      final F5 f5 = new F5();
+      double divisor = f5.compute(note);
 
-	public int getMinimalNumberOfPoints() {
-		return minimalNumberOfPoints;
-	} // getMinimalNumberOfPoints
+      if (divisor == 0) {
+         divisor = 1;
+      }
+
+      return (xn - x0) / divisor;
+   } // compute
+
+
+   public int getMinimalNumberOfPoints() {
+      return MINIMAL_NUMBER_OF_POINTS;
+   } // getMinimalNumberOfPoints
 
 }
