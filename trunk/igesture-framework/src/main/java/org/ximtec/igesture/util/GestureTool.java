@@ -58,7 +58,8 @@ public class GestureTool {
 
    private static final String COMBINED_SET = "CombinedGestureSet";
    private static final String DEFAULT_NAME = "Name";
-   
+
+
    public static double scaleTraceTo(org.sigtec.ink.Trace trace,
          double maxWidth, double maxHeight) {
       final Rectangle2D bounds = trace.getBounds2D();
@@ -144,8 +145,10 @@ public class GestureTool {
 
    /**
     * Creates a characteristic note.
-    * 
-    * @see getCharacteristicTrace
+    * @param note the note to be filtered.
+    * @param minAngle the minimal angle between two sequences.
+    * @param minDistance the minimal distance between two points.
+    * @return the filtered note.
     */
    public static Note getCharacteristicNote(Note note, double minAngle,
          double minDistance) {
@@ -283,7 +286,7 @@ public class GestureTool {
     */
    public static TestSet combineTestSet(TestSet[] testSets) {
       final TestSet result = new TestSet(DEFAULT_NAME);
-      
+
       for (final TestSet set : testSets) {
          result.addAll(set.getSamples());
       }
