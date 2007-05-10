@@ -235,6 +235,7 @@ public class FeatureTool {
     * @param minDistance the minimal distance between two points.
     * @param featureList an array of features.
     * @return the feature vector.
+    * @throws FeatureException uf the feature vector cannot be computed.
     */
    public static DoubleVector computeFeatureVector(Note note, int minDistance,
          Feature[] featureList) throws FeatureException{

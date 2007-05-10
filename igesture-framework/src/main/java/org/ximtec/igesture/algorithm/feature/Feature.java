@@ -44,6 +44,7 @@ public interface Feature {
     * 
     * @param note the note to be used.
     * @return the value of the feature.
+    * @throws FeatureException if the feature cannot be computed.
     */
    public double compute(Note note) throws FeatureException;
 
