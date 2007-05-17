@@ -176,7 +176,7 @@ public class StorageManager {
          case db:
             try {
                Class db4oEngine = Class.forName(Db4oStorageEngine.class
-                     .toString());
+                     .getName());
                Constructor constructor = db4oEngine
                      .getConstructor(new Class[] { String.class });
                engine = (StorageEngine)constructor
