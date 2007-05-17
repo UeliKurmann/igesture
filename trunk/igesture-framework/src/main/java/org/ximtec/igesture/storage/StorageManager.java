@@ -36,7 +36,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.sigtec.util.Constant;
-import org.ximtec.igesture.batch.BatchMain;
 import org.ximtec.igesture.core.DataObject;
 
 
