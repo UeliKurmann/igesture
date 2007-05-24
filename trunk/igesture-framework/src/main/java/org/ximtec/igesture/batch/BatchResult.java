@@ -207,7 +207,7 @@ public class BatchResult {
     * @return the recall.
     */
    public double getRecall() {
-      return (double)numberOfCorrects / (numberOfSamples - numberOfNoise);
+      return (double)numberOfCorrects / (numberOfCorrects + numberOfRejectError);
    } // getRecall
 
 
