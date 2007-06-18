@@ -47,12 +47,23 @@ public class F19 implements Feature {
          throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
       }
 
+      Trace trace = FeatureTool.createTrace(note);
+      return (trace.getEndPoint().getY() - trace.get(trace.size() / 2).getY())
+            / FeatureTool.computeD2(note);
+   } // compute
+
+   
+   public double computeOld(Note note) throws FeatureException {
+      if (note.getPoints().size() < MINIMAL_NUMBER_OF_POINTS) {
+         throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
+      }
+
       final Trace trace = FeatureTool.createTrace(note);
       final double a1 = FeatureTool.getAngle(trace.get(trace.size() / 2), trace
             .getEndPoint());
       return Math.cos(Math.toRadians(a1));
-   } // compute
-
+   } // computeOld
+   
 
    public int getMinimalNumberOfPoints() {
       return MINIMAL_NUMBER_OF_POINTS;
