@@ -42,16 +42,28 @@ public class F18 implements Feature {
 
    private static final int MINIMAL_NUMBER_OF_POINTS = 3;
 
+   
+   public double computeOld(Note note) throws FeatureException {
+      if (note.getPoints().size() < MINIMAL_NUMBER_OF_POINTS) {
+         throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
+      }
+      
+      final Trace trace = FeatureTool.createTrace(note);
+      final double a1 = FeatureTool.getAngle(trace.getStartPoint(), trace
+            .get(trace.size() / 2));
+      return Math.sin(Math.toRadians(a1));
+   } // computeOld
+   
 
    public double compute(Note note) throws FeatureException {
       if (note.getPoints().size() < MINIMAL_NUMBER_OF_POINTS) {
          throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
       }
 
-      double a = Math.pow(FeatureTool.computeD1(note), 2)+Math.pow(FeatureTool.computeD2(note), 2)-Math.pow(FeatureTool.computeD3(note), 2);
-      double b = 2*FeatureTool.computeD1(note)*FeatureTool.computeD2(note);
-      return a/b;
-      
+      Trace trace = FeatureTool.createTrace(note);
+      return (trace.get(trace.size() / 2).getY() - trace.getStartPoint().getY())
+            / FeatureTool.computeD1(note);
+
    } // compute
 
 
