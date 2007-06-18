@@ -268,5 +268,26 @@ public class FeatureTool {
 	   } 
 	   return result;
    }
+   
+   public static double computeD1(Note note){
+	   Trace trace = createTrace(note);
+	   double a = Math.pow(trace.get(trace.size() / 2).getX()-trace.getStartPoint().getX(), 2);
+	   double b = Math.pow(trace.get(trace.size() / 2).getY()-trace.getStartPoint().getY(), 2);
+	   return Math.sqrt(a+b);
+   }
+   
+   public static double computeD2(Note note){
+	   Trace trace = createTrace(note);
+	   double a = Math.pow(trace.getEndPoint().getX()-trace.get(trace.size() / 2).getX(), 2);
+	   double b = Math.pow(trace.getEndPoint().getY()-trace.get(trace.size() / 2).getY(), 2);
+	   return Math.sqrt(a+b);
+   }
+   
+   public static double computeD3(Note note){
+	   Trace trace = createTrace(note);
+	   double a = Math.pow(trace.getEndPoint().getX()-trace.getStartPoint().getX(), 2);
+	   double b = Math.pow(trace.getEndPoint().getY()-trace.getStartPoint().getY(), 2);
+	   return Math.sqrt(a+b);
+   }
 
 }

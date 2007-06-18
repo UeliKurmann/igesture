@@ -50,24 +50,7 @@ public class F14 implements Feature {
          throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
       }
 
-      double traceLength = 0;
-      double gestureLength = 0;
-
-      for (final Trace trace : note.getTraces()) {
-
-         if (trace.getMinDistance() > 0) {
-            traceLength += Math.abs(trace.getStartPoint().distance(
-                  trace.getEndPoint()));
-            gestureLength += trace.getLength();
-         }
-
-      }
-
-      if (Double.isNaN(gestureLength / traceLength)) {
-         return 1;
-      }
-
-      return gestureLength / traceLength;
+      return new F5().compute(note) / new F8().compute(note);
    } // compute
 
 

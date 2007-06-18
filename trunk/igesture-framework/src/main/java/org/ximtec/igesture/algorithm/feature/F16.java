@@ -47,10 +47,8 @@ public class F16 implements Feature {
          throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
       }
 
-      final Trace trace = FeatureTool.createTrace(note);
-
-      return trace.getStartPoint().distance(trace.get(trace.size() / 2))
-            / (new F3().compute(note));
+      return FeatureTool.computeD1(note)/new F3().compute(note);
+      
    } // compute
 
 
