@@ -28,7 +28,6 @@
 package org.ximtec.igesture.algorithm.feature;
 
 import org.sigtec.ink.Note;
-import org.sigtec.ink.Trace;
 
 
 /**
@@ -47,10 +46,8 @@ public class F20 implements Feature {
       if (note.getPoints().size() < MINIMAL_NUMBER_OF_POINTS) {
          throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
       }
-
-      final Trace trace = FeatureTool.createTrace(note);
-      final double d1 = trace.getStartPoint().distance(trace.getEndPoint());
-      return d1 / new F3().compute(note);
+      
+      return new F5().compute(note) / new F3().compute(note);
    } // compute
 
 

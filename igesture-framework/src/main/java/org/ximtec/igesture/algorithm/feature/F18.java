@@ -1,10 +1,10 @@
 /*
- * @(#)F18.java   1.0   Dec 26, 2006
+ * @(#)F17.java   1.0   Dec 26, 2006
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   UK Feature F23. Sine of angle between first
- *                  point / middle point
+ * Purpose      :   UK Feature F22. Sine of angle between first/second
+ *                  part of the stroke.
  *
  * -----------------------------------------------------------------------
  *
@@ -32,7 +32,7 @@ import org.sigtec.ink.Trace;
 
 
 /**
- * UK Feature F23. Sine of angle between first point / middle point.
+ * UK Feature F22. Sine of angle between first/second part of the stroke.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
@@ -48,10 +48,10 @@ public class F18 implements Feature {
          throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
       }
 
-      final Trace trace = FeatureTool.createTrace(note);
-      final double a1 = FeatureTool.getAngle(trace.getStartPoint(), trace
-            .get(trace.size() / 2));
-      return Math.sin(Math.toRadians(a1));
+      double a = Math.pow(FeatureTool.computeD1(note), 2)+Math.pow(FeatureTool.computeD2(note), 2)-Math.pow(FeatureTool.computeD3(note), 2);
+      double b = 2*FeatureTool.computeD1(note)*FeatureTool.computeD2(note);
+      return a/b;
+      
    } // compute
 
 
