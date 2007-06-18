@@ -48,7 +48,7 @@ public class F19 implements Feature {
       }
 
       Trace trace = FeatureTool.createTrace(note);
-      return (trace.getEndPoint().getY() - trace.get(trace.size() / 2).getY())
+      return (trace.getEndPoint().getX() - trace.get(trace.size() / 2).getX())
             / FeatureTool.computeD2(note);
    } // compute
 
