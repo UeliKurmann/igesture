@@ -43,7 +43,7 @@ public class F17 implements Feature {
    private static final int MINIMAL_NUMBER_OF_POINTS = 3;
 
    
-   public double compute(Note note) throws FeatureException {
+   public double computeOld(Note note) throws FeatureException {
       if (note.getPoints().size() < MINIMAL_NUMBER_OF_POINTS) {
          throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
       }
@@ -54,10 +54,10 @@ public class F17 implements Feature {
       final double a2 = FeatureTool.getAngle(trace.get(trace.size() / 2), trace
             .getEndPoint());
       return Math.sin(Math.toRadians(a1 - a2));
-   } // compute
+   } // computeOld
 
    
-   public double computeNew(Note note) throws FeatureException {
+   public double compute(Note note) throws FeatureException {
       if (note.getPoints().size() < MINIMAL_NUMBER_OF_POINTS) {
          throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
       }
@@ -67,7 +67,7 @@ public class F17 implements Feature {
             - Math.pow(FeatureTool.computeD3(note), 2);
       double b = 2 * FeatureTool.computeD1(note) * FeatureTool.computeD2(note);
       return a / b;
-   } // computeNew
+   } // compute
    
 
    public int getMinimalNumberOfPoints() {
