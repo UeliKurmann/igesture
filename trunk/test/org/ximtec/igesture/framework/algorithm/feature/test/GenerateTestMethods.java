@@ -2,7 +2,6 @@ package org.ximtec.igesture.framework.algorithm.feature.test;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.NoteTool;
-import org.ximtec.igesture.algorithm.feature.F1;
 import org.ximtec.igesture.algorithm.feature.Feature;
 import org.ximtec.igesture.algorithm.feature.FeatureException;
 import org.ximtec.igesture.algorithm.feature.FeatureTool;
@@ -38,7 +37,7 @@ public class GenerateTestMethods {
 			Class c = Class.forName("org.ximtec.igesture.algorithm.feature.F"+i);
 			System.out.println("@org.junit.Test");
 			System.out.println("public void feature"+i+"(){");
-			System.out.println("org.junit.Assert.assertEquals(compute(F"+i+".class),"+ compute(c)+");");
+			System.out.println("org.junit.Assert.assertEquals(compute(F"+i+".class),"+ compute(c)+", 0.0000005);");
 			System.out.println("}");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
