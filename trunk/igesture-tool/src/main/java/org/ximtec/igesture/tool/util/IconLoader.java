@@ -62,7 +62,7 @@ public class IconLoader {
    public static String DOCUMENT_OPEN = ACTION + "document-open";
 
    public static String HARDDISK = DEVICE + "drive-harddisk";
-   public static String TEXT_SCRIPT = ACTION + "text-x-script";
+   public static String TEXT_SCRIPT = MIME + "text-x-script";
    public static String DELETE = ACTION + "edit-delete";
    public static String LIST_ADD = ACTION + "list-add";
    public static String LIST_REMOVE = ACTION + "list-remove";
