@@ -437,7 +437,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       }
 
       // compute the weights per class
-      int classIndex = 0;
+      int classIndex = 0; 
 
       for (final GestureClass gestureClass : gestureSet.getGestureClasses()) {
          final DoubleVector meanVector = meanFeatureVector.get(gestureClass);
