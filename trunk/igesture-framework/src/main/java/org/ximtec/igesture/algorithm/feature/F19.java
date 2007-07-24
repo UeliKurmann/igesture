@@ -3,7 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   UK Feature F24. Cos to x axis midpoint - endpont.
+ * Purpose      :   Feature representing the proportion start/end-point
+ *                  to the diagonal of the bounding box.
  *
  * -----------------------------------------------------------------------
  *
@@ -13,6 +14,7 @@
  *
  * Dec 26, 2006     ukurmann    Initial Release
  * Mar 15, 2007     bsigner     Cleanup
+ * Jul 24, 2007     bsigner     Renamed from F20 to F19
  *
  * -----------------------------------------------------------------------
  *
@@ -27,11 +29,11 @@
 package org.ximtec.igesture.algorithm.feature;
 
 import org.sigtec.ink.Note;
-import org.sigtec.ink.Trace;
 
 
 /**
- * UK Feature F24. Cos to x axis midpoint - endpoint.
+ * Feature representing the proportion start/end-point to the diagonal of the
+ * bounding box.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
@@ -39,7 +41,7 @@ import org.sigtec.ink.Trace;
  */
 public class F19 implements Feature {
 
-   private static final int MINIMAL_NUMBER_OF_POINTS = 3;
+   private static final int MINIMAL_NUMBER_OF_POINTS = 2;
 
 
    public double compute(Note note) throws FeatureException {
@@ -47,23 +49,9 @@ public class F19 implements Feature {
          throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
       }
 
-      Trace trace = FeatureTool.createTrace(note);
-      return (trace.getEndPoint().getX() - trace.get(trace.size() / 2).getX())
-            / FeatureTool.computeD2(note);
+      return new F5().compute(note) / new F3().compute(note);
    } // compute
 
-   
-   public double computeOld(Note note) throws FeatureException {
-      if (note.getPoints().size() < MINIMAL_NUMBER_OF_POINTS) {
-         throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
-      }
-
-      final Trace trace = FeatureTool.createTrace(note);
-      final double a1 = FeatureTool.getAngle(trace.get(trace.size() / 2), trace
-            .getEndPoint());
-      return Math.cos(Math.toRadians(a1));
-   } // computeOld
-   
 
    public int getMinimalNumberOfPoints() {
       return MINIMAL_NUMBER_OF_POINTS;
