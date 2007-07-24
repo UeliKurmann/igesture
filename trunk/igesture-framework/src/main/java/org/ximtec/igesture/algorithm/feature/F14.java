@@ -3,9 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   UK Feature F16. Proportion of the stroke lenghts
- *                  (first/last point) vs. the lenght of the gesture
- *                  (point to point distance).
+ * Purpose      :   Feature representing the number of stop points.
  *
  * -----------------------------------------------------------------------
  *
@@ -15,6 +13,7 @@
  *
  * Dec 26, 2006     ukurmann    Initial Release
  * Mar 15, 2007     bsigner     Cleanup
+ * Jul 24, 2007     bsigner     Renamed from F15 to F14
  *
  * -----------------------------------------------------------------------
  *
@@ -28,13 +27,15 @@
 
 package org.ximtec.igesture.algorithm.feature;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Trace;
 
 
 /**
- * UK Feature F16. Proportion of the stroke lenghts (first/last point) vs. the
- * lenght of the gesture (point to point distance)
+ * Feature representing the number of stop points.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
@@ -42,7 +43,9 @@ import org.sigtec.ink.Trace;
  */
 public class F14 implements Feature {
 
-   private static final int MINIMAL_NUMBER_OF_POINTS = 2;
+   private static final int MINIMAL_NUMBER_OF_POINTS = 3;
+
+   private static final double AVERAGE_DIVISOR = 3;
 
 
    public double compute(Note note) throws FeatureException {
@@ -50,24 +53,50 @@ public class F14 implements Feature {
          throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
       }
 
-      double traceLength = 0;
-      double gestureLength = 0;
+      final Trace trace = FeatureTool.createTrace(note);
+      final List<Double> velocities = new ArrayList<Double>();
 
-      for (final Trace trace : note.getTraces()) {
+      for (int i = 1; i < trace.size(); i++) {
+         final double distance = trace.get(i - 1).distance(trace.get(i));
+         final double deltaT = FeatureTool.getDeltaT(trace.get(i - 1), trace
+               .get(i));
 
-         if (trace.getMinDistance() > 0) {
-            traceLength += trace.getStartPoint().distance(trace.getEndPoint());
-            gestureLength += trace.getLength();
+         if (deltaT > 0) {
+            velocities.add(distance / deltaT);
          }
 
       }
 
-      if (Double.isNaN(gestureLength / traceLength)) {
-         return 1;
+      return detectLocalMinima(velocities);
+   } // compute
+
+
+   public int detectLocalMinima(List<Double> list) {
+      int numOfMinimas = 0;
+      final double average = computeAverage(list) / AVERAGE_DIVISOR;
+
+      for (int i = 2; i < list.size(); i++) {
+
+         if (list.get(i - 2) > list.get(i - 1) && list.get(i) > list.get(i - 1)
+               && list.get(i) < average) {
+            numOfMinimas++;
+         }
+
       }
 
-      return gestureLength / traceLength;
-   } // compute
+      return numOfMinimas;
+   } // detectLocalMinima
+
+
+   public double computeAverage(List<Double> list) {
+      double sum = 0;
+
+      for (final double d : list) {
+         sum += d;
+      }
+
+      return sum / list.size();
+   } // computeAverage
 
 
    public int getMinimalNumberOfPoints() {
