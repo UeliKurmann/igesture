@@ -3,7 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   UK Feature F17. Sum of angles between strokes.
+ * Purpose      :   Feature representing the sum of angles
+ *                  between strokes.
  *
  * -----------------------------------------------------------------------
  *
@@ -34,7 +35,7 @@ import org.sigtec.ink.TraceTool;
 
 
 /**
- * UK Feature F17. Sum of angles between strokes.
+ * Feature representing the sum of angles between strokes.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

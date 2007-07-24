@@ -3,7 +3,9 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   UK Feature F14. The number of traces.
+ * Purpose      :   Proportion of the stroke lenghts
+ *                  (first/last point) vs the lenght of the strokes
+ *                  (point to point distance).
  *
  * -----------------------------------------------------------------------
  *
@@ -11,8 +13,9 @@
  *
  * Date             Who         Reason
  *
- * Dec 26 ,2006     ukurmann    Initial Release
+ * Dec 26, 2006     ukurmann    Initial Release
  * Mar 15, 2007     bsigner     Cleanup
+ * Jul 24, 2007     bsigner     Renamed from F14 to F21
  *
  * -----------------------------------------------------------------------
  *
@@ -27,10 +30,12 @@
 package org.ximtec.igesture.algorithm.feature;
 
 import org.sigtec.ink.Note;
+import org.sigtec.ink.Trace;
 
 
 /**
- * UK Feature F1. The number of traces.
+ * Proportion of the stroke lenghts (first/last point) vs the lenght of the
+ * strokes (point to point distance).
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
@@ -38,7 +43,7 @@ import org.sigtec.ink.Note;
  */
 public class F21 implements Feature {
 
-   private static final int MINIMAL_NUMBER_OF_POINTS = 1;
+   private static final int MINIMAL_NUMBER_OF_POINTS = 2;
 
 
    public double compute(Note note) throws FeatureException {
@@ -46,7 +51,23 @@ public class F21 implements Feature {
          throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
       }
 
-      return note.getTraces().size();
+      double traceLength = 0;
+      double gestureLength = 0;
+
+      for (final Trace trace : note.getTraces()) {
+
+         if (trace.getMinDistance() > 0) {
+            traceLength += trace.getStartPoint().distance(trace.getEndPoint());
+            gestureLength += trace.getLength();
+         }
+
+      }
+
+      if (Double.isNaN(gestureLength / traceLength)) {
+         return 1;
+      }
+
+      return gestureLength / traceLength;
    } // compute
 
 

@@ -3,8 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   UK Feature F18. Proportion of the stroke lenghts
- *                  (first/last point) to each other.
+ * Purpose      :   Feature representing the proportion of the stroke
+ *                  lenghts (first/last point) to each other.
  *
  * -----------------------------------------------------------------------
  *
@@ -34,8 +34,8 @@ import org.sigtec.ink.Trace;
 
 
 /**
- * UK Feature F18. Proportion of the stroke lenghts (first/last point) to each
- * other.
+ * Feature representing the proportion of the stroke lenghts (first/last point)
+ * to each other.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
@@ -55,7 +55,7 @@ public class F24 implements Feature {
       final List<Trace> traces = note.getTraces();
 
       if (traces.size() > 1) {
-         
+
          for (final Trace trace : traces) {
             final double divisor = trace.getStartPoint().distance(
                   trace.getEndPoint());

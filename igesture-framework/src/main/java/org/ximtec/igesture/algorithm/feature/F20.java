@@ -3,8 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   UK Feature F25. Proportion Start/Endpoint to
- *                  Diagonal of the bounding box.
+ * Purpose      :   Feature representing the number fo strokes.
  *
  * -----------------------------------------------------------------------
  *
@@ -12,8 +11,9 @@
  *
  * Date             Who         Reason
  *
- * Dec 26, 2006     ukurmann    Initial Release
+ * Dec 26 ,2006     ukurmann    Initial Release
  * Mar 15, 2007     bsigner     Cleanup
+ * Jul 24, 2007     bsigner     Renamed from F21 to F20
  *
  * -----------------------------------------------------------------------
  *
@@ -31,7 +31,7 @@ import org.sigtec.ink.Note;
 
 
 /**
- * UK Feature F25. Proportion Start/Endpoint to Diagonal of the bounding box.
+ * Feature representing the number fo strokes.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
@@ -39,15 +39,15 @@ import org.sigtec.ink.Note;
  */
 public class F20 implements Feature {
 
-   private static final int MINIMAL_NUMBER_OF_POINTS = 2;
+   private static final int MINIMAL_NUMBER_OF_POINTS = 1;
 
 
    public double compute(Note note) throws FeatureException {
       if (note.getPoints().size() < MINIMAL_NUMBER_OF_POINTS) {
          throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
       }
-      
-      return new F5().compute(note) / new F3().compute(note);
+
+      return note.getTraces().size();
    } // compute
 
 

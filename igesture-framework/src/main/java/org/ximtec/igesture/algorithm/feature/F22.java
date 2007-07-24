@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   UK Feature F15. The sum of the relative distances
+ * Purpose      :   Feature representing the sum of the relative distances
  *                  between the strokes.
  *
  * -----------------------------------------------------------------------
@@ -34,7 +34,7 @@ import org.sigtec.ink.Trace;
 
 
 /**
- * UK Feature F15. The sum of the relative distances between the strokes.
+ * Feature representing the sum of the relative distances between the strokes.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
