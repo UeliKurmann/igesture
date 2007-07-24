@@ -200,7 +200,7 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
     * Creates a new distance algorithm instance.
     * 
     * @param className
-    * @return
+    * @return the new distance algorithm instance.
     */
    private static DistanceFunction createDistanceAlgorithm(String className) {
       try {
