@@ -56,7 +56,7 @@ public class F22 implements Feature {
       for (int i = 1; i < traces.size(); i++) {
          final Trace t1 = traces.get(i - 1);
          final Trace t2 = traces.get(i);
-         distance += Math.abs(t2.getStartPoint().distance(t1.getEndPoint()));
+         distance += t2.getStartPoint().distance(t1.getEndPoint());
       }
 
       final double width = note.getBounds2D().getWidth();
