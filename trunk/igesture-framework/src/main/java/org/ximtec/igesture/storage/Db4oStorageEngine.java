@@ -73,7 +73,7 @@ public class Db4oStorageEngine implements StorageEngine {
       Db4o.configure().objectClass(SampleDescriptor.class.getName())
             .cascadeOnUpdate(true);
       Db4o.configure().allowVersionUpdates(true);
-      LOGGER.log(Level.INFO, OPEN_DB);
+      LOGGER.log(Level.INFO, OPEN_DB+filename);
       db = Db4o.openFile(filename);
    }
 

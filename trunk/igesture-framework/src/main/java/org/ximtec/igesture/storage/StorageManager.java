@@ -29,14 +29,13 @@
 package org.ximtec.igesture.storage;
 
 import java.io.File;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.DataObject;
+import org.ximtec.igesture.util.ReflectTools;
 
 
 /**
@@ -146,7 +145,6 @@ public class StorageManager {
       for (final DataObject obj : dataObjects) {
          update(obj);
       }
-
    } // update
 
 
@@ -171,45 +169,15 @@ public class StorageManager {
     */
    public static StorageEngine createStorageEngine(File file) {
       StorageEngine engine = null;
-
       switch (getFileType(file)) {
          case db:
-            try {
-               Class db4oEngine = Class.forName(Db4oStorageEngine.class
-                     .getName());
-               Constructor constructor = db4oEngine
-                     .getConstructor(new Class[] { String.class });
-               engine = (StorageEngine)constructor
-                     .newInstance(new Object[] { file.getPath() });
-            }
-            catch (SecurityException e) {
-               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-            }
-            catch (NoSuchMethodException e) {
-               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-            }
-            catch (IllegalArgumentException e) {
-               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-            }
-            catch (InstantiationException e) {
-               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-            }
-            catch (IllegalAccessException e) {
-               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-            }
-            catch (InvocationTargetException e) {
-               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-            }
-            catch (ClassNotFoundException e) {
-               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-            }
+            engine = new Db4oStorageEngine(file.getPath());
             break;
          case xml:
             engine = new XMLStorageEngine(file.getPath());
             break;
          default:
       }
-
       return engine;
    } // createStorageEngine
 
@@ -227,5 +195,21 @@ public class StorageManager {
    public void dispose() {
       storageEngine.dispose();
    } // dispose
+   
+   public <T extends DataObject> List<T> load(Class<T> clazz, String fieldName, Object value){
+	   List<T> result = new ArrayList<T>();
+	   for(T dataObject:load(clazz)){
+		   if(value == null){
+			   if(ReflectTools.getFieldValue(dataObject, fieldName) == null){
+				   result.add(dataObject);
+			   }
+		   }else{
+			   if(value.equals(ReflectTools.getFieldValue(dataObject, fieldName))){
+				   result.add(dataObject);
+			   }
+		   }
+	   }
+	   return result;
+   }
 
 }
