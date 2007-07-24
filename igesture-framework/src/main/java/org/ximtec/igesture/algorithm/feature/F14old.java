@@ -1,10 +1,11 @@
 /*
- * @(#)F18.java   1.0   Dec 26, 2006
+ * @(#)F14.java   1.0   Dec 26, 2006
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   UK Feature F23. Sine of angle between first
- *                  point / middle point
+ * Purpose      :   UK Feature F16. Proportion of the stroke lenghts
+ *                  (first/last point) vs. the lenght of the gesture
+ *                  (point to point distance).
  *
  * -----------------------------------------------------------------------
  *
@@ -32,43 +33,42 @@ import org.sigtec.ink.Trace;
 
 
 /**
- * Feature F17. Sine of angle between first point / middle point.
+ * UK Feature F16. Proportion of the stroke lenghts (first/last point) vs. the
+ * lenght of the gesture (point to point distance)
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class F17 implements Feature {
+public class F14old implements Feature {
 
-   private static final int MINIMAL_NUMBER_OF_POINTS = 3;
+   private static final int MINIMAL_NUMBER_OF_POINTS = 2;
 
-   
-   public double computeOld(Note note) throws FeatureException {
-      if (note.getPoints().size() < MINIMAL_NUMBER_OF_POINTS) {
-         throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
-      }
 
-      final Trace trace = FeatureTool.createTrace(note);
-      final double a1 = FeatureTool.getAngle(trace.getStartPoint(), trace
-            .get(trace.size() / 2));
-      final double a2 = FeatureTool.getAngle(trace.get(trace.size() / 2), trace
-            .getEndPoint());
-      return Math.sin(Math.toRadians(a1 - a2));
-   } // computeOld
-
-   
    public double compute(Note note) throws FeatureException {
       if (note.getPoints().size() < MINIMAL_NUMBER_OF_POINTS) {
          throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
       }
 
-      double a = Math.pow(FeatureTool.computeD1(note), 2)
-            + Math.pow(FeatureTool.computeD2(note), 2)
-            - Math.pow(FeatureTool.computeD3(note), 2);
-      double b = 2 * FeatureTool.computeD1(note) * FeatureTool.computeD2(note);
-      return a / b;
+      double traceLength = 0;
+      double gestureLength = 0;
+
+      for (final Trace trace : note.getTraces()) {
+
+         if (trace.getMinDistance() > 0) {
+            traceLength += trace.getStartPoint().distance(trace.getEndPoint());
+            gestureLength += trace.getLength();
+         }
+
+      }
+
+      if (Double.isNaN(gestureLength / traceLength)) {
+         return 1;
+      }
+
+      return gestureLength / traceLength;
    } // compute
-   
+
 
    public int getMinimalNumberOfPoints() {
       return MINIMAL_NUMBER_OF_POINTS;

@@ -51,7 +51,6 @@ public class F24 implements Feature {
          throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
       }
 
-      boolean first = false;
       double proportion = 0;
       final List<Trace> traces = note.getTraces();
 
