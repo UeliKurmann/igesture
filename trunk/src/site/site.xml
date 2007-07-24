@@ -12,65 +12,87 @@
 		<href>http://www.igesture.org/</href>
 	</bannerLeft>
 	<bannerRight>
-		<name> Global Information Systems Group, Swiss Federal Institute of Technology Zurich </name>
+		<name>
+			Global Information Systems Group, Swiss Federal Institute of
+			Technology Zurich
+		</name>
 		<src>images/globis.gif</src>
 	</bannerRight>
 	<body>
 		<links>
-			<item name="sigtec" href="http://www.sigtec.org/"/>
-			<item name="XIMA" href="http://www.ximtec.org/xima"/>
-			<item name="iPaper" href="http://www.ximtec.org/ipaper"/>
-			<item name="iServer" href="http://www.ximtec.org/iserver"/>
-			<item name="Global Information Systems Group" href="http://www.globis.ethz.ch/"/>
-			<item name="ETH Zurich" href="http://www.ethz.ch/"/>
+			<item name="sigtec" href="http://www.sigtec.org/" />
+			<item name="XIMA" href="http://www.ximtec.org/xima" />
+			<item name="iPaper" href="http://www.ximtec.org/ipaper" />
+			<item name="iServer" href="http://www.ximtec.org/iserver" />
+			<item name="Global Information Systems Group"
+				href="http://www.globis.ethz.ch/" />
+			<item name="ETH Zurich" href="http://www.ethz.ch/" />
 		</links>
 		<menu name="iGesture">
-			<item name="Introduction" href="index.html"/>
-			<item name="Download" href="http://sourceforge.net/projects/igesture"/>
-			<item name="API Documentation" href="apidocs/index.html"/>
-			<item name="FAQ" href="faq.html"/>
+			<item name="Introduction" href="index.html" />
+			<item name="Download"
+				href="http://sourceforge.net/projects/igesture" />
+			<item name="FAQ" href="faq.html" />
+			<item name="API Documentation" href="apidocs/index.html" />
 		</menu>
-		<menu name="User Guide">
-			<item name="iGesture Tool" href="userguide_tool.html"/>
-			<item name="Framework" href="userguide_framework.html"/>
-			<item name="Evaluation" href="userguide_batch.html"/>
-		</menu>
-		<menu name="Algorithm">
-			<item name="Rubine" href="algo_rubine.html"/>
-			<item name="SiGeR" href="algo_siger.html"/>
-			<item name="Signature" href="algo_signature.html"/>
-		</menu>
-		<menu name="Implementation">
-			<item name="Introduction" href="impl_introduction.html"/>
-			<item name="Gesture Representation" href="impl_gesturerepresentation.html"
-				collapse="true">
-				<item name="sigtec" href="impl_gesture_sigtec.html" collapse="true"/>
-				<item name="InkML" href="impl_gesture_inkml.html" collapse="true"/>
+		<menu name="iGesture Users">
+			<item name="User Guide" href="">
+				<item name="iGesture Tool" href="userguide_tool.html" />
+				<item name="Framework" href="userguide_framework.html" />
+				<item name="Evaluation" href="userguide_batch.html" />
 			</item>
-			<item name="Recognition Algorithm" href="impl_algorithm.html"/>
-			<item name="Return Values" href="impl_returnvalues.html"/>
-			<item name="Event Manager" href="impl_eventmanager.html"/>
-			<item name="Recogniser" href="impl_recogniser.html"/>
-			<item name="Persistence Mechanism" href="impl_persistence.html"/>
-			<item name="Management Console" href="impl_management.html"/>
-			<item name="Batch Processing" href="impl_batch.html"/>
-			<item name="Note" href="impl_note.html"/>
+			<item name="Demo Applications">
+				<item name="Hello World" href="demo_helloworld.html" />
+				<item name="Drawing App" href="demo_drawing.html" />
+			</item>
+			<item name="Resources">
+				<item name="Gesture Sets" href="res_gesturesets.html" />
+				<item name="Test Sets" href="res_testsets.html" />
+			</item>
 		</menu>
-		<menu name="Input Devices">
-			<item name="Mouse" href="input_mouse.html"/>
-			<item name="Magicomm Pen" href="input_magicomm.html"/>
+		<menu name="iGesture Developers">
+			<item name="Implementation">
+				<item name="Introduction" href="impl_introduction.html" />
+				<item name="Gesture Representation"
+					href="impl_gesturerepresentation.html" collapse="true">
+					<item name="sigtec" href="impl_gesture_sigtec.html"
+						collapse="true" />
+					<item name="InkML" href="impl_gesture_inkml.html"
+						collapse="true" />
+				</item>
+				<item name="Recognition Algorithm"
+					href="impl_algorithm.html" />
+				<item name="Return Values"
+					href="impl_returnvalues.html" />
+				<item name="Event Manager"
+					href="impl_eventmanager.html" />
+				<item name="Recogniser" href="impl_recogniser.html" />
+				<item name="Persistence Mechanism"
+					href="impl_persistence.html" />
+				<item name="Management Console"
+					href="impl_management.html" />
+				<item name="Batch Processing" href="impl_batch.html" />
+				<item name="Note" href="impl_note.html" />
+			</item>
+			<item name="Algorithm" href="algorithm.html">
+				<item name="Rubine" href="algo_rubine.html" />
+				<item name="SiGeR" href="algo_siger.html" />
+				<item name="Signature" href="algo_signature.html" />
+			</item>
+			<item name="Input Devices" href="input_devices.html">
+				<item name="Mouse" href="input_mouse.html" />
+				<item name="Magicomm Pen" href="input_magicomm.html" />
+			</item>
 		</menu>
-		<menu name="Demo Applications">
-			<item name="Hello World" href="demo_helloworld.html"/>
-			<item name="Drawing App" href="demo_drawing.html"/>
-		</menu>
-		<menu name="Resources">
-			<item name="Gesture Sets" href="res_gesturesets.html"/>
-			<item name="Test Sets" href="res_testsets.html"/>
+		<menu name="Publications">
+			<item name="Publications" href="publications.html"/>
+			<item name="Users" href="users.html" />
 		</menu>
 		<menu name="Modules">
-			<item name="Framework" href="igesture-framework/index.html"/>
-			<item name="Tool" href="igesture-tool/index.html"/>
-			<item name="Demo" href="igesture-demo/index.html"/>
-		</menu> ${reports} </body>
+			<item name="Framework" href="igesture-framework/index.html" />
+			<item name="Tool" href="igesture-tool/index.html" />
+			<item name="Demo" href="igesture-demo/index.html" />
+		</menu>
+		${reports}
+	</body>
 </project>

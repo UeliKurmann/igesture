@@ -79,6 +79,7 @@
 		<module>igesture-framework</module>
 		<module>igesture-tool</module>
 		<module>igesture-demo</module>
+		<module>igesture-test</module>
 	</modules>
 
 	<build>
