@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Input Devices</title>
+	</properties>
+
+	<body>
+		<section name="Introduction">
+			For each input device the following interface must be implemented.  
+		</section>
+		<section name="Interface">
+		
+		</section>
+	</body>
+</document>
