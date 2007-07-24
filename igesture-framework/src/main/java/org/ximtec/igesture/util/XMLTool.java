@@ -337,7 +337,7 @@ public class XMLTool {
     * XSL transformation.
     * @param xmlDocument xml document (String)
     * @param xsl xsl document (InputStream)
-    * @return
+    * @return the transformed XML document
     * @throws TransformerException
     * @throws TransformerConfigurationException
     * @throws TransformerFactoryConfigurationError

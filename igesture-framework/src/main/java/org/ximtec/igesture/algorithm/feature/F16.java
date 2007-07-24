@@ -27,7 +27,6 @@
 package org.ximtec.igesture.algorithm.feature;
 
 import org.sigtec.ink.Note;
-import org.sigtec.ink.Trace;
 
 
 /**

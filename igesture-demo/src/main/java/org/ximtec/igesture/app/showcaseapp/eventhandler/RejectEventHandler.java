@@ -27,7 +27,6 @@ package org.ximtec.igesture.app.showcaseapp.eventhandler;
 
 import java.io.IOException;
 
-import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 

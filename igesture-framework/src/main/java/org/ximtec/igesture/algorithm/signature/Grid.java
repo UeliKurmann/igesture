@@ -47,7 +47,7 @@ public class Grid {
     */
    private enum Direction {
       RIGHT, UP
-   };
+   }
 
    /**
     * The lenght of the bit string (signature representation).
