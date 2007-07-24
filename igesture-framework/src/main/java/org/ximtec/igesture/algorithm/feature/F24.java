@@ -51,11 +51,12 @@ public class F24 implements Feature {
          throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);
       }
 
+      boolean first = false;
       double proportion = 0;
       final List<Trace> traces = note.getTraces();
 
       if (traces.size() > 1) {
-
+         
          for (final Trace trace : traces) {
             final double divisor = trace.getStartPoint().distance(
                   trace.getEndPoint());
@@ -65,9 +66,6 @@ public class F24 implements Feature {
             }
             else if (divisor != 0) {
                proportion /= divisor;
-            }
-            else {
-               proportion = 1;
             }
 
          }
