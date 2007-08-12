@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="">Beat Signer/Ueli Kurmann</author>
+		<title>User Guide</title>
+	</properties>
+	<body>
+		<section name="User Guide">
+			This section describes the use of iGesture as an application developer. 
+		</section>
+	</body>
+</document>
