@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="">Beat Signer/Ueli Kurmann</author>
+		<title>Demo Application</title>
+	</properties>
+	<body>
+		<section name="Demo Applications">
+			This sections shows some example applications using iGesture
+			as framework. A simple HelloWorld application describes the
+			use of an simple algorithm.
+		</section>
+	</body>
+</document>

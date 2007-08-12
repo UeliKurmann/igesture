@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <document>
 	<properties>
-		<author email="igesture@uelikurmann.ch">Ueli Kurmann</author>
+		<author email="">Beat Signer/Ueli Kurmann</author>
 		<title>Publications</title>
 	</properties>
 
 	<body>
 		<section name="Publications">
-			...
+			<ul>
+				<li><b>iGesture: A General Gesture Recognition Framework</b><br/>
+				Beat Signer, Ueli Kurmann and Moira C. Norrie, Proceedings of ICDAR 2007, 9th International Conference on Document Analysis and Recognition, Curitiba, Brazil, September 2007 (to appear).<br/>
+				<a href="http://www.inf.ethz.ch/personal/signer/publications/2007-skn-icdar.pdf" target="_blank">Download</a>
+				</li>
+			
+			</ul>
 		</section>
 	</body>
 </document>

@@ -30,28 +30,28 @@
 		</links>
 		<menu name="iGesture">
 			<item name="Introduction" href="index.html" />
+			<item name="FAQ" href="faq.html" />
 			<item name="Download"
 				href="http://sourceforge.net/projects/igesture" />
-			<item name="FAQ" href="faq.html" />
 			<item name="API Documentation" href="apidocs/index.html" />
 		</menu>
 		<menu name="iGesture Users">
-			<item name="User Guide" href="">
+			<item name="User Guide" href="userguide.html">
 				<item name="iGesture Tool" href="userguide_tool.html" />
 				<item name="Framework" href="userguide_framework.html" />
 				<item name="Evaluation" href="userguide_batch.html" />
 			</item>
-			<item name="Demo Applications">
+			<item name="Demo Applications" href="demo.html">
 				<item name="Hello World" href="demo_helloworld.html" />
 				<item name="Drawing App" href="demo_drawing.html" />
 			</item>
-			<item name="Resources">
+			<item name="Resources" href="resources.html">
 				<item name="Gesture Sets" href="res_gesturesets.html" />
 				<item name="Test Sets" href="res_testsets.html" />
 			</item>
 		</menu>
-		<menu name="iGesture Developers">
-			<item name="Implementation">
+		<menu name="iGesture Developers" >
+			<item name="Implementation" href="implementation.html">
 				<item name="Introduction" href="impl_introduction.html" />
 				<item name="Gesture Representation"
 					href="impl_gesturerepresentation.html" collapse="true">
@@ -84,7 +84,7 @@
 				<item name="Magicomm Pen" href="input_magicomm.html" />
 			</item>
 		</menu>
-		<menu name="Publications">
+		<menu name="Publications" href="publications.html">
 			<item name="Publications" href="publications.html"/>
 			<item name="Users" href="users.html" />
 		</menu>
