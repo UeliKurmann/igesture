@@ -52,7 +52,12 @@ public interface StorageEngine {
     * Loads a collection of data objects of a given type. In general this method
     * retuns all instances of the specific type.
     */
-   public <T extends DataObject> List<T> load(Class<T> clazz);
+   public <T extends DataObject> List<T> load(Class<T> clazz); 
+   
+   /**
+    * Loads a collection of data objects
+    */
+   public <T extends DataObject> List<T> load(Class<T> clazz, String fieldName, Object value);
 
 
    /**

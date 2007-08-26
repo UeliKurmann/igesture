@@ -51,7 +51,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class XMLStorageEngine implements StorageEngine {
+public class XMLStorageEngine extends DefaultStorageEngine{
 
    private static final Logger LOGGER = Logger.getLogger(XMLStorageEngine.class
          .getName());

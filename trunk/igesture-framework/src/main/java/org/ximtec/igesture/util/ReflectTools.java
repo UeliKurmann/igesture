@@ -13,7 +13,6 @@ public class ReflectTools {
 			Field field = dataObject.getClass().getDeclaredField(fieldName);
 			field.setAccessible(true);
 			object = field.get(dataObject);
-		
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		} catch (NoSuchFieldException e) {
