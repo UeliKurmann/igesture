@@ -61,8 +61,6 @@ public class GestureToolView extends JFrame {
 
    private static final String ABOUT_HTML = "about.html";
 
-   private static final String GUI_STYLE = "org.fife.plaf.VisualStudio2005.VisualStudio2005LookAndFeel";
-
    private static final String IGESTURE_ICON = "icons/iserver";
 
    private GestureConfiguration configuration;
@@ -91,7 +89,7 @@ public class GestureToolView extends JFrame {
     */
    private void init() {
       try {
-         UIManager.setLookAndFeel(GUI_STYLE);
+         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
       }
       catch (Exception e) {
          LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
