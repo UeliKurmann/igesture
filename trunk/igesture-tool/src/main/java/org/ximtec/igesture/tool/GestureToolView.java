@@ -26,9 +26,12 @@
 
 package org.ximtec.igesture.tool;
 
+import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -153,12 +156,12 @@ public class GestureToolView extends JFrame {
     * @return the newly created menu bar.
     */
    private JMenuBar createMenuBar() {
-      final JMenuBar menuBar = new JMenuBar();
+      JMenuBar menuBar = new JMenuBar();
       menuBar.add(createFileMenu());
       menuBar.add(createInfoMenu());
       return menuBar;
    } // createMenuBar
-
+   
 
    private JMenu createFileMenu() {
       final JMenu menu = SwingTool.createMenu(SwingTool.getGuiBundle().getName(

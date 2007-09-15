@@ -26,6 +26,8 @@
 
 package org.ximtec.igesture.tool;
 
+import java.awt.Color;
+
 import javax.swing.JDesktopPane;
 
 
@@ -38,6 +40,8 @@ import javax.swing.JDesktopPane;
  */
 public abstract class GestureTab {
 
+   private static Color DARK_BLUE = new Color(0, 92, 233);
+   
    JDesktopPane desktopPane;
 
    GestureToolView mainView;
@@ -45,6 +49,8 @@ public abstract class GestureTab {
 
    public GestureTab() {
       desktopPane = new JDesktopPane();
+      desktopPane.setBackground(DARK_BLUE);
+      desktopPane.setForeground(DARK_BLUE);
    }
 
 
