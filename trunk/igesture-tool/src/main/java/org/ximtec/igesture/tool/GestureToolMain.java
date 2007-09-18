@@ -60,6 +60,8 @@ public class GestureToolMain {
          configuration = new GestureConfiguration(DEFAULT_CONFIGURATION);
       }
       
+      System.out.println(configuration.getAlgorithms());
+      
       StorageEngine engine = StorageManager.createStorageEngine(new File(System
             .getProperty(PROPERTY_USER_DIR)
             + Constant.SLASH + configuration.getDatabase()));
