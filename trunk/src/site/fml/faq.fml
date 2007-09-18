@@ -2,13 +2,13 @@
 <faqs id="General FAQ">
   <part id="General">
     <faq id="where">
-      <question>What's iGesture?</question>
+      <question>What is iGesture?</question>
       <answer>
         <p>
           iGesture is a Java-based gesture recognition framework focusing on extensibility 
           and cross-application reusability by providing an integrated solution that includes 
-          the iGesture recognition framework as well as the iGesture Tool component for the 
-          creation of specific gesture sets. 
+          the iGesture recognition framework as well as the iGesture tool component for the 
+          creation of customised gesture sets. 
         </p>
       </answer>
     </faq>
@@ -16,12 +16,11 @@
       <question>Which file should I download?</question>
       <answer>
         <p>
-          We provide different builds of iGesture hosted at Sourceforge. As an iGesture newbie we 
+          We provide different builds of iGesture hosted at SourceForge. If you are an iGesture newcomer we 
           recommend to download the prepared Eclipse Project (<a href="http://downloads.sourceforge.net/igesture/igesture_1.1-eclipse-project.zip">igesture_1.1-eclipse-project.zip</a>). It is preconfigured and contains all 
           necessary third-party libraries as well as the sources of the framework, the tool, gesture sets
-          and some demo applications. All demo applications should be runnable out of the box 
-          and boost a sense of achievement. :-)  <br/>
-          Use the download link on the left side to get the files at sourceforge.net. We recommend to use 
+          and some demo applications. All demo applications should be runnable out of the box. Please use
+          the download link on the left hand side to get the files from SourceForge.net. We always recommend to use 
           the most recent version.
         </p>
         <p>
@@ -30,25 +29,26 @@
           about the SVN repository is available <a href="source-repository.html">here</a>.
         </p>
         <p>
-          Demo gesture sets are available at sourceforge in the iGesture 1.0 release 
+          Demo gesture sets are also available at SourceForge in the iGesture 1.0 release 
           (<a href="http://downloads.sourceforge.net/igesture/igesture-1.0-sample-data.zip">igesture-1.0-sample-data.zip</a>). 
         </p>
       </answer>
     </faq>
     <faq id="dontgetit">
-      <question>Why it doesn't work?</question>
+      <question>Why does it not work?</question>
       <answer>
         <p>
-          Do not hesitate and email a developer. We are happy to assist you. 
+          After checking the FAQ first, feel free to send an email to a developer. We are happy to assist you and
+          will send you an answer as soon as possible. 
         </p>
       </answer>
     </faq>
     <faq id="contribute">
-      <question>May I contribute?</question>
+      <question>Can I contribute to the project?</question>
       <answer>
         <p>
-          Sure. Do not hesitate and email a developer. We are interested in new algorithms, 
-          device drivers, gesture sets, framework enhancements and all other thins you would
+          Sure. Do not hesitate to send an email to a developer. We are interested in new algorithms, 
+          device drivers, gesture sets, framework enhancements and any other component you would
 		  like to contribute.
         </p>
       </answer>
@@ -57,9 +57,8 @@
       <question>What are the next steps?</question>
       <answer>
         <p>
-          We are working on device drivers and applications which use the framework. Furthermore, 
-          we are enhancing the framework to achieve better recognition rates. Soon another publication
-          will be released at ETH Zurich. 
+          We are working on drivers for other input devices (e.g. Wacom graphics tablets and Tablet PCs) and applications using the framework. Furthermore, 
+          we are implementing new recognition algorithms. 
         </p>
       </answer>
     </faq>

@@ -44,6 +44,9 @@ public class F1 implements Feature {
    private static final int MINIMAL_NUMBER_OF_POINTS = 5;
 
 
+   /* (non-Javadoc)
+    * @see org.ximtec.igesture.algorithm.feature.Feature#compute(org.sigtec.ink.Note)
+    */
    public double compute(Note note) throws FeatureException {
       if (note.getPoints().size() < MINIMAL_NUMBER_OF_POINTS) {
          throw new FeatureException(FeatureException.NOT_ENOUGH_POINTS);

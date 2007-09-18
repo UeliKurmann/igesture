@@ -58,6 +58,8 @@ public interface Algorithm {
     * 
     * @param note the note to be recognised.
     * @return the result set containing the recognised gesture classes.
+    * @throws AlgorithmException if there was an exception while recognising the
+    *            note.
     */
    public ResultSet recognise(Note note) throws AlgorithmException;
 

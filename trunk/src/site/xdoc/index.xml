@@ -32,20 +32,20 @@
 				as the designer of new gesture recognition algorithms. The iGesture
 				framework can easily be configured to use any of the existing
 				recognition algorithms (e.g. Rubine, SiGeR) or customised gesture
-				sets can be defined. Furthermore, the Test Bench provides tools
-				to test new gesture recognition algorithms and to evaluate their
+				sets can be defined. Furthermore, our test bench provides tools
+				to verify new gesture recognition algorithms and to evaluate their
 				performance.
 			</p>
 			<p>
 				iGesture is a Java-based gesture recognition framework focusing on
 				extensibility and cross-application reusability by providing an integrated
 				solution that includes the iGesture recognition framework as well as the
-				iGesture Tool component for the creation of specific gesture sets. The iGesture
+				iGesture tool component for the creation of specific gesture sets. The iGesture
 				tool further enables the evaluation and optimisation of new or existing gesture
 				recognition algorithms.
 			</p>
 			<p>	
-				The iGesture Framework is not restricted to a specific input device. In addition
+				The iGesture framework is not limited to a specific input device. In addition
 				to traditional screen and mouse-based interaction, iGesture provides functionality
 				for handling digital pen and paper input.
 			</p>
