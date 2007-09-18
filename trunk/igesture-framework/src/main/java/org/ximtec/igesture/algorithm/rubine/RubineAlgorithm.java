@@ -78,7 +78,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    private static final Logger LOGGER = Logger.getLogger(AlgorithmFactory.class
          .getName());
 
-   private static final String DEFAULT_MAHALANOBIS_DISTANCE = "100";
+   private static final String DEFAULT_MAHALANOBIS_DISTANCE = "100000";
 
    private static final String DEFAULT_PROBABILITY = "0.95";
 

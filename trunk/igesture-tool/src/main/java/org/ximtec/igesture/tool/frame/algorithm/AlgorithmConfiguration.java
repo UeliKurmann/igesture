@@ -104,7 +104,6 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
             0, 0));
       addComponent(scrollPane, SwingTool.createGridBagConstraint(0, 1));
       addComponent(saveButton, SwingTool.createGridBagConstraint(0, 2));
-      loadConfiguration(null);
    } // init
 
 
