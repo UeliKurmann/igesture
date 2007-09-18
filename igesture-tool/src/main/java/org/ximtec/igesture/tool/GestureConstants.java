@@ -35,9 +35,9 @@ package org.ximtec.igesture.tool;
  */
 public class GestureConstants {
 
+   public static final String MENU_FILE = "FileMenu";
+   
    public static final String COMMON_EXIT = "EXIT";
-
-   public static final String COMMON_FILE = "FILE";
 
    public static final String COMMON_OPEN = "OPEN";
 

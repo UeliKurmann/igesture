@@ -26,12 +26,9 @@
 
 package org.ximtec.igesture.tool;
 
-import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -40,6 +37,7 @@ import javax.swing.UIManager;
 
 import org.sigtec.util.Constant;
 import org.sigtec.util.Decorator;
+import org.sigtec.util.GuiBundle;
 import org.sigtec.util.IconTool;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.tool.action.ActionAboutDialog;
@@ -164,8 +162,7 @@ public class GestureToolView extends JFrame {
    
 
    private JMenu createFileMenu() {
-      final JMenu menu = SwingTool.createMenu(SwingTool.getGuiBundle().getName(
-            GestureConstants.COMMON_FILE), null);
+      JMenu menu = SwingTool.getGuiBundle().createMenu(GestureConstants.MENU_FILE);
       menu.add(SwingTool.createMenuItem(new ActionNewDataSouce(this), IconLoader
             .getIcon(IconLoader.DOCUMENT_NEW)));
       menu.add(SwingTool.createMenuItem(new ActionOpenDataSouce(this),

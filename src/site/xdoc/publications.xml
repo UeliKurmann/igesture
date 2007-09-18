@@ -9,10 +9,13 @@
 		<section name="Publications">
 			<ul>
 				<li><b>iGesture: A General Gesture Recognition Framework</b><br/>
-				Beat Signer, Ueli Kurmann and Moira C. Norrie, Proceedings of ICDAR 2007, 9th International Conference on Document Analysis and Recognition, Curitiba, Brazil, September 2007 (to appear).<br/>
+				Beat Signer, Ueli Kurmann and Moira C. Norrie, Proceedings of ICDAR 2007, 9th International Conference on Document Analysis and Recognition, Curitiba, Brazil, September 2007.<br/>
 				<a href="http://www.inf.ethz.ch/personal/signer/publications/2007-skn-icdar.pdf" target="_blank">Download</a>
 				</li>
-			
+				<li><b>iGesture: A Java Framework for the Development and Deployment of Stroke-Based Online Gesture Recognition Algorithms</b><br/>
+				Beat Signer, Moira C. Norrie and Ueli Kurmann, Technical Report ETH Zurich, TR561, September 2007.<br/>
+				<a href="http://www.inf.ethz.ch/personal/signer/publications/2007-snk-tr561.pdf" target="_blank">Download</a>
+				</li>		
 			</ul>
 		</section>
 	</body>
