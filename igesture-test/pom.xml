@@ -72,11 +72,13 @@
 		<dependency>
 			<groupId>org.ximtec.igesture</groupId>
 			<artifactId>igesture-tool</artifactId>
+			<version>1.2-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.ximtec.igesture</groupId>
 			<artifactId>igesture-framework</artifactId>
+			<version>1.2-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>
