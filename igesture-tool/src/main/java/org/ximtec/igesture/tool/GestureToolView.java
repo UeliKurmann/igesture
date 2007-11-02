@@ -37,7 +37,6 @@ import javax.swing.UIManager;
 
 import org.sigtec.util.Constant;
 import org.sigtec.util.Decorator;
-import org.sigtec.util.GuiBundle;
 import org.sigtec.util.IconTool;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.tool.action.ActionAboutDialog;

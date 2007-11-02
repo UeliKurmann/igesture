@@ -107,8 +107,6 @@
 		</repository>
 	</repositories>
  	
-
-	
 	<reporting>
 		<plugins>
 			<plugin>
