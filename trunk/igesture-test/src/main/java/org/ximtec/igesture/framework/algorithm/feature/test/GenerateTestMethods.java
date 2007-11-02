@@ -34,7 +34,7 @@ public class GenerateTestMethods {
 	
 	public static void print(int i){
 		try {
-			Class c = Class.forName("org.ximtec.igesture.algorithm.feature.F"+i);
+			Class c = Class.forName("org.ximtec.igesture.algorithm.feature.F" + i);
 			System.out.println("@org.junit.Test");
 			System.out.println("public void feature"+i+"(){");
 			System.out.println("org.junit.Assert.assertEquals(compute(F"+i+".class),"+ compute(c)+", 0.0000005);");
