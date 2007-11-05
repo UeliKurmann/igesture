@@ -46,6 +46,8 @@ import org.ximtec.igesture.io.MouseReaderEventListener;
 import org.ximtec.igesture.util.XMLTool;
 
 
+
+
 /**
  * @version 1.0 Mar 2007
  * @author Ueli Kurmann, kurmannu@ethz.ch
