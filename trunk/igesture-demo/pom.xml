@@ -96,9 +96,19 @@
 
 		<dependency>
 			<groupId>org.sigtec</groupId>
-			<artifactId>sigtec-multimedia</artifactId>
+			<artifactId>sigtec-ink</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.sigtec</groupId>
+			<artifactId>sigtec-input</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.sigtec</groupId>
+			<artifactId>sigtec-multimedia</artifactId>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.ximtec.igesture</groupId>
 			<artifactId>igesture-framework</artifactId>
