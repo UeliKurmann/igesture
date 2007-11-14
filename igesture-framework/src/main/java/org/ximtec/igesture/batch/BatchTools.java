@@ -26,10 +26,7 @@
 
 package org.ximtec.igesture.batch;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-import java.util.StringTokenizer;
 
 
 /**
@@ -40,28 +37,6 @@ import java.util.StringTokenizer;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class BatchTools {
-
-   /**
-    * Returns a collection of string elements. The input is a string list with a
-    * given delimiter.
-    * 
-    * @param list the string list.
-    * @param delimiter the delimiter used within the string list.
-    * @return the parsed list of string elements.
-    */
-   // FIXME: that is general functionality that could be added to sigtec. Would
-   // that be ok for you Ueli if I move that in sigtec?
-   public static List<String> parseList(String list, String delimiter) {
-      final StringTokenizer tokenizer = new StringTokenizer(list, delimiter);
-      final List<String> elements = new ArrayList<String>();
-
-      while (tokenizer.hasMoreTokens()) {
-         elements.add(tokenizer.nextToken());
-      }
-
-      return elements;
-   } // parseList
-
 
    /**
     * Filters a set of sets. The condition are the number of elements in the set.
