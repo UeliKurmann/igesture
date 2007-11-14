@@ -76,10 +76,12 @@
 	</developers>
 	
 	<modules>
-		<module>igesture-framework</module>
-		<module>igesture-tool</module>
 		<module>igesture-demo</module>
+		<module>igesture-framework</module>
+		<module>igesture-geco</module>
+		<module>igesture-io</module>
 		<module>igesture-test</module>
+		<module>igesture-tool</module>
 	</modules>
 
 	<build>
