@@ -12,6 +12,8 @@ public class GestureMappingConstants {
 
    public static final String LOAD_GESTURE_SET = "Load gesture set...";
    
+   public static final String MENU_FILE = "FileMenu";
+   
 
 
 
