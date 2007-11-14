@@ -147,7 +147,7 @@ public class Configuration extends DefaultDataObject implements Cloneable {
    /**
     * Adds an algorithm to the configuration.
     * 
-    * @param algorithm the algorithm to be added to teh configuration.
+    * @param algorithm the algorithm to be added to the configuration.
     */
    public void addAlgorithm(String algorithm) {
       algorithms.add(algorithm);
@@ -156,7 +156,7 @@ public class Configuration extends DefaultDataObject implements Cloneable {
 
 
    /**
-    * Removes an algorithm from the configuratiion.
+    * Removes an algorithm from the configuration.
     * 
     * @param algorithm the algorithm to be removed.
     */
@@ -195,7 +195,7 @@ public class Configuration extends DefaultDataObject implements Cloneable {
     * 
     * @param classname the classname of the algorithm whose parameters have to be
     *           returned.
-    * @return a hasmap with the algorithms parameters.
+    * @return a hashmap with the algorithms parameters.
     */
    public HashMap<String, String> getParameters(String classname) {
       HashMap<String, String> parameters = algorithmParameters.get(classname);

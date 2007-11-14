@@ -165,7 +165,7 @@ public class GestureSignature {
    /**
     * Returns the signature for the point at position index.
     * 
-    * @param index the position of the siganture to be returned.
+    * @param index the position of the signature to be returned.
     * @return the signature for the point at position index.
     */
    public BitSet getPointSignature(int index) {

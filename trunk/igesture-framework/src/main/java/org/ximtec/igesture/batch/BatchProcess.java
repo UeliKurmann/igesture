@@ -78,7 +78,7 @@ public class BatchProcess {
    /**
     * Constructs a new batch process.
     * 
-    * @param file the XML file with the configration.
+    * @param file the XML file with the configuration.
     */
    public BatchProcess(File file) {
       this.batchProcessContainer = XMLTool.importBatchProcessContainer(file);
@@ -208,7 +208,7 @@ public class BatchProcess {
    /**
     * Creates a list of configurations.
     * 
-    * @param file the file containing the configrations.
+    * @param file the file containing the configurations.
     * @return the newly created configurations.
     */
    public static List<Configuration> createConfigurations(File file) {
@@ -231,7 +231,7 @@ public class BatchProcess {
 
 
    /**
-    * A recusive method which iterates through all possible permutations.
+    * A recursive method which iterates through all possible permutations.
     * 
     * @param algorithm the name of the algorithm.
     * @param parameters the BatchParameter instance.
@@ -244,7 +244,7 @@ public class BatchProcess {
          Configuration configuration, List<Configuration> configurations) {
 
       /**
-       * Abort Condition. The last paramter is reached so one configuration is
+       * Abort Condition. The last parameter is reached so one configuration is
        * complete and can be added to the list.
        */
       if (index == parameters.size()) {
@@ -268,7 +268,7 @@ public class BatchProcess {
     * Processes simple value parameters.
     * 
     * @param param the batch parameter.
-    * @param configuration the onfiguration.
+    * @param configuration the configuration.
     * @param algorithm the algorithm to be used.
     * @param parameters the batch parameters to be used.
     * @param index

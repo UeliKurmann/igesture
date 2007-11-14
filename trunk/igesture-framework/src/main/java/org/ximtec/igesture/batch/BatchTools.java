@@ -46,7 +46,7 @@ public class BatchTools {
     * given delimiter.
     * 
     * @param list the string list.
-    * @param delimiter the delimiter used within the strng list.
+    * @param delimiter the delimiter used within the string list.
     * @return the parsed list of string elements.
     */
    // FIXME: that is general functionality that could be added to sigtec. Would

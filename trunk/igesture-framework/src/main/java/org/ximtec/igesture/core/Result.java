@@ -49,7 +49,7 @@ public class Result {
     * Constructs a new result.
     * 
     * @param gestureClass the recognised gesture class.
-    * @param accuracy the accurancy for the recognised gesture class.
+    * @param accuracy the accuracy for the recognised gesture class.
     */
    public Result(GestureClass gestureClass, double accuracy) {
       this.gestureClass = gestureClass;
@@ -89,7 +89,7 @@ public class Result {
 
    /**
     * Sets a a user object. A user object enables an algorithm to return an
-    * arbritary object. However, the user is responsible for the correct handling
+    * arbitrary object. However, the user is responsible for the correct handling
     * since no explicit type information is available.
     * 
     * @param userObject the user object to be set.
@@ -101,7 +101,7 @@ public class Result {
 
    /**
     * Returns a user object. A user object enables an algorithm to return an
-    * arbritary object. However, the user is responsible for the correct handling
+    * arbitrary object. However, the user is responsible for the correct handling
     * since no explicit type information is available.
     * 
     * @return the user object.

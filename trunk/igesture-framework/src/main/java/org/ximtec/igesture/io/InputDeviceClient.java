@@ -120,7 +120,7 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
     * @param start the start time.
     * @param end the end time.
     * @param maxTime the maximal time between two points.
-    * @return the note created fom the device buffer.
+    * @return the note created from the device buffer.
     */
    public Note createNote(long start, long end, int maxTime) {
       final Collection<TimestampedLocation> locations = getTimestampedLocations(

@@ -124,7 +124,7 @@ public class Win32MouseProxy {
 
 
    /**
-    * Calls the native user32.dll fucntion GetAsyncKeyState. This functions
+    * Calls the native user32.dll function GetAsyncKeyState. This functions
     * checks if the given key is pressed.
     * 
     * @param input the key to test.

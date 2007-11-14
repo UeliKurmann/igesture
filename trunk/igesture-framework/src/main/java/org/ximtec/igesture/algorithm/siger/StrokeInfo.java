@@ -147,7 +147,7 @@ private List<Direction> directions;
    /**
     * Returns the statistics object.
     * 
-    * @return the statistic obejct.
+    * @return the statistic object.
     */
    public Statistics getStatistics() {
       return statistics;

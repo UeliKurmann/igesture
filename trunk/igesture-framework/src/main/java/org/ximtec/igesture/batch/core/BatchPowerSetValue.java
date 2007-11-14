@@ -89,12 +89,12 @@ public class BatchPowerSetValue {
 
 
    /**
-    * Creates the powerset for the given list.
+    * Creates the power set for the given list.
     * 
-    * @param list the comma seperated list.
-    * @param min the minimal lenght of the lists.
-    * @param max the maximal lenght of the lists.
-    * @return the list containing the powerset of lists with the given
+    * @param list the comma separated list.
+    * @param min the minimal length of the lists.
+    * @param max the maximal length of the lists.
+    * @return the list containing the power set of lists with the given
     *         constraint.
     */
    private static List<String> createPowerSet(String list, int min, int max) {
@@ -132,11 +132,11 @@ public class BatchPowerSetValue {
 
 
    /**
-    * Sets the maximal lenght of the list,
+    * Sets the maximal length of the list,
     * 
-    * @param max the maximal lenght of the list. The value should be not larger
-    *           than the lenght of the original list but it should be larger than
-    *           getMin().
+    * @param max the maximal length of the list. The value should be not larger
+    *            than the length of the original list but it should be larger
+    *            than getMin().
     */
    public void setMax(int max) {
       this.max = max;
@@ -144,9 +144,9 @@ public class BatchPowerSetValue {
 
 
    /**
-    * Returns the maximal lenght of the list.
+    * Returns the maximal length of the list.
     * 
-    * @return the maximal lenght of the list.
+    * @return the maximal length of the list.
     */
    public int getMax() {
       return max;
@@ -154,10 +154,10 @@ public class BatchPowerSetValue {
 
 
    /**
-    * Sets the minimal lenght of the list.
+    * Sets the minimal length of the list.
     * 
-    * @param min the minimal lenght of the list. Th evalue should be larger than
-    *           0 and smaller than getMax().
+    * @param min the minimal length of the list. The value should be larger than
+    *            0 and smaller than getMax().
     */
    public void setMin(int min) {
       this.min = min;
@@ -165,9 +165,9 @@ public class BatchPowerSetValue {
 
 
    /**
-    * Returns the minimal lenght of the list.
+    * Returns the minimal length of the list.
     * 
-    * @return the minimal lenght of the powerset. The lenght should be larger
+    * @return the minimal length of the power set. The length should be larger
     *         than 0 and smaller than getMax().
     */
    public int getMin() {

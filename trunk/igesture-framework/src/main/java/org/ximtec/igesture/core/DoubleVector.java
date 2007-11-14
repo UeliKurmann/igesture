@@ -4,7 +4,7 @@
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
  * Purpose      : 	Implements a vector of double values and provides
- *                  some basic functionaliy.
+ *                  some basic functionality.
  *
  * -----------------------------------------------------------------------
  *
@@ -33,7 +33,7 @@ import org.sigtec.util.Constant;
 
 
 /**
- * Implements a vector of double values and provides some basic functionaliy.
+ * Implements a vector of double values and provides some basic functionality.
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Implemenation of the signature algorithm.
+ * Purpose      : 	Implementation of the signature algorithm.
  *
  * -----------------------------------------------------------------------
  *
@@ -47,7 +47,7 @@ import org.ximtec.igesture.util.GestureTool;
 
 
 /**
- * Implemenation of the signature algorithm.
+ * Implementation of the signature algorithm.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
