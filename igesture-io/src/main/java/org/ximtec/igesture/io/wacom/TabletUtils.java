@@ -122,7 +122,7 @@ public class TabletUtils {
 	    	if (hdc == null)
 	    		return null;
 	    	
-	    	
+	   	
 	    	long[]packet = new long[11];
 	    	PACKET p = new PACKET();
 	    	int ret = lib.WTPacketsGet(hdc, number,p);
@@ -146,6 +146,17 @@ public class TabletUtils {
 	    	
 	    	return val;
 	    } 
+	    
+	       public int getPackets2(int number){
+	            if (hdc == null)
+	                return -1;
+	            
+	            
+	            //long[]packet = new long[11];
+	            PACKET[] p = new PACKET[number];
+	            return lib.WTPacketsGet(hdc, number,p);
+	            
+	        } 
 	    
 	    
 	     /**

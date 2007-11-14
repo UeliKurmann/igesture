@@ -3,8 +3,7 @@ package org.ximtec.igesture.io.wacom;
 
 
 
-//import com.sun.jna.FromNativeContext;
-//import com.sun.jna.IntegerType;
+
 import org.ximtec.igesture.io.win32.W32API;
 
 import com.sun.jna.Native;
@@ -21,7 +20,6 @@ import com.sun.jna.win32.StdCallLibrary;
 public interface Wintab32 extends W32API {
 
 		
-	
 
 	    public Wintab32 INSTANCE = (Wintab32)
 	    Native.loadLibrary("wintab32", Wintab32.class, DEFAULT_OPTIONS);
@@ -41,6 +39,8 @@ public interface Wintab32 extends W32API {
 	    
 	    //The return value is the number of packets copied in the buffer
 	    int WTPacketsGet(HDC hdc, int max, PACKET p);
+	    int WTPacketsGet(HDC hdc, int max, PACKET[] p);
+	    boolean WTPacket(HDC hdc, int wSerial, PACKET p);
 	    
 
 	    HANDLE WTMgrPacketHookEx(HINSTANCE hmgr, int nType, String module, String hookproc); //not sure
