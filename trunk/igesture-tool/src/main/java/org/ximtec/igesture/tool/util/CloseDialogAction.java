@@ -35,7 +35,7 @@ import org.sigtec.graphix.widget.BasicAction;
 
 
 /**
- * Action to close a dialog.
+ * Action to close a dialogue.
  * 
  * @version 1.0 Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

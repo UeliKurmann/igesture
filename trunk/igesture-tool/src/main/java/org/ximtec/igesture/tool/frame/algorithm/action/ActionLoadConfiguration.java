@@ -36,7 +36,7 @@ import org.ximtec.igesture.tool.util.SwingTool;
 
 
 /**
- * Loads a configration.
+ * Loads a configuration.
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

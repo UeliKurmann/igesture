@@ -74,7 +74,7 @@ public class ActionAddGestureSet extends BasicAction {
 
 
    /**
-    * Climps up the tree and returns a AddGestureSetDialog instance.
+    * Goes up in the tree and returns a AddGestureSetDialog instance.
     * 
     * @return the AddGestureSetDialog instance.
     */

@@ -54,7 +54,7 @@ public class ActionAboutDialog extends BasicAction {
 
 
    /**
-    * Makes the dialoge visible.
+    * Makes the dialogue visible.
     * @param event the action event.
     */
    public void actionPerformed(ActionEvent event) {
