@@ -4,7 +4,7 @@
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
  * Purpose      :   Feature representing the proportion of the stroke
- *                  lenghts (first/last point) to each other.
+ *                  lengths (first/last point) to each other.
  *
  * -----------------------------------------------------------------------
  *
@@ -34,7 +34,7 @@ import org.sigtec.ink.Trace;
 
 
 /**
- * Feature representing the proportion of the stroke lenghts (first/last point)
+ * Feature representing the proportion of the stroke lengths (first/last point)
  * to each other.
  * 
  * @version 1.0 Dec 2006

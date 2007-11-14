@@ -3,8 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   Proportion of the stroke lenghts
- *                  (first/last point) vs the lenght of the strokes
+ * Purpose      :   Proportion of the stroke lengths
+ *                  (first/last point) vs the length of the strokes
  *                  (point to point distance).
  *
  * -----------------------------------------------------------------------
@@ -34,7 +34,7 @@ import org.sigtec.ink.Trace;
 
 
 /**
- * Proportion of the stroke lenghts (first/last point) vs the lenght of the
+ * Proportion of the stroke lengths (first/last point) vs the length of the
  * strokes (point to point distance).
  * 
  * @version 1.0 Dec 2006

@@ -45,8 +45,8 @@ import org.ximtec.igesture.core.SampleDescriptor;
 public abstract class SampleBasedAlgorithm extends DefaultAlgorithm {
 
    /**
-    * Returns the list of samples of a given gesture class. the samples are
-    * extracted out of the sampleclass descriptor.
+    * Returns the list of samples of a given gesture class. The samples are
+    * extracted from the sample class descriptor.
     * 
     * @param gestureClass the gesture class whose samples have to be returned.
     * @return the samples for the given gesture class.

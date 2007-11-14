@@ -117,7 +117,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    private HashMap<GestureClass, DoubleVector> weightsVector;
 
    /**
-    * datastructure for storing the coovariant matrix per gesture class
+    * datastructure for storing the covariant matrix per gesture class
     */
    private HashMap<GestureClass, RealMatrix> covMatrices;
 
@@ -127,7 +127,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    private HashMap<GestureClass, Double> initialWeight;
 
    /**
-    * the common coovariant matrix for the set
+    * the common covariant matrix for the set
     */
    private RealMatrix matrix;
 
@@ -279,7 +279,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
       }
 
-      // Computes the common covarianz matrix
+      // Computes the common covariance matrix
       this.matrix = getCovarianceMatrix();
 
       // Computes weights
@@ -290,7 +290,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    /**
     * Iterates over each sample of the gesture class and computes the feature
     * vector. in a second step the mean feature vector of the samples is
-    * computed. Both vectores are stored in the corresponding datastructure.
+    * computed. Both vectors are stored in the corresponding datastructure.
     * 
     * @param gestureClass the gesture class.
     * @param featureList the feature list.
@@ -536,7 +536,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
    /**
     * Computes the mahalanobis distance. This distance is used to reject
-    * outliners.
+    * outliers.
     * 
     * @param gestureClass the gesture class to be used.
     * @param inputVector the input vector the distance has to be computed for.
