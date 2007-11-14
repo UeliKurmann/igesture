@@ -101,7 +101,7 @@ public class AlgorithmTool {
 
    /**
     * Returns true if all Gesture Classes of the Gesture Set have the required
-    * descriptor. As soon that one Class does not fullfill the requirements the
+    * descriptor. As soon that one Class does not fulfill the requirements the
     * result is false.
     * 
     * @param set the gesture set to test.

@@ -4,7 +4,7 @@
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
  * Purpose      :   Feature representing the proportion (P[1]->P[N/2])
- *                  divided by the diagonale.
+ *                  divided by the diagonal.
  *
  * -----------------------------------------------------------------------
  *
@@ -32,7 +32,7 @@ import org.sigtec.ink.Note;
 
 
 /**
- * Feature representing the proportion (P[1]->P[N/2]) divided by the diagonale.
+ * Feature representing the proportion (P[1]->P[N/2]) divided by the diagonal.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

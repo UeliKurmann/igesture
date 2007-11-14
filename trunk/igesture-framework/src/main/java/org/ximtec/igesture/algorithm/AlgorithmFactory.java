@@ -51,10 +51,10 @@ public class AlgorithmFactory {
 
 
    /**
-    * Creates a list of algorithms and inistialises them with the parameters
+    * Creates a list of algorithms and initialises them with the parameters
     * provided in the configuration object.
     * 
-    * @param file the xml file that contains the configuration.
+    * @param file the XML file that contains the configuration.
     * @return the list of algorithms.
     * @throws AlgorithmException if the algorithms could not be created.
     */
@@ -65,7 +65,7 @@ public class AlgorithmFactory {
 
 
    /**
-    * Creates a list of algorithms and inistialises them with the parameters
+    * Creates a list of algorithms and initialises them with the parameters
     * provided in the configuration object.
     * 
     * @param config the configuration object.

@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   Feature representing the number fo strokes.
+ * Purpose      :   Feature representing the number of strokes.
  *
  * -----------------------------------------------------------------------
  *
