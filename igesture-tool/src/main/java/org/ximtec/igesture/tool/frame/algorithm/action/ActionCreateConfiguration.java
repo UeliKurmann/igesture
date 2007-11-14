@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Creates a new configration.
+ * Purpose		: 	Creates a new configuration.
  *
  * -----------------------------------------------------------------------
  *
@@ -36,7 +36,7 @@ import org.ximtec.igesture.tool.util.IconLoader;
 
 
 /**
- * Creates a new configration.
+ * Creates a new configuration.
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

@@ -303,10 +303,10 @@ public class GestureMainModel {
 
 
    /**
-    * Deletes the gesture class from the gesutre set.
+    * Deletes the gesture class from the gesture set.
     * 
     * @param set the gesture set from which the class has to be removed.
-    * @param gestureClass the gesture calss to be removed.
+    * @param gestureClass the gesture class to be removed.
     */
    public void removeClassFromSet(GestureSet set, GestureClass gestureClass) {
       set.removeGestureClass(gestureClass);
@@ -405,7 +405,7 @@ public class GestureMainModel {
    /**
     * Updates a data object in the data source.
     * 
-    * @param dataObject the data objec to be updated.
+    * @param dataObject the data object to be updated.
     */
    public void updateDataObject(DataObject dataObject) {
       storageManager.store(dataObject);
