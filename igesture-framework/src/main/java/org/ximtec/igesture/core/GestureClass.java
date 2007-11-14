@@ -57,7 +57,7 @@ public class GestureClass extends DefaultDataObject {
    /**
     * Constructs a new gesture class instance.
     * 
-    * @param name th ename of the gesture class to be created.
+    * @param name the name of the gesture class to be created.
     */
    public GestureClass(String name) {
       super();
@@ -90,7 +90,7 @@ public class GestureClass extends DefaultDataObject {
     * Returns the gesture class descriptor for a given key.
     * 
     * @param classname the classname for which the gesture class descriptor has
-    *           to be returned.
+    *            to be returned.
     * @param <T>
     * @return the gesture class descriptor.
     */

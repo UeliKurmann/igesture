@@ -42,7 +42,7 @@ import org.ximtec.igesture.core.TextDescriptor;
 
 
 /**
- * Implementation of the Siger algortithm.
+ * Implementation of the Siger algorithm.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

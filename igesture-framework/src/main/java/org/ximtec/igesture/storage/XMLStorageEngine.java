@@ -97,9 +97,9 @@ public class XMLStorageEngine extends DefaultStorageEngine{
 
 
    /**
-    * Deserialize an XML file.
+    * Deserialise an XML file.
     * 
-    * @param file the file to be deserialized.
+    * @param file the file to be deserialised.
     * @return the internal data structure handling the data objects.
     */
    @SuppressWarnings("unchecked")

@@ -50,7 +50,7 @@ public class Parser {
    }
 
    /**
-    * Operators of Sigers descritpion language.
+    * Operators of Siger's description language.
     * 
     */
    public enum Operator {

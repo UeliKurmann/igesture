@@ -4,7 +4,7 @@
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
  * Purpose      : 	Datastructure to handle algorithms in batch process.
- * 					This class aslo provides XML import functionality.
+ * 					This class also provides XML import functionality.
  *
  * -----------------------------------------------------------------------
  *

@@ -5,7 +5,7 @@
  *
  * Purpose      : 	The event manager holds a set of event handlers which
  * 					are executed after an event has been fired. The event
- *                  manager is registred by algorithms.
+ *                  manager is registered by algorithms.
  *
  * -----------------------------------------------------------------------
  *
@@ -36,7 +36,7 @@ import org.ximtec.igesture.core.ResultSet;
 
 /**
  * The event manager holds a set of event handlers which are executed after an
- * event has been fired. The event manager is registred by algorithms.
+ * event has been fired. The event manager is registered by algorithms.
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
@@ -49,7 +49,7 @@ public class EventManager {
    private LinkedList<ResultSet> eventQueue;
 
    /**
-    * the list of registred events.
+    * the list of registered events.
     */
    private HashMap<String, EventHandler> events;
 

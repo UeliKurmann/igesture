@@ -1,5 +1,5 @@
 /**
- * Different persitent storage containers.
+ * Different persistent storage containers.
  */
 
 

@@ -179,8 +179,8 @@ public class InputDeviceFactory {
    /**
     * Returns an Anoto document handler
     * 
-    * @param filename filename of the xml mapping file
-    * @return an anoto document handler
+    * @param filename filename of the XML mapping file
+    * @return an Anoto document handler
     * 
     * public static DocumentHandler getAnotoMappings(String filename) { try {
     * return JdomDocument.load(InputDeviceFactory.class.getClassLoader()

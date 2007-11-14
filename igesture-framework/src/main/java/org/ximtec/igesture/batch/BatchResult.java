@@ -137,7 +137,7 @@ public class BatchResult {
 
 
    /**
-    * Returns the number of samples which shuld be rejected.
+    * Returns the number of samples which should be rejected.
     * 
     * @return number of samples which should be rejected.
     */
@@ -170,7 +170,7 @@ public class BatchResult {
 
 
    /**
-    * Increments the number of correclty rejected gestures.
+    * Increments the number of correctly rejected gestures.
     * 
     * @param className the name of the gesture class.
     */
@@ -232,7 +232,7 @@ public class BatchResult {
    /**
     * Returns the running time in milliseconds.
     * 
-    * @return the running time ind milliseconds.
+    * @return the running time in milliseconds.
     */
    public long getRunningTime() {
       return endTime - startTime;
@@ -252,7 +252,7 @@ public class BatchResult {
    /**
     * Returns a list of statistics.
     * 
-    * @return the list of statistaics.
+    * @return the list of statistics.
     */
    public List<ClassStatistic> getStatistics() {
       return new ArrayList<ClassStatistic>(classStatistics.values());

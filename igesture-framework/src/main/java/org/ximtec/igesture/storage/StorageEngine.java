@@ -4,7 +4,7 @@
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
  * Purpose      : 	Interface for StorageEngines implementations
- *                  realising access functionaliy for data sources.  
+ *                  realising access functionality for data sources.  
  *
  * -----------------------------------------------------------------------
  *
@@ -33,8 +33,8 @@ import org.ximtec.igesture.core.DataObject;
 
 
 /**
- * Interface for StorageEngines implementations realising access functionaliy for
- * data sources.
+ * Interface for StorageEngines implementations realising access functionality
+ * for data sources.
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
@@ -52,12 +52,14 @@ public interface StorageEngine {
     * Loads a collection of data objects of a given type. In general this method
     * retuns all instances of the specific type.
     */
-   public <T extends DataObject> List<T> load(Class<T> clazz); 
-   
+   public <T extends DataObject> List<T> load(Class<T> clazz);
+
+
    /**
     * Loads a collection of data objects
     */
-   public <T extends DataObject> List<T> load(Class<T> clazz, String fieldName, Object value);
+   public <T extends DataObject> List<T> load(Class<T> clazz, String fieldName,
+         Object value);
 
 
    /**

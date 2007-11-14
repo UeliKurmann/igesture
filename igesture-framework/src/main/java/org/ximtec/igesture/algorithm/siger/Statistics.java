@@ -137,9 +137,9 @@ public class Statistics {
 
 
    /**
-    * Returns the number of diagonal elemetns
+    * Returns the number of diagonal elements
     * 
-    * @return the number of diagonal elemetns
+    * @return the number of diagonal elements
     */
    @SuppressWarnings("cast")
    public double getDiagonal() {
@@ -208,9 +208,9 @@ public class Statistics {
 
 
    /**
-    * Returns the number of nort/west directions
+    * Returns the number of north/west directions
     * 
-    * @return the number of nort/west directions
+    * @return the number of north/west directions
     */
    @SuppressWarnings("cast")
    public double getNorthWest() {

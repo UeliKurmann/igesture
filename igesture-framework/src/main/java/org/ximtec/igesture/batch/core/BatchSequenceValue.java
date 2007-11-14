@@ -75,7 +75,7 @@ public class BatchSequenceValue extends BatchParameter {
 
    /**
     * Imports a BatchSequenceValue from an XML element.
-    * @param parameterValue the XML element th evalue has to be imported from.
+    * @param parameterValue the XML element the value has to be imported from.
     * @return the BatchSequenceValue imported from the XML element.
     */
    @SuppressWarnings("unchecked")
