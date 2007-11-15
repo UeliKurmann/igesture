@@ -74,7 +74,7 @@ public class InputDeviceFactory {
          return createMagicommPenSocketInputDevice(configuration);
       }
       else if(identifier.equals(TABLET_PC)){
-    	  return createTabletInputDevice();
+    	  return createWintabInputDevice();
       }
 
       return null;
@@ -118,8 +118,8 @@ public class InputDeviceFactory {
     * 
     * @return the newly created tablet input device.
     */
-   private static TabletReader createTabletInputDevice() {
-      return new TabletReader();
+   private static WintabReader createWintabInputDevice() {
+      return new WintabReader();
    } // createTabletInputDevice
 
    
@@ -202,7 +202,7 @@ public class InputDeviceFactory {
     */
    private static BufferedInputDeviceEventListener getTabletListener() {
       return new BufferedInputDeviceEventListener(
-            new TabletReaderEventListener(), DEFAULT_BUFFER_SIZE);
+            new WintabReaderEventListener(), DEFAULT_BUFFER_SIZE);
    } // getTabletListener
 
    /**

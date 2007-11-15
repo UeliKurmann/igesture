@@ -48,10 +48,10 @@ import org.ximtec.igesture.io.wacom.Win32TabletProxy;
  * @author Michele Croci, mcroci@gmail.com
  */
  
-public class TabletReader extends org.sigtec.input.AbstractInputDevice implements
+public class WintabReader extends org.sigtec.input.AbstractInputDevice implements
       ButtonDevice {
 
-   private static final Logger LOGGER = Logger.getLogger(TabletReader.class
+   private static final Logger LOGGER = Logger.getLogger(WintabReader.class
          .getName());
 
    private static final int FREQUENCE = 20;
@@ -61,7 +61,7 @@ public class TabletReader extends org.sigtec.input.AbstractInputDevice implement
    private HashSet<ButtonDeviceEventListener> buttonUpEvents;
 
 
-   public TabletReader() {
+   public WintabReader() {
       init();
       buttonUpEvents = new HashSet<ButtonDeviceEventListener>();
    }
@@ -72,7 +72,7 @@ public class TabletReader extends org.sigtec.input.AbstractInputDevice implement
     * 
     */
    public void init() {
-      final TabletReader tabletReader = this;
+      final WintabReader tabletReader = this;
 
 	
       final Thread t = new Thread() {
@@ -80,11 +80,9 @@ public class TabletReader extends org.sigtec.input.AbstractInputDevice implement
          @Override
          public void run() {
         	Win32TabletProxy proxy = new Win32TabletProxy();
-        	boolean extraData = proxy.isExtraDataSupported();
         	
         	 while (true) {
-        //	    if (Win32TabletProxy. .isMiddleButtonPressed()) {
-           	    
+        	    //if (Win32TabletProxy. .isMiddleButtonPressed()) {
         	       proxy.getNextPacket();
         	       
         	       if(proxy.getLastPacket()!=null){
@@ -92,18 +90,10 @@ public class TabletReader extends org.sigtec.input.AbstractInputDevice implement
                      Location location = new Location("screen", 1, proxy.getLastCursorLocation());
                      System.out.println(location);
                      TabletLocation tbl = null;
-                     if(extraData){
                    	  tbl = new TabletLocation(location,
                                  proxy.getTimeStamp(), proxy.getPressure(), proxy.getOrientation(),
                                  proxy.getRotation(), proxy.getTangentPressure(), proxy.getzval());
-                 
-                     }else
-                     {	  
-                     tbl = new TabletLocation(location,
-                           proxy.getTimeStamp(), proxy.getPressure());
-                     }
-                     tabletReader.fireInputDeviceEvent(new TabletReaderEvent(tbl));
-                     //lastKeyState = true;
+                     tabletReader.fireInputDeviceEvent(new WintabReaderEvent(tbl));
                   }
    
                   try {
@@ -112,7 +102,7 @@ public class TabletReader extends org.sigtec.input.AbstractInputDevice implement
                   catch (InterruptedException e) {
                      LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
                   }
-       // 	 }
+        	 //}
         	 }
 			
             }
@@ -128,9 +118,9 @@ public class TabletReader extends org.sigtec.input.AbstractInputDevice implement
     * 
     * @return a list of tablet readers.
     */
-   public static List<TabletReader> createTablet() {
-      final List<TabletReader> list = new ArrayList<TabletReader>();
-      list.add(new TabletReader());
+   public static List<WintabReader> createTablet() {
+      final List<WintabReader> list = new ArrayList<WintabReader>();
+      list.add(new WintabReader());
       return list;
    } // createtablet
 
