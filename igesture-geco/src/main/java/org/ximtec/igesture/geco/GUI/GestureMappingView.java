@@ -52,8 +52,15 @@ import javax.swing.border.TitledBorder;
 import org.sigtec.graphix.widget.BasicButton;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
+//TODO: remove dependency from tool
+import org.ximtec.igesture.tool.util.IconLoader;
+import org.ximtec.igesture.tool.util.SwingTool;
 import org.ximtec.igesture.util.XMLTool;
 
+
+import org.ximtec.igesture.geco.GUI.action.ActionExitApplication;
+import org.ximtec.igesture.geco.GUI.action.ActionNewGestureMap;
+import org.ximtec.igesture.geco.GUI.action.ActionOpenGestureMap;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 
 
@@ -80,6 +87,7 @@ public class GestureMappingView extends JFrame{
 	   //components of the window:
 	   JPanel leftPanel = new JPanel();
 	   JPanel rightPanel = new JPanel();
+	   JList gestureList = new JList();
 
 	   
 	   
@@ -108,8 +116,6 @@ public class GestureMappingView extends JFrame{
 		
 		GridBagLayout gbl = new GridBagLayout();
 		
-		GridLayout grid = new GridLayout(2,1,10,10);
-		GridLayout grid2 = new GridLayout(1,2,10,10);
 		this.getContentPane().setLayout(gbl);
 		
 		leftPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), "User defined mapping"));
@@ -137,7 +143,7 @@ public class GestureMappingView extends JFrame{
 		
 		this.getContentPane().add(createMenuBar(),
 				new GridBagConstraints(0,0,1,1,0,0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-				 new Insets(0,0,0,0),0,0 ) );
+				 new Insets(0,0,0,0),5,5 ) );
 		this.getContentPane().add(contentPanel,
 				new GridBagConstraints(0,1,1,1,1.0,1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 						 new Insets(20,20,20,20),0,0 ) );
@@ -169,25 +175,15 @@ public class GestureMappingView extends JFrame{
 	private void initRightPanel(){
 	     JScrollPane rightscroll = new JScrollPane();
 
-		GestureSet gestureSet = XMLTool.importGestureSet(
-			            new File(ClassLoader.getSystemResource(GESTURE_SET).getFile())).get(0);
-		List<GestureClass> classes = gestureSet.getGestureClasses();
-		GridLayout grid =  new GridLayout(1,1);
-		//grid.setVgap(1);
-		rightPanel.setLayout(grid);
-		DefaultListModel listModel = new DefaultListModel();
+		//GestureSet gestureSet = XMLTool.importGestureSet(
+			//            new File(ClassLoader.getSystemResource(GESTURE_SET).getFile())).get(0);
 		
-		int i = 0;
-		for (GestureClass gc : classes){
-		         i++;
-		         if(i<10)
-		            listModel.addElement( gc.getName());
-				 System.out.println(gc.getName());
-		}
-		JList gestureList = new JList(listModel);
-		gestureList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			 
-		rightscroll.getViewport().add(gestureList);
+	     
+	    GridLayout grid =  new GridLayout(1,1);
+	    //grid.setVgap(1);
+	    rightPanel.setLayout(grid);
+	    gestureList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    rightscroll.getViewport().add(gestureList);
 		rightscroll.setBorder(null);
 		rightPanel.add(rightscroll);
 			 
@@ -202,25 +198,23 @@ public class GestureMappingView extends JFrame{
 	    */
 	   private JMenuBar createMenuBar() {
 	      JMenuBar menuBar = new JMenuBar();
-	      //menuBar.add(createFileMenu());
+	      menuBar.add(createFileMenu());
 	     // menuBar.add(createInfoMenu());
 	      return menuBar;
 	   } // createMenuBar
 	   
 
 	   private JMenu createFileMenu() {
-	     /* JMenu menu = SwingTool.getGuiBundle().createMenu(GestureMappingConstants.MENU_FILE);
-	      menu.add(SwingTool.createMenuItem(new ActionNewDataSouce(this), IconLoader
+	     JMenu menu = SwingTool.getGuiBundle().createMenu(GestureMappingConstants.MENU_FILE);
+	      menu.add(SwingTool.createMenuItem(new ActionNewGestureMap(this), IconLoader
 	            .getIcon(IconLoader.DOCUMENT_NEW)));
-	      menu.add(SwingTool.createMenuItem(new ActionOpenDataSouce(this),
+	      menu.add(SwingTool.createMenuItem(new ActionOpenGestureMap(this),
 	            IconLoader.getIcon(IconLoader.DOCUMENT_OPEN)));
 	      menu.addSeparator();
 	      menu.add(SwingTool.createMenuItem(new ActionExitApplication(this)));
 	      
 	      
 	      return menu;
-	      */
-	      return null;
 	   } // createFileMenu
 	   
 	   
@@ -230,14 +224,13 @@ public class GestureMappingView extends JFrame{
 	         JFileChooser fileChooser = new JFileChooser();
 	         fileChooser.setFileFilter(new ExtensionFileFilter(XML_EXTENSION,
 	               new String[] {XML_EXTENSION}));
-	         System.out.println("FileChooser opened");
 	         int status = fileChooser.showOpenDialog(null);
 	         if (status == JFileChooser.APPROVE_OPTION) {
 	            File selectedFile = fileChooser.getSelectedFile();
 	            if(selectedFile != null){
 	               String ext = selectedFile.getName().substring(selectedFile.getName().length()-3,
 	                     selectedFile.getName().length());
-	               if(ext==XML_EXTENSION){
+	               if(ext.equals(XML_EXTENSION)){
 	                   openGestureSet(selectedFile);
 	                }
 	            }
@@ -248,7 +241,18 @@ public class GestureMappingView extends JFrame{
 	     }
 	         
 	     public void openGestureSet(File file){
-	            
+	        System.out.println("GestureMappingView.openGestureSet");
+	       GestureSet gestureSet = XMLTool.importGestureSet(file).get(0);
+           List<GestureClass> classes = gestureSet.getGestureClasses();
+
+           DefaultListModel listModel = new DefaultListModel();
+           
+           for (GestureClass gc : classes){
+                    listModel.addElement( gc.getName());
+           }
+           gestureList.setModel(listModel);
+
+
 	     }
 	         
 
