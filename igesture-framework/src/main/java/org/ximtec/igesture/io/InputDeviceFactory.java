@@ -47,6 +47,8 @@ public class InputDeviceFactory {
    public static final String MAGICOM_PEN_SOCKET = "MagicommPenSocket";
 
    public static final String MOUSE = "Mouse";
+   
+   public static final String TABLET_PC = "TabletPC";
 
    private static final String MAPPING_FILE = "mappingFile";
 
@@ -71,6 +73,9 @@ public class InputDeviceFactory {
       else if (identifier.equals(MAGICOM_PEN_SOCKET)) {
          return createMagicommPenSocketInputDevice(configuration);
       }
+      else if(identifier.equals(TABLET_PC)){
+    	  return createTabletInputDevice();
+      }
 
       return null;
    } // createInputDevice
@@ -90,6 +95,9 @@ public class InputDeviceFactory {
       else if (identifier.equals(MAGICOM_PEN_SOCKET)) {
          return getMagicommListener(configuration);
       }
+      else if (identifier.equals(TABLET_PC)){
+    	  return getTabletListener();
+      }
 
       return null;
    } // createInputDeviceEventListener
@@ -104,7 +112,18 @@ public class InputDeviceFactory {
       return new MouseReader();
    } // createMouseInputDevice
 
+   
+   /**
+    * Creates a new tablet input device.
+    * 
+    * @return the newly created tablet input device.
+    */
+   private static TabletReader createTabletInputDevice() {
+      return new TabletReader();
+   } // createTabletInputDevice
 
+   
+   
    /**
     * Creates a new MagicommPenSocket device.
     * 
@@ -175,6 +194,16 @@ public class InputDeviceFactory {
       return new BufferedInputDeviceEventListener(
             new MouseReaderEventListener(), DEFAULT_BUFFER_SIZE);
    } // getMouseListener
+   
+   /**
+    * Returns a buffered TabletReaderEventListener.
+    * 
+    * @return a buffered TabletReaderEventListener.
+    */
+   private static BufferedInputDeviceEventListener getTabletListener() {
+      return new BufferedInputDeviceEventListener(
+            new TabletReaderEventListener(), DEFAULT_BUFFER_SIZE);
+   } // getTabletListener
 
    /**
     * Returns an Anoto document handler
