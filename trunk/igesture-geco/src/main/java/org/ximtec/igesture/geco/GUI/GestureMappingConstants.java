@@ -39,6 +39,10 @@ public class GestureMappingConstants {
    
    public static final String MENU_FILE = "FileMenu";
    
+   public static final String COMMON_NEW = "NEW";
+   
+   public static final String COMMON_OPEN = "OPEN";
+   
 
 
 
