@@ -32,9 +32,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.sigtec.graphix.Orientation;
+import org.sigtec.ink.input.CompleteLocation;
 import org.sigtec.ink.input.DetailedLocation;
 import org.sigtec.ink.input.Location;
-import org.sigtec.ink.input.TabletLocation;
 import org.sigtec.input.InputDeviceEvent;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.io.wacom.Win32TabletProxy;
@@ -89,10 +90,10 @@ public class WintabReader extends org.sigtec.input.AbstractInputDevice implement
         	         
                      Location location = new Location("screen", 1, proxy.getLastCursorLocation());
                      System.out.println(location);
-                     TabletLocation tbl = null;
-                   	  tbl = new TabletLocation(location,
-                                 proxy.getTimeStamp(), proxy.getPressure(), proxy.getOrientation(),
-                                 proxy.getRotation(), proxy.getTangentPressure(), proxy.getzval());
+                     CompleteLocation tbl = null;
+                   	  tbl = new CompleteLocation(location, proxy.getTimeStamp(), proxy.getPressure(),
+                   	        new Orientation(proxy.getRotation().roYaw, proxy.getRotation().roPitch,
+                   	              proxy.getRotation().roRoll));
                      tabletReader.fireInputDeviceEvent(new WintabReaderEvent(tbl));
                   }
    
