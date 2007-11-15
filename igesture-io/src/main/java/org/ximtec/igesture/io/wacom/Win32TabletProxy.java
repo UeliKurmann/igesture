@@ -11,7 +11,7 @@
  *
  * Date             Who         Reason
  *
- * Oct 22, 2007     			Initial Release
+ * Oct 22, 2007     crocimi			Initial Release
  * 
  *
  * -----------------------------------------------------------------------
@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 
 import org.ximtec.igesture.io.wacom.TabletUtils;
 import org.ximtec.igesture.io.wacom.Wintab32.ORIENTATION;
+import org.ximtec.igesture.io.wacom.Wintab32.PACKET;
 import org.ximtec.igesture.io.wacom.Wintab32.ROTATION;
 
 
@@ -54,7 +55,7 @@ public class Win32TabletProxy {
 
    
    private TabletUtils tabletUtils =  new TabletUtils();
-   private long[] lastPacket = null;
+   private PACKET lastPacket = null;
 
    public Win32TabletProxy(){
 	   tabletUtils.open();
@@ -69,23 +70,28 @@ public class Win32TabletProxy {
     * Get the next packet data from the tablet Pc
     * 
     */
-   public boolean getNextPacket() {
+   public void getNextPacket() {
 
 		   lastPacket = tabletUtils.getPacket();
-		   if (lastPacket != null)
-		   		return true;
-		   else
-			   return false;
+   } 
+   
+   /**
+    * Return the last readed packet
+    * 
+    */
+   public PACKET getLastPacket() {
+
+           return lastPacket;
    } 
    
    /**
     * Returns the pressure of the pen on the table 
     * 
-    * @return the pressure (min =0, max = 1023)
+    * @return the timestamp
     */
    public long getTimeStamp() {
 	   if (lastPacket!=null) //just in case
-		    return lastPacket[0];
+		    return lastPacket.pkTime;
 	   else
 		   return 0;
    } 
@@ -99,10 +105,7 @@ public class Win32TabletProxy {
     */
    public int getPressure() {
 	   if (lastPacket!=null)
-		   if ((lastPacket!=null)&&(tabletUtils.isDataSupported(TabletUtils.DVC_NPRESSURE))) 
-			   return (int) lastPacket[9];
-		   else
-			   return -1;
+	        return lastPacket.pkNormalPressure;
 	   else
 		   return -1;
    } 
@@ -114,10 +117,7 @@ public class Win32TabletProxy {
     */
    public int getTangentPressure() {
 	   if (lastPacket!=null)
-		   if ((lastPacket!=null)&&(tabletUtils.isDataSupported(TabletUtils.DVC_TPRESSURE))) 
-			   return (int) lastPacket[10];
-		   else
-			   return -1;
+	      return lastPacket.pkTangentPressure;
 	   else
 		   return -1;
    } 
@@ -129,10 +129,7 @@ public class Win32TabletProxy {
     */
    public int getzval() {
 	   if (lastPacket!=null)
-		   if ((lastPacket!=null)&&(tabletUtils.isDataSupported(TabletUtils.DVC_Z))) 
-			   return (int) lastPacket[3];
-		   else
-			   return -1;
+	         return lastPacket.pkZ;
 	   else
 		   return -1;
    } 
@@ -145,19 +142,10 @@ public class Win32TabletProxy {
     * @return orientation (altitude, azimuth, twist)
     */
    public ORIENTATION getOrientation() {
-	   if (lastPacket!=null){
-		   if ((lastPacket!=null)&&(tabletUtils.isDataSupported(TabletUtils.DVC_ORIENTATION))){ 
-			   ORIENTATION o = new ORIENTATION();
-			   o.orAltitude=(int)lastPacket[4];
-			   o.orAzimuth=(int)lastPacket[5];
-			   o.orTwist=(int)lastPacket[6];
-			   return o;
-		   }
-			else
-				  return null;
-	   }
-	   else
-		   return null;
+	   if (lastPacket!=null)
+	      return lastPacket.pkOrientation;
+	    else
+	         return null;
    } 
    
    
@@ -168,16 +156,9 @@ public class Win32TabletProxy {
     */
    public ROTATION getRotation() {
 	   if (lastPacket!=null){ 
-		   if (tabletUtils.isDataSupported(TabletUtils.DVC_ROTATION)){
-			   ROTATION r = new ROTATION();
-			   r.roPitch=(int)lastPacket[7];
-			   r.roRoll=(int)lastPacket[8];
-			   r.roYaw=(int)lastPacket[9];
-			   return r;
+		      return lastPacket.pkRotation;
 		   }else
 			   return null;
-	   }else
-		   return null;
    } 
    
    
@@ -188,7 +169,7 @@ public class Win32TabletProxy {
     */
    public Point getLastCursorLocation() {
 	   if (lastPacket!=null) //just in case
-		   return new Point((int) lastPacket[1], (int) lastPacket[2]);
+		   return new Point(lastPacket.pkX, lastPacket.pkY);
 	   else
 		   return null;
    } 
