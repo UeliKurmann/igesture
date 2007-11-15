@@ -25,12 +25,38 @@
 
 package org.ximtec.igesture.io.wacom;
 
+import org.ximtec.igesture.io.wacom.Wintab32.PACKET;
+
 
 
 
 public class WacomTestClass {
    
    public static void main(String[] args) throws InterruptedException {
+      
+         TabletUtils tu =  new TabletUtils();
+         System.out.println("Start");
+   
+         tu.open();
+         
+         boolean b= true;
+         int i=0;
+         while (b){
+             
+             PACKET[] arr= new PACKET[10];
+             int ret = tu.getPackets(10, arr);
+             if (ret>0){
+                System.out.print("time: "+arr[0].pkTime+" - x: "+arr[0].pkX+" - y: "+arr[0].pkY+" - z:"+arr[0].pkZ);
+                System.out.println(" - altitude: "+arr[0].pkOrientation.orAltitude+" - pressure: "+arr[0].pkNormalPressure);
+                 
+             }
+             Thread.sleep(100);
+         }
+     
+         tu.close();
+      
+      
+      
       /*
               new Thread(){
                   public void run(){
@@ -41,10 +67,7 @@ public class WacomTestClass {
       */      
               
               //KeyboardUtils ku = new KeyboardUtils();
-              TabletUtils tu =  new TabletUtils();
-              System.out.println("Start");
 
-              tu.open();
           /*  System.out.println("x: "+tu.isDataSupported(TabletUtils.DATA_X));
               System.out.println("y: "+tu.isDataSupported(TabletUtils.DATA_Y));
               System.out.println("z: "+tu.isDataSupported(TabletUtils.DATA_Z));
@@ -65,23 +88,7 @@ public class WacomTestClass {
               
               
               
-                boolean b= true;
-                  int i=0;
-                  while (b){
-                     System.out.println(tu.getPackets2(5));
-                      /*
-                      long[][] arr= tu.getPackets(5);
-                      System.out.println("ti");
-                      if (arr != null){
-                          //System.out.println(arr[0]+" - "+arr[1]+" - "+arr[2]+" - "+arr[3]);
-                      
-                          System.out.print("time: "+arr[0][0]+" - x: "+arr[0][1]+" - y: "+arr[0][2]+" - z:"+arr[0][3]);
-                          System.out.println(" - angle: "+arr[0][4]+" - altitude: "+arr[0][5]+" - pressure: "+arr[0][6]);
-                          
-                      }*/
-                      Thread.sleep(100);
-                  }
-              
+
               
               /*
               boolean b= true;
@@ -102,7 +109,6 @@ public class WacomTestClass {
               }
               
               */
-              tu.close();
 
           }
 

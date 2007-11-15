@@ -82,31 +82,14 @@ public class TabletUtils {
 	     * 
 	     * @return the packet (saved in an array)
 	     */
-	    public long[] getPacket(){
+	    public PACKET getPacket(){
 	    	if (hdc == null)
 	    		return null;
 	    	
-	    	long[] val = new long[11];
 	    	PACKET p = new PACKET();
-	    	int ret = lib.WTPacketsGet(hdc, 1,p);
-	    	
-	    	if (ret>0){
-				val[0] = p.pkTime;
-				val[1] = p.pkX;	
-				val[2] = p.pkY;	
-				val[3] = p.pkZ;	
-				val[4] = p.pkOrientation.orAltitude;
-				val[5] = p.pkOrientation.orAzimuth;
-				val[5] = p.pkOrientation.orTwist;
-				val[6] = p.pkRotation.roPitch;
-				val[7] = p.pkRotation.roRoll;
-				val[8] = p.pkRotation.roYaw;
-				val[9] = p.pkNormalPressure;
-				val[10] = p.pkTangentPressure;
-				return val;
-	    	}
-	    	
-	    	return null;
+	    	lib.WTPacketsGet(hdc, 1,p);
+	    	return p;
+
 	    } 
 	    
 	    /**
@@ -115,49 +98,21 @@ public class TabletUtils {
          * @param number
          *      the maximal number of packets to be retrieved
          * 
+         * @param arr
+         *      the array where packets have to be saved
+         * 
          * @return the received packets
          */
 	    
-	    public long[][] getPackets(int number){
+	    public int getPackets(int number, PACKET[] arr){
 	    	if (hdc == null)
-	    		return null;
-	    	
-	   	
-	    	long[]packet = new long[11];
-	    	PACKET p = new PACKET();
-	    	int ret = lib.WTPacketsGet(hdc, number,p);
-	    	long[][] val = new long[11][ret];
-	    	
-	    	while (ret>0){
-	    	   packet[0] = p.pkTime;
-	    	   packet[1] = p.pkX;	
-				packet[2] = p.pkY;	
-				packet[3] = p.pkZ;	
-				packet[4] = p.pkOrientation.orAltitude;
-				packet[5] = p.pkOrientation.orAzimuth;
-				packet[5] = p.pkOrientation.orTwist;
-				packet[6] = p.pkRotation.roPitch;
-				packet[7] = p.pkRotation.roRoll;
-				packet[8] = p.pkRotation.roYaw;
-				packet[9] = p.pkNormalPressure;
-				packet[10] = p.pkTangentPressure;
-				val[ret]=packet;
-	    	}
-	    	
-	    	return val;
+	    		return -1;
+
+	    	int ret = lib.WTPacketsGet(hdc, number,arr);
+	    	return ret;
 	    } 
 	    
-	       public int getPackets2(int number){
-	            if (hdc == null)
-	                return -1;
-	            
-	            
-	            //long[]packet = new long[11];
-	            PACKET[] p = new PACKET[number];
-	            return lib.WTPacketsGet(hdc, number,p);
-	            
-	        } 
-	    
+
 	    
 	     /**
          * Determine if a particular type of data can be retrieved or not
