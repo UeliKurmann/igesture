@@ -7,9 +7,7 @@ package org.ximtec.igesture.io.wacom;
 import org.ximtec.igesture.io.win32.W32API;
 
 import com.sun.jna.Native;
-
 import com.sun.jna.Structure;
-import com.sun.jna.win32.StdCallLibrary;
 
 
 /** Provides access to the w32 wintab32 library.

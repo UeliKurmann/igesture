@@ -27,6 +27,7 @@
 package org.ximtec.igesture.tool.frame.algorithm;
 
 import org.sigtec.graphix.SimpleListModel;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.tool.GestureMainModel;
 
@@ -49,7 +50,7 @@ public class ConfigurationListModel extends SimpleListModel<Configuration> {
    public Object getElementAt(int index) {
       final String algoName = ((Configuration)super.getElementAt(index))
             .getAlgorithms().get(0);
-      return algoName.substring(algoName.lastIndexOf(".") + 1);
+      return algoName.substring(algoName.lastIndexOf(Constant.DOT) + 1);
    } // getElementAt
 
 

@@ -16,7 +16,6 @@ package org.ximtec.igesture.io.win32;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sun.jna.FromNativeContext;
 import com.sun.jna.IntegerType;
 import com.sun.jna.Pointer;
 import com.sun.jna.PointerType;

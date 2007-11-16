@@ -4,7 +4,6 @@ package org.ximtec.igesture.io.win32;
 
 
 import com.sun.jna.Native;
-import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
 
 
