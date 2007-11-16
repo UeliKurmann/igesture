@@ -49,6 +49,8 @@ public class StorageManager {
    private static final Logger LOGGER = Logger.getLogger(StorageManager.class
          .getName());
 
+   private static final String LOADING_DB = "Loading database from '";
+
    private StorageEngine storageEngine;
 
    public enum Filetype {
@@ -166,6 +168,7 @@ public class StorageManager {
     * @return the new storage engine.
     */
    public static StorageEngine createStorageEngine(File file) {
+      LOGGER.info(LOADING_DB + file + Constant.SINGLE_QUOTE);
       StorageEngine engine = null;
       switch (getFileType(file)) {
          case db:
