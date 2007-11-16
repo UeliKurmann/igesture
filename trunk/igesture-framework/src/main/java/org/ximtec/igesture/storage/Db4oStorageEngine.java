@@ -53,8 +53,6 @@ public class Db4oStorageEngine extends DefaultStorageEngine {
    private static final Logger LOGGER = Logger.getLogger(Db4oStorageEngine.class
          .getName());
 
-   private static final String OPEN_DB = "Opening DB: file = ";
-
    ObjectContainer db;
 
 
@@ -73,7 +71,6 @@ public class Db4oStorageEngine extends DefaultStorageEngine {
       Db4o.configure().objectClass(SampleDescriptor.class.getName())
             .cascadeOnUpdate(true);
       Db4o.configure().allowVersionUpdates(true);
-      LOGGER.log(Level.INFO, OPEN_DB+filename);
       db = Db4o.openFile(filename);
    }
 
