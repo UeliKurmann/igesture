@@ -29,6 +29,7 @@ package org.ximtec.igesture.core;
 
 import java.io.Serializable;
 
+
 /**
  * Interface to be implemented by persistent-capable objects.
  * 
@@ -36,10 +37,10 @@ import java.io.Serializable;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public interface DataObject extends Serializable{
+public interface DataObject extends Serializable {
 
    /**
-    * Returns the object's Universally Unique Identifier (UUID).
+    * Returns the object's universally unique identifier (UUID).
     * 
     * @return the object's UUID.
     */
@@ -47,9 +48,9 @@ public interface DataObject extends Serializable{
 
 
    /**
-    * Sets the object's Universally Unique Identifier (UUID).
+    * Sets the object's universally unique identifier (UUID).
     * 
-    * @param id the objects UUID.
+    * @param id the object's UUID.
     */
    public void setID(String id);
 
