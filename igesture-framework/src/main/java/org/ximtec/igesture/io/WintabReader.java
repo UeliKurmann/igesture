@@ -34,7 +34,6 @@ import java.util.logging.Logger;
 
 import org.sigtec.graphix.Orientation;
 import org.sigtec.ink.input.CompleteLocation;
-import org.sigtec.ink.input.DetailedLocation;
 import org.sigtec.ink.input.Location;
 import org.sigtec.input.InputDeviceEvent;
 import org.sigtec.util.Constant;
