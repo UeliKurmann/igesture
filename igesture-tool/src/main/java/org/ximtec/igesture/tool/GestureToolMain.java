@@ -31,6 +31,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.sigtec.util.Constant;
+import org.sigtec.util.SystemProperty;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.storage.StorageManager;
 
@@ -46,8 +47,6 @@ public class GestureToolMain {
 
    private static final String DEFAULT_CONFIGURATION = "config.xml";
 
-   private static final String PROPERTY_USER_DIR = "user.dir";
-
 
    public static void main(String[] args) {
       Logger.getAnonymousLogger().setLevel(Level.ALL);
@@ -61,7 +60,7 @@ public class GestureToolMain {
       }
 
       StorageEngine engine = StorageManager.createStorageEngine(new File(System
-            .getProperty(PROPERTY_USER_DIR)
+            .getProperty(SystemProperty.USER_DIR)
             + Constant.SLASH + configuration.getDatabase()));
 
       GestureMainModel model = new GestureMainModel(engine, configuration);
