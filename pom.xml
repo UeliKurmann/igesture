@@ -76,6 +76,7 @@
 	</developers>
 	
 	<modules>
+		<module>igesture-common</module>
 		<module>igesture-demo</module>
 		<module>igesture-framework</module>
 		<module>igesture-geco</module>
