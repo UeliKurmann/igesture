@@ -73,7 +73,7 @@ public class WintabReaderEvent implements InputDeviceEvent {
    
    /*
     * TODO: return others location type,
-    *       provide onther constructors
+    *       provide other constructors
     */
 
 }

@@ -36,7 +36,7 @@ import org.sigtec.ink.Note;
 import org.sigtec.ink.Point;
 import org.sigtec.ink.Trace;
 import org.sigtec.util.Constant;
-import org.ximtec.igesture.core.DoubleVector;
+import org.ximtec.igesture.util.DoubleVector;
 
 
 /**
