@@ -148,7 +148,13 @@
 			<groupId>org.safehaus.jug</groupId>
 			<artifactId>jug-asl</artifactId>
 		</dependency>
-
+	
+		<dependency>
+			<groupId>org.ximtec.igesture</groupId>
+			<artifactId>igesture-io</artifactId>
+			<version>1.2-SNAPSHOT</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.sigtec</groupId>
 			<artifactId>sigtec-ink</artifactId>
