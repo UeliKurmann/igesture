@@ -39,6 +39,8 @@ import javax.swing.JPopupMenu;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.TestSet;
+import org.ximtec.igesture.graphics.ScrollableList;
+import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.TestSetListener;
@@ -50,8 +52,6 @@ import org.ximtec.igesture.tool.frame.testset.action.ActionTestSetImport;
 import org.ximtec.igesture.tool.frame.testset.action.ActionTestSetNew;
 import org.ximtec.igesture.tool.frame.testset.action.ActionTestSetOpen;
 import org.ximtec.igesture.tool.util.CustomCellRenderer;
-import org.ximtec.igesture.tool.util.ScrollableList;
-import org.ximtec.igesture.tool.util.SwingTool;
 
 
 /**

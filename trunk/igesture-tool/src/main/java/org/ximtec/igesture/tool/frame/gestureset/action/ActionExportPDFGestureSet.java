@@ -37,10 +37,10 @@ import javax.swing.JMenuItem;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.tool.util.PDFTool;
-import org.ximtec.igesture.tool.util.SwingTool;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;

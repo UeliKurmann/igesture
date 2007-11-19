@@ -27,8 +27,6 @@
 package org.ximtec.igesture.geco.GUI;
 
 import java.awt.Color;
-import java.awt.ComponentOrientation;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -39,7 +37,6 @@ import java.io.File;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -56,19 +53,15 @@ import javax.swing.border.TitledBorder;
 import org.sigtec.graphix.widget.BasicButton;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
-//TODO: remove dependency from tool
-import org.ximtec.igesture.tool.util.IconLoader;
-import org.ximtec.igesture.tool.util.SwingTool;
-import org.ximtec.igesture.util.XMLTool;
-
-
 import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.GUI.action.ActionExitApplication;
 import org.ximtec.igesture.geco.GUI.action.ActionMapGesture;
 import org.ximtec.igesture.geco.GUI.action.ActionNewGestureMap;
 import org.ximtec.igesture.geco.GUI.action.ActionOpenGestureMap;
-import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
+import org.ximtec.igesture.graphics.SwingTool;
+import org.ximtec.igesture.tool.util.IconLoader;
+import org.ximtec.igesture.util.XMLTool;
 
 
 

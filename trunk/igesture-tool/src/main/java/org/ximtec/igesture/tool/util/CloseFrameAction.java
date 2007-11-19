@@ -32,6 +32,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JInternalFrame;
 
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.graphics.SwingTool;
 
 
 /**

@@ -37,12 +37,12 @@ import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample;
+import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.TestTab;
 import org.ximtec.igesture.tool.event.CurrentGestureListener;
 import org.ximtec.igesture.tool.frame.testset.action.ActionTestSetAdd;
-import org.ximtec.igesture.tool.util.SwingTool;
 import org.ximtec.igesture.util.GestureTool;
 
 

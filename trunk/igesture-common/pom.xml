@@ -64,6 +64,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.sigtec</groupId>
+			<artifactId>sigtec-graphix</artifactId>
+		</dependency>	
+	
+		<dependency>
+			<groupId>org.sigtec</groupId>
 			<artifactId>sigtec-util</artifactId>
 		</dependency>
 	</dependencies>

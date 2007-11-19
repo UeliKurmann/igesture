@@ -38,6 +38,8 @@ import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.TestSet;
+import org.ximtec.igesture.graphics.ScrollableList;
+import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.GestureSetListener;
@@ -45,8 +47,6 @@ import org.ximtec.igesture.tool.event.TestSetListener;
 import org.ximtec.igesture.tool.frame.batch.action.ActionSelectConfigFile;
 import org.ximtec.igesture.tool.frame.batch.action.ActionSelectResultFile;
 import org.ximtec.igesture.tool.frame.batch.action.ActionStartBatch;
-import org.ximtec.igesture.tool.util.ScrollableList;
-import org.ximtec.igesture.tool.util.SwingTool;
 
 
 /**

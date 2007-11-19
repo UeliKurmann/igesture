@@ -38,6 +38,7 @@ import org.sigtec.ink.TraceTool;
 import org.sigtec.ink.input.TimestampedLocation;
 import org.sigtec.input.util.CaptureTool;
 import org.sigtec.util.Constant;
+import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
@@ -45,7 +46,6 @@ import org.ximtec.igesture.tool.event.CurrentGestureListener;
 import org.ximtec.igesture.tool.frame.capture.action.ActionCaptureGesture;
 import org.ximtec.igesture.tool.frame.capture.action.ActionCaptureGestureClear;
 import org.ximtec.igesture.tool.util.JNote;
-import org.ximtec.igesture.tool.util.SwingTool;
 
 
 /**

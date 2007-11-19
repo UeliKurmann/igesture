@@ -32,10 +32,10 @@ import javax.swing.JList;
 
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestSet;
+import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.frame.testset.TestSetListFrame;
 import org.ximtec.igesture.tool.frame.testset.TestSetListModel;
 import org.ximtec.igesture.tool.util.IconLoader;
-import org.ximtec.igesture.tool.util.SwingTool;
 
 
 /**

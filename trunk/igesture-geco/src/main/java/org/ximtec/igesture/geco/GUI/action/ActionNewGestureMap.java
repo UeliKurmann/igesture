@@ -32,7 +32,7 @@ import java.awt.event.ActionEvent;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
-import org.ximtec.igesture.tool.util.SwingTool;
+import org.ximtec.igesture.graphics.SwingTool;
 
 
 /**

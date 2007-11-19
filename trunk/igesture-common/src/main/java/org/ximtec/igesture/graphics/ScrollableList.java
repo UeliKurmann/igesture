@@ -24,7 +24,7 @@
  */
 
 
-package org.ximtec.igesture.tool.util;
+package org.ximtec.igesture.graphics;
 
 import java.awt.Color;
 import java.awt.Dimension;

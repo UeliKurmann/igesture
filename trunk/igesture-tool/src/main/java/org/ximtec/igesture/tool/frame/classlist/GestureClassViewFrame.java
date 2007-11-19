@@ -46,6 +46,8 @@ import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.TextDescriptor;
+import org.ximtec.igesture.graphics.ScrollableList;
+import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.AdminTab;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
@@ -53,8 +55,6 @@ import org.ximtec.igesture.tool.event.GestureClassListener;
 import org.ximtec.igesture.tool.frame.classlist.action.ActionDeleteDescriptor;
 import org.ximtec.igesture.tool.frame.classlist.action.ActionOpenDescriptorDialog;
 import org.ximtec.igesture.tool.util.CloseFrameAction;
-import org.ximtec.igesture.tool.util.ScrollableList;
-import org.ximtec.igesture.tool.util.SwingTool;
 
 
 /**
