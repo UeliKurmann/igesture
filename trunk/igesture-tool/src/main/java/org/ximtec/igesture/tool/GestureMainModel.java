@@ -91,7 +91,7 @@ public class GestureMainModel {
    private StorageManager storageManager;
 
    /**
-    * Contains the last captured note.
+    * Contains the most recently captured note.
     */
    private Note currentNote;
 
@@ -129,6 +129,7 @@ public class GestureMainModel {
       testCaseListeners = new HashSet<TestSetListener>();
       algorithms = configuration.getAlgorithms();
       loadData(engine);
+      //TODO: more general (i.e. input device)
       penClient = new InputDeviceClient(configuration.getInputDevice(),
             configuration.getInputDeviceEventListener());
       penClient.init();
@@ -157,27 +158,25 @@ public class GestureMainModel {
    private void loadData() {
       gestureClasses = new ArrayList<GestureClass>();
 
-      for (final GestureClass dataObject : storageManager
-            .load(GestureClass.class)) {
+      for (GestureClass dataObject : storageManager.load(GestureClass.class)) {
          gestureClasses.add(dataObject);
       }
 
       gestureSets = new ArrayList<GestureSet>();
 
-      for (final GestureSet dataObject : storageManager.load(GestureSet.class)) {
+      for (GestureSet dataObject : storageManager.load(GestureSet.class)) {
          gestureSets.add(dataObject);
       }
 
       configurations = new ArrayList<Configuration>();
 
-      for (final Configuration dataObject : storageManager
-            .load(Configuration.class)) {
+      for (Configuration dataObject : storageManager.load(Configuration.class)) {
          configurations.add(dataObject);
       }
 
       testSets = new ArrayList<TestSet>();
 
-      for (final TestSet dataObject : storageManager.load(TestSet.class)) {
+      for (TestSet dataObject : storageManager.load(TestSet.class)) {
          testSets.add(dataObject);
       }
 
@@ -191,47 +190,11 @@ public class GestureMainModel {
    /**
     * Returns the list of configurations.
     * 
-    * @return List<Algoritm>
+    * @return the list of configurations.
     */
    public List<Configuration> getConfigurations() {
       return configurations;
    } // getConfigurations
-
-
-   /**
-    * Returns the list of gesture classes.
-    * 
-    * @return the list of gesture classes.
-    */
-   public List<GestureClass> getGestureClasses() {
-      return gestureClasses;
-   } // getGestureClasses
-
-
-   /**
-    * Returns the list of gesture sets.
-    * 
-    * @return the list of gesture sets.
-    */
-   public List<GestureSet> getGestureSets() {
-      return gestureSets;
-   } // getGestureSets
-
-
-   /**
-    * Adds the gesture set to the gesture main model, propagates the changes to
-    * the database and fires the corresponding event.
-    * 
-    * @param gestureSet the gesture set to be added.
-    */
-   public void addGestureSet(GestureSet gestureSet) {
-      if (!gestureSets.contains(gestureSet)) {
-         gestureSets.add(gestureSet);
-      }
-
-      storageManager.store(gestureSet);
-      fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
-   } // addGestureSet
 
 
    /**
@@ -251,6 +214,16 @@ public class GestureMainModel {
 
 
    /**
+    * Returns the list of gesture classes.
+    * 
+    * @return the list of gesture classes.
+    */
+   public List<GestureClass> getGestureClasses() {
+      return gestureClasses;
+   } // getGestureClasses
+
+
+   /**
     * Removes the given class from the gesture main model.
     * 
     * @param gestureClass the gesture class to be removed.
@@ -260,6 +233,44 @@ public class GestureMainModel {
       storageManager.remove(gestureClass);
       fireGesturedClassChanged(new EventObject(Constant.EMPTY_STRING));
    } // removeGestureClass
+
+
+   /**
+    * Adds the gesture set to the gesture main model, propagates the changes to
+    * the database and fires the corresponding event.
+    * 
+    * @param gestureSet the gesture set to be added.
+    */
+   public void addGestureSet(GestureSet gestureSet) {
+      if (!gestureSets.contains(gestureSet)) {
+         gestureSets.add(gestureSet);
+      }
+
+      storageManager.store(gestureSet);
+      fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
+   } // addGestureSet
+
+
+   /**
+    * Returns the list of gesture sets.
+    * 
+    * @return the list of gesture sets.
+    */
+   public List<GestureSet> getGestureSets() {
+      return gestureSets;
+   } // getGestureSets
+
+
+   /**
+    * Removes the given gesture set from the gesture main model.
+    * 
+    * @param set the set to be removed.
+    */
+   public void removeGestureSet(GestureSet set) {
+      storageManager.remove(set);
+      gestureSets.remove(set);
+      fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
+   } // removeGestureSet
 
 
    /**
@@ -316,24 +327,12 @@ public class GestureMainModel {
 
 
    /**
-    * Removes the given gesture set from the gesture main model.
-    * 
-    * @param set the set to be removed.
-    */
-   public void removeGestureSet(GestureSet set) {
-      storageManager.remove(set);
-      gestureSets.remove(set);
-      fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
-   } // removeGestureSet
-
-
-   /**
-    * Sets the current note.
+    * Sets the most recently captured note.
     * 
     * @param note the note to be set.
     */
    public void setCurrentNote(Note note) {
-      this.currentNote = note;
+      currentNote = note;
       fireCurrentGestureChanged(new EventObject(Constant.EMPTY_STRING));
    } // setCurrentNote
 
@@ -354,6 +353,7 @@ public class GestureMainModel {
     * @return the pen client.
     */
    public InputDeviceClient getPenClient() {
+      // TODO: more general (i.e. input device)
       return penClient;
    } // getPenClient
 
@@ -371,6 +371,16 @@ public class GestureMainModel {
 
 
    /**
+    * Returns the list of test sets.
+    * 
+    * @return list of test sets.
+    */
+   public List<TestSet> getTestSets() {
+      return testSets;
+   } // getTestSets
+
+
+   /**
     * Removes a test set from the main gesture model.
     * 
     * @param testSet the test case to be removed.
@@ -380,16 +390,6 @@ public class GestureMainModel {
       testSets.remove(testSet);
       fireTestSetChanged(new EventObject(Constant.EMPTY_STRING));
    } // removeTestSet
-
-
-   /**
-    * Returns the list of test sets.
-    * 
-    * @return list of test sets.
-    */
-   public List<TestSet> getTestSets() {
-      return testSets;
-   } // getTestSets
 
 
    /**
@@ -409,7 +409,7 @@ public class GestureMainModel {
     */
    public void updateDataObject(DataObject dataObject) {
       storageManager.store(dataObject);
-      
+
       if (dataObject instanceof GestureClass) {
          fireGesturedClassChanged(new EventObject(dataObject));
       }
@@ -425,7 +425,7 @@ public class GestureMainModel {
       else if (dataObject instanceof Configuration) {
          fireConfigurationChanged(new EventObject(dataObject));
       }
-      
+
    } // updateDataObject
 
 
@@ -441,7 +441,7 @@ public class GestureMainModel {
     */
    public synchronized void addGestureClassListener(GestureClassListener listener) {
       if (listener != null) {
-         this.gestureClassListeners.add(listener);
+         gestureClassListeners.add(listener);
       }
 
    } // addGestureClassListener
@@ -449,74 +449,74 @@ public class GestureMainModel {
 
    public synchronized void addGestureSetListener(GestureSetListener listener) {
       if (listener != null) {
-         this.gestureSetListeners.add(listener);
+         gestureSetListeners.add(listener);
       }
-      
+
    } // addGestureSetListener
 
 
    public synchronized void addConfigurationListener(
          ConfigurationListener listener) {
       if (listener != null) {
-         this.configurationListeners.add(listener);
+         configurationListeners.add(listener);
       }
-      
+
    } // addConfigurationListener
 
 
    public synchronized void addCurrentGestureListener(
          CurrentGestureListener listener) {
       if (listener != null) {
-         this.currentGestureListeners.add(listener);
+         currentGestureListeners.add(listener);
       }
-      
+
    } // addCurrentGestureListener
 
 
    public synchronized void addTestSetListener(TestSetListener listener) {
       if (listener != null) {
-         this.testCaseListeners.add(listener);
+         testCaseListeners.add(listener);
       }
-      
+
    } // addTestSetListener
 
 
    public synchronized void fireGesturedSetChanged(EventObject event) {
-      for (final GestureSetListener gestureSetListener : this.gestureSetListeners) {
+      for (GestureSetListener gestureSetListener : this.gestureSetListeners) {
          gestureSetListener.gestureSetChanged(event);
       }
-      
+
    } // fireGesturedSetChanged
 
 
    public synchronized void fireGesturedClassChanged(EventObject event) {
-      for (final GestureClassListener gestureSetListener : this.gestureClassListeners) {
+      for (GestureClassListener gestureSetListener : this.gestureClassListeners) {
          gestureSetListener.gestureClassChanged(event);
       }
-      
+
    } // fireGesturedClassChanged
 
 
    public synchronized void fireConfigurationChanged(EventObject event) {
-      for (final ConfigurationListener configListener : this.configurationListeners) {
+      for (ConfigurationListener configListener : this.configurationListeners) {
          configListener.configurationChanged(event);
       }
    }
 
 
    public synchronized void fireCurrentGestureChanged(EventObject event) {
-      for (final CurrentGestureListener currentGestureListener : this.currentGestureListeners) {
+      for (CurrentGestureListener currentGestureListener : this.currentGestureListeners) {
          currentGestureListener.currentGestureChanged(event);
       }
-      
+
    } // fireConfigurationChanged
 
 
    public synchronized void fireTestSetChanged(EventObject event) {
-      for (final TestSetListener testCaseListener : this.testCaseListeners) {
+      for (TestSetListener testCaseListener : this.testCaseListeners) {
          testCaseListener.testSetChanged(event);
       }
-      
+
    } // fireTestSetChanged
 
 }
