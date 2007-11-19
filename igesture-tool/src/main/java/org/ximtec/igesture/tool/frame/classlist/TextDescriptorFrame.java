@@ -32,11 +32,11 @@ import java.awt.TextField;
 
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.core.TextDescriptor;
+import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.frame.classlist.action.ActionSaveText;
 import org.ximtec.igesture.tool.util.CloseFrameAction;
-import org.ximtec.igesture.tool.util.SwingTool;
 
 
 /**

@@ -29,9 +29,9 @@ package org.ximtec.igesture.tool.action;
 import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
-import org.ximtec.igesture.tool.util.SwingTool;
 
 
 /**

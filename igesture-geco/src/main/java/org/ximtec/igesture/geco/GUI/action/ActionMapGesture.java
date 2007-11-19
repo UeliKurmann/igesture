@@ -52,7 +52,7 @@ import org.sigtec.graphix.widget.BasicDialog;
 import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
-import org.ximtec.igesture.tool.util.SwingTool;
+import org.ximtec.igesture.graphics.SwingTool;
 
 
 

@@ -35,9 +35,9 @@ import javax.swing.JMenuItem;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.util.IconLoader;
-import org.ximtec.igesture.tool.util.SwingTool;
 import org.ximtec.igesture.util.XMLTool;
 
 

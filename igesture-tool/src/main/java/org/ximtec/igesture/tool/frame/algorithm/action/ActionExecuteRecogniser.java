@@ -43,10 +43,10 @@ import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
+import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.CaptureTab;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureMainModel;
-import org.ximtec.igesture.tool.util.SwingTool;
 
 
 /**

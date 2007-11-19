@@ -48,6 +48,8 @@ import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.AlgorithmFactory;
 import org.ximtec.igesture.configuration.Configuration;
+import org.ximtec.igesture.graphics.ScrollableList;
+import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.ConfigurationListener;
@@ -56,8 +58,6 @@ import org.ximtec.igesture.tool.frame.algorithm.action.ActionDeleteConfiguration
 import org.ximtec.igesture.tool.frame.algorithm.action.ActionExportConfiguration;
 import org.ximtec.igesture.tool.frame.algorithm.action.ActionLoadConfiguration;
 import org.ximtec.igesture.tool.frame.algorithm.action.ActionSaveConfiguration;
-import org.ximtec.igesture.tool.util.ScrollableList;
-import org.ximtec.igesture.tool.util.SwingTool;
 
 
 /**

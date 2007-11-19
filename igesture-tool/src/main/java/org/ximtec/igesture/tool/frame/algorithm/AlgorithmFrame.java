@@ -37,12 +37,12 @@ import javax.swing.JScrollPane;
 
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.CaptureTab;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.GestureSetListener;
 import org.ximtec.igesture.tool.frame.algorithm.action.ActionExecuteRecogniser;
-import org.ximtec.igesture.tool.util.SwingTool;
 
 
 /**

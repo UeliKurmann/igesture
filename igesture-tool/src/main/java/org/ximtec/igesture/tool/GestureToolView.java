@@ -38,13 +38,13 @@ import javax.swing.UIManager;
 import org.sigtec.util.Constant;
 import org.sigtec.util.Decorator;
 import org.sigtec.util.IconTool;
+import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.tool.action.ActionAboutDialog;
 import org.ximtec.igesture.tool.action.ActionExitApplication;
 import org.ximtec.igesture.tool.action.ActionNewDataSouce;
 import org.ximtec.igesture.tool.action.ActionOpenDataSouce;
 import org.ximtec.igesture.tool.util.IconLoader;
-import org.ximtec.igesture.tool.util.SwingTool;
 
 
 /**

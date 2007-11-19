@@ -31,10 +31,10 @@ import java.awt.GridBagLayout;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.graphix.widget.BasicTextField;
 import org.sigtec.util.Constant;
+import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.frame.gestureset.action.ActionAddGestureSet;
 import org.ximtec.igesture.tool.util.CloseDialogAction;
-import org.ximtec.igesture.tool.util.SwingTool;
 
 
 /**

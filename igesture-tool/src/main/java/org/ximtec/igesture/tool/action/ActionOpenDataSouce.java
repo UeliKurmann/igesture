@@ -32,10 +32,10 @@ import java.io.File;
 import javax.swing.JFileChooser;
 
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.storage.StorageManager;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
-import org.ximtec.igesture.tool.util.SwingTool;
 
 
 /**
