@@ -56,14 +56,14 @@ import org.ximtec.igesture.algorithm.feature.Feature;
 import org.ximtec.igesture.algorithm.feature.FeatureException;
 import org.ximtec.igesture.algorithm.feature.FeatureTool;
 import org.ximtec.igesture.configuration.Configuration;
-import org.ximtec.igesture.core.DoubleVector;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.core.VectorTools;
+import org.ximtec.igesture.util.DoubleVector;
 import org.ximtec.igesture.util.GestureTool;
+import org.ximtec.igesture.util.VectorTools;
 
 
 /**

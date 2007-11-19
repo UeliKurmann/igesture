@@ -24,9 +24,10 @@
  */
 
 
-package org.ximtec.igesture.core;
+package org.ximtec.igesture.util;
 
 import java.util.Collection;
+
 
 
 /**
