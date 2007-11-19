@@ -31,7 +31,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.sigtec.util.Constant;
-import org.sigtec.util.GuiBundle;
 import org.sigtec.util.SystemProperty;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.storage.StorageManager;
