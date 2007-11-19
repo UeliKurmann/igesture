@@ -27,6 +27,8 @@
 package org.ximtec.igesture.geco.GUI;
 
 import java.awt.Color;
+import java.awt.ComponentOrientation;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -37,7 +39,9 @@ import java.io.File;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -58,9 +62,12 @@ import org.ximtec.igesture.tool.util.SwingTool;
 import org.ximtec.igesture.util.XMLTool;
 
 
+import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.GUI.action.ActionExitApplication;
+import org.ximtec.igesture.geco.GUI.action.ActionMapGesture;
 import org.ximtec.igesture.geco.GUI.action.ActionNewGestureMap;
 import org.ximtec.igesture.geco.GUI.action.ActionOpenGestureMap;
+import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 
 
@@ -118,23 +125,21 @@ public class GestureMappingView extends JFrame{
 		
 		this.getContentPane().setLayout(gbl);
 		
-		leftPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), "User defined mapping"));
-		rightPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), "Gestures set"));
+		leftPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GestureMappingConstants.USER_DEFINED_MAPPING));
+		rightPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GestureMappingConstants.GESTURES_SET));
 
 		
 		contentPanel.setLayout(new GridBagLayout());
-		BasicButton loadSetButton = new BasicButton();
-		loadSetButton.setText(GestureMappingConstants.LOAD_GESTURE_SET);
-		loadSetButton.addActionListener(new LoadSetActionListener());
+		//BasicButton loadSetButton = SwingTool.createButton(GestureMappingConstants.LOAD_GESTURE_SET);
+		//loadSetButton.setAction(new ActionExitApplication(this));
+
 		
 		contentPanel.add(leftPanel,
-				new GridBagConstraints(0,1,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+				new GridBagConstraints(0,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 				 new Insets(0,0,0,20),10,10 ) );
-		contentPanel.add(loadSetButton,
-				new GridBagConstraints(1,0,1,1,0,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
-						 new Insets(0,0,0,0),0,0 ) );
+	
 		contentPanel.add(rightPanel,
-				new GridBagConstraints(1,1,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+				new GridBagConstraints(1,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 						 new Insets(0,0,0,0),0,0 ) );
 
 		//JPanel menuPanel = new JPanel();
@@ -179,13 +184,35 @@ public class GestureMappingView extends JFrame{
 			//            new File(ClassLoader.getSystemResource(GESTURE_SET).getFile())).get(0);
 		
 	     
-	    GridLayout grid =  new GridLayout(1,1);
-	    //grid.setVgap(1);
-	    rightPanel.setLayout(grid);
+	    //GridLayout grid =  new GridLayout(1,2);
+
+	    //rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+	    rightPanel.setLayout(new GridBagLayout());
 	    gestureList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	    rightscroll.getViewport().add(gestureList);
 		rightscroll.setBorder(null);
-		rightPanel.add(rightscroll);
+		rightPanel.add(rightscroll,
+              new GridBagConstraints(0,0,2,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                    new Insets(0,0,0,0),0,0 ) );
+		BasicButton mapButton = SwingTool.createButton(GestureMappingConstants.MAP_GESTURE);
+		mapButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+		mapButton.setAction(new ActionMapGesture(this, new GestureMappingTable()));
+		mapButton.setText(GestureMappingConstants.MAP_GESTURE);
+		
+	    BasicButton loadSetButton = new BasicButton();
+	    loadSetButton.setText(GestureMappingConstants.LOAD_GESTURE_SET);
+	    loadSetButton.addActionListener(new LoadSetActionListener());
+
+	     
+	     rightPanel.add(loadSetButton,
+	                new GridBagConstraints(0,1,1,1,0.5,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
+	                         new Insets(0,0,0,0),0,0 ) );
+		
+	     rightPanel.add(mapButton,
+               new GridBagConstraints(1,1,1,1,0.5,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
+                     new Insets(0,0,0,0),50,0 ) );
+
+	
 			 
 			 
 	}
@@ -216,6 +243,7 @@ public class GestureMappingView extends JFrame{
 	      
 	      return menu;
 	   } // createFileMenu
+ 
 	   
 	   
 	   private class LoadSetActionListener implements ActionListener{
