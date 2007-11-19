@@ -1,5 +1,5 @@
 /*
- * @(#)ExtensionFileFilter.java 1.0   Nov 15, 2007
+ * @(#)GestureMappingConstants.java 1.0   Nov 15, 2007
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *
@@ -42,6 +42,24 @@ public class GestureMappingConstants {
    public static final String COMMON_NEW = "NEW";
    
    public static final String COMMON_OPEN = "OPEN";
+   
+   public static final String MAP_GESTURE = "Map gesture...";
+   
+   public static final String MAPPING_GESTURE = "Mapping gesture";
+   
+   public static final String USER_DEFINED_MAPPING = "User defined mapping";
+   
+   public static final String GESTURES_SET = "Gestures set";
+   
+   public static final String GESTURE = "Gesture";
+   
+   public static final String HOTKEY = "Hotkey";
+   
+   public static final String SAVE = "SAVE";
+   
+   public static final String ADD = "ADD";
+   
+   public static final String CANCEL = "CANCEL";
    
 
 

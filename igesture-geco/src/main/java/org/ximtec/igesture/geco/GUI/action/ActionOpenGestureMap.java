@@ -3,7 +3,7 @@
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
- * Purpose		:   class for opening gesture_mapping document action
+ * Purpose		:   Open an existing gesture map project.
  *
  * -----------------------------------------------------------------------
  *
@@ -35,7 +35,7 @@ import org.ximtec.igesture.tool.util.SwingTool;
 
 
 /**
-* Creates a new data source.
+* Open an existing gesture map project.
 * 
 * @version 1.0, Nov 2006
 * @author Michele Croci, mcroci@gmail.com
