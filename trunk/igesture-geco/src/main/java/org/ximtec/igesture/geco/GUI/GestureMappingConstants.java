@@ -35,7 +35,7 @@ package org.ximtec.igesture.geco.GUI;
  */
 public class GestureMappingConstants {
 
-   public static final String LOAD_GESTURE_SET = "Load gesture set...";
+   public static final String LOAD_GESTURE_SET = "LoadGestureSet";
    
    public static final String MENU_FILE = "FileMenu";
    
@@ -43,7 +43,7 @@ public class GestureMappingConstants {
    
    public static final String COMMON_OPEN = "OPEN";
    
-   public static final String MAP_GESTURE = "Map gesture...";
+   public static final String MAP_GESTURE = "MapGesture";
    
    public static final String MAPPING_GESTURE = "Mapping gesture";
    
@@ -60,6 +60,10 @@ public class GestureMappingConstants {
    public static final String ADD = "ADD";
    
    public static final String CANCEL = "CANCEL";
+   
+   public static final String EXIT = "EXIT";
+   
+   public static final String COMMON_EXIT = "EXIT";
    
 
 
