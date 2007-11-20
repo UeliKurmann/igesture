@@ -32,8 +32,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
+import org.sigtec.graphix.IconTool;
 import org.sigtec.util.Decorator;
-import org.sigtec.util.IconTool;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 

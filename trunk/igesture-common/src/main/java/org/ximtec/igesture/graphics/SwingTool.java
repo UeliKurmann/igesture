@@ -39,12 +39,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.ListModel;
 
+import org.sigtec.graphix.GuiBundle;
 import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.sigtec.graphix.widget.BasicLabel;
 import org.sigtec.graphix.widget.BasicTextField;
-import org.sigtec.util.GuiBundle;
 
 
 /**

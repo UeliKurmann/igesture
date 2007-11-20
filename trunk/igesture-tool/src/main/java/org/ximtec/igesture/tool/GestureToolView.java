@@ -35,9 +35,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
+import org.sigtec.graphix.IconTool;
 import org.sigtec.util.Constant;
 import org.sigtec.util.Decorator;
-import org.sigtec.util.IconTool;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.tool.action.ActionAboutDialog;
