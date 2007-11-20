@@ -27,6 +27,7 @@
 package org.ximtec.igesture.geco.GUI;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -35,6 +36,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.DefaultListModel;
@@ -47,19 +49,26 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import org.sigtec.graphix.widget.BasicButton;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.GUI.action.ActionExitApplication;
+import org.ximtec.igesture.geco.GUI.action.ActionLoadGestureSet;
 import org.ximtec.igesture.geco.GUI.action.ActionMapGesture;
 import org.ximtec.igesture.geco.GUI.action.ActionNewGestureMap;
 import org.ximtec.igesture.geco.GUI.action.ActionOpenGestureMap;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 import org.ximtec.igesture.graphics.SwingTool;
+import org.ximtec.igesture.tool.GestureConfiguration;
+import org.ximtec.igesture.tool.GestureMainModel;
 import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.util.XMLTool;
 
@@ -78,19 +87,35 @@ public class GestureMappingView extends JFrame{
 	   private static final Logger LOGGER = Logger.getLogger(GestureMappingView.class
 		         .getName());
 	   
+	   private GestureMappingModel model;
+	   
 	   private static final String GESTURE_SET = "gestureSets/ms_application_gestures.xml";
 	   private static final String XML_EXTENSION = "xml";
 	   
-	   private final int WINDOW_HEIGHT = 500;
+	   private final int WINDOW_HEIGHT = 600;
 	   private final int WINDOW_WIDTH = 800;
 	   
 	   //components of the window:
-	   JPanel leftPanel = new JPanel();
-	   JPanel rightPanel = new JPanel();
-	   JList gestureList = new JList();
+	   private JPanel leftPanel = new JPanel();
+	   private JPanel rightPanel = new JPanel();
+	   private JList gestureList = new JList();
+	   private BasicButton mapButton; 
 
 	   
 	   
+	   
+	   /**
+	    * Constructs a new main view.
+	    * 
+	    * @param model the model for this main view.
+	    */
+	   public GestureMappingView(GestureMappingModel model) {
+	      super();
+	      this.model = model;
+	      init();
+	   }
+
+
 
 	   
 	   /**
@@ -107,6 +132,14 @@ public class GestureMappingView extends JFrame{
 	    * Initialises the main view.
 	    */
 	private void init(){
+	   
+	   try {
+	         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+	      }
+	      catch (Exception e) {
+	         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+	      }
+
 		setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
 		setLocation(150, 100);
 		this.setTitle("Gestures Mapping");
@@ -146,6 +179,21 @@ public class GestureMappingView extends JFrame{
 				new GridBagConstraints(0,1,1,1,1.0,1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 						 new Insets(20,20,20,20),0,0 ) );
 		
+        BasicButton saveButton = SwingTool.createButton(GestureMappingConstants.SAVE);
+        BasicButton exitButton = SwingTool.createButton(GestureMappingConstants.EXIT);
+        //saveButton.setText(GestureMappingConstants.SAVE);
+        //exitButton.setText(GestureMappingConstants.EXIT);
+        exitButton.setAction(new ActionExitApplication(this));
+        //saveButton.setAction();
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+        buttonPanel.add(saveButton);
+        buttonPanel.add(exitButton);
+        
+      this.getContentPane().add(buttonPanel,
+                new GridBagConstraints(0,2,1,1,0,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
+                 new Insets(0,20,0,0),20,0 ) );
+		
 		
 		initLeftPanel();
 		initRightPanel();
@@ -154,7 +202,7 @@ public class GestureMappingView extends JFrame{
 	}
 	
 	   /**
-	    * Initialises the left conatiner.
+	    * Initialises the left container.
 	    */
 	private void initLeftPanel(){
        JScrollPane leftscroll = new JScrollPane();
@@ -180,30 +228,39 @@ public class GestureMappingView extends JFrame{
 	    //GridLayout grid =  new GridLayout(1,2);
 
 	    //rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+	    mapButton = SwingTool.createButton(GestureMappingConstants.MAP_GESTURE);
 	    rightPanel.setLayout(new GridBagLayout());
 	    gestureList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    gestureList.addListSelectionListener(new ListSelectionListener(){
+	       public void valueChanged(ListSelectionEvent e){
+	          GestureMappingView.this.mapButton.setEnabled(true);
+	       }
+	    });
 	    rightscroll.getViewport().add(gestureList);
 		rightscroll.setBorder(null);
 		rightPanel.add(rightscroll,
               new GridBagConstraints(0,0,2,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0,0,0,0),0,0 ) );
-		BasicButton mapButton = SwingTool.createButton(GestureMappingConstants.MAP_GESTURE);
+		
 		mapButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		mapButton.setAction(new ActionMapGesture(this, new GestureMappingTable()));
-		mapButton.setText(GestureMappingConstants.MAP_GESTURE);
+		//mapButton.setText(GestureMappingConstants.MAP_GESTURE);
+		mapButton.setEnabled(false);
 		
-	    BasicButton loadSetButton = new BasicButton();
-	    loadSetButton.setText(GestureMappingConstants.LOAD_GESTURE_SET);
-	    loadSetButton.addActionListener(new LoadSetActionListener());
+	    BasicButton loadSetButton = SwingTool.createButton(GestureMappingConstants.LOAD_GESTURE_SET);
+	    
+	    //loadSetButton.addActionListener(new LoadSetActionListener());
+	    loadSetButton.setAction(new ActionLoadGestureSet(this));
+	    //loadSetButton.setText(GestureMappingConstants.LOAD_GESTURE_SET);
 
 	     
 	     rightPanel.add(loadSetButton,
 	                new GridBagConstraints(0,1,1,1,0.5,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
-	                         new Insets(0,0,0,0),0,0 ) );
+	                         new Insets(20,0,20,0),50,0 ) );
 		
 	     rightPanel.add(mapButton,
                new GridBagConstraints(1,1,1,1,0.5,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
-                     new Insets(0,0,0,0),50,0 ) );
+                     new Insets(20,0,20,0),50,0 ) );
 
 	
 			 
@@ -236,9 +293,22 @@ public class GestureMappingView extends JFrame{
 	      
 	      return menu;
 	   } // createFileMenu
+	   
+	   
+	   
+       /**
+        * Returns the main model.
+        * 
+        * @return the main model.
+        */
+       public GestureMappingModel getModel() {
+          return model;
+       } // getModel
+
+    
  
 	   
-	   
+	   /*
 	   private class LoadSetActionListener implements ActionListener{
 	      
 	      public void actionPerformed(ActionEvent ae){
@@ -279,7 +349,10 @@ public class GestureMappingView extends JFrame{
 
 	      
 	   }
-	
+	   
+	   */
+	   
+
 
 		   
 }

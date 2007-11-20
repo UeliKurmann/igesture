@@ -98,16 +98,9 @@ public class ActionMapGesture extends BasicAction {
    * @param event the action event.
    */
   public void actionPerformed(ActionEvent event) {
-     //dialog = SwingTool.createDialog(GestureMappingConstants.MAPPING_GESTURE);
-     
      
      initDialog();
-     
-
      dialog.setVisible(true);
-    
-
-    
   } // actionPerformed¨
   
   
@@ -205,14 +198,6 @@ public class ActionMapGesture extends BasicAction {
            new GridBagConstraints(1,3,1,1,0.0,0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                     new Insets(20,0,0,0),0,0 ) );
  
-    // panel1.add(topPanel);
-    // panel1.add(bottomPanel);
-
-    // panel1.add(buttonPanel);
-     
-     
-
-    
   } // actionPerformed
   
   

@@ -1,7 +1,7 @@
 /*
  * @(#)ActionExitApplication.java   1.0   Nov 15, 2006
  *
- * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ * Author       :   Michele Croci, mcroci@gmail.com
  *
  * Purpose      :   Terminates the application.
  *
@@ -11,8 +11,8 @@
  *
  * Date             Who         Reason
  *
- * Nov 15, 2006     ukurmann    Initial Release
- * Mar 24, 2007     bsigner     Cleanup
+ * Nov 15, 2006     crocimi    Initial Release
+ * 
  *
  * -----------------------------------------------------------------------
  *
@@ -29,6 +29,7 @@ package org.ximtec.igesture.geco.GUI.action;
 import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
@@ -37,17 +38,17 @@ import org.ximtec.igesture.tool.GestureConstants;
 /**
  * Terminates the application.
  * 
- * @version 1.0, Nov 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
- * @author Beat Signer, signer@inf.ethz.ch
+ * @version 1.0, Nov 15, 2006
+ * @author  Michele Croci, mcroci@gmail.com
  */
+
 public class ActionExitApplication extends BasicAction {
 
    private GestureMappingView mainView;
 
 
    public ActionExitApplication(GestureMappingView mainView) {
-      super(GestureConstants.COMMON_EXIT, SwingTool.getGuiBundle());
+      super(GestureMappingConstants.COMMON_EXIT, SwingTool.getGuiBundle());
       this.mainView = mainView;
    }
 
