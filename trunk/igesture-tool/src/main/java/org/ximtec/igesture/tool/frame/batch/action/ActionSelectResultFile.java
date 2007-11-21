@@ -33,8 +33,8 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 
 
@@ -49,7 +49,7 @@ public class ActionSelectResultFile extends BasicAction {
 
 
    public ActionSelectResultFile(JTextField textField) {
-      super(GestureConstants.COMMON_BROWSE, SwingTool.getGuiBundle());
+      super(GestureConstants.COMMON_BROWSE, GuiTool.getGuiBundle());
       this.textField = textField;
    }
 

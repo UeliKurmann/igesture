@@ -36,6 +36,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.IconTool;
 import org.sigtec.util.Constant;
 import org.sigtec.util.Decorator;
@@ -100,7 +101,7 @@ public class GestureToolView extends JFrame {
       setBounds(0, 0, 900, 650);
       setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
       setJMenuBar(createMenuBar());
-      setTitle(SwingTool.getGuiBundle().getName(
+      setTitle(GuiTool.getGuiBundle().getName(
             GestureConstants.GESTUREVIEW_MAINFRAME_KEY));
       setVisible(true);
       tabbedPane = new JTabbedPane();
@@ -120,7 +121,7 @@ public class GestureToolView extends JFrame {
             final GestureTab tab = (GestureTab)Class.forName(className)
                   .newInstance();
             tab.init(this);
-            tabbedPane.add(SwingTool.getGuiBundle().getName(tab.getName()), tab
+            tabbedPane.add(GuiTool.getGuiBundle().getName(tab.getName()), tab
                   .getDesktopPane());
          }
          catch (InstantiationException e) {
@@ -162,7 +163,7 @@ public class GestureToolView extends JFrame {
    
 
    private JMenu createFileMenu() {
-      JMenu menu = SwingTool.getGuiBundle().createMenu(GestureConstants.MENU_FILE);
+      JMenu menu = GuiTool.getGuiBundle().createMenu(GestureConstants.MENU_FILE);
       menu.add(SwingTool.createMenuItem(new ActionNewDataSouce(this), IconLoader
             .getIcon(IconLoader.DOCUMENT_NEW)));
       menu.add(SwingTool.createMenuItem(new ActionOpenDataSouce(this),
@@ -179,7 +180,7 @@ public class GestureToolView extends JFrame {
     * @return the newly created info model.
     */
    private JMenu createInfoMenu() {
-      final JMenu menu = SwingTool.createMenu(SwingTool.getGuiBundle().getName(
+      final JMenu menu = SwingTool.createMenu(GuiTool.getGuiBundle().getName(
             GestureConstants.COMMON_HELP), null);
       menu.add(new JMenuItem(new ActionAboutDialog(ABOUT_HTML)));
       return menu;

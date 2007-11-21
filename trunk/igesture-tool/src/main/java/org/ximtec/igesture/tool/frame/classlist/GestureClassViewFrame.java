@@ -39,6 +39,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.ListModel;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.SimpleListModel;
 import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicInternalFrame;
@@ -82,7 +83,7 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
 
 
    public GestureClassViewFrame(GestureClass gestureClass, AdminTab adminTab) {
-      super(GestureConstants.GESTURE_CLASS_VIEW_KEY, SwingTool.getGuiBundle());
+      super(GestureConstants.GESTURE_CLASS_VIEW_KEY, GuiTool.getGuiBundle());
       SwingTool.initFrame(this);
       this.gestureClass = gestureClass;
       this.mainView = adminTab.getMainView();
@@ -154,7 +155,7 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
 
    private void showPopUpMenu(MouseEvent e) {
       final JPopupMenu popupMenu = new JPopupMenu();
-      final JMenu createMenu = SwingTool.createMenu(SwingTool.getGuiBundle()
+      final JMenu createMenu = SwingTool.createMenu(GuiTool.getGuiBundle()
             .getName(GestureConstants.COMMON_ADD), new Action[] {
             new ActionOpenDescriptorDialog(
                   GestureConstants.GESTURE_CLASS_VIEW_ADD_SAMPLE, adminTab,

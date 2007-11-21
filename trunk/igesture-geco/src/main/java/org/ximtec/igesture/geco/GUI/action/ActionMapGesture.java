@@ -29,7 +29,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -46,9 +45,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.graphix.widget.BasicButton;
-import org.sigtec.graphix.widget.BasicDialog;
 import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
@@ -86,7 +85,7 @@ public class ActionMapGesture extends BasicAction {
 
 
   public ActionMapGesture(GestureMappingView mainView, GestureMappingTable mappingTable) {
-     super(GestureMappingConstants.MAP_GESTURE, SwingTool.getGuiBundle());
+     super(GestureMappingConstants.MAP_GESTURE, GuiTool.getGuiBundle());
      this.mainView = mainView;
      this.mappingTable =  mappingTable;
   }

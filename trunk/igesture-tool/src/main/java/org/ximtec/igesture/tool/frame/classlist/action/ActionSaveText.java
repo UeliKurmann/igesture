@@ -28,8 +28,8 @@ package org.ximtec.igesture.tool.frame.classlist.action;
 
 import java.awt.event.ActionEvent;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.frame.classlist.TextDescriptorFrame;
 import org.ximtec.igesture.tool.util.IconLoader;
@@ -48,7 +48,7 @@ public class ActionSaveText extends BasicAction {
 
 
    public ActionSaveText(TextDescriptorFrame model) {
-      super(GestureConstants.COMMON_SAVE, SwingTool.getGuiBundle());
+      super(GestureConstants.COMMON_SAVE, GuiTool.getGuiBundle());
       putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.SAVE));
       this.frame = model;
    }

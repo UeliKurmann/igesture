@@ -28,10 +28,10 @@ package org.ximtec.igesture.tool.frame.classlist.action;
 
 import java.awt.event.ActionEvent;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.AdminTab;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.util.IconLoader;
@@ -53,7 +53,7 @@ public class ActionOpenEditClassFrame extends BasicAction {
 
    public ActionOpenEditClassFrame(String key, AdminTab adminTab,
          GestureClass gestureClass) {
-      super(key, SwingTool.getGuiBundle());
+      super(key, GuiTool.getGuiBundle());
 
       if (GestureConstants.GESTURE_CLASS_LIST_FRAME_BTN_ADD.equals(key)) {
          putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_NEW));

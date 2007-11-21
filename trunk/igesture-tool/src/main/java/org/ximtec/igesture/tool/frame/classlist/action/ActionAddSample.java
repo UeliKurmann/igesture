@@ -28,8 +28,8 @@ package org.ximtec.igesture.tool.frame.classlist.action;
 
 import java.awt.event.ActionEvent;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.frame.classlist.SampleDescriptorFrame;
 import org.ximtec.igesture.tool.util.IconLoader;
 
@@ -47,7 +47,7 @@ public class ActionAddSample extends BasicAction {
 
 
    public ActionAddSample(String key, SampleDescriptorFrame model) {
-      super(key, SwingTool.getGuiBundle());
+      super(key, GuiTool.getGuiBundle());
       putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.LIST_ADD));
       this.frame = model;
    }

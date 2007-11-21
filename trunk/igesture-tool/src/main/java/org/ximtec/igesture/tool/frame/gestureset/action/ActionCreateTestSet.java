@@ -32,10 +32,10 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.TestSet;
-import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.util.GestureTool;
@@ -55,7 +55,7 @@ public class ActionCreateTestSet extends BasicAction {
 
 
    public ActionCreateTestSet(GestureSet set) {
-      super(GestureConstants.GESTURE_CLASS_VIEW_EXPORT_TEST_SET, SwingTool
+      super(GestureConstants.GESTURE_CLASS_VIEW_EXPORT_TEST_SET, GuiTool
             .getGuiBundle());
       putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_NEW));
       this.set = set;

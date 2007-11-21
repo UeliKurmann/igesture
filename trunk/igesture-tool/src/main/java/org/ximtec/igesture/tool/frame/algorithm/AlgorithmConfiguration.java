@@ -45,6 +45,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.AlgorithmFactory;
@@ -87,7 +88,7 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
 
 
    public AlgorithmConfiguration(GestureToolView mainView) {
-      super(GestureConstants.ALGORITHM_FRAME_KEY, SwingTool.getGuiBundle());
+      super(GestureConstants.ALGORITHM_FRAME_KEY, GuiTool.getGuiBundle());
       SwingTool.initFrame(this);
       this.mainView = mainView;
       mainView.getModel().addConfigurationListener(this);
@@ -138,7 +139,7 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
 
    public JMenu createAlgorithmPopupMenu() {
       final JMenu menu = new JMenu();
-      menu.setText(SwingTool.getGuiBundle().getName(
+      menu.setText(GuiTool.getGuiBundle().getName(
             GestureConstants.CONFIG_CREATE_ACTION));
 
       for (final String name : mainView.getModel().getAlgorithms()) {

@@ -28,8 +28,8 @@ package org.ximtec.igesture.tool.frame.algorithm.action;
 
 import java.awt.event.ActionEvent;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.frame.algorithm.AlgorithmConfiguration;
 import org.ximtec.igesture.tool.util.IconLoader;
@@ -48,7 +48,7 @@ public class ActionLoadConfiguration extends BasicAction {
 
 
    public ActionLoadConfiguration(AlgorithmConfiguration algorithmConfiguration) {
-      super(GestureConstants.CONFIG_OPEN_ACTION, SwingTool.getGuiBundle());
+      super(GestureConstants.CONFIG_OPEN_ACTION, GuiTool.getGuiBundle());
       putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_OPEN));
       this.algorithmConfiguration = algorithmConfiguration;
    }

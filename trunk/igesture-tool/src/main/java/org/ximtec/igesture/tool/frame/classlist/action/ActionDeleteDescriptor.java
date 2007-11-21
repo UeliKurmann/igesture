@@ -28,10 +28,10 @@ package org.ximtec.igesture.tool.frame.classlist.action;
 
 import java.awt.event.ActionEvent;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.util.IconLoader;
 
@@ -54,7 +54,7 @@ public class ActionDeleteDescriptor extends BasicAction {
 
    public ActionDeleteDescriptor(String key, GestureToolView mainView,
          GestureClass gestureClass, Descriptor descriptor) {
-      super(key, SwingTool.getGuiBundle());
+      super(key, GuiTool.getGuiBundle());
       putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DELETE));
       this.gestureClass = gestureClass;
       this.descriptor = descriptor;
