@@ -35,6 +35,7 @@ import java.util.EventObject;
 
 import javax.swing.Action;
 import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.ListModel;
 
@@ -163,10 +164,10 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
                   GestureConstants.GESTURE_CLASS_VIEW_ADD_TEXT, adminTab,
                   gestureClass, null, TextDescriptor.class) });
       popupMenu.add(createMenu);
-      popupMenu.add(SwingTool.createMenuItem(new ActionOpenDescriptorDialog(
+      popupMenu.add(new JMenuItem(new ActionOpenDescriptorDialog(
             GestureConstants.COMMON_EDIT, adminTab, gestureClass,
             (Descriptor)scrollList.getList().getSelectedValue(), null)));
-      popupMenu.add(SwingTool.createMenuItem(new ActionDeleteDescriptor(
+      popupMenu.add(new JMenuItem(new ActionDeleteDescriptor(
             GestureConstants.COMMON_DEL, mainView, gestureClass,
             (Descriptor)scrollList.getList().getSelectedValue())));
       popupMenu.show(e.getComponent(), e.getX(), e.getY());

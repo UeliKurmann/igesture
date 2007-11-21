@@ -33,6 +33,7 @@ import java.awt.event.MouseListener;
 import java.util.EventObject;
 
 import javax.swing.Action;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
@@ -155,7 +156,7 @@ public class TestSetListFrame extends BasicInternalFrame implements
 
    private void showPopupMenu(MouseEvent event) {
       final JPopupMenu popUp = new JPopupMenu();
-      popUp.add(SwingTool.createMenuItem(new ActionTestSetDeleteSample(this)));
+      popUp.add(new JMenuItem(new ActionTestSetDeleteSample(this)));
       popUp.show(event.getComponent(), event.getX(), event.getY());
    } // showPopupMenu
 

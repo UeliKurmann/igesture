@@ -32,6 +32,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
@@ -167,7 +168,7 @@ public class GestureToolView extends JFrame {
       menu.add(SwingTool.createMenuItem(new ActionOpenDataSouce(this),
             IconLoader.getIcon(IconLoader.DOCUMENT_OPEN)));
       menu.addSeparator();
-      menu.add(SwingTool.createMenuItem(new ActionExitApplication(this)));
+      menu.add(new JMenuItem(new ActionExitApplication(this)));
       return menu;
    } // createFileMenu
 
@@ -180,7 +181,7 @@ public class GestureToolView extends JFrame {
    private JMenu createInfoMenu() {
       final JMenu menu = SwingTool.createMenu(SwingTool.getGuiBundle().getName(
             GestureConstants.COMMON_HELP), null);
-      menu.add(SwingTool.createMenuItem(new ActionAboutDialog(ABOUT_HTML)));
+      menu.add(new JMenuItem(new ActionAboutDialog(ABOUT_HTML)));
       return menu;
    } // createInfoMenu
 

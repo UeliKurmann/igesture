@@ -39,6 +39,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -127,10 +128,10 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
 
    private JPopupMenu createPopupMenu() {
       final JPopupMenu menu = new JPopupMenu();
-      menu.add(SwingTool.createMenuItem(new ActionLoadConfiguration(this)));
-      menu.add(SwingTool.createMenuItem(new ActionDeleteConfiguration(this)));
+      menu.add(new JMenuItem(new ActionLoadConfiguration(this)));
+      menu.add(new JMenuItem(new ActionDeleteConfiguration(this)));
       menu.add(createAlgorithmPopupMenu());
-      menu.add(SwingTool.createMenuItem(new ActionExportConfiguration(this)));
+      menu.add(new JMenuItem(new ActionExportConfiguration(this)));
       return menu;
    } // createPopupMenu
 
@@ -141,7 +142,7 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
             GestureConstants.CONFIG_CREATE_ACTION));
 
       for (final String name : mainView.getModel().getAlgorithms()) {
-         menu.add(SwingTool.createMenuItem(new ActionCreateConfiguration(this,
+         menu.add(new JMenuItem(new ActionCreateConfiguration(this,
                name)));
       }
 
