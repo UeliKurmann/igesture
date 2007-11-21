@@ -27,14 +27,22 @@
 package org.ximtec.igesture.geco.GUI;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.AbstractAction;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -52,7 +60,12 @@ import javax.swing.event.ListSelectionListener;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicButton;
+import org.sigtec.ink.Note;
 import org.sigtec.util.Constant;
+import org.ximtec.igesture.core.DigitalDescriptor;
+import org.ximtec.igesture.core.GestureClass;
+import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.GUI.action.ActionExitApplication;
 import org.ximtec.igesture.geco.GUI.action.ActionLoadGestureSet;
@@ -90,6 +103,8 @@ public class GestureMappingView extends JFrame{
 	   private JPanel rightPanel = new JPanel();
 	   private JList gestureList = new JList();
 	   private BasicButton mapButton; 
+	   private BasicButton saveButton;
+	   private BasicButton exitButton;
 
 	   
 	   
@@ -169,8 +184,8 @@ public class GestureMappingView extends JFrame{
 				new GridBagConstraints(0,1,1,1,1.0,1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 						 new Insets(20,20,20,20),0,0 ) );
 		
-        BasicButton saveButton = SwingTool.createButton(GestureMappingConstants.SAVE);
-        BasicButton exitButton = SwingTool.createButton(GestureMappingConstants.EXIT);
+        saveButton = SwingTool.createButton(GestureMappingConstants.SAVE);
+        exitButton = SwingTool.createButton(GestureMappingConstants.EXIT);
         //saveButton.setText(GestureMappingConstants.SAVE);
         //exitButton.setText(GestureMappingConstants.EXIT);
         exitButton.setAction(new ActionExitApplication(this));
@@ -221,6 +236,7 @@ public class GestureMappingView extends JFrame{
 	    mapButton = SwingTool.createButton(GestureMappingConstants.MAP_GESTURE);
 	    rightPanel.setLayout(new GridBagLayout());
 	    gestureList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    gestureList.setCellRenderer(new MyCellRenderer());
 	    gestureList.addListSelectionListener(new ListSelectionListener(){
 	       public void valueChanged(ListSelectionEvent e){
 	          GestureMappingView.this.mapButton.setEnabled(true);
@@ -233,7 +249,7 @@ public class GestureMappingView extends JFrame{
                     new Insets(0,0,0,0),0,0 ) );
 		
 		mapButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-		mapButton.setAction(new ActionMapGesture(this, new GestureMappingTable()));
+		mapButton.setAction(new ActionMapGesture(this, model.mappingTable));
 		//mapButton.setText(GestureMappingConstants.MAP_GESTURE);
 		mapButton.setEnabled(false);
 		
@@ -294,6 +310,105 @@ public class GestureMappingView extends JFrame{
        public GestureMappingModel getModel() {
           return model;
        } // getModel
+       
+       
+       /**
+        * Display the gesture Set
+        * 
+        * 
+        */
+    public void showGestureSet(){
+        //GestureSet gs= model.getGestureSet();
+
+        List<GestureClass> classes = model.getGestureSet().getGestureClasses();
+
+        DefaultListModel listModel = new DefaultListModel();
+        
+        for (GestureClass gc : classes){
+                 listModel.addElement( gc);
+        }
+        gestureList.setModel(listModel);
+    }
+    
+    public GestureClass getSelectedClass(){
+         return (GestureClass) gestureList.getSelectedValue();
+    }
+    
+    
+    public void addActionExitApplication(AbstractAction a){
+       exitButton.setAction(a);
+    }
+    
+    
+    public void addActionLoadGestureSet(AbstractAction a){
+       exitButton.setAction(a);
+    }
+    
+    public void addActionMapGesture(AbstractAction a){
+       exitButton.setAction(a);
+    }
+    
+    public void addActionNewGestureMap(AbstractAction a){
+       exitButton.setAction(a);
+    }
+    
+    public void addActionOpenGestureMap (AbstractAction a){
+       exitButton.setAction(a);
+    }
+    
+    
+    
+    
+    
+    
+    
+    //LIST RENDERER!
+    
+    
+
+    
+    
+    public class MyCellRenderer extends DefaultListCellRenderer {
+       
+       private Graphics2D graphic;
+       
+       
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            // Let superclass deal with most of it...
+           super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+           
+           if(value instanceof GestureClass) {
+     //         System.out.println("GestureMappingView.MyCellRenderer");
+   /*           GestureClass gestureClass = (GestureClass) value;
+              
+              DigitalDescriptor descriptor = gestureClass.getDescriptor(
+                    DigitalDescriptor.class);
+              
+              SampleDescriptor sampleDes = gestureClass.getDescriptor(
+                    SampleDescriptor.class);
+              
+            Graphics2D test = (Graphics2D)list.getComponent(index).getGraphics();
+               
+               Note note = sampleDes.getSamples().get(0).getNote();
+              
+               descriptor.getDigitalObject(graphic, note);
+               
+               final ImageIcon imageIcon=null;// ...; // add extra code here
+               setIcon(imageIcon);
+    */           
+               //Image image = imageIcon.getImage();
+               //final Dimension dimension = this.getPreferredSize();
+               //final double height = dimension.getHeight();
+               //final double width = (height / imageIcon.getIconHeight()) * imageIcon.getIconWidth();
+               //image = image.getScaledInstance((int)width, (int)height, Image.SCALE_SMOOTH);
+               //final ImageIcon finalIcon = new ImageIcon(image);
+               //setIcon(finalIcon);
+              
+        }
+           return this;
+        }
+    }
+    
 
     
  

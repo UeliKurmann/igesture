@@ -76,7 +76,10 @@ public class ActionLoadGestureSet extends BasicAction {
             String ext = selectedFile.getName().substring(selectedFile.getName().length()-3,
                   selectedFile.getName().length());
             if(ext.equals(XML_EXTENSION)){
+                //update model
                 mainView.getModel().loadGestureSet(loadGestureSet(selectedFile));
+                //update view
+                mainView.showGestureSet();
              }
          }
       } else if (status == JFileChooser.CANCEL_OPTION) {

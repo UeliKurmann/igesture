@@ -61,7 +61,10 @@ public class GestureMappingMain {
 	public static void main(String[] args) {
 	   
 	        Logger.getAnonymousLogger().setLevel(Level.ALL);
-/*
+	        Logger.getAnonymousLogger().setLevel(Level.ALL);
+	        GestureConfiguration configuration;
+
+
 	      if (args.length > 0) {
 	         configuration = new GestureConfiguration(args[0]);
 	      }
@@ -71,13 +74,13 @@ public class GestureMappingMain {
 
 	      String file = System.getProperty(SystemProperty.USER_DIR) + Constant.SLASH
 	            + configuration.getDatabase();
-	            */
-	//      StorageEngine engine = StorageManager.createStorageEngine(new File("C:\\develop\\igesture\\igesture.db"));
-	        StorageEngine engine=null;
-	        GestureMappingModel model = new GestureMappingModel();
+	            
+	      StorageEngine engine = StorageManager.createStorageEngine(new File(file));
+	      GestureMappingModel model = new GestureMappingModel(engine);
 	      GestureMappingView view = new GestureMappingView(model);
-		System.out.println("Terminated");
 
 	}
+	
+
 
 }

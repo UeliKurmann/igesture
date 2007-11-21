@@ -65,6 +65,8 @@ public class GestureMappingConstants {
    
    public static final String COMMON_EXIT = "EXIT";
    
+   public static final String MAP_DIALOG_TITLE = "Map Gesture to Action";
+   
 
 
 

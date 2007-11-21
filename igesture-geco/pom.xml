@@ -72,6 +72,12 @@
 			<groupId>org.ximtec.igesture</groupId>
 			<artifactId>igesture-tool</artifactId>
 		</dependency>
+		
+		<!-- to be removed later ?? -->
+		<dependency>
+			<groupId>org.ximtec.igesture</groupId>
+			<artifactId>igesture-tool</artifactId>
+		</dependency>
 	</dependencies>
 	
 	<reporting>

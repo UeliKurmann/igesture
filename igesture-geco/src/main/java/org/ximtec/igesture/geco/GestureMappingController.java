@@ -29,6 +29,11 @@ import java.util.EventObject;
 
 import org.ximtec.igesture.geco.GUI.GestureMappingModel;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
+import org.ximtec.igesture.geco.GUI.action.ActionExitApplication;
+import org.ximtec.igesture.geco.GUI.action.ActionLoadGestureSet;
+import org.ximtec.igesture.geco.GUI.action.ActionMapGesture;
+import org.ximtec.igesture.geco.GUI.action.ActionNewGestureMap;
+import org.ximtec.igesture.geco.GUI.action.ActionOpenGestureMap;
 import org.ximtec.igesture.geco.event.GestureSetLoadListener;
 
 
@@ -38,7 +43,7 @@ import org.ximtec.igesture.geco.event.GestureSetLoadListener;
  * @version 1.0 Nov 20, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public class GestureMappingController implements GestureSetLoadListener{
+public class GestureMappingController{
    
    
    
@@ -46,16 +51,30 @@ public class GestureMappingController implements GestureSetLoadListener{
    
    private GestureMappingModel model;
    
+   private GestureMappingTable mappingTable = new GestureMappingTable();
+   
+   private ActionExitApplication actionExitApplication = new ActionExitApplication(view);
+   
+   private ActionLoadGestureSet actionLoadGestureSet = new ActionLoadGestureSet(view);
+   
+   private ActionMapGesture actionMapGesture =  new ActionMapGesture(view, mappingTable);
+   
+   private ActionNewGestureMap actionNewGestureMap= new ActionNewGestureMap(view);
+   
+   private ActionOpenGestureMap actionOpenGestureMap = new ActionOpenGestureMap(view);
+   
    
    public GestureMappingController(GestureMappingView view, GestureMappingModel model){
       this.view = view;
       this.model = model;
+      
+      view.addActionExitApplication(actionExitApplication);
+      view.addActionLoadGestureSet(actionLoadGestureSet);
+      view.addActionMapGesture(actionMapGesture);
+      view.addActionNewGestureMap(actionNewGestureMap);
+      view.addActionOpenGestureMap(actionOpenGestureMap);
    }
    
-   public void gestureSetChanged(EventObject event){
-      
-      
-      
-   }
+
 
 }
