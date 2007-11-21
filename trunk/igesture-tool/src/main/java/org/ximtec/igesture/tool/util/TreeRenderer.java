@@ -47,10 +47,10 @@ import org.ximtec.igesture.core.GestureSet;
  */
 public class TreeRenderer extends DefaultTreeCellRenderer {
 
-   private static final ImageIcon PLUS_ICON = IconTool.getIcon("icons/plus",
+   private static final ImageIcon PLUS_ICON = IconTool.getIcon("plus",
          Decorator.SIZE_16);
 
-   private static final ImageIcon MINUS_ICON = IconTool.getIcon("icons/minus",
+   private static final ImageIcon MINUS_ICON = IconTool.getIcon("minus",
          Decorator.SIZE_16);
 
 
