@@ -30,6 +30,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.TextField;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.core.TextDescriptor;
 import org.ximtec.igesture.graphics.SwingTool;
@@ -57,7 +58,7 @@ public class TextDescriptorFrame extends BasicInternalFrame {
 
    public TextDescriptorFrame(GestureToolView mainView,
          TextDescriptor textDescriptor) {
-      super(GestureConstants.TEXT_DESCRIPTOR_KEY, SwingTool.getGuiBundle());
+      super(GestureConstants.TEXT_DESCRIPTOR_KEY, GuiTool.getGuiBundle());
       this.textDescriptor = textDescriptor;
       this.mainView = mainView;
       SwingTool.initFrame(this);

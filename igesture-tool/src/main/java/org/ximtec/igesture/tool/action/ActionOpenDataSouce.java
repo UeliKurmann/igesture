@@ -31,8 +31,8 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.storage.StorageManager;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
@@ -51,7 +51,7 @@ public class ActionOpenDataSouce extends BasicAction {
 
 
    public ActionOpenDataSouce(GestureToolView mainView) {
-      super(GestureConstants.COMMON_OPEN, SwingTool.getGuiBundle());
+      super(GestureConstants.COMMON_OPEN, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
 
@@ -64,10 +64,10 @@ public class ActionOpenDataSouce extends BasicAction {
       final JFileChooser fileChooser = new JFileChooser();
       fileChooser.showOpenDialog(mainView);
       final File file = fileChooser.getSelectedFile();
-      
+
       if (file != null) {
          mainView.reloadModelData(StorageManager.createStorageEngine(file));
       }
-   
+
    }
 }

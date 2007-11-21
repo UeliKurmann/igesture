@@ -34,10 +34,10 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.tool.util.PDFTool;
@@ -62,7 +62,7 @@ public class ActionExportPDFGestureSet extends BasicAction {
 
 
    public ActionExportPDFGestureSet(GestureSet set) {
-      super(GestureConstants.GESTURE_CLASS_VIEW_EXPORT_SET_PDF, SwingTool
+      super(GestureConstants.GESTURE_CLASS_VIEW_EXPORT_SET_PDF, GuiTool
             .getGuiBundle());
       putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.EXPORT));
       this.set = set;

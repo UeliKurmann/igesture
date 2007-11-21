@@ -31,8 +31,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JInternalFrame;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.graphics.SwingTool;
 
 
 /**
@@ -45,17 +45,17 @@ import org.ximtec.igesture.graphics.SwingTool;
 public class CloseFrameAction extends BasicAction {
 
    public CloseFrameAction(String key) {
-      super(key, SwingTool.getGuiBundle());
+      super(key, GuiTool.getGuiBundle());
    }
 
 
    public void actionPerformed(ActionEvent event) {
       Component component = (Component)event.getSource();
-      
+
       while (!(component instanceof JInternalFrame)) {
          component = component.getParent();
       }
-      
+
       component.setVisible(false);
    } // actionPerformed
 

@@ -33,6 +33,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.GestureClass;
@@ -68,7 +69,7 @@ public class TestSetFrame extends BasicInternalFrame implements
 
 
    public TestSetFrame(TestTab testTab) {
-      super(GestureConstants.TESTSET_SELECTION_FRAME_KEY, SwingTool
+      super(GestureConstants.TESTSET_SELECTION_FRAME_KEY, GuiTool
             .getGuiBundle());
       SwingTool.initFrame(this);
       this.mainView = testTab.getMainView();

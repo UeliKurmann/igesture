@@ -32,16 +32,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenu;
@@ -56,22 +50,17 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.util.Constant;
-import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.GUI.action.ActionExitApplication;
 import org.ximtec.igesture.geco.GUI.action.ActionLoadGestureSet;
 import org.ximtec.igesture.geco.GUI.action.ActionMapGesture;
 import org.ximtec.igesture.geco.GUI.action.ActionNewGestureMap;
 import org.ximtec.igesture.geco.GUI.action.ActionOpenGestureMap;
-import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 import org.ximtec.igesture.graphics.SwingTool;
-import org.ximtec.igesture.tool.GestureConfiguration;
-import org.ximtec.igesture.tool.GestureMainModel;
 import org.ximtec.igesture.tool.util.IconLoader;
-import org.ximtec.igesture.util.XMLTool;
 
 
 
@@ -283,7 +272,7 @@ public class GestureMappingView extends JFrame{
 	   
 
 	   private JMenu createFileMenu() {
-	     JMenu menu = SwingTool.getGuiBundle().createMenu(GestureMappingConstants.MENU_FILE);
+	     JMenu menu = GuiTool.getGuiBundle().createMenu(GestureMappingConstants.MENU_FILE);
 	      menu.add(SwingTool.createMenuItem(new ActionNewGestureMap(this), IconLoader
 	            .getIcon(IconLoader.DOCUMENT_NEW)));
 	      menu.add(SwingTool.createMenuItem(new ActionOpenGestureMap(this),

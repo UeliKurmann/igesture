@@ -31,8 +31,8 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.frame.algorithm.AlgorithmConfiguration;
 import org.ximtec.igesture.tool.util.IconLoader;
@@ -52,7 +52,7 @@ public class ActionExportConfiguration extends BasicAction {
 
 
    public ActionExportConfiguration(AlgorithmConfiguration algorithmConfiguration) {
-      super(GestureConstants.CONFIG_EXPORT_ACTION, SwingTool.getGuiBundle());
+      super(GestureConstants.CONFIG_EXPORT_ACTION, GuiTool.getGuiBundle());
       putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.EXPORT));
       this.algorithmConfiguration = algorithmConfiguration;
    }

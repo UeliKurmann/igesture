@@ -33,6 +33,7 @@ import javax.swing.Action;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
@@ -69,7 +70,7 @@ public class GestureSetFrame extends BasicInternalFrame implements
 
 
    public GestureSetFrame(GestureToolView mainView) {
-      super(GestureConstants.GESTURE_SET_FRAME_KEY, SwingTool.getGuiBundle());
+      super(GestureConstants.GESTURE_SET_FRAME_KEY, GuiTool.getGuiBundle());
       SwingTool.initFrame(this);
       this.mainView = mainView;
       this.gestureTreeModel = new GestureTreeModel(mainView.getModel());

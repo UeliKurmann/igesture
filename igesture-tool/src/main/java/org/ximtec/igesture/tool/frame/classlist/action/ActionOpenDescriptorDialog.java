@@ -28,12 +28,12 @@ package org.ximtec.igesture.tool.frame.classlist.action;
 
 import java.awt.event.ActionEvent;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.TextDescriptor;
-import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.AdminTab;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
@@ -63,7 +63,7 @@ public class ActionOpenDescriptorDialog extends BasicAction {
    public ActionOpenDescriptorDialog(String key, AdminTab adminTab,
          GestureClass gestureClass, Descriptor descriptor,
          Class< ? extends Descriptor> descriptorType) {
-      super(key, SwingTool.getGuiBundle());
+      super(key, GuiTool.getGuiBundle());
 
       if (GestureConstants.COMMON_EDIT.equals(key)) {
          putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_OPEN));

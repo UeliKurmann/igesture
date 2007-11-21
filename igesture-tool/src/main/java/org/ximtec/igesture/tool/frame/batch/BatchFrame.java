@@ -33,6 +33,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.SimpleListModel;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.core.DataObject;
@@ -65,7 +66,7 @@ public class BatchFrame extends BasicInternalFrame implements
 
 
    public BatchFrame(GestureToolView mainView) {
-      super(GestureConstants.GESTUREVIEW_TAB_BATCH, SwingTool.getGuiBundle());
+      super(GestureConstants.GESTUREVIEW_TAB_BATCH, GuiTool.getGuiBundle());
       this.mainView = mainView;
       this.setResizable(true);
       mainView.getModel().addGestureSetListener(this);

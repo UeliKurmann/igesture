@@ -35,6 +35,7 @@ import javax.swing.Action;
 import javax.swing.JPopupMenu;
 import javax.swing.ListModel;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.SimpleListModel;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.core.GestureClass;
@@ -63,7 +64,7 @@ public class GestureClassListFrame extends BasicInternalFrame implements
 
 
    public GestureClassListFrame(AdminTab adminTab) {
-      super(GestureConstants.GESTURE_CLASS_LIST_FRAME_KEY, SwingTool
+      super(GestureConstants.GESTURE_CLASS_LIST_FRAME_KEY, GuiTool
             .getGuiBundle());
       SwingTool.initFrame(this);
       this.adminTab = adminTab;

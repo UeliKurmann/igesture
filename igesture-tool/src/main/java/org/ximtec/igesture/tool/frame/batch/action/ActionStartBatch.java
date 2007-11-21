@@ -36,6 +36,7 @@ import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.Constant;
 import org.sigtec.util.FileHandler;
@@ -44,7 +45,6 @@ import org.ximtec.igesture.batch.BatchResultSet;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.graphics.ScrollableList;
-import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.util.XMLTool;
 
@@ -69,7 +69,7 @@ public class ActionStartBatch extends BasicAction {
 
    public ActionStartBatch(JTextField config, JTextField result,
          ScrollableList gestureSets, ScrollableList testSets) {
-      super(GestureConstants.COMMON_OK, SwingTool.getGuiBundle());
+      super(GestureConstants.COMMON_OK, GuiTool.getGuiBundle());
       this.config = config;
       this.result = result;
       this.gestureSets = gestureSets;

@@ -28,6 +28,7 @@ package org.ximtec.igesture.tool.frame.gestureset;
 
 import java.awt.GridBagLayout;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.graphix.widget.BasicTextField;
 import org.sigtec.util.Constant;
@@ -52,7 +53,7 @@ public class AddGestureSetDialog extends BasicDialog {
 
 
    public AddGestureSetDialog(GestureTreeModel model) {
-      super(GestureConstants.ADD_SET_DIALOG_KEY, SwingTool.getGuiBundle());
+      super(GestureConstants.ADD_SET_DIALOG_KEY, GuiTool.getGuiBundle());
       this.model = model;
       init();
    }

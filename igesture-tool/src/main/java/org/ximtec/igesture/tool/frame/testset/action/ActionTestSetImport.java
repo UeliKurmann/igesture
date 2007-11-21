@@ -34,9 +34,9 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestSet;
-import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.storage.StorageManager;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.util.IconLoader;
@@ -58,7 +58,7 @@ public class ActionTestSetImport extends BasicAction {
 
 
    public ActionTestSetImport(GestureToolView mainView) {
-      super(KEY, SwingTool.getGuiBundle());
+      super(KEY, GuiTool.getGuiBundle());
       putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.IMPORT));
       this.mainView = mainView;
    }

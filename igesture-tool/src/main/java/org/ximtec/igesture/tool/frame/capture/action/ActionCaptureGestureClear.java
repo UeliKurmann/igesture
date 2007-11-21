@@ -28,8 +28,8 @@ package org.ximtec.igesture.tool.frame.capture.action;
 
 import java.awt.event.ActionEvent;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.frame.capture.GestureCaptureArea;
 
@@ -45,7 +45,7 @@ public class ActionCaptureGestureClear extends BasicAction {
 
 
    public ActionCaptureGestureClear(GestureCaptureArea area) {
-      super(GestureConstants.COMMON_DEL, SwingTool.getGuiBundle());
+      super(GestureConstants.COMMON_DEL, GuiTool.getGuiBundle());
       this.area = area;
    }
 

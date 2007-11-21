@@ -27,18 +27,15 @@ package org.ximtec.igesture.geco.GUI.action;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.util.List;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
-import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.util.XMLTool;
 
 
@@ -58,7 +55,7 @@ public class ActionLoadGestureSet extends BasicAction {
 
 
    public ActionLoadGestureSet(GestureMappingView mainView) {
-      super(GestureMappingConstants.LOAD_GESTURE_SET, SwingTool.getGuiBundle());
+      super(GestureMappingConstants.LOAD_GESTURE_SET, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
 

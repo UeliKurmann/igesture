@@ -32,10 +32,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.frame.gestureset.AddGestureClassDialog;
 import org.ximtec.igesture.tool.frame.gestureset.GestureTreeModel;
 import org.ximtec.igesture.tool.util.IconLoader;
@@ -58,7 +58,7 @@ public class ActionAddGestureClass extends BasicAction {
 
 
    public ActionAddGestureClass(GestureTreeModel gestureTreeModel, GestureSet set) {
-      super(KEY, SwingTool.getGuiBundle());
+      super(KEY, GuiTool.getGuiBundle());
       putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.LIST_ADD));
       this.set = set;
       this.gestureTreeModel = gestureTreeModel;

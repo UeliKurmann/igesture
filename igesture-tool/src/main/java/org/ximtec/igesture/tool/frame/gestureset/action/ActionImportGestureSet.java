@@ -32,10 +32,10 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.util.XMLTool;
@@ -56,7 +56,7 @@ public class ActionImportGestureSet extends BasicAction {
 
 
    public ActionImportGestureSet(GestureToolView frame) {
-      super(KEY, SwingTool.getGuiBundle());
+      super(KEY, GuiTool.getGuiBundle());
       putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.IMPORT));
       this.mainView = frame;
    }

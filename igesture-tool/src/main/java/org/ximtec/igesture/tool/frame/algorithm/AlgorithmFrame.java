@@ -35,6 +35,7 @@ import java.util.Vector;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.graphics.SwingTool;
@@ -71,7 +72,7 @@ public class AlgorithmFrame extends BasicInternalFrame implements
     * @param tab the capture tab to be added.
     */
    public AlgorithmFrame(GestureToolView mainView, CaptureTab tab) {
-      super(GestureConstants.ALGORITHM_FRAME_KEY, SwingTool.getGuiBundle());
+      super(GestureConstants.ALGORITHM_FRAME_KEY, GuiTool.getGuiBundle());
       SwingTool.initFrame(this);
       this.mainView = mainView;
       this.tab = tab;

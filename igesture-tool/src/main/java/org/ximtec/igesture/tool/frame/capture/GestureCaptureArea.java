@@ -32,6 +32,7 @@ import java.util.EventObject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.sigtec.ink.Note;
 import org.sigtec.ink.TraceTool;
@@ -72,7 +73,7 @@ public class GestureCaptureArea extends BasicInternalFrame implements
     * @param mainView the main view.
     */
    public GestureCaptureArea(GestureToolView mainView) {
-      super(GestureConstants.DRAW_AREA_KEY, SwingTool.getGuiBundle());
+      super(GestureConstants.DRAW_AREA_KEY, GuiTool.getGuiBundle());
       SwingTool.initFrame(this);
       this.mainView = mainView;
       mainView.getModel().addCurrentGestureListener(this);

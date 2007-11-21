@@ -35,6 +35,7 @@ import javax.swing.Action;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.SampleDescriptor;
@@ -68,7 +69,7 @@ public class SampleDescriptorFrame extends BasicInternalFrame {
 
    public SampleDescriptorFrame(GestureToolView mainView,
          SampleDescriptor descriptor) {
-      super(GestureConstants.SAMPLE_DESCRIPTOR_KEY, SwingTool.getGuiBundle());
+      super(GestureConstants.SAMPLE_DESCRIPTOR_KEY, GuiTool.getGuiBundle());
       SwingTool.initFrame(this);
       this.mainView = mainView;
       this.descriptor = descriptor;

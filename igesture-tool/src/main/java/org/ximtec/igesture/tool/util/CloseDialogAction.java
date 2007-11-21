@@ -31,8 +31,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JDialog;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.graphics.SwingTool;
 
 
 /**
@@ -45,7 +45,7 @@ import org.ximtec.igesture.graphics.SwingTool;
 public class CloseDialogAction extends BasicAction {
 
    public CloseDialogAction(String key) {
-      super(key, SwingTool.getGuiBundle());
+      super(key, GuiTool.getGuiBundle());
    }
 
 

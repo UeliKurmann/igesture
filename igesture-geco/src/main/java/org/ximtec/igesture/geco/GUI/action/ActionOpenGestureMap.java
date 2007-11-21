@@ -27,10 +27,10 @@ package org.ximtec.igesture.geco.GUI.action;
 
 import java.awt.event.ActionEvent;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
-import org.ximtec.igesture.graphics.SwingTool;
 
 
 
@@ -46,7 +46,7 @@ public class ActionOpenGestureMap extends BasicAction {
 
 
   public ActionOpenGestureMap(GestureMappingView mainView) {
-     super(GestureMappingConstants.COMMON_OPEN, SwingTool.getGuiBundle());
+     super(GestureMappingConstants.COMMON_OPEN, GuiTool.getGuiBundle());
      this.mainView = mainView;
   }
 

@@ -39,7 +39,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.ListModel;
 
-import org.sigtec.graphix.GuiBundle;
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.graphix.widget.BasicInternalFrame;
@@ -56,8 +56,6 @@ import org.sigtec.graphix.widget.BasicTextField;
  */
 public class SwingTool {
 
-   private static final String GUI_BUNDLE_FILE = "igestureMenu";
-
    public static final Dimension BUTTON_PREFERRED_SIZE = new java.awt.Dimension(
          80, 26);
 
@@ -73,12 +71,6 @@ public class SwingTool {
 
    public static final Dimension FRAME_PREFERRED_SIZE = new java.awt.Dimension(
          240, 320);
-
-   private static GuiBundle guiBundle;
-
-   static {
-      guiBundle = new GuiBundle(GUI_BUNDLE_FILE);
-   }
 
 
    /**
@@ -116,11 +108,6 @@ public class SwingTool {
    } // createGridBagConstraint
 
 
-   public static GuiBundle getGuiBundle() {
-      return guiBundle;
-   } // getGuiBundle
-
-
    /**
     * Creates a new button with some default settings.
     * 
@@ -128,7 +115,7 @@ public class SwingTool {
     * @return button configured with data from the GUI bundle.
     */
    public static BasicButton createButton(String key) {
-      final BasicButton button = new BasicButton(key, getGuiBundle());
+      final BasicButton button = new BasicButton(key, GuiTool.getGuiBundle());
       button.setPreferredSize(BUTTON_PREFERRED_SIZE);
       button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
       return button;
@@ -142,7 +129,8 @@ public class SwingTool {
     * @return text field configured with data from the GUI bundle.
     */
    public static BasicTextField createTextField(String key) {
-      final BasicTextField textField = new BasicTextField(key, getGuiBundle());
+      final BasicTextField textField = new BasicTextField(key, GuiTool
+            .getGuiBundle());
       textField.setPreferredSize(TEXT_FIELD_PREFERRED_SIZE);
       textField.setEditable(true);
       return textField;
@@ -156,7 +144,7 @@ public class SwingTool {
     * @return dialogue configured with data from the GUI bundle.
     */
    public static BasicDialog createDialog(String key) {
-      final BasicDialog dialog = new BasicDialog(key, getGuiBundle());
+      final BasicDialog dialog = new BasicDialog(key, GuiTool.getGuiBundle());
       dialog.setSize(DIALOG_SIZE);
       return dialog;
    } // createDialog
@@ -169,7 +157,7 @@ public class SwingTool {
     * @return label configured with data from the GUI bundle.
     */
    public static BasicLabel createLabel(String key) {
-      final BasicLabel label = new BasicLabel(key, getGuiBundle());
+      final BasicLabel label = new BasicLabel(key, GuiTool.getGuiBundle());
       label.setPreferredSize(LABEL_PREFERRED_SIZE);
       return label;
    } // createLabel
@@ -182,8 +170,8 @@ public class SwingTool {
     * @return internal frame configured with data from the GUI bundle.
     */
    public static BasicInternalFrame createInternalFrame(String key) {
-      final BasicInternalFrame frame = new BasicInternalFrame(key,
-            getGuiBundle());
+      final BasicInternalFrame frame = new BasicInternalFrame(key, GuiTool
+            .getGuiBundle());
       initFrame(frame);
       return frame;
    } // createFrame
@@ -203,7 +191,7 @@ public class SwingTool {
       frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
    } // initFrame
 
-   
+
    /**
     * Creates a new menu item with the given action.
     * @param action the action to be used.
