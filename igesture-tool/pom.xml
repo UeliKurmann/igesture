@@ -111,11 +111,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.freedesktop.tango</groupId>
-			<artifactId>tango-theme</artifactId>
-		</dependency>
-
-		<dependency>
 			<groupId>org.sigtec</groupId>
 			<artifactId>sigtec-graphix</artifactId>
 		</dependency>
@@ -168,6 +163,11 @@
 		<dependency>
 			<groupId>org.sigtec</groupId>
 			<artifactId>sigtec-util</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.tango-project</groupId>
+			<artifactId>tango-icon-theme</artifactId>
 		</dependency>
 
 		<dependency>
