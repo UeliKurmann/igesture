@@ -3,7 +3,7 @@
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
- * Purpose		:   Class describing general Action for Gesture mapping
+ * Purpose		:   Interface describing general Action for Gesture mapping
  *
  * -----------------------------------------------------------------------
  *
@@ -23,28 +23,25 @@
  */
 
 
-package org.ximtec.igesture.geco;
+package org.ximtec.igesture.geco.action;
+
+import org.ximtec.igesture.core.GestureClass;
 
 
 
 /**
- * Comment
+ * Interface describing general Action for Gesture mapping
+ * 
  * @version 1.0 Nov 19, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public class GestureActionMapping {
+public abstract class GestureMappingAction {
    
-   protected String gestureName;
+   public GestureClass gestureClass=null;
    
-
-   public void setGestureName(String gestureName) {
-      this.gestureName = gestureName;
-   } // setGestureName
-
-
-   public String getGestureName() {
-      return gestureName;
-   } // getGestureName
+   public int test=0;
+   
+   public void executeAction(){}
 
 
 

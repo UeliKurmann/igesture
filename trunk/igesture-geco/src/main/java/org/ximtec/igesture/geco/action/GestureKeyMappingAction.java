@@ -23,12 +23,13 @@
  */
 
 
-package org.ximtec.igesture.geco;
+package org.ximtec.igesture.geco.action;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.sigtec.util.Constant;
+import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.io.Win32KeyboardProxy;
 
 
@@ -38,7 +39,7 @@ import org.ximtec.igesture.io.Win32KeyboardProxy;
  * @version 1.0 Nov 19, 2007
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class GestureKeyMapping extends GestureActionMapping{
+public class GestureKeyMappingAction extends GestureMappingAction{
 
       private static final String REGEX = "\\+";
       private static final String KEY_NOT_RECOGNISED = "Key not recognised!";
@@ -47,10 +48,15 @@ public class GestureKeyMapping extends GestureActionMapping{
 
 
 
-      public GestureKeyMapping(String gesture, String keys) {
+      public GestureKeyMappingAction(GestureClass gesture, String keys) {
          super();
          setKeys(keys);
-         this.gestureName = gesture;
+         this.gestureClass = gesture;
+         this.test=1;
+      }
+      
+      public void executeAction(){
+         
       }
 
 
@@ -95,7 +101,7 @@ public class GestureKeyMapping extends GestureActionMapping{
 
          sb.deleteCharAt(sb.length() - 1);
          sb.append(Constant.BLANK + Constant.SHORT_ARROW_RIGHT + Constant.BLANK
-               + gestureName + Constant.CLOSE_ANGULAR_BRACKET);
+               + gestureClass.getName() + Constant.CLOSE_ANGULAR_BRACKET);
          return sb.toString();
       } // toString
 

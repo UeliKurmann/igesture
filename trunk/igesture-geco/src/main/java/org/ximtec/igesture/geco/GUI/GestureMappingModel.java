@@ -31,19 +31,12 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.sigtec.util.Constant;
-import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.core.TestSet;
-import org.ximtec.igesture.io.InputDeviceClient;
+import org.ximtec.igesture.geco.GestureMappingTable;
+import org.ximtec.igesture.geco.event.GestureSetLoadListener;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.storage.StorageManager;
-import org.ximtec.igesture.tool.GestureConfiguration;
-import org.ximtec.igesture.tool.event.ConfigurationListener;
-import org.ximtec.igesture.tool.event.CurrentGestureListener;
-import org.ximtec.igesture.tool.event.GestureClassListener;
-import org.ximtec.igesture.tool.event.GestureSetListener;
-import org.ximtec.igesture.tool.event.TestSetListener;
 
 
 
@@ -58,7 +51,9 @@ public class GestureMappingModel {
    
    private List<GestureSet> gestureSets;
    
-   private HashSet<GestureSetListener> gestureSetListeners;
+   private HashSet<GestureSetLoadListener> gestureSetListeners;
+   
+   public GestureMappingTable mappingTable = new GestureMappingTable();
    
    /**
     * The storage manager. 
@@ -71,8 +66,8 @@ public class GestureMappingModel {
    private List<GestureClass> gestureClasses;
    
    //to be removed
-   public GestureMappingModel() {
-   }
+   //public GestureMappingModel() {
+   //}
 
    
    /**
@@ -82,11 +77,19 @@ public class GestureMappingModel {
     * @param configuration the configuration to be used.
     */
    public GestureMappingModel(StorageEngine engine) {
-      gestureSetListeners = new HashSet<GestureSetListener>();
-      loadData(engine);
+      gestureSetListeners = new HashSet<GestureSetLoadListener>();
+      
+      //TODO: remove comments
+      //loadData(engine);
    }
    
-   
+   public synchronized void addGestureSetLoadListener(
+         GestureSetLoadListener listener) {
+      if (listener != null) {
+         gestureSetListeners.add(listener);
+      }
+
+   } // addCurrentGestureSetListener
    
    /**
     * Loads the data.
@@ -131,12 +134,13 @@ public class GestureMappingModel {
     * @param gestureSet the gesture set to be added.
     */
    public void loadGestureSet(GestureSet gestureSet) {
-      if (!gestureSets.contains(gestureSet)) {
-         gestureSets.add(gestureSet);
-      }
+      //if (!gestureSets.contains(gestureSet)) {
+      //   gestureSets.add(gestureSet);
+      //}
+      this.gestureSet = gestureSet;
 
-      storageManager.store(gestureSet);
-      fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
+//      storageManager.store(gestureSet);
+//      fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
    } // addGestureSet
 
 
@@ -152,7 +156,7 @@ public class GestureMappingModel {
    
 
    public synchronized void fireGesturedSetChanged(EventObject event) {
-      for (GestureSetListener gestureSetListener : this.gestureSetListeners) {
+      for (GestureSetLoadListener gestureSetListener : this.gestureSetListeners) {
          gestureSetListener.gestureSetChanged(event);
       }
 
