@@ -28,21 +28,19 @@ package org.ximtec.igesture.geco.GUI;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Insets;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.AbstractAction;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -60,13 +58,8 @@ import javax.swing.event.ListSelectionListener;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicButton;
-import org.sigtec.ink.Note;
 import org.sigtec.util.Constant;
-import org.ximtec.igesture.core.DigitalDescriptor;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.core.SampleDescriptor;
-import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.GUI.action.ActionExitApplication;
 import org.ximtec.igesture.geco.GUI.action.ActionLoadGestureSet;
 import org.ximtec.igesture.geco.GUI.action.ActionMapGesture;
