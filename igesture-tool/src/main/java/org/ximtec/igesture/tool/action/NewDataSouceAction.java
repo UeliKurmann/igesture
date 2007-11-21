@@ -1,5 +1,5 @@
 /*
- * @(#)ActionNewDataSource.java	1.0   Nov 15, 2006
+ * @(#)NewDataSourceAction.java	1.0   Nov 15, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -34,7 +34,6 @@ import javax.swing.JFileChooser;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.storage.Db4oStorageEngine;
-import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
 
 
@@ -45,13 +44,18 @@ import org.ximtec.igesture.tool.GestureToolView;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionNewDataSouce extends BasicAction {
+public class NewDataSouceAction extends BasicAction {
 
+   /** 
+    * The KEY used to retrieve action details from the resource bundle. 
+    */
+   public static final String KEY = "NewDataSourceAction";
+   
    private GestureToolView mainView;
 
 
-   public ActionNewDataSouce(GestureToolView mainView) {
-      super(GestureConstants.COMMON_NEW, GuiTool.getGuiBundle());
+   public NewDataSouceAction(GestureToolView mainView) {
+      super(KEY, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
 

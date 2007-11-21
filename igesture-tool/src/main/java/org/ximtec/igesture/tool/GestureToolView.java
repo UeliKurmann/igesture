@@ -44,7 +44,8 @@ import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.tool.action.ActionAboutDialog;
 import org.ximtec.igesture.tool.action.ActionExitApplication;
-import org.ximtec.igesture.tool.action.ActionNewDataSouce;
+import org.ximtec.igesture.tool.action.ActionHandler;
+import org.ximtec.igesture.tool.action.NewDataSouceAction;
 import org.ximtec.igesture.tool.action.ActionOpenDataSouce;
 import org.ximtec.igesture.tool.util.IconLoader;
 
@@ -61,9 +62,11 @@ public class GestureToolView extends JFrame {
    private static final Logger LOGGER = Logger.getLogger(GestureToolView.class
          .getName());
 
+   private ActionHandler actionHandler;
+
    private static final String ABOUT_HTML = "about.html";
 
-   private static final String IGESTURE_ICON = "icons/iserver";
+   private static final String IGESTURE_ICON = "igesture";
 
    private GestureConfiguration configuration;
 
@@ -82,6 +85,7 @@ public class GestureToolView extends JFrame {
       super();
       this.configuration = configuration;
       this.model = model;
+      actionHandler = new ActionHandler(this);
       init();
    }
 
@@ -160,12 +164,13 @@ public class GestureToolView extends JFrame {
       menuBar.add(createInfoMenu());
       return menuBar;
    } // createMenuBar
-   
+
 
    private JMenu createFileMenu() {
       JMenu menu = GuiTool.getGuiBundle().createMenu(GestureConstants.MENU_FILE);
-      menu.add(SwingTool.createMenuItem(new ActionNewDataSouce(this), IconLoader
-            .getIcon(IconLoader.DOCUMENT_NEW)));
+      menu.add(new JMenuItem(getActionHandler().getNewDataSourceAction()));
+      //menu.add(SwingTool.createMenuItem(new ActionNewDataSouce(this), IconLoader
+      //      .getIcon(IconLoader.DOCUMENT_NEW)));
       menu.add(SwingTool.createMenuItem(new ActionOpenDataSouce(this),
             IconLoader.getIcon(IconLoader.DOCUMENT_OPEN)));
       menu.addSeparator();
@@ -195,5 +200,14 @@ public class GestureToolView extends JFrame {
    public GestureMainModel getModel() {
       return model;
    } // getModel
+
+
+   /**
+    * Returns the action handler for accessing actions.
+    * @return the action handler for accessing actions.
+    */
+   public ActionHandler getActionHandler() {
+      return actionHandler;
+   } // getActionHandler
 
 }
