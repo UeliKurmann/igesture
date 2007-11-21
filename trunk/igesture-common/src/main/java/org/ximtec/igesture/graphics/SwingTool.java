@@ -203,19 +203,7 @@ public class SwingTool {
       frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
    } // initFrame
 
-
-   /**
-    * Creates a new menu item with the given action.
-    * @param action the action of the item.
-    * @return the newly created menu item.
-    */
-   public static JMenuItem createMenuItem(Action action) {
-      final JMenuItem item = new JMenuItem();
-      item.setAction(action);
-      return item;
-   } // createMenuItem
-
-
+   
    /**
     * Creates a new menu item with the given action.
     * @param action the action to be used.
@@ -242,7 +230,7 @@ public class SwingTool {
       if (actions != null) {
 
          for (final Action action : actions) {
-            menu.add(createMenuItem(action));
+            menu.add(new JMenuItem(action));
          }
 
       }
@@ -260,7 +248,7 @@ public class SwingTool {
       final JPopupMenu menu = new JPopupMenu();
 
       for (final Action action : actions) {
-         menu.add(createMenuItem(action));
+         menu.add(new JMenuItem(action));
       }
 
       return menu;

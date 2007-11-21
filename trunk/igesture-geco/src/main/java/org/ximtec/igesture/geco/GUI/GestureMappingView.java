@@ -46,6 +46,7 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -288,7 +289,7 @@ public class GestureMappingView extends JFrame{
 	      menu.add(SwingTool.createMenuItem(new ActionOpenGestureMap(this),
 	            IconLoader.getIcon(IconLoader.DOCUMENT_OPEN)));
 	      menu.addSeparator();
-	      menu.add(SwingTool.createMenuItem(new ActionExitApplication(this)));
+	      menu.add(new JMenuItem(new ActionExitApplication(this)));
 	      
 	      
 	      return menu;
