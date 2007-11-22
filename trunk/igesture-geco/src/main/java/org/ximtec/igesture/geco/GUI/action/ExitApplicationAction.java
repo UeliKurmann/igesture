@@ -47,7 +47,7 @@ public class ExitApplicationAction extends BasicAction {
 
 
    public ExitApplicationAction(GestureMappingView mainView) {
-      super(GestureMappingConstants.COMMON_EXIT, GuiTool.getGuiBundle());
+      super(GestureMappingConstants.EXIT, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
 

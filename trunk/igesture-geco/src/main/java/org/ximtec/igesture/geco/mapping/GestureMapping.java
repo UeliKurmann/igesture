@@ -1,5 +1,5 @@
 /*
- * @(#)GestureActionMapping.java	1.0   Nov 19, 2007
+ * @(#)GestureMapping.java	1.0   Nov 19, 2007
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *

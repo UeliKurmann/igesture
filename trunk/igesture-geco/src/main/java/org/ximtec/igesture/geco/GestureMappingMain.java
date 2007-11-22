@@ -55,7 +55,7 @@ public class GestureMappingMain {
 
    private static final String DEFAULT_CONFIGURATION = "config.xml";
    
-   private static final String GUI_BUNDLE_FILE = "igestureMenu";
+   private static final String GUI_BUNDLE_FILE = "gecoProperties";
 
 
 	/**
