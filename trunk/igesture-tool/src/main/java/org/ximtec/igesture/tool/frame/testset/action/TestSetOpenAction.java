@@ -1,5 +1,5 @@
 /*
- * @(#)ActionTestSetOpen.java	1.0   Nov 21, 2006
+ * @(#)TestSetOpenAction.java	1.0   Nov 21, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -35,7 +35,6 @@ import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.frame.testset.TestSetListFrame;
 import org.ximtec.igesture.tool.frame.testset.TestSetListModel;
-import org.ximtec.igesture.tool.util.IconLoader;
 
 
 /**
@@ -45,18 +44,20 @@ import org.ximtec.igesture.tool.util.IconLoader;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionTestSetOpen extends BasicAction {
+public class TestSetOpenAction extends BasicAction {
 
-   public static final String KEY = "ActionTestSetOpen";
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "TestSetOpenAction";
 
    private JList list;
 
    private TestSetListFrame frame;
 
 
-   public ActionTestSetOpen(JList list, TestSetListFrame frame) {
+   public TestSetOpenAction(JList list, TestSetListFrame frame) {
       super(KEY, GuiTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_OPEN));
       this.list = list;
       this.frame = frame;
    }

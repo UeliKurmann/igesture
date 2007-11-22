@@ -1,5 +1,5 @@
 /*
- * @(#)ActionTestSetDeleteSample.java	1.0   Nov 21, 2006
+ * @(#)TestSetDeleteSampleAction.java	1.0   Nov 21, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -31,7 +31,6 @@ import java.awt.event.ActionEvent;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.frame.testset.TestSetListFrame;
-import org.ximtec.igesture.tool.util.IconLoader;
 
 
 /**
@@ -41,16 +40,18 @@ import org.ximtec.igesture.tool.util.IconLoader;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionTestSetDeleteSample extends BasicAction {
+public class TestSetDeleteSampleAction extends BasicAction {
 
-   public static final String KEY = "ActionTestSetDeleteSample";
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "TestSetDeleteSampleAction";
 
    private TestSetListFrame frame;
 
 
-   public ActionTestSetDeleteSample(TestSetListFrame frame) {
+   public TestSetDeleteSampleAction(TestSetListFrame frame) {
       super(KEY, GuiTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DELETE));
       this.frame = frame;
    }
 

@@ -43,6 +43,9 @@ import org.ximtec.igesture.tool.GestureToolView;
  */
 public class TestSetNewAction extends BasicAction {
 
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
    public static final String KEY = "TestSetNewAction";
 
    private GestureToolView mainView;

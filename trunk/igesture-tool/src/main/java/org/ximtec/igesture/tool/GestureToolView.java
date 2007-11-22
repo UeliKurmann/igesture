@@ -43,11 +43,9 @@ import org.sigtec.util.Decorator;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.tool.action.AboutDialogAction;
-import org.ximtec.igesture.tool.action.ExitApplicationAction;
 import org.ximtec.igesture.tool.action.ActionHandler;
-import org.ximtec.igesture.tool.action.NewDataSouceAction;
-import org.ximtec.igesture.tool.action.OpenDataSouceAction;
-import org.ximtec.igesture.tool.util.IconLoader;
+import org.ximtec.igesture.tool.action.ExitApplicationAction;
+import org.ximtec.igesture.tool.util.GuiConstant;
 
 
 /**
@@ -167,7 +165,7 @@ public class GestureToolView extends JFrame {
 
 
    private JMenu createFileMenu() {
-      JMenu menu = GuiTool.getGuiBundle().createMenu(GestureConstants.MENU_FILE);
+      JMenu menu = GuiTool.getGuiBundle().createMenu(GuiConstant.FILE_MENU);
       menu.add(new JMenuItem(getActionHandler().getNewDataSourceAction()));
       menu.add(new JMenuItem(getActionHandler().getOpenDataSourceAction()));
       menu.addSeparator();

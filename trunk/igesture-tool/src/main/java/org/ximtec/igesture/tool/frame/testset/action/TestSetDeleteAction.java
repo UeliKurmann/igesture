@@ -46,6 +46,9 @@ import org.ximtec.igesture.tool.frame.testset.TestSetListModel;
  */
 public class TestSetDeleteAction extends BasicAction {
 
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
    public static final String KEY = "TestSetDeleteAction";
 
    private JList list;

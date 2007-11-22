@@ -1,5 +1,5 @@
 /*
- * @(#)ActionAddGestureClass.java	1.0   Nov 15, 2006
+ * @(#)AddGestureClassAction.java	1.0   Nov 15, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -38,7 +38,6 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.frame.gestureset.AddGestureClassDialog;
 import org.ximtec.igesture.tool.frame.gestureset.GestureTreeModel;
-import org.ximtec.igesture.tool.util.IconLoader;
 
 
 /**
@@ -48,18 +47,17 @@ import org.ximtec.igesture.tool.util.IconLoader;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionAddGestureClass extends BasicAction {
+public class AddGestureClassAction extends BasicAction {
 
-   public static final String KEY = "PopUpAddClassToGestureSet";
+   public static final String KEY = "AddGestureClassAction";
 
    private GestureTreeModel gestureTreeModel;
 
    private GestureSet set;
 
 
-   public ActionAddGestureClass(GestureTreeModel gestureTreeModel, GestureSet set) {
+   public AddGestureClassAction(GestureTreeModel gestureTreeModel, GestureSet set) {
       super(KEY, GuiTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.LIST_ADD));
       this.set = set;
       this.gestureTreeModel = gestureTreeModel;
    }
