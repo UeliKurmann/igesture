@@ -1,5 +1,5 @@
 /*
- * @(#)ActionExecuteRecogniser.java	1.0   Nov 15, 2006
+ * @(#)ExecuteRecogniserAction.java	1.0   Nov 15, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -45,7 +45,6 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.tool.CaptureTab;
-import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureMainModel;
 
 
@@ -56,11 +55,16 @@ import org.ximtec.igesture.tool.GestureMainModel;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionExecuteRecogniser extends BasicAction {
+public class ExecuteRecogniserAction extends BasicAction {
 
    private static final Logger LOGGER = Logger
-         .getLogger(ActionExecuteRecogniser.class.getName());
+         .getLogger(ExecuteRecogniserAction.class.getName());
 
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "ExecuteRecogniserAction";
+   
    private GestureMainModel mainModel;
 
    private JList set;
@@ -70,9 +74,9 @@ public class ActionExecuteRecogniser extends BasicAction {
    private CaptureTab tab;
 
 
-   public ActionExecuteRecogniser(GestureMainModel mainModel, CaptureTab tab,
+   public ExecuteRecogniserAction(GestureMainModel mainModel, CaptureTab tab,
          JList set, JList result) {
-      super(GestureConstants.COMMON_OK, GuiTool.getGuiBundle());
+      super(KEY, GuiTool.getGuiBundle());
       this.mainModel = mainModel;
       this.set = set;
       this.result = result;

@@ -113,7 +113,6 @@
 		<dependency>
 			<groupId>org.freedesktop.tango</groupId>
 			<artifactId>tango-icon-theme</artifactId>
-			<version>0.8.1</version>
 		</dependency>
 
 		<dependency>
