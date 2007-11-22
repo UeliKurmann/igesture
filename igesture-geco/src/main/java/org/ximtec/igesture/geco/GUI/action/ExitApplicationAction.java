@@ -41,12 +41,12 @@ import org.ximtec.igesture.geco.GUI.GestureMappingView;
  * @author  Michele Croci, mcroci@gmail.com
  */
 
-public class ActionExitApplication extends BasicAction {
+public class ExitApplicationAction extends BasicAction {
 
    private GestureMappingView mainView;
 
 
-   public ActionExitApplication(GestureMappingView mainView) {
+   public ExitApplicationAction(GestureMappingView mainView) {
       super(GestureMappingConstants.COMMON_EXIT, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }

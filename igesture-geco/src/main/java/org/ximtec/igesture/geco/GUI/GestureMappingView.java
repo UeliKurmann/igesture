@@ -60,11 +60,11 @@ import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.geco.GUI.action.ActionExitApplication;
-import org.ximtec.igesture.geco.GUI.action.ActionLoadGestureSet;
-import org.ximtec.igesture.geco.GUI.action.ActionMapGesture;
-import org.ximtec.igesture.geco.GUI.action.ActionNewGestureMap;
-import org.ximtec.igesture.geco.GUI.action.ActionOpenGestureMap;
+import org.ximtec.igesture.geco.GUI.action.ExitApplicationAction;
+import org.ximtec.igesture.geco.GUI.action.LoadGestureSetAction;
+import org.ximtec.igesture.geco.GUI.action.MapGestureAction;
+import org.ximtec.igesture.geco.GUI.action.NewGestureMapAction;
+import org.ximtec.igesture.geco.GUI.action.OpenProjectAction;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.util.IconLoader;
 
@@ -181,7 +181,7 @@ public class GestureMappingView extends JFrame{
         exitButton = SwingTool.createButton(GestureMappingConstants.EXIT);
         //saveButton.setText(GestureMappingConstants.SAVE);
         //exitButton.setText(GestureMappingConstants.EXIT);
-        exitButton.setAction(new ActionExitApplication(this));
+        exitButton.setAction(new ExitApplicationAction(this));
         //saveButton.setAction();
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
@@ -242,14 +242,14 @@ public class GestureMappingView extends JFrame{
                     new Insets(0,0,0,0),0,0 ) );
 		
 		mapButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-		mapButton.setAction(new ActionMapGesture(this, model.mappingTable));
+		mapButton.setAction(new MapGestureAction(this, model.mappingTable));
 		//mapButton.setText(GestureMappingConstants.MAP_GESTURE);
 		mapButton.setEnabled(false);
 		
 	    BasicButton loadSetButton = SwingTool.createButton(GestureMappingConstants.LOAD_GESTURE_SET);
 	    
 	    //loadSetButton.addActionListener(new LoadSetActionListener());
-	    loadSetButton.setAction(new ActionLoadGestureSet(this));
+	    loadSetButton.setAction(new LoadGestureSetAction(this));
 	    //loadSetButton.setText(GestureMappingConstants.LOAD_GESTURE_SET);
 
 	     
@@ -287,12 +287,12 @@ public class GestureMappingView extends JFrame{
 	//      menu.add(SwingTool.createMenuItem(new ActionOpenGestureMap(this),
 	  //          IconLoader.getIcon(IconLoader.DOCUMENT_OPEN)));
 	     
-	       menu.add(SwingTool.createMenuItem( new ActionNewGestureMap(this),null));
-	       menu.add(SwingTool.createMenuItem(new ActionOpenGestureMap(this),null));
+	       menu.add(SwingTool.createMenuItem( new NewGestureMapAction(this),null));
+	       menu.add(SwingTool.createMenuItem(new OpenProjectAction(this),null));
 	      
 	 
 	      menu.addSeparator();
-	      menu.add(new JMenuItem(new ActionExitApplication(this)));
+	      menu.add(new JMenuItem(new ExitApplicationAction(this)));
 	      
 	      
 	      return menu;
@@ -327,6 +327,9 @@ public class GestureMappingView extends JFrame{
         }
         gestureList.setModel(listModel);
     }
+    
+
+    
     
     public GestureClass getSelectedClass(){
          return (GestureClass) gestureList.getSelectedValue();

@@ -23,7 +23,7 @@
  */
 
 
-package org.ximtec.igesture.geco.action;
+package org.ximtec.igesture.geco.mapping;
 
 import org.ximtec.igesture.core.GestureClass;
 
@@ -35,7 +35,7 @@ import org.ximtec.igesture.core.GestureClass;
  * @version 1.0 Nov 19, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public abstract class GestureMappingAction {
+public abstract class GestureMapping {
    
    public GestureClass gestureClass=null;
    

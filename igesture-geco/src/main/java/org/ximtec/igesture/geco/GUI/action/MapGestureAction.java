@@ -53,7 +53,7 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
-import org.ximtec.igesture.geco.action.GestureKeyMappingAction;
+import org.ximtec.igesture.geco.mapping.GestureKeyMapping;
 import org.ximtec.igesture.graphics.SwingTool;
 
 
@@ -69,7 +69,7 @@ import org.ximtec.igesture.graphics.SwingTool;
 * @version 1.0, Nov 2006
 * @author Michele Croci, mcroci@gmail.com
 */
-public class ActionMapGesture extends BasicAction {
+public class MapGestureAction extends BasicAction {
 
   private GestureMappingView mainView;
   private GestureMappingTable mappingTable;
@@ -81,8 +81,8 @@ public class ActionMapGesture extends BasicAction {
   private JCheckBox ctrlCheckBox =  new JCheckBox("CTRL");
   private JCheckBox shiftCheckBox =  new JCheckBox("SHIFT");
   private JCheckBox altCheckBox =  new JCheckBox("ALT");
-  private JComboBox comboBox =  new JComboBox(new String[]{"0","1","2","3","4","5","6","7","8","9"," ","A","B",
-        "C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"});
+  private JComboBox comboBox =  new JComboBox(new String[]{"A","B","C","D","E","F","G",
+        "H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z", " "});
   private JLabel gestureLabel = new JLabel();
   private int DIALOG_WIDTH = 400;
   private int DIALOG_HEIGHT = 400;
@@ -96,7 +96,7 @@ public class ActionMapGesture extends BasicAction {
   private static final String ALT = "ALT";
 
 
-  public ActionMapGesture(GestureMappingView mainView, GestureMappingTable mappingTable) {
+  public MapGestureAction(GestureMappingView mainView, GestureMappingTable mappingTable) {
      super(GestureMappingConstants.MAP_GESTURE, GuiTool.getGuiBundle());
      this.mainView = mainView;
      this.mappingTable =  mappingTable;
@@ -187,10 +187,15 @@ public class ActionMapGesture extends BasicAction {
      BasicButton cancelButton = SwingTool.createButton(GestureMappingConstants.CANCEL);
      addButton.addActionListener(new ActionListener(){
          public void actionPerformed(ActionEvent event) {
+            //add gesture mapping
             addGestureMapping();
-            //TODO: add map
-            //mappingTable.addMapping(gestureName, action)
+            //remove gesture from set
+            mainView.getModel().removeGestureClass(MapGestureAction.this.currentGesture);
+            mainView.showGestureSet();
+            //add gesture to user-defined mapping
             
+            
+            dialog.dispose();
          }
      });
      
@@ -240,17 +245,19 @@ public class ActionMapGesture extends BasicAction {
      if (tabbedPane.getSelectedIndex()==HOTKEY){
         String keys = "";
         if (ctrlCheckBox.isSelected())
-           keys+=CONTROL+"\\+";
+           keys+=CONTROL+"+";
         if (shiftCheckBox.isSelected())
-           keys+=SHIFT+"\\+";
+           keys+=SHIFT+"+";
         if (altCheckBox.isSelected())
-           keys+=ALT+"\\+";
+           keys+=ALT+"+";
         if(!(ctrlCheckBox.isSelected()||shiftCheckBox.isSelected()||altCheckBox.isSelected()))
-           keys+="\\+";
+           keys+="+";
         
         keys+=(String)comboBox.getSelectedItem();
         
-        GestureKeyMappingAction action = new GestureKeyMappingAction(currentGesture,keys);
+        System.out.println("ActioMapGesture - key: "+keys);
+        
+        GestureKeyMapping action = new GestureKeyMapping(currentGesture,keys);
         mappingTable.addMapping(currentGesture, action);
      }
      

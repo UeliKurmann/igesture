@@ -29,11 +29,11 @@ import java.util.EventObject;
 
 import org.ximtec.igesture.geco.GUI.GestureMappingModel;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
-import org.ximtec.igesture.geco.GUI.action.ActionExitApplication;
-import org.ximtec.igesture.geco.GUI.action.ActionLoadGestureSet;
-import org.ximtec.igesture.geco.GUI.action.ActionMapGesture;
-import org.ximtec.igesture.geco.GUI.action.ActionNewGestureMap;
-import org.ximtec.igesture.geco.GUI.action.ActionOpenGestureMap;
+import org.ximtec.igesture.geco.GUI.action.ExitApplicationAction;
+import org.ximtec.igesture.geco.GUI.action.LoadGestureSetAction;
+import org.ximtec.igesture.geco.GUI.action.MapGestureAction;
+import org.ximtec.igesture.geco.GUI.action.NewGestureMapAction;
+import org.ximtec.igesture.geco.GUI.action.OpenProjectAction;
 import org.ximtec.igesture.geco.event.GestureSetLoadListener;
 
 
@@ -53,15 +53,15 @@ public class GestureMappingController{
    
    private GestureMappingTable mappingTable = new GestureMappingTable();
    
-   private ActionExitApplication actionExitApplication = new ActionExitApplication(view);
+   private ExitApplicationAction actionExitApplication = new ExitApplicationAction(view);
    
-   private ActionLoadGestureSet actionLoadGestureSet = new ActionLoadGestureSet(view);
+   private LoadGestureSetAction actionLoadGestureSet = new LoadGestureSetAction(view);
    
-   private ActionMapGesture actionMapGesture =  new ActionMapGesture(view, mappingTable);
+   private MapGestureAction actionMapGesture =  new MapGestureAction(view, mappingTable);
    
-   private ActionNewGestureMap actionNewGestureMap= new ActionNewGestureMap(view);
+   private NewGestureMapAction actionNewGestureMap= new NewGestureMapAction(view);
    
-   private ActionOpenGestureMap actionOpenGestureMap = new ActionOpenGestureMap(view);
+   private OpenProjectAction actionOpenGestureMap = new OpenProjectAction(view);
    
    
    public GestureMappingController(GestureMappingView view, GestureMappingModel model){
