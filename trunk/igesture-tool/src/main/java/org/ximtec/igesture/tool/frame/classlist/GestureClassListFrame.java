@@ -44,8 +44,8 @@ import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.AdminTab;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.event.GestureClassListener;
-import org.ximtec.igesture.tool.frame.classlist.action.ActionDeleteClass;
 import org.ximtec.igesture.tool.frame.classlist.action.ActionOpenEditClassFrame;
+import org.ximtec.igesture.tool.frame.classlist.action.DeleteClassAction;
 
 
 /**
@@ -107,10 +107,8 @@ public class GestureClassListFrame extends BasicInternalFrame implements
             new ActionOpenEditClassFrame(
                   GestureConstants.GESTURE_CLASS_LIST_FRAME_BTN_EDIT, adminTab,
                   (GestureClass)scrollableList.getSelectedValue()),
-            new ActionDeleteClass(
-                  GestureConstants.GESTURE_CLASS_LIST_FRAME_BTN_DEL, adminTab
-                        .getMainView(), (GestureClass)scrollableList
-                        .getSelectedValue()) });
+            new DeleteClassAction(adminTab.getMainView(),
+                  (GestureClass)scrollableList.getSelectedValue()) });
       popupMenu.show(e.getComponent(), e.getX(), e.getY());
    } // showPopUpMenu
 

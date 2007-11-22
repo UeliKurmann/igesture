@@ -43,7 +43,7 @@ import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
-import org.ximtec.igesture.tool.frame.classlist.action.ActionAddSample;
+import org.ximtec.igesture.tool.frame.classlist.action.AddSampleAction;
 import org.ximtec.igesture.tool.frame.classlist.action.ActionDeleteSample;
 import org.ximtec.igesture.tool.util.CloseFrameAction;
 import org.ximtec.igesture.tool.util.CustomCellRenderer;
@@ -86,7 +86,7 @@ public class SampleDescriptorFrame extends BasicInternalFrame {
 
 
    private Component createAddButton() {
-      return SwingTool.createButton(new ActionAddSample(
+      return SwingTool.createButton(new AddSampleAction(
             GestureConstants.COMMON_ADD, this));
    } // createAddButton
 
