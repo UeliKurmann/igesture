@@ -30,6 +30,8 @@ import java.util.EventObject;
 import java.util.HashSet;
 import java.util.List;
 
+import javax.swing.DefaultListModel;
+
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
@@ -47,9 +49,14 @@ import org.ximtec.igesture.storage.StorageManager;
  */
 public class GestureMappingModel {
    
-   private GestureSet gestureSet;
-   
+   /**
+    * The list of imported Gesture Set
+    */
    private List<GestureSet> gestureSets;
+   
+   private SortedListModel gestureListModel = new SortedListModel();
+   
+   private SortedListModel mappingListModel = new SortedListModel();
    
    private HashSet<GestureSetLoadListener> gestureSetListeners;
    
@@ -65,10 +72,6 @@ public class GestureMappingModel {
     */
    private List<GestureClass> gestureClasses;
    
-   //to be removed
-   //public GestureMappingModel() {
-   //}
-
    
    /**
     * Constructs a new main model.
@@ -78,24 +81,15 @@ public class GestureMappingModel {
     */
    public GestureMappingModel(StorageEngine engine) {
       gestureSetListeners = new HashSet<GestureSetLoadListener>();
-      
-      //TODO: remove comments
-      //loadData(engine);
-   }
-   
-   public synchronized void addGestureSetLoadListener(
-         GestureSetLoadListener listener) {
-      if (listener != null) {
-         gestureSetListeners.add(listener);
-      }
 
-   } // addCurrentGestureSetListener
-   
+   }
+
    /**
     * Loads the data.
     * 
     * @param engine the storage engine used by the storage manager.
     */
+   /*
    public void loadData(StorageEngine engine) {
       if (storageManager != null) {
          storageManager.dispose();
@@ -104,7 +98,7 @@ public class GestureMappingModel {
       storageManager = new StorageManager(engine);
       loadData();
    } // loadData
-
+*/
 
    /**
     * Loads the data from the database. All elements are available in memory and
@@ -134,10 +128,11 @@ public class GestureMappingModel {
     * @param gestureSet the gesture set to be added.
     */
    public void loadGestureSet(GestureSet gestureSet) {
-      //if (!gestureSets.contains(gestureSet)) {
-      //   gestureSets.add(gestureSet);
-      //}
-      this.gestureSet = gestureSet;
+      if (!gestureSets.contains(gestureSet)) {
+         gestureSets.add(gestureSet);
+      }
+         
+      addGestureSetToListModel(gestureSet);
 
 //      storageManager.store(gestureSet);
 //      fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
@@ -149,16 +144,39 @@ public class GestureMappingModel {
     * 
     * @return the list of gesture sets.
     */
-   public GestureSet getGestureSet() {
-      return gestureSet;
+   public List<GestureSet> getGestureSets() {
+      return gestureSets;
    } // getGestureSets
    
-   public void removeGestureClass(GestureClass gs){
-      gestureSet.getGestureClasses().remove(gs);
+
+   
+   public void removeGestureClass(GestureClass gc){
+      gestureListModel.removeElement(gc);
    }
    
-   public void addGestureClass(GestureClass gs){
-      gestureSet.getGestureClasses().add(gs);
+   public void addGestureClass(GestureClass gc){
+      gestureListModel.add(gc);
+   }
+   
+   public void addGestureSetToListModel(GestureSet gestureSet){
+      for(GestureClass gc: gestureSet.getGestureClasses()){
+         gestureListModel.add(gc);
+      }
+   }
+   
+   
+   public void removeGestureSetToListModel(GestureSet gestureSet){
+      for(GestureClass gc: gestureSet.getGestureClasses()){
+         gestureListModel.removeElement(gc);
+      }
+   }
+   
+   public SortedListModel getGestureListModel(){
+      return gestureListModel;
+   }
+   
+   public SortedListModel getMappingListModel(){
+      return mappingListModel;
    }
    
    

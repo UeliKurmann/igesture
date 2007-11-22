@@ -38,6 +38,8 @@ import org.ximtec.igesture.geco.event.GestureSetLoadListener;
 
 
 
+// Is this class really needed?
+
 /**
  * Comment
  * @version 1.0 Nov 20, 2007
@@ -46,7 +48,7 @@ import org.ximtec.igesture.geco.event.GestureSetLoadListener;
 public class GestureMappingController{
    
    
-   
+   /*
    private GestureMappingView view;
    
    private GestureMappingModel model;
@@ -74,7 +76,7 @@ public class GestureMappingController{
       view.addActionNewGestureMap(actionNewGestureMap);
       view.addActionOpenGestureMap(actionOpenGestureMap);
    }
-   
+   */
 
 
 }
