@@ -39,8 +39,6 @@ public class GestureConstants {
    
    public static final String COMMON_EXIT = "EXIT";
 
-   public static final String COMMON_OPEN = "OPEN";
-
    public static final String COMMON_OK = "OK";
 
    public static final String COMMON_CANCEL = "CANCEL";
@@ -64,8 +62,6 @@ public class GestureConstants {
    public static final String COMMON_ABOUT = "ABOUT";
 
    public static final String COMMON_BROWSE = "BROWSE";
-
-   public static final String COMMON_NEW = "NEW";
 
    public static final String GESTUREVIEW_MAINFRAME_KEY = "mainFrame";
 

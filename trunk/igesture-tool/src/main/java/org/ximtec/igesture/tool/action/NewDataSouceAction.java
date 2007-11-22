@@ -47,7 +47,7 @@ import org.ximtec.igesture.tool.GestureToolView;
 public class NewDataSouceAction extends BasicAction {
 
    /** 
-    * The KEY used to retrieve action details from the resource bundle. 
+    * The key used to retrieve action details from the resource bundle. 
     */
    public static final String KEY = "NewDataSourceAction";
    

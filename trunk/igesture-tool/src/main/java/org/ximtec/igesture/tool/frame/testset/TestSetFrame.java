@@ -43,7 +43,7 @@ import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.TestTab;
 import org.ximtec.igesture.tool.event.CurrentGestureListener;
-import org.ximtec.igesture.tool.frame.testset.action.ActionTestSetAdd;
+import org.ximtec.igesture.tool.frame.testset.action.TestSetAddAction;
 import org.ximtec.igesture.util.GestureTool;
 
 
@@ -85,7 +85,7 @@ public class TestSetFrame extends BasicInternalFrame implements
       gestureImage.setPreferredSize(new Dimension(180, 180));
       addComponent(gestureImage, SwingTool.createGridBagConstraint(0, 0));
       addComponent(createDropDownMenu(), SwingTool.createGridBagConstraint(0, 1));
-      addComponent(SwingTool.createButton(new ActionTestSetAdd(testTab, this)),
+      addComponent(SwingTool.createButton(new TestSetAddAction(testTab, this)),
             SwingTool.createGridBagConstraint(0, 2));
    } // init
 

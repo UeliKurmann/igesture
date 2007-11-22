@@ -63,13 +63,13 @@ public class TreeRenderer extends DefaultTreeCellRenderer {
       setClosedIcon(MINUS_ICON);
 
       if (value instanceof GestureSet) {
-         setIcon(IconLoader.getIcon(IconLoader.PACKAGE));
+         setIcon(IconTool.getIcon(IconLoader.PACKAGE, Decorator.SIZE_16));
       }
       else if (value instanceof GestureClass) {
-         setIcon(IconLoader.getIcon(IconLoader.TEXT_SCRIPT));
+         setIcon(IconTool.getIcon(IconLoader.TEXT_SCRIPT, Decorator.SIZE_16));
       }
       else {
-         setIcon(IconLoader.getIcon(IconLoader.HARDDISK));
+         setIcon(IconTool.getIcon(IconLoader.HARDDISK, Decorator.SIZE_16));
       }
 
       return this;

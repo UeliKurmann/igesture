@@ -1,5 +1,5 @@
 /*
- * @(#)ActionAboutDialog.java	1.0   Nov 15, 2006
+ * @(#)AboutDialogAction.java	1.0   Nov 15, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -41,14 +41,19 @@ import org.ximtec.igesture.tool.util.JAboutDialog;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionAboutDialog extends BasicAction {
+public class AboutDialogAction extends BasicAction {
+
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "AboutAction";
 
    JAboutDialog dialog;
 
 
-   public ActionAboutDialog(String path) {
-      super(GestureConstants.COMMON_ABOUT, GuiTool.getGuiBundle());
-      dialog = new JAboutDialog(300, 500, ActionAboutDialog.class
+   public AboutDialogAction(String path) {
+      super(KEY, GuiTool.getGuiBundle());
+      dialog = new JAboutDialog(300, 500, AboutDialogAction.class
             .getClassLoader().getResource(path));
    }
 

@@ -59,7 +59,7 @@ import org.ximtec.igesture.tool.frame.algorithm.action.ActionCreateConfiguration
 import org.ximtec.igesture.tool.frame.algorithm.action.ActionDeleteConfiguration;
 import org.ximtec.igesture.tool.frame.algorithm.action.ActionExportConfiguration;
 import org.ximtec.igesture.tool.frame.algorithm.action.ActionLoadConfiguration;
-import org.ximtec.igesture.tool.frame.algorithm.action.ActionSaveConfiguration;
+import org.ximtec.igesture.tool.frame.algorithm.action.SaveConfigurationAction;
 
 
 /**
@@ -101,7 +101,7 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
       scrollPane.setAutoscrolls(true);
       scrollPane.setPreferredSize(new Dimension(380, 300));
       saveButton = new JButton();
-      saveButton.setAction(new ActionSaveConfiguration(this));
+      saveButton.setAction(new SaveConfigurationAction(this));
       addComponent(createConfigurationList(), SwingTool.createGridBagConstraint(
             0, 0));
       addComponent(scrollPane, SwingTool.createGridBagConstraint(0, 1));

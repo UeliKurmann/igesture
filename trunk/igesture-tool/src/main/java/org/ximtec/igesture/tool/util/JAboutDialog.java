@@ -66,7 +66,8 @@ public class JAboutDialog extends BasicDialog {
 
 
    private void init(int width, int height, URL path) {
-      setIconImage(IconLoader.getImage(IconLoader.INFORMATION));
+      // FIXME
+      //setIconImage(IconLoader.getImage(IconLoader.INFORMATION));
       setSize(width, height);
       JEditorPane aboutField;
 

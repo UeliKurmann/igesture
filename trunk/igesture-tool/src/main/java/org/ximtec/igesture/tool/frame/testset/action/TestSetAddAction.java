@@ -1,5 +1,5 @@
 /*
- * @(#)ActionTestSetAdd.java	1.0   Nov 21, 2006
+ * @(#)TestSetAddAction.java	1.0   Nov 21, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -33,7 +33,6 @@ import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.TestTab;
 import org.ximtec.igesture.tool.frame.testset.TestSetFrame;
-import org.ximtec.igesture.tool.util.IconLoader;
 
 
 /**
@@ -43,18 +42,20 @@ import org.ximtec.igesture.tool.util.IconLoader;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionTestSetAdd extends BasicAction {
+public class TestSetAddAction extends BasicAction {
 
-   public static final String KEY = "ActionTestSetAdd";
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "TestSetAddAction";
 
    private TestSetFrame testSetFrame;
 
    private TestTab testTab;
 
 
-   public ActionTestSetAdd(TestTab testTab, TestSetFrame testSetFrame) {
+   public TestSetAddAction(TestTab testTab, TestSetFrame testSetFrame) {
       super(KEY, GuiTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_NEW));
       this.testTab = testTab;
       this.testSetFrame = testSetFrame;
    }
