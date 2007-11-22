@@ -35,10 +35,6 @@ package org.ximtec.igesture.tool;
  */
 public class GestureConstants {
    
-   public static final String COMMON_OK = "OK";
-
-   public static final String COMMON_CANCEL = "CANCEL";
-
    public static final String COMMON_ADD = "ADD";
 
    public static final String COMMON_DEL = "DEL";
