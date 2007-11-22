@@ -45,7 +45,6 @@ import org.ximtec.igesture.batch.BatchResultSet;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.graphics.ScrollableList;
-import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.util.XMLTool;
 
 

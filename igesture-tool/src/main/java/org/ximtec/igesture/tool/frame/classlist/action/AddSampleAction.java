@@ -1,5 +1,5 @@
 /*
- * @(#)ActionAddSample.java	1.0   Nov 15, 2006
+ * @(#)AddSampleAction.java	1.0   Nov 15, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -31,7 +31,6 @@ import java.awt.event.ActionEvent;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.frame.classlist.SampleDescriptorFrame;
-import org.ximtec.igesture.tool.util.IconLoader;
 
 
 /**
@@ -41,14 +40,18 @@ import org.ximtec.igesture.tool.util.IconLoader;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionAddSample extends BasicAction {
+public class AddSampleAction extends BasicAction {
+
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "AddSampleAction";
 
    private SampleDescriptorFrame frame;
 
 
-   public ActionAddSample(String key, SampleDescriptorFrame model) {
-      super(key, GuiTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.LIST_ADD));
+   public AddSampleAction(SampleDescriptorFrame model) {
+      super(KEY, GuiTool.getGuiBundle());
       this.frame = model;
    }
 
