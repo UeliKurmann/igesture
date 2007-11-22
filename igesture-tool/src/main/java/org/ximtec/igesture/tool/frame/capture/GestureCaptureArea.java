@@ -44,7 +44,7 @@ import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.CurrentGestureListener;
-import org.ximtec.igesture.tool.frame.capture.action.ActionCaptureGesture;
+import org.ximtec.igesture.tool.frame.capture.action.CaptureGestureAction;
 import org.ximtec.igesture.tool.frame.capture.action.ActionCaptureGestureClear;
 import org.ximtec.igesture.tool.util.JNote;
 
@@ -90,7 +90,7 @@ public class GestureCaptureArea extends BasicInternalFrame implements
       addComponent(image, SwingTool.createGridBagConstraint(0, 0, 2, 1));
       addComponent(SwingTool.createButton(new ActionCaptureGestureClear(this)),
             SwingTool.createGridBagConstraint(0, 1));
-      addComponent(SwingTool.createButton(new ActionCaptureGesture(this)),
+      addComponent(SwingTool.createButton(new CaptureGestureAction(this)),
             SwingTool.createGridBagConstraint(1, 1));
 
       if (mainView.getModel().getCurrentNote() != null) {

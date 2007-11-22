@@ -1,5 +1,5 @@
 /*
- * @(#)ActionCaptureGesture.java	1.0   Nov 15, 2006
+ * @(#)CaptureGestureAction.java	1.0   Nov 15, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -30,7 +30,6 @@ import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.frame.capture.GestureCaptureArea;
 
 
@@ -39,13 +38,18 @@ import org.ximtec.igesture.tool.frame.capture.GestureCaptureArea;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionCaptureGesture extends BasicAction {
+public class CaptureGestureAction extends BasicAction {
+
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "CaptureGestureAction";
 
    private GestureCaptureArea area;
 
 
-   public ActionCaptureGesture(GestureCaptureArea area) {
-      super(GestureConstants.COMMON_UPDATE, GuiTool.getGuiBundle());
+   public CaptureGestureAction(GestureCaptureArea area) {
+      super(KEY, GuiTool.getGuiBundle());
       this.area = area;
    }
 
@@ -53,5 +57,5 @@ public class ActionCaptureGesture extends BasicAction {
    public void actionPerformed(ActionEvent event) {
       area.updateCurrentGesture();
    } // actionPerformed
-   
+
 }
