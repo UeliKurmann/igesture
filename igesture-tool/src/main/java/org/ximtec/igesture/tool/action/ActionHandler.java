@@ -28,9 +28,7 @@ package org.ximtec.igesture.tool.action;
 
 import javax.swing.Action;
 
-
 import org.ximtec.igesture.tool.GestureToolView;
-
 
 
 /**
@@ -41,9 +39,11 @@ import org.ximtec.igesture.tool.GestureToolView;
 public class ActionHandler {
 
    private GestureToolView view;
-   
+
    private NewDataSouceAction newDataSourceAction;
-   
+   private OpenDataSouceAction openDataSourceAction;
+
+
    public ActionHandler(GestureToolView view) {
       this.view = view;
    } // ActionHandler
@@ -56,6 +56,14 @@ public class ActionHandler {
 
       return newDataSourceAction;
    } // getNewDataSourceAction
-   
-}
 
+
+   public Action getOpenDataSourceAction() {
+      if (openDataSourceAction == null) {
+         openDataSourceAction = new OpenDataSouceAction(view);
+      }
+
+      return openDataSourceAction;
+   } // getOpenDataSourceAction
+
+}

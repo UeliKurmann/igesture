@@ -1,9 +1,9 @@
 /*
- * @(#)ActionSaveConfigration.java	1.0   Dec 4, 2006
+ * @(#)ExitApplicationAction.java	1.0   Nov 15, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Saves a configuration.
+ * Purpose		:   Terminates the application.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,7 @@
  *
  * Date				Who			Reason
  *
- * Dec 04, 2006     ukurmann    Initial Release
+ * Nov 15, 2006     ukurmann    Initial Release
  * Mar 24, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
@@ -24,38 +24,40 @@
  */
 
 
-package org.ximtec.igesture.tool.frame.algorithm.action;
+package org.ximtec.igesture.tool.action;
 
 import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.frame.algorithm.AlgorithmConfiguration;
-import org.ximtec.igesture.tool.util.IconLoader;
+import org.ximtec.igesture.tool.GestureToolView;
 
 
 /**
- * Saves a configuration.
+ * Terminates the application.
  * 
- * @version 1.0, Dec 2006
+ * @version 1.0, Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionSaveConfiguration extends BasicAction {
+public class ExitApplicationAction extends BasicAction {
 
-   private AlgorithmConfiguration algorithmConfiguration;
+   private GestureToolView mainView;
 
 
-   public ActionSaveConfiguration(AlgorithmConfiguration algorithmConfiguration) {
-      super(GestureConstants.CONFIG_OPEN_ACTION, GuiTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.SAVE));
-      this.algorithmConfiguration = algorithmConfiguration;
+   public ExitApplicationAction(GestureToolView mainView) {
+      super(GestureConstants.COMMON_EXIT, GuiTool.getGuiBundle());
+      this.mainView = mainView;
    }
 
 
+   /**
+    * @param event the action event.
+    */
    public void actionPerformed(ActionEvent event) {
-      algorithmConfiguration.updateCurrentConfiguration();
+      mainView.getModel().getStorageManager().dispose();
+      System.exit(0);
    } // actionPerformed
 
 }

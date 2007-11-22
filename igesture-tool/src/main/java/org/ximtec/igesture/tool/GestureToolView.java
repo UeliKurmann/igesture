@@ -42,11 +42,11 @@ import org.sigtec.util.Constant;
 import org.sigtec.util.Decorator;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.storage.StorageEngine;
-import org.ximtec.igesture.tool.action.ActionAboutDialog;
-import org.ximtec.igesture.tool.action.ActionExitApplication;
+import org.ximtec.igesture.tool.action.AboutDialogAction;
+import org.ximtec.igesture.tool.action.ExitApplicationAction;
 import org.ximtec.igesture.tool.action.ActionHandler;
 import org.ximtec.igesture.tool.action.NewDataSouceAction;
-import org.ximtec.igesture.tool.action.ActionOpenDataSouce;
+import org.ximtec.igesture.tool.action.OpenDataSouceAction;
 import org.ximtec.igesture.tool.util.IconLoader;
 
 
@@ -169,12 +169,9 @@ public class GestureToolView extends JFrame {
    private JMenu createFileMenu() {
       JMenu menu = GuiTool.getGuiBundle().createMenu(GestureConstants.MENU_FILE);
       menu.add(new JMenuItem(getActionHandler().getNewDataSourceAction()));
-      //menu.add(SwingTool.createMenuItem(new ActionNewDataSouce(this), IconLoader
-      //      .getIcon(IconLoader.DOCUMENT_NEW)));
-      menu.add(SwingTool.createMenuItem(new ActionOpenDataSouce(this),
-            IconLoader.getIcon(IconLoader.DOCUMENT_OPEN)));
+      menu.add(new JMenuItem(getActionHandler().getOpenDataSourceAction()));
       menu.addSeparator();
-      menu.add(new JMenuItem(new ActionExitApplication(this)));
+      menu.add(new JMenuItem(new ExitApplicationAction(this)));
       return menu;
    } // createFileMenu
 
@@ -185,9 +182,9 @@ public class GestureToolView extends JFrame {
     * @return the newly created info model.
     */
    private JMenu createInfoMenu() {
-      final JMenu menu = SwingTool.createMenu(GuiTool.getGuiBundle().getName(
+      JMenu menu = SwingTool.createMenu(GuiTool.getGuiBundle().getName(
             GestureConstants.COMMON_HELP), null);
-      menu.add(new JMenuItem(new ActionAboutDialog(ABOUT_HTML)));
+      menu.add(new JMenuItem(new AboutDialogAction(ABOUT_HTML)));
       return menu;
    } // createInfoMenu
 
