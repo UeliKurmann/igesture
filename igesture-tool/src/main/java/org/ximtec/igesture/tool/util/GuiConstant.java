@@ -30,8 +30,10 @@ package org.ximtec.igesture.tool.util;
  * @version 1.0 Nov 22, 2007
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class Constant {
+public class GuiConstant {
 
+   public static final String FILE_MENU = "FileMenu";
+   
    public static final String CANCEL_FRAME_ACTION = "CancelFrameAction";
 
    public static final String CLOSE_FRAME_ACTION = "CloseFrameAction";

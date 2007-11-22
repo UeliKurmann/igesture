@@ -1,5 +1,5 @@
 /*
- * @(#)ActionAddGestureSet.java	1.0   Nov 15, 2006
+ * @(#)AddGestureSetAction.java	1.0   Nov 15, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -36,7 +36,6 @@ import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.frame.gestureset.AddGestureSetDialog;
 import org.ximtec.igesture.tool.frame.gestureset.GestureTreeModel;
-import org.ximtec.igesture.tool.util.IconLoader;
 
 
 /**
@@ -46,16 +45,15 @@ import org.ximtec.igesture.tool.util.IconLoader;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionAddGestureSet extends BasicAction {
+public class AddGestureSetAction extends BasicAction {
 
-   public static final String KEY = "PopUpAddGestureSet";
+   public static final String KEY = "AddGestureSetAction";
 
    private GestureTreeModel gestureTreeModel;
 
 
-   public ActionAddGestureSet(GestureTreeModel gestureTreeModel) {
+   public AddGestureSetAction(GestureTreeModel gestureTreeModel) {
       super(KEY, GuiTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_NEW));
       this.gestureTreeModel = gestureTreeModel;
    }
 
@@ -69,7 +67,7 @@ public class ActionAddGestureSet extends BasicAction {
       else {
          new AddGestureSetDialog(gestureTreeModel);
       }
-      
+
    } // actionPerformed
 
 
@@ -82,8 +80,8 @@ public class ActionAddGestureSet extends BasicAction {
       while (!(comp instanceof AddGestureSetDialog)) {
          comp = comp.getParent();
       }
-      
+
       return (AddGestureSetDialog)comp;
    } // getDialog
-   
+
 }

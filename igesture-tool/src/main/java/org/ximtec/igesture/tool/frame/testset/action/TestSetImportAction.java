@@ -1,5 +1,5 @@
 /*
- * @(#)ActionTestSetImport.java	1.0   Nov 21, 2006
+ * @(#)TestSetImportAction.java	1.0   Nov 21, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -39,7 +39,6 @@ import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.storage.StorageManager;
 import org.ximtec.igesture.tool.GestureToolView;
-import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.util.XMLTool;
 
 
@@ -50,16 +49,18 @@ import org.ximtec.igesture.util.XMLTool;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionTestSetImport extends BasicAction {
+public class TestSetImportAction extends BasicAction {
 
-   public static final String KEY = "ActionTestSetImport";
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "TestSetImportAction";
 
    private GestureToolView mainView;
 
 
-   public ActionTestSetImport(GestureToolView mainView) {
+   public TestSetImportAction(GestureToolView mainView) {
       super(KEY, GuiTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.IMPORT));
       this.mainView = mainView;
    }
 

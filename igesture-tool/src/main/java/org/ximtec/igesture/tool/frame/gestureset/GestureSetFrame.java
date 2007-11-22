@@ -41,8 +41,8 @@ import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.GestureSetListener;
-import org.ximtec.igesture.tool.frame.gestureset.action.ActionAddGestureClass;
-import org.ximtec.igesture.tool.frame.gestureset.action.ActionAddGestureSet;
+import org.ximtec.igesture.tool.frame.gestureset.action.AddGestureClassAction;
+import org.ximtec.igesture.tool.frame.gestureset.action.AddGestureSetAction;
 import org.ximtec.igesture.tool.frame.gestureset.action.ActionCreateTestSet;
 import org.ximtec.igesture.tool.frame.gestureset.action.ActionDelGestureClass;
 import org.ximtec.igesture.tool.frame.gestureset.action.ActionDelGestureSet;
@@ -94,14 +94,14 @@ public class GestureSetFrame extends BasicInternalFrame implements
 
    public JPopupMenu getNewGestureSetPopUp() {
       return SwingTool.createPopupMenu(new Action[] {
-            new ActionAddGestureSet(gestureTreeModel),
+            new AddGestureSetAction(gestureTreeModel),
             new ActionImportGestureSet(mainView) });
    } // getNewGestureSetPopUp
 
 
    public JPopupMenu getAddGestureClassPopUp(GestureSet set) {
       return SwingTool.createPopupMenu(new Action[] {
-            new ActionAddGestureClass(gestureTreeModel, set),
+            new AddGestureClassAction(gestureTreeModel, set),
             new ActionDelGestureSet(gestureTreeModel, set),
             new ActionExportGestureSet(set), new ActionExportPDFGestureSet(set),
             new ActionCreateTestSet(set), new ActionExportIPaperForm(set) });

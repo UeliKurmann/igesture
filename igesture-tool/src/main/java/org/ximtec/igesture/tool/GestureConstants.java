@@ -34,8 +34,6 @@ package org.ximtec.igesture.tool;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class GestureConstants {
-
-   public static final String MENU_FILE = "FileMenu";
    
    public static final String COMMON_OK = "OK";
 

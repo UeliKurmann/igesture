@@ -49,6 +49,9 @@ import org.ximtec.igesture.util.XMLTool;
  */
 public class TestSetExportAction extends BasicAction {
 
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
    public static final String KEY = "TestSetExportAction";
 
    private JList list;

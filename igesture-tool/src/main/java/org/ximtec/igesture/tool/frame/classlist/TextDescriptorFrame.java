@@ -38,7 +38,7 @@ import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.frame.classlist.action.SaveTextAction;
 import org.ximtec.igesture.tool.util.CloseFrameAction;
-import org.ximtec.igesture.tool.util.Constant;
+import org.ximtec.igesture.tool.util.GuiConstant;
 
 
 /**
@@ -91,7 +91,7 @@ public class TextDescriptorFrame extends BasicInternalFrame {
 
    private Component createCloseButton() {
       return SwingTool.createButton(new CloseFrameAction(
-            Constant.CLOSE_FRAME_ACTION));
+            GuiConstant.CLOSE_FRAME_ACTION));
    } // createCloseButton
 
 
