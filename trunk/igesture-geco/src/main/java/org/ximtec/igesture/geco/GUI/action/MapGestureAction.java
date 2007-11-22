@@ -190,7 +190,7 @@ public class MapGestureAction extends BasicAction {
             addGestureMapping();
             //remove gesture from set
             mainView.getModel().removeGestureClass(MapGestureAction.this.currentGesture);
-            mainView.showGestureSet();
+            mainView.updateGestureList();
             //add gesture to user-defined mapping
             
             

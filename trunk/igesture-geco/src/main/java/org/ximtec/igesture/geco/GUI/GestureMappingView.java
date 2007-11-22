@@ -112,18 +112,6 @@ public class GestureMappingView extends JFrame{
 	      this.model = model;
 	      init();
 	   }
-
-
-
-	   
-	   /**
-	    * Constructs a new main view.
-	    * 
-	    * @param model the model for this main view.
-	    */
-	public GestureMappingView(){
-		init();
-	}
 	
 	
 	   /**
@@ -154,10 +142,6 @@ public class GestureMappingView extends JFrame{
 
 		
 		contentPanel.setLayout(new GridBagLayout());
-		//BasicButton loadSetButton = SwingTool.createButton(GestureMappingConstants.LOAD_GESTURE_SET);
-		//loadSetButton.setAction(new ActionExitApplication(this));
-
-		
 		contentPanel.add(leftPanel,
 				new GridBagConstraints(0,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 				 new Insets(0,0,0,20),10,10 ) );
@@ -166,10 +150,6 @@ public class GestureMappingView extends JFrame{
 				new GridBagConstraints(1,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 						 new Insets(0,0,0,0),0,0 ) );
 
-		//JPanel menuPanel = new JPanel();
-		//menuPanel.setLayout(new GridLayout(1,1));
-		//menuPanel.add(createMenuBar());
-		
 		this.getContentPane().add(createMenuBar(),
 				new GridBagConstraints(0,0,1,1,0,0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
 				 new Insets(0,0,0,0),5,5 ) );
@@ -179,10 +159,9 @@ public class GestureMappingView extends JFrame{
 		
         saveButton = SwingTool.createButton(GestureMappingConstants.SAVE);
         exitButton = SwingTool.createButton(GestureMappingConstants.EXIT);
-        //saveButton.setText(GestureMappingConstants.SAVE);
-        //exitButton.setText(GestureMappingConstants.EXIT);
         exitButton.setAction(new ExitApplicationAction(this));
-        //saveButton.setAction();
+        //TODO: saveButton.setAction(...);
+        
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
         buttonPanel.add(saveButton);
@@ -205,10 +184,7 @@ public class GestureMappingView extends JFrame{
 	private void initLeftPanel(){
        JScrollPane leftscroll = new JScrollPane();
 	   leftPanel.setLayout(new GridLayout(1,1,0,0));
-	   //leftPanel.add(leftscroll);
-	   
-	   //leftPanel.setMinimumSize(new Dimension(this.WINDOW_HEIGHT, this.WINDOW_WIDTH/2));
-	
+	   leftPanel.add(leftscroll);
 		
 	}
 	
@@ -219,17 +195,10 @@ public class GestureMappingView extends JFrame{
 	private void initRightPanel(){
 	     JScrollPane rightscroll = new JScrollPane();
 
-		//GestureSet gestureSet = XMLTool.importGestureSet(
-			//            new File(ClassLoader.getSystemResource(GESTURE_SET).getFile())).get(0);
-		
-	     
-	    //GridLayout grid =  new GridLayout(1,2);
-
-	    //rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
 	    mapButton = SwingTool.createButton(GestureMappingConstants.MAP_GESTURE);
 	    rightPanel.setLayout(new GridBagLayout());
 	    gestureList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	    gestureList.setCellRenderer(new MyCellRenderer());
+	    //gestureList.setCellRenderer(new MyCellRenderer());
 	    gestureList.addListSelectionListener(new ListSelectionListener(){
 	       public void valueChanged(ListSelectionEvent e){
 	          GestureMappingView.this.mapButton.setEnabled(true);
@@ -243,15 +212,11 @@ public class GestureMappingView extends JFrame{
 		
 		mapButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		mapButton.setAction(new MapGestureAction(this, model.mappingTable));
-		//mapButton.setText(GestureMappingConstants.MAP_GESTURE);
 		mapButton.setEnabled(false);
 		
 	    BasicButton loadSetButton = SwingTool.createButton(GestureMappingConstants.LOAD_GESTURE_SET);
 	    
-	    //loadSetButton.addActionListener(new LoadSetActionListener());
 	    loadSetButton.setAction(new LoadGestureSetAction(this));
-	    //loadSetButton.setText(GestureMappingConstants.LOAD_GESTURE_SET);
-
 	     
 	     rightPanel.add(loadSetButton,
 	                new GridBagConstraints(0,1,1,1,0.5,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
@@ -261,9 +226,7 @@ public class GestureMappingView extends JFrame{
                new GridBagConstraints(1,1,1,1,0.5,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
                      new Insets(20,0,20,0),50,0 ) );
 
-	
-			 
-			 
+
 	}
 	
 	
@@ -311,30 +274,36 @@ public class GestureMappingView extends JFrame{
        
        
        /**
-        * Display the gesture Set
-        * 
+        * Update the gesture Set
         * 
         */
-    public void showGestureSet(){
-        //GestureSet gs= model.getGestureSet();
-
-        List<GestureClass> classes = model.getGestureSet().getGestureClasses();
-
-        DefaultListModel listModel = new DefaultListModel();
-        
-        for (GestureClass gc : classes){
-                 listModel.addElement( gc);
-        }
-        gestureList.setModel(listModel);
+    public void updateGestureList(){
+        gestureList.setModel(model.getGestureListModel());
     }
     
+    /**
+     * Update the gesture Set
+     * 
+     */
+ public void updatemappingList(){
+     gestureList.setModel(model.getMappingListModel());
+ }
+    
 
-    
-    
+    /**
+     * Return the selected Gesture Class
+     * 
+     * @return the selected GestureClass
+     * 
+     */
     public GestureClass getSelectedClass(){
-         return (GestureClass) gestureList.getSelectedValue();
-    }
+       return (GestureClass) gestureList.getSelectedValue();
+  }
+  
     
+    
+    /*
+
     
     public void addActionExitApplication(AbstractAction a){
        exitButton.setAction(a);
@@ -358,16 +327,14 @@ public class GestureMappingView extends JFrame{
     }
     
     
+    */
     
     
     
     
-    
-    //LIST RENDERER!
-    
-    
+    //LIST RENDERER
 
-    
+    /*
     
     public class MyCellRenderer extends DefaultListCellRenderer {
        
@@ -379,8 +346,8 @@ public class GestureMappingView extends JFrame{
            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
            
            if(value instanceof GestureClass) {
-     //         System.out.println("GestureMappingView.MyCellRenderer");
-   /*           GestureClass gestureClass = (GestureClass) value;
+              System.out.println("GestureMappingView.MyCellRenderer");
+             GestureClass gestureClass = (GestureClass) value;
               
               DigitalDescriptor descriptor = gestureClass.getDescriptor(
                     DigitalDescriptor.class);
@@ -396,7 +363,7 @@ public class GestureMappingView extends JFrame{
                
                final ImageIcon imageIcon=null;// ...; // add extra code here
                setIcon(imageIcon);
-    */           
+               
                //Image image = imageIcon.getImage();
                //final Dimension dimension = this.getPreferredSize();
                //final double height = dimension.getHeight();
@@ -411,53 +378,9 @@ public class GestureMappingView extends JFrame{
     }
     
 
-    
+    */
  
-	   
-	   /*
-	   private class LoadSetActionListener implements ActionListener{
-	      
-	      public void actionPerformed(ActionEvent ae){
-	         JFileChooser fileChooser = new JFileChooser();
-	         fileChooser.setFileFilter(new ExtensionFileFilter(XML_EXTENSION,
-	               new String[] {XML_EXTENSION}));
-	         int status = fileChooser.showOpenDialog(null);
-	         if (status == JFileChooser.APPROVE_OPTION) {
-	            File selectedFile = fileChooser.getSelectedFile();
-	            if(selectedFile != null){
-	               String ext = selectedFile.getName().substring(selectedFile.getName().length()-3,
-	                     selectedFile.getName().length());
-	               if(ext.equals(XML_EXTENSION)){
-	                   openGestureSet(selectedFile);
-	                }
-	            }
-	         } else if (status == JFileChooser.CANCEL_OPTION) {
-	           
-	         }
-	         
-	     }
-	         
-	     public void openGestureSet(File file){
-	        System.out.println("GestureMappingView.openGestureSet");
-	       GestureSet gestureSet = XMLTool.importGestureSet(file).get(0);
-           List<GestureClass> classes = gestureSet.getGestureClasses();
 
-           DefaultListModel listModel = new DefaultListModel();
-           
-           for (GestureClass gc : classes){
-                    listModel.addElement( gc.getName());
-           }
-           gestureList.setModel(listModel);
-
-
-	     }
-	         
-
-	      
-	   }
-	   
-	   */
-	   
 
 
 		   

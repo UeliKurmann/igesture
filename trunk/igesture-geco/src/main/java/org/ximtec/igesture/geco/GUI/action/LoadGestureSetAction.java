@@ -79,7 +79,7 @@ public class LoadGestureSetAction extends BasicAction {
                 //update model
                 mainView.getModel().loadGestureSet(loadGestureSet(selectedFile));
                 //update view
-                mainView.showGestureSet();
+                mainView.updateGestureList();
              }
          }
       } else if (status == JFileChooser.CANCEL_OPTION) {
