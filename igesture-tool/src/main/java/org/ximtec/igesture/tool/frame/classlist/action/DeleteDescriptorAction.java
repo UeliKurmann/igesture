@@ -1,5 +1,5 @@
 /*
- * @(#)ActionDeleteDescriptor.java	1.0   Nov 15, 2006
+ * @(#)DeleteDescriptorAction.java	1.0   Nov 15, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -33,7 +33,6 @@ import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.tool.GestureToolView;
-import org.ximtec.igesture.tool.util.IconLoader;
 
 
 /**
@@ -43,7 +42,12 @@ import org.ximtec.igesture.tool.util.IconLoader;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionDeleteDescriptor extends BasicAction {
+public class DeleteDescriptorAction extends BasicAction {
+
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "DeleteDescriptorAction";
 
    private GestureClass gestureClass;
 
@@ -52,10 +56,9 @@ public class ActionDeleteDescriptor extends BasicAction {
    private GestureToolView mainView;
 
 
-   public ActionDeleteDescriptor(String key, GestureToolView mainView,
+   public DeleteDescriptorAction(GestureToolView mainView,
          GestureClass gestureClass, Descriptor descriptor) {
-      super(key, GuiTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DELETE));
+      super(KEY, GuiTool.getGuiBundle());
       this.gestureClass = gestureClass;
       this.descriptor = descriptor;
       this.mainView = mainView;
