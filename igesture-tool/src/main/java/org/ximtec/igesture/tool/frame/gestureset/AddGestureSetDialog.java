@@ -68,9 +68,8 @@ public class AddGestureSetDialog extends BasicDialog {
       addComponent(txtName, SwingTool.createGridBagConstraint(1, 0));
       addComponent(SwingTool.createButton(new ActionAddGestureSet(model)),
             SwingTool.createGridBagConstraint(0, 1));
-      addComponent(SwingTool.createButton(new CloseDialogAction(
-            GestureConstants.COMMON_CANCEL)), SwingTool.createGridBagConstraint(
-            1, 1));
+      addComponent(SwingTool.createButton(new CloseDialogAction()), SwingTool
+            .createGridBagConstraint(1, 1));
       setVisible(true);
    } // init
 

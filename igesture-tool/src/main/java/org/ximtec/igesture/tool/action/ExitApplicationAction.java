@@ -30,7 +30,6 @@ import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
 
 
@@ -43,11 +42,16 @@ import org.ximtec.igesture.tool.GestureToolView;
  */
 public class ExitApplicationAction extends BasicAction {
 
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "ExitApplicationAction";
+
    private GestureToolView mainView;
 
 
    public ExitApplicationAction(GestureToolView mainView) {
-      super(GestureConstants.COMMON_EXIT, GuiTool.getGuiBundle());
+      super(KEY, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
 

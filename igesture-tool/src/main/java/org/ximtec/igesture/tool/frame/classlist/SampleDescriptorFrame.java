@@ -46,6 +46,7 @@ import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.frame.classlist.action.DeleteSampleAction;
 import org.ximtec.igesture.tool.frame.classlist.action.AddSampleAction;
 import org.ximtec.igesture.tool.util.CloseFrameAction;
+import org.ximtec.igesture.tool.util.Constant;
 import org.ximtec.igesture.tool.util.CustomCellRenderer;
 
 
@@ -92,7 +93,7 @@ public class SampleDescriptorFrame extends BasicInternalFrame {
 
    private Component createCloseButton() {
       return SwingTool.createButton(new CloseFrameAction(
-            GestureConstants.COMMON_CLOSE));
+            Constant.CLOSE_FRAME_ACTION));
    } // createCloseButton
 
 

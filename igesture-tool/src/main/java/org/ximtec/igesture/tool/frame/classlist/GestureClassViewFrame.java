@@ -57,6 +57,7 @@ import org.ximtec.igesture.tool.event.GestureClassListener;
 import org.ximtec.igesture.tool.frame.classlist.action.ActionOpenDescriptorDialog;
 import org.ximtec.igesture.tool.frame.classlist.action.DeleteDescriptorAction;
 import org.ximtec.igesture.tool.util.CloseFrameAction;
+import org.ximtec.igesture.tool.util.Constant;
 
 
 /**
@@ -108,7 +109,7 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
       addComponent(createList(), SwingTool.createGridBagConstraint(0, 1, 2, 1));
       addComponent(createSaveButton(), SwingTool.createGridBagConstraint(0, 2));
       addComponent(SwingTool.createButton(new CloseFrameAction(
-            GestureConstants.COMMON_CANCEL)), SwingTool.createGridBagConstraint(
+            Constant.CANCEL_FRAME_ACTION)), SwingTool.createGridBagConstraint(
             1, 2));
       setVisible(true);
    } // init
