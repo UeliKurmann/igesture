@@ -43,7 +43,7 @@ import org.ximtec.igesture.tool.CaptureTab;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.GestureSetListener;
-import org.ximtec.igesture.tool.frame.algorithm.action.ActionExecuteRecogniser;
+import org.ximtec.igesture.tool.frame.algorithm.action.ExecuteRecogniserAction;
 
 
 /**
@@ -95,7 +95,7 @@ public class AlgorithmFrame extends BasicInternalFrame implements
 
 
    private Component createRunButton() {
-      return SwingTool.createButton(new ActionExecuteRecogniser(mainView
+      return SwingTool.createButton(new ExecuteRecogniserAction(mainView
             .getModel(), tab, setList, resultList));
    } // createRunButton
 
