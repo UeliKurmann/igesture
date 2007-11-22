@@ -1,9 +1,9 @@
 /*
- * @(#)ActionTestSetNew.java	1.0   Nov 21, 2006
+ * @(#)TestSetDeleteAction.java	1.0   Nov 21, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Creates a new test set.
+ * Purpose		: 	Deletes a test set.
  *
  * -----------------------------------------------------------------------
  *
@@ -28,38 +28,43 @@ package org.ximtec.igesture.tool.frame.testset.action;
 
 import java.awt.event.ActionEvent;
 
+import javax.swing.JList;
+
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.GestureToolView;
-import org.ximtec.igesture.tool.util.IconLoader;
+import org.ximtec.igesture.tool.frame.testset.TestSetListModel;
 
 
 /**
- * Creates a new test set.
+ * Deletes a test set.
  * 
  * @version 1.0, Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionTestSetNew extends BasicAction {
+public class TestSetDeleteAction extends BasicAction {
 
-   public static final String KEY = "ActionTestSetNew";
+   public static final String KEY = "TestSetDeleteAction";
+
+   private JList list;
 
    private GestureToolView mainView;
 
 
-   public ActionTestSetNew(GestureToolView mainView) {
+   public TestSetDeleteAction(JList list, GestureToolView mainView) {
       super(KEY, GuiTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_NEW));
+      this.list = list;
       this.mainView = mainView;
    }
 
 
    public void actionPerformed(ActionEvent arg0) {
-      final TestSet testSet = new TestSet(String.valueOf(System
-            .currentTimeMillis()));
-      mainView.getModel().addTestSet(testSet);
+      final String name = (String)list.getSelectedValue();
+      final TestSet testSet = ((TestSetListModel)list.getModel())
+            .getTestSet(name);
+      mainView.getModel().removeTestSet(testSet);
    } // actionPerformed
 
 }

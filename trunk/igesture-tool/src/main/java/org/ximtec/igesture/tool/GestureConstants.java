@@ -37,8 +37,6 @@ public class GestureConstants {
 
    public static final String MENU_FILE = "FileMenu";
    
-   public static final String COMMON_EXIT = "EXIT";
-
    public static final String COMMON_OK = "OK";
 
    public static final String COMMON_CANCEL = "CANCEL";

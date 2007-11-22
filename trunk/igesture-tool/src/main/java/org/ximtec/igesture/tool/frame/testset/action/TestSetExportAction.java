@@ -1,5 +1,5 @@
 /*
- * @(#)ActionTestSetExport.java	1.0   Nov 21, 2006
+ * @(#)TestSetExportAction.java	1.0   Nov 21, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -37,7 +37,6 @@ import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.frame.testset.TestSetListModel;
-import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.util.XMLTool;
 
 
@@ -48,16 +47,15 @@ import org.ximtec.igesture.util.XMLTool;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionTestSetExport extends BasicAction {
+public class TestSetExportAction extends BasicAction {
 
-   public static final String KEY = "ActionTestSetExport";
+   public static final String KEY = "TestSetExportAction";
 
    private JList list;
 
 
-   public ActionTestSetExport(JList list) {
+   public TestSetExportAction(JList list) {
       super(KEY, GuiTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.EXPORT));
       this.list = list;
    }
 

@@ -44,8 +44,14 @@ import org.sigtec.graphix.widget.BasicAction;
  */
 public class CloseDialogAction extends BasicAction {
 
-   public CloseDialogAction(String key) {
-      super(key, GuiTool.getGuiBundle());
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "CloseDialogAction";
+
+
+   public CloseDialogAction() {
+      super(KEY, GuiTool.getGuiBundle());
    }
 
 

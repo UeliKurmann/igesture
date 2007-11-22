@@ -47,11 +47,11 @@ import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.TestSetListener;
 import org.ximtec.igesture.tool.frame.classlist.SampleListModel;
-import org.ximtec.igesture.tool.frame.testset.action.ActionTestSetDelete;
+import org.ximtec.igesture.tool.frame.testset.action.TestSetDeleteAction;
 import org.ximtec.igesture.tool.frame.testset.action.ActionTestSetDeleteSample;
-import org.ximtec.igesture.tool.frame.testset.action.ActionTestSetExport;
+import org.ximtec.igesture.tool.frame.testset.action.TestSetExportAction;
 import org.ximtec.igesture.tool.frame.testset.action.ActionTestSetImport;
-import org.ximtec.igesture.tool.frame.testset.action.ActionTestSetNew;
+import org.ximtec.igesture.tool.frame.testset.action.TestSetNewAction;
 import org.ximtec.igesture.tool.frame.testset.action.ActionTestSetOpen;
 import org.ximtec.igesture.tool.util.CustomCellRenderer;
 
@@ -181,9 +181,9 @@ public class TestSetListFrame extends BasicInternalFrame implements
    private JPopupMenu createGestureSetPopUpMenu() {
       final JPopupMenu menu = SwingTool.createPopupMenu(new Action[] {
             new ActionTestSetOpen(testSetList.getList(), this),
-            new ActionTestSetNew(mainView),
-            new ActionTestSetDelete(testSetList.getList(), mainView),
-            new ActionTestSetExport(testSetList.getList()),
+            new TestSetNewAction(mainView),
+            new TestSetDeleteAction(testSetList.getList(), mainView),
+            new TestSetExportAction(testSetList.getList()),
             new ActionTestSetImport(mainView) });
       return menu;
    } // createGestureSetPopUpMenu
