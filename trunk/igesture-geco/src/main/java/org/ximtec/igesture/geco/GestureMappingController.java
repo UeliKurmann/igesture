@@ -32,7 +32,7 @@ import org.ximtec.igesture.geco.GUI.GestureMappingView;
 import org.ximtec.igesture.geco.GUI.action.ExitApplicationAction;
 import org.ximtec.igesture.geco.GUI.action.LoadGestureSetAction;
 import org.ximtec.igesture.geco.GUI.action.MapGestureAction;
-import org.ximtec.igesture.geco.GUI.action.NewGestureMapAction;
+import org.ximtec.igesture.geco.GUI.action.NewProjectAction;
 import org.ximtec.igesture.geco.GUI.action.OpenProjectAction;
 import org.ximtec.igesture.geco.event.GestureSetLoadListener;
 
@@ -59,7 +59,7 @@ public class GestureMappingController{
    
    private MapGestureAction actionMapGesture =  new MapGestureAction(view, mappingTable);
    
-   private NewGestureMapAction actionNewGestureMap= new NewGestureMapAction(view);
+   private NewProjectAction actionNewGestureMap= new NewProjectAction(view);
    
    private OpenProjectAction actionOpenGestureMap = new OpenProjectAction(view);
    

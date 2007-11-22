@@ -63,7 +63,7 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.geco.GUI.action.ExitApplicationAction;
 import org.ximtec.igesture.geco.GUI.action.LoadGestureSetAction;
 import org.ximtec.igesture.geco.GUI.action.MapGestureAction;
-import org.ximtec.igesture.geco.GUI.action.NewGestureMapAction;
+import org.ximtec.igesture.geco.GUI.action.NewProjectAction;
 import org.ximtec.igesture.geco.GUI.action.OpenProjectAction;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.util.IconLoader;
@@ -287,7 +287,7 @@ public class GestureMappingView extends JFrame{
 	//      menu.add(SwingTool.createMenuItem(new ActionOpenGestureMap(this),
 	  //          IconLoader.getIcon(IconLoader.DOCUMENT_OPEN)));
 	     
-	       menu.add(SwingTool.createMenuItem( new NewGestureMapAction(this),null));
+	       menu.add(SwingTool.createMenuItem( new NewProjectAction(this),null));
 	       menu.add(SwingTool.createMenuItem(new OpenProjectAction(this),null));
 	      
 	 
