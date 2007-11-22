@@ -1,5 +1,5 @@
 /*
- * @(#)ActionCreateConfiguration.java	1.0   Dec 4, 2006
+ * @(#)CreateConfigurationAction.java	1.0   Dec 4, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -42,14 +42,19 @@ import org.ximtec.igesture.tool.util.IconLoader;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionCreateConfiguration extends AbstractAction {
+public class CreateConfigurationAction extends AbstractAction {
 
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "CreateConfigurationAction";
+   
    private String name;
 
    private AlgorithmConfiguration algorithmConfiguration;
 
 
-   public ActionCreateConfiguration(
+   public CreateConfigurationAction(
          AlgorithmConfiguration algorithmConfiguration, String name) {
       super(name);
       putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_NEW));

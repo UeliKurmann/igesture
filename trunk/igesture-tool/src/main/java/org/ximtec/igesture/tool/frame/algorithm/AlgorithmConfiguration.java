@@ -55,7 +55,7 @@ import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.ConfigurationListener;
-import org.ximtec.igesture.tool.frame.algorithm.action.ActionCreateConfiguration;
+import org.ximtec.igesture.tool.frame.algorithm.action.CreateConfigurationAction;
 import org.ximtec.igesture.tool.frame.algorithm.action.ActionDeleteConfiguration;
 import org.ximtec.igesture.tool.frame.algorithm.action.ActionExportConfiguration;
 import org.ximtec.igesture.tool.frame.algorithm.action.ActionLoadConfiguration;
@@ -143,7 +143,7 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
             GestureConstants.CONFIG_CREATE_ACTION));
 
       for (final String name : mainView.getModel().getAlgorithms()) {
-         menu.add(new JMenuItem(new ActionCreateConfiguration(this,
+         menu.add(new JMenuItem(new CreateConfigurationAction(this,
                name)));
       }
 
