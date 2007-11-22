@@ -45,7 +45,7 @@ public class SaveConfigurationAction extends BasicAction {
    /**
     * The key used to retrieve action details from the resource bundle.
     */
-   public static final String KEY = "ConfigOpenAction";
+   public static final String KEY = "ConfigSaveAction";
    
    private AlgorithmConfiguration algorithmConfiguration;
 

@@ -121,11 +121,7 @@ public class GestureConstants {
 
    public static final String DRAW_AREA_KEY = "drawArea";
 
-   public static final String CONFIG_OPEN_ACTION = "ConfigOpenAction";
-
    public static final String CONFIG_CREATE_ACTION = "ConfigCreateAction";
-
-   public static final String CONFIG_DELETE_ACTION = "ConfigDeleteAction";
 
    public static final String CONFIG_EXPORT_ACTION = "ConfigExportAction";
 

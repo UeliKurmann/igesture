@@ -1,5 +1,5 @@
 /*
- * @(#)ActionSelectResultFile.java  1.0   Dec 4, 2006
+ * @(#)SelectConfigFileAction.java  1.0   Dec 4, 2006
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -35,7 +35,6 @@ import javax.swing.JTextField;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.tool.GestureConstants;
 
 
 /**
@@ -43,13 +42,18 @@ import org.ximtec.igesture.tool.GestureConstants;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionSelectResultFile extends BasicAction {
+public class SelectConfigFileAction extends BasicAction {
+
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "SelectConfigFileAction";
 
    private JTextField textField;
 
 
-   public ActionSelectResultFile(JTextField textField) {
-      super(GestureConstants.COMMON_BROWSE, GuiTool.getGuiBundle());
+   public SelectConfigFileAction(JTextField textField) {
+      super(KEY, GuiTool.getGuiBundle());
       this.textField = textField;
    }
 
@@ -57,7 +61,7 @@ public class ActionSelectResultFile extends BasicAction {
    public void actionPerformed(ActionEvent event) {
       if (event.getSource() instanceof JButton) {
          final JFileChooser fileChooser = new JFileChooser();
-         fileChooser.showOpenDialog((JButton)event.getSource());
+         fileChooser.showSaveDialog((JButton)event.getSource());
          final File selectedFile = fileChooser.getSelectedFile();
 
          if (selectedFile != null) {

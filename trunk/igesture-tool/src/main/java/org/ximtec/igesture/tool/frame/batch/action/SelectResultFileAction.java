@@ -1,5 +1,5 @@
 /*
- * @(#)ActionSelectConfigFile.java  1.0   Dec 4, 2006
+ * @(#)SelectResultFileAction.java  1.0   Dec 4, 2006
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -43,13 +43,18 @@ import org.ximtec.igesture.tool.GestureConstants;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionSelectConfigFile extends BasicAction {
+public class SelectResultFileAction extends BasicAction {
+
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "SelectResultFileAction";
 
    private JTextField textField;
 
 
-   public ActionSelectConfigFile(JTextField textField) {
-      super(GestureConstants.COMMON_BROWSE, GuiTool.getGuiBundle());
+   public SelectResultFileAction(JTextField textField) {
+      super(KEY, GuiTool.getGuiBundle());
       this.textField = textField;
    }
 
@@ -57,7 +62,7 @@ public class ActionSelectConfigFile extends BasicAction {
    public void actionPerformed(ActionEvent event) {
       if (event.getSource() instanceof JButton) {
          final JFileChooser fileChooser = new JFileChooser();
-         fileChooser.showSaveDialog((JButton)event.getSource());
+         fileChooser.showOpenDialog((JButton)event.getSource());
          final File selectedFile = fileChooser.getSelectedFile();
 
          if (selectedFile != null) {
