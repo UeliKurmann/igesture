@@ -28,6 +28,7 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.util.Constant;
 import org.sigtec.util.SystemProperty;
 import org.ximtec.igesture.geco.GUI.GestureMappingModel;
@@ -53,6 +54,8 @@ public class GestureMappingMain {
          .getName());
 
    private static final String DEFAULT_CONFIGURATION = "config.xml";
+   
+   private static final String GUI_BUNDLE_FILE = "igestureMenu";
 
 
 	/**
@@ -60,9 +63,9 @@ public class GestureMappingMain {
 	 */
 	public static void main(String[] args) {
 	   
-	        Logger.getAnonymousLogger().setLevel(Level.ALL);
-	        Logger.getAnonymousLogger().setLevel(Level.ALL);
-	        GestureConfiguration configuration;
+	      GuiTool.addGuiBundle(GUI_BUNDLE_FILE);
+	      Logger.getAnonymousLogger().setLevel(Level.ALL);
+	      GestureConfiguration configuration;
 
 
 	      if (args.length > 0) {

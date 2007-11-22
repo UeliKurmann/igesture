@@ -281,11 +281,16 @@ public class GestureMappingView extends JFrame{
 	   
 
 	   private JMenu createFileMenu() {
-	     JMenu menu = GuiTool.getGuiBundle().createMenu(GestureMappingConstants.MENU_FILE);
-	      menu.add(SwingTool.createMenuItem(new ActionNewGestureMap(this), IconLoader
-	            .getIcon(IconLoader.DOCUMENT_NEW)));
-	      menu.add(SwingTool.createMenuItem(new ActionOpenGestureMap(this),
-	            IconLoader.getIcon(IconLoader.DOCUMENT_OPEN)));
+	      JMenu menu = GuiTool.getGuiBundle().createMenu(GestureMappingConstants.MENU_FILE);
+	//      menu.add(SwingTool.createMenuItem(new ActionNewGestureMap(this), IconLoader
+	  //          .getIcon(IconLoader.DOCUMENT_NEW)));
+	//      menu.add(SwingTool.createMenuItem(new ActionOpenGestureMap(this),
+	  //          IconLoader.getIcon(IconLoader.DOCUMENT_OPEN)));
+	     
+	       menu.add(SwingTool.createMenuItem( new ActionNewGestureMap(this),null));
+	       menu.add(SwingTool.createMenuItem(new ActionOpenGestureMap(this),null));
+	      
+	 
 	      menu.addSeparator();
 	      menu.add(new JMenuItem(new ActionExitApplication(this)));
 	      

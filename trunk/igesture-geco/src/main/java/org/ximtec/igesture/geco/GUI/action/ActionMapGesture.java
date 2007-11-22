@@ -240,12 +240,15 @@ public class ActionMapGesture extends BasicAction {
      if (tabbedPane.getSelectedIndex()==HOTKEY){
         String keys = "";
         if (ctrlCheckBox.isSelected())
-           keys+=CONTROL;
+           keys+=CONTROL+"\\+";
         if (shiftCheckBox.isSelected())
-           keys+="\\+"+SHIFT;
+           keys+=SHIFT+"\\+";
         if (altCheckBox.isSelected())
-           keys+="\\+"+ALT;
-        keys+="\\+"+(String)comboBox.getSelectedItem();
+           keys+=ALT+"\\+";
+        if(!(ctrlCheckBox.isSelected()||shiftCheckBox.isSelected()||altCheckBox.isSelected()))
+           keys+="\\+";
+        
+        keys+=(String)comboBox.getSelectedItem();
         
         GestureKeyMappingAction action = new GestureKeyMappingAction(currentGesture,keys);
         mappingTable.addMapping(currentGesture, action);
