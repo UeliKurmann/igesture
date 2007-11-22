@@ -56,7 +56,7 @@ import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.ConfigurationListener;
 import org.ximtec.igesture.tool.frame.algorithm.action.CreateConfigurationAction;
-import org.ximtec.igesture.tool.frame.algorithm.action.ActionDeleteConfiguration;
+import org.ximtec.igesture.tool.frame.algorithm.action.DeleteConfigurationAction;
 import org.ximtec.igesture.tool.frame.algorithm.action.ActionExportConfiguration;
 import org.ximtec.igesture.tool.frame.algorithm.action.ActionLoadConfiguration;
 import org.ximtec.igesture.tool.frame.algorithm.action.SaveConfigurationAction;
@@ -130,7 +130,7 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
    private JPopupMenu createPopupMenu() {
       final JPopupMenu menu = new JPopupMenu();
       menu.add(new JMenuItem(new ActionLoadConfiguration(this)));
-      menu.add(new JMenuItem(new ActionDeleteConfiguration(this)));
+      menu.add(new JMenuItem(new DeleteConfigurationAction(this)));
       menu.add(createAlgorithmPopupMenu());
       menu.add(new JMenuItem(new ActionExportConfiguration(this)));
       return menu;

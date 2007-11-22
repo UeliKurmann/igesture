@@ -43,11 +43,12 @@ import org.ximtec.igesture.tool.util.IconLoader;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class CreateConfigurationAction extends AbstractAction {
-
+   // FIXME: can't we use the BasicAction?
+   
    /**
     * The key used to retrieve action details from the resource bundle.
     */
-   public static final String KEY = "CreateConfigurationAction";
+   public static final String KEY = "ConfigCreateAction";
    
    private String name;
 

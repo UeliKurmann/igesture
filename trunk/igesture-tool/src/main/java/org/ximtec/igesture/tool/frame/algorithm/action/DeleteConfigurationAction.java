@@ -1,5 +1,5 @@
 /*
- * @(#)ActionDeleteConfigration.java	1.0   Dec 4, 2006
+ * @(#)DeleteConfigrationAction.java	1.0   Dec 4, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -30,9 +30,7 @@ import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.frame.algorithm.AlgorithmConfiguration;
-import org.ximtec.igesture.tool.util.IconLoader;
 
 
 /**
@@ -42,14 +40,18 @@ import org.ximtec.igesture.tool.util.IconLoader;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionDeleteConfiguration extends BasicAction {
+public class DeleteConfigurationAction extends BasicAction {
+
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "ConfigDeleteAction";
 
    private AlgorithmConfiguration algorithmConfiguration;
 
 
-   public ActionDeleteConfiguration(AlgorithmConfiguration algorithmConfiguration) {
-      super(GestureConstants.CONFIG_DELETE_ACTION, GuiTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DELETE));
+   public DeleteConfigurationAction(AlgorithmConfiguration algorithmConfiguration) {
+      super(KEY, GuiTool.getGuiBundle());
       this.algorithmConfiguration = algorithmConfiguration;
    }
 
