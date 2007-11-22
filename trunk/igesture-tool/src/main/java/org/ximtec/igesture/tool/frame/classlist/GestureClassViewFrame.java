@@ -54,8 +54,8 @@ import org.ximtec.igesture.tool.AdminTab;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.GestureClassListener;
-import org.ximtec.igesture.tool.frame.classlist.action.ActionDeleteDescriptor;
 import org.ximtec.igesture.tool.frame.classlist.action.ActionOpenDescriptorDialog;
+import org.ximtec.igesture.tool.frame.classlist.action.DeleteDescriptorAction;
 import org.ximtec.igesture.tool.util.CloseFrameAction;
 
 
@@ -168,9 +168,8 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
       popupMenu.add(new JMenuItem(new ActionOpenDescriptorDialog(
             GestureConstants.COMMON_EDIT, adminTab, gestureClass,
             (Descriptor)scrollList.getList().getSelectedValue(), null)));
-      popupMenu.add(new JMenuItem(new ActionDeleteDescriptor(
-            GestureConstants.COMMON_DEL, mainView, gestureClass,
-            (Descriptor)scrollList.getList().getSelectedValue())));
+      popupMenu.add(new JMenuItem(new DeleteDescriptorAction(mainView,
+            gestureClass, (Descriptor)scrollList.getList().getSelectedValue())));
       popupMenu.show(e.getComponent(), e.getX(), e.getY());
    } // showPopUpMenu
 

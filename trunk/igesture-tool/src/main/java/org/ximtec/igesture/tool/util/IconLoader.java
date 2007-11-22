@@ -50,7 +50,7 @@ public class IconLoader {
    private static final Logger LOGGER = Logger.getLogger(IconLoader.class
          .getName());
 
-   private static String PATH = "16x16/";
+   private static String PATH = "icons/16x16/";
    private static String MIME = "mimetypes/";
    private static String ACTION = "actions/";
    private static String DEVICE = "devices/";
