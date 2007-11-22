@@ -43,7 +43,7 @@ import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
-import org.ximtec.igesture.tool.frame.classlist.action.ActionDeleteSample;
+import org.ximtec.igesture.tool.frame.classlist.action.DeleteSampleAction;
 import org.ximtec.igesture.tool.frame.classlist.action.AddSampleAction;
 import org.ximtec.igesture.tool.util.CloseFrameAction;
 import org.ximtec.igesture.tool.util.CustomCellRenderer;
@@ -121,8 +121,7 @@ public class SampleDescriptorFrame extends BasicInternalFrame {
 
    private void showPopupMenu(MouseEvent event) {
       final JPopupMenu popUp = SwingTool
-            .createPopupMenu(new Action[] { new ActionDeleteSample(
-                  GestureConstants.COMMON_DEL, this) });
+            .createPopupMenu(new Action[] { new DeleteSampleAction(this) });
       popUp.show(event.getComponent(), event.getX(), event.getY());
    } // showPopupMenu
 

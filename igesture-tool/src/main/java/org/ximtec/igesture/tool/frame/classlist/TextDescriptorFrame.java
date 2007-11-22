@@ -36,7 +36,7 @@ import org.ximtec.igesture.core.TextDescriptor;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.GestureToolView;
-import org.ximtec.igesture.tool.frame.classlist.action.ActionSaveText;
+import org.ximtec.igesture.tool.frame.classlist.action.SaveTextAction;
 import org.ximtec.igesture.tool.util.CloseFrameAction;
 
 
@@ -84,7 +84,7 @@ public class TextDescriptorFrame extends BasicInternalFrame {
 
 
    private Component createSaveButton() {
-      return SwingTool.createButton(new ActionSaveText(this));
+      return SwingTool.createButton(new SaveTextAction(this));
    } // createSaveButton
 
 
