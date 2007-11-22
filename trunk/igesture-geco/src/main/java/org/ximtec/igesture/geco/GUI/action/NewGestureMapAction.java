@@ -1,9 +1,9 @@
 /*
- * @(#)ActionOpenGestureMap.java	1.0   Nov 15, 2007
+ * @(#)NewGestureMapAction.java	1.0   Nov 15, 2007
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
- * Purpose		:   Open an existing gesture map project.
+ * Purpose		:   represent action for creating a new gesture mapping project
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,7 @@
  *
  * Date				Who			Reason
  *
- * Nov 15, 2007		crocimi    Initial Release
+ * 	Nov 15, 2007	crocimi		Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -25,6 +25,8 @@
 
 package org.ximtec.igesture.geco.GUI.action;
 
+
+
 import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.GuiTool;
@@ -33,32 +35,31 @@ import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
 
 
-
 /**
-* Open an existing gesture map project.
-* 
-* @version 1.0, Nov 2006
-* @author Michele Croci, mcroci@gmail.com
-*/
-public class ActionOpenGestureMap extends BasicAction {
+ * Creates a new data source.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Michele Croci, mcroci@gmail.com
+ */
+public class NewGestureMapAction extends BasicAction {
 
-  private GestureMappingView mainView;
-
-
-  public ActionOpenGestureMap(GestureMappingView mainView) {
-     super(GestureMappingConstants.COMMON_OPEN, GuiTool.getGuiBundle());
-     this.mainView = mainView;
-  }
+   private GestureMappingView mainView;
 
 
-  /**
-   * Creates a new mapping
-   * 
-   * @param event the action event.
-   */
-  public void actionPerformed(ActionEvent event) {
+   public NewGestureMapAction(GestureMappingView mainView) {
+      super(GestureMappingConstants.COMMON_NEW, GuiTool.getGuiBundle());
+      this.mainView = mainView;
+   }
 
 
-  } // actionPerformed
-  
+   /**
+    * Creates a new mapping
+    * 
+    * @param event the action event.
+    */
+   public void actionPerformed(ActionEvent event) {
+      
+
+   } // actionPerformed
+   
 }

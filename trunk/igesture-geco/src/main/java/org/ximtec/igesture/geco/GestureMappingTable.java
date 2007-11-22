@@ -28,7 +28,7 @@ package org.ximtec.igesture.geco;
 import java.util.Hashtable;
 
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.geco.action.GestureMappingAction;
+import org.ximtec.igesture.geco.mapping.GestureMapping;
 
 
 
@@ -43,12 +43,12 @@ public class GestureMappingTable extends Hashtable{
       
    }
    
-   public void addMapping(GestureClass gestureClass, GestureMappingAction action){
+   public void addMapping(GestureClass gestureClass, GestureMapping action){
       put(gestureClass, action);
    }
    
-   public GestureMappingAction getAction(GestureClass gestureClass){
-      return (GestureMappingAction)get(gestureClass);
+   public GestureMapping getAction(GestureClass gestureClass){
+      return (GestureMapping)get(gestureClass);
    }
    
    

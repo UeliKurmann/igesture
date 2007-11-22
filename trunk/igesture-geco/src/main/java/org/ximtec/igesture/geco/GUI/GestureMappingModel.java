@@ -123,7 +123,7 @@ public class GestureMappingModel {
          gestureSets.add(dataObject);
       }
 
-      fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
+      //fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
    } // loadData
 
    
@@ -152,16 +152,26 @@ public class GestureMappingModel {
    public GestureSet getGestureSet() {
       return gestureSet;
    } // getGestureSets
-
+   
+   public void removeGestureClass(GestureClass gs){
+      gestureSet.getGestureClasses().remove(gs);
+   }
+   
+   public void addGestureClass(GestureClass gs){
+      gestureSet.getGestureClasses().add(gs);
+   }
+   
    
 
+   
+/*
    public synchronized void fireGesturedSetChanged(EventObject event) {
       for (GestureSetLoadListener gestureSetListener : this.gestureSetListeners) {
          gestureSetListener.gestureSetChanged(event);
       }
 
    } // fireGesturedSetChanged
-
+*/
 
 
 }

@@ -63,6 +63,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.freedesktop.tango</groupId>
+			<artifactId>tango-icon-theme</artifactId>
+		</dependency>		
+		
+		<dependency>
 			<groupId>org.ximtec.igesture</groupId>
 			<artifactId>igesture-framework</artifactId>
 		</dependency>

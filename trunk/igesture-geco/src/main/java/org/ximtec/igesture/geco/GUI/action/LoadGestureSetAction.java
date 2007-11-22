@@ -45,7 +45,7 @@ import org.ximtec.igesture.util.XMLTool;
  * @version 1.0 Nov 20, 2007
  * @author  Michele Croci, mcroci@gmail.com
  */
-public class ActionLoadGestureSet extends BasicAction {
+public class LoadGestureSetAction extends BasicAction {
    
    
 
@@ -54,7 +54,7 @@ public class ActionLoadGestureSet extends BasicAction {
    private static final String XML_EXTENSION = "xml";
 
 
-   public ActionLoadGestureSet(GestureMappingView mainView) {
+   public LoadGestureSetAction(GestureMappingView mainView) {
       super(GestureMappingConstants.LOAD_GESTURE_SET, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
