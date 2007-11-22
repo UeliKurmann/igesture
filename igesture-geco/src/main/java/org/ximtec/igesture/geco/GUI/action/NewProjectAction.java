@@ -41,12 +41,12 @@ import org.ximtec.igesture.geco.GUI.GestureMappingView;
  * @version 1.0, Nov 2006
  * @author Michele Croci, mcroci@gmail.com
  */
-public class NewGestureMapAction extends BasicAction {
+public class NewProjectAction extends BasicAction {
 
    private GestureMappingView mainView;
 
 
-   public NewGestureMapAction(GestureMappingView mainView) {
+   public NewProjectAction(GestureMappingView mainView) {
       super(GestureMappingConstants.COMMON_NEW, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
