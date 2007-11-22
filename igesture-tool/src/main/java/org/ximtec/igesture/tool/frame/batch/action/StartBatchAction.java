@@ -1,5 +1,5 @@
 /*
- * @(#)ActionStartBatch.java  1.0   Dec 4, 2006
+ * @(#)StartBatchAction.java  1.0   Dec 4, 2006
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -54,10 +54,15 @@ import org.ximtec.igesture.util.XMLTool;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionStartBatch extends BasicAction {
+public class StartBatchAction extends BasicAction {
 
-   private static final Logger LOGGER = Logger.getLogger(ActionStartBatch.class
+   private static final Logger LOGGER = Logger.getLogger(StartBatchAction.class
          .getName());
+
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "StartBatchAction";
 
    private static final String BATCH_RESOURCE = "xml/batch.xsl";
 
@@ -67,9 +72,9 @@ public class ActionStartBatch extends BasicAction {
    private ScrollableList testSets;
 
 
-   public ActionStartBatch(JTextField config, JTextField result,
+   public StartBatchAction(JTextField config, JTextField result,
          ScrollableList gestureSets, ScrollableList testSets) {
-      super(GestureConstants.COMMON_OK, GuiTool.getGuiBundle());
+      super(KEY, GuiTool.getGuiBundle());
       this.config = config;
       this.result = result;
       this.gestureSets = gestureSets;
@@ -93,7 +98,7 @@ public class ActionStartBatch extends BasicAction {
 
          try {
             String htmlPage = XMLTool.transform(xmlDocument,
-                  ActionStartBatch.class.getClassLoader().getResourceAsStream(
+                  StartBatchAction.class.getClassLoader().getResourceAsStream(
                         BATCH_RESOURCE));
             FileHandler.writeFile(resultFile.getPath(), htmlPage);
          }
