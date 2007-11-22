@@ -123,8 +123,7 @@ public class MapGestureAction extends BasicAction {
    */
   public void initDialog() {
      if (dialog==null){
-        dialog = new JDialog(mainView);
-        dialog.setTitle(GestureMappingConstants.MAP_DIALOG_TITLE);
+        dialog = SwingTool.createDialog(GestureMappingConstants.MAIN_FRAME_TITLE);
         dialog.setLayout(new GridBagLayout());
         dialog.add(tabbedPane, new GridBagConstraints(0,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
               new Insets(20,20,20,20),0,0 ) );
@@ -254,8 +253,6 @@ public class MapGestureAction extends BasicAction {
            keys+="+";
         
         keys+=(String)comboBox.getSelectedItem();
-        
-        System.out.println("ActioMapGesture - key: "+keys);
         
         GestureKeyMapping action = new GestureKeyMapping(currentGesture,keys);
         mappingTable.addMapping(currentGesture, action);

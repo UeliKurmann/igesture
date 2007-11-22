@@ -150,7 +150,7 @@ public class GestureMappingView extends JFrame{
 		this.getContentPane().setLayout(gbl);
 		
 		leftPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GestureMappingConstants.USER_DEFINED_MAPPING));
-		rightPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GestureMappingConstants.GESTURES_SET));
+		rightPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GestureMappingConstants.GESTURE_SET));
 
 		
 		contentPanel.setLayout(new GridBagLayout());

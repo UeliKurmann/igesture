@@ -25,6 +25,12 @@
 
 package org.ximtec.igesture.geco.GUI;
 
+import org.ximtec.igesture.geco.GUI.action.ExitApplicationAction;
+import org.ximtec.igesture.geco.GUI.action.LoadGestureSetAction;
+import org.ximtec.igesture.geco.GUI.action.MapGestureAction;
+import org.ximtec.igesture.geco.GUI.action.NewProjectAction;
+import org.ximtec.igesture.geco.GUI.action.OpenProjectAction;
+
 
 
 /**
@@ -45,15 +51,17 @@ public class GestureMappingConstants {
    
    public static final String MAP_GESTURE = "MapGesture";
    
-   public static final String MAPPING_GESTURE = "Mapping gesture";
+   public static final String USER_DEFINED_MAPPING = "User-defined mappings";
+   //public static final String USER_DEFINED_MAPPING = "mainFrame.UserDefMapping";
    
-   public static final String USER_DEFINED_MAPPING = "User defined mapping";
-   
-   public static final String GESTURES_SET = "Gestures set";
+   public static final String GESTURE_SET = "Gesture set";
+   //public static final String GESTURE_SET = "mainFrame.GestureSet";
    
    public static final String GESTURE = "Gesture";
+   //public static final String GESTURE = "mapGesture.Gesture";
    
    public static final String HOTKEY = "Hotkey";
+  // public static final String HOTKEY = "mapGesture.Hotkey";
    
    public static final String SAVE = "SAVE";
    
@@ -63,9 +71,19 @@ public class GestureMappingConstants {
    
    public static final String EXIT = "EXIT";
    
-   public static final String COMMON_EXIT = "EXIT";
+   public static final String MAIN_FRAME_TITLE = "mainFrame";
    
-   public static final String MAP_DIALOG_TITLE = "Map Gesture to Action";
+   public static final String OPEN_PROJECT_ACTION = "OpenProjectAction";
+   
+   public static final String NEW_PROJECT_OPEN = "NewGestureMapAction";
+   
+   public static final String EXIT_APPLICATION_ACTION = "ExitApplicationAction";
+   
+   public static final String LOAD_GESTURE_SET_ACTION = "LoadGestureSetAction";
+   
+   public static final String MAP_GESTURE_ACTION = "MapGestureAction";
+   
+
    
 
 

@@ -1,5 +1,5 @@
 /*
- * @(#)NewGestureMapAction.java	1.0   Nov 15, 2007
+ * @(#)NewProjectAction.java	1.0   Nov 15, 2007
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
@@ -38,7 +38,7 @@ import org.ximtec.igesture.geco.GUI.GestureMappingView;
 /**
  * Creates a new data source.
  * 
- * @version 1.0, Nov 2006
+ * @version 1.0, Nov 2007
  * @author Michele Croci, mcroci@gmail.com
  */
 public class NewProjectAction extends BasicAction {
