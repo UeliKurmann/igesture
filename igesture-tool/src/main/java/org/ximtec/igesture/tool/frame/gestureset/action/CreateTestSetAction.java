@@ -1,5 +1,5 @@
 /*
- * @(#)ActionCreateTestSet.java	1.0   Nov 15, 2006
+ * @(#)CreateTestSetAction.java	1.0   Nov 15, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -36,8 +36,6 @@ import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.TestSet;
-import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.util.GestureTool;
 import org.ximtec.igesture.util.XMLTool;
 
@@ -49,15 +47,18 @@ import org.ximtec.igesture.util.XMLTool;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionCreateTestSet extends BasicAction {
+public class CreateTestSetAction extends BasicAction {
+
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "ExportCreateTestSetAction";
 
    private GestureSet set;
 
 
-   public ActionCreateTestSet(GestureSet set) {
-      super(GestureConstants.GESTURE_CLASS_VIEW_EXPORT_TEST_SET, GuiTool
-            .getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DOCUMENT_NEW));
+   public CreateTestSetAction(GestureSet set) {
+      super(KEY, GuiTool.getGuiBundle());
       this.set = set;
    }
 

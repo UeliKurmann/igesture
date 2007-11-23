@@ -1,9 +1,9 @@
 /*
- * @(#)ActionDelGestureSet.java	1.0   Nov 15, 2006
+ * @(#)RemoveGestureClassAction.java	1.0   Nov 15, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Deletes a gesture set.
+ * Purpose		:   Removes a gesture class from a gesture set.
  *
  * -----------------------------------------------------------------------
  *
@@ -33,31 +33,36 @@ import javax.swing.JMenuItem;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.frame.gestureset.GestureTreeModel;
-import org.ximtec.igesture.tool.util.IconLoader;
 
 
 /**
- * Deletes a gesture set.
+ * Removes a gesture class from a gesture set.
  * 
  * @version 1.0, Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionDelGestureSet extends BasicAction {
+public class RemoveGestureClassAction extends BasicAction {
 
-   public static final String KEY = "PopUpDelGestureSet";
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "RemoveGestureClassAction";
 
    private GestureTreeModel gestureTreeModel;
+
+   private GestureClass gestureClass;
 
    private GestureSet gestureSet;
 
 
-   public ActionDelGestureSet(GestureTreeModel gestureTreeModel,
-         GestureSet gestureSet) {
+   public RemoveGestureClassAction(GestureTreeModel gestureTreeModel,
+         GestureClass gestureClass, GestureSet gestureSet) {
       super(KEY, GuiTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.DELETE));
+      this.gestureClass = gestureClass;
       this.gestureTreeModel = gestureTreeModel;
       this.gestureSet = gestureSet;
    }
@@ -65,10 +70,11 @@ public class ActionDelGestureSet extends BasicAction {
 
    public void actionPerformed(ActionEvent event) {
       if (event.getSource() instanceof JButton) {
-         // FIXME: add something or reduce to simple if statement.
+
       }
       else if (event.getSource() instanceof JMenuItem) {
-         gestureTreeModel.getModel().removeGestureSet(gestureSet);
+         gestureTreeModel.getModel()
+               .removeClassFromSet(gestureSet, gestureClass);
       }
 
    } // actionPerformed
