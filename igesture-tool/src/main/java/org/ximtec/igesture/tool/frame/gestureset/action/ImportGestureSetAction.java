@@ -1,5 +1,5 @@
 /*
- * @(#)ActionImportGestureSet.java	1.0   Nov 15, 2006
+ * @(#)ImportGestureSetAction.java	1.0   Nov 15, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -37,7 +37,6 @@ import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureToolView;
-import org.ximtec.igesture.tool.util.IconLoader;
 import org.ximtec.igesture.util.XMLTool;
 
 
@@ -48,16 +47,15 @@ import org.ximtec.igesture.util.XMLTool;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionImportGestureSet extends BasicAction {
+public class ImportGestureSetAction extends BasicAction {
 
-   public static final String KEY = "ImportGestureSet";
+   public static final String KEY = "ImportGestureSetAction";
 
    private GestureToolView mainView;
 
 
-   public ActionImportGestureSet(GestureToolView frame) {
+   public ImportGestureSetAction(GestureToolView frame) {
       super(KEY, GuiTool.getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.IMPORT));
       this.mainView = frame;
    }
 
