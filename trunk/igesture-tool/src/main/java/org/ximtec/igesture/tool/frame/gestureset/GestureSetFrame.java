@@ -47,9 +47,9 @@ import org.ximtec.igesture.tool.frame.gestureset.action.CreateTestSetAction;
 import org.ximtec.igesture.tool.frame.gestureset.action.RemoveGestureClassAction;
 import org.ximtec.igesture.tool.frame.gestureset.action.RemoveGestureSetAction;
 import org.ximtec.igesture.tool.frame.gestureset.action.ExportGestureSetAction;
-import org.ximtec.igesture.tool.frame.gestureset.action.ActionExportIPaperForm;
-import org.ximtec.igesture.tool.frame.gestureset.action.ActionExportPDFGestureSet;
-import org.ximtec.igesture.tool.frame.gestureset.action.ActionImportGestureSet;
+import org.ximtec.igesture.tool.frame.gestureset.action.ExportIPaperFormAction;
+import org.ximtec.igesture.tool.frame.gestureset.action.ExportPDFGestureSetAction;
+import org.ximtec.igesture.tool.frame.gestureset.action.ImportGestureSetAction;
 
 
 /**
@@ -95,7 +95,7 @@ public class GestureSetFrame extends BasicInternalFrame implements
    public JPopupMenu getNewGestureSetPopUp() {
       return SwingTool.createPopupMenu(new Action[] {
             new AddGestureSetAction(gestureTreeModel),
-            new ActionImportGestureSet(mainView) });
+            new ImportGestureSetAction(mainView) });
    } // getNewGestureSetPopUp
 
 
@@ -103,8 +103,8 @@ public class GestureSetFrame extends BasicInternalFrame implements
       return SwingTool.createPopupMenu(new Action[] {
             new AddGestureClassAction(gestureTreeModel, set),
             new RemoveGestureSetAction(gestureTreeModel, set),
-            new ExportGestureSetAction(set), new ActionExportPDFGestureSet(set),
-            new CreateTestSetAction(set), new ActionExportIPaperForm(set) });
+            new ExportGestureSetAction(set), new ExportPDFGestureSetAction(set),
+            new CreateTestSetAction(set), new ExportIPaperFormAction(set) });
    } // getAddGestureClassPopUp
 
 
