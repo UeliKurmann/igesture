@@ -1,9 +1,9 @@
 /*
- * @(#)ActionExportGestureSet.java	1.0   Nov 15, 2006
+ * @(#)RemoveGestureSetAction.java	1.0   Nov 15, 2006
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		:   Exports a gesture set to an XML file.
+ * Purpose		:   Removes a gesture set from the main model.
  *
  * -----------------------------------------------------------------------
  *
@@ -27,49 +27,49 @@
 package org.ximtec.igesture.tool.frame.gestureset.action;
 
 import java.awt.event.ActionEvent;
-import java.io.File;
 
-import javax.swing.JFileChooser;
+import javax.swing.JButton;
 import javax.swing.JMenuItem;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.util.IconLoader;
-import org.ximtec.igesture.util.XMLTool;
+import org.ximtec.igesture.tool.frame.gestureset.GestureTreeModel;
 
 
 /**
- * Exports a gesture set to an XML file.
+ * Removes a gesture set from the main model.
  * 
  * @version 1.0, Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionExportGestureSet extends BasicAction {
+public class RemoveGestureSetAction extends BasicAction {
+
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "RemoveGestureSetAction";
+
+   private GestureTreeModel gestureTreeModel;
 
    private GestureSet gestureSet;
 
 
-   public ActionExportGestureSet(GestureSet gestureSet) {
-      super(GestureConstants.GESTURE_CLASS_VIEW_EXPORT_SET_XML, GuiTool
-            .getGuiBundle());
-      putValue(SMALL_ICON, IconLoader.getIcon(IconLoader.EXPORT));
+   public RemoveGestureSetAction(GestureTreeModel gestureTreeModel,
+         GestureSet gestureSet) {
+      super(KEY, GuiTool.getGuiBundle());
+      this.gestureTreeModel = gestureTreeModel;
       this.gestureSet = gestureSet;
    }
 
 
    public void actionPerformed(ActionEvent event) {
-      if (event.getSource() instanceof JMenuItem) {
-         final JFileChooser fileChooser = new JFileChooser();
-         fileChooser.showSaveDialog((JMenuItem)event.getSource());
-         final File selectedFile = fileChooser.getSelectedFile();
-
-         if (selectedFile != null) {
-            XMLTool.exportGestureSet(gestureSet, selectedFile);
-         }
-
+      if (event.getSource() instanceof JButton) {
+         // FIXME: add something or reduce to simple if statement.
+      }
+      else if (event.getSource() instanceof JMenuItem) {
+         gestureTreeModel.getModel().removeGestureSet(gestureSet);
       }
 
    } // actionPerformed

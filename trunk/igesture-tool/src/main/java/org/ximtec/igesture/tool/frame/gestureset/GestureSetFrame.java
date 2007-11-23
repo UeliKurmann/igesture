@@ -43,10 +43,10 @@ import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.GestureSetListener;
 import org.ximtec.igesture.tool.frame.gestureset.action.AddGestureClassAction;
 import org.ximtec.igesture.tool.frame.gestureset.action.AddGestureSetAction;
-import org.ximtec.igesture.tool.frame.gestureset.action.ActionCreateTestSet;
-import org.ximtec.igesture.tool.frame.gestureset.action.ActionDelGestureClass;
-import org.ximtec.igesture.tool.frame.gestureset.action.ActionDelGestureSet;
-import org.ximtec.igesture.tool.frame.gestureset.action.ActionExportGestureSet;
+import org.ximtec.igesture.tool.frame.gestureset.action.CreateTestSetAction;
+import org.ximtec.igesture.tool.frame.gestureset.action.RemoveGestureClassAction;
+import org.ximtec.igesture.tool.frame.gestureset.action.RemoveGestureSetAction;
+import org.ximtec.igesture.tool.frame.gestureset.action.ExportGestureSetAction;
 import org.ximtec.igesture.tool.frame.gestureset.action.ActionExportIPaperForm;
 import org.ximtec.igesture.tool.frame.gestureset.action.ActionExportPDFGestureSet;
 import org.ximtec.igesture.tool.frame.gestureset.action.ActionImportGestureSet;
@@ -102,15 +102,15 @@ public class GestureSetFrame extends BasicInternalFrame implements
    public JPopupMenu getAddGestureClassPopUp(GestureSet set) {
       return SwingTool.createPopupMenu(new Action[] {
             new AddGestureClassAction(gestureTreeModel, set),
-            new ActionDelGestureSet(gestureTreeModel, set),
-            new ActionExportGestureSet(set), new ActionExportPDFGestureSet(set),
-            new ActionCreateTestSet(set), new ActionExportIPaperForm(set) });
+            new RemoveGestureSetAction(gestureTreeModel, set),
+            new ExportGestureSetAction(set), new ActionExportPDFGestureSet(set),
+            new CreateTestSetAction(set), new ActionExportIPaperForm(set) });
    } // getAddGestureClassPopUp
 
 
    public JPopupMenu getDelGestureClassPopUp(GestureSet set,
          GestureClass gestureClass) {
-      return SwingTool.createPopupMenu(new Action[] { new ActionDelGestureClass(
+      return SwingTool.createPopupMenu(new Action[] { new RemoveGestureClassAction(
             gestureTreeModel, gestureClass, set) });
    } // getDelGestureClassPopUp
 
