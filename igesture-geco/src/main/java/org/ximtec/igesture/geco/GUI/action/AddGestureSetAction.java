@@ -45,7 +45,7 @@ import org.ximtec.igesture.util.XMLTool;
  * @version 1.0 Nov 20, 2007
  * @author  Michele Croci, mcroci@gmail.com
  */
-public class LoadGestureSetAction extends BasicAction {
+public class AddGestureSetAction extends BasicAction {
    
    
 
@@ -54,8 +54,8 @@ public class LoadGestureSetAction extends BasicAction {
    private static final String XML_EXTENSION = "xml";
 
 
-   public LoadGestureSetAction(GestureMappingView mainView) {
-      super(GestureMappingConstants.LOAD_GESTURE_SET, GuiTool.getGuiBundle());
+   public AddGestureSetAction(GestureMappingView mainView) {
+      super(GestureMappingConstants.ADD_GESTURE_SET, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
 
@@ -77,7 +77,7 @@ public class LoadGestureSetAction extends BasicAction {
                   selectedFile.getName().length());
             if(ext.equals(XML_EXTENSION)){
                 //update model
-                mainView.getModel().loadGestureSet(loadGestureSet(selectedFile));
+                mainView.getModel().addGestureSet(loadGestureSet(selectedFile));
                 //update view
                 mainView.updateGestureList();
              }

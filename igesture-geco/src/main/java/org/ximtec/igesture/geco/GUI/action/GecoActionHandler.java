@@ -46,9 +46,11 @@ public class GecoActionHandler {
 
    private OpenProjectAction openGestureMapAction;
    private ExitApplicationAction exitApplicationAction;
-   private LoadGestureSetAction loadGestureSetAction;
-   private MapGestureAction mapGestureAction;
-   private NewProjectAction newGestureMapAction;
+   private AddGestureSetAction addGestureSetAction;
+   private AddMappingAction addMappingAction;
+   private NewProjectAction newProjectAction;
+   private EditMappingAction editMappingAction;
+   private RemoveMappingAction removeMappingAction;
 
 
    public GecoActionHandler(GestureMappingView view) {
@@ -56,7 +58,7 @@ public class GecoActionHandler {
    } // GecoActionHandler
 
 
-   public Action getNewDataSourceAction() {
+   public Action getOpenProjectAction() {
       if (openGestureMapAction == null) {
          openGestureMapAction = new OpenProjectAction(view);
       }
@@ -73,29 +75,48 @@ public class GecoActionHandler {
       return exitApplicationAction;
    } // getExitApplicationAction
    
-   public Action getLoadGestureSetAction() {
-      if (loadGestureSetAction == null) {
-         loadGestureSetAction = new LoadGestureSetAction(view);
+   public Action getAddGestureSetAction() {
+      if (addGestureSetAction == null) {
+         addGestureSetAction = new AddGestureSetAction(view);
       }
 
-      return loadGestureSetAction;
+      return addGestureSetAction;
    } // getLoadGestureSetAction
    
    
-   public Action getMapGestureAction(GestureMappingTable mappingTable) {
-      if (mapGestureAction == null) {
-         mapGestureAction = new MapGestureAction(view, mappingTable);
+   public Action getAddMappingAction() {
+      if (addMappingAction == null) {
+         addMappingAction = new AddMappingAction(view);
       }
 
-      return mapGestureAction;
+      return addMappingAction;
    } // getMapGestureAction
    
    
-   public Action getNewGestureMapAction() {
-      if (newGestureMapAction == null) {
-         newGestureMapAction = new NewProjectAction(view);
+   public Action getNewProjectAction() {
+      if (newProjectAction == null) {
+         newProjectAction = new NewProjectAction(view);
       }
 
-      return newGestureMapAction;
+      return newProjectAction;
    } // getNewGestureMapAction
+   
+   
+   public Action getEditMappingAction() {
+      if (editMappingAction == null) {
+         editMappingAction = new EditMappingAction(view);
+      }
+
+      return editMappingAction;
+   } // getNewGestureMapAction
+   
+   
+   public Action getRemoveMappingAction() {
+      if (removeMappingAction == null) {
+         removeMappingAction = new RemoveMappingAction(view);
+      }
+
+      return removeMappingAction;
+   } // getNewGestureMapAction
+   
 }

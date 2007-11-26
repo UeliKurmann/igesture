@@ -26,8 +26,8 @@
 package org.ximtec.igesture.geco.GUI;
 
 import org.ximtec.igesture.geco.GUI.action.ExitApplicationAction;
-import org.ximtec.igesture.geco.GUI.action.LoadGestureSetAction;
-import org.ximtec.igesture.geco.GUI.action.MapGestureAction;
+import org.ximtec.igesture.geco.GUI.action.AddGestureSetAction;
+import org.ximtec.igesture.geco.GUI.action.AddMappingAction;
 import org.ximtec.igesture.geco.GUI.action.NewProjectAction;
 import org.ximtec.igesture.geco.GUI.action.OpenProjectAction;
 
@@ -41,7 +41,9 @@ import org.ximtec.igesture.geco.GUI.action.OpenProjectAction;
  */
 public class GestureMappingConstants {
 
-   public static final String LOAD_GESTURE_SET = "LoadGestureSet";
+   public static final String ADD_GESTURE_SET = "AddGestureSet";
+   
+   public static final String REMOVE_MAPPING = "RemoveMappingAction";
    
    public static final String MENU_FILE = "FileMenu";
    
@@ -70,6 +72,10 @@ public class GestureMappingConstants {
    public static final String CANCEL = "CANCEL";
    
    public static final String EXIT = "EXIT";
+   
+   public static final String EDIT = "EDIT";
+   
+   public static final String REMOVE = "REMOVE";
    
    public static final String MAIN_FRAME_TITLE = "mainFrame";
    

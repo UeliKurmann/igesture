@@ -1,9 +1,9 @@
 /*
  * @(#)GestureKeyMapping.java	1.0   Nov 19, 2007
  *
- * Author		:	Beat Signer, signer@inf.ethz.ch
+ * Author		:	Michele Croci, mcroci@gmail.com
  *
- * Purpose		: 
+ * Purpose		:  Map a gesture to a keystroke
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,7 @@
  *
  * Date				Who			Reason
  *
- * 					bsigner		Initial Release
+ * Nov 19, 2007		crocimi		Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -37,22 +37,27 @@ import org.ximtec.igesture.io.Win32KeyboardProxy;
 /**
  * Comment
  * @version 1.0 Nov 19, 2007
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Michele Croci, mcroci@gmail.com
  */
-public class GestureKeyMapping extends GestureMapping{
+public class GestureToKeyMapping extends GestureToActionMapping {
 
       private static final String REGEX = "\\+";
       private static final String KEY_NOT_RECOGNISED = "Key not recognised!";
 
       private Integer[] keys;
+      private String[] stringKeys;
+      
+      private boolean ctrlSelected;
+      private boolean altSelected;
+      private boolean shiftSelected;
+      private char selChar;
 
 
 
-      public GestureKeyMapping(GestureClass gesture, String keys) {
+      public GestureToKeyMapping(GestureClass gesture, String keys) {
          super();
          setKeys(keys);
          this.gestureClass = gesture;
-         this.test=1;
       }
       
       public void executeAction(){
@@ -67,9 +72,23 @@ public class GestureKeyMapping extends GestureMapping{
 
       public void setKeys(String keys) {
          List<Integer> codes = new ArrayList<Integer>();
-
+         stringKeys = keys.split(REGEX);
+         int length= stringKeys.length;
          for (String key : keys.split(REGEX)) {
             key = key.trim();
+            if (length==1){
+               selChar = key.charAt(0);
+            }else{
+               if(key.equals("CONTROL")){
+                  ctrlSelected = true;
+               }
+               else if(key.equals("ALT")){
+                  altSelected = true;
+               }
+               else if(key.equals("SHIFT")){
+                  shiftSelected = true;
+               }
+            }
             int code = Win32KeyboardProxy.getKey(key);
 
             if (code > 0) {
@@ -78,6 +97,7 @@ public class GestureKeyMapping extends GestureMapping{
             else {
                throw new IllegalStateException(KEY_NOT_RECOGNISED);
             }
+            length--;
 
          }
 
@@ -88,6 +108,10 @@ public class GestureKeyMapping extends GestureMapping{
       public Integer[] getKeys() {
          return keys;
       } // getKeys
+      
+      public String[] getStringKeys() {
+         return stringKeys;
+      } // getstringKeys
 
 
       @Override
@@ -105,6 +129,22 @@ public class GestureKeyMapping extends GestureMapping{
          return sb.toString();
       } // toString
 
+      
+        public boolean isCtrlSelected(){
+           return ctrlSelected;
+        }
+        
+        public boolean isAltSelected(){
+           return altSelected;
+        }
+        
+        public boolean isShiftSelected(){
+           return shiftSelected;
+        }
+        
+        public char getSelectedChar(){
+           return selChar;
+        }
 
 
 }

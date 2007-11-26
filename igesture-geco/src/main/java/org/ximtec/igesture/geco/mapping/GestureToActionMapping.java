@@ -35,13 +35,21 @@ import org.ximtec.igesture.core.GestureClass;
  * @version 1.0 Nov 19, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public abstract class GestureMapping {
+public abstract class GestureToActionMapping {
    
    public GestureClass gestureClass=null;
    
-   public int test=0;
+   public void executeAction(){};
    
-   public void executeAction(){}
+   public GestureClass getGestureClass(){
+      return gestureClass;
+   }
+   
+   public String toString(){
+      return gestureClass.getName();
+   }
+   
+   
 
 
 
