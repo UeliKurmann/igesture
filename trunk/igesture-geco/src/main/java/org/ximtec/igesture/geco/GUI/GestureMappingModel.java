@@ -26,6 +26,7 @@
 package org.ximtec.igesture.geco.GUI;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.EventObject;
 import java.util.HashSet;
 import java.util.List;
@@ -37,6 +38,7 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.event.GestureSetLoadListener;
+import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.storage.StorageManager;
 
@@ -52,11 +54,11 @@ public class GestureMappingModel {
    /**
     * The list of imported Gesture Set
     */
-   private List<GestureSet> gestureSets;
+   private List<GestureSet> gestureSets =  new ArrayList<GestureSet>();
    
-   private SortedListModel gestureListModel = new SortedListModel();
+   private SortedListModel gestureListModel;
    
-   private SortedListModel mappingListModel = new SortedListModel();
+   private SortedListModel mappingListModel;
    
    private HashSet<GestureSetLoadListener> gestureSetListeners;
    
@@ -81,7 +83,19 @@ public class GestureMappingModel {
     */
    public GestureMappingModel(StorageEngine engine) {
       gestureSetListeners = new HashSet<GestureSetLoadListener>();
-
+      Comparator c1 =new Comparator<GestureClass>() {
+         public int compare(GestureClass a, GestureClass b) {
+            return a.getName().compareTo(b.getName());
+          }
+        };
+        
+        Comparator c2 =new Comparator<GestureToActionMapping>() {
+           public int compare(GestureToActionMapping a, GestureToActionMapping b) {
+              return a.getGestureClass().getName().compareTo(b.getGestureClass().getName());
+            }
+          };
+        gestureListModel =  new SortedListModel<GestureClass>(c1);
+        mappingListModel =  new SortedListModel<GestureToActionMapping>(c2);
    }
 
    /**
@@ -127,16 +141,37 @@ public class GestureMappingModel {
     * 
     * @param gestureSet the gesture set to be added.
     */
-   public void loadGestureSet(GestureSet gestureSet) {
+   public void addGestureSet(GestureSet gestureSet) {
       if (!gestureSets.contains(gestureSet)) {
          gestureSets.add(gestureSet);
       }
          
-      addGestureSetToListModel(gestureSet);
+      for(GestureClass gc: gestureSet.getGestureClasses()){
+         gestureListModel.add(gc);
+      }
 
 //      storageManager.store(gestureSet);
 //      fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
    } // addGestureSet
+   
+   /**
+    * Adds the gesture set to the gesture main model, propagates the changes to
+    * the database and fires the corresponding event.
+    * 
+    * @param gestureSet the gesture set to be added.
+    */
+   public void removeGestureSet(GestureSet gestureSet) {
+      if (gestureSets.contains(gestureSet)) {
+         gestureSets.remove(gestureSet);
+      }
+         
+      for(GestureClass gc: gestureSet.getGestureClasses()){
+         gestureListModel.removeElement(gc);
+      }
+//      storageManager.store(gestureSet);
+//      fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
+   } //remove addGestureSet
+
 
 
    /**
@@ -148,8 +183,21 @@ public class GestureMappingModel {
       return gestureSets;
    } // getGestureSets
    
-
    
+   public void addMapping(GestureToActionMapping gm){
+      gestureListModel.removeElement(gm.getGestureClass());
+      mappingListModel.add(gm);
+   }
+   
+   
+
+   public void removeMapping(GestureToActionMapping gm){
+      mappingListModel.removeElement(gm);
+      gestureListModel.add(gm.getGestureClass());
+   }
+   
+
+   /*
    public void removeGestureClass(GestureClass gc){
       gestureListModel.removeElement(gc);
    }
@@ -157,19 +205,7 @@ public class GestureMappingModel {
    public void addGestureClass(GestureClass gc){
       gestureListModel.add(gc);
    }
-   
-   public void addGestureSetToListModel(GestureSet gestureSet){
-      for(GestureClass gc: gestureSet.getGestureClasses()){
-         gestureListModel.add(gc);
-      }
-   }
-   
-   
-   public void removeGestureSetToListModel(GestureSet gestureSet){
-      for(GestureClass gc: gestureSet.getGestureClasses()){
-         gestureListModel.removeElement(gc);
-      }
-   }
+   */
    
    public SortedListModel getGestureListModel(){
       return gestureListModel;

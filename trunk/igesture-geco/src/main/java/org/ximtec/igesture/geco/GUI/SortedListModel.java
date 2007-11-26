@@ -25,12 +25,15 @@
 
 package org.ximtec.igesture.geco.GUI;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 import javax.swing.AbstractListModel;
+
+import org.ximtec.igesture.core.GestureClass;
 
 
 
@@ -40,14 +43,34 @@ import javax.swing.AbstractListModel;
  * @author Michele Croci, mcroci@gmail.com
  */
 
- public class SortedListModel extends AbstractListModel {
+ public class SortedListModel<T> extends AbstractListModel {
 
 
     SortedSet model;
 
-    public SortedListModel() {
-      model = new TreeSet();
+    /*
+    public SortedListModel(Comparator c) {
+      model = new TreeSet<GestureClass>(
+            new Comparator<GestureClass>() {
+               public int compare(GestureClass a, GestureClass b) {
+                  //GestureClass itemA = (GestureClass) a;
+                  //GestureClass itemB = (GestureClass) b;
+                  //return itemA.getName().compareTo(itemB.getName());
+                  return a.getName().compareTo(b.getName());
+                }
+              });
     }
+    */
+    
+    public SortedListModel(Comparator<T> c) {
+       model = new TreeSet<T>(c);
+     }
+     
+    
+    public SortedListModel() {
+       model = new TreeSet<T>();
+       }
+    
 
     public int getSize() {
       return model.size();
