@@ -78,13 +78,13 @@ public class BatchFrame extends BasicInternalFrame implements
    private void init() {
       setSize(400, 300);
       setVisible(true);
-      JLabel configLabel = SwingTool
+      JLabel configLabel = GuiTool
             .createLabel(GestureConstants.BATCHPROCESSING_CONFIG);
-      JLabel gestureSetLabel = SwingTool
+      JLabel gestureSetLabel = GuiTool
             .createLabel(GestureConstants.BATCHPROCESSING_GESTURESET);
-      JLabel testSetLabel = SwingTool
+      JLabel testSetLabel = GuiTool
             .createLabel(GestureConstants.BATCHPROCESSING_TESTSET);
-      JLabel outputLabel = SwingTool
+      JLabel outputLabel = GuiTool
             .createLabel(GestureConstants.BATCHPROCESSING_OUTPUT);
       configPath = new JTextField();
       configPath.setPreferredSize(new Dimension(100, 20));

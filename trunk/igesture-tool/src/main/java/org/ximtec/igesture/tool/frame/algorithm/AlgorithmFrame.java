@@ -122,7 +122,7 @@ public class AlgorithmFrame extends BasicInternalFrame implements
 
 
    private Component createResultLabel() {
-      return SwingTool
+      return GuiTool
             .createLabel(GestureConstants.ALGORITHM_FRAME_RESULT_LABEL);
    } // createResultLabel
 

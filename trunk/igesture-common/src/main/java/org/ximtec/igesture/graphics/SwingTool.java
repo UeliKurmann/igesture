@@ -62,9 +62,6 @@ public class SwingTool {
    public static final Dimension TEXT_FIELD_PREFERRED_SIZE = new java.awt.Dimension(
          80, 26);
 
-   public static final Dimension LABEL_PREFERRED_SIZE = new java.awt.Dimension(
-         80, 26);
-
    public static final Dimension DIALOG_SIZE = new java.awt.Dimension(300, 300);
 
    public static final Dimension FRAME_SIZE = new java.awt.Dimension(240, 320);
@@ -148,19 +145,6 @@ public class SwingTool {
       dialog.setSize(DIALOG_SIZE);
       return dialog;
    } // createDialog
-
-
-   /**
-    * Creates a new label with some default settings.
-    * 
-    * @param key the key of the label to be created.
-    * @return label configured with data from the GUI bundle.
-    */
-   public static BasicLabel createLabel(String key) {
-      final BasicLabel label = new BasicLabel(key, GuiTool.getGuiBundle());
-      label.setPreferredSize(LABEL_PREFERRED_SIZE);
-      return label;
-   } // createLabel
 
 
    /**
