@@ -101,7 +101,7 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
 
 
    private void init() {
-      this.addComponent(SwingTool
+      this.addComponent(GuiTool
             .createLabel(GestureConstants.GESTURE_CLASS_VIEW_NAME_LABEL),
             SwingTool.createGridBagConstraint(0, 0));
       addComponent(createNameTextField(), SwingTool

@@ -74,7 +74,7 @@ public class GestureClassListFrame extends BasicInternalFrame implements
 
 
    private void init() {
-      addComponent(SwingTool
+      addComponent(GuiTool
             .createLabel(GestureConstants.GESTURE_CLASS_LIST_FRAME_TITLE),
             SwingTool.createGridBagConstraint(0, 0, 2, 1));
       addComponent(createList(), SwingTool.createGridBagConstraint(0, 1, 2, 1));

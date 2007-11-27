@@ -37,8 +37,6 @@ public class GestureConstants {
    
    public static final String COMMON_ADD = "ADD";
 
-   public static final String COMMON_DEL = "DEL";
-
    public static final String COMMON_CLOSE = "CLOSE";
 
    public static final String COMMON_SAVE = "SAVE";

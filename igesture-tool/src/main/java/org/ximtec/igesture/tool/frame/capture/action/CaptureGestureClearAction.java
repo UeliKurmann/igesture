@@ -30,7 +30,6 @@ import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.frame.capture.GestureCaptureArea;
 
 
@@ -39,13 +38,18 @@ import org.ximtec.igesture.tool.frame.capture.GestureCaptureArea;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ActionCaptureGestureClear extends BasicAction {
+public class CaptureGestureClearAction extends BasicAction {
 
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "CaptureGestureClearAction";
+   
    private GestureCaptureArea area;
 
 
-   public ActionCaptureGestureClear(GestureCaptureArea area) {
-      super(GestureConstants.COMMON_DEL, GuiTool.getGuiBundle());
+   public CaptureGestureClearAction(GestureCaptureArea area) {
+      super(KEY, GuiTool.getGuiBundle());
       this.area = area;
    }
 
