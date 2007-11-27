@@ -43,8 +43,6 @@ import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.graphix.widget.BasicInternalFrame;
-import org.sigtec.graphix.widget.BasicLabel;
-import org.sigtec.graphix.widget.BasicTextField;
 
 
 /**
@@ -57,9 +55,6 @@ import org.sigtec.graphix.widget.BasicTextField;
 public class SwingTool {
 
    public static final Dimension BUTTON_PREFERRED_SIZE = new java.awt.Dimension(
-         80, 26);
-
-   public static final Dimension TEXT_FIELD_PREFERRED_SIZE = new java.awt.Dimension(
          80, 26);
 
    public static final Dimension DIALOG_SIZE = new java.awt.Dimension(300, 300);
@@ -117,21 +112,6 @@ public class SwingTool {
       button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
       return button;
    } // createButton
-
-
-   /**
-    * Creates a new text field with some default settings.
-    * 
-    * @param key the key of the text field to be created.
-    * @return text field configured with data from the GUI bundle.
-    */
-   public static BasicTextField createTextField(String key) {
-      final BasicTextField textField = new BasicTextField(key, GuiTool
-            .getGuiBundle());
-      textField.setPreferredSize(TEXT_FIELD_PREFERRED_SIZE);
-      textField.setEditable(true);
-      return textField;
-   } // createTextField
 
 
    /**

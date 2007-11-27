@@ -109,14 +109,14 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
       addComponent(createList(), SwingTool.createGridBagConstraint(0, 1, 2, 1));
       addComponent(createSaveButton(), SwingTool.createGridBagConstraint(0, 2));
       addComponent(SwingTool.createButton(new CloseFrameAction(
-            GuiConstant.CANCEL_FRAME_ACTION)), SwingTool.createGridBagConstraint(
-            1, 2));
+            GuiConstant.CANCEL_FRAME_ACTION)), SwingTool
+            .createGridBagConstraint(1, 2));
       setVisible(true);
    } // init
 
 
    private Component createNameTextField() {
-      nameTextField = SwingTool
+      nameTextField = GuiTool
             .createTextField(GestureConstants.GESTURE_CLASS_VIEW_NAME_TEXT);
       nameTextField.setText(gestureClass.getName());
       return nameTextField;
