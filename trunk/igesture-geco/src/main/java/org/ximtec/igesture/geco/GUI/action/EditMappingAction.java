@@ -68,8 +68,8 @@ public class EditMappingAction extends BasicAction {
      currentMapping = mainView.getSelectedMapping();
      //dialog.show(true);
      if (dialog==null)
-        dialog = new MappingDialog(mainView, currentMapping);
-     dialog.showDialog();
+        dialog = new MappingDialog(mainView);
+     dialog.showDialog(currentMapping.getGestureClass());
 
   } // actionPerformed¨
   

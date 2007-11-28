@@ -49,8 +49,8 @@ import org.sigtec.graphix.widget.BasicDialog;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
+import org.ximtec.igesture.geco.UserAction.KeyboardSimulationAction;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
-import org.ximtec.igesture.geco.mapping.GestureToKeyMapping;
 import org.ximtec.igesture.graphics.SwingTool;
 
 
@@ -87,24 +87,20 @@ public class MappingDialog{
    private static final String ALT = "ALT";
    
    
-   public MappingDialog(GestureMappingView gmv, GestureClass gc){
+   public MappingDialog(GestureMappingView gmv){
       view = gmv;
-      gestureClass = gc;
       init();
       
    }
    
-   public MappingDialog(GestureMappingView gmv, GestureToActionMapping gm){
-      view = gmv;
-      gestureMapping = gm;
-      gestureClass =  gestureMapping.getGestureClass();
-      init();
-   }
    
-   public void showDialog(){
+   public void showDialog(GestureClass gc){
+      gestureMapping = view.getModel().mappingTable.getAction(gc);
+      gestureClass = gc;
       initButtonsState();
       dialog.setVisible(true);
    }
+   
    
    public void hideDialog(){
       dialog.setVisible(false);
@@ -113,9 +109,7 @@ public class MappingDialog{
    private void init(){
       if (dialog==null){
          initDialog();
-      }
-      initButtonsState();
-      
+      } 
    }
    
    
@@ -128,8 +122,8 @@ public class MappingDialog{
          gestureLabel.setText(gestureClass.getName());
       }
       else{
-      if (gestureMapping instanceof GestureToKeyMapping){
-         GestureToKeyMapping gkm = (GestureToKeyMapping)gestureMapping;
+      if (gestureMapping.getAction() instanceof KeyboardSimulationAction){
+         KeyboardSimulationAction gkm = (KeyboardSimulationAction)gestureMapping.getAction();
          altCheckBox.setSelected(gkm.isAltSelected());
          shiftCheckBox.setSelected(gkm.isShiftSelected());
          ctrlCheckBox.setSelected(gkm.isCtrlSelected());
@@ -177,7 +171,7 @@ public class MappingDialog{
       topPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GestureMappingConstants.GESTURE));
       bottomPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GestureMappingConstants.HOTKEY));
       panel1.setLayout(new GridBagLayout());
-      gestureLabel.setText(gestureClass.getName());
+      //gestureLabel.setText(gestureClass.getName());
       topPanel.add(gestureLabel);
       bottomPanel.setLayout(new GridBagLayout());
       JLabel plus = new JLabel("+");
@@ -279,7 +273,7 @@ public class MappingDialog{
 
          keys+=(String)comboBox.getSelectedItem();
          
-         GestureToKeyMapping action = new GestureToKeyMapping(gestureClass,keys);
+         GestureToActionMapping action = new GestureToActionMapping(gestureClass,new KeyboardSimulationAction(keys));
          view.getModel().mappingTable.addMapping(gestureClass, action);
       }
       

@@ -67,8 +67,8 @@ public class AddMappingAction extends BasicAction {
      currentGesture = mainView.getSelectedClass();
      //dialog.show(true);
      if (dialog == null)
-        dialog = new MappingDialog(mainView,currentGesture);
-     dialog.showDialog();
+        dialog = new MappingDialog(mainView);
+     dialog.showDialog(currentGesture);
 
   } // actionPerformed¨
   

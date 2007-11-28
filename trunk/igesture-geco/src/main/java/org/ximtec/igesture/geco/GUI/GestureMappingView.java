@@ -33,6 +33,9 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,6 +48,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
@@ -56,12 +60,15 @@ import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.ink.Note;
 import org.sigtec.util.Constant;
+import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.DigitalDescriptor;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.SampleDescriptor;
+import org.ximtec.igesture.core.TextDescriptor;
 import org.ximtec.igesture.geco.GUI.action.EditMappingAction;
 import org.ximtec.igesture.geco.GUI.action.GecoActionHandler;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
+import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
 
 
@@ -91,7 +98,9 @@ public class GestureMappingView extends JFrame{
 	   //components of the window:
 	   private JPanel leftPanel = new JPanel();
 	   private JPanel rightPanel = new JPanel();
-	   private JList gestureList = new JList();
+	  
+	   private ScrollableList gestureList;
+	   //private JList gestureList = new JList();
 	   private JList mappingList = new JList();
 	   private BasicButton mapButton; 
 	   private BasicButton saveButton;
@@ -228,19 +237,37 @@ public class GestureMappingView extends JFrame{
 	    */
 	private void initRightPanel(){
 	     JScrollPane rightscroll = new JScrollPane();
-
-	    
+	     
+	    gestureList = SwingTool.createScrollableList(null,  0,   0);
 	    rightPanel.setLayout(new GridBagLayout());
+	    //gestureList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//	    gestureList.getList().setCellRenderer(new MyCellRenderer());
+//	    gestureList.getList().setCellRenderer(new CustomCellRenderer());
+	    gestureList.getList().addMouseListener(new MouseAdapter() {
+
+	         @Override
+	         public void mouseReleased(MouseEvent event) {
+	            if (event.getButton() == MouseEvent.BUTTON1) {
+	               GestureMappingView.this.mapButton.setEnabled(true);
+	            }
+	         }
+	      });
+	    /*
+	     * old implementation:
+	     * 
 	    gestureList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//	    gestureList.setCellRenderer(new MyCellRenderer());
 	    gestureList.addListSelectionListener(new ListSelectionListener(){
 	       public void valueChanged(ListSelectionEvent e){
 	          GestureMappingView.this.mapButton.setEnabled(true);
 	       }
 	    });
+	    
+	    
 	    rightscroll.getViewport().add(gestureList);
 		rightscroll.setBorder(null);
-		rightPanel.add(rightscroll,
+		*/
+	    
+		rightPanel.add(gestureList,
               new GridBagConstraints(0,0,2,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0,0,0,0),0,0 ) );
 		
@@ -396,6 +423,21 @@ public class GestureMappingView extends JFrame{
     
     
     
+    
+    
+    
+    public class CustomCellRenderer implements ListCellRenderer {
+
+       public Component getListCellRendererComponent(JList list, Object value,
+             int index, boolean isSelected, boolean cellHasFocus) {
+          final Component component = (Component)value;
+          component.setBackground(isSelected ? Color.gray : Color.white);
+          component.setForeground(isSelected ? Color.white : Color.gray);
+          return component;
+       } // getListCellRendererComponent
+    }
+    
+    
     //LIST RENDERER
 
     public class MyCellRenderer extends DefaultListCellRenderer {
@@ -410,22 +452,39 @@ public class GestureMappingView extends JFrame{
            if(value instanceof GestureClass) {
               System.out.println("GestureMappingView.MyCellRenderer");
              GestureClass gestureClass = (GestureClass) value;
+             
+             SampleDescriptor sampleDes = gestureClass.getDescriptor(
+                   SampleDescriptor.class);
+             sampleDes.getSamples().get(0).getNote();
+
+             
+             if (sampleDes!=null)
+                System.out.println("sample not null!");
+             
+             
               
+             /*
               DigitalDescriptor descriptor = gestureClass.getDescriptor(
                     DigitalDescriptor.class);
-              
-              SampleDescriptor sampleDes = gestureClass.getDescriptor(
-                    SampleDescriptor.class);
+              if (descriptor!=null)
+                 System.out.println("digital not null!");
+              List<Descriptor> desc = gestureClass.getDescriptors();
+             TextDescriptor textDes = gestureClass.getDescriptor(
+                    TextDescriptor.class);
+              if (textDes!=null)
+                 System.out.println("text not null!");
+              */
+
               
 
               
-            Graphics2D graphics2D = (Graphics2D)list.getComponent(index).getGraphics();
-               JLabel label = new JLabel();
+              //Graphics2D graphics2D = (Graphics2D)list.getComponent(index).getGraphics();
+               //JLabel label = new JLabel();
                //label.getGraphics()
                
-               Note note = sampleDes.getSamples().get(0).getNote();
+               //Note note = sampleDes.getSamples().get(0).getNote();
               
-               descriptor.getDigitalObject(graphic, note);
+               //descriptor.getDigitalObject(graphic, note);
                
                //final ImageIcon imageIcon=null;// ...; // add extra code here
                //setIcon(imageIcon);
