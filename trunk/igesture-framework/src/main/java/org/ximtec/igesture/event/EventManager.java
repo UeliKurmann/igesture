@@ -78,6 +78,18 @@ public class EventManager {
    public void registerEventHandler(String className, EventHandler event) {
       events.put(className, event);
    } // registerEventHandler
+   
+   
+   /**
+    * UnRegisters an event.
+    * 
+    * @param className the classname for which the event handler has to be
+    *           registered.
+    */
+   public void unRegisterEventHandler(String className) {
+      events.remove(className);
+   } // registerEventHandler
+
 
 
    /**

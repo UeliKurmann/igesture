@@ -96,8 +96,10 @@ public class GestureMappingMain implements ButtonDeviceEventListener {
 	   private Recogniser recogniser;
 
 	   private InputDeviceClient client;
+	   
+	   private GestureMappingView view;
 
-	   private EventManager eventManager;
+	   //private EventManager eventManager;
 
 
 	   public GestureMappingMain(String[] args) throws AlgorithmException {
@@ -106,8 +108,7 @@ public class GestureMappingMain implements ButtonDeviceEventListener {
 	          LOGGER.info(INITIALISING);
 	          
 //	          initEventManager();
-	          initRecogniser();
-	          initDevice();
+
 	          
 	          GestureConfiguration configuration;
 	          
@@ -125,11 +126,15 @@ public class GestureMappingMain implements ButtonDeviceEventListener {
 	          String file = System.getProperty(SystemProperty.USER_DIR) + Constant.SLASH
 	                + configuration.getDatabase();
 	                
-	          StorageEngine engine = StorageManager.createStorageEngine(new File(file));
+	          //StorageEngine engine = StorageManager.createStorageEngine(new File(file));
+	          StorageEngine engine = null;
 	          GestureMappingModel model = new GestureMappingModel(engine);
-	          GestureMappingView view = new GestureMappingView(model);
+	          view = new GestureMappingView(model);
 	          
 	          ///////////////
+	          
+	           initRecogniser();
+	           initDevice();
 	      
 	      
 
@@ -152,7 +157,7 @@ public class GestureMappingMain implements ButtonDeviceEventListener {
 	      GestureSet gestureSet = XMLTool.importGestureSet(
 	            new File(ClassLoader.getSystemResource(GESTURE_SET).getFile())).get(0);
 	      configuration.addGestureSet(gestureSet);
-	      configuration.setEventManager(eventManager);
+	      configuration.setEventManager(view.getModel().getEventManager());
 	      recogniser = new Recogniser(configuration);
 	   } // initRecogniser
 

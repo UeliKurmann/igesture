@@ -72,8 +72,7 @@ public class MappingDialog{
    private JCheckBox ctrlCheckBox =  new JCheckBox("CTRL");
    private JCheckBox shiftCheckBox =  new JCheckBox("SHIFT");
    private JCheckBox altCheckBox =  new JCheckBox("ALT");
-   private JComboBox comboBox =  new JComboBox(new String[]{"A","B","C","D","E","F","G",
-         "H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z", " "});
+   private JComboBox comboBox;
    private JLabel gestureLabel = new JLabel();
    private int DIALOG_WIDTH = 400;
    private int DIALOG_HEIGHT = 400;
@@ -114,12 +113,12 @@ public class MappingDialog{
    
    
    private void initButtonsState(){
+      gestureLabel.setText(gestureClass.getName());
       if (gestureMapping==null){
          ctrlCheckBox.setSelected(false);
          altCheckBox.setSelected(false);
          shiftCheckBox.setSelected(false);
          comboBox.setSelectedIndex(0);
-         gestureLabel.setText(gestureClass.getName());
       }
       else{
       if (gestureMapping.getAction() instanceof KeyboardSimulationAction){
@@ -151,6 +150,9 @@ public class MappingDialog{
          Point p = new Point(view.getLocation().x+200, view.getLocation().y+100);
          dialog.setLocation(p);
          dialog.setSize(new Dimension(DIALOG_HEIGHT, DIALOG_WIDTH));
+         
+         comboBox = new JComboBox(new String[]{"A","B","C","D","E","F","G",
+               "H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z", " "});
          addFirstTab();
    } // initDialog
    
