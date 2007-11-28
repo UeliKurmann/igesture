@@ -46,7 +46,7 @@ public class GecoActionHandler {
 
    private OpenProjectAction openGestureMapAction;
    private ExitApplicationAction exitApplicationAction;
-   private AddGestureSetAction addGestureSetAction;
+   private LoadGestureSetAction addGestureSetAction;
    private AddMappingAction addMappingAction;
    private NewProjectAction newProjectAction;
    private EditMappingAction editMappingAction;
@@ -77,7 +77,7 @@ public class GecoActionHandler {
    
    public Action getAddGestureSetAction() {
       if (addGestureSetAction == null) {
-         addGestureSetAction = new AddGestureSetAction(view);
+         addGestureSetAction = new LoadGestureSetAction(view);
       }
 
       return addGestureSetAction;

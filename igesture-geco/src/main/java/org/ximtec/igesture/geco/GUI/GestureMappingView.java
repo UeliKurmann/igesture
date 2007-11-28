@@ -100,8 +100,9 @@ public class GestureMappingView extends JFrame{
 	   private JPanel rightPanel = new JPanel();
 	  
 	   private ScrollableList gestureList;
+	   private ScrollableList mappingList;
 	   //private JList gestureList = new JList();
-	   private JList mappingList = new JList();
+	   //private JList mappingList = new JList();
 	   private BasicButton mapButton; 
 	   private BasicButton saveButton;
 	   private BasicButton exitButton;
@@ -193,12 +194,14 @@ public class GestureMappingView extends JFrame{
 	private void initLeftPanel(){
 
      
+	   mappingList = SwingTool.createScrollableList(null,  0,   0);
+	   mappingList.getList().setCellRenderer(new MappingCellRenderer());
 	   
-       JScrollPane leftscroll = new JScrollPane();
+       //JScrollPane leftscroll = new JScrollPane();
        leftPanel.setLayout(new GridBagLayout());
-	   leftscroll.getViewport().add(mappingList);
-	   leftscroll.setBorder(null);
-	   leftPanel.add(leftscroll,
+	   //leftscroll.getViewport().add(mappingList);
+	   //leftscroll.setBorder(null);
+	   leftPanel.add(mappingList,
               new GridBagConstraints(0,0,2,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0,0,0,0),0,0 ) );
 	    
@@ -213,7 +216,7 @@ public class GestureMappingView extends JFrame{
 	   removeButton.setEnabled(false);
      
 	   
-       mappingList.addListSelectionListener(new ListSelectionListener(){
+       mappingList.getList().addListSelectionListener(new ListSelectionListener(){
           public void valueChanged(ListSelectionEvent e){
              GestureMappingView.this.editButton.setEnabled(true);
              GestureMappingView.this.removeButton.setEnabled(true);
@@ -276,7 +279,7 @@ public class GestureMappingView extends JFrame{
 		mapButton.setAction(handler.getAddMappingAction());
 		mapButton.setEnabled(false);
 		
-	    BasicButton loadSetButton = SwingTool.createButton(GestureMappingConstants.ADD_GESTURE_SET);
+	    BasicButton loadSetButton = SwingTool.createButton(GestureMappingConstants.LOAD_GESTURE_SET);
 	    loadSetButton.setAction(handler.getAddGestureSetAction());
 	     
 	     rightPanel.add(loadSetButton,
@@ -423,7 +426,22 @@ public class GestureMappingView extends JFrame{
     
     
     
-    
+    public class MappingCellRenderer implements ListCellRenderer {
+
+       public Component getListCellRendererComponent(JList list, Object value,
+             int index, boolean isSelected, boolean cellHasFocus) {
+          
+          JLabel label = new JLabel();
+          if(value instanceof GestureToActionMapping){
+             GestureToActionMapping gm = (GestureToActionMapping)value;
+             label.setText(gm.getGestureClass().getName()+"   -->   "+
+                   gm.getAction().toString());
+             label.setOpaque(true);
+             label.setBackground(isSelected? Color.CYAN:list.getBackground());
+          }
+          return label;
+       } // getListCellRendererComponent
+    } 
     
     
     public class CustomCellRenderer implements ListCellRenderer {

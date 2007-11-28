@@ -1,9 +1,9 @@
 /*
  * @(#)GestureMappingModel.java	1.0   Nov 20, 2007
  *
- * Author		:	Beat Signer, signer@inf.ethz.ch
+ * Author		:	Michele Croci, mcroci@gmail.com
  *
- * Purpose		: 
+ * Purpose		:   Model for GestureMappingView class 
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,7 @@
  *
  * Date				Who			Reason
  *
- * 					bsigner		Initial Release
+ * Nov 20, 2007		crocimi		Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -53,22 +53,22 @@ import org.ximtec.igesture.tool.frame.classlist.SampleListModel;
 /**
  * Comment
  * @version 1.0 Nov 20, 2007
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Michele Croci, mcroci@gmail.com
  */
 public class GestureMappingModel {
    
    /**
     * The list of imported Gesture Set
     */
-   private List<GestureSet> gestureSets =  new ArrayList<GestureSet>();
+   private GestureSet gestureSet;
    
    //private SortedListModel gestureListModel;
    
    //private SampleListModel gestureListModel;
    
-   private SortedListModel gestureListModel;
+   private SortedListModel<GestureClass> gestureListModel;
    
-   private SortedListModel mappingListModel;
+   private SortedListModel<GestureToActionMapping> mappingListModel;
    
    private EventManager eventManager =  new EventManager();
    
@@ -95,7 +95,7 @@ public class GestureMappingModel {
     */
    public GestureMappingModel(StorageEngine engine) {
       gestureSetListeners = new HashSet<GestureSetLoadListener>();
-      loadData(engine);
+//      loadData(engine);
       Comparator c1 =new Comparator<GestureClass>() {
          public int compare(GestureClass a, GestureClass b) {
             return a.getName().compareTo(b.getName());
@@ -114,7 +114,7 @@ public class GestureMappingModel {
             }
           };
           //gestureListModel =  new SampleListModel();
-        gestureListModel =  new SortedListModel<Descriptor>(c1);
+        gestureListModel =  new SortedListModel<GestureClass>(c1);
         mappingListModel =  new SortedListModel<GestureToActionMapping>(c2);
    }
 
@@ -147,13 +147,12 @@ public class GestureMappingModel {
       //   System.out.println("hoi");
       }
 
-      gestureSets = new ArrayList<GestureSet>();
 
-      for (GestureSet dataObject : storageManager.load(GestureSet.class)) {
-         gestureSets.add(dataObject);
-      }
+
+   //   for (GestureSet dataObject : storageManager.load(GestureSet.class)) {
+   //      gestureSets.add(dataObject);
+   //   }
       
-
       //fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
    } // loadData
 
@@ -163,60 +162,14 @@ public class GestureMappingModel {
     * 
     * @param gestureSet the gesture set to be added.
     */
-   public void addGestureSet(GestureSet gestureSet) {
-      if (!gestureSets.contains(gestureSet)) {
-         gestureSets.add(gestureSet);
-      }
+   public void loadGestureSet(GestureSet gestureSet) {
+         this.gestureSet=gestureSet;
       
-      for(GestureClass gc: gestureSet.getGestureClasses()){
-
-         gestureListModel.add(gc);
-         
-      }
-      
-      /*
-      List list =  new ArrayList();
-         
-      for(GestureClass gc: gestureSet.getGestureClasses()){
-         Descriptor d = gc.getDescriptors().get(0);
-         //DigitalDescriptor d = gc.getDescriptor(DigitalDescriptor.class);
-         
-         SampleDescriptor sample=null;
-         if (d instanceof SampleDescriptor){
-            System.out.println("sample");
-            sample = (SampleDescriptor)d;
-            list.add(sample.getSamples().get(0));
+         for(GestureClass gc: gestureSet.getGestureClasses()){
+            gestureListModel.add(gc);
          }
-         //gestureListModel.add(gc.getDescriptors().get(0));
-         
-      }
-      System.out.println("length: "+list.size());
-       gestureListModel =  new SampleListModel(list);
-       */
-       
-       
-//      storageManager.store(gestureSet);
-//      fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
    } // addGestureSet
    
-   /**
-    * Adds the gesture set to the gesture main model, propagates the changes to
-    * the database and fires the corresponding event.
-    * 
-    * @param gestureSet the gesture set to be added.
-    */
-   public void removeGestureSet(GestureSet gestureSet) {
-      if (gestureSets.contains(gestureSet)) {
-         gestureSets.remove(gestureSet);
-      }
-         
-      for(GestureClass gc: gestureSet.getGestureClasses()){
-         //gestureListModel.removeElement(gc);
-      }
-//      storageManager.store(gestureSet);
-//      fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
-   } //remove addGestureSet
-
 
 
    /**
@@ -224,22 +177,22 @@ public class GestureMappingModel {
     * 
     * @return the list of gesture sets.
     */
-   public List<GestureSet> getGestureSets() {
-      return gestureSets;
+   public GestureSet getGestureSets() {
+      return gestureSet;
    } // getGestureSets
    
    
    public void addMapping(GestureToActionMapping gm){
       gestureListModel.removeElement(gm.getGestureClass());
+      eventManager.registerEventHandler(gm.getGestureClass().getName(),gm.getAction());
       mappingListModel.add(gm);
-      eventManager.registerEventHandler(gm.getGestureClass().getName(), gm.getAction());
-      
    }
    
    
 
    public void removeMapping(GestureToActionMapping gm){
       mappingTable.remove(gm.getGestureClass());
+      eventManager.unRegisterEventHandler(gm.getGestureClass().getName());
       mappingListModel.removeElement(gm);
       gestureListModel.add(gm.getGestureClass());
    }
@@ -261,6 +214,11 @@ public class GestureMappingModel {
    
    public SortedListModel getMappingListModel(){
       return mappingListModel;
+   }
+   
+   
+   public EventManager getEventManager(){
+      return eventManager;
    }
    
    

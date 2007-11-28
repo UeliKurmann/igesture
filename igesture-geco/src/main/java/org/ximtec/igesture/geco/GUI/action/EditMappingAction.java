@@ -45,7 +45,6 @@ import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 public class EditMappingAction extends BasicAction {
 
   private GestureMappingView mainView;
-  private GestureMappingTable mappingTable;
   private GestureToActionMapping currentMapping;
   
 
@@ -55,7 +54,6 @@ public class EditMappingAction extends BasicAction {
   public EditMappingAction(GestureMappingView mainView) {
      super(GestureMappingConstants.EDIT, GuiTool.getGuiBundle());
      this.mainView = mainView;
-     this.mappingTable =  mainView.getModel().mappingTable;
   }
 
 
