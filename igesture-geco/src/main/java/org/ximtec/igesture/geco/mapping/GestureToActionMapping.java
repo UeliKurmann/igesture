@@ -26,6 +26,8 @@
 package org.ximtec.igesture.geco.mapping;
 
 import org.ximtec.igesture.core.GestureClass;
+import org.ximtec.igesture.event.EventHandler;
+import org.ximtec.igesture.geco.UserDefinedAction;
 
 
 
@@ -35,11 +37,20 @@ import org.ximtec.igesture.core.GestureClass;
  * @version 1.0 Nov 19, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public abstract class GestureToActionMapping {
+public class GestureToActionMapping {
    
-   public GestureClass gestureClass=null;
+   protected GestureClass gestureClass=null;
    
-   public void executeAction(){};
+   protected EventHandler action = null;
+   
+   //public GestureToActionMapping() {}
+   
+   public GestureToActionMapping(GestureClass gesture, EventHandler action) {
+      this.gestureClass = gesture;
+      this.action = action;
+   }
+   
+
    
    public GestureClass getGestureClass(){
       return gestureClass;
@@ -49,6 +60,10 @@ public abstract class GestureToActionMapping {
       return gestureClass.getName();
    }
    
+   
+   public EventHandler getAction(){
+      return action;
+   }
    
 
 

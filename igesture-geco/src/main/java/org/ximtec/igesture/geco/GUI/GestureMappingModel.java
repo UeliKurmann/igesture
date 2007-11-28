@@ -33,14 +33,20 @@ import java.util.List;
 
 import javax.swing.DefaultListModel;
 
+import org.sigtec.graphix.SimpleListModel;
 import org.sigtec.util.Constant;
+import org.ximtec.igesture.core.Descriptor;
+import org.ximtec.igesture.core.DigitalDescriptor;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.core.SampleDescriptor;
+import org.ximtec.igesture.event.EventManager;
 import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.event.GestureSetLoadListener;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.storage.StorageManager;
+import org.ximtec.igesture.tool.frame.classlist.SampleListModel;
 
 
 
@@ -56,9 +62,15 @@ public class GestureMappingModel {
     */
    private List<GestureSet> gestureSets =  new ArrayList<GestureSet>();
    
+   //private SortedListModel gestureListModel;
+   
+   //private SampleListModel gestureListModel;
+   
    private SortedListModel gestureListModel;
    
    private SortedListModel mappingListModel;
+   
+   private EventManager eventManager =  new EventManager();
    
    private HashSet<GestureSetLoadListener> gestureSetListeners;
    
@@ -83,18 +95,26 @@ public class GestureMappingModel {
     */
    public GestureMappingModel(StorageEngine engine) {
       gestureSetListeners = new HashSet<GestureSetLoadListener>();
+      loadData(engine);
       Comparator c1 =new Comparator<GestureClass>() {
          public int compare(GestureClass a, GestureClass b) {
             return a.getName().compareTo(b.getName());
           }
         };
-        
+        /*
+        Comparator c1 =new Comparator<Descriptor>() {
+           public int compare(Descriptor a, Descriptor b) {
+              return a.toString().compareTo(b.toString());
+            }
+          };
+        */
         Comparator c2 =new Comparator<GestureToActionMapping>() {
            public int compare(GestureToActionMapping a, GestureToActionMapping b) {
               return a.getGestureClass().getName().compareTo(b.getGestureClass().getName());
             }
           };
-        gestureListModel =  new SortedListModel<GestureClass>(c1);
+          //gestureListModel =  new SampleListModel();
+        gestureListModel =  new SortedListModel<Descriptor>(c1);
         mappingListModel =  new SortedListModel<GestureToActionMapping>(c2);
    }
 
@@ -103,16 +123,16 @@ public class GestureMappingModel {
     * 
     * @param engine the storage engine used by the storage manager.
     */
-   /*
+   
    public void loadData(StorageEngine engine) {
       if (storageManager != null) {
          storageManager.dispose();
       }
 
       storageManager = new StorageManager(engine);
-      loadData();
+   //   loadData();
    } // loadData
-*/
+
 
    /**
     * Loads the data from the database. All elements are available in memory and
@@ -123,6 +143,8 @@ public class GestureMappingModel {
 
       for (GestureClass dataObject : storageManager.load(GestureClass.class)) {
          gestureClasses.add(dataObject);
+      //   List<Descriptor> list = dataObject.getDescriptors();
+      //   System.out.println("hoi");
       }
 
       gestureSets = new ArrayList<GestureSet>();
@@ -130,14 +152,14 @@ public class GestureMappingModel {
       for (GestureSet dataObject : storageManager.load(GestureSet.class)) {
          gestureSets.add(dataObject);
       }
+      
 
       //fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
    } // loadData
 
    
    /**
-    * Adds the gesture set to the gesture main model, propagates the changes to
-    * the database and fires the corresponding event.
+    * Adds the gesture set to the gesture main model
     * 
     * @param gestureSet the gesture set to be added.
     */
@@ -145,11 +167,34 @@ public class GestureMappingModel {
       if (!gestureSets.contains(gestureSet)) {
          gestureSets.add(gestureSet);
       }
+      
+      for(GestureClass gc: gestureSet.getGestureClasses()){
+
+         gestureListModel.add(gc);
+         
+      }
+      
+      /*
+      List list =  new ArrayList();
          
       for(GestureClass gc: gestureSet.getGestureClasses()){
-         gestureListModel.add(gc);
+         Descriptor d = gc.getDescriptors().get(0);
+         //DigitalDescriptor d = gc.getDescriptor(DigitalDescriptor.class);
+         
+         SampleDescriptor sample=null;
+         if (d instanceof SampleDescriptor){
+            System.out.println("sample");
+            sample = (SampleDescriptor)d;
+            list.add(sample.getSamples().get(0));
+         }
+         //gestureListModel.add(gc.getDescriptors().get(0));
+         
       }
-
+      System.out.println("length: "+list.size());
+       gestureListModel =  new SampleListModel(list);
+       */
+       
+       
 //      storageManager.store(gestureSet);
 //      fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
    } // addGestureSet
@@ -166,7 +211,7 @@ public class GestureMappingModel {
       }
          
       for(GestureClass gc: gestureSet.getGestureClasses()){
-         gestureListModel.removeElement(gc);
+         //gestureListModel.removeElement(gc);
       }
 //      storageManager.store(gestureSet);
 //      fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
@@ -187,11 +232,14 @@ public class GestureMappingModel {
    public void addMapping(GestureToActionMapping gm){
       gestureListModel.removeElement(gm.getGestureClass());
       mappingListModel.add(gm);
+      eventManager.registerEventHandler(gm.getGestureClass().getName(), gm.getAction());
+      
    }
    
    
 
    public void removeMapping(GestureToActionMapping gm){
+      mappingTable.remove(gm.getGestureClass());
       mappingListModel.removeElement(gm);
       gestureListModel.add(gm.getGestureClass());
    }

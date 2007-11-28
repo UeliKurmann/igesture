@@ -32,6 +32,8 @@ package org.ximtec.igesture.geco;
  * @version 1.0 Nov 26, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public class UserDefinedAction {
+public interface UserDefinedAction {
+   
+   public void execute();
 
 }
