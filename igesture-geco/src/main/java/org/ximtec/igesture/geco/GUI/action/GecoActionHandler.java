@@ -28,7 +28,6 @@ package org.ximtec.igesture.geco.GUI.action;
 
 import javax.swing.Action;
 
-import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
 
 
@@ -46,11 +45,12 @@ public class GecoActionHandler {
 
    private OpenProjectAction openGestureMapAction;
    private ExitApplicationAction exitApplicationAction;
-   private LoadGestureSetAction addGestureSetAction;
+   private LoadGestureSetAction loadGestureSetAction;
    private AddMappingAction addMappingAction;
    private NewProjectAction newProjectAction;
    private EditMappingAction editMappingAction;
    private RemoveMappingAction removeMappingAction;
+   private SaveProjectAction saveProjectAction;
 
 
    public GecoActionHandler(GestureMappingView view) {
@@ -75,12 +75,12 @@ public class GecoActionHandler {
       return exitApplicationAction;
    } // getExitApplicationAction
    
-   public Action getAddGestureSetAction() {
-      if (addGestureSetAction == null) {
-         addGestureSetAction = new LoadGestureSetAction(view);
+   public Action getLoadGestureSetAction() {
+      if (loadGestureSetAction == null) {
+         loadGestureSetAction = new LoadGestureSetAction(view);
       }
 
-      return addGestureSetAction;
+      return loadGestureSetAction;
    } // getLoadGestureSetAction
    
    
@@ -117,6 +117,15 @@ public class GecoActionHandler {
       }
 
       return removeMappingAction;
+   } // getNewGestureMapAction
+   
+   
+   public Action getSaveProjectAction() {
+      if (saveProjectAction == null) {
+         saveProjectAction = new SaveProjectAction(view);
+      }
+
+      return saveProjectAction;
    } // getNewGestureMapAction
    
 }

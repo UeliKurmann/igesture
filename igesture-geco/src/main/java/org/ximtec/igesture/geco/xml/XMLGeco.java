@@ -1,0 +1,166 @@
+/*
+ * @(#)XMLTool.java   1.0   Nov 28, 2007
+ *
+ * Author       :   Michele Croci, mcroci@gmail.com
+ *
+ * Purpose      :   Provides methods with XML import/export 
+ *                  functionality.
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Revision Information:
+ *
+ * Date             Who         Reason
+ *
+ * Nov 28, 2007     crocimi    Initial Release
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Copyright 1999-2007 ETH Zurich. All Rights Reserved.
+ *
+ * This software is the proprietary information of ETH Zurich.
+ * Use is subject to license terms.
+ * 
+ */
+
+
+package org.ximtec.igesture.geco.xml;
+
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.input.SAXBuilder;
+import org.sigtec.jdom.JdomDocument;
+import org.sigtec.jdom.id.Factory;
+import org.sigtec.util.Constant;
+import org.sigtec.util.FileHandler;
+import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.core.jdom.JdomGestureSet;
+import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
+import org.xml.sax.InputSource;
+
+
+/**
+ * Provides methods with XML import/export functionality.
+ * 
+ * @version 1.0, Dec 2006
+ * @author Michele Croci, mcroci@gmail.com
+ */
+public class XMLGeco {
+
+   private static final Logger LOGGER = Logger
+         .getLogger(XMLGeco.class.getName());
+
+   public static final String ROOT_TAG = "gestureMappings";
+
+
+   /**
+    * Imports a gesture set.
+    * 
+    * @param file the XML file.
+    * @return a list of gesture sets.
+    */
+   @SuppressWarnings("unchecked")
+   public static List<GestureSet> importProject(File file) {
+     
+      //not implemented yet
+      return null;
+      /*
+      final List<GestureSet> sets = new ArrayList<GestureSet>();
+      final Document document = importDocument(file);
+      final List<Element> algorithmElements = document.getRootElement()
+            .getChildren(JdomGestureSet.ROOT_TAG);
+
+      for (final Element setElement : algorithmElements) {
+         sets.add((GestureSet)JdomGestureSet.unmarshal(setElement));
+      }
+
+      return sets;
+      
+     */
+   } // importGestureSet
+
+
+   /**
+    * Exports a gesture set.
+    * 
+    * @param set the gesture set to be exported.
+    * @param file the XML file.
+    */
+   public static void exportProject(Collection<GestureToActionMapping> mappings, GestureSet gestureSet, File file) {
+
+      final JdomDocument igestureDocument = new JdomDocument(ROOT_TAG);
+ //     final HashSet<GestureClass> hashSet = new HashSet<GestureClass>();
+      
+      igestureDocument.attach(new JdomGestureSetName(gestureSet));
+
+      for (final GestureToActionMapping map :  mappings) {
+            igestureDocument.attach(new JdomGestureMapping(map, gestureSet ));
+      }
+
+      FileHandler.writeFile(file.getPath(), igestureDocument.toXml());
+      
+   } // exportGestureSet
+
+   /**
+    * Imports an XML document.
+    * 
+    * @param file the XML file.
+    * @return the JDOM document.
+    */
+   public static Document importDocument(File file) {
+      Document document = null; //jdom Document
+
+      try {
+         final InputStream inputStream = new FileInputStream(file);
+         final SAXBuilder builder = new SAXBuilder(false);
+         builder.setFactory(new Factory());
+         builder.setIgnoringElementContentWhitespace(true);
+         final InputSource is = new InputSource(inputStream);
+         document = builder.build(is);
+      }
+      catch (final IOException e) {
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+      }
+      catch (final JDOMException e) {
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+      }
+
+      return document;
+   } // importDocument
+
+   
+
+   /**
+    * Imports a gesture set.
+    * 
+    * @param file the XML file.
+    * @return a list of gesture sets.
+    */
+   @SuppressWarnings("unchecked")
+   public static List<GestureSet> importGestureSet(File file) {
+      final List<GestureSet> sets = new ArrayList<GestureSet>();
+      final Document document = importDocument(file);
+      final List<Element> algorithmElements = document.getRootElement()
+            .getChildren(JdomGestureSet.ROOT_TAG);
+
+      for (final Element setElement : algorithmElements) {
+         sets.add((GestureSet)JdomGestureSet.unmarshal(setElement));
+      }
+
+      return sets;
+   } // importGestureSet
+
+
+}

@@ -25,11 +25,6 @@
 
 package org.ximtec.igesture.geco.GUI;
 
-import org.ximtec.igesture.geco.GUI.action.ExitApplicationAction;
-import org.ximtec.igesture.geco.GUI.action.LoadGestureSetAction;
-import org.ximtec.igesture.geco.GUI.action.AddMappingAction;
-import org.ximtec.igesture.geco.GUI.action.NewProjectAction;
-import org.ximtec.igesture.geco.GUI.action.OpenProjectAction;
 
 
 
@@ -40,6 +35,8 @@ import org.ximtec.igesture.geco.GUI.action.OpenProjectAction;
  * @author Michele croci
  */
 public class GestureMappingConstants {
+   
+   public static final String GECO = "Gestures Controller";
 
    public static final String LOAD_GESTURE_SET = "LoadGestureSetAction";
    
@@ -81,7 +78,9 @@ public class GestureMappingConstants {
    
    public static final String OPEN_PROJECT_ACTION = "OpenProjectAction";
    
-   public static final String NEW_PROJECT_OPEN = "NewGestureMapAction";
+   public static final String NEW_PROJECT_ACTION = "NewProjectAction";
+   
+   public static final String SAVE_PROJECT_ACTION = "SaveProjectAction";
    
    public static final String EXIT_APPLICATION_ACTION = "ExitApplicationAction";
    

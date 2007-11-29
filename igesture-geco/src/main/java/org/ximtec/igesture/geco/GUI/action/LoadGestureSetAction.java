@@ -36,7 +36,7 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
-import org.ximtec.igesture.util.XMLTool;
+import org.ximtec.igesture.geco.xml.XMLGeco;
 
 
 
@@ -95,7 +95,7 @@ public class LoadGestureSetAction extends BasicAction {
     * @param event the action event.
     */
    public GestureSet loadGestureSet(File file){
-     return XMLTool.importGestureSet(file).get(0);
+     return XMLGeco.importGestureSet(file).get(0);
      
    }
        

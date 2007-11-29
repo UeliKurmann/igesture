@@ -35,7 +35,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,7 +48,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
-import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
@@ -58,14 +56,9 @@ import javax.swing.event.ListSelectionListener;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicButton;
-import org.sigtec.ink.Note;
 import org.sigtec.util.Constant;
-import org.ximtec.igesture.core.Descriptor;
-import org.ximtec.igesture.core.DigitalDescriptor;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.SampleDescriptor;
-import org.ximtec.igesture.core.TextDescriptor;
-import org.ximtec.igesture.geco.GUI.action.EditMappingAction;
 import org.ximtec.igesture.geco.GUI.action.GecoActionHandler;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.graphics.ScrollableList;
@@ -98,6 +91,7 @@ public class GestureMappingView extends JFrame{
 	   //components of the window:
 	   private JPanel leftPanel = new JPanel();
 	   private JPanel rightPanel = new JPanel();
+	   JPanel contentPanel = new JPanel();
 	  
 	   private ScrollableList gestureList;
 	   private ScrollableList mappingList;
@@ -108,6 +102,8 @@ public class GestureMappingView extends JFrame{
 	   private BasicButton exitButton;
 	   private BasicButton editButton;
 	   private BasicButton removeButton;
+	   
+	   private boolean initialized;
 
 	   
 	   
@@ -120,14 +116,15 @@ public class GestureMappingView extends JFrame{
 	   public GestureMappingView(GestureMappingModel model) {
 	      super();
 	      this.model = model;
-	      init();
+	      createVoidDialog();
+	      setVisible(true);
 	   }
 	
 	
 	   /**
 	    * Initialises the main view.
 	    */
-	private void init(){
+	private void createVoidDialog(){
 	   
 	   try {
 	         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -135,18 +132,36 @@ public class GestureMappingView extends JFrame{
 	      catch (Exception e) {
 	         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
 	      }
-
+	    
+	    GridBagLayout gbl = new GridBagLayout();
+	    this.getContentPane().setLayout(gbl);
 		setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
 		setLocation(150, 100);
-		this.setTitle("Gestures Mapping");
+		this.setTitle(GestureMappingConstants.GECO);
 		
 		setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-		JPanel contentPanel = new JPanel();
+		 this.getContentPane().add(contentPanel,
+                new GridBagConstraints(0,1,1,1,1.0,1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                         new Insets(20,20,20,20),0,0 ) );
+    
+		addMenu();
 		
-		GridBagLayout gbl = new GridBagLayout();
+	}
+	
+	public void initProjectView(String projectName){
+	   setTitle(GestureMappingConstants.GECO+" - "+projectName);
+	   if(!initialized){
+	   populateDialog();
+	   setVisible(true);
+	   }
+	}
+	
+	
+	private void populateDialog(){
 		
-		this.getContentPane().setLayout(gbl);
 		
+
+		initialized= true;
 		leftPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GestureMappingConstants.USER_DEFINED_MAPPING));
 		rightPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GestureMappingConstants.GESTURE_SET));
 
@@ -160,22 +175,17 @@ public class GestureMappingView extends JFrame{
 				new GridBagConstraints(1,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 						 new Insets(0,0,0,0),0,0 ) );
 
-		this.getContentPane().add(createMenuBar(),
-				new GridBagConstraints(0,0,1,1,0,0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-				 new Insets(0,0,0,0),5,5 ) );
-		this.getContentPane().add(contentPanel,
-				new GridBagConstraints(0,1,1,1,1.0,1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-						 new Insets(20,20,20,20),0,0 ) );
 		
         saveButton = SwingTool.createButton(GestureMappingConstants.SAVE);
         exitButton = SwingTool.createButton(GestureMappingConstants.EXIT);
         exitButton.setAction(handler.getExitApplicationAction());
-        //TODO: saveButton.setAction(...);
+        saveButton.setAction(handler.getSaveProjectAction());
         
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
         buttonPanel.add(saveButton);
         buttonPanel.add(exitButton);
+        buttonPanel.setBackground(this.getBackground());
         
       this.getContentPane().add(buttonPanel,
                 new GridBagConstraints(0,2,1,1,0,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
@@ -184,8 +194,16 @@ public class GestureMappingView extends JFrame{
 		
 		initLeftPanel();
 		initRightPanel();
-		setVisible(true);
+		updateLists();
 		
+		
+	}
+	
+	private void addMenu(){
+       this.getContentPane().add(createMenuBar(),
+             new GridBagConstraints(0,0,1,1,0,0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+              new Insets(0,0,0,0),5,5 ) );
+
 	}
 	
 	   /**
@@ -280,7 +298,7 @@ public class GestureMappingView extends JFrame{
 		mapButton.setEnabled(false);
 		
 	    BasicButton loadSetButton = SwingTool.createButton(GestureMappingConstants.LOAD_GESTURE_SET);
-	    loadSetButton.setAction(handler.getAddGestureSetAction());
+	    loadSetButton.setAction(handler.getLoadGestureSetAction());
 	     
 	     rightPanel.add(loadSetButton,
 	                new GridBagConstraints(0,1,1,1,0.5,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
@@ -316,6 +334,7 @@ public class GestureMappingView extends JFrame{
 	     
 	       menu.add(SwingTool.createMenuItem(handler.getNewProjectAction(),null));
 	       menu.add(SwingTool.createMenuItem(handler.getOpenProjectAction(),null));
+	       menu.add(SwingTool.createMenuItem(handler.getSaveProjectAction(),null));
 	      
 	 
 	      menu.addSeparator();

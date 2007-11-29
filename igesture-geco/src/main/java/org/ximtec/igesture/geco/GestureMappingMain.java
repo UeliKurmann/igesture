@@ -40,7 +40,6 @@ import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.event.EventManager;
 import org.ximtec.igesture.geco.GUI.GestureMappingModel;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
 import org.ximtec.igesture.io.ButtonDeviceEventListener;
@@ -48,7 +47,6 @@ import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.MouseReader;
 import org.ximtec.igesture.io.MouseReaderEventListener;
 import org.ximtec.igesture.storage.StorageEngine;
-import org.ximtec.igesture.storage.StorageManager;
 import org.ximtec.igesture.tool.GestureConfiguration;
 import org.ximtec.igesture.util.XMLTool;
 
@@ -98,6 +96,8 @@ public class GestureMappingMain implements ButtonDeviceEventListener {
 	   private InputDeviceClient client;
 	   
 	   private GestureMappingView view;
+	   
+	   private GestureSet gestureSet;
 
 	   //private EventManager eventManager;
 
@@ -127,10 +127,8 @@ public class GestureMappingMain implements ButtonDeviceEventListener {
 	                + configuration.getDatabase();
 	                
 	          //StorageEngine engine = StorageManager.createStorageEngine(new File(file));
-	          StorageEngine engine = null;
-	          GestureMappingModel model = new GestureMappingModel(engine);
-	          view = new GestureMappingView(model);
-	          
+	          initViewAndModel();
+
 	          ///////////////
 	          
 	           initRecogniser();
@@ -139,6 +137,17 @@ public class GestureMappingMain implements ButtonDeviceEventListener {
 	      
 
 	      LOGGER.info(INITIALISED);
+	   }
+	   
+	   private void initViewAndModel(){
+          StorageEngine engine = null;
+          GestureMappingModel model = new GestureMappingModel(engine);
+          //gestureSet = XMLTool.importGestureSet(
+            //    new File(ClassLoader.getSystemResource(GESTURE_SET).getFile())).get(0);
+          //model.loadGestureSet(gestureSet);
+          view = new GestureMappingView(model);
+          
+          
 	   }
 
 
@@ -154,9 +163,10 @@ public class GestureMappingMain implements ButtonDeviceEventListener {
 	   private void initRecogniser() throws AlgorithmException {
 	      Configuration configuration = XMLTool.importConfiguration(new File(
 	            ClassLoader.getSystemResource(RUBINE_CONFIGURATION).getFile()));
-	      GestureSet gestureSet = XMLTool.importGestureSet(
-	            new File(ClassLoader.getSystemResource(GESTURE_SET).getFile())).get(0);
-	      configuration.addGestureSet(gestureSet);
+	      //TODO: read gesture set to import from xml
+
+	      
+	      //configuration.addGestureSet(gestureSet);
 	      configuration.setEventManager(view.getModel().getEventManager());
 	      recogniser = new Recogniser(configuration);
 	   } // initRecogniser

@@ -25,28 +25,21 @@
 
 package org.ximtec.igesture.geco.GUI;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.EventObject;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.List;
 
-import javax.swing.DefaultListModel;
-
-import org.sigtec.graphix.SimpleListModel;
-import org.sigtec.util.Constant;
-import org.ximtec.igesture.core.Descriptor;
-import org.ximtec.igesture.core.DigitalDescriptor;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.event.EventManager;
 import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.event.GestureSetLoadListener;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.storage.StorageManager;
-import org.ximtec.igesture.tool.frame.classlist.SampleListModel;
 
 
 
@@ -75,6 +68,12 @@ public class GestureMappingModel {
    private HashSet<GestureSetLoadListener> gestureSetListeners;
    
    public GestureMappingTable mappingTable = new GestureMappingTable();
+   
+   public Hashtable gestureClassesTable = new Hashtable();
+   
+   private File projectFile;
+
+   private String projectName;
    
    /**
     * The storage manager. 
@@ -164,11 +163,37 @@ public class GestureMappingModel {
     */
    public void loadGestureSet(GestureSet gestureSet) {
          this.gestureSet=gestureSet;
+         gestureClassesTable.clear();
       
+         
          for(GestureClass gc: gestureSet.getGestureClasses()){
             gestureListModel.add(gc);
+            gestureClassesTable.put(gc.getName(), gc);
          }
    } // addGestureSet
+   
+   public void clearData(){
+      gestureClassesTable.clear();
+      mappingListModel.clear();
+      gestureListModel.clear();
+      
+   }
+   
+   public void setProjectFile(File f){
+      projectFile = f;
+   }
+   
+   public void setProjectName(String n){
+      projectName = n;
+   }
+   
+   public File getProjectFile(){
+      return projectFile;
+   }
+   
+   public String getProjectName(){
+      return projectName ;
+   }
    
 
 
@@ -177,7 +202,7 @@ public class GestureMappingModel {
     * 
     * @return the list of gesture sets.
     */
-   public GestureSet getGestureSets() {
+   public GestureSet getGestureSet() {
       return gestureSet;
    } // getGestureSets
    
