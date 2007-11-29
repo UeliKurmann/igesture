@@ -26,11 +26,18 @@
 package org.ximtec.igesture.geco.GUI.action;
 
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.util.List;
+
+import javax.swing.JFileChooser;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
+import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
+import org.ximtec.igesture.geco.util.ExtensionFileFilter;
+import org.ximtec.igesture.geco.xml.XMLImportGeco;
 
 
 
@@ -43,10 +50,12 @@ import org.ximtec.igesture.geco.GUI.GestureMappingView;
 public class OpenProjectAction extends BasicAction {
 
   private GestureMappingView mainView;
+  
+  private static final String XML_EXTENSION = "xml";
 
 
   public OpenProjectAction(GestureMappingView mainView) {
-     super(GestureMappingConstants.COMMON_OPEN, GuiTool.getGuiBundle());
+     super(GestureMappingConstants.OPEN_PROJECT_ACTION, GuiTool.getGuiBundle());
      this.mainView = mainView;
   }
 
@@ -57,6 +66,38 @@ public class OpenProjectAction extends BasicAction {
    * @param event the action event.
    */
   public void actionPerformed(ActionEvent event) {
+     JFileChooser fileChooser = new JFileChooser();
+     fileChooser.setFileFilter(new ExtensionFileFilter(XML_EXTENSION,
+           new String[] {XML_EXTENSION}));
+     int status = fileChooser.showOpenDialog(null);
+     if (status == JFileChooser.APPROVE_OPTION) {
+        File selectedFile = fileChooser.getSelectedFile();
+        if(selectedFile != null){
+           String ext = selectedFile.getName().substring(selectedFile.getName().length()-3,
+                 selectedFile.getName().length());
+           if(ext.equals(XML_EXTENSION)){
+              XMLImportGeco XMLImport = new XMLImportGeco();
+              XMLImport.importProject(selectedFile);
+           
+              //set file path??
+              //update model
+              mainView.getModel().loadGestureSet(XMLImport.getGestureSet());
+              List<GestureToActionMapping> list = XMLImport.getMappings();
+              for(GestureToActionMapping mapping: list){
+                 mainView.getModel().addMapping(mapping);
+              }
+              //update view
+              String projectName = selectedFile.getName();
+              projectName = projectName.substring(0, projectName.length()-4);
+              mainView.initProjectView(projectName);
+              
+              
+            }
+        }
+     } else if (status == JFileChooser.CANCEL_OPTION) {
+       
+     }
+     
 
 
   } // actionPerformed

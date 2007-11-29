@@ -28,11 +28,18 @@ package org.ximtec.igesture.geco.GUI.action;
 
 
 import java.awt.event.ActionEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import javax.swing.JFileChooser;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
+import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 
 
 /**
@@ -47,9 +54,11 @@ public class NewProjectAction extends BasicAction {
 
 
    public NewProjectAction(GestureMappingView mainView) {
-      super(GestureMappingConstants.COMMON_NEW, GuiTool.getGuiBundle());
+      super(GestureMappingConstants.NEW_PROJECT_ACTION, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
+   
+   private static final String XML_EXTENSION = "xml";
 
 
    /**
@@ -58,8 +67,48 @@ public class NewProjectAction extends BasicAction {
     * @param event the action event.
     */
    public void actionPerformed(ActionEvent event) {
-      
+      JFileChooser fileChooser = new JFileChooser();
+      fileChooser.setFileFilter(new ExtensionFileFilter(XML_EXTENSION,
+            new String[] {XML_EXTENSION}));
+      int status = fileChooser.showDialog(null,"Save");
+      if (status == JFileChooser.APPROVE_OPTION) {
+         File selectedFile = fileChooser.getSelectedFile();
+         if(selectedFile != null){
+            
+            String ext = selectedFile.getName().substring(selectedFile.getName().length()-3,
+                  selectedFile.getName().length());
+            File temp;
+            try{
+               String fileName;
+               String projectName ="";
+               if(ext.equals(XML_EXTENSION)){
+                  projectName = selectedFile.getName().substring(0,selectedFile.getName().length()-3);
+                  fileName = selectedFile.getAbsolutePath();
+                }else{
+                   projectName = selectedFile.getName();
+                   fileName = selectedFile.getAbsolutePath()+"."+XML_EXTENSION;
+             }
+
+               BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
+               temp = new File(fileName);
+               //update model
+               mainView.getModel().setProjectFile(temp);
+               mainView.getModel().setProjectName(projectName);
+               mainView.getModel().clearData();
+               
+               //update view
+               mainView.initProjectView(projectName);
+
+            }catch(IOException e){
+               e.printStackTrace();
+            }
+
+         }
+      } else if (status == JFileChooser.CANCEL_OPTION) {
+        
+      }
+
 
    } // actionPerformed
    
-}
+   }

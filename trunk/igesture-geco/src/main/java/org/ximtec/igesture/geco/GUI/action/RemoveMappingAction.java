@@ -26,16 +26,12 @@
 package org.ximtec.igesture.geco.GUI.action;
 
 import java.awt.event.ActionEvent;
-import java.io.File;
-
-import javax.swing.JFileChooser;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
-import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 
 
 
