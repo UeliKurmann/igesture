@@ -68,7 +68,7 @@ public class CaptureTab extends GestureTab {
 
 
    /**
-    * Retruns the selected configuration from the "Configuration Frame".
+    * Returns the selected configuration from the "Configuration Frame".
     * 
     * @return the selected configuration.
     */
