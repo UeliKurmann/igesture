@@ -1,9 +1,9 @@
 /*
  * @(#)MappingDialog.java	1.0   Nov 26, 2007
  *
- * Author		:	Beat Signer, signer@inf.ethz.ch
+ * Author		:	Michele Croci, mcroci@gmail.com  
  *
- * Purpose		: 
+ * Purpose		:   Dialog for mapping a gesture to an action
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,7 @@
  *
  * Date				Who			Reason
  *
- * 					bsigner		Initial Release
+ * Nov 26, 2007		crocimi		Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -47,7 +47,7 @@ import javax.swing.border.TitledBorder;
 import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
+import org.ximtec.igesture.geco.GUI.GecoConstants;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
 import org.ximtec.igesture.geco.UserAction.KeyboardSimulationAction;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
@@ -56,9 +56,10 @@ import org.ximtec.igesture.graphics.SwingTool;
 
 
 /**
- * Comment
+ * Dialog for mapping a gesture to an action
+ * 
  * @version 1.0 Nov 26, 2007
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Michele Croci, mcroci@gmail.com  
  */
 public class MappingDialog{
    
@@ -142,8 +143,8 @@ public class MappingDialog{
     * @param event the action event.
     */
    private void initDialog() {
-         dialog = SwingTool.createDialog(GestureMappingConstants.MAIN_FRAME_TITLE);
-         dialog.setTitle(GestureMappingConstants.MAIN_FRAME_TITLE);
+         dialog = SwingTool.createDialog(GecoConstants.MAIN_FRAME_TITLE);
+         dialog.setTitle(GecoConstants.MAIN_FRAME_TITLE);
          dialog.setLayout(new GridBagLayout());
          dialog.add(tabbedPane, new GridBagConstraints(0,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                new Insets(20,20,20,20),0,0 ) );
@@ -166,12 +167,12 @@ public class MappingDialog{
    private void addFirstTab() {
       
       JComponent panel1 = new JPanel();
-      tabbedPane.addTab(GestureMappingConstants.HOTKEY, panel1);
+      tabbedPane.addTab(GecoConstants.HOTKEY, panel1);
       tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
       JPanel topPanel = new JPanel();
       JPanel bottomPanel = new JPanel();
-      topPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GestureMappingConstants.GESTURE));
-      bottomPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GestureMappingConstants.HOTKEY));
+      topPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GecoConstants.GESTURE));
+      bottomPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GecoConstants.HOTKEY));
       panel1.setLayout(new GridBagLayout());
       //gestureLabel.setText(gestureClass.getName());
       topPanel.add(gestureLabel);
@@ -203,8 +204,8 @@ public class MappingDialog{
             new GridBagConstraints(7,1,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
                      new Insets(0,0,0,20),0,0 ) );
      
-      BasicButton addButton = SwingTool.createButton(GestureMappingConstants.ADD);
-      BasicButton cancelButton = SwingTool.createButton(GestureMappingConstants.CANCEL);
+      BasicButton addButton = SwingTool.createButton(GecoConstants.ADD);
+      BasicButton cancelButton = SwingTool.createButton(GecoConstants.CANCEL);
       addButton.addActionListener(new ActionListener(){
           public void actionPerformed(ActionEvent event) {
              //add gesture mapping

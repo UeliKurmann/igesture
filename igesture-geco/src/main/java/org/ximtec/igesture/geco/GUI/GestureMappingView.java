@@ -102,7 +102,7 @@ public class GestureMappingView extends JFrame{
 	   private BasicButton exitButton;
 	   private BasicButton editButton;
 	   private BasicButton removeButton;
-	   
+	   private JMenuItem saveMenuItem;	   
 	   private boolean initialized;
 
 	   
@@ -137,7 +137,7 @@ public class GestureMappingView extends JFrame{
 	    this.getContentPane().setLayout(gbl);
 		setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
 		setLocation(150, 100);
-		this.setTitle(GestureMappingConstants.GECO);
+		this.setTitle(GecoConstants.GECO);
 		
 		setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
 		 this.getContentPane().add(contentPanel,
@@ -149,7 +149,7 @@ public class GestureMappingView extends JFrame{
 	}
 	
 	public void initProjectView(String projectName){
-	   setTitle(GestureMappingConstants.GECO+" - "+projectName);
+	   setTitle(GecoConstants.GECO+" - "+projectName);
 	   if(!initialized){
 	   populateDialog();
 	   setVisible(true);
@@ -162,8 +162,8 @@ public class GestureMappingView extends JFrame{
 		
 
 		initialized= true;
-		leftPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GestureMappingConstants.USER_DEFINED_MAPPING));
-		rightPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GestureMappingConstants.GESTURE_SET));
+		leftPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GecoConstants.USER_DEFINED_MAPPING));
+		rightPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GecoConstants.GESTURE_SET));
 
 		
 		contentPanel.setLayout(new GridBagLayout());
@@ -176,8 +176,8 @@ public class GestureMappingView extends JFrame{
 						 new Insets(0,0,0,0),0,0 ) );
 
 		
-        saveButton = SwingTool.createButton(GestureMappingConstants.SAVE);
-        exitButton = SwingTool.createButton(GestureMappingConstants.EXIT);
+        saveButton = SwingTool.createButton(GecoConstants.SAVE);
+        exitButton = SwingTool.createButton(GecoConstants.EXIT);
         exitButton.setAction(handler.getExitApplicationAction());
         saveButton.setAction(handler.getSaveProjectAction());
         
@@ -224,11 +224,11 @@ public class GestureMappingView extends JFrame{
                     new Insets(0,0,0,0),0,0 ) );
 	    
 	    
-	   editButton = SwingTool.createButton(GestureMappingConstants.EDIT);
+	   editButton = SwingTool.createButton(GecoConstants.EDIT);
 	   editButton.setAction(handler.getEditMappingAction());
        editButton.setEnabled(false);
 	   
-	   removeButton = SwingTool.createButton(GestureMappingConstants.REMOVE);
+	   removeButton = SwingTool.createButton(GecoConstants.REMOVE);
 	   
 	   removeButton.setAction(handler.getRemoveMappingAction());
 	   removeButton.setEnabled(false);
@@ -293,11 +293,11 @@ public class GestureMappingView extends JFrame{
                     new Insets(0,0,0,0),0,0 ) );
 		
 		//mapButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-		mapButton = SwingTool.createButton(GestureMappingConstants.MAP_GESTURE);
+		mapButton = SwingTool.createButton(GecoConstants.MAP_GESTURE);
 		mapButton.setAction(handler.getAddMappingAction());
 		mapButton.setEnabled(false);
 		
-	    BasicButton loadSetButton = SwingTool.createButton(GestureMappingConstants.LOAD_GESTURE_SET);
+	    BasicButton loadSetButton = SwingTool.createButton(GecoConstants.LOAD_GESTURE_SET);
 	    loadSetButton.setAction(handler.getLoadGestureSetAction());
 	     
 	     rightPanel.add(loadSetButton,
@@ -326,7 +326,7 @@ public class GestureMappingView extends JFrame{
 	   
 
 	   private JMenu createFileMenu() {
-	      JMenu menu = GuiTool.getGuiBundle().createMenu(GestureMappingConstants.MENU_FILE);
+	      JMenu menu = GuiTool.getGuiBundle().createMenu(GecoConstants.MENU_FILE);
 	//      menu.add(SwingTool.createMenuItem(new ActionNewGestureMap(this), IconLoader
 	  //          .getIcon(IconLoader.DOCUMENT_NEW)));
 	//      menu.add(SwingTool.createMenuItem(new ActionOpenGestureMap(this),
@@ -334,7 +334,9 @@ public class GestureMappingView extends JFrame{
 	     
 	       menu.add(SwingTool.createMenuItem(handler.getNewProjectAction(),null));
 	       menu.add(SwingTool.createMenuItem(handler.getOpenProjectAction(),null));
-	       menu.add(SwingTool.createMenuItem(handler.getSaveProjectAction(),null));
+	       saveMenuItem = SwingTool.createMenuItem(handler.getSaveProjectAction(),null);
+	       saveMenuItem.setEnabled(false);
+	       menu.add(saveMenuItem);
 	      
 	 
 	      menu.addSeparator();
@@ -411,6 +413,11 @@ public class GestureMappingView extends JFrame{
      */
     public GestureToActionMapping getSelectedMapping(){
        return (GestureToActionMapping) mappingList.getSelectedValue();
+  }
+    
+    
+    public void enableMenuItem(){
+         saveMenuItem.setEnabled(true);
   }
   
     

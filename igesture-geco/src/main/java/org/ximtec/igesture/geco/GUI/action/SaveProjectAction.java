@@ -29,7 +29,7 @@ import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
+import org.ximtec.igesture.geco.GUI.GecoConstants;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 
@@ -49,7 +49,7 @@ public class SaveProjectAction extends BasicAction {
 
 
   public SaveProjectAction(GestureMappingView mainView) {
-     super(GestureMappingConstants.SAVE_PROJECT_ACTION, GuiTool.getGuiBundle());
+     super(GecoConstants.SAVE_PROJECT_ACTION, GuiTool.getGuiBundle());
      this.mainView = mainView;
   }
 
@@ -60,11 +60,16 @@ public class SaveProjectAction extends BasicAction {
    * @param event the action event.
    */
   public void actionPerformed(ActionEvent event) {
-        XMLGeco.exportProject(mainView.getModel().mappingTable.values(), 
-              mainView.getModel().getGestureSet(),mainView.getModel().getProjectFile() );
-
+     save();
 
   } // actionPerformed
+  
+  public void save(){
+     XMLGeco.exportProject(mainView.getModel().mappingTable.values(), 
+           mainView.getModel().getGestureSet(),mainView.getModel().getProjectFile() );
+     mainView.getModel().setNeedSave(false);
+  }
+ 
   
 }
 

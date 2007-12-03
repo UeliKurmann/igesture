@@ -34,33 +34,49 @@ package org.ximtec.igesture.geco.GUI;
  * @version 1.0, Nov 2007
  * @author Michele croci
  */
-public class GestureMappingConstants {
+public class GecoConstants {
+   
+   
+   /*
+    * GUI
+    */
    
    public static final String GECO = "Gestures Controller";
 
-   public static final String LOAD_GESTURE_SET = "LoadGestureSetAction";
-   
-   public static final String REMOVE_MAPPING = "RemoveMappingAction";
-   
    public static final String MENU_FILE = "FileMenu";
-   
-   public static final String COMMON_NEW = "NEW";
-   
-   public static final String COMMON_OPEN = "OPEN";
    
    public static final String MAP_GESTURE = "MapGesture";
    
    public static final String USER_DEFINED_MAPPING = "User-defined mappings";
-   //public static final String USER_DEFINED_MAPPING = "mainFrame.UserDefMapping";
    
    public static final String GESTURE_SET = "Gesture set";
-   //public static final String GESTURE_SET = "mainFrame.GestureSet";
    
    public static final String GESTURE = "Gesture";
-   //public static final String GESTURE = "mapGesture.Gesture";
    
    public static final String HOTKEY = "Hotkey";
-  // public static final String HOTKEY = "mapGesture.Hotkey";
+   
+   public static final String MAIN_FRAME_TITLE = "mainFrame";
+   
+   public static final String SAVE_DIALOG_TITLE = "Would you like to save the changes before closing?";
+   
+   public static final String NEW_PROJECT_DIALOG_TITLE = "New Project";
+   
+   public static final String PROJECT_NAME = "ProjectName";
+   
+   public static final String PROJECT_FILE = "ProjectFile";
+   
+   public static final String PROJECT_NAME_TEXT_FIELD = "ProjectNameTextField";
+   
+   
+   
+   
+   /*
+    * Commands
+    */
+   
+   public static final String COMMON_NEW = "NEW";
+   
+   public static final String COMMON_OPEN = "OPEN";
    
    public static final String SAVE = "SAVE";
    
@@ -74,7 +90,15 @@ public class GestureMappingConstants {
    
    public static final String REMOVE = "REMOVE";
    
-   public static final String MAIN_FRAME_TITLE = "mainFrame";
+   
+   
+   /*
+    * Actions
+    */
+   
+   public static final String LOAD_GESTURE_SET = "LoadGestureSetAction";
+   
+   public static final String REMOVE_MAPPING = "RemoveMappingAction";
    
    public static final String OPEN_PROJECT_ACTION = "OpenProjectAction";
    

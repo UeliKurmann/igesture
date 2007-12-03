@@ -33,7 +33,7 @@ import javax.swing.JFileChooser;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
+import org.ximtec.igesture.geco.GUI.GecoConstants;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
@@ -55,7 +55,7 @@ public class OpenProjectAction extends BasicAction {
 
 
   public OpenProjectAction(GestureMappingView mainView) {
-     super(GestureMappingConstants.OPEN_PROJECT_ACTION, GuiTool.getGuiBundle());
+     super(GecoConstants.OPEN_PROJECT_ACTION, GuiTool.getGuiBundle());
      this.mainView = mainView;
   }
 
@@ -90,6 +90,7 @@ public class OpenProjectAction extends BasicAction {
               String projectName = selectedFile.getName();
               projectName = projectName.substring(0, projectName.length()-4);
               mainView.initProjectView(projectName);
+              mainView.enableMenuItem();
               
               
             }

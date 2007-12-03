@@ -34,10 +34,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
+import org.ximtec.igesture.geco.GUI.GecoConstants;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 
@@ -54,11 +55,11 @@ public class NewProjectAction extends BasicAction {
 
 
    public NewProjectAction(GestureMappingView mainView) {
-      super(GestureMappingConstants.NEW_PROJECT_ACTION, GuiTool.getGuiBundle());
+      super(GecoConstants.NEW_PROJECT_ACTION, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
    
-   private static final String XML_EXTENSION = "xml";
+   private static final String XML_EXTENSION = ".xml";
 
 
    /**
@@ -67,6 +68,20 @@ public class NewProjectAction extends BasicAction {
     * @param event the action event.
     */
    public void actionPerformed(ActionEvent event) {
+      //display save dialog, if needed
+      if (mainView.getModel().needSave()){
+         int n = JOptionPane.showConfirmDialog(
+               mainView,
+               GecoConstants.SAVE_DIALOG_TITLE,
+               "",
+               JOptionPane.YES_NO_OPTION);
+         if (n!=0){
+            (new SaveProjectAction(mainView)).save();
+            System.out.println("Save");
+         }
+      }
+      
+      //display file chooser dialog
       JFileChooser fileChooser = new JFileChooser();
       fileChooser.setFileFilter(new ExtensionFileFilter(XML_EXTENSION,
             new String[] {XML_EXTENSION}));
@@ -76,8 +91,8 @@ public class NewProjectAction extends BasicAction {
          if(selectedFile != null){
             
             String ext = "";
-            if (selectedFile.getName().length()>3){
-               ext = selectedFile.getName().substring(selectedFile.getName().length()-3,
+            if (selectedFile.getName().length()>4){
+               ext = selectedFile.getName().substring(selectedFile.getName().length()-4,
                   selectedFile.getName().length());
             }
             File temp;
@@ -85,11 +100,11 @@ public class NewProjectAction extends BasicAction {
                String fileName;
                String projectName ="";
                if(ext.equals(XML_EXTENSION)){
-                  projectName = selectedFile.getName().substring(0,selectedFile.getName().length()-3);
+                  projectName = selectedFile.getName().substring(0,selectedFile.getName().length()-4);
                   fileName = selectedFile.getAbsolutePath();
                 }else{
                    projectName = selectedFile.getName();
-                   fileName = selectedFile.getAbsolutePath()+"."+XML_EXTENSION;
+                   fileName = selectedFile.getAbsolutePath()+XML_EXTENSION;
              }
 
                BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
@@ -101,6 +116,7 @@ public class NewProjectAction extends BasicAction {
                
                //update view
                mainView.initProjectView(projectName);
+               mainView.enableMenuItem();
 
             }catch(IOException e){
                e.printStackTrace();

@@ -79,6 +79,8 @@ public class GestureMappingModel {
    
    private Configuration configuration;
    
+   private boolean toBeSaved;
+   
    /**
     * The storage manager. 
     */
@@ -174,6 +176,7 @@ public class GestureMappingModel {
             gestureListModel.add(gc);
             gestureClassesTable.put(gc.getName(), gc);
          }
+         toBeSaved=true;
    } // addGestureSet
    
    public void clearData(){
@@ -189,6 +192,7 @@ public class GestureMappingModel {
    
    public void setProjectName(String n){
       projectName = n;
+      toBeSaved=true;
    }
    
    public File getProjectFile(){
@@ -215,6 +219,7 @@ public class GestureMappingModel {
       gestureListModel.removeElement(gm.getGestureClass());
       eventManager.registerEventHandler(gm.getGestureClass().getName(),gm.getAction());
       mappingListModel.add(gm);
+      toBeSaved=true;
    }
    
    
@@ -224,6 +229,7 @@ public class GestureMappingModel {
       eventManager.unRegisterEventHandler(gm.getGestureClass().getName());
       mappingListModel.removeElement(gm);
       gestureListModel.add(gm.getGestureClass());
+      toBeSaved=true;
    }
    
 
@@ -257,6 +263,15 @@ public class GestureMappingModel {
    public void setConfiguration(Configuration c){
       configuration=c;
    }
+   
+   public void setNeedSave(boolean b){
+      toBeSaved = b;
+   }
+   
+   public boolean needSave(){
+      return toBeSaved;
+   }
+   
    
    
 
