@@ -33,7 +33,7 @@ import javax.swing.JFileChooser;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.geco.GUI.GestureMappingConstants;
+import org.ximtec.igesture.geco.GUI.GecoConstants;
 import org.ximtec.igesture.geco.GUI.GestureMappingView;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 import org.ximtec.igesture.geco.xml.XMLGeco;
@@ -55,7 +55,7 @@ public class LoadGestureSetAction extends BasicAction {
 
 
    public LoadGestureSetAction(GestureMappingView mainView) {
-      super(GestureMappingConstants.LOAD_GESTURE_SET, GuiTool.getGuiBundle());
+      super(GecoConstants.LOAD_GESTURE_SET, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
 
