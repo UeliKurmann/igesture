@@ -78,6 +78,7 @@ public class LoadGestureSetAction extends BasicAction {
             if(ext.equals(XML_EXTENSION)){
                 //update model
                 mainView.getModel().loadGestureSet(loadGestureSet(selectedFile));
+//                mainView.getModel().getConfiguration().addGestureSet(mainView.getModel().getGestureSet());
                 //update view
                 mainView.updateGestureList();
              }

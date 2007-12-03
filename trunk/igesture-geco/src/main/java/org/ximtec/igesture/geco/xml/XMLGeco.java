@@ -45,6 +45,8 @@ import org.sigtec.jdom.JdomDocument;
 import org.sigtec.jdom.id.Factory;
 import org.sigtec.util.Constant;
 import org.sigtec.util.FileHandler;
+import org.ximtec.igesture.configuration.Configuration;
+import org.ximtec.igesture.configuration.jdom.JdomConfiguration;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.jdom.JdomGestureSet;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
@@ -161,6 +163,22 @@ public class XMLGeco {
 
       return sets;
    } // importGestureSet
+   
+   
+   /**
+    * Imports a configuration.
+    * 
+    * @param file the XML file
+    * @return the configuration.
+    */
+   public static Configuration importConfiguration(File file) {
+      Configuration configuration = new Configuration();
+      final Document document = importDocument(file);
+      configuration = (Configuration)JdomConfiguration.unmarshal(document
+            .getRootElement());
+      return configuration;
+   } // importConfiguration
+
 
 
 }
