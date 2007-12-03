@@ -39,7 +39,7 @@ import javax.swing.JOptionPane;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
-import org.ximtec.igesture.geco.GUI.GestureMappingView;
+import org.ximtec.igesture.geco.GUI.GecoMainView;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 
 
@@ -51,10 +51,10 @@ import org.ximtec.igesture.geco.util.ExtensionFileFilter;
  */
 public class NewProjectAction extends BasicAction {
 
-   private GestureMappingView mainView;
+   private GecoMainView mainView;
 
 
-   public NewProjectAction(GestureMappingView mainView) {
+   public NewProjectAction(GecoMainView mainView) {
       super(GecoConstants.NEW_PROJECT_ACTION, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }

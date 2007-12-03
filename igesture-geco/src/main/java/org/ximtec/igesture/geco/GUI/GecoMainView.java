@@ -74,13 +74,14 @@ import org.ximtec.igesture.graphics.SwingTool;
  * @author Michele croci
  */
 
-public class GestureMappingView extends JFrame{
+public class GecoMainView extends JFrame{
 	
-	   private static final Logger LOGGER = Logger.getLogger(GestureMappingView.class
+	   private static final Logger LOGGER = Logger.getLogger(GecoMainView.class
 		         .getName());
 	   
-	   private GestureMappingModel model;
+	   private GecoMainModel model;
 	   private GecoActionHandler handler=  new GecoActionHandler(this);
+	   private GecoComponentHandler compHandler = new GecoComponentHandler(this);
 	   
 	   private static final String GESTURE_SET = "gestureSets/ms_application_gestures.xml";
 	   private static final String XML_EXTENSION = "xml";
@@ -113,7 +114,7 @@ public class GestureMappingView extends JFrame{
 	    * 
 	    * @param model the model for this main view.
 	    */
-	   public GestureMappingView(GestureMappingModel model) {
+	   public GecoMainView(GecoMainModel model) {
 	      super();
 	      this.model = model;
 	      createVoidDialog();
@@ -236,8 +237,8 @@ public class GestureMappingView extends JFrame{
 	   
        mappingList.getList().addListSelectionListener(new ListSelectionListener(){
           public void valueChanged(ListSelectionEvent e){
-             GestureMappingView.this.editButton.setEnabled(true);
-             GestureMappingView.this.removeButton.setEnabled(true);
+             GecoMainView.this.editButton.setEnabled(true);
+             GecoMainView.this.removeButton.setEnabled(true);
           }
        });
 	         
@@ -269,7 +270,7 @@ public class GestureMappingView extends JFrame{
 	         @Override
 	         public void mouseReleased(MouseEvent event) {
 	            if (event.getButton() == MouseEvent.BUTTON1) {
-	               GestureMappingView.this.mapButton.setEnabled(true);
+	               GecoMainView.this.mapButton.setEnabled(true);
 	            }
 	         }
 	      });
@@ -353,7 +354,7 @@ public class GestureMappingView extends JFrame{
         * 
         * @return the main model.
         */
-       public GestureMappingModel getModel() {
+       public GecoMainModel getModel() {
           return model;
        } // getModel
        
@@ -418,6 +419,11 @@ public class GestureMappingView extends JFrame{
     
     public void enableMenuItem(){
          saveMenuItem.setEnabled(true);
+  }
+    
+    
+    public GecoComponentHandler getComponentHandler(){
+         return compHandler;
   }
   
     

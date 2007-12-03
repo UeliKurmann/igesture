@@ -34,7 +34,7 @@ import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
-import org.ximtec.igesture.geco.GUI.GestureMappingView;
+import org.ximtec.igesture.geco.GUI.GecoMainView;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 
@@ -49,12 +49,12 @@ public class LoadGestureSetAction extends BasicAction {
    
    
 
-   private GestureMappingView mainView;
+   private GecoMainView mainView;
    
    private static final String XML_EXTENSION = "xml";
 
 
-   public LoadGestureSetAction(GestureMappingView mainView) {
+   public LoadGestureSetAction(GecoMainView mainView) {
       super(GecoConstants.LOAD_GESTURE_SET, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }

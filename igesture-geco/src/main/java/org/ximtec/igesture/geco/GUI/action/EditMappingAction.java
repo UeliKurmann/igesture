@@ -32,7 +32,7 @@ import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
-import org.ximtec.igesture.geco.GUI.GestureMappingView;
+import org.ximtec.igesture.geco.GUI.GecoMainView;
 import org.ximtec.igesture.geco.dialog.MappingDialog;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 
@@ -44,14 +44,11 @@ import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 */
 public class EditMappingAction extends BasicAction {
 
-  private GestureMappingView mainView;
+  private GecoMainView mainView;
   private GestureToActionMapping currentMapping;
-  
-
-  private MappingDialog dialog;
  
 
-  public EditMappingAction(GestureMappingView mainView) {
+  public EditMappingAction(GecoMainView mainView) {
      super(GecoConstants.EDIT, GuiTool.getGuiBundle());
      this.mainView = mainView;
   }
@@ -65,11 +62,9 @@ public class EditMappingAction extends BasicAction {
   public void actionPerformed(ActionEvent event) {
      currentMapping = mainView.getSelectedMapping();
      //dialog.show(true);
-     if (dialog==null)
-        dialog = new MappingDialog(mainView);
-     dialog.showDialog(currentMapping.getGestureClass());
+     mainView.getComponentHandler().getMappingDialog().showDialog(currentMapping.getGestureClass());
 
-  } // actionPerformed¨
+  } // actionPerformed
   
      
      
