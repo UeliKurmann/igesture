@@ -75,8 +75,11 @@ public class NewProjectAction extends BasicAction {
          File selectedFile = fileChooser.getSelectedFile();
          if(selectedFile != null){
             
-            String ext = selectedFile.getName().substring(selectedFile.getName().length()-3,
+            String ext = "";
+            if (selectedFile.getName().length()>3){
+               ext = selectedFile.getName().substring(selectedFile.getName().length()-3,
                   selectedFile.getName().length());
+            }
             File temp;
             try{
                String fileName;

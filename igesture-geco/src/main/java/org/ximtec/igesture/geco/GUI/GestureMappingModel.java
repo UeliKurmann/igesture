@@ -32,6 +32,7 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.EventManager;
@@ -40,6 +41,7 @@ import org.ximtec.igesture.geco.event.GestureSetLoadListener;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.storage.StorageManager;
+import org.ximtec.igesture.tool.GestureConfiguration;
 
 
 
@@ -74,6 +76,8 @@ public class GestureMappingModel {
    private File projectFile;
 
    private String projectName;
+   
+   private Configuration configuration;
    
    /**
     * The storage manager. 
@@ -244,6 +248,14 @@ public class GestureMappingModel {
    
    public EventManager getEventManager(){
       return eventManager;
+   }
+   
+   public Configuration getConfiguration(){
+      return configuration;
+   }
+   
+   public void setConfiguration(Configuration c){
+      configuration=c;
    }
    
    
