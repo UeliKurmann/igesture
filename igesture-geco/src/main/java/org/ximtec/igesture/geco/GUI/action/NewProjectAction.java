@@ -69,6 +69,7 @@ public class NewProjectAction extends BasicAction {
     */
    public void actionPerformed(ActionEvent event) {
       //display save dialog, if needed
+      /*
       if (mainView.getModel().needSave()){
          int n = JOptionPane.showConfirmDialog(
                mainView,
@@ -77,10 +78,20 @@ public class NewProjectAction extends BasicAction {
                JOptionPane.YES_NO_OPTION);
          if (n!=0){
             (new SaveProjectAction(mainView)).save();
-            System.out.println("Save");
          }
       }
+      */
+      //display new project dialog
+      mainView.getComponentHandler().getNewProjectDialog().setVisible(true);
+
       
+      
+     
+
+   } // actionPerformed
+   
+   
+   private void showFileDialog(){
       //display file chooser dialog
       JFileChooser fileChooser = new JFileChooser();
       fileChooser.setFileFilter(new ExtensionFileFilter(XML_EXTENSION,
@@ -127,7 +138,6 @@ public class NewProjectAction extends BasicAction {
         
       }
 
-
-   } // actionPerformed
+   }
    
    }
