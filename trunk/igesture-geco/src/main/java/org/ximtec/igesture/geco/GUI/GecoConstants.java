@@ -59,13 +59,16 @@ public class GecoConstants {
    
    public static final String SAVE_DIALOG_TITLE = "Would you like to save the changes before closing?";
    
-   public static final String NEW_PROJECT_DIALOG_TITLE = "New Project";
+   public static final String NEW_PROJECT_DIALOG_TITLE = "Create a new project";
    
    public static final String PROJECT_NAME = "ProjectName";
    
    public static final String PROJECT_FILE = "ProjectFile";
    
    public static final String PROJECT_NAME_TEXT_FIELD = "ProjectNameTextField";
+   
+   public static final String PROJECT_FILE_TEXT_FIELD = "ProjectNameTextField";
+   
    
    
    
@@ -89,6 +92,10 @@ public class GecoConstants {
    public static final String EDIT = "EDIT";
    
    public static final String REMOVE = "REMOVE";
+   
+   public static final String BROWSE = "BROWSE";
+   
+   public static final String CREATE = "CREATE";
    
    
    

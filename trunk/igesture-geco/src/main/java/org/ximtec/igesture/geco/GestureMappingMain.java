@@ -40,6 +40,7 @@ public class GestureMappingMain implements ButtonDeviceEventListener {
 
    private static final String DEFAULT_CONFIGURATION = "config.xml";
    
+   //FIXME: ddd
    private static final String GUI_BUNDLE_FILE = "gecoProperties";
 
 
