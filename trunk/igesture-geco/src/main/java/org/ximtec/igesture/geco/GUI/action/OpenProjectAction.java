@@ -34,7 +34,7 @@ import javax.swing.JFileChooser;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
-import org.ximtec.igesture.geco.GUI.GestureMappingView;
+import org.ximtec.igesture.geco.GUI.GecoMainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 import org.ximtec.igesture.geco.xml.XMLImportGeco;
@@ -49,12 +49,12 @@ import org.ximtec.igesture.geco.xml.XMLImportGeco;
 */
 public class OpenProjectAction extends BasicAction {
 
-  private GestureMappingView mainView;
+  private GecoMainView mainView;
   
   private static final String XML_EXTENSION = "xml";
 
 
-  public OpenProjectAction(GestureMappingView mainView) {
+  public OpenProjectAction(GecoMainView mainView) {
      super(GecoConstants.OPEN_PROJECT_ACTION, GuiTool.getGuiBundle());
      this.mainView = mainView;
   }

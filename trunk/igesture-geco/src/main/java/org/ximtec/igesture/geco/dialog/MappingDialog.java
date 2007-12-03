@@ -48,7 +48,7 @@ import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
-import org.ximtec.igesture.geco.GUI.GestureMappingView;
+import org.ximtec.igesture.geco.GUI.GecoMainView;
 import org.ximtec.igesture.geco.UserAction.KeyboardSimulationAction;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.graphics.SwingTool;
@@ -61,13 +61,13 @@ import org.ximtec.igesture.graphics.SwingTool;
  * @version 1.0 Nov 26, 2007
  * @author Michele Croci, mcroci@gmail.com  
  */
-public class MappingDialog{
+public class MappingDialog extends BasicDialog{
    
-   private BasicDialog dialog;
+  // private BasicDialog dialog;
    
    private GestureClass gestureClass;
    private GestureToActionMapping gestureMapping;
-   private GestureMappingView view;
+   private GecoMainView view;
    
    private JTabbedPane tabbedPane = new JTabbedPane();
    private JCheckBox ctrlCheckBox =  new JCheckBox("CTRL");
@@ -87,9 +87,9 @@ public class MappingDialog{
    private static final String ALT = "ALT";
    
    
-   public MappingDialog(GestureMappingView gmv){
+   public MappingDialog(GecoMainView gmv){
       view = gmv;
-      init();
+      initDialog();
       
    }
    
@@ -98,20 +98,15 @@ public class MappingDialog{
       gestureMapping = view.getModel().mappingTable.getAction(gc);
       gestureClass = gc;
       initButtonsState();
-      dialog.setVisible(true);
+      this.setVisible(true);
    }
    
    
    public void hideDialog(){
-      dialog.setVisible(false);
+      this.setVisible(false);
    }
    
-   private void init(){
-      if (dialog==null){
-         initDialog();
-      } 
-   }
-   
+
    
    private void initButtonsState(){
       gestureLabel.setText(gestureClass.getName());
@@ -143,14 +138,13 @@ public class MappingDialog{
     * @param event the action event.
     */
    private void initDialog() {
-         dialog = SwingTool.createDialog(GecoConstants.MAIN_FRAME_TITLE);
-         dialog.setTitle(GecoConstants.MAIN_FRAME_TITLE);
-         dialog.setLayout(new GridBagLayout());
-         dialog.add(tabbedPane, new GridBagConstraints(0,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+         this.setTitle(GecoConstants.MAIN_FRAME_TITLE);
+         this.setLayout(new GridBagLayout());
+         this.add(tabbedPane, new GridBagConstraints(0,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                new Insets(20,20,20,20),0,0 ) );
          Point p = new Point(view.getLocation().x+200, view.getLocation().y+100);
-         dialog.setLocation(p);
-         dialog.setSize(new Dimension(DIALOG_HEIGHT, DIALOG_WIDTH));
+         this.setLocation(p);
+         this.setSize(new Dimension(DIALOG_HEIGHT, DIALOG_WIDTH));
          
          comboBox = new JComboBox(new String[]{"A","B","C","D","E","F","G",
                "H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z", " "});
@@ -214,13 +208,13 @@ public class MappingDialog{
              view.getModel().addMapping(MappingDialog.this.view.getModel().mappingTable.getAction(gestureClass));
              view.updateLists();
              
-             MappingDialog.this.dialog.dispose();
+             MappingDialog.this.dispose();
           }
       });
       
       cancelButton.addActionListener(new ActionListener(){
          public void actionPerformed(ActionEvent event) {
-            MappingDialog.this.dialog.dispose();
+            MappingDialog.this.dispose();
          }
      });
       
@@ -237,7 +231,7 @@ public class MappingDialog{
       //panel1.add(buttonPanel,
         //    new GridBagConstraints(1,3,1,1,0.0,0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
           //           new Insets(20,0,0,0),0,0 ) );
-      dialog.add(buttonPanel,  new GridBagConstraints(0,1,1,1,0,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
+      this.add(buttonPanel,  new GridBagConstraints(0,1,1,1,0,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
             new Insets(0,20,0,20),0,0 ) );
   
    } // addFirstTab

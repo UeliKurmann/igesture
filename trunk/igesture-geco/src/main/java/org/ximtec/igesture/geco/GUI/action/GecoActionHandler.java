@@ -28,7 +28,7 @@ package org.ximtec.igesture.geco.GUI.action;
 
 import javax.swing.Action;
 
-import org.ximtec.igesture.geco.GUI.GestureMappingView;
+import org.ximtec.igesture.geco.GUI.GecoMainView;
 
 
 
@@ -41,7 +41,7 @@ import org.ximtec.igesture.geco.GUI.GestureMappingView;
  */
 public class GecoActionHandler {
 
-   private GestureMappingView view;
+   private GecoMainView view;
 
    private OpenProjectAction openGestureMapAction;
    private ExitApplicationAction exitApplicationAction;
@@ -53,7 +53,7 @@ public class GecoActionHandler {
    private SaveProjectAction saveProjectAction;
 
 
-   public GecoActionHandler(GestureMappingView view) {
+   public GecoActionHandler(GecoMainView view) {
       this.view = view;
    } // GecoActionHandler
 

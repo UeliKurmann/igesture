@@ -50,7 +50,7 @@ import org.ximtec.igesture.tool.GestureConfiguration;
  * @version 1.0 Nov 20, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public class GestureMappingModel {
+public class GecoMainModel {
    
    /**
     * The list of imported Gesture Set
@@ -98,7 +98,7 @@ public class GestureMappingModel {
     * @param engine the storage engine used by the storage manager.
     * @param configuration the configuration to be used.
     */
-   public GestureMappingModel(StorageEngine engine) {
+   public GecoMainModel(StorageEngine engine) {
       gestureSetListeners = new HashSet<GestureSetLoadListener>();
 //      loadData(engine);
       Comparator c1 =new Comparator<GestureClass>() {

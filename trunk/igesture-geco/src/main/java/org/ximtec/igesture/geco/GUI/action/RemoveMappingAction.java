@@ -31,7 +31,7 @@ import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
-import org.ximtec.igesture.geco.GUI.GestureMappingView;
+import org.ximtec.igesture.geco.GUI.GecoMainView;
 
 
 
@@ -43,11 +43,11 @@ import org.ximtec.igesture.geco.GUI.GestureMappingView;
 public class RemoveMappingAction extends BasicAction {
    
 
-   private GestureMappingView mainView;
+   private GecoMainView mainView;
    private GestureMappingTable mappingTable;
 
    
-   public RemoveMappingAction(GestureMappingView mainView) {
+   public RemoveMappingAction(GecoMainView mainView) {
       super(GecoConstants.REMOVE_MAPPING, GuiTool.getGuiBundle());
       this.mainView = mainView;
       this.mappingTable =  mainView.getModel().mappingTable;

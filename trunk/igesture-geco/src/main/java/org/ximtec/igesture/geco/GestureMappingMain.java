@@ -1,10 +1,3 @@
-
-//////////////////////////////7
-
-
-
-
-
 package org.ximtec.igesture.geco;
 
 import java.io.File;
@@ -17,23 +10,19 @@ import org.sigtec.input.BufferedInputDeviceEventListener;
 import org.sigtec.input.InputDevice;
 import org.sigtec.input.InputDeviceEvent;
 import org.sigtec.input.InputDeviceEventListener;
-import org.sigtec.util.Constant;
-import org.sigtec.util.SystemProperty;
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.EventManager;
-import org.ximtec.igesture.geco.GUI.GestureMappingModel;
-import org.ximtec.igesture.geco.GUI.GestureMappingView;
+import org.ximtec.igesture.geco.GUI.GecoMainModel;
+import org.ximtec.igesture.geco.GUI.GecoMainView;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 import org.ximtec.igesture.io.ButtonDeviceEventListener;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.MouseReader;
 import org.ximtec.igesture.io.MouseReaderEventListener;
 import org.ximtec.igesture.storage.StorageEngine;
-import org.ximtec.igesture.storage.StorageManager;
-import org.ximtec.igesture.tool.GestureConfiguration;
 
 
 
@@ -81,7 +70,7 @@ public class GestureMappingMain implements ButtonDeviceEventListener {
 
        private InputDeviceClient client;
        
-       GestureMappingView view;
+       GecoMainView view;
 
 
 
@@ -113,8 +102,8 @@ public class GestureMappingMain implements ButtonDeviceEventListener {
               StorageEngine engine = StorageManager.createStorageEngine(new File(file));
               */
               StorageEngine engine = null;
-              GestureMappingModel model = new GestureMappingModel(engine);
-              view = new GestureMappingView(model);
+              GecoMainModel model = new GecoMainModel(engine);
+              view = new GecoMainView(model);
               
 //            initEventManager();
               initRecogniser();

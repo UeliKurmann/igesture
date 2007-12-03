@@ -31,7 +31,7 @@ import java.awt.event.ActionEvent;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
-import org.ximtec.igesture.geco.GUI.GestureMappingView;
+import org.ximtec.igesture.geco.GUI.GecoMainView;
 
 
 /**
@@ -43,10 +43,10 @@ import org.ximtec.igesture.geco.GUI.GestureMappingView;
 
 public class ExitApplicationAction extends BasicAction {
 
-   private GestureMappingView mainView;
+   private GecoMainView mainView;
 
 
-   public ExitApplicationAction(GestureMappingView mainView) {
+   public ExitApplicationAction(GecoMainView mainView) {
       super(GecoConstants.EXIT, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }

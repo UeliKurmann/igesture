@@ -30,7 +30,7 @@ import java.awt.event.ActionEvent;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
-import org.ximtec.igesture.geco.GUI.GestureMappingView;
+import org.ximtec.igesture.geco.GUI.GecoMainView;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 
 
@@ -43,12 +43,12 @@ import org.ximtec.igesture.geco.xml.XMLGeco;
 */
 public class SaveProjectAction extends BasicAction {
 
-  private GestureMappingView mainView;
+  private GecoMainView mainView;
   
   private static final String XML_EXTENSION = "xml";
 
 
-  public SaveProjectAction(GestureMappingView mainView) {
+  public SaveProjectAction(GecoMainView mainView) {
      super(GecoConstants.SAVE_PROJECT_ACTION, GuiTool.getGuiBundle());
      this.mainView = mainView;
   }
