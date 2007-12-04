@@ -177,6 +177,7 @@ public class GecoMainModel {
             gestureClassesTable.put(gc.getName(), gc);
          }
          toBeSaved=true;
+         
    } // addGestureSet
    
    public void clearData(){

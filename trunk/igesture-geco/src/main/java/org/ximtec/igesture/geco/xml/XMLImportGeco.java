@@ -65,11 +65,11 @@ public class XMLImportGeco {
     
       //import gesture set
       String fileName="";
-      if(gestureSetElement.getText().equals("MicrosoftApplicationGestures"))
+      if(gestureSetElement.getText().equals("MicrosoftApplicationGestures")){
          fileName = "gestureSets/ms_application_gestures.xml";
-         
-      gestureSet = XMLGeco.importGestureSet(
-            new File(ClassLoader.getSystemResource(fileName).getFile())).get(0);
+         gestureSet = XMLGeco.importGestureSet(
+               new File(ClassLoader.getSystemResource(fileName).getFile())).get(0);
+      }
 
       final List<Element> mappingElements = document.getRootElement()
             .getChildren(ROOT_TAG);

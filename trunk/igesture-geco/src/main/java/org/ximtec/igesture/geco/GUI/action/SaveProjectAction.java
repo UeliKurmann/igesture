@@ -67,7 +67,10 @@ public class SaveProjectAction extends BasicAction {
   public void save(){
      XMLGeco.exportProject(mainView.getModel().mappingTable.values(), 
            mainView.getModel().getGestureSet(),mainView.getModel().getProjectFile() );
+     //update model
      mainView.getModel().setNeedSave(false);
+     //update view
+     mainView.disableSaveButton();
   }
  
   

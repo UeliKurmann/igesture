@@ -29,6 +29,7 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
@@ -66,25 +67,36 @@ public class LoadGestureSetAction extends BasicAction {
     * @param event the action event.
     */
    public void actionPerformed(ActionEvent event) {
-      JFileChooser fileChooser = new JFileChooser();
-      fileChooser.setFileFilter(new ExtensionFileFilter(XML_EXTENSION,
-            new String[] {XML_EXTENSION}));
-      int status = fileChooser.showOpenDialog(null);
-      if (status == JFileChooser.APPROVE_OPTION) {
-         File selectedFile = fileChooser.getSelectedFile();
-         if(selectedFile != null){
-            String ext = selectedFile.getName().substring(selectedFile.getName().length()-3,
-                  selectedFile.getName().length());
-            if(ext.equals(XML_EXTENSION)){
-                //update model
-                mainView.getModel().loadGestureSet(loadGestureSet(selectedFile));
-//                mainView.getModel().getConfiguration().addGestureSet(mainView.getModel().getGestureSet());
-                //update view
-                mainView.updateGestureList();
-             }
+      //ask confirm
+      int n=0;
+      if(!mainView.getModel().mappingTable.isEmpty()){
+      n = JOptionPane.showConfirmDialog(
+            mainView,
+            GecoConstants.LOAD_GESTURE_SET_CONFIRMATION,
+            "",
+            JOptionPane.YES_NO_OPTION);
+      }
+      if (n==0){
+         JFileChooser fileChooser = new JFileChooser();
+         fileChooser.setFileFilter(new ExtensionFileFilter(XML_EXTENSION,
+               new String[] {XML_EXTENSION}));
+         int status = fileChooser.showOpenDialog(null);
+         if (status == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            if(selectedFile != null){
+               String ext = selectedFile.getName().substring(selectedFile.getName().length()-3,
+                     selectedFile.getName().length());
+               if(ext.equals(XML_EXTENSION)){
+                   //update model
+                  mainView.getModel().clearData();
+                   mainView.getModel().loadGestureSet(loadGestureSet(selectedFile));
+   //                mainView.getModel().getConfiguration().addGestureSet(mainView.getModel().getGestureSet());
+                   //update view
+                   mainView.updateGestureList();
+                   mainView.enableSaveButton();
+                }
+            }
          }
-      } else if (status == JFileChooser.CANCEL_OPTION) {
-        
       }
          
    } // actionPerformed

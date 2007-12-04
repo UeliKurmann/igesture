@@ -69,20 +69,20 @@ public class NewProjectAction extends BasicAction {
     */
    public void actionPerformed(ActionEvent event) {
       //display save dialog, if needed
-      /*
+      
       if (mainView.getModel().needSave()){
          int n = JOptionPane.showConfirmDialog(
                mainView,
                GecoConstants.SAVE_DIALOG_TITLE,
                "",
                JOptionPane.YES_NO_OPTION);
-         if (n!=0){
+         if (n==0){
             (new SaveProjectAction(mainView)).save();
          }
       }
-      */
+      
       //display new project dialog
-      mainView.getComponentHandler().getNewProjectDialog().setVisible(true);
+      mainView.getComponentHandler().getNewProjectDialog().showDialog();
 
       
       

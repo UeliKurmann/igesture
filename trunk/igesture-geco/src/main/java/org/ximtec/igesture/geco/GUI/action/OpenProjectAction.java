@@ -30,6 +30,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
@@ -66,6 +67,20 @@ public class OpenProjectAction extends BasicAction {
    * @param event the action event.
    */
   public void actionPerformed(ActionEvent event) {
+     //display save dialog, if needed
+     
+     if (mainView.getModel().needSave()){
+        int n = JOptionPane.showConfirmDialog(
+              mainView,
+              GecoConstants.SAVE_DIALOG_TITLE,
+              "",
+              JOptionPane.YES_NO_OPTION);
+        if (n==0){
+           (new SaveProjectAction(mainView)).save();
+        }
+     }
+     
+     //display file chooser
      JFileChooser fileChooser = new JFileChooser();
      fileChooser.setFileFilter(new ExtensionFileFilter(XML_EXTENSION,
            new String[] {XML_EXTENSION}));
@@ -81,7 +96,8 @@ public class OpenProjectAction extends BasicAction {
            
               //set file path??
               //update model
-              mainView.getModel().loadGestureSet(XMLImport.getGestureSet());
+              if(XMLImport.getGestureSet()!=null)
+                 mainView.getModel().loadGestureSet(XMLImport.getGestureSet());
               List<GestureToActionMapping> list = XMLImport.getMappings();
               for(GestureToActionMapping mapping: list){
                  mainView.getModel().addMapping(mapping);
