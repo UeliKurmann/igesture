@@ -59,7 +59,7 @@ public class GecoMainModel {
    
    public GestureMappingTable mappingTable = new GestureMappingTable();
    
-   public Hashtable gestureClassesTable = new Hashtable();
+   public Hashtable<String, GestureClass> gestureClassesTable = new Hashtable<String, GestureClass>();
    
    private File projectFile;
 
@@ -81,12 +81,12 @@ public class GecoMainModel {
     */
    public GecoMainModel(StorageEngine engine) {
 //      loadData(engine);
-      Comparator c1 =new Comparator<GestureClass>() {
+      Comparator<GestureClass> c1 =new Comparator<GestureClass>() {
          public int compare(GestureClass a, GestureClass b) {
             return a.getName().compareTo(b.getName());
           }
         };
-        Comparator c2 =new Comparator<GestureToActionMapping>() {
+        Comparator<GestureToActionMapping> c2 =new Comparator<GestureToActionMapping>() {
            public int compare(GestureToActionMapping a, GestureToActionMapping b) {
               return a.getGestureClass().getName().compareTo(b.getGestureClass().getName());
             }
@@ -240,7 +240,7 @@ public class GecoMainModel {
     * 
     * @return the model
     */
-   public SortedListModel getGestureListModel(){
+   public SortedListModel<GestureClass> getGestureListModel(){
       return gestureListModel;
    }//getGestureListModel
    
@@ -249,7 +249,7 @@ public class GecoMainModel {
     * 
     * @return the model
     */
-   public SortedListModel getMappingListModel(){
+   public SortedListModel<GestureToActionMapping> getMappingListModel(){
       return mappingListModel;
    }//getMappingListModel
    

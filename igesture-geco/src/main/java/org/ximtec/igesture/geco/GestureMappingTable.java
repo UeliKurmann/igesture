@@ -37,7 +37,7 @@ import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
  * @version 1.0 Nov 19, 2007
  * @author Michele Croci, mcroci@mgail.com
  */
-public class GestureMappingTable extends Hashtable{
+public class GestureMappingTable extends Hashtable<GestureClass,GestureToActionMapping> {
    
    public GestureMappingTable(){
       
@@ -49,8 +49,8 @@ public class GestureMappingTable extends Hashtable{
     * @param gestureClass the mapped gesture.
     * @param action the action.
     */
-   public void addMapping(GestureClass gestureClass, GestureToActionMapping action){
-      put(gestureClass, action);
+   public void addMapping(GestureClass gestureClass, GestureToActionMapping mapping){
+      put(gestureClass, mapping);
    }//addMapping
    
    
@@ -59,7 +59,7 @@ public class GestureMappingTable extends Hashtable{
     * 
     * @param gestureClass.
     */
-   public GestureToActionMapping getAction(GestureClass gestureClass){
+   public GestureToActionMapping getMapping(GestureClass gestureClass){
       return (GestureToActionMapping)get(gestureClass);
    }//getAction
    

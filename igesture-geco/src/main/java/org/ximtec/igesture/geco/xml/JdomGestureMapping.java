@@ -57,7 +57,7 @@ public class JdomGestureMapping extends Element {
    
    public JdomGestureMapping(GestureToActionMapping map, GestureSet gestureSet) {
       super(ROOT_TAG);
-      this.gestureSet = gestureSet;
+      JdomGestureMapping.gestureSet = gestureSet;
       addContent(new JdomGestureElement(map.getGestureClass()));
       if (map.getAction() instanceof KeyboardSimulationAction){
          KeyboardSimulationAction keyAction = (KeyboardSimulationAction) map.getAction();

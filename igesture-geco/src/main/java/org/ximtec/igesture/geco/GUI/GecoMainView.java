@@ -44,7 +44,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
@@ -239,9 +238,7 @@ public class GecoMainView extends JFrame{
 	   /**
 	    * Initialises the right panel.
 	    */
-	private void initRightPanel(){
-	     JScrollPane rightscroll = new JScrollPane();
-	     
+	private void initRightPanel(){	     
 	    gestureList = SwingTool.createScrollableList(null,  0,   0);
 	    rightPanel.setLayout(new GridBagLayout());
 	    gestureList.getList().addMouseListener(new MouseAdapter() {

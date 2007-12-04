@@ -67,7 +67,8 @@ public class XMLImportGeco {
                new File(ClassLoader.getSystemResource(fileName).getFile())).get(0);
       }
 
-      final List<Element> mappingElements = document.getRootElement()
+
+      final List<Element> mappingElements = (List<Element>)document.getRootElement()
             .getChildren(ROOT_TAG);
 
       //TODO: if the action is not a keypress?

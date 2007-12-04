@@ -44,8 +44,6 @@ import org.ximtec.igesture.geco.xml.XMLGeco;
 public class SaveProjectAction extends BasicAction {
 
   private GecoMainView mainView;
-  
-  private static final String XML_EXTENSION = "xml";
 
 
   public SaveProjectAction(GecoMainView mainView) {

@@ -97,7 +97,7 @@ public class MappingDialog extends BasicDialog{
     * @param gc the gesture to be mapped.
     */
    public void showDialog(GestureClass gc){
-      gestureMapping = view.getModel().mappingTable.getAction(gc);
+      gestureMapping = view.getModel().mappingTable.getMapping(gc);
       gestureClass = gc;
       initButtonsState();
       this.setVisible(true);
@@ -205,7 +205,7 @@ public class MappingDialog extends BasicDialog{
           public void actionPerformed(ActionEvent event) {
              //update model
              addGestureMappingToTable();
-             view.getModel().addMapping(MappingDialog.this.view.getModel().mappingTable.getAction(gestureClass));
+             view.getModel().addMapping(MappingDialog.this.view.getModel().mappingTable.getMapping(gestureClass));
              //update view
              view.updateLists();
              view.enableSaveButton();
