@@ -59,6 +59,11 @@ public class GecoConstants {
    
    public static final String SAVE_DIALOG_TITLE = "Would you like to save the changes before closing?";
    
+   public static final String OVERWRITE_FILE = "File already exists. Do you want to overwrite it?";
+   
+   public static final String LOAD_GESTURE_SET_CONFIRMATION = 
+               "Loading another gesture set will delete all existing mapping. Do you want to continue?";
+   
    public static final String NEW_PROJECT_DIALOG_TITLE = "Create a new project";
    
    public static final String PROJECT_NAME = "ProjectName";

@@ -425,6 +425,16 @@ public class GecoMainView extends JFrame{
     public GecoComponentHandler getComponentHandler(){
          return compHandler;
   }
+    
+    public void disableSaveButton(){
+       saveButton.setEnabled(false);
+       saveMenuItem.setEnabled(false);
+}
+    
+    public void enableSaveButton(){
+       saveButton.setEnabled(true);
+       saveMenuItem.setEnabled(true);
+}
   
     
     

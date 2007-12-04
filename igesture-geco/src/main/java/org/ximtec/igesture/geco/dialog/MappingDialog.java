@@ -89,6 +89,7 @@ public class MappingDialog extends BasicDialog{
    
    public MappingDialog(GecoMainView gmv){
       view = gmv;
+      setModal(true);
       initDialog();
       
    }
@@ -204,9 +205,11 @@ public class MappingDialog extends BasicDialog{
           public void actionPerformed(ActionEvent event) {
              //add gesture mapping
              addGestureMappingtoTable();
-             //remove gesture from set
+             //update model
              view.getModel().addMapping(MappingDialog.this.view.getModel().mappingTable.getAction(gestureClass));
+             //update view
              view.updateLists();
+             view.enableSaveButton();
              
              MappingDialog.this.dispose();
           }

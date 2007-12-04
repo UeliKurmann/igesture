@@ -42,6 +42,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
@@ -56,6 +57,7 @@ import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.graphix.widget.BasicTextField;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
 import org.ximtec.igesture.geco.GUI.GecoMainView;
+import org.ximtec.igesture.geco.GUI.action.SaveProjectAction;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 import org.ximtec.igesture.graphics.SwingTool;
 
@@ -84,6 +86,7 @@ public class NewProjectDialog extends BasicDialog{
    
    public NewProjectDialog(GecoMainView view){
       this.view=view;
+      setModal(true);
       init();
    }
    
@@ -151,6 +154,18 @@ public class NewProjectDialog extends BasicDialog{
                   new Insets(20,20,20,20),0,0 ) );
    }
    
+   
+   public void showDialog(){
+      reset();
+      setVisible(true);
+   }
+   
+   public void reset(){
+      fileTextField.setText("C:\\");
+      projectTextField.setText("");
+   }
+   
+   
    private class BrowseListener implements ActionListener{
       public void actionPerformed(ActionEvent e){
          //display file chooser dialog
@@ -164,10 +179,19 @@ public class NewProjectDialog extends BasicDialog{
             File selectedFile = fileChooser.getSelectedFile();
             if(selectedFile != null){
                filePath=selectedFile.getAbsolutePath()+"\\";
-                String fileName= selectedFile.getAbsolutePath()+"\\"+
-                   NewProjectDialog.this.projectTextField.getText();
-                if(NewProjectDialog.this.projectTextField.getText().equals("")){
-                   fileName+="."+XML_EXTENSION;
+                String fileName = "";
+                if(!NewProjectDialog.this.projectTextField.getText().equals("")){
+                   if (selectedFile.getAbsolutePath().charAt(selectedFile.getAbsolutePath().length()-1)!='\\'){
+                      fileName = selectedFile.getAbsolutePath()+"\\"+
+                      NewProjectDialog.this.projectTextField.getText()+"."+XML_EXTENSION;
+                   }
+                   else{
+                      fileName = selectedFile.getAbsolutePath()+
+                      NewProjectDialog.this.projectTextField.getText()+"."+XML_EXTENSION;
+                   }
+                }
+                else{
+                   fileName = selectedFile.getAbsolutePath();
                 }
                 fileTextField.setText(fileName);
             }
@@ -181,29 +205,43 @@ public class NewProjectDialog extends BasicDialog{
    private class CreateListener implements ActionListener{
       public void actionPerformed(ActionEvent e){
       
-         if((fileTextField.getText()!=null)&&(!fileTextField.getText().equals(""))&&
-               (projectTextField.getText()!=null)&&(!projectTextField.getText().equals(""))){
+         if((!fileTextField.getText().equals(""))&& (!projectTextField.getText().equals(""))){
             String fileName= fileTextField.getText();
 
-            try{
-            BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
+   //         try{
+//            BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
+            boolean ok=true;
             File temp = new File(fileName);
-            //update model
-            view.getModel().setProjectFile(temp);
-            view.getModel().setProjectName(projectTextField.getText());
-            view.getModel().clearData();
-            
-            //update view
-            view.initProjectView(projectTextField.getText());
-            view.enableMenuItem();
+            if (temp.exists()){
+               int n = JOptionPane.showConfirmDialog(
+                     NewProjectDialog.this,
+                     GecoConstants.OVERWRITE_FILE,
+                     "",
+                     JOptionPane.YES_NO_OPTION);
+               if (n!=0){
+                  ok=false;
+               }
             }
-            catch(IOException ioe){
-               ioe.printStackTrace();
+              
+            if(ok){
+               //update model
+               view.getModel().setProjectFile(temp);
+               view.getModel().setProjectName(projectTextField.getText());
+               view.getModel().clearData();
+               
+               //update view
+               view.initProjectView(projectTextField.getText());
+               view.enableMenuItem();
+        //       }
+        //       catch(IOException ioe){
+        //          ioe.printStackTrace();
+        //       }
+               
+               NewProjectDialog.this.dispose();
             }
          }
          
          
-      NewProjectDialog.this.dispose();
       }
       
    }
@@ -217,15 +255,15 @@ public class NewProjectDialog extends BasicDialog{
    
    private class MyDocumentListener implements DocumentListener {
    
-   public void insertUpdate(DocumentEvent e) {
-      update();
-  }
-  public void removeUpdate(DocumentEvent e) {
-      update();
-  }
-  public void changedUpdate(DocumentEvent e) {
-      //Plain text components do not fire these events
-  }
+      public void insertUpdate(DocumentEvent e) {
+         update();
+     }
+     public void removeUpdate(DocumentEvent e) {
+         update();
+     }
+     public void changedUpdate(DocumentEvent e) {
+         //Plain text components do not fire these events
+     }
 
 
      

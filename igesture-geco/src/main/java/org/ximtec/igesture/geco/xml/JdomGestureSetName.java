@@ -44,7 +44,8 @@ public class JdomGestureSetName extends Element {
 
       public JdomGestureSetName(GestureSet gestureSet) {
          super(ROOT_TAG);
-         this.addContent(gestureSet.getName());
+         if(gestureSet!=null)
+            this.addContent(gestureSet.getName());
       }
 
 

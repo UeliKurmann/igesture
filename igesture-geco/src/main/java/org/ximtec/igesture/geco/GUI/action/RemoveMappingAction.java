@@ -65,6 +65,7 @@ public class RemoveMappingAction extends BasicAction {
        mainView.getModel().removeMapping(mainView.getSelectedMapping());
        //updateview
        mainView.updateLists();
+       mainView.enableSaveButton();
    } // actionPerformed
 
 
