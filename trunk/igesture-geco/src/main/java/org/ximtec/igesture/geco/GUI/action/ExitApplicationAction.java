@@ -31,7 +31,6 @@ import java.awt.event.ActionEvent;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
-import org.ximtec.igesture.geco.GUI.GecoMainView;
 
 
 /**
@@ -43,12 +42,9 @@ import org.ximtec.igesture.geco.GUI.GecoMainView;
 
 public class ExitApplicationAction extends BasicAction {
 
-   private GecoMainView mainView;
 
-
-   public ExitApplicationAction(GecoMainView mainView) {
+   public ExitApplicationAction() {
       super(GecoConstants.EXIT, GuiTool.getGuiBundle());
-      this.mainView = mainView;
    }
 
 

@@ -28,19 +28,13 @@ package org.ximtec.igesture.geco.GUI.action;
 
 
 import java.awt.event.ActionEvent;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
 import org.ximtec.igesture.geco.GUI.GecoMainView;
-import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 
 
 /**
@@ -58,8 +52,6 @@ public class NewProjectAction extends BasicAction {
       super(GecoConstants.NEW_PROJECT_ACTION, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
-   
-   private static final String XML_EXTENSION = ".xml";
 
 
    /**
@@ -85,51 +77,6 @@ public class NewProjectAction extends BasicAction {
       mainView.getComponentHandler().getNewProjectDialog().showDialog();
    } // actionPerformed
    
-   
-   private void showFileDialog(){
-      //display file chooser dialog
-      JFileChooser fileChooser = new JFileChooser();
-      fileChooser.setFileFilter(new ExtensionFileFilter(XML_EXTENSION,
-            new String[] {XML_EXTENSION}));
-      int status = fileChooser.showDialog(null,"Save");
-      if (status == JFileChooser.APPROVE_OPTION) {
-         File selectedFile = fileChooser.getSelectedFile();
-         if(selectedFile != null){
-            
-            String ext = "";
-            if (selectedFile.getName().length()>4){
-               ext = selectedFile.getName().substring(selectedFile.getName().length()-4,
-                  selectedFile.getName().length());
-            }
-            File temp;
-            try{
-               String fileName;
-               String projectName ="";
-               if(ext.equals(XML_EXTENSION)){
-                  projectName = selectedFile.getName().substring(0,selectedFile.getName().length()-4);
-                  fileName = selectedFile.getAbsolutePath();
-                }else{
-                   projectName = selectedFile.getName();
-                   fileName = selectedFile.getAbsolutePath()+XML_EXTENSION;
-             }
 
-               BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
-               temp = new File(fileName);
-               //update model
-               mainView.getModel().setProjectFile(temp);
-               mainView.getModel().setProjectName(projectName);
-               mainView.getModel().clearData();
-               
-               //update view
-               mainView.initProjectView(projectName);
-               mainView.enableMenuItem();
-
-            }catch(IOException e){
-               e.printStackTrace();
-            }
-
-         }
-      } 
-   }//showFileDialog
    
 }

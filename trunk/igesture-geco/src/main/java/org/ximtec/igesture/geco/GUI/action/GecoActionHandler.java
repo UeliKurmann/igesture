@@ -69,7 +69,7 @@ public class GecoActionHandler {
 
    public Action getExitApplicationAction() {
       if (exitApplicationAction == null) {
-         exitApplicationAction = new ExitApplicationAction(view);
+         exitApplicationAction = new ExitApplicationAction();
       }
 
       return exitApplicationAction;

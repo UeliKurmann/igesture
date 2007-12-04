@@ -44,7 +44,7 @@ import javax.swing.AbstractListModel;
  public class SortedListModel<T> extends AbstractListModel {
 
 
-    SortedSet model;
+    SortedSet<T> model;
     
     public SortedListModel(Comparator<T> c) {
        model = new TreeSet<T>(c);
@@ -65,13 +65,13 @@ import javax.swing.AbstractListModel;
     }//getElementAt
 
 
-    public void add(Object element) {
+    public void add(T element) {
       if (model.add(element)) {
         fireContentsChanged(this, 0, getSize());
       }
     }//add
     
-    public void addAll(List<Object> elements) {
+    public void addAll(List<T> elements) {
        model.addAll(elements);
        fireContentsChanged(this, 0, getSize());
      }//addAll
@@ -89,7 +89,7 @@ import javax.swing.AbstractListModel;
       return model.first();
     }//firstElement
 
-    public Iterator iterator() {
+    public Iterator<T> iterator() {
       return model.iterator();
     }//iterator
 

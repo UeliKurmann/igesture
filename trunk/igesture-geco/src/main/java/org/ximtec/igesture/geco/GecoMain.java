@@ -65,7 +65,6 @@ public class GecoMain implements ButtonDeviceEventListener {
 
    private static final String DEFAULT_CONFIGURATION = "config.xml";
    
-   //FIXME: ddd
    private static final String GUI_BUNDLE_FILE = "gecoProperties";
 
 
@@ -97,9 +96,7 @@ public class GecoMain implements ButtonDeviceEventListener {
 
        private InputDeviceClient client;
        
-       GecoMainView view;
-
-       private EventManager eventManager;
+       private GecoMainView view;
 
 
        
