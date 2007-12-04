@@ -28,7 +28,6 @@ package org.ximtec.igesture.geco.GUI;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -37,11 +36,9 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.EventManager;
 import org.ximtec.igesture.geco.GestureMappingTable;
-import org.ximtec.igesture.geco.event.GestureSetLoadListener;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.storage.StorageManager;
-import org.ximtec.igesture.tool.GestureConfiguration;
 
 
 
@@ -52,22 +49,13 @@ import org.ximtec.igesture.tool.GestureConfiguration;
  */
 public class GecoMainModel {
    
-   /**
-    * The list of imported Gesture Set
-    */
    private GestureSet gestureSet;
-   
-   //private SortedListModel gestureListModel;
-   
-   //private SampleListModel gestureListModel;
    
    private SortedListModel<GestureClass> gestureListModel;
    
    private SortedListModel<GestureToActionMapping> mappingListModel;
    
    private EventManager eventManager =  new EventManager();
-   
-   private HashSet<GestureSetLoadListener> gestureSetListeners;
    
    public GestureMappingTable mappingTable = new GestureMappingTable();
    
@@ -81,14 +69,8 @@ public class GecoMainModel {
    
    private boolean toBeSaved;
    
-   /**
-    * The storage manager. 
-    */
    private StorageManager storageManager;
    
-   /**
-    * Data structure to manage the gesture classes
-    */
    private List<GestureClass> gestureClasses;
    
    
@@ -96,32 +78,22 @@ public class GecoMainModel {
     * Constructs a new main model.
     * 
     * @param engine the storage engine used by the storage manager.
-    * @param configuration the configuration to be used.
     */
    public GecoMainModel(StorageEngine engine) {
-      gestureSetListeners = new HashSet<GestureSetLoadListener>();
 //      loadData(engine);
       Comparator c1 =new Comparator<GestureClass>() {
          public int compare(GestureClass a, GestureClass b) {
             return a.getName().compareTo(b.getName());
           }
         };
-        /*
-        Comparator c1 =new Comparator<Descriptor>() {
-           public int compare(Descriptor a, Descriptor b) {
-              return a.toString().compareTo(b.toString());
-            }
-          };
-        */
         Comparator c2 =new Comparator<GestureToActionMapping>() {
            public int compare(GestureToActionMapping a, GestureToActionMapping b) {
               return a.getGestureClass().getName().compareTo(b.getGestureClass().getName());
             }
           };
-          //gestureListModel =  new SampleListModel();
         gestureListModel =  new SortedListModel<GestureClass>(c1);
         mappingListModel =  new SortedListModel<GestureToActionMapping>(c2);
-   }
+   }//GecoMainModel
 
    /**
     * Loads the data.
@@ -148,17 +120,11 @@ public class GecoMainModel {
 
       for (GestureClass dataObject : storageManager.load(GestureClass.class)) {
          gestureClasses.add(dataObject);
-      //   List<Descriptor> list = dataObject.getDescriptors();
-      //   System.out.println("hoi");
       }
-
-
 
    //   for (GestureSet dataObject : storageManager.load(GestureSet.class)) {
    //      gestureSets.add(dataObject);
    //   }
-      
-      //fireGesturedSetChanged(new EventObject(Constant.EMPTY_STRING));
    } // loadData
 
    
@@ -177,114 +143,160 @@ public class GecoMainModel {
             gestureClassesTable.put(gc.getName(), gc);
          }
          toBeSaved=true;
-         
-   } // addGestureSet
+   } // loadGestureSet
    
+   
+   /**
+    * Clear the list models and the mapping tables
+    */
    public void clearData(){
       gestureClassesTable.clear();
       mappingListModel.clear();
       gestureListModel.clear();
-      
-   }
+   }//clearData
    
+   
+   /**
+    * Set the project file
+    * 
+    * @param f the xml file in which the project is saved
+    */
    public void setProjectFile(File f){
       projectFile = f;
-   }
+   }//setProjectFile
    
-   public void setProjectName(String n){
-      projectName = n;
+   
+   /**
+    * Set the project name
+    * 
+    * @param name the name of the project
+    */
+   public void setProjectName(String name){
+      projectName = name;
       toBeSaved=true;
-   }
+   }//setProjectName
    
+   /**
+    * Returns the project file
+    * 
+    * @return the xml file in which the project is saved
+    */
    public File getProjectFile(){
       return projectFile;
-   }
+   }//getProjectFile
    
+   
+   /**
+    * Adds the gesture set to the gesture main model
+    * 
+    * @param gestureSet the gesture set to be added.
+    */
    public String getProjectName(){
       return projectName ;
-   }
+   }//getProjectName
    
 
 
    /**
-    * Returns the list of gesture sets.
+    * Returns the gesture set
     * 
-    * @return the list of gesture sets.
+    * @return the current GestureSet
     */
    public GestureSet getGestureSet() {
       return gestureSet;
    } // getGestureSets
    
    
+   /**
+    * Adds a gesture-action mapping
+    * 
+    * @param gm the mapping to be added
+    */
    public void addMapping(GestureToActionMapping gm){
       gestureListModel.removeElement(gm.getGestureClass());
       eventManager.registerEventHandler(gm.getGestureClass().getName(),gm.getAction());
       mappingListModel.add(gm);
       toBeSaved=true;
-   }
+   }//addMapping
    
    
 
+   /**
+    * Removes a gesture-action mapping
+    * 
+    * @param the mappping to be removed
+    */
    public void removeMapping(GestureToActionMapping gm){
       mappingTable.remove(gm.getGestureClass());
       eventManager.unRegisterEventHandler(gm.getGestureClass().getName());
       mappingListModel.removeElement(gm);
       gestureListModel.add(gm.getGestureClass());
       toBeSaved=true;
-   }
+   }//removeMapping
    
 
-   /*
-   public void removeGestureClass(GestureClass gc){
-      gestureListModel.removeElement(gc);
-   }
-   
-   public void addGestureClass(GestureClass gc){
-      gestureListModel.add(gc);
-   }
-   */
-   
+   /**
+    * Returns the model for the gesture List
+    * 
+    * @return the model
+    */
    public SortedListModel getGestureListModel(){
       return gestureListModel;
-   }
+   }//getGestureListModel
    
+   /**
+    * Returns the model for the mapping List
+    * 
+    * @return the model
+    */
    public SortedListModel getMappingListModel(){
       return mappingListModel;
-   }
+   }//getMappingListModel
    
-   
+   /**
+    * Returns the event manager
+    * 
+    * @return the event manager
+    */
    public EventManager getEventManager(){
       return eventManager;
-   }
+   }//getEventManager
    
+   /**
+    * Returns the Configuration
+    * 
+    * @return the configuration
+    */
    public Configuration getConfiguration(){
       return configuration;
-   }
+   }//getConfiguration
    
+   /**
+    * Set the configuration
+    * 
+    * @param c the Configuration to be set
+    */
    public void setConfiguration(Configuration c){
       configuration=c;
-   }
+   }//setConfiguration
    
+   
+   /**
+    * Set toBeSaved flag
+    * 
+    * @param the new value of the flag
+    */
    public void setNeedSave(boolean b){
       toBeSaved = b;
-   }
+   }//setNeedSave
    
+   /**
+    * Should project be saved?
+    * 
+    * @return
+    */
    public boolean needSave(){
       return toBeSaved;
-   }
-   
-   
-   
-
-   
-/*
-   public synchronized void fireGesturedSetChanged(EventObject event) {
-      for (GestureSetLoadListener gestureSetListener : this.gestureSetListeners) {
-         gestureSetListener.gestureSetChanged(event);
-      }
-
-   } // fireGesturedSetChanged
-*/
-
+   }//needSave
 
 }

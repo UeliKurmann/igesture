@@ -1,3 +1,28 @@
+/*
+ * @(#)GestureMappingTable.java 1.0   Nov 19, 2007
+ *
+ * Author       :   Michele Croci, mcroci@mgail.com
+ *
+ * Purpose      :  Main class for the geco application
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Revision Information:
+ *
+ * Date             Who         Reason
+ *
+ * Nov 19, 2007     crocimi     Initial Release
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Copyright 1999-2007 ETH Zurich. All Rights Reserved.
+ *
+ * This software is the proprietary information of ETH Zurich.
+ * Use is subject to license terms.
+ * 
+ */
+
+
 package org.ximtec.igesture.geco;
 
 import java.io.File;
@@ -28,14 +53,14 @@ import org.ximtec.igesture.storage.StorageEngine;
 
 
 /**
- *  Main class for the mapping gesture application
+ *  Main class for the geco application
  * 
  * @version 1.0 Nov 15, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public class GestureMappingMain implements ButtonDeviceEventListener {
+public class GecoMain implements ButtonDeviceEventListener {
    
-   private static final Logger LOGGER = Logger.getLogger(GestureMappingMain.class
+   private static final Logger LOGGER = Logger.getLogger(GecoMain.class
          .getName());
 
    private static final String DEFAULT_CONFIGURATION = "config.xml";
@@ -45,11 +70,13 @@ public class GestureMappingMain implements ButtonDeviceEventListener {
 
 
     /**
+     * Main method
+     * 
      * @param args
      */
     public static void main(String[] args) {
        try{
-       new GestureMappingMain(args);
+       new GecoMain(args);
        }
        catch(Exception e){
           e.printStackTrace();
@@ -61,7 +88,6 @@ public class GestureMappingMain implements ButtonDeviceEventListener {
 
        private static final String INITIALISED = "Initialised.";
 
-       //private static final String MAPPING_FILE = "gestureMapping.xml";
 
        private static final String RUBINE_CONFIGURATION = "rubineconfiguration.xml";
 
@@ -73,12 +99,12 @@ public class GestureMappingMain implements ButtonDeviceEventListener {
        
        GecoMainView view;
 
-
-
        private EventManager eventManager;
 
 
-       public GestureMappingMain(String[] args) throws AlgorithmException {
+       
+
+       public GecoMain(String[] args) throws AlgorithmException {
               GuiTool.addGuiBundle(GUI_BUNDLE_FILE);
               Logger.getAnonymousLogger().setLevel(Level.ALL);
               LOGGER.info(INITIALISING);
@@ -93,9 +119,6 @@ public class GestureMappingMain implements ButtonDeviceEventListener {
               else {
                  configuration = new GestureConfiguration(DEFAULT_CONFIGURATION);
               }
-              
-              
-
 
               String file = System.getProperty(SystemProperty.USER_DIR) + Constant.SLASH
                     + configuration.getDatabase();
@@ -105,26 +128,18 @@ public class GestureMappingMain implements ButtonDeviceEventListener {
               StorageEngine engine = null;
               GecoMainModel model = new GecoMainModel(engine);
               view = new GecoMainView(model);
-              
-//            initEventManager();
+
               initRecogniser();
               initDevice();
-              
 
-
-
-              
-              ///////////////
-
-
-
-          
-          
-
-          LOGGER.info(INITIALISED);
+              LOGGER.info(INITIALISED);
        }
 
 
+       
+       /**
+        * Init the input device
+        */
        private void initDevice() {
           InputDevice device = new MouseReader();
           InputDeviceEventListener listener = new BufferedInputDeviceEventListener(
@@ -134,6 +149,9 @@ public class GestureMappingMain implements ButtonDeviceEventListener {
        } // initDevice
 
 
+       /**
+        * Init the recogniser
+        */
        private void initRecogniser() throws AlgorithmException {
           Configuration configuration = XMLGeco.importConfiguration(new File(
                 ClassLoader.getSystemResource(RUBINE_CONFIGURATION).getFile()));
@@ -144,29 +162,18 @@ public class GestureMappingMain implements ButtonDeviceEventListener {
           recogniser = new Recogniser(configuration);
        } // initRecogniser
 
-/*
-       private void initEventManager() {
-          eventManager = new EventManager();
 
-          for (GestureKeyMapping mapping : XMLImport.importKeyMappings(new File(
-                GestureKeyboard.class.getClassLoader().getResource(MAPPING_FILE)
-                      .getFile()))) {
-             LOGGER.info(mapping.toString());
-             eventManager.registerEventHandler(mapping.getGestureName(),
-                   new PressKeystroke(mapping.getKeys()));
-          }
-
-       } // initEventManager
-*/
-
-
+       /**
+        * Handle events coming from the input device
+        * 
+        * @param event the event
+        */
        public void handleButtonPressedEvent(InputDeviceEvent event) {
           Note note = client.createNote(0, event.getTimestamp(), 70);
 
           if (note.getPoints().size() > 5) {
              recogniser.recognise(note);
           }
-
        } // handleButtonPressedEvent
        
 }

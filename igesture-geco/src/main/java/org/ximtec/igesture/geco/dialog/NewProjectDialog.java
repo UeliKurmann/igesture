@@ -11,7 +11,7 @@
  *
  * Date				Who			Reason
  *
- * 					bsigner		Initial Release
+ * Dec 3, 2007		crocimi		Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -34,12 +34,7 @@ import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -48,17 +43,13 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.Document;
 
-import org.sigtec.graphix.GuiBundle;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.graphix.widget.BasicTextField;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
 import org.ximtec.igesture.geco.GUI.GecoMainView;
-import org.ximtec.igesture.geco.GUI.action.SaveProjectAction;
-import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 import org.ximtec.igesture.graphics.SwingTool;
 
 
@@ -88,8 +79,11 @@ public class NewProjectDialog extends BasicDialog{
       this.view=view;
       setModal(true);
       init();
-   }
+   }//NewProjectDialog
    
+   /**
+    * Inits the dialog.
+    */
    private void init(){
       JPanel mainPanel = new JPanel();
       mainPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GecoConstants.NEW_PROJECT_DIALOG_TITLE));
@@ -142,38 +136,39 @@ public class NewProjectDialog extends BasicDialog{
       mainPanel.add(buttonPanel,  
             new GridBagConstraints(0,3,3,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,
             new Insets(10,10,10,10),0,0 ) );
-      
-      //
-      //this.add(cancelButton,  
-        //    new GridBagConstraints(0,3,3,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,
-          //  new Insets(10,10,10,10),0,0 ) );
-      
-      //dialog.add(GuiTool.createLabel(GecoConstants.PROJECT_FILE));    
+  
       this.add(mainPanel,
             new GridBagConstraints(0,3,3,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                   new Insets(20,20,20,20),0,0 ) );
-   }
+   }//init
    
    
+   /**
+    * Shows the dialog.
+    */
    public void showDialog(){
       reset();
       setVisible(true);
-   }
+   }//showDialog
    
+   /**
+    * Resets the dialog.
+    */
    public void reset(){
       fileTextField.setText("C:\\");
       projectTextField.setText("");
-   }
+   }//reset
    
    
+   /**
+    * Listener for browse event.
+    */
    private class BrowseListener implements ActionListener{
       public void actionPerformed(ActionEvent e){
          //display file chooser dialog
 
          JFileChooser fileChooser = new JFileChooser();
          fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-       //  fileChooser.setFileFilter(new ExtensionFileFilter(XML_EXTENSION,
-         //      new String[] {XML_EXTENSION}));
          int status = fileChooser.showDialog(null,"Open");
          if (status == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
@@ -202,14 +197,16 @@ public class NewProjectDialog extends BasicDialog{
       }
    }
    
+   
+   /**
+    * Listener for create project event.
+    */
    private class CreateListener implements ActionListener{
       public void actionPerformed(ActionEvent e){
       
          if((!fileTextField.getText().equals(""))&& (!projectTextField.getText().equals(""))){
             String fileName= fileTextField.getText();
 
-   //         try{
-//            BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
             boolean ok=true;
             File temp = new File(fileName);
             if (temp.exists()){
@@ -232,27 +229,30 @@ public class NewProjectDialog extends BasicDialog{
                //update view
                view.initProjectView(projectTextField.getText());
                view.enableMenuItem();
-        //       }
-        //       catch(IOException ioe){
-        //          ioe.printStackTrace();
-        //       }
-               
                NewProjectDialog.this.dispose();
             }
          }
          
          
-      }
+      }//actionPerformed
       
    }
    
+   
+   /**
+    * Listener for cancel event.
+    */
    private class CancelListener implements ActionListener{
       public void actionPerformed(ActionEvent e){
          NewProjectDialog.this.dispose();
-      }
+      }//actionPerformed
       
    }
    
+   
+   /**
+    * Listener for project name edit event.
+    */
    private class MyDocumentListener implements DocumentListener {
    
       public void insertUpdate(DocumentEvent e) {
@@ -265,8 +265,6 @@ public class NewProjectDialog extends BasicDialog{
          //Plain text components do not fire these events
      }
 
-
-     
       public void update(){
          if((!projectTextField.getText().equals(""))){
             NewProjectDialog.this.createButton.setEnabled(true);
@@ -279,8 +277,6 @@ public class NewProjectDialog extends BasicDialog{
                NewProjectDialog.this.projectTextField.getText());
          }
       
-   }
-      
-      
+      }//update
    }
 }

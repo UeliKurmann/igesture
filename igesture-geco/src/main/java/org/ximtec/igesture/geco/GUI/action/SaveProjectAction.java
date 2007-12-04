@@ -1,5 +1,5 @@
 /*
- * @(#)OpenProjectAction.java   1.0   Nov 15, 2007
+ * @(#)SaveProjectAction.java   1.0   Nov 15, 2007
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *
@@ -71,7 +71,7 @@ public class SaveProjectAction extends BasicAction {
      mainView.getModel().setNeedSave(false);
      //update view
      mainView.disableSaveButton();
-  }
+  }//save
  
   
 }

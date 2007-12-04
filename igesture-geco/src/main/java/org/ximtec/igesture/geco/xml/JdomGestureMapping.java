@@ -3,7 +3,7 @@
  *
  * Author		:	Michele croci, mcroci@gmail.com
  *
- * Purpose		: 
+ * Purpose		:   XML support for the <gestureMapping> element.
  *
  * -----------------------------------------------------------------------
  *
@@ -37,9 +37,10 @@ import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 
 
 /**
- * Comment
+ * XML support for the <gestureMapping> element.
+ * 
  * @version 1.0 Nov 28, 2007
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Michele croci, mcroci@gmail.com
  */
 public class JdomGestureMapping extends Element {
 
@@ -54,8 +55,6 @@ public class JdomGestureMapping extends Element {
    private static GestureSet gestureSet;
    
    
-
-
    public JdomGestureMapping(GestureToActionMapping map, GestureSet gestureSet) {
       super(ROOT_TAG);
       this.gestureSet = gestureSet;

@@ -30,11 +30,8 @@ import java.awt.event.ActionEvent;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.geco.GestureMappingTable;
-import org.ximtec.igesture.geco.GUI.GecoComponentHandler;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
 import org.ximtec.igesture.geco.GUI.GecoMainView;
-import org.ximtec.igesture.geco.dialog.MappingDialog;
 
 /**
 *  Map gesture to custom action
@@ -46,10 +43,6 @@ public class AddMappingAction extends BasicAction {
 
   private GecoMainView mainView;
   private GestureClass currentGesture;
-  
-
-  //private MappingDialog dialog;
-  
  
 
   public AddMappingAction(GecoMainView mainView) {
@@ -65,7 +58,6 @@ public class AddMappingAction extends BasicAction {
    */
   public void actionPerformed(ActionEvent event) {
      currentGesture = mainView.getSelectedClass();
-     //dialog.show(true);
      mainView.getComponentHandler().getMappingDialog().showDialog(currentGesture);
 
   } // actionPerformed¨

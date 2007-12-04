@@ -1,9 +1,9 @@
 /*
- * @(#)JdomGestureToActionMapping.java	1.0   Nov 28, 2007
+ * @(#) JdomGestureSetName.java	1.0   Nov 28, 2007
  *
- * Author		:	Beat Signer, signer@inf.ethz.ch
+ * Author		:	Michele Croci, mcroci@gmail.com
  *
- * Purpose		: XML support for the GestureToActionMapping class.
+ * Purpose		:   XML support for the <gestureSet> element.
  *
  * -----------------------------------------------------------------------
  *
@@ -31,7 +31,8 @@ import org.ximtec.igesture.core.GestureSet;
 
 
 /**
- * Comment
+ * XML support for the <gestureSet> element.
+ * 
  * @version 1.0 Nov 28, 2007
  * @author Michele Croci, mcroci@gmail.com
  */

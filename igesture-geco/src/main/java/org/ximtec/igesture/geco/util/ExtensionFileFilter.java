@@ -3,7 +3,7 @@
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
- * Purpose		:   general FileFilter based on file extension
+ * Purpose		:   General FileFilter based on file extension
  *
  * -----------------------------------------------------------------------
  *
@@ -24,7 +24,7 @@
 
 
 package org.ximtec.igesture.geco.util;
-//TODO: change package? (framework.util?)
+
 
 import java.io.File;
 
@@ -43,10 +43,22 @@ public class ExtensionFileFilter extends FileFilter {
 
    String extensions[];
 
+   /**
+    * Constructor
+    * 
+    * @param description a description of the file filter
+    * @param extension, the file extension not to filter
+    */
    public ExtensionFileFilter(String description, String extension) {
      this(description, new String[] { extension });
    }
 
+   /**
+    * Constructor
+    * 
+    * @param description a description of the file filter
+    * @param extensions an array of file extension not to filter
+    */
    public ExtensionFileFilter(String description, String extensions[]) {
      if (description == null) {
        this.description = extensions[0];
@@ -61,12 +73,18 @@ public class ExtensionFileFilter extends FileFilter {
      for (int i = 0, n = array.length; i < n; i++) {
        array[i] = array[i].toLowerCase();
      }
-   }
+   }//toLower
 
+   /**
+    * Returns the description
+    * 
+    * @return the description
+    */
    public String getDescription() {
      return description;
-   }
+   }//getDescription
 
+   
    public boolean accept(File file) {
      if (file.isDirectory()) {
        return true;
@@ -80,5 +98,5 @@ public class ExtensionFileFilter extends FileFilter {
        }
      }
      return false;
-   }
+   }//accept
  }

@@ -1,5 +1,5 @@
 /*
- * @(#)XMLTool.java   1.0   Nov 28, 2007
+ * @(#)XMLGeco.java   1.0   Nov 28, 2007
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *
@@ -67,32 +67,6 @@ public class XMLGeco {
    public static final String ROOT_TAG = "gestureMappings";
 
 
-   /**
-    * Imports a gesture set.
-    * 
-    * @param file the XML file.
-    * @return a list of gesture sets.
-    */
-   @SuppressWarnings("unchecked")
-   public static List<GestureSet> importProject(File file) {
-     
-      //not implemented yet
-      return null;
-      /*
-      final List<GestureSet> sets = new ArrayList<GestureSet>();
-      final Document document = importDocument(file);
-      final List<Element> algorithmElements = document.getRootElement()
-            .getChildren(JdomGestureSet.ROOT_TAG);
-
-      for (final Element setElement : algorithmElements) {
-         sets.add((GestureSet)JdomGestureSet.unmarshal(setElement));
-      }
-
-      return sets;
-      
-     */
-   } // importGestureSet
-
 
    /**
     * Exports a gesture set.
@@ -103,7 +77,6 @@ public class XMLGeco {
    public static void exportProject(Collection<GestureToActionMapping> mappings, GestureSet gestureSet, File file) {
 
       final JdomDocument igestureDocument = new JdomDocument(ROOT_TAG);
- //     final HashSet<GestureClass> hashSet = new HashSet<GestureClass>();
       
       igestureDocument.attach(new JdomGestureSetName(gestureSet));
 
@@ -112,9 +85,9 @@ public class XMLGeco {
       }
 
       FileHandler.writeFile(file.getPath(), igestureDocument.toXml());
-      
    } // exportGestureSet
 
+   
    /**
     * Imports an XML document.
     * 

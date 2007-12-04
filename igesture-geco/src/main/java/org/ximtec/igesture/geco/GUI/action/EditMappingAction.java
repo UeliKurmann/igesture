@@ -29,11 +29,8 @@ import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
 import org.ximtec.igesture.geco.GUI.GecoMainView;
-import org.ximtec.igesture.geco.dialog.MappingDialog;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 
 /**
@@ -61,7 +58,6 @@ public class EditMappingAction extends BasicAction {
    */
   public void actionPerformed(ActionEvent event) {
      currentMapping = mainView.getSelectedMapping();
-     //dialog.show(true);
      mainView.getComponentHandler().getMappingDialog().showDialog(currentMapping.getGestureClass());
 
   } // actionPerformed
