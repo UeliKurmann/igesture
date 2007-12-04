@@ -1,5 +1,5 @@
 /*
- * @(#)GestureMapping.java	1.0   Nov 19, 2007
+ * @(#)GestureToActionMapping.java	1.0   Nov 19, 2007
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
@@ -27,7 +27,6 @@ package org.ximtec.igesture.geco.mapping;
 
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.event.EventHandler;
-import org.ximtec.igesture.geco.UserDefinedAction;
 
 
 
@@ -43,24 +42,45 @@ public class GestureToActionMapping {
    
    protected EventHandler action = null;
    
-   //public GestureToActionMapping() {}
    
+   /**
+    * Constructor
+    * 
+    * @param gesture the gesture class
+    * @param action the action corresponding to the gesture
+    */
    public GestureToActionMapping(GestureClass gesture, EventHandler action) {
       this.gestureClass = gesture;
       this.action = action;
    }
    
 
-   
+   /**
+    * Returns the gesture class
+    * 
+    * @return the gesture class
+    */
    public GestureClass getGestureClass(){
       return gestureClass;
    }
    
+   
+   /**
+    * Returns the gesture class
+    * 
+    * @return the description of the Mapping
+    */
    public String toString(){
+      //TODO: change implementation of this method?
       return gestureClass.getName();
    }
    
    
+   /**
+    * Returns the action
+    * 
+    * @return the action
+    */
    public EventHandler getAction(){
       return action;
    }

@@ -83,11 +83,6 @@ public class NewProjectAction extends BasicAction {
       
       //display new project dialog
       mainView.getComponentHandler().getNewProjectDialog().showDialog();
-
-      
-      
-     
-
    } // actionPerformed
    
    
@@ -134,10 +129,7 @@ public class NewProjectAction extends BasicAction {
             }
 
          }
-      } else if (status == JFileChooser.CANCEL_OPTION) {
-        
-      }
-
-   }
+      } 
+   }//showFileDialog
    
-   }
+}

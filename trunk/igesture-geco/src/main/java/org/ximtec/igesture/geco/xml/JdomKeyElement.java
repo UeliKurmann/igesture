@@ -1,9 +1,9 @@
 /*
- * @(#)JdomGestureElement.java  1.0   Nov 29, 2007
+ * @(#)JdomKeyElement.java  1.0   Nov 29, 2007
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *
- * Purpose      :  XML support for the EventHandler class.
+ * Purpose      :  XML support for the <key> element.
  *
  * -----------------------------------------------------------------------
  *
@@ -31,7 +31,7 @@ import org.ximtec.igesture.geco.UserAction.KeyboardSimulationAction;
 
 
 /**
- * XML support for the EventHandler class.
+ * XML support for the <key> element.
  * 
  * @version 1.0 Nov 29, 2007
  * @author Michele Croci, mcroci@gmail.com

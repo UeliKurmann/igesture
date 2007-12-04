@@ -3,7 +3,7 @@
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
- * Purpose		:  XML support for the GestureClass class.
+ * Purpose		:  XML jdom element for igesture
  *
  * -----------------------------------------------------------------------
  *
@@ -31,7 +31,7 @@ import org.ximtec.igesture.core.GestureClass;
 
 
 /**
- * XML support for the GestureClass class.
+ * XML jdom element for igesture
  * 
  * @version 1.0 Nov 29, 2007
  * @author Michele Croci, mcroci@gmail.com

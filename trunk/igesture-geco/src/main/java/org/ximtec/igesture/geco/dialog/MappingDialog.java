@@ -63,7 +63,6 @@ import org.ximtec.igesture.graphics.SwingTool;
  */
 public class MappingDialog extends BasicDialog{
    
-  // private BasicDialog dialog;
    
    private GestureClass gestureClass;
    private GestureToActionMapping gestureMapping;
@@ -81,9 +80,7 @@ public class MappingDialog extends BasicDialog{
    private int HOTKEY = 0;
    
    private static final String CONTROL = "CONTROL";
-   
    private static final String SHIFT = "SHIFT";
-   
    private static final String ALT = "ALT";
    
    
@@ -91,24 +88,32 @@ public class MappingDialog extends BasicDialog{
       view = gmv;
       setModal(true);
       initDialog();
-      
-   }
+   }//MappingDialog
    
    
+   /**
+    * Shows the dialog.
+    * 
+    * @param gc the gesture to be mapped.
+    */
    public void showDialog(GestureClass gc){
       gestureMapping = view.getModel().mappingTable.getAction(gc);
       gestureClass = gc;
       initButtonsState();
       this.setVisible(true);
-   }
+   }//showDialog
    
-   
+   /**
+    * Hides the dialog.
+    */
    public void hideDialog(){
       this.setVisible(false);
-   }
+   }//hideDialog
    
 
-   
+   /**
+    * Inits the state of the buttons.
+    */
    private void initButtonsState(){
       gestureLabel.setText(gestureClass.getName());
       if (gestureMapping==null){
@@ -118,25 +123,20 @@ public class MappingDialog extends BasicDialog{
          comboBox.setSelectedIndex(0);
       }
       else{
-      if (gestureMapping.getAction() instanceof KeyboardSimulationAction){
-         KeyboardSimulationAction gkm = (KeyboardSimulationAction)gestureMapping.getAction();
-         altCheckBox.setSelected(gkm.isAltSelected());
-         shiftCheckBox.setSelected(gkm.isShiftSelected());
-         ctrlCheckBox.setSelected(gkm.isCtrlSelected());
-         comboBox.setSelectedItem(gkm.getSelectedChar());
+         if (gestureMapping.getAction() instanceof KeyboardSimulationAction){
+            KeyboardSimulationAction gkm = (KeyboardSimulationAction)gestureMapping.getAction();
+            altCheckBox.setSelected(gkm.isAltSelected());
+            shiftCheckBox.setSelected(gkm.isShiftSelected());
+            ctrlCheckBox.setSelected(gkm.isCtrlSelected());
+            comboBox.setSelectedItem(gkm.getSelectedChar());
+         }
       }
-      
-      }
-      
-      
-   }
+   }//initButtonsState
    
 
    
    /**
     * Init the Dialog
-    * 
-    * @param event the action event.
     */
    private void initDialog() {
          this.setTitle(GecoConstants.MAIN_FRAME_TITLE);
@@ -203,9 +203,8 @@ public class MappingDialog extends BasicDialog{
       BasicButton cancelButton = SwingTool.createButton(GecoConstants.CANCEL);
       addButton.addActionListener(new ActionListener(){
           public void actionPerformed(ActionEvent event) {
-             //add gesture mapping
-             addGestureMappingtoTable();
              //update model
+             addGestureMappingToTable();
              view.getModel().addMapping(MappingDialog.this.view.getModel().mappingTable.getAction(gestureClass));
              //update view
              view.updateLists();
@@ -231,37 +230,17 @@ public class MappingDialog extends BasicDialog{
       panel1.add(bottomPanel,
             new GridBagConstraints(1,2,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                      new Insets(0,20,20,20),0,0 ) );
-      //panel1.add(buttonPanel,
-        //    new GridBagConstraints(1,3,1,1,0.0,0.0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-          //           new Insets(20,0,0,0),0,0 ) );
       this.add(buttonPanel,  new GridBagConstraints(0,1,1,1,0,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
             new Insets(0,20,0,20),0,0 ) );
   
    } // addFirstTab
    
    
-   
-   
    /**
-    * Add the first tab to the dialog
+    * Add a Gesture-action map to the table of mappings
     * 
     */
-   /*
-   public void reset(){
-      ctrlCheckBox.setSelected(false);
-      altCheckBox.setSelected(false);
-      shiftCheckBox.setSelected(false);
-      comboBox.setSelectedIndex(0);
-      gestureLabel.setText(currentGesture.getName());
-   }
-*/   
-   
-   
-   /**
-    * Add a Gesture-action map
-    * 
-    */
-   private void addGestureMappingtoTable(){
+   private void addGestureMappingToTable(){
       if (tabbedPane.getSelectedIndex()==HOTKEY){
          String keys = "";
          if (ctrlCheckBox.isSelected())
@@ -275,9 +254,8 @@ public class MappingDialog extends BasicDialog{
          
          GestureToActionMapping action = new GestureToActionMapping(gestureClass,new KeyboardSimulationAction(keys));
          view.getModel().mappingTable.addMapping(gestureClass, action);
-      }
-      
-   }
+      }   
+   }//addGestureMappingToTable
    
    
 

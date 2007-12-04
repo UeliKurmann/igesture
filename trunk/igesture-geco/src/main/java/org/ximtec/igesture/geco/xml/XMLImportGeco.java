@@ -1,5 +1,5 @@
 /*
- * @(#)XMLImport.java   1.0   March 09, 2007
+ * @(#)XMLImportGeco.java   1.0   Nov 28, 2007
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *
@@ -11,8 +11,7 @@
  *
  * Date             Who         Reason
  *
- * Mar 09, 2007     ukurmann    Initial Release
- * Mar 24, 2007     bsigner     Cleanup
+ * Nov 28, 2007     crocimi    Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -49,15 +48,12 @@ public class XMLImportGeco {
    private static GestureSet gestureSet;
    
    
-   public void exportProject(File file, List<GestureToActionMapping> mappings, GestureSet gestureSet) {
-      
-      for(GestureToActionMapping map : mappings){
-         
-      }
 
-   } // importKeyMappings
-
-
+   /**
+    * Imports a project.
+    * 
+    * @param file the XML file in which the project is saved.
+    */
    public void importProject(File file) {
       mappings = new ArrayList<GestureToActionMapping>();
       final Document document = XMLGeco.importDocument(file);
@@ -83,11 +79,20 @@ public class XMLImportGeco {
    } // importKeyMappings
    
    
-   
+   /**
+    * Returns the mappings saved in the xml file.
+    * 
+    * @return the list of mappings
+    */
    public List<GestureToActionMapping> getMappings(){
       return mappings;
    }
    
+   /**
+    * Returns the GestureSet saved in the xml
+    * 
+    * @return the gesture set
+    */
    public GestureSet getGestureSet(){
       return gestureSet;
    }

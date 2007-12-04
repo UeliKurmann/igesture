@@ -33,7 +33,7 @@ import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 
 
 /**
- * Comment
+ * Table containing all the user-defined gesture-mapping
  * @version 1.0 Nov 19, 2007
  * @author Michele Croci, mcroci@mgail.com
  */
@@ -43,13 +43,25 @@ public class GestureMappingTable extends Hashtable{
       
    }
    
+   /**
+    * Constructs a new algorithm frame.
+    * 
+    * @param gestureClass the mapped gesture.
+    * @param action the action.
+    */
    public void addMapping(GestureClass gestureClass, GestureToActionMapping action){
       put(gestureClass, action);
-   }
+   }//addMapping
    
+   
+   /**
+    * Retrieve the action corresponding to the class
+    * 
+    * @param gestureClass.
+    */
    public GestureToActionMapping getAction(GestureClass gestureClass){
       return (GestureToActionMapping)get(gestureClass);
-   }
+   }//getAction
    
    
 

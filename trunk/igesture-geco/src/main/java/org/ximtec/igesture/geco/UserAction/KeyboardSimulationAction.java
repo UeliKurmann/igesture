@@ -37,7 +37,6 @@ import java.util.List;
 
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.EventHandler;
-import org.ximtec.igesture.geco.UserDefinedAction;
 import org.ximtec.igesture.io.Win32KeyboardProxy;
 
 
@@ -61,20 +60,15 @@ public class KeyboardSimulationAction implements EventHandler{
    private String selChar;
 
    
+   /**
+    * Constructor.
+    * 
+    * @param keys the keys corresponding to the action
+    */
    public KeyboardSimulationAction(String keys) {
       this.stringKeys = keys;
       setKeys(keys);
-   }
-
-
-  // public KeyboardSimulationAction(Integer[] keys) {
-    //  this.keys = keys;
-  // }
-
-   public void execute(){
-      Win32KeyboardProxy.pressKey(keys);
-      
-   }
+   }//KeyboardSimulationAction
 
    public void run(ResultSet resultSet) {
       Win32KeyboardProxy.pressKey(keys);
@@ -117,32 +111,56 @@ public class KeyboardSimulationAction implements EventHandler{
          length--;
 
       }
-
       this.keys = codes.toArray(new Integer[0]);
    } // setKeys
 
    
    
-   
+   /**
+    * Is 'control' selected?
+    * 
+    * @return true, if 'control' is selected
+    */
    public boolean isCtrlSelected(){
       return ctrlSelected;
-   }
+   }//isCtrlSelected
    
+   /**
+    * Is 'alt' selected?
+    * 
+    * @return true, if 'control' is selected
+    */
    public boolean isAltSelected(){
       return altSelected;
-   }
+   }//isAltSelected
    
+   /**
+    * Is 'shift' selected?
+    * 
+    * @return true, if 'shift' is selected
+    */
    public boolean isShiftSelected(){
       return shiftSelected;
-   }
+   }//isShiftSelected
    
+   
+   /**
+    * Returns selected char
+    * 
+    * @return a String representing the selected char
+    */
    public String getSelectedChar(){
       return selChar;
-   }
+   }//getSelectedChar
    
+   /**
+    * Returns a description of the action
+    * 
+    * @return the keys to be pressed
+    */
    public String toString(){
       return stringKeys;
-   }
+   }//toString
 
    
    

@@ -1,5 +1,5 @@
 /*
- * @(#)GestureMappingView.java 1.0   Nov 15, 2007
+ * @(#)GecoMainView.java 1.0   Nov 15, 2007
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *
@@ -29,7 +29,6 @@ package org.ximtec.igesture.geco.GUI;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -38,7 +37,6 @@ import java.awt.event.MouseEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -58,7 +56,6 @@ import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.geco.GUI.action.GecoActionHandler;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.graphics.ScrollableList;
@@ -82,33 +79,26 @@ public class GecoMainView extends JFrame{
 	   private GecoMainModel model;
 	   private GecoActionHandler handler=  new GecoActionHandler(this);
 	   private GecoComponentHandler compHandler = new GecoComponentHandler(this);
-	   
-	   private static final String GESTURE_SET = "gestureSets/ms_application_gestures.xml";
-	   private static final String XML_EXTENSION = "xml";
+       private boolean initialized;
 	   
 	   private final int WINDOW_HEIGHT = 600;
 	   private final int WINDOW_WIDTH = 800;
 	   
-	   //components of the window:
+	   //GUI elements
 	   private JPanel leftPanel = new JPanel();
 	   private JPanel rightPanel = new JPanel();
 	   JPanel contentPanel = new JPanel();
-	  
 	   private ScrollableList gestureList;
 	   private ScrollableList mappingList;
-	   //private JList gestureList = new JList();
-	   //private JList mappingList = new JList();
 	   private BasicButton mapButton; 
 	   private BasicButton saveButton;
 	   private BasicButton exitButton;
 	   private BasicButton editButton;
 	   private BasicButton removeButton;
 	   private JMenuItem saveMenuItem;	   
-	   private boolean initialized;
 
-	   
-	   
-	   
+
+
 	   /**
 	    * Constructs a new main view.
 	    * 
@@ -123,7 +113,7 @@ public class GecoMainView extends JFrame{
 	
 	
 	   /**
-	    * Initialises the main view.
+	    * Initialises the main view (create an empty frame).
 	    */
 	private void createVoidDialog(){
 	   
@@ -149,6 +139,10 @@ public class GecoMainView extends JFrame{
 		
 	}
 	
+	
+    /**
+     * Initializes the view for a project
+     */
 	public void initProjectView(String projectName){
 	   setTitle(GecoConstants.GECO+" - "+projectName);
 	   if(!initialized){
@@ -158,10 +152,10 @@ public class GecoMainView extends JFrame{
 	}
 	
 	
+    /**
+     * Populates the dialog.
+     */
 	private void populateDialog(){
-		
-		
-
 		initialized= true;
 		leftPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GecoConstants.USER_DEFINED_MAPPING));
 		rightPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GecoConstants.GESTURE_SET));
@@ -192,12 +186,9 @@ public class GecoMainView extends JFrame{
                 new GridBagConstraints(0,2,1,1,0,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
                  new Insets(0,20,0,0),20,0 ) );
 		
-		
 		initLeftPanel();
 		initRightPanel();
 		updateLists();
-		
-		
 	}
 	
 	private void addMenu(){
@@ -208,18 +199,13 @@ public class GecoMainView extends JFrame{
 	}
 	
 	   /**
-	    * Initialises the left container.
+	    * Initialises the left panel.
 	    */
 	private void initLeftPanel(){
-
-     
 	   mappingList = SwingTool.createScrollableList(null,  0,   0);
 	   mappingList.getList().setCellRenderer(new MappingCellRenderer());
-	   
-       //JScrollPane leftscroll = new JScrollPane();
+
        leftPanel.setLayout(new GridBagLayout());
-	   //leftscroll.getViewport().add(mappingList);
-	   //leftscroll.setBorder(null);
 	   leftPanel.add(mappingList,
               new GridBagConstraints(0,0,2,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0,0,0,0),0,0 ) );
@@ -228,13 +214,10 @@ public class GecoMainView extends JFrame{
 	   editButton = SwingTool.createButton(GecoConstants.EDIT);
 	   editButton.setAction(handler.getEditMappingAction());
        editButton.setEnabled(false);
-	   
 	   removeButton = SwingTool.createButton(GecoConstants.REMOVE);
-	   
 	   removeButton.setAction(handler.getRemoveMappingAction());
 	   removeButton.setEnabled(false);
      
-	   
        mappingList.getList().addListSelectionListener(new ListSelectionListener(){
           public void valueChanged(ListSelectionEvent e){
              GecoMainView.this.editButton.setEnabled(true);
@@ -245,26 +228,22 @@ public class GecoMainView extends JFrame{
 	   leftPanel.add(editButton,
 	                    new GridBagConstraints(0,1,1,1,0.5,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
 	                             new Insets(20,0,20,0),50,0 ) );
-	        
+	     
 	   leftPanel.add(removeButton,
 	               new GridBagConstraints(1,1,1,1,0.5,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
 	                     new Insets(20,0,20,0),50,0 ) );
     
-		
-	}
+	}//initLeftPanel
 	
 	
 	   /**
-	    * Initialises the right conatiner.
+	    * Initialises the right panel.
 	    */
 	private void initRightPanel(){
 	     JScrollPane rightscroll = new JScrollPane();
 	     
 	    gestureList = SwingTool.createScrollableList(null,  0,   0);
 	    rightPanel.setLayout(new GridBagLayout());
-	    //gestureList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//	    gestureList.getList().setCellRenderer(new MyCellRenderer());
-//	    gestureList.getList().setCellRenderer(new CustomCellRenderer());
 	    gestureList.getList().addMouseListener(new MouseAdapter() {
 
 	         @Override
@@ -274,26 +253,11 @@ public class GecoMainView extends JFrame{
 	            }
 	         }
 	      });
-	    /*
-	     * old implementation:
-	     * 
-	    gestureList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	    gestureList.addListSelectionListener(new ListSelectionListener(){
-	       public void valueChanged(ListSelectionEvent e){
-	          GestureMappingView.this.mapButton.setEnabled(true);
-	       }
-	    });
-	    
-	    
-	    rightscroll.getViewport().add(gestureList);
-		rightscroll.setBorder(null);
-		*/
-	    
+
 		rightPanel.add(gestureList,
               new GridBagConstraints(0,0,2,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0,0,0,0),0,0 ) );
 		
-		//mapButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		mapButton = SwingTool.createButton(GecoConstants.MAP_GESTURE);
 		mapButton.setAction(handler.getAddMappingAction());
 		mapButton.setEnabled(false);
@@ -308,9 +272,7 @@ public class GecoMainView extends JFrame{
 	     rightPanel.add(mapButton,
                new GridBagConstraints(1,1,1,1,0.5,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
                      new Insets(20,0,20,0),50,0 ) );
-
-
-	}
+	}//initRightPanel
 	
 	
 	   /**
@@ -328,22 +290,16 @@ public class GecoMainView extends JFrame{
 
 	   private JMenu createFileMenu() {
 	      JMenu menu = GuiTool.getGuiBundle().createMenu(GecoConstants.MENU_FILE);
-	//      menu.add(SwingTool.createMenuItem(new ActionNewGestureMap(this), IconLoader
-	  //          .getIcon(IconLoader.DOCUMENT_NEW)));
-	//      menu.add(SwingTool.createMenuItem(new ActionOpenGestureMap(this),
-	  //          IconLoader.getIcon(IconLoader.DOCUMENT_OPEN)));
 	     
 	       menu.add(SwingTool.createMenuItem(handler.getNewProjectAction(),null));
 	       menu.add(SwingTool.createMenuItem(handler.getOpenProjectAction(),null));
 	       saveMenuItem = SwingTool.createMenuItem(handler.getSaveProjectAction(),null);
 	       saveMenuItem.setEnabled(false);
 	       menu.add(saveMenuItem);
-	      
-	 
+	       
 	      menu.addSeparator();
 	      menu.add(new JMenuItem(handler.getExitApplicationAction()));
-	      
-	      
+	  
 	      return menu;
 	   } // createFileMenu
 	   
@@ -366,7 +322,7 @@ public class GecoMainView extends JFrame{
        public void updateGestureList(){
            gestureList.setModel(model.getGestureListModel());
            mapButton.setEnabled(false);
-       }
+       }//updateGestureList
        
     /**
      * Update the mapping Set
@@ -377,12 +333,17 @@ public class GecoMainView extends JFrame{
         editButton.setEnabled(false);
         removeButton.setEnabled(false);
         mapButton.setEnabled(false);
-    }
+    }//updateMappingList
     
+    
+    /**
+     * Update the two lists
+     * 
+     */
     public void updateLists(){
        updateGestureList();
        updateMappingList();
-    }
+    }//updateLists
        
 
     /**
@@ -393,7 +354,7 @@ public class GecoMainView extends JFrame{
      */
     public GestureClass getSelectedClass(){
        return (GestureClass) gestureList.getSelectedValue();
-  }
+  }//getSelectedClass
     
     
     /**
@@ -404,7 +365,7 @@ public class GecoMainView extends JFrame{
      */
     public GestureToActionMapping getSelectedMappping(){
        return (GestureToActionMapping) mappingList.getSelectedValue();
-  }
+  }//getSelectedMappping
   
     /**
      * Return the selected mapping
@@ -414,60 +375,49 @@ public class GecoMainView extends JFrame{
      */
     public GestureToActionMapping getSelectedMapping(){
        return (GestureToActionMapping) mappingList.getSelectedValue();
-  }
+  }//getSelectedMapping
     
     
+    /**
+     * Enable the save in the menu
+     * 
+     */
     public void enableMenuItem(){
          saveMenuItem.setEnabled(true);
-  }
+  }//enableMenuItem
     
-    
+    /**
+     * Returns the component handler of the applicatio
+     * 
+     * @return the component Handler
+     * 
+     */
     public GecoComponentHandler getComponentHandler(){
          return compHandler;
-  }
+  }//getComponentHandler
     
+    
+    /**
+     * Disable the save operation
+     */
     public void disableSaveButton(){
        saveButton.setEnabled(false);
        saveMenuItem.setEnabled(false);
-}
+    }//disableSaveButton
     
+    
+    /**
+     * Enable the save operation
+     */
     public void enableSaveButton(){
        saveButton.setEnabled(true);
        saveMenuItem.setEnabled(true);
-}
+    }//enableSaveButton
   
     
-    
-    /*
-
-    
-    public void addActionExitApplication(AbstractAction a){
-       exitButton.setAction(a);
-    }
-    
-    
-    public void addActionLoadGestureSet(AbstractAction a){
-       exitButton.setAction(a);
-    }
-    
-    public void addActionMapGesture(AbstractAction a){
-       exitButton.setAction(a);
-    }
-    
-    public void addActionNewGestureMap(AbstractAction a){
-       exitButton.setAction(a);
-    }
-    
-    public void addActionOpenGestureMap (AbstractAction a){
-       exitButton.setAction(a);
-    }
-    
-    
-    */
-    
-    
-    
-    
+    /**
+     * Cell Renderer for the mapping list
+     */    
     public class MappingCellRenderer implements ListCellRenderer {
 
        public Component getListCellRendererComponent(JList list, Object value,
@@ -486,6 +436,9 @@ public class GecoMainView extends JFrame{
     } 
     
     
+    /**
+     * Cell Renderer for the gestures list
+     */  
     public class CustomCellRenderer implements ListCellRenderer {
 
        public Component getListCellRendererComponent(JList list, Object value,
@@ -497,76 +450,6 @@ public class GecoMainView extends JFrame{
        } // getListCellRendererComponent
     }
     
-    
-    //LIST RENDERER
-
-    public class MyCellRenderer extends DefaultListCellRenderer {
-       
-       private Graphics2D graphic;
-       
-       
-        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-            // Let superclass deal with most of it...
-           super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-           
-           if(value instanceof GestureClass) {
-              System.out.println("GestureMappingView.MyCellRenderer");
-             GestureClass gestureClass = (GestureClass) value;
-             
-             SampleDescriptor sampleDes = gestureClass.getDescriptor(
-                   SampleDescriptor.class);
-             sampleDes.getSamples().get(0).getNote();
-
-             
-             if (sampleDes!=null)
-                System.out.println("sample not null!");
-             
-             
-              
-             /*
-              DigitalDescriptor descriptor = gestureClass.getDescriptor(
-                    DigitalDescriptor.class);
-              if (descriptor!=null)
-                 System.out.println("digital not null!");
-              List<Descriptor> desc = gestureClass.getDescriptors();
-             TextDescriptor textDes = gestureClass.getDescriptor(
-                    TextDescriptor.class);
-              if (textDes!=null)
-                 System.out.println("text not null!");
-              */
-
-              
-
-              
-              //Graphics2D graphics2D = (Graphics2D)list.getComponent(index).getGraphics();
-               //JLabel label = new JLabel();
-               //label.getGraphics()
-               
-               //Note note = sampleDes.getSamples().get(0).getNote();
-              
-               //descriptor.getDigitalObject(graphic, note);
-               
-               //final ImageIcon imageIcon=null;// ...; // add extra code here
-               //setIcon(imageIcon);
-               
-               //Image image = imageIcon.getImage();
-               //final Dimension dimension = this.getPreferredSize();
-               //final double height = dimension.getHeight();
-               //final double width = (height / imageIcon.getIconHeight()) * imageIcon.getIconWidth();
-               //image = image.getScaledInstance((int)width, (int)height, Image.SCALE_SMOOTH);
-               //final ImageIcon finalIcon = new ImageIcon(image);
-               //setIcon(finalIcon);
-              
-        }
-           return this;
-        }
-    }
-    
-
-    
- 
-
-
 
 		   
 }

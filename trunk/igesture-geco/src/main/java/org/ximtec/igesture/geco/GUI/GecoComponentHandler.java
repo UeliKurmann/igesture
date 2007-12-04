@@ -26,10 +26,6 @@
 
 package org.ximtec.igesture.geco.GUI;
 
-import javax.swing.Action;
-
-import org.sigtec.graphix.widget.BasicDialog;
-import org.ximtec.igesture.geco.GUI.GecoMainView;
 import org.ximtec.igesture.geco.dialog.MappingDialog;
 import org.ximtec.igesture.geco.dialog.NewProjectDialog;
 
@@ -45,17 +41,22 @@ import org.ximtec.igesture.geco.dialog.NewProjectDialog;
 public class GecoComponentHandler {
 
    private GecoMainView view;
-
    private MappingDialog mappingDialog;
    private NewProjectDialog newProjectDialog;
 
 
 
+   /**
+    * Constructor.
+    */
    public GecoComponentHandler(GecoMainView view) {
       this.view = view;
    } // GecoActionHandler
 
 
+   /**
+    * Returns the dialog for mapping a gesture
+    */
    public MappingDialog getMappingDialog() {
       if (mappingDialog == null) {
          mappingDialog = new MappingDialog(view);
@@ -65,6 +66,9 @@ public class GecoComponentHandler {
    } // getOpenProjectAction
 
 
+   /**
+    * Get the dialog for creating a new project
+    */
    public NewProjectDialog getNewProjectDialog() {
       if (newProjectDialog == null) {
          newProjectDialog = new NewProjectDialog(view);

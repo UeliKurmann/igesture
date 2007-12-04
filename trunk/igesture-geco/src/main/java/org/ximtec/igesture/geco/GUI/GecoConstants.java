@@ -1,5 +1,5 @@
 /*
- * @(#)GestureMappingConstants.java 1.0   Nov 15, 2007
+ * @(#)GecoConstants.java 1.0   Nov 15, 2007
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *

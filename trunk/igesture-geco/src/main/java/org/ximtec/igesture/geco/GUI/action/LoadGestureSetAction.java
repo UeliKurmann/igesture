@@ -3,7 +3,7 @@
  *
  * Author		:	 Michele Croci, mcroci@gmail.com
  *
- * Purpose		: 
+ * Purpose		:   Load a gesture set
  *
  * -----------------------------------------------------------------------
  *
@@ -42,7 +42,8 @@ import org.ximtec.igesture.geco.xml.XMLGeco;
 
 
 /**
- * Comment
+ * Load a gesture set
+ * 
  * @version 1.0 Nov 20, 2007
  * @author  Michele Croci, mcroci@gmail.com
  */
@@ -108,10 +109,7 @@ public class LoadGestureSetAction extends BasicAction {
     * @param event the action event.
     */
    public GestureSet loadGestureSet(File file){
-     return XMLGeco.importGestureSet(file).get(0);
-     
+     return XMLGeco.importGestureSet(file).get(0); 
    }
-       
-
 
 }

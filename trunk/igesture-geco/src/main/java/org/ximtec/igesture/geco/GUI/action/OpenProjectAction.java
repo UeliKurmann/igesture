@@ -94,7 +94,7 @@ public class OpenProjectAction extends BasicAction {
               XMLImportGeco XMLImport = new XMLImportGeco();
               XMLImport.importProject(selectedFile);
            
-              //set file path??
+              //TODO: set file path?
               //update model
               if(XMLImport.getGestureSet()!=null)
                  mainView.getModel().loadGestureSet(XMLImport.getGestureSet());
@@ -107,16 +107,10 @@ public class OpenProjectAction extends BasicAction {
               projectName = projectName.substring(0, projectName.length()-4);
               mainView.initProjectView(projectName);
               mainView.enableMenuItem();
-              
-              
+
             }
         }
-     } else if (status == JFileChooser.CANCEL_OPTION) {
-       
-     }
-     
-
-
+     } 
   } // actionPerformed
   
 }
