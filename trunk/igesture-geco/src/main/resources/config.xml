@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<configuration>
+	<inputdevices>
+		<device selected="false" name="MagicommPenSocket">
+			<class>org.ximtec.ipaper.io.MagicommPenSocket</class>
+			<parameters>
+				<parameter name="port">1020</parameter>
+				<parameter name="mappingFile">
+					documentMappings/igestureDocuments.xml
+				</parameter>
+			</parameters>
+		</device>
+		<device selected="true" name="Mouse">
+			<class></class>
+		</device>
+	</inputdevices>
+	<algorithm>
+		<class>
+			org.ximtec.igesture.algorithm.rubine.RubineAlgorithm
+		</class>
+		<class>
+			org.ximtec.igesture.algorithm.signature.SignatureAlgorithm
+		</class>
+		<class>
+			org.ximtec.igesture.algorithm.siger.SigerRecogniser
+		</class>
+	</algorithm>
+	<tab>
+		<class>org.ximtec.igesture.tool.CaptureTab</class>
+		<class>org.ximtec.igesture.tool.AdminTab</class>
+		<class>org.ximtec.igesture.tool.TestTab</class>
+		<class>org.ximtec.igesture.tool.BatchTab</class>
+	</tab>
+	<database>igesture.db</database>
+	<gui-state>
+		<tab name="">
+			<component name="">
+				<x></x>
+				<y></y>
+				<width></width>
+				<height></height>
+			</component>
+		</tab>
+	</gui-state>
+</configuration>
+
