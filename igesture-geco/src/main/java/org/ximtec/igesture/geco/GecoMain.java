@@ -35,6 +35,8 @@ import org.sigtec.input.BufferedInputDeviceEventListener;
 import org.sigtec.input.InputDevice;
 import org.sigtec.input.InputDeviceEvent;
 import org.sigtec.input.InputDeviceEventListener;
+import org.sigtec.util.Constant;
+import org.sigtec.util.SystemProperty;
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.configuration.Configuration;
@@ -48,6 +50,7 @@ import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.MouseReader;
 import org.ximtec.igesture.io.MouseReaderEventListener;
 import org.ximtec.igesture.storage.StorageEngine;
+import org.ximtec.igesture.tool.GestureConfiguration;
 
 
 
@@ -106,7 +109,7 @@ public class GecoMain implements ButtonDeviceEventListener {
               Logger.getAnonymousLogger().setLevel(Level.ALL);
               LOGGER.info(INITIALISING);
               
-              /*
+              
               GestureConfiguration configuration;
               
               if (args.length > 0) {
@@ -120,14 +123,14 @@ public class GecoMain implements ButtonDeviceEventListener {
               String file = System.getProperty(SystemProperty.USER_DIR) + Constant.SLASH
                     + configuration.getDatabase();
                     
-              StorageEngine engine = StorageManager.createStorageEngine(new File(file));
-              */
+              //StorageEngine engine = StorageManager.createStorageEngine(new File(file));
+              
               StorageEngine engine = null;
               GecoMainModel model = new GecoMainModel(engine);
               view = new GecoMainView(model);
 
               initRecogniser();
-              initDevice();
+              initDevice(configuration);
 
               LOGGER.info(INITIALISED);
        }
@@ -137,12 +140,26 @@ public class GecoMain implements ButtonDeviceEventListener {
        /**
         * Init the input device
         */
-       private void initDevice() {
+       private void initDevice(GestureConfiguration configuration) {
+          
+      //    penClient = new InputDeviceClient(configuration.getInputDevice(),
+      //          configuration.getInputDeviceEventListener());
+      //    penClient.init();
+          
+      //    InputDevice device = new MouseReader();
+      //    InputDeviceEventListener listener = new BufferedInputDeviceEventListener(
+      //          new MouseReaderEventListener(), 10000);
+          client = new InputDeviceClient(configuration.getInputDevice(),
+                configuration.getInputDeviceEventListener());
+          client.addButtonDeviceEventListener(this);
+          
+          /*
           InputDevice device = new MouseReader();
           InputDeviceEventListener listener = new BufferedInputDeviceEventListener(
                 new MouseReaderEventListener(), 10000);
           client = new InputDeviceClient(device, listener);
           client.addButtonDeviceEventListener(this);
+          */
        } // initDevice
 
 
