@@ -1,9 +1,9 @@
 /*
- * @(#)JdomKeyElement.java  1.0   Nov 29, 2007
+ * @(#)JdomCommandElement.java  1.0   Dec 06, 2007
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *
- * Purpose      :  XML support for the <key> element.
+ * Purpose      :  XML support for the <command> element.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,7 @@
  *
  * Date             Who         Reason
  *
- * Nov 29, 2007     crocimi     Initial Release
+ * Dec 06, 2007     crocimi     Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -26,29 +26,31 @@
 package org.ximtec.igesture.geco.xml;
 
 import org.jdom.Element;
-import org.ximtec.igesture.geco.UserAction.KeyboardSimulation;
+import org.ximtec.igesture.geco.UserAction.CommandExecutor;
+
 
 
 
 /**
- * XML support for the <key> element.
+ * XML support for the <command> element.
  * 
- * @version 1.0 Nov 29, 2007
+ * @version 1.0 Dec 06, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public class JdomKeyElement extends Element {
+public class JdomCommandElement extends Element {
 
-   private static final String KEY = "key";
-
-
-   public JdomKeyElement(KeyboardSimulation action) {
-      this(KEY, action.toString());
-   } // JdomKeyElement
+   private static final String COMMAND = "command";
 
 
-   public JdomKeyElement(String name, String content) {
+   public JdomCommandElement(CommandExecutor action) {
+      this(COMMAND, action.toString());
+   } // JdomCommandElement
+
+
+   public JdomCommandElement(String name, String content) {
       super(name);
       this.addContent(content);
-   } // JdomKeyElement
+   } // JdomCommandElement
 
 }
+

@@ -32,7 +32,8 @@ import java.util.List;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.geco.UserAction.KeyboardSimulationAction;
+import org.ximtec.igesture.geco.UserAction.CommandExecutor;
+import org.ximtec.igesture.geco.UserAction.KeyboardSimulation;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 
 
@@ -40,6 +41,7 @@ public class XMLImportGeco {
 
    private static final String GESTURE = "gesture";
    private static final String KEY = "key";
+   private static final String COMMAND = "command";
    private static String ROOT_TAG = "gestureMapping";
    private static String GESTURE_SET ="gestureSet";
    
@@ -75,7 +77,15 @@ public class XMLImportGeco {
       for (final Element mappingElement : mappingElements) {
          String key = mappingElement.getChildText(KEY);
          String gesture = mappingElement.getChildText(GESTURE);
-         mappings.add(new GestureToActionMapping( gestureSet.getGestureClass(gesture), new KeyboardSimulationAction(key)));
+         if (key!=null){
+            mappings.add(new GestureToActionMapping( gestureSet.getGestureClass(gesture), new KeyboardSimulation(key)));
+         }
+         else{ 
+            String cmd = mappingElement.getChildText(COMMAND);
+            if(cmd!=null){
+               mappings.add(new GestureToActionMapping( gestureSet.getGestureClass(gesture), new CommandExecutor(cmd)));
+            }
+         }
       }
    } // importKeyMappings
    

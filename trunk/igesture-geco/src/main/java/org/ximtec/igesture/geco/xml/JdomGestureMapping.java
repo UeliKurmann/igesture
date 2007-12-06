@@ -30,7 +30,8 @@ import org.jdom.Element;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.EventHandler;
-import org.ximtec.igesture.geco.UserAction.KeyboardSimulationAction;
+import org.ximtec.igesture.geco.UserAction.CommandExecutor;
+import org.ximtec.igesture.geco.UserAction.KeyboardSimulation;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 
 
@@ -59,9 +60,12 @@ public class JdomGestureMapping extends Element {
       super(ROOT_TAG);
       JdomGestureMapping.gestureSet = gestureSet;
       addContent(new JdomGestureElement(map.getGestureClass()));
-      if (map.getAction() instanceof KeyboardSimulationAction){
-         KeyboardSimulationAction keyAction = (KeyboardSimulationAction) map.getAction();
+      if (map.getAction() instanceof KeyboardSimulation){
+         KeyboardSimulation keyAction = (KeyboardSimulation) map.getAction();
          addContent( new JdomKeyElement(keyAction));
+      }else if(map.getAction() instanceof CommandExecutor){
+         CommandExecutor action = (CommandExecutor) map.getAction();
+         addContent( new JdomCommandElement(action));
       }
       
    }
@@ -72,7 +76,7 @@ public class JdomGestureMapping extends Element {
       GestureClass gc = gestureSet.getGestureClass(gestureMappingElement.getChildText(GESTURE));
       EventHandler action = null;
       if (gestureMappingElement.getChild(KEY)!=null){
-         action = new KeyboardSimulationAction(gestureMappingElement.getChildText(KEY));
+         action = new KeyboardSimulation(gestureMappingElement.getChildText(KEY));
       }  
 
       return new GestureToActionMapping(gc, action);

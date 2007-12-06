@@ -50,6 +50,7 @@ import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.graphix.widget.BasicTextField;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
 import org.ximtec.igesture.geco.GUI.GecoMainView;
+import org.ximtec.igesture.geco.GUI.action.SaveProjectAction;
 import org.ximtec.igesture.graphics.SwingTool;
 
 
@@ -155,7 +156,7 @@ public class NewProjectDialog extends BasicDialog{
     * Resets the dialog.
     */
    public void reset(){
-      fileTextField.setText("C:\\");
+      fileTextField.setText(filePath);
       projectTextField.setText("");
    }//reset
    
@@ -173,21 +174,24 @@ public class NewProjectDialog extends BasicDialog{
          if (status == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             if(selectedFile != null){
-               filePath=selectedFile.getAbsolutePath()+"\\";
+               
                 String fileName = "";
-                if(!NewProjectDialog.this.projectTextField.getText().equals("")){
-                   if (selectedFile.getAbsolutePath().charAt(selectedFile.getAbsolutePath().length()-1)!='\\'){
+                 if (selectedFile.getAbsolutePath().charAt(selectedFile.getAbsolutePath().length()-1)!='\\'){
                       fileName = selectedFile.getAbsolutePath()+"\\"+
-                      NewProjectDialog.this.projectTextField.getText()+"."+XML_EXTENSION;
+                      NewProjectDialog.this.projectTextField.getText();
+                      if(!NewProjectDialog.this.projectTextField.getText().equals("")){
+                         fileName+="."+XML_EXTENSION;
+                      }
+                      filePath=selectedFile.getAbsolutePath()+"\\";
                    }
                    else{
                       fileName = selectedFile.getAbsolutePath()+
-                      NewProjectDialog.this.projectTextField.getText()+"."+XML_EXTENSION;
+                      NewProjectDialog.this.projectTextField.getText();
+                      if(!NewProjectDialog.this.projectTextField.getText().equals("")){
+                         fileName+="."+XML_EXTENSION;
+                      }
+                      filePath=selectedFile.getAbsolutePath();
                    }
-                }
-                else{
-                   fileName = selectedFile.getAbsolutePath();
-                }
                 fileTextField.setText(fileName);
             }
          } else if (status == JFileChooser.CANCEL_OPTION) {
@@ -230,6 +234,9 @@ public class NewProjectDialog extends BasicDialog{
                view.initProjectView(projectTextField.getText());
                view.enableMenuItem();
                NewProjectDialog.this.dispose();
+               
+               //save
+               (new SaveProjectAction(view)).save();
             }
          }
          

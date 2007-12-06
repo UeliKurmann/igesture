@@ -214,7 +214,9 @@ public class GecoMainModel {
     */
    public void addMapping(GestureToActionMapping gm){
       gestureListModel.removeElement(gm.getGestureClass());
+      eventManager.unRegisterEventHandler(gm.getGestureClass().getName());
       eventManager.registerEventHandler(gm.getGestureClass().getName(),gm.getAction());
+      mappingListModel.removeElement(gm);
       mappingListModel.add(gm);
       toBeSaved=true;
    }//addMapping
