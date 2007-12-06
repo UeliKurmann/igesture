@@ -200,7 +200,6 @@ public class MappingDialog extends BasicDialog{
           public void actionPerformed(ActionEvent event) {
              //update model
              addGestureMappingToTable();
-             System.out.println(MappingDialog.this.view.getModel().mappingTable.getMapping(gestureClass));
              view.getModel().addMapping(MappingDialog.this.view.getModel().mappingTable.getMapping(gestureClass));
              //update view
              view.updateLists();
