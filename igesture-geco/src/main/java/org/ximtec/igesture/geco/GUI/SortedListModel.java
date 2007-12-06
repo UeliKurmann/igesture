@@ -102,6 +102,7 @@ import javax.swing.AbstractListModel;
       boolean removed = model.remove(element);
       if (removed) {
         fireContentsChanged(this, 0, getSize());
+        System.out.println("SortedListModel.REMOVED");
       }
       return removed;   
     }//removeElement

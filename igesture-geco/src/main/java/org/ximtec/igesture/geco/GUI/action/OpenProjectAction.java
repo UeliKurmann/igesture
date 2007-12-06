@@ -93,18 +93,21 @@ public class OpenProjectAction extends BasicAction {
            if(ext.equals(XML_EXTENSION)){
               XMLImportGeco XMLImport = new XMLImportGeco();
               XMLImport.importProject(selectedFile);
-           
-              //TODO: set file path?
+              String projectName = selectedFile.getName();
+              projectName = projectName.substring(0, projectName.length()-4);
               //update model
+              mainView.getModel().clearData();
               if(XMLImport.getGestureSet()!=null)
                  mainView.getModel().loadGestureSet(XMLImport.getGestureSet());
               List<GestureToActionMapping> list = XMLImport.getMappings();
               for(GestureToActionMapping mapping: list){
                  mainView.getModel().addMapping(mapping);
               }
+              mainView.getModel().setProjectFile(selectedFile);
+              mainView.getModel().setProjectName(projectName);
+              
+              
               //update view
-              String projectName = selectedFile.getName();
-              projectName = projectName.substring(0, projectName.length()-4);
               mainView.initProjectView(projectName);
               mainView.enableMenuItem();
 

@@ -46,7 +46,7 @@ import org.ximtec.igesture.io.Win32KeyboardProxy;
  * @version 1.0 Mar 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public class KeyboardSimulationAction implements EventHandler{
+public class KeyboardSimulation implements EventHandler{
 
    private Integer[] keys;
    private String stringKeys;
@@ -65,7 +65,7 @@ public class KeyboardSimulationAction implements EventHandler{
     * 
     * @param keys the keys corresponding to the action
     */
-   public KeyboardSimulationAction(String keys) {
+   public KeyboardSimulation(String keys) {
       this.stringKeys = keys;
       setKeys(keys);
    }//KeyboardSimulationAction
@@ -75,13 +75,21 @@ public class KeyboardSimulationAction implements EventHandler{
    } // run
 
    
-
-
+   /**
+    * Set the keys to be pressed.
+    * 
+    * @param keys the keys corresponding to the action
+    */
    public void setKeys(Integer[] keys) {
       this.keys = keys;
    } // setKeys
 
 
+   /**
+    * Set the keys to be pressed.
+    * 
+    * @param keys the keys corresponding to the action
+    */
    public void setKeys(String keys) {
       List<Integer> codes = new ArrayList<Integer>();
       int length= keys.split(REGEX).length;

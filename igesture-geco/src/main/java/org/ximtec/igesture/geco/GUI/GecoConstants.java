@@ -55,6 +55,8 @@ public class GecoConstants {
    
    public static final String HOTKEY = "Hotkey";
    
+   public static final String COMMAND = "Command";
+   
    public static final String MAIN_FRAME_TITLE = "mainFrame";
    
    public static final String SAVE_DIALOG_TITLE = "Would you like to save the changes before closing?";

@@ -78,7 +78,7 @@ public class GecoMain implements ButtonDeviceEventListener {
      */
     public static void main(String[] args) {
        try{
-       new GecoMain(args);
+          new GecoMain(args);
        }
        catch(Exception e){
           e.printStackTrace();
