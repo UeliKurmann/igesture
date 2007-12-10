@@ -28,9 +28,12 @@ package org.ximtec.igesture.geco.GUI.action;
 
 import java.awt.event.ActionEvent;
 
+import javax.swing.JOptionPane;
+
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
+import org.ximtec.igesture.geco.GUI.GecoMainView;
 
 
 /**
@@ -42,9 +45,12 @@ import org.ximtec.igesture.geco.GUI.GecoConstants;
 
 public class ExitApplicationAction extends BasicAction {
 
+   
+   private GecoMainView mainView;
 
-   public ExitApplicationAction() {
+   public ExitApplicationAction(GecoMainView mainView) {
       super(GecoConstants.EXIT, GuiTool.getGuiBundle());
+      this.mainView = mainView;
    }
 
 
@@ -52,7 +58,22 @@ public class ExitApplicationAction extends BasicAction {
     * @param event the action event.
     */
    public void actionPerformed(ActionEvent event) {
-      System.exit(0);
+      //display save dialog, if needed
+      
+      if (mainView.getModel().needSave()){
+         int n = JOptionPane.showConfirmDialog(
+               mainView,
+               GecoConstants.SAVE_DIALOG_TITLE,
+               "",
+               JOptionPane.YES_NO_CANCEL_OPTION);
+         if (n==0){
+            (new SaveProjectAction(mainView)).save();
+            System.exit(0);
+         }else if(n==1){
+            System.exit(0);
+         }
+      }
+      
    } // actionPerformed
 
 }

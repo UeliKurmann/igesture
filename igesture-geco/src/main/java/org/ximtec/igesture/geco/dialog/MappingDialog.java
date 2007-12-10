@@ -34,7 +34,10 @@ import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -44,6 +47,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
+import javax.swing.KeyStroke;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
@@ -67,7 +71,7 @@ import org.ximtec.igesture.graphics.SwingTool;
  * @version 1.0 Nov 26, 2007
  * @author Michele Croci, mcroci@gmail.com  
  */
-public class MappingDialog extends BasicDialog{
+public class MappingDialog extends BasicDialog implements KeyListener{
    
    
    private GestureClass gestureClass;
@@ -84,6 +88,7 @@ public class MappingDialog extends BasicDialog{
    private int DIALOG_WIDTH = 450;
    private int DIALOG_HEIGHT = 500;
    private JTextPane textField;
+   private BasicTextField btextField;
    
    //constants
    private final int HOTKEY = 0;
@@ -98,6 +103,7 @@ public class MappingDialog extends BasicDialog{
       view = gmv;
       setModal(true);
       initDialog();
+//      this.addFocusListener(this);
    }//MappingDialog
    
    
@@ -140,7 +146,7 @@ public class MappingDialog extends BasicDialog{
             altCheckBox.setSelected(gkm.isAltSelected());
             shiftCheckBox.setSelected(gkm.isShiftSelected());
             ctrlCheckBox.setSelected(gkm.isCtrlSelected());
-            comboBox.setSelectedItem(gkm.getSelectedChar());
+            comboBox.setSelectedItem(gkm.getSelectedKey());
             tabbedPane.setSelectedIndex(HOTKEY);
          }
          else if(gestureMapping.getAction() instanceof CommandExecutor){
@@ -167,7 +173,9 @@ public class MappingDialog extends BasicDialog{
          
          comboBox = new JComboBox(new String[]{"A","B","C","D","E","F","G",
                "H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z", " ",
-               "F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12",});
+               "F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12",
+               "0","1","2","3","4","5","6","7","8","9","BACK","DELETE","SPACE","RETURN",
+               "ESCAPE","UP","DOWN","LEFT","DOWN","TAB","PAGE UP","PAGE DOWN"});
          showGesture();
          addButtonPanel();
          addFirstTab();
@@ -231,6 +239,7 @@ public class MappingDialog extends BasicDialog{
    private void addFirstTab() {
       
       JComponent panel1 = new JPanel();
+      view.addKeyListener(this);
       tabbedPane.addTab(GecoConstants.HOTKEY, panel1);
       tabbedPane.setMnemonicAt(HOTKEY, KeyEvent.VK_1);
       
@@ -269,7 +278,16 @@ public class MappingDialog extends BasicDialog{
       panel1.add(bottomPanel,
             new GridBagConstraints(1,2,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                      new Insets(40,20,40,20),0,0 ) );
+      
+      btextField = GuiTool.createTextField("buttonTextField");
+      btextField.addKeyListener(this);
+      bottomPanel.add(btextField,
+            new GridBagConstraints(1,2,7,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+                     new Insets(10,20,10,20),0,0 ) );
 
+      //remove keystroke
+      //KeyStroke ks = KeyStroke.getKeyStroke(KeyEvent.VK_TAB, 0);
+      //btextField.getInputMap().remove(ks);
 
    } // addFirstTab
    
@@ -331,5 +349,68 @@ public class MappingDialog extends BasicDialog{
    }//addGestureMappingToTable
    
    
+   public void keyPressed(KeyEvent e){
+   
+   }
 
+   public void keyReleased(KeyEvent e){ 
+      
+      switch(e.getKeyCode()){
+         case KeyEvent.VK_CONTROL:
+            break;
+         case KeyEvent.VK_SHIFT:
+            break;
+         case KeyEvent.VK_ALT:
+            break;
+         default:
+            
+            String text="";
+         if (e.isControlDown()){
+            ctrlCheckBox.setSelected(true);
+            text+="CONTROL+";
+         }else{
+            ctrlCheckBox.setSelected(false);
+         }
+         if (e.isShiftDown()){
+            shiftCheckBox.setSelected(true);
+            text+="SHIFT+";
+         }else{
+            shiftCheckBox.setSelected(false);
+         }
+         
+         if (e.isAltDown()){
+            altCheckBox.setSelected(true);
+            text+="ALT+";
+         }else{
+            altCheckBox.setSelected(false);
+         }
+            btextField.setText(text+e.getKeyText(e.getKeyCode()));
+            comboBox.setSelectedItem(e.getKeyText(e.getKeyCode()));
+            //System.out.println(e.getKeyText(e.getKeyCode()));                
+      }
+      System.out.println(e.getKeyText(e.getKeyCode()));  
+
+
+      
+   }
+
+   public void keyTyped(KeyEvent e){
+      btextField.setText("");
+
+   
+   }
+  
+   
+   /*
+   public void focusGained(FocusEvent e){
+      view.setFocusableWindowState(true);
+   }
+
+   public void focusLost(FocusEvent e){
+      
+   }
+
+   
+   
+*/
 }

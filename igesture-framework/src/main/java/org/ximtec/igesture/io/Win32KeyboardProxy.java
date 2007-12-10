@@ -54,6 +54,14 @@ public class Win32KeyboardProxy {
    public static int SHIFT = 0x10;
    public static int CONTROL = 0x11;
    public static int ALT = 0x12;
+   
+   public static int DELETE    =    0x2E;
+   public static int CLEAR = 0x0C;
+   public static int BACK = 0x08;
+   public static int TAB = 0x09;
+   public static int RETURN = 0x0D;
+   public static int ESCAPE = 0x1B;
+   public static int SPACE = 0x20; 
 
    public static int VK_0 = 0x30;
    public static int VK_1 = 0x31;
@@ -110,9 +118,14 @@ public class Win32KeyboardProxy {
    public static int UP = 0x26;
    public static int RIGHT = 0x27;
    public static int DOWN = 0x28;
+   public static int PAGE_UP = 0x21;
+   public static int PAGE_DOWN = 0x22;
+   public static int END = 0x23;
+   public static int HOME =  0x24;
 
    private static int KEY_DOWN = 0x0;
    private static int KEY_UP = 0x2;
+
 
    static {
       try {

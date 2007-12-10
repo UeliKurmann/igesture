@@ -79,8 +79,14 @@ public class OpenProjectAction extends BasicAction {
            (new SaveProjectAction(mainView)).save();
         }
      }
+
      
      //display file chooser
+     displayFileChooser();
+  } // actionPerformed
+
+  
+  private void displayFileChooser(){
      JFileChooser fileChooser = new JFileChooser();
      fileChooser.setFileFilter(new ExtensionFileFilter(XML_EXTENSION,
            new String[] {XML_EXTENSION}));
@@ -95,6 +101,7 @@ public class OpenProjectAction extends BasicAction {
               XMLImport.importProject(selectedFile);
               String projectName = selectedFile.getName();
               projectName = projectName.substring(0, projectName.length()-4);
+             
               //update model
               mainView.getModel().clearData();
               if(XMLImport.getGestureSet()!=null)
@@ -105,7 +112,7 @@ public class OpenProjectAction extends BasicAction {
               }
               mainView.getModel().setProjectFile(selectedFile);
               mainView.getModel().setProjectName(projectName);
-              
+              mainView.getModel().setNeedSave(false);
               
               //update view
               mainView.initProjectView(projectName);
@@ -114,6 +121,6 @@ public class OpenProjectAction extends BasicAction {
             }
         }
      } 
-  } // actionPerformed
+  }
   
 }
