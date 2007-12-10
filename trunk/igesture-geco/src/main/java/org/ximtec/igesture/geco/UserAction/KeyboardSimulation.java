@@ -108,6 +108,7 @@ public class KeyboardSimulation implements EventHandler{
                shiftSelected = true;
             }
          }
+         key = key.replaceAll(" ", "_");
          int code = Win32KeyboardProxy.getKey(key);
 
          if (code > 0) {
@@ -157,7 +158,7 @@ public class KeyboardSimulation implements EventHandler{
     * 
     * @return a String representing the selected char
     */
-   public String getSelectedChar(){
+   public String getSelectedKey(){
       return selChar;
    }//getSelectedChar
    
