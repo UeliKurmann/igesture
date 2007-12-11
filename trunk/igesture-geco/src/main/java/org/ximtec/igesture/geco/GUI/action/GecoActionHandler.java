@@ -46,7 +46,7 @@ public class GecoActionHandler {
    private OpenProjectAction openGestureMapAction;
    private ExitApplicationAction exitApplicationAction;
    private LoadGestureSetAction loadGestureSetAction;
-   private AddMappingAction addMappingAction;
+   private ShowMappingDialogAction showMappingDialogAction;
    private NewProjectAction newProjectAction;
    private EditMappingAction editMappingAction;
    private RemoveMappingAction removeMappingAction;
@@ -85,11 +85,11 @@ public class GecoActionHandler {
    
    
    public Action getAddMappingAction() {
-      if (addMappingAction == null) {
-         addMappingAction = new AddMappingAction(view);
+      if (showMappingDialogAction == null) {
+         showMappingDialogAction = new ShowMappingDialogAction(view);
       }
 
-      return addMappingAction;
+      return showMappingDialogAction;
    } // getMapGestureAction
    
    
