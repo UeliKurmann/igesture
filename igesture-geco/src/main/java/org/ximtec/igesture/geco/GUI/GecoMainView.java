@@ -395,6 +395,17 @@ public class GecoMainView extends JFrame{
     
     
     /**
+     * Returns the component handler of the applicatio
+     * 
+     * @return the component Handler
+     * 
+     */
+    public GecoActionHandler getActionHandler(){
+         return handler;
+  }//getActionHandler
+    
+    
+    /**
      * Disable the save operation
      */
     public void disableSaveButton(){

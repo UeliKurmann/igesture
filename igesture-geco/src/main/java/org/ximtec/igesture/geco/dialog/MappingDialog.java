@@ -1,17 +1,17 @@
 /*
- * @(#)MappingDialog.java	1.0   Nov 26, 2007
+ * @(#)MappingDialog.java   1.0   Nov 26, 2007
  *
- * Author		:	Michele Croci, mcroci@gmail.com  
+ * Author       :   Michele Croci, mcroci@gmail.com  
  *
- * Purpose		:   Dialog for mapping a gesture to an action
+ * Purpose      :   Dialog for mapping a gesture to an action
  *
  * -----------------------------------------------------------------------
  *
  * Revision Information:
  *
- * Date				Who			Reason
+ * Date             Who         Reason
  *
- * Nov 26, 2007		crocimi		Initial Release
+ * Nov 26, 2007     crocimi     Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -38,6 +38,10 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -46,6 +50,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 import javax.swing.border.BevelBorder;
@@ -58,6 +63,7 @@ import org.sigtec.graphix.widget.BasicTextField;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
 import org.ximtec.igesture.geco.GUI.GecoMainView;
+import org.ximtec.igesture.geco.GUI.action.AddMappingAction;
 import org.ximtec.igesture.geco.UserAction.CommandExecutor;
 import org.ximtec.igesture.geco.UserAction.KeyboardSimulation;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
@@ -71,38 +77,42 @@ import org.ximtec.igesture.graphics.SwingTool;
  * @version 1.0 Nov 26, 2007
  * @author Michele Croci, mcroci@gmail.com  
  */
-public class MappingDialog extends BasicDialog implements KeyListener{
-   
+public class MappingDialog extends BasicDialog{
    
    private GestureClass gestureClass;
    private GestureToActionMapping gestureMapping;
    private GecoMainView view;
+
    
    //GUI elements
    private JTabbedPane tabbedPane = new JTabbedPane();
-   private JCheckBox ctrlCheckBox =  new JCheckBox("CTRL");
-   private JCheckBox shiftCheckBox =  new JCheckBox("SHIFT");
-   private JCheckBox altCheckBox =  new JCheckBox("ALT");
-   private JComboBox comboBox;
+
    private JLabel gestureLabel = new JLabel();
    private int DIALOG_WIDTH = 450;
    private int DIALOG_HEIGHT = 500;
    private JTextPane textField;
-   private BasicTextField btextField;
+   private JTextField buttonLabel;
+//   private JPanel labelPanel;
    
    //constants
    private final int HOTKEY = 0;
    private final int COMMAND = 1;
    
-   private static final String CONTROL = "CONTROL";
-   private static final String SHIFT = "SHIFT";
-   private static final String ALT = "ALT";
+   //models
+   private HotKeyModel hotkeyModel = new HotKeyModel();
    
    
    public MappingDialog(GecoMainView gmv){
       view = gmv;
       setModal(true);
       initDialog();
+      
+      addWindowListener( new WindowAdapter() {
+         public void windowOpened( WindowEvent e ){
+            buttonLabel.requestFocus();
+           }
+         } ); 
+      
 //      this.addFocusListener(this);
    }//MappingDialog
    
@@ -133,21 +143,15 @@ public class MappingDialog extends BasicDialog implements KeyListener{
    private void initValues(){
       gestureLabel.setText(gestureClass.getName());
       if (gestureMapping==null){
-         ctrlCheckBox.setSelected(false);
-         altCheckBox.setSelected(false);
-         shiftCheckBox.setSelected(false);
-         comboBox.setSelectedIndex(0);
+         hotkeyModel.updateModel(null);
          textField.setText("");
          tabbedPane.setSelectedIndex(HOTKEY);
       }
       else{
          if (gestureMapping.getAction() instanceof KeyboardSimulation){
-            KeyboardSimulation gkm = (KeyboardSimulation)gestureMapping.getAction();
-            altCheckBox.setSelected(gkm.isAltSelected());
-            shiftCheckBox.setSelected(gkm.isShiftSelected());
-            ctrlCheckBox.setSelected(gkm.isCtrlSelected());
-            comboBox.setSelectedItem(gkm.getSelectedKey());
-            tabbedPane.setSelectedIndex(HOTKEY);
+            hotkeyModel.updateModel((KeyboardSimulation)gestureMapping.getAction());
+          //  buttonLabel.setText(keys);
+            
          }
          else if(gestureMapping.getAction() instanceof CommandExecutor){
             CommandExecutor cmd = (CommandExecutor)gestureMapping.getAction();
@@ -171,11 +175,7 @@ public class MappingDialog extends BasicDialog implements KeyListener{
          this.setLocation(p);
          this.setSize(new Dimension( DIALOG_WIDTH, DIALOG_HEIGHT));
          
-         comboBox = new JComboBox(new String[]{"A","B","C","D","E","F","G",
-               "H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z", " ",
-               "F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12",
-               "0","1","2","3","4","5","6","7","8","9","BACK","DELETE","SPACE","RETURN",
-               "ESCAPE","UP","DOWN","LEFT","DOWN","TAB","PAGE UP","PAGE DOWN"});
+        
          showGesture();
          addButtonPanel();
          addFirstTab();
@@ -237,53 +237,31 @@ public class MappingDialog extends BasicDialog implements KeyListener{
     * 
     */
    private void addFirstTab() {
+      JPanel keyStringView = new HotKeyStringView(hotkeyModel);
       
-      JComponent panel1 = new JPanel();
-      view.addKeyListener(this);
-      tabbedPane.addTab(GecoConstants.HOTKEY, panel1);
+ 
+
+      tabbedPane.addTab(GecoConstants.HOTKEY, keyStringView);
       tabbedPane.setMnemonicAt(HOTKEY, KeyEvent.VK_1);
       
-      JPanel bottomPanel = new JPanel();
-      bottomPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GecoConstants.HOTKEY));
-      panel1.setLayout(new GridBagLayout());
-      //gestureLabel.setText(gestureClass.getName());
-      bottomPanel.setLayout(new GridBagLayout());
-      JLabel plus = new JLabel("+");
+ 
       
-      
-      bottomPanel.add(ctrlCheckBox,
-            new GridBagConstraints(1,1,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                     new Insets(0,20,0,0),0,0 ) );
-      bottomPanel.add(plus,
-            new GridBagConstraints(2,1,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                     new Insets(0,0,0,0),0,0 ) );
-      bottomPanel.add(shiftCheckBox,
-            new GridBagConstraints(3,1,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                     new Insets(0,0,0,0),0,0 ) );
-      plus = new JLabel("+");
-      bottomPanel.add(plus,
-            new GridBagConstraints(4,1,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                     new Insets(0,0,0,0),0,0 ) );
-      bottomPanel.add(altCheckBox,
-            new GridBagConstraints(5,1,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                     new Insets(0,0,0,0),0,0 ) );
-      plus = new JLabel("+");
-      bottomPanel.add(plus,
-            new GridBagConstraints(6,1,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                     new Insets(0,0,0,0),0,0 ) );
-      bottomPanel.add(comboBox,
-            new GridBagConstraints(7,1,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-                     new Insets(0,0,0,20),0,0 ) );
-      
-      panel1.add(bottomPanel,
-            new GridBagConstraints(1,2,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                     new Insets(40,20,40,20),0,0 ) );
-      
-      btextField = GuiTool.createTextField("buttonTextField");
-      btextField.addKeyListener(this);
-      bottomPanel.add(btextField,
-            new GridBagConstraints(1,2,7,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-                     new Insets(10,20,10,20),0,0 ) );
+      buttonLabel = GuiTool.createTextField("buttonTextField");
+     
+ //     labelPanel = new JPanel();
+     
+//      labelPanel.setBorder(new BevelBorder(1, Color.gray,Color.gray));
+//      labelPanel.add(buttonLabel);
+//      labelPanel.setBackground(Color.WHITE);
+      buttonLabel.setEditable(false);
+      buttonLabel.setBackground(Color.WHITE);
+
+      //buttonLabel.addKeyListener(new ButtonLabelKeyListener());
+//      buttonLabel.addMouseListener(new ButtonLabelMouseListener());
+
+    //  bottomPanel.add(buttonLabel,
+      //      new GridBagConstraints(1,2,7,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+        //             new Insets(10,20,10,20),0,0 ) );
 
       //remove keystroke
       //KeyStroke ks = KeyStroke.getKeyStroke(KeyEvent.VK_TAB, 0);
@@ -322,6 +300,7 @@ public class MappingDialog extends BasicDialog implements KeyListener{
       
    }
    
+ 
    
    /**
     * Add a Gesture-action map to the table of mappings
@@ -329,17 +308,9 @@ public class MappingDialog extends BasicDialog implements KeyListener{
     */
    private void addGestureMappingToTable(){
       if (tabbedPane.getSelectedIndex()==HOTKEY){
-         String keys = "";
-         if (ctrlCheckBox.isSelected())
-            keys+=CONTROL+"+";
-         if (shiftCheckBox.isSelected())
-            keys+=SHIFT+"+";
-         if (altCheckBox.isSelected())
-            keys+=ALT+"+";
 
-         keys+=(String)comboBox.getSelectedItem();
-         
-         GestureToActionMapping mapping = new GestureToActionMapping(gestureClass,new KeyboardSimulation(keys));
+         GestureToActionMapping mapping = new GestureToActionMapping(
+               gestureClass,new KeyboardSimulation(hotkeyModel.getAllKeys()));
          view.getModel().mappingTable.addMapping(gestureClass, mapping);
       }   
       else if(tabbedPane.getSelectedIndex()==COMMAND){
@@ -348,13 +319,14 @@ public class MappingDialog extends BasicDialog implements KeyListener{
       }
    }//addGestureMappingToTable
    
+   /*
+   private class ButtonLabelKeyListener implements KeyListener{
    
    public void keyPressed(KeyEvent e){
-   
+
    }
 
    public void keyReleased(KeyEvent e){ 
-      
       switch(e.getKeyCode()){
          case KeyEvent.VK_CONTROL:
             break;
@@ -384,22 +356,52 @@ public class MappingDialog extends BasicDialog implements KeyListener{
          }else{
             altCheckBox.setSelected(false);
          }
-            btextField.setText(text+e.getKeyText(e.getKeyCode()));
+            buttonLabel.setText(text+e.getKeyText(e.getKeyCode()));
             comboBox.setSelectedItem(e.getKeyText(e.getKeyCode()));
-            //System.out.println(e.getKeyText(e.getKeyCode()));                
+            buttonLabel.setBackground(Color.WHITE);
+            comboBox.removeItemAt(comboBox.getItemCount()-1);
+            comboBox.addItem(e.getKeyText(e.getKeyCode()));
+            comboBox.setSelectedIndex(comboBox.getItemCount()-1);           
       }
       System.out.println(e.getKeyText(e.getKeyCode()));  
+
 
 
       
    }
 
-   public void keyTyped(KeyEvent e){
-      btextField.setText("");
-
-   
+      public void keyTyped(KeyEvent e){
+      }
    }
-  
+   
+   private class keyActionListener implements ActionListener{
+      
+      public void actionPerformed(ActionEvent e){
+         MappingDialog.this.updateSelectedKeys();
+         MappingDialog.this.buttonLabel.setText(MappingDialog.this.keys);
+      }
+      
+   }
+*/   
+   /*
+   private class ButtonLabelMouseListener implements MouseListener{
+      public void mouseClicked(MouseEvent e){
+      }
+      
+      public void mouseEntered(MouseEvent e){
+      }
+
+      public void mouseExited(MouseEvent e){  
+      }
+
+      public void mousePressed(MouseEvent e){
+      }
+
+      public void mouseReleased(MouseEvent e){
+      }
+
+   }
+  */
    
    /*
    public void focusGained(FocusEvent e){

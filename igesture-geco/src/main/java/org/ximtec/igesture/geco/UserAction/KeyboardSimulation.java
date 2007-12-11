@@ -95,19 +95,20 @@ public class KeyboardSimulation implements EventHandler{
       int length= keys.split(REGEX).length;
       for (String key : keys.split(REGEX)) {
          key = key.trim();
-         if (length==1){
-            selChar = key.substring(0, 1);
-         }else{
-            if(key.equals("CONTROL")){
-               ctrlSelected = true;
-            }
-            else if(key.equals("ALT")){
-               altSelected = true;
-            }
-            else if(key.equals("SHIFT")){
-               shiftSelected = true;
-            }
-         }
+               if(key.equals("CONTROL")){
+                  ctrlSelected = true;
+                  selChar="";
+               }
+               else if(key.equals("ALT")){
+                  altSelected = true;
+                  selChar="";
+               }
+               else if(key.equals("SHIFT")){
+                  shiftSelected = true;
+                  selChar="";
+               }else{
+                  selChar=key;
+               }
          key = key.replaceAll(" ", "_");
          int code = Win32KeyboardProxy.getKey(key);
 
@@ -116,10 +117,13 @@ public class KeyboardSimulation implements EventHandler{
          }
          else {
             throw new IllegalStateException(KEY_NOT_RECOGNISED);
-         }
-         length--;
 
-      }
+         }
+      }//for
+      if(selChar==null)
+         selChar="";
+
+         
       this.keys = codes.toArray(new Integer[0]);
    } // setKeys
 

@@ -39,13 +39,13 @@ import org.ximtec.igesture.geco.GUI.GecoMainView;
 * @version 1.0, Nov 2006
 * @author Michele Croci, mcroci@gmail.com
 */
-public class AddMappingAction extends BasicAction {
+public class ShowMappingDialogAction extends BasicAction {
 
   private GecoMainView mainView;
   private GestureClass currentGesture;
  
 
-  public AddMappingAction(GecoMainView mainView) {
+  public ShowMappingDialogAction(GecoMainView mainView) {
      super(GecoConstants.MAP_GESTURE, GuiTool.getGuiBundle());
      this.mainView = mainView;
   }
