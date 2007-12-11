@@ -63,7 +63,6 @@ import org.sigtec.graphix.widget.BasicTextField;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
 import org.ximtec.igesture.geco.GUI.GecoMainView;
-import org.ximtec.igesture.geco.GUI.action.AddMappingAction;
 import org.ximtec.igesture.geco.UserAction.CommandExecutor;
 import org.ximtec.igesture.geco.UserAction.KeyboardSimulation;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
