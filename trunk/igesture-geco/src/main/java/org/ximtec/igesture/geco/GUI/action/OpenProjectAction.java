@@ -96,27 +96,36 @@ public class OpenProjectAction extends BasicAction {
         if(selectedFile != null){
            String ext = selectedFile.getName().substring(selectedFile.getName().length()-3,
                  selectedFile.getName().length());
+           
            if(ext.equals(XML_EXTENSION)){
-              XMLImportGeco XMLImport = new XMLImportGeco();
-              XMLImport.importProject(selectedFile);
-              String projectName = selectedFile.getName();
-              projectName = projectName.substring(0, projectName.length()-4);
-             
-              //update model
-              mainView.getModel().clearData();
-              if(XMLImport.getGestureSet()!=null)
-                 mainView.getModel().loadGestureSet(XMLImport.getGestureSet());
-              List<GestureToActionMapping> list = XMLImport.getMappings();
-              for(GestureToActionMapping mapping: list){
-                 mainView.getModel().addMapping(mapping);
+                 XMLImportGeco XMLImport = new XMLImportGeco(mainView);
+                 XMLImport.importProject(selectedFile);
+                 
+                 if(!XMLImport.hasError()){
+                    String projectName = selectedFile.getName();
+                    projectName = projectName.substring(0, projectName.length()-4);
+                   
+                    //update model
+                    mainView.getModel().clearData();
+                    
+                    if(XMLImport.getGestureSet()!=null){
+                       mainView.getModel().initRecogniser(XMLImport.getGestureSet());
+                       mainView.getModel().loadGestureSet(XMLImport.getGestureSet());
+                       List<GestureToActionMapping> list = XMLImport.getMappings();
+                       for(GestureToActionMapping mapping: list){
+                          mainView.getModel().addMapping(mapping);
+                       }
+                       mainView.getModel().setProjectFile(selectedFile);
+                       mainView.getModel().setProjectName(projectName);
+                       mainView.getModel().setGestureSetFileName(XMLImport.getGestureSetFileName());
+                       mainView.getModel().setNeedSave(false);
+                       
+                       //update view
+                       mainView.initProjectView(projectName);
+                       mainView.updateGestureList();
+                       mainView.enableMenuItem();
+                    }
               }
-              mainView.getModel().setProjectFile(selectedFile);
-              mainView.getModel().setProjectName(projectName);
-              mainView.getModel().setNeedSave(false);
-              
-              //update view
-              mainView.initProjectView(projectName);
-              mainView.enableMenuItem();
 
             }
         }

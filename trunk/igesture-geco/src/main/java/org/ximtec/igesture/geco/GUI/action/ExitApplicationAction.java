@@ -72,6 +72,8 @@ public class ExitApplicationAction extends BasicAction {
          }else if(n==1){
             System.exit(0);
          }
+      }else{
+         System.exit(0);
       }
       
    } // actionPerformed

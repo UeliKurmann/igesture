@@ -84,7 +84,6 @@ public class HotKeyView extends JPanel{
    }
    
    public void updateView(String keys){
-      //System.out.println("updateView: "+keys);
       this.keys=keys;
       updateBoxElements();
       updateTextFieldElement();
@@ -103,7 +102,6 @@ public class HotKeyView extends JPanel{
    
 
    private void updateBoxElements(){
-      //System.out.println("updateBoxElements");
       if(keys.contains("CTRL")){
          ctrlCheckBox.setSelected(true);
       }
@@ -126,7 +124,6 @@ public class HotKeyView extends JPanel{
       }
       //get key
       String s= keys.split("\\+")[keys.split("\\+").length-1];
-      //System.out.println("s: "+s);
       if(s.equals("CTRL")||s.equals("SHIFT")||s.equals("ALT")){
          comboBox.setSelectedIndex(0);
          update=false;
@@ -152,7 +149,6 @@ public class HotKeyView extends JPanel{
    
 
    private void updateTextFieldElement(){
-      //System.out.println("updateTextFieldElement");
       String text="";
       if(ctrlCheckBox.isSelected()){
          text+="CTRL";
@@ -182,7 +178,6 @@ public class HotKeyView extends JPanel{
 
    
    public void requestFocus(){
-      //System.out.println("requestFocus");
       buttonLabel.requestFocus();
    }
    
@@ -196,14 +191,11 @@ public class HotKeyView extends JPanel{
       boolean notLastKey=false;
       
       public void keyReleased(KeyEvent e){ 
-         //System.out.println("keyReleased");
          
             if(!text.equals(""))
                text ="+"+text;
             
             text=e.getKeyText(e.getKeyCode()).toUpperCase()+text;
-            //System.out.println("text: "+ text);
-         
 
             if(!e.isAltDown()&&!e.isShiftDown()&&!e.isControlDown())
                notLastKey=false;
@@ -211,13 +203,11 @@ public class HotKeyView extends JPanel{
                notLastKey=true;
             
          if(!notLastKey){
-            //System.out.println("--------");
             buttonLabel.setText(text);
             keys=text;
             updateBoxElements();
             text="";
             requestFocus();
-            //System.out.println("--------");
          }
 
       }

@@ -29,9 +29,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.jdom.Document;
 import org.jdom.Element;
 import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.geco.GUI.GecoMainView;
 import org.ximtec.igesture.geco.UserAction.CommandExecutor;
 import org.ximtec.igesture.geco.UserAction.KeyboardSimulation;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
@@ -42,15 +45,25 @@ public class XMLImportGeco {
    private static final String GESTURE = "gesture";
    private static final String KEY = "key";
    private static final String COMMAND = "command";
-   private static String ROOT_TAG = "gestureMapping";
-   private static String GESTURE_SET ="gestureSet";
+   private static final String ROOT_TAG = "gestureMapping";
+   private static final String GESTURE_SET ="gestureSet";
+   private static final String GESTURE_SET_NAME = "ms_application_gestures.xml";
    
    private List<GestureToActionMapping> mappings;
    
    private static GestureSet gestureSet;
+   private GecoMainView view;
+   private String gestureSetFileName;
+   
+   private boolean importError;
    
    
 
+   public XMLImportGeco(GecoMainView view){
+      this.view = view;
+   }
+   
+   
    /**
     * Imports a project.
     * 
@@ -62,30 +75,45 @@ public class XMLImportGeco {
       final Element gestureSetElement = document.getRootElement().getChild(GESTURE_SET);
     
       //import gesture set
-      String fileName="";
-      if(gestureSetElement.getText().equals("MicrosoftApplicationGestures")){
-         fileName = "gestureSets/ms_application_gestures.xml";
-         gestureSet = XMLGeco.importGestureSet(
-               new File(ClassLoader.getSystemResource(fileName).getFile())).get(0);
-      }
-
-
-      final List<Element> mappingElements = (List<Element>)document.getRootElement()
-            .getChildren(ROOT_TAG);
-
-      //TODO: if the action is not a keypress?
-      for (final Element mappingElement : mappingElements) {
-         String key = mappingElement.getChildText(KEY);
-         String gesture = mappingElement.getChildText(GESTURE);
-         if (key!=null){
-            mappings.add(new GestureToActionMapping( gestureSet.getGestureClass(gesture), new KeyboardSimulation(key)));
+      String gsFile = gestureSetElement.getText();
+      File f=null;
+      if(gsFile.contains("\\")){
+         //load from specified position
+         f= new File(gsFile);
+         gestureSetFileName = f.getAbsolutePath();
+      }else{
+         //load from classpath
+         gestureSetFileName = GESTURE_SET_NAME;
+         String s = ClassLoader.getSystemResource(GESTURE_SET_NAME).getFile();
+         if(s!=null){
+            f = new File(s);
          }
-         else{ 
-            String cmd = mappingElement.getChildText(COMMAND);
-            if(cmd!=null){
-               mappings.add(new GestureToActionMapping( gestureSet.getGestureClass(gesture), new CommandExecutor(cmd)));
+      }
+      if(f.exists()){
+
+         gestureSet = XMLGeco.importGestureSet(f).get(0);
+
+         final List<Element> mappingElements = (List<Element>)document.getRootElement()
+               .getChildren(ROOT_TAG);
+   
+         for (final Element mappingElement : mappingElements) {
+            String key = mappingElement.getChildText(KEY);
+            String gesture = mappingElement.getChildText(GESTURE);
+            if (key!=null){
+               mappings.add(new GestureToActionMapping( gestureSet.getGestureClass(gesture), new KeyboardSimulation(key)));
+            }
+            else{ 
+               String cmd = mappingElement.getChildText(COMMAND);
+               if(cmd!=null){
+                  mappings.add(new GestureToActionMapping( gestureSet.getGestureClass(gesture), new CommandExecutor(cmd)));
+               }
             }
          }
+      }else{
+         //file not exists, display error message!
+         importError=true;
+         gestureSetFileName="";
+         JOptionPane.showMessageDialog(view, "Gesture set file not found! \n Project could not be loaded");
       }
    } // importKeyMappings
    
@@ -106,6 +134,14 @@ public class XMLImportGeco {
     */
    public GestureSet getGestureSet(){
       return gestureSet;
+   }
+   
+   public String getGestureSetFileName(){
+      return gestureSetFileName;
+   }
+   
+   public boolean hasError(){
+      return importError;
    }
 
 }

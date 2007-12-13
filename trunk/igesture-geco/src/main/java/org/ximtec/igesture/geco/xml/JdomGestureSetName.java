@@ -43,10 +43,10 @@ public class JdomGestureSetName extends Element {
 
 
 
-      public JdomGestureSetName(GestureSet gestureSet) {
+      public JdomGestureSetName(String gestureSetFileName) {
          super(ROOT_TAG);
-         if(gestureSet!=null)
-            this.addContent(gestureSet.getName());
+         if(gestureSetFileName!=null)
+            this.addContent(gestureSetFileName);
       }
 
 

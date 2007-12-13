@@ -142,12 +142,14 @@ public class MappingDialog extends BasicDialog{
          tabbedPane.setSelectedIndex(HOTKEY);
          hotkeyView.initView();
          commandView.initView();
+
          
       }
       else{
          if (gestureMapping.getAction() instanceof KeyboardSimulation){
             KeyboardSimulation ks = (KeyboardSimulation)gestureMapping.getAction();
             hotkeyView.updateView(ks.getAllKeys());
+
 
             
          }
