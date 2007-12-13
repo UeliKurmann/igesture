@@ -48,9 +48,12 @@ import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.graphix.widget.BasicTextField;
+import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
+import org.ximtec.igesture.geco.GUI.GecoMainModel;
 import org.ximtec.igesture.geco.GUI.GecoMainView;
 import org.ximtec.igesture.geco.GUI.action.SaveProjectAction;
+import org.ximtec.igesture.geco.xml.XMLGeco;
 import org.ximtec.igesture.graphics.SwingTool;
 
 
@@ -226,13 +229,21 @@ public class NewProjectDialog extends BasicDialog{
               
             if(ok){
                //update model
-               view.getModel().setProjectFile(temp);
-               view.getModel().setProjectName(projectTextField.getText());
+               GestureSet gestureSet = XMLGeco.importGestureSet(
+                     new File(ClassLoader.getSystemResource(GecoMainModel.GESTURE_SET).getFile())).get(0);
                view.getModel().clearData();
+               view.getModel().initRecogniser(gestureSet);
+               view.getModel().loadGestureSet(gestureSet);
+               
+               view.getModel().setProjectFile(temp);
+               view.getModel().setGestureSetFileName(view.getModel().GESTURE_SET);
+               view.getModel().setProjectName(projectTextField.getText());
+               
                
                //update view
                view.initProjectView(projectTextField.getText());
                view.enableMenuItem();
+               view.updateGestureList();
                NewProjectDialog.this.dispose();
                
                //save

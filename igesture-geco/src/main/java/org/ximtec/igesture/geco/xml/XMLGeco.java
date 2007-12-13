@@ -74,11 +74,11 @@ public class XMLGeco {
     * @param set the gesture set to be exported.
     * @param file the XML file.
     */
-   public static void exportProject(Collection<GestureToActionMapping> mappings, GestureSet gestureSet, File file) {
+   public static void exportProject(Collection<GestureToActionMapping> mappings, GestureSet gestureSet, String gestureSetFileName, File file) {
 
       final JdomDocument igestureDocument = new JdomDocument(ROOT_TAG);
       
-      igestureDocument.attach(new JdomGestureSetName(gestureSet));
+      igestureDocument.attach(new JdomGestureSetName(gestureSetFileName));
 
       for (final GestureToActionMapping map :  mappings) {
             igestureDocument.attach(new JdomGestureMapping(map, gestureSet ));

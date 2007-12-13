@@ -31,14 +31,21 @@ import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.sigtec.ink.Note;
+import org.sigtec.input.InputDeviceEvent;
+import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.EventManager;
 import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
+import org.ximtec.igesture.geco.xml.XMLGeco;
+import org.ximtec.igesture.io.ButtonDeviceEventListener;
+import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.storage.StorageManager;
+import org.ximtec.igesture.tool.GestureConfiguration;
 
 
 
@@ -47,7 +54,7 @@ import org.ximtec.igesture.storage.StorageManager;
  * @version 1.0 Nov 20, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public class GecoMainModel {
+public class GecoMainModel implements ButtonDeviceEventListener{
    
    private GestureSet gestureSet;
    
@@ -62,6 +69,8 @@ public class GecoMainModel {
    public Hashtable<String, GestureClass> gestureClassesTable = new Hashtable<String, GestureClass>();
    
    private File projectFile;
+   
+   private String gestureSetFileName;
 
    private String projectName;
    
@@ -73,14 +82,30 @@ public class GecoMainModel {
    
    private List<GestureClass> gestureClasses;
    
+   public static final String GESTURE_SET = "ms_application_gestures.xml";
+   
+   private Recogniser recogniser;
+   
+   private InputDeviceClient client;
+   
+   
    
    /**
     * Constructs a new main model.
     * 
     * @param engine the storage engine used by the storage manager.
     */
-   public GecoMainModel(StorageEngine engine) {
+   public GecoMainModel(Configuration conf, InputDeviceClient client) {
 //      loadData(engine);
+      /*
+      this.configuration = configuration;
+      this.configuration.setEventManager(eventManager);
+      GestureSet gestureSet = XMLGeco.importGestureSet(
+          new File(ClassLoader.getSystemResource(GESTURE_SET).getFile())).get(0);
+    configuration.addGestureSet(gestureSet);
+    */
+      this.configuration = conf;
+      this.client = client;
       Comparator<GestureClass> c1 =new Comparator<GestureClass>() {
          public int compare(GestureClass a, GestureClass b) {
             return a.getName().compareTo(b.getName());
@@ -134,13 +159,19 @@ public class GecoMainModel {
     * @param gestureSet the gesture set to be added.
     */
    public void loadGestureSet(GestureSet gestureSet) {
+        // if (configuration.getGestureSets().contains(gestureSet))
+          //  configuration.removeGestureSet(this.gestureSet);
+         
+         if (!configuration.getGestureSets().contains(gestureSet)) 
+            configuration.addGestureSet(gestureSet);
+         
          this.gestureSet=gestureSet;
          gestureClassesTable.clear();
-      
          
          for(GestureClass gc: gestureSet.getGestureClasses()){
             gestureListModel.add(gc);
             gestureClassesTable.put(gc.getName(), gc);
+          
          }
          toBeSaved=true;
    } // loadGestureSet
@@ -153,6 +184,7 @@ public class GecoMainModel {
       gestureClassesTable.clear();
       mappingListModel.clear();
       gestureListModel.clear();
+      mappingTable.clear();
    }//clearData
    
    
@@ -187,6 +219,27 @@ public class GecoMainModel {
    
    
    /**
+    * Set the project name
+    * 
+    * @param name the name of the project
+    */
+   public void setGestureSetFileName(String name){
+      gestureSetFileName=name;
+      toBeSaved=true;
+   }//setProjectName
+   
+   /**
+    * Returns the project file
+    * 
+    * @return the xml file in which the project is saved
+    */
+   public String getGestureSetFileName(){
+      return gestureSetFileName;
+   }//getProjectFile
+   
+   
+   
+   /**
     * Adds the gesture set to the gesture main model
     * 
     * @param gestureSet the gesture set to be added.
@@ -218,6 +271,7 @@ public class GecoMainModel {
       eventManager.registerEventHandler(gm.getGestureClass().getName(),gm.getAction());
       mappingListModel.removeElement(gm);
       mappingListModel.add(gm);
+      mappingTable.put(gm.getGestureClass(),gm);
       toBeSaved=true;
    }//addMapping
    
@@ -300,5 +354,42 @@ public class GecoMainModel {
    public boolean needSave(){
       return toBeSaved;
    }//needSave
+   
+   
+
+   
+   public void initRecogniser(GestureSet gestureSet){
+      if (recogniser==null){
+         try{
+            
+         this.configuration.setEventManager(eventManager);
+         configuration.addGestureSet(gestureSet);
+         recogniser = new Recogniser(configuration);
+         client.addButtonDeviceEventListener(this);
+         }
+         catch(Exception e){
+            e.printStackTrace();
+         }
+      }
+   }
+   
+
+   
+
+   
+   /**
+    * Handle events coming from the input device
+    * 
+    * @param event the event
+    */
+   public void handleButtonPressedEvent(InputDeviceEvent event) {
+      Note note = client.createNote(0, event.getTimestamp(), 70);
+
+      if (note.getPoints().size() > 5) {
+         recogniser.recognise(note);
+      }
+   } // handleButtonPressedEvent
+   
+
 
 }

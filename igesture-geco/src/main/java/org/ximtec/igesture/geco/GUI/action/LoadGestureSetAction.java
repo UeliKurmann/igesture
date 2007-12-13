@@ -89,9 +89,9 @@ public class LoadGestureSetAction extends BasicAction {
                      selectedFile.getName().length());
                if(ext.equals(XML_EXTENSION)){
                    //update model
-                  mainView.getModel().clearData();
+                   mainView.getModel().clearData();
                    mainView.getModel().loadGestureSet(loadGestureSet(selectedFile));
-   //                mainView.getModel().getConfiguration().addGestureSet(mainView.getModel().getGestureSet());
+                   mainView.getModel().setGestureSetFileName(selectedFile.getAbsolutePath());
                    //update view
                    mainView.updateGestureList();
                    mainView.enableSaveButton();
