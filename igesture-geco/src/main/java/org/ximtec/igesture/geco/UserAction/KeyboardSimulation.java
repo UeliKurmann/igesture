@@ -54,10 +54,10 @@ public class KeyboardSimulation implements EventHandler{
    private static final String REGEX = "\\+";
    private static final String KEY_NOT_RECOGNISED = "Key not recognised!";
    
-   private boolean ctrlSelected;
-   private boolean altSelected;
-   private boolean shiftSelected;
-   private String selChar;
+  // private boolean ctrlSelected;
+  // private boolean altSelected;
+  // private boolean shiftSelected;
+  // private String selChar;
 
    
    /**
@@ -66,7 +66,7 @@ public class KeyboardSimulation implements EventHandler{
     * @param keys the keys corresponding to the action
     */
    public KeyboardSimulation(String keys) {
-      this.stringKeys = keys;
+    //  this.stringKeys = keys;
       setKeys(keys);
    }//KeyboardSimulationAction
 
@@ -91,11 +91,13 @@ public class KeyboardSimulation implements EventHandler{
     * @param keys the keys corresponding to the action
     */
    public void setKeys(String keys) {
+      this.stringKeys=keys;
       List<Integer> codes = new ArrayList<Integer>();
-      int length= keys.split(REGEX).length;
+  //    int length= keys.split(REGEX).length;
       for (String key : keys.split(REGEX)) {
          key = key.trim();
-               if(key.equals("CONTROL")){
+         /*
+               if(key.equals("CTRL")){
                   ctrlSelected = true;
                   selChar="";
                }
@@ -109,6 +111,7 @@ public class KeyboardSimulation implements EventHandler{
                }else{
                   selChar=key;
                }
+               */
          key = key.replaceAll(" ", "_");
          int code = Win32KeyboardProxy.getKey(key);
 
@@ -120,8 +123,8 @@ public class KeyboardSimulation implements EventHandler{
 
          }
       }//for
-      if(selChar==null)
-         selChar="";
+      //if(selChar==null)
+        // selChar="";
 
          
       this.keys = codes.toArray(new Integer[0]);
@@ -134,27 +137,27 @@ public class KeyboardSimulation implements EventHandler{
     * 
     * @return true, if 'control' is selected
     */
-   public boolean isCtrlSelected(){
-      return ctrlSelected;
-   }//isCtrlSelected
+ //  public boolean isCtrlSelected(){
+ //     return ctrlSelected;
+ //  }//isCtrlSelected
    
    /**
     * Is 'alt' selected?
     * 
     * @return true, if 'control' is selected
     */
-   public boolean isAltSelected(){
-      return altSelected;
-   }//isAltSelected
+ //  public boolean isAltSelected(){
+ //     return altSelected;
+ //  }//isAltSelected
    
    /**
     * Is 'shift' selected?
     * 
     * @return true, if 'shift' is selected
     */
-   public boolean isShiftSelected(){
-      return shiftSelected;
-   }//isShiftSelected
+  // public boolean isShiftSelected(){
+  //    return shiftSelected;
+  // }//isShiftSelected
    
    
    /**
@@ -162,9 +165,19 @@ public class KeyboardSimulation implements EventHandler{
     * 
     * @return a String representing the selected char
     */
-   public String getSelectedKey(){
-      return selChar;
-   }//getSelectedChar
+ //  public String getSelectedKey(){
+ //     return selChar;
+ //  }//getSelectedChar
+   
+   /**
+    * Returns the selected keys
+    * 
+    * @return the keys to be pressed
+    */
+   public String getAllKeys(){
+      return stringKeys;
+   }//toString
+   
    
    /**
     * Returns a description of the action
@@ -174,6 +187,7 @@ public class KeyboardSimulation implements EventHandler{
    public String toString(){
       return stringKeys;
    }//toString
+
 
    
    

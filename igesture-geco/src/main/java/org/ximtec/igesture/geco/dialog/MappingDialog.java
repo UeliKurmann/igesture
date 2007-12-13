@@ -85,12 +85,15 @@ public class MappingDialog extends BasicDialog{
    
    //GUI elements
    private JTabbedPane tabbedPane = new JTabbedPane();
-
    private JLabel gestureLabel = new JLabel();
+   private BasicButton addButton;
    private int DIALOG_WIDTH = 450;
    private int DIALOG_HEIGHT = 500;
-   private JTextPane textField;
-   private JTextField buttonLabel;
+
+   //views
+   private HotKeyView hotkeyView;
+   private CommandView commandView;
+
 //   private JPanel labelPanel;
    
    //constants
@@ -98,20 +101,14 @@ public class MappingDialog extends BasicDialog{
    private final int COMMAND = 1;
    
    //models
-   private HotKeyModel hotkeyModel = new HotKeyModel();
+   //private HotKeyModel hotkeyModel = new HotKeyModel();
    
    
    public MappingDialog(GecoMainView gmv){
       view = gmv;
       setModal(true);
       initDialog();
-      
-      addWindowListener( new WindowAdapter() {
-         public void windowOpened( WindowEvent e ){
-            buttonLabel.requestFocus();
-           }
-         } ); 
-      
+
 //      this.addFocusListener(this);
    }//MappingDialog
    
@@ -142,19 +139,21 @@ public class MappingDialog extends BasicDialog{
    private void initValues(){
       gestureLabel.setText(gestureClass.getName());
       if (gestureMapping==null){
-         hotkeyModel.updateModel(null);
-         textField.setText("");
          tabbedPane.setSelectedIndex(HOTKEY);
+         hotkeyView.initView();
+         commandView.initView();
+         
       }
       else{
          if (gestureMapping.getAction() instanceof KeyboardSimulation){
-            hotkeyModel.updateModel((KeyboardSimulation)gestureMapping.getAction());
-          //  buttonLabel.setText(keys);
+            KeyboardSimulation ks = (KeyboardSimulation)gestureMapping.getAction();
+            hotkeyView.updateView(ks.getAllKeys());
+
             
          }
          else if(gestureMapping.getAction() instanceof CommandExecutor){
             CommandExecutor cmd = (CommandExecutor)gestureMapping.getAction();
-            textField.setText(cmd.getCommand());
+            commandView.updateView(cmd.getCommand());
             tabbedPane.setSelectedIndex(COMMAND);
          }
       }
@@ -201,7 +200,7 @@ public class MappingDialog extends BasicDialog{
     */
    private void addButtonPanel(){
       JPanel buttonPanel = new JPanel();
-      BasicButton addButton = SwingTool.createButton(GecoConstants.ADD);
+      addButton = SwingTool.createButton(GecoConstants.ADD);
       BasicButton cancelButton = SwingTool.createButton(GecoConstants.CANCEL);
       addButton.addActionListener(new ActionListener(){
           public void actionPerformed(ActionEvent event) {
@@ -215,17 +214,13 @@ public class MappingDialog extends BasicDialog{
              MappingDialog.this.dispose();
           }
       });
-      
       cancelButton.addActionListener(new ActionListener(){
          public void actionPerformed(ActionEvent event) {
             MappingDialog.this.dispose();
          }
      });
-      
-
       buttonPanel.add(addButton);
       buttonPanel.add(cancelButton);
-      
       this.add(buttonPanel,  new GridBagConstraints(0,2,1,1,0,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
             new Insets(0,20,0,20),0,0 ) );
    }
@@ -236,35 +231,19 @@ public class MappingDialog extends BasicDialog{
     * 
     */
    private void addFirstTab() {
-      JPanel keyStringView = new HotKeyStringView(hotkeyModel);
-      
- 
+      hotkeyView = new HotKeyView(this);
 
-      tabbedPane.addTab(GecoConstants.HOTKEY, keyStringView);
+      
+      JPanel aPanel = new JPanel();
+      aPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GecoConstants.HOTKEY));
+      
+      aPanel.setLayout(new GridLayout(1,1));
+      aPanel.add(hotkeyView);
+      
+      tabbedPane.addTab(GecoConstants.HOTKEY, aPanel);
       tabbedPane.setMnemonicAt(HOTKEY, KeyEvent.VK_1);
-      
- 
-      
-      buttonLabel = GuiTool.createTextField("buttonTextField");
-     
- //     labelPanel = new JPanel();
-     
-//      labelPanel.setBorder(new BevelBorder(1, Color.gray,Color.gray));
-//      labelPanel.add(buttonLabel);
-//      labelPanel.setBackground(Color.WHITE);
-      buttonLabel.setEditable(false);
-      buttonLabel.setBackground(Color.WHITE);
 
-      //buttonLabel.addKeyListener(new ButtonLabelKeyListener());
-//      buttonLabel.addMouseListener(new ButtonLabelMouseListener());
 
-    //  bottomPanel.add(buttonLabel,
-      //      new GridBagConstraints(1,2,7,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
-        //             new Insets(10,20,10,20),0,0 ) );
-
-      //remove keystroke
-      //KeyStroke ks = KeyStroke.getKeyStroke(KeyEvent.VK_TAB, 0);
-      //btextField.getInputMap().remove(ks);
 
    } // addFirstTab
    
@@ -275,27 +254,11 @@ public class MappingDialog extends BasicDialog{
     */
    private void addSecondTab() {
       
-      JComponent panel2 = new JPanel();
-      panel2.setLayout(new GridBagLayout());
-      tabbedPane.addTab(GecoConstants.COMMAND, panel2);
+      commandView = new CommandView();
+      tabbedPane.addTab(GecoConstants.COMMAND, commandView);
       tabbedPane.setMnemonicAt(COMMAND, KeyEvent.VK_2);
       
-      
-      JPanel aPanel = new JPanel();
-      aPanel.setLayout(new GridLayout());
-      aPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GecoConstants.COMMAND));
-      textField = new JTextPane();
-      JScrollPane scrollPane = new JScrollPane();
-      scrollPane.getViewport().add(textField);
-      textField.setMaximumSize(new Dimension(300,200));
-//      textField.setSize(new Dimension(200,200));
-      textField.setBorder(new BevelBorder(0,Color.gray,Color.gray));
-//      aPanel.add(textField, new GridBagConstraints(0,0,1,1,1.0,1.0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
-//            new Insets(40,20,40,20),0,0 ) );
-      aPanel.add(scrollPane);
-      
-      panel2.add(aPanel, new GridBagConstraints(0,0,1,1,1.0,1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(40,20,40,20),0,0 ) );
+
       
    }
    
@@ -309,109 +272,18 @@ public class MappingDialog extends BasicDialog{
       if (tabbedPane.getSelectedIndex()==HOTKEY){
 
          GestureToActionMapping mapping = new GestureToActionMapping(
-               gestureClass,new KeyboardSimulation(hotkeyModel.getAllKeys()));
+               gestureClass,new KeyboardSimulation(hotkeyView.getAllKeys()));
          view.getModel().mappingTable.addMapping(gestureClass, mapping);
       }   
       else if(tabbedPane.getSelectedIndex()==COMMAND){
-         GestureToActionMapping mapping = new GestureToActionMapping(gestureClass,new CommandExecutor(textField.getText()));
+         GestureToActionMapping mapping = new GestureToActionMapping(gestureClass,new CommandExecutor(commandView.getCommand()));
          view.getModel().mappingTable.addMapping(gestureClass, mapping);
       }
    }//addGestureMappingToTable
    
-   /*
-   private class ButtonLabelKeyListener implements KeyListener{
+ 
    
-   public void keyPressed(KeyEvent e){
-
+   public void setAddButtonEnabled(boolean b){
+      addButton.setEnabled(b);
    }
-
-   public void keyReleased(KeyEvent e){ 
-      switch(e.getKeyCode()){
-         case KeyEvent.VK_CONTROL:
-            break;
-         case KeyEvent.VK_SHIFT:
-            break;
-         case KeyEvent.VK_ALT:
-            break;
-         default:
-            
-            String text="";
-         if (e.isControlDown()){
-            ctrlCheckBox.setSelected(true);
-            text+="CONTROL+";
-         }else{
-            ctrlCheckBox.setSelected(false);
-         }
-         if (e.isShiftDown()){
-            shiftCheckBox.setSelected(true);
-            text+="SHIFT+";
-         }else{
-            shiftCheckBox.setSelected(false);
-         }
-         
-         if (e.isAltDown()){
-            altCheckBox.setSelected(true);
-            text+="ALT+";
-         }else{
-            altCheckBox.setSelected(false);
-         }
-            buttonLabel.setText(text+e.getKeyText(e.getKeyCode()));
-            comboBox.setSelectedItem(e.getKeyText(e.getKeyCode()));
-            buttonLabel.setBackground(Color.WHITE);
-            comboBox.removeItemAt(comboBox.getItemCount()-1);
-            comboBox.addItem(e.getKeyText(e.getKeyCode()));
-            comboBox.setSelectedIndex(comboBox.getItemCount()-1);           
-      }
-      System.out.println(e.getKeyText(e.getKeyCode()));  
-
-
-
-      
-   }
-
-      public void keyTyped(KeyEvent e){
-      }
-   }
-   
-   private class keyActionListener implements ActionListener{
-      
-      public void actionPerformed(ActionEvent e){
-         MappingDialog.this.updateSelectedKeys();
-         MappingDialog.this.buttonLabel.setText(MappingDialog.this.keys);
-      }
-      
-   }
-*/   
-   /*
-   private class ButtonLabelMouseListener implements MouseListener{
-      public void mouseClicked(MouseEvent e){
-      }
-      
-      public void mouseEntered(MouseEvent e){
-      }
-
-      public void mouseExited(MouseEvent e){  
-      }
-
-      public void mousePressed(MouseEvent e){
-      }
-
-      public void mouseReleased(MouseEvent e){
-      }
-
-   }
-  */
-   
-   /*
-   public void focusGained(FocusEvent e){
-      view.setFocusableWindowState(true);
-   }
-
-   public void focusLost(FocusEvent e){
-      
-   }
-
-   
-   
-*/
 }

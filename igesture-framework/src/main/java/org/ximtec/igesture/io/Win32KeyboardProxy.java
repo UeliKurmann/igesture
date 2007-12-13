@@ -52,14 +52,14 @@ public class Win32KeyboardProxy {
          .getLogger(Win32KeyboardProxy.class.getName());
 
    public static int SHIFT = 0x10;
-   public static int CONTROL = 0x11;
+   public static int CTRL = 0x11;
    public static int ALT = 0x12;
    
    public static int DELETE    =    0x2E;
    public static int CLEAR = 0x0C;
-   public static int BACK = 0x08;
+   public static int BACKSPACE = 0x08;
    public static int TAB = 0x09;
-   public static int RETURN = 0x0D;
+   public static int ENTER = 0x0D;
    public static int ESCAPE = 0x1B;
    public static int SPACE = 0x20; 
 
