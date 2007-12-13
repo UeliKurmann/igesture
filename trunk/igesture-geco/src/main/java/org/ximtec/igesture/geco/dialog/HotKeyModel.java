@@ -1,7 +1,7 @@
 /*
  * @(#)HotkeyModel.java	1.0   Dec 11, 2007
  *
- * Author		:	Beat Signer, signer@inf.ethz.ch
+ * Author		:	Michele Croci, mcroci@gmail.com
  *
  * Purpose		: 
  *
@@ -25,22 +25,20 @@
 
 package org.ximtec.igesture.geco.dialog;
 
-import java.util.Observable;
-
-import org.ximtec.igesture.geco.UserAction.CommandExecutor;
-import org.ximtec.igesture.geco.UserAction.KeyboardSimulation;
-
-
 
 /**
  * Comment
  * @version 1.0 Dec 11, 2007
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Michele Croci, mcroci@gmail.com
  */
-public class HotKeyModel extends Observable{
+public class HotKeyModel{
+
    
-   public HotKeyModel(){
-      key="";
+   public void HotKeyModel(boolean alt, boolean ctrl, boolean shift, String key){
+      ctrlSelected = ctrl;
+      altSelected = alt;
+      shiftSelected = shift;
+      this.key = key;
    }
    
    private boolean altSelected;
@@ -50,42 +48,16 @@ public class HotKeyModel extends Observable{
    private String key;
    
    
-   /**
-    * Inits the state of the buttons.
-    */
-   public void updateModel(KeyboardSimulation action){
-      if (action==null){
-         altSelected = false;
-         shiftSelected = false;
-         ctrlSelected = false;
-         key="";
-      }
-      else{
-         altSelected = action.isAltSelected();
-         shiftSelected = action.isShiftSelected();
-         ctrlSelected = action.isCtrlSelected();
-         key=action.getSelectedKey();
-      }
-      setChanged();
-      notifyObservers();
-   }//initButtonsState
-   
    public void setAltSelected(boolean b){
       altSelected = b;
-      setChanged();
-      notifyObservers();
    }
    
    public void setShiftSelected(boolean b){
       shiftSelected = b;
-      setChanged();
-      notifyObservers();
    }
    
    public void setCtrlSelected(boolean b){
       ctrlSelected = b;
-      setChanged();
-      notifyObservers();
    }
    
    public boolean isAltSelected(){
@@ -102,15 +74,13 @@ public class HotKeyModel extends Observable{
    
    public void setKey(String s){
       key=s;
-      setChanged();
-      notifyObservers();
    }
    
    public String getKey(){
       return key;
    }
    
-   public String getAllKeys(){
+   public String toString(){
       String allKeys="";
       if(ctrlSelected)
          allKeys+="CONTROL+";
@@ -122,6 +92,7 @@ public class HotKeyModel extends Observable{
       allKeys+=key;
       return allKeys;
    }
+
 
    
    
