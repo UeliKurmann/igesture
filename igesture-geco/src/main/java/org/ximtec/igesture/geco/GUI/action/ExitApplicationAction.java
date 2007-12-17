@@ -34,6 +34,7 @@ import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
 import org.ximtec.igesture.geco.GUI.GecoMainView;
+import org.ximtec.igesture.geco.util.GecoSystemTray;
 
 
 /**
@@ -60,6 +61,8 @@ public class ExitApplicationAction extends BasicAction {
    public void actionPerformed(ActionEvent event) {
       //display save dialog, if needed
       
+
+      
       if (mainView.getModel().needSave()){
          int n = JOptionPane.showConfirmDialog(
                mainView,
@@ -73,6 +76,7 @@ public class ExitApplicationAction extends BasicAction {
             System.exit(0);
          }
       }else{
+         GecoSystemTray.removeTrayIcon();
          System.exit(0);
       }
       

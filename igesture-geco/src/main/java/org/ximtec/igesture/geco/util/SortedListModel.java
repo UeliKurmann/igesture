@@ -23,7 +23,7 @@
  */
 
 
-package org.ximtec.igesture.geco.GUI;
+package org.ximtec.igesture.geco.util;
 
 import java.util.Comparator;
 import java.util.Iterator;

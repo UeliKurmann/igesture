@@ -106,8 +106,10 @@ public class MappingDialog extends BasicDialog{
    
    public MappingDialog(GecoMainView gmv){
       view = gmv;
+      setFocusable(false);
       setModal(true);
       initDialog();
+      tabbedPane.setFocusable(false);
 
 //      this.addFocusListener(this);
    }//MappingDialog
@@ -139,11 +141,12 @@ public class MappingDialog extends BasicDialog{
    private void initValues(){
       gestureLabel.setText(gestureClass.getName());
       if (gestureMapping==null){
-         tabbedPane.setSelectedIndex(HOTKEY);
-         hotkeyView.initView();
-         commandView.initView();
-
+        
          
+         commandView.initView();
+         hotkeyView.initView();
+         tabbedPane.setSelectedIndex(COMMAND);
+         tabbedPane.setSelectedIndex(HOTKEY);
       }
       else{
          if (gestureMapping.getAction() instanceof KeyboardSimulation){
@@ -167,6 +170,7 @@ public class MappingDialog extends BasicDialog{
     * Init the Dialog
     */
    private void initDialog() {
+        
          this.setTitle(GecoConstants.MAIN_FRAME_TITLE);
          this.setLayout(new GridBagLayout());
          this.add(tabbedPane, new GridBagConstraints(0,1,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -180,6 +184,7 @@ public class MappingDialog extends BasicDialog{
          addButtonPanel();
          addFirstTab();
          addSecondTab();
+     //    tabbedPane.addChangeListener(hotkeyView.getChangeListener());
    } // initDialog
    
    
