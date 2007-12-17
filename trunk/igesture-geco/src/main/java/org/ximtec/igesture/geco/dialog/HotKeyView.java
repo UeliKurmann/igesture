@@ -29,8 +29,11 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -41,6 +44,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import org.sigtec.graphix.GuiTool;
 
@@ -70,11 +75,20 @@ public class HotKeyView extends JPanel{
    public HotKeyView(MappingDialog view){
       this.view=view;
       populateView();
+      
       this.view.addWindowListener( new WindowAdapter() {
          public void windowOpened( WindowEvent e ){
             buttonLabel.requestFocus();
+            buttonLabel.requestFocusInWindow();
            }
-         } ); 
+         } );
+      //elements must be non focusable otherwise text field
+      //doesn't get key events!
+      ctrlCheckBox.setFocusable(false);
+      shiftCheckBox.setFocusable(false);
+      altCheckBox.setFocusable(false);
+      comboBox.setFocusable(false);
+         
       buttonLabel.addKeyListener(new ButtonLabelKeyListener());
       initView();
    }
@@ -91,13 +105,15 @@ public class HotKeyView extends JPanel{
    }
    
    public void initView(){
-      keys="";
-      ctrlCheckBox.setSelected(false);
-      altCheckBox.setSelected(false);
-      shiftCheckBox.setSelected(false);
-      comboBox.setSelectedIndex(0);
-      buttonLabel.setText("");   
-      buttonLabel.requestFocus();
+   //   keys="";
+   //   ctrlCheckBox.setSelected(false);
+   //   altCheckBox.setSelected(false);
+   //   shiftCheckBox.setSelected(false);
+   //   comboBox.setSelectedIndex(0);
+   //   buttonLabel.setText("");  
+ //     buttonLabel.requestFocus();
+ //     buttonLabel.requestFocusInWindow();
+     
    }
    
 
@@ -175,11 +191,6 @@ public class HotKeyView extends JPanel{
       buttonLabel.setText(text);
    }
    
-
-   
-   public void requestFocus(){
-      buttonLabel.requestFocus();
-   }
    
    
    private class ButtonLabelKeyListener implements KeyListener{
@@ -207,7 +218,7 @@ public class HotKeyView extends JPanel{
             keys=text;
             updateBoxElements();
             text="";
-            requestFocus();
+            buttonLabel.requestFocus();
          }
 
       }
@@ -292,7 +303,7 @@ public class HotKeyView extends JPanel{
       buttonLabel = GuiTool.createTextField("buttonTextField");
       buttonLabel.setEditable(false);
       buttonLabel.setBackground(Color.WHITE);
-
+/*
       ActionListener act =  new ActionListener(){
          public void actionPerformed(ActionEvent e){
             buttonLabel.requestFocus();
@@ -302,7 +313,7 @@ public class HotKeyView extends JPanel{
       altCheckBox.addActionListener(act);
       shiftCheckBox.addActionListener(act);
       comboBox.addActionListener(act);
-      
+  */    
       
       
       this.setLayout(new GridBagLayout());
@@ -316,8 +327,19 @@ public class HotKeyView extends JPanel{
             new Insets(10,20,10,20),0,0 ) );
    }
    
-
+   /*
+   public ChangeListener getChangeListener(){
+      return ( new ChangeListener(){
+         public void stateChanged(ChangeEvent e){
+            buttonLabel.requestFocus();
+            buttonLabel.requestFocusInWindow();
+         }
+      });
+   }
+   */
+  
    
+
 
 
 }

@@ -44,6 +44,7 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.EventManager;
 import org.ximtec.igesture.geco.GUI.GecoMainModel;
 import org.ximtec.igesture.geco.GUI.GecoMainView;
+import org.ximtec.igesture.geco.util.GecoSystemTray;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 import org.ximtec.igesture.io.ButtonDeviceEventListener;
 import org.ximtec.igesture.io.InputDeviceClient;
@@ -124,9 +125,10 @@ public class GecoMain  {
                     conf.getInputDeviceEventListener());
               
               GecoMainModel model = new GecoMainModel(configuration, client);
-              new GecoMainView(model);
+              GecoMainView view = new GecoMainView(model);
               initDevice(conf);
-
+              //add icon to tray
+              new GecoSystemTray(view);
               LOGGER.info(INITIALISED);
        }
 
