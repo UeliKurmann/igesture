@@ -23,17 +23,14 @@
  */
 
 
-package org.ximtec.igesture.geco.dialog;
+package org.ximtec.igesture.geco.GUI;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -44,10 +41,9 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import org.sigtec.graphix.GuiTool;
+import org.ximtec.igesture.geco.dialog.MappingDialog;
 
 
 
@@ -75,13 +71,14 @@ public class HotKeyView extends JPanel{
    public HotKeyView(MappingDialog view){
       this.view=view;
       populateView();
-      
+      /*
       this.view.addWindowListener( new WindowAdapter() {
          public void windowOpened( WindowEvent e ){
             buttonLabel.requestFocus();
             buttonLabel.requestFocusInWindow();
            }
          } );
+         */
       //elements must be non focusable otherwise text field
       //doesn't get key events!
       ctrlCheckBox.setFocusable(false);
@@ -101,19 +98,16 @@ public class HotKeyView extends JPanel{
       this.keys=keys;
       updateBoxElements();
       updateTextFieldElement();
-      buttonLabel.requestFocus();
+  //    buttonLabel.requestFocus();
    }
    
    public void initView(){
-   //   keys="";
-   //   ctrlCheckBox.setSelected(false);
-   //   altCheckBox.setSelected(false);
-   //   shiftCheckBox.setSelected(false);
-   //   comboBox.setSelectedIndex(0);
-   //   buttonLabel.setText("");  
- //     buttonLabel.requestFocus();
- //     buttonLabel.requestFocusInWindow();
-     
+      keys="";
+      ctrlCheckBox.setSelected(false);
+      altCheckBox.setSelected(false);
+      shiftCheckBox.setSelected(false);
+      comboBox.setSelectedIndex(0);
+      buttonLabel.setText("");  
    }
    
 
@@ -218,7 +212,7 @@ public class HotKeyView extends JPanel{
             keys=text;
             updateBoxElements();
             text="";
-            buttonLabel.requestFocus();
+   //         buttonLabel.requestFocus();
          }
 
       }

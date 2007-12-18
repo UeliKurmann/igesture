@@ -44,7 +44,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JRootPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
@@ -173,13 +172,18 @@ public class GecoMainView extends JFrame{
 		
         saveButton = SwingTool.createButton(GecoConstants.SAVE);
         exitButton = SwingTool.createButton(GecoConstants.EXIT);
+    
         exitButton.setAction(handler.getExitApplicationAction());
         saveButton.setAction(handler.getSaveProjectAction());
+        
+        BasicButton minimize = SwingTool.createButton(GecoConstants.MINIMIZE);
+        minimize.setAction(handler.getMinimizeAction());
         
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
         buttonPanel.add(saveButton);
         buttonPanel.add(exitButton);
+        buttonPanel.add(minimize);
         buttonPanel.setBackground(this.getBackground());
         
       this.getContentPane().add(buttonPanel,

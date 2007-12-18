@@ -3,7 +3,7 @@
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *
- * Purpose      :   Terminates the application.
+ * Purpose      :   Minimizes the application.
  *
  * -----------------------------------------------------------------------
  *
@@ -28,29 +28,26 @@ package org.ximtec.igesture.geco.GUI.action;
 
 import java.awt.event.ActionEvent;
 
-import javax.swing.JOptionPane;
-
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
 import org.ximtec.igesture.geco.GUI.GecoMainView;
-import org.ximtec.igesture.geco.util.GecoSystemTray;
 
 
 /**
- * Terminates the application.
+ * Minimizes the application.
  * 
  * @version 1.0, Nov 15, 2006
  * @author  Michele Croci, mcroci@gmail.com
  */
 
-public class ExitApplicationAction extends BasicAction {
+public class MinimizeAction extends BasicAction {
 
    
    private GecoMainView mainView;
 
-   public ExitApplicationAction(GecoMainView mainView) {
-      super(GecoConstants.EXIT_APPLICATION_ACTION, GuiTool.getGuiBundle());
+   public MinimizeAction(GecoMainView mainView) {
+      super(GecoConstants.MINIMIZE_ACTION, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
 
@@ -59,27 +56,8 @@ public class ExitApplicationAction extends BasicAction {
     * @param event the action event.
     */
    public void actionPerformed(ActionEvent event) {
-      //display save dialog, if needed
-      
-
-      
-      if (mainView.getModel().needSave()){
-         int n = JOptionPane.showConfirmDialog(
-               mainView,
-               GecoConstants.SAVE_DIALOG_TITLE,
-               "",
-               JOptionPane.YES_NO_CANCEL_OPTION);
-         if (n==0){
-            (new SaveProjectAction(mainView)).save();
-            System.exit(0);
-         }else if(n==1){
-            System.exit(0);
-         }
-      }else{
-         GecoSystemTray.removeTrayIcon();
-         System.exit(0);
-      }
-      
+      mainView.setVisible(false);
    } // actionPerformed
 
 }
+

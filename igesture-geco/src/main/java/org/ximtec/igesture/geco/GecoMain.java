@@ -30,27 +30,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.sigtec.graphix.GuiTool;
-import org.sigtec.ink.Note;
-import org.sigtec.input.BufferedInputDeviceEventListener;
-import org.sigtec.input.InputDevice;
-import org.sigtec.input.InputDeviceEvent;
-import org.sigtec.input.InputDeviceEventListener;
-import org.sigtec.util.Constant;
-import org.sigtec.util.SystemProperty;
-import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.configuration.Configuration;
-import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.event.EventManager;
 import org.ximtec.igesture.geco.GUI.GecoMainModel;
 import org.ximtec.igesture.geco.GUI.GecoMainView;
 import org.ximtec.igesture.geco.util.GecoSystemTray;
 import org.ximtec.igesture.geco.xml.XMLGeco;
-import org.ximtec.igesture.io.ButtonDeviceEventListener;
 import org.ximtec.igesture.io.InputDeviceClient;
-import org.ximtec.igesture.io.MouseReader;
-import org.ximtec.igesture.io.MouseReaderEventListener;
-import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.tool.GestureConfiguration;
 
 
