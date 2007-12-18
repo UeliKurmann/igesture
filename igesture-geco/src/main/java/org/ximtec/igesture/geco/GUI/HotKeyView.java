@@ -33,8 +33,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -56,12 +54,16 @@ public class HotKeyView extends JPanel{
 
    private String keys = "";
    private MappingDialog view;
+  
+   private final String ALT = "ALT";
+   private final String CTRL = "CTRL";
+   private final String SHIFT = "SHIFT";
 
    
    //GUI elements
-   private JCheckBox ctrlCheckBox =  new JCheckBox("CTRL");
-   private JCheckBox shiftCheckBox =  new JCheckBox("SHIFT");
-   private JCheckBox altCheckBox =  new JCheckBox("ALT");
+   private JCheckBox ctrlCheckBox =  new JCheckBox(CTRL);
+   private JCheckBox shiftCheckBox =  new JCheckBox(SHIFT);
+   private JCheckBox altCheckBox =  new JCheckBox(ALT);
    private JComboBox comboBox;
    private JTextField buttonLabel;
    
@@ -71,14 +73,7 @@ public class HotKeyView extends JPanel{
    public HotKeyView(MappingDialog view){
       this.view=view;
       populateView();
-      /*
-      this.view.addWindowListener( new WindowAdapter() {
-         public void windowOpened( WindowEvent e ){
-            buttonLabel.requestFocus();
-            buttonLabel.requestFocusInWindow();
-           }
-         } );
-         */
+      
       //elements must be non focusable otherwise text field
       //doesn't get key events!
       ctrlCheckBox.setFocusable(false);
@@ -90,17 +85,32 @@ public class HotKeyView extends JPanel{
       initView();
    }
    
+
+   /**
+    * Returns the choosed keys.
+    * 
+    * @return the key selected from the user
+    */
    public String getAllKeys(){
       return keys;
    }
    
+
+   /**
+    * Update the view
+    * 
+    * @param keys the current choosed keys
+    */
    public void updateView(String keys){
       this.keys=keys;
       updateBoxElements();
       updateTextFieldElement();
-  //    buttonLabel.requestFocus();
    }
    
+   
+   /**
+    * Reset the view. No key has been choosed.
+    */
    public void initView(){
       keys="";
       ctrlCheckBox.setSelected(false);
@@ -111,22 +121,25 @@ public class HotKeyView extends JPanel{
    }
    
 
+   /**
+    * Update the checkboxes and the combobox,
+    */
    private void updateBoxElements(){
-      if(keys.contains("CTRL")){
+      if(keys.contains(CTRL)){
          ctrlCheckBox.setSelected(true);
       }
       else{
          ctrlCheckBox.setSelected(false);
       }
       
-      if(keys.contains("SHIFT")){
+      if(keys.contains(SHIFT)){
          shiftCheckBox.setSelected(true);
       }
       else{
          shiftCheckBox.setSelected(false);
       }
       
-      if(keys.contains("ALT")){
+      if(keys.contains(ALT)){
          altCheckBox.setSelected(true);
       }
       else{
@@ -134,7 +147,7 @@ public class HotKeyView extends JPanel{
       }
       //get key
       String s= keys.split("\\+")[keys.split("\\+").length-1];
-      if(s.equals("CTRL")||s.equals("SHIFT")||s.equals("ALT")){
+      if(s.equals(CTRL)||s.equals(SHIFT)||s.equals(ALT)){
          comboBox.setSelectedIndex(0);
          update=false;
       }else{
@@ -153,11 +166,10 @@ public class HotKeyView extends JPanel{
       }
       } 
 
-   
-   
 
-   
-
+   /**
+    * Update the text field displaying the keys
+    */
    private void updateTextFieldElement(){
       String text="";
       if(ctrlCheckBox.isSelected()){
@@ -212,7 +224,6 @@ public class HotKeyView extends JPanel{
             keys=text;
             updateBoxElements();
             text="";
-   //         buttonLabel.requestFocus();
          }
 
       }
@@ -297,18 +308,6 @@ public class HotKeyView extends JPanel{
       buttonLabel = GuiTool.createTextField("buttonTextField");
       buttonLabel.setEditable(false);
       buttonLabel.setBackground(Color.WHITE);
-/*
-      ActionListener act =  new ActionListener(){
-         public void actionPerformed(ActionEvent e){
-            buttonLabel.requestFocus();
-         }
-      };
-      ctrlCheckBox.addActionListener(act);
-      altCheckBox.addActionListener(act);
-      shiftCheckBox.addActionListener(act);
-      comboBox.addActionListener(act);
-  */    
-      
       
       this.setLayout(new GridBagLayout());
       this.add(bottomPanel,
@@ -320,18 +319,6 @@ public class HotKeyView extends JPanel{
             new GridBagConstraints(0,1,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
             new Insets(10,20,10,20),0,0 ) );
    }
-   
-   /*
-   public ChangeListener getChangeListener(){
-      return ( new ChangeListener(){
-         public void stateChanged(ChangeEvent e){
-            buttonLabel.requestFocus();
-            buttonLabel.requestFocusInWindow();
-         }
-      });
-   }
-   */
-  
    
 
 

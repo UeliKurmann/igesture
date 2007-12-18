@@ -1,9 +1,9 @@
 /*
- * @(#)HotKeyStringView.java    1.0   Dec 11, 2007
+ * @(#)CommandView.java    1.0   Dec 11, 2007
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *
- * Purpose      :   View for the choosed hotkey
+ * Purpose      :   View for the defined command
  *
  * -----------------------------------------------------------------------
  *
@@ -41,7 +41,7 @@ import javax.swing.border.TitledBorder;
 
 
 /**
- * View for the choosed hotkey
+ *  View for the defined command
  * @version 1.0 Dec 11, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
@@ -52,8 +52,6 @@ public class CommandView extends JPanel{
    private JTextPane textField;
 
 
-
-   
    public CommandView(){
       populateView();
 
@@ -64,10 +62,20 @@ public class CommandView extends JPanel{
       return textField.getText();
    }
    
+   
+   /**
+    * Update the view
+    * 
+    * @command the current command
+    */
    public void updateView(String command){
       textField.setText(command);
    }
    
+   
+   /**
+    * Reset the view.
+    */
    public void initView(){
       textField.setText("");
    }
@@ -87,9 +95,7 @@ public class CommandView extends JPanel{
       
       this.add(aPanel, new GridBagConstraints(0,0,1,1,1.0,1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
             new Insets(40,20,40,20),0,0 ) );
-      
 
-   
    }
    
 
