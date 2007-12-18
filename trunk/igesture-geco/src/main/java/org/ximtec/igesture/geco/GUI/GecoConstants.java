@@ -104,6 +104,8 @@ public class GecoConstants {
    
    public static final String CREATE = "CREATE";
    
+   public static final String MINIMIZE = "MINIMIZE";
+   
    
    
    /*
@@ -125,6 +127,8 @@ public class GecoConstants {
    public static final String LOAD_GESTURE_SET_ACTION = "LoadGestureSetAction";
    
    public static final String MAP_GESTURE_ACTION = "MapGestureAction";
+   
+   public static final String MINIMIZE_ACTION = "MinimizeAction";
    
 
    

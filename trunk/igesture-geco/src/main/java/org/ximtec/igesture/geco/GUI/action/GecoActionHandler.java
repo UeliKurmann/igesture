@@ -51,6 +51,7 @@ public class GecoActionHandler {
    private EditMappingAction editMappingAction;
    private RemoveMappingAction removeMappingAction;
    private SaveProjectAction saveProjectAction;
+   private MinimizeAction minimizeAction;
 
 
    public GecoActionHandler(GecoMainView view) {
@@ -126,6 +127,14 @@ public class GecoActionHandler {
       }
 
       return saveProjectAction;
+   } // getNewGestureMapAction
+   
+   public Action getMinimizeAction() {
+      if (minimizeAction == null) {
+         minimizeAction = new MinimizeAction(view);
+      }
+
+      return minimizeAction;
    } // getNewGestureMapAction
    
 }
