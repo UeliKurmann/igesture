@@ -37,6 +37,7 @@ import java.awt.event.MouseEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -52,7 +53,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.sigtec.graphix.GuiTool;
-import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.geco.GUI.action.GecoActionHandler;
@@ -60,7 +60,6 @@ import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.action.AboutDialogAction;
 
 
 
@@ -92,11 +91,11 @@ public class GecoMainView extends JFrame{
 	   JPanel contentPanel = new JPanel();
 	   private ScrollableList gestureList;
 	   private ScrollableList mappingList;
-	   private BasicButton mapButton; 
-	   private BasicButton saveButton;
-	   private BasicButton exitButton;
-	   private BasicButton editButton;
-	   private BasicButton removeButton;
+	   private JButton mapButton; 
+	   private JButton saveButton;
+	   private JButton exitButton;
+	   private JButton editButton;
+	   private JButton removeButton;
 	   private JMenuItem saveMenuItem;	   
 
 
@@ -179,7 +178,7 @@ public class GecoMainView extends JFrame{
         exitButton.setAction(handler.getExitApplicationAction());
         saveButton.setAction(handler.getSaveProjectAction());
         
-        BasicButton minimize = SwingTool.createButton(GecoConstants.MINIMIZE);
+        JButton minimize = SwingTool.createButton(GecoConstants.MINIMIZE);
         minimize.setAction(handler.getMinimizeAction());
         
         JPanel buttonPanel = new JPanel();
@@ -267,7 +266,7 @@ public class GecoMainView extends JFrame{
 		mapButton.setAction(handler.getAddMappingAction());
 		mapButton.setEnabled(false);
 		
-	    BasicButton loadSetButton = SwingTool.createButton(GecoConstants.LOAD_GESTURE_SET);
+	    JButton loadSetButton = SwingTool.createButton(GecoConstants.LOAD_GESTURE_SET);
 	    loadSetButton.setAction(handler.getLoadGestureSetAction());
 	     
 	     rightPanel.add(loadSetButton,

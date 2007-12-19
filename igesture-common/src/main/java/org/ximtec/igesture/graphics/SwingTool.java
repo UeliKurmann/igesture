@@ -101,20 +101,6 @@ public class SwingTool {
 
 
    /**
-    * Creates a new button with some default settings.
-    * 
-    * @param key the key of the button to be created.
-    * @return button configured with data from the GUI bundle.
-    */
-   public static BasicButton createButton(String key) {
-      final BasicButton button = new BasicButton(key, GuiTool.getGuiBundle());
-      button.setPreferredSize(BUTTON_PREFERRED_SIZE);
-      button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-      return button;
-   } // createButton
-
-
-   /**
     * Creates a new dialog with some default settings.
     * 
     * @param key the key of the dialogue to be created.
@@ -221,16 +207,25 @@ public class SwingTool {
 
 
    /**
+    * Creates a new button with some default settings.
+    * 
+    * @param key the key of the button to be created.
+    * @return button configured with data from the GUI bundle.
+    */
+   public static JButton createButton(String key) {
+      return GuiTool.createButton(key, BUTTON_PREFERRED_SIZE,
+            javax.swing.SwingConstants.CENTER, false);
+   } // createButton
+
+
+   /**
     * Creates a new JButton with an action.
     * @param action the action to be used.
     * @return the newly created JButton.
     */
    public static JButton createButton(Action action) {
-      final JButton button = new JButton();
-      button.setPreferredSize(BUTTON_PREFERRED_SIZE);
-      button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-      button.setAction(action);
-      return button;
+      return GuiTool.createButton(action, BUTTON_PREFERRED_SIZE,
+            javax.swing.SwingConstants.CENTER, false);
    } // createButton
 
 }

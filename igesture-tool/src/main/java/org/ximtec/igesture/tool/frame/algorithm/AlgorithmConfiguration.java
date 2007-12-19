@@ -100,8 +100,8 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
       scrollPane = new JScrollPane(null);
       scrollPane.setAutoscrolls(true);
       scrollPane.setPreferredSize(new Dimension(380, 300));
-      saveButton = new JButton();
-      saveButton.setAction(new SaveConfigurationAction(this));
+      JButton saveButton = SwingTool.createButton(new SaveConfigurationAction(
+            this));
       addComponent(createConfigurationList(), SwingTool.createGridBagConstraint(
             0, 0));
       addComponent(scrollPane, SwingTool.createGridBagConstraint(0, 1));
@@ -143,8 +143,7 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
             GestureConstants.CONFIG_CREATE_ACTION));
 
       for (final String name : mainView.getModel().getAlgorithms()) {
-         menu.add(new JMenuItem(new CreateConfigurationAction(this,
-               name)));
+         menu.add(new JMenuItem(new CreateConfigurationAction(this, name)));
       }
 
       return menu;
