@@ -36,6 +36,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -75,7 +76,7 @@ public class NewProjectDialog extends BasicDialog{
    private static String XML_EXTENSION = "xml";
    private  BasicTextField fileTextField;
    private  BasicTextField projectTextField;
-   private BasicButton createButton;
+   private JButton createButton;
    private String filePath="C:\\";
 
    
@@ -121,7 +122,7 @@ public class NewProjectDialog extends BasicDialog{
             new GridBagConstraints(1,1,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
             new Insets(10,10,10,10),0,0 ) );
       
-      BasicButton browseButton = SwingTool.createButton(GecoConstants.BROWSE);
+      JButton browseButton = SwingTool.createButton(GecoConstants.BROWSE);
       browseButton.addActionListener(new BrowseListener());
       mainPanel.add(browseButton,  
             new GridBagConstraints(2,1,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,
@@ -130,7 +131,7 @@ public class NewProjectDialog extends BasicDialog{
       createButton = SwingTool.createButton(GecoConstants.CREATE);
       createButton.setEnabled(false);
       createButton.addActionListener(new CreateListener());
-      BasicButton cancelButton = SwingTool.createButton(GecoConstants.CANCEL);
+      JButton cancelButton = SwingTool.createButton(GecoConstants.CANCEL);
       cancelButton.addActionListener(new CancelListener());
       
       JPanel buttonPanel = new JPanel();

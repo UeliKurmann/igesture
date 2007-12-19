@@ -34,6 +34,7 @@ import java.awt.event.MouseEvent;
 import java.util.EventObject;
 
 import javax.swing.Action;
+import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -41,7 +42,6 @@ import javax.swing.ListModel;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.SimpleListModel;
-import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.sigtec.graphix.widget.BasicTextField;
 import org.ximtec.igesture.core.Descriptor;
@@ -140,7 +140,7 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
 
 
    private Component createSaveButton() {
-      final BasicButton button = SwingTool
+      final JButton button = SwingTool
             .createButton(GestureConstants.COMMON_SAVE);
       button.addActionListener(new ActionListener() {
 

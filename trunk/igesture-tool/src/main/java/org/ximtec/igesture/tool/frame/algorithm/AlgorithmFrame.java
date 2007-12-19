@@ -95,8 +95,8 @@ public class AlgorithmFrame extends BasicInternalFrame implements
 
 
    private Component createRunButton() {
-      return SwingTool.createButton(new ExecuteRecogniserAction(mainView
-            .getModel(), tab, setList, resultList));
+      return GuiTool.createButton(new ExecuteRecogniserAction(mainView
+            .getModel(), tab, setList, resultList), false);
    } // createRunButton
 
 
