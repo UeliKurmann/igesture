@@ -130,6 +130,8 @@ public class GecoConstants {
    
    public static final String MINIMIZE_ACTION = "MinimizeAction";
    
+   public static final String GECO_ABOUT_ACTION = "GecoAboutAction";
+   
 
    
 

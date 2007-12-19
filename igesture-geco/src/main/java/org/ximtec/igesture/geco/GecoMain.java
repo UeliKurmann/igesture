@@ -29,6 +29,9 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+
 import org.sigtec.graphix.GuiTool;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.configuration.Configuration;
@@ -64,6 +67,14 @@ public class GecoMain  {
      * @param args
      */
     public static void main(String[] args) {
+       /*
+       System.out.println("Starting Geco...");
+       JDialog dialog = new JDialog();
+       dialog.add(new JLabel("Hello"));
+       dialog.setVisible(true);
+       dialog.setSize(100,100);
+       dialog.setLocation(100,100);
+       */
        try{
           new GecoMain(args);
        }

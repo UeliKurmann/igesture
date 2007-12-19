@@ -59,6 +59,8 @@ import org.ximtec.igesture.geco.GUI.action.GecoActionHandler;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
+import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.action.AboutDialogAction;
 
 
 
@@ -82,6 +84,7 @@ public class GecoMainView extends JFrame{
 	   
 	   private final int WINDOW_HEIGHT = 600;
 	   private final int WINDOW_WIDTH = 800;
+
 	   
 	   //GUI elements
 	   private JPanel leftPanel = new JPanel();
@@ -285,8 +288,9 @@ public class GecoMainView extends JFrame{
 	   private JMenuBar createMenuBar() {
 	      JMenuBar menuBar = new JMenuBar();
 	      menuBar.add(createFileMenu());
-	     // menuBar.add(createInfoMenu());
+	      menuBar.add(createInfoMenu());
 	      return menuBar;
+	     
 	   } // createMenuBar
 	   
 
@@ -304,6 +308,13 @@ public class GecoMainView extends JFrame{
 	  
 	      return menu;
 	   } // createFileMenu
+	   
+
+	   private JMenu createInfoMenu() {
+	      JMenu menu =  GuiTool.getGuiBundle().createMenu(GestureConstants.COMMON_HELP);
+	      menu.add(SwingTool.createMenuItem(handler.getAboutAction(),null));
+	      return menu;
+	   } // createInfoMenu
 	   
 	   
 	   

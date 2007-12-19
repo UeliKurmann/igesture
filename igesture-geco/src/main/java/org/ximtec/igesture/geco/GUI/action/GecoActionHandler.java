@@ -52,6 +52,9 @@ public class GecoActionHandler {
    private RemoveMappingAction removeMappingAction;
    private SaveProjectAction saveProjectAction;
    private MinimizeAction minimizeAction;
+   private GecoAboutAction aboutAction;
+   
+   private static final String ABOUT_HTML = "about.html";
 
 
    public GecoActionHandler(GecoMainView view) {
@@ -135,6 +138,15 @@ public class GecoActionHandler {
       }
 
       return minimizeAction;
+   } // getNewGestureMapAction
+   
+   
+   public Action getAboutAction() {
+      if (aboutAction == null) {
+         aboutAction = new GecoAboutAction(ABOUT_HTML);
+      }
+
+      return aboutAction;
    } // getNewGestureMapAction
    
 }
