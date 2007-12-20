@@ -26,10 +26,16 @@
 
 package org.ximtec.igesture.io.wacom;
 
+import org.ximtec.igesture.io.keyboard.KeyboardUtils.Kernel32;
+import org.ximtec.igesture.io.mouse.MouseUtils.MouseProc;
 import org.ximtec.igesture.io.wacom.Wintab32.*;
+import org.ximtec.igesture.io.win32.User32;
+import org.ximtec.igesture.io.win32.User32.MSG;
+import org.ximtec.igesture.io.win32.User32.POINT;
 import org.ximtec.igesture.io.win32.W32API.*;
 
 import com.sun.jna.ptr.IntByReference;
+import com.sun.jna.win32.StdCallLibrary.StdCallCallback;
 
 public class TabletUtils {
 
@@ -40,6 +46,34 @@ public class TabletUtils {
 	
 	Wintab32 lib = Wintab32.INSTANCE;
 	HDC hdc = new HDC();
+	TabletProc tabletListener;
+	HANDLE handle;
+	HINSTANCE hinst;
+	
+	
+	   public TabletUtils() {
+	      hinst = Kernel32.INSTANCE.GetModuleHandle(null);
+	      if (hinst != null) {
+	         System.out.println("not null");
+	      }
+	      tabletListener = new TabletProc() {
+
+	         public LRESULT callback(int code, WPARAM wParam, LPARAM lParam) {
+	          //  System.out.println("mouse callback code: " + code + " wParam "
+	            //      + wParam + " lParam " + lParam);
+	            // getCoordinates!!
+	             
+	            PACKET p = getPacket();
+	            System.out.println("packet :"+p.pkX+" - "+p.pkY+" - "+p.pkNormalPressure );
+	            return User32.INSTANCE.CallNextHookEx(handle, code, wParam, lParam);
+	         }
+	      };
+	     // handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_MOUSE_LL, msListener,
+	       //     hinst, Kernel32.INSTANCE.GetCurrentThreadId());
+	      
+	       handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_MOUSE_LL, tabletListener, hinst,0);
+	       
+	   }
 
 	    
 	 /**
@@ -66,6 +100,7 @@ public class TabletUtils {
 	        	System.out.println("not null");
 	        }
 	        System.out.println("TabletUnit: open() ok");
+	        lib.WacomDoSpecialContextHandling(true);
 	    }
 	    
 	    /**
@@ -74,6 +109,7 @@ public class TabletUtils {
 	    public void close() {
 	    	boolean ret = lib.WTClose(hdc);
 	    	System.out.println("return val: "+ret);
+	    	lib.WacomDoSpecialContextHandling(false);
 	    }
 	    
 	    
@@ -112,7 +148,37 @@ public class TabletUtils {
 	    	return ret;
 	    } 
 	    
+	    
+	    public interface TabletProc extends StdCallCallback {
 
+	       LRESULT callback(int code, WPARAM wParam, LPARAM lParam);
+	    }
+
+	    
+	    
+	    public void registerHook(){
+	       handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_KEYBOARD_LL, tabletListener, hinst, 0); //hinst, Kernel32.INSTANCE.GetCurrentThreadId()j
+	       //Kernel32.INSTANCE.GetCurrentThreadId()
+	       System.out.println("error: "+Kernel32.INSTANCE.GetLastError());
+	       System.out.println("java. ThreadID: "+Thread.currentThread().getId());
+	       if (handle!=null){
+	           System.out.println("not null 2");
+	       }
+	       start_loop();
+	   }
+	   
+	    void start_loop(){
+	       System.out.println("3. ThreadID: "+Kernel32.INSTANCE.GetCurrentThreadId());
+	       
+	           MSG msg = new MSG();
+	           while(User32.INSTANCE.GetMessageW(msg,null,0,0)!=0){
+	               //User32.INSTANCE.DispatchMessage(msg);
+	               //TODO: translateMessage
+	           }
+	           // TODO: unregister hook!
+	       close();
+	       System.out.println("Done.");
+	   }
 	    
 	     /**
          * Determine if a particular type of data can be retrieved or not

@@ -77,9 +77,13 @@ public interface User32 extends W32API{//StdCallLibrary {
 	
 	public LRESULT DispatchMessage(MSG msg);
 	
+	public boolean TranslateMessage(MSG msg);
+	
 	//C specification:
 	
 	/*
+	 * 
+	 BOOL TranslateMessage(lpMsg);
 	 * 
 	 BOOL PeekMessage(      
 	    LPMSG lpMsg,

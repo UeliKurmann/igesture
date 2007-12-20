@@ -175,6 +175,7 @@ public class Win32TabletProxy {
    } 
    
    
+   
    //public static int LEFT = 0X01;
 
    //public static int RIGHT = 0X02;

@@ -39,6 +39,7 @@ public interface Wintab32 extends W32API {
 	    int WTPacketsGet(HDC hdc, int max, PACKET p);
 	    int WTPacketsGet(HDC hdc, int max, PACKET[] p);
 	    boolean WTPacket(HDC hdc, int wSerial, PACKET p);
+	    void WacomDoSpecialContextHandling(boolean b); 
 	    
 
 	    HANDLE WTMgrPacketHookEx(HINSTANCE hmgr, int nType, String module, String hookproc); //not sure

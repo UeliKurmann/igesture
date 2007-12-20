@@ -3,7 +3,7 @@
  *
  * Author       :   Croci Michele, mcroci@gmail.com
  *
- * Purpose      : Provide access to a Tablet PC.
+ * Purpose      :  Provide access to API for managing a mouse
  *
  * -----------------------------------------------------------------------
  *
@@ -28,6 +28,7 @@ package org.ximtec.igesture.io.mouse;
 import org.ximtec.igesture.io.keyboard.KeyboardUtils.Kernel32;
 import org.ximtec.igesture.io.win32.User32;
 import org.ximtec.igesture.io.win32.User32.MSG;
+import org.ximtec.igesture.io.win32.User32.POINT;
 import org.ximtec.igesture.io.win32.W32API.HANDLE;
 import org.ximtec.igesture.io.win32.W32API.HINSTANCE;
 import org.ximtec.igesture.io.win32.W32API.LPARAM;
@@ -56,13 +57,17 @@ public class MouseUtils {
             System.out.println("mouse callback code: " + code + " wParam "
                   + wParam + " lParam " + lParam);
             // getCoordinates!!
-            // User32.INSTANCE.GetCursorPos(p);
+             POINT p = new POINT();
+             User32.INSTANCE.GetCursorPos(p);
+             System.out.println("x: "+p.x+" - y: "+p.y);
 
             return User32.INSTANCE.CallNextHookEx(handle, code, wParam, lParam);
          }
       };
-      handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_MOUSE_LL, msListener,
-            hinst, Kernel32.INSTANCE.GetCurrentThreadId());
+     // handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_MOUSE_LL, msListener,
+       //     hinst, Kernel32.INSTANCE.GetCurrentThreadId());
+      
+       handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_MOUSE_LL, msListener, hinst,0);
 
    }
 
@@ -82,6 +87,7 @@ public class MouseUtils {
             // TODO: translate message
             // User32.INSTANCE.DispatchMessageW(msg);
          }
+         // TODO: unregister hook!
       }
       catch (Exception ex) {
          ex.printStackTrace();
@@ -94,5 +100,30 @@ public class MouseUtils {
 
       LRESULT callback(int code, WPARAM wParam, LPARAM lParam);
    }
+   
+   
+   public void registerHook(){
+      handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_KEYBOARD_LL, msListener, hinst, 0); //hinst, Kernel32.INSTANCE.GetCurrentThreadId()j
+      //Kernel32.INSTANCE.GetCurrentThreadId()
+      System.out.println("error: "+Kernel32.INSTANCE.GetLastError());
+      System.out.println("java. ThreadID: "+Thread.currentThread().getId());
+      if (handle!=null){
+          System.out.println("not null 2");
+      }
+      start_loop();
+  }
+  
+   void start_loop(){
+      System.out.println("3. ThreadID: "+Kernel32.INSTANCE.GetCurrentThreadId());
+      
+          MSG msg = new MSG();
+          while(User32.INSTANCE.GetMessageW(msg,null,0,0)!=0){
+              User32.INSTANCE.DispatchMessage(msg);
+              //TODO: translateMessage
+              msg = new MSG();
+          }
+
+      System.out.println("Done.");
+  }
 
 }
