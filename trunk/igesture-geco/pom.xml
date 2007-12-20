@@ -40,7 +40,68 @@
 		</resources>
 
 		<plugins>
+		
+		<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2-SNAPSHOT</version>
+				<configuration>
+					<descriptors>
+						<descriptor>
+							src/main/assembly/assembly-bin.xml
+						</descriptor>
+					</descriptors>
+					<archive>
+						<manifest>
+							<mainClass>
+								org.ximtec.igesture.geco.GecoMain
+							</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<!-- this is used for inheritance merges -->
+						<phase>package</phase>
+						<!-- append to the packaging phase. -->
+						<goals>
+							<goal>assembly</goal>
+							<!-- goals == mojos -->
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		<!--
+  				<plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                      <archive>
+			          <manifest>
+			            <mainClass>org.ximtec.igesture.geco.GecoMain</mainClass>
+			            <packageName>org.ximtec.igesture.geco</packageName>
+			          </manifest>
 
+			          <manifestEntries>
+			            <mode>development</mode>
+			            <url>${pom.url}</url>
+			          </manifestEntries>
+
+			        </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attached</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin> 
+		-->            
 		</plugins>
 	</build>
 
@@ -114,7 +175,7 @@
 			</plugin>
 		</plugins>
 	</reporting>
-
+	
 	<distributionManagement>
 		<site>
 			<id>ftp-repository</id>
