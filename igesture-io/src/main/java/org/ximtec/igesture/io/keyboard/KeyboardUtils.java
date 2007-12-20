@@ -4,7 +4,7 @@
  * Author       :   Croci Michele, mcroci@gmail.com,
  *                  based on a first version of Abdullah Jibaly
  *
- * Purpose      :  example of setting an hook function for keyboard.
+ * Purpose      :  Example of setting an hook function for keyboard.
  *
  * -----------------------------------------------------------------------
  *
@@ -63,8 +63,8 @@ public class KeyboardUtils {
          public LRESULT callback(int code, WPARAM wParam, LPARAM lParam) {
             System.out.println("keyboard callback code: " + code + " wParam "
                   + wParam + " lParam " + lParam);
-            // put callback code here!
-
+    
+            //lparam is alwys the same! How to get the pressed key?
             return User32.INSTANCE.CallNextHookEx(null, code, wParam, lParam);
 
          }
@@ -80,8 +80,9 @@ public class KeyboardUtils {
     */
 
    public void registerHook() {
-      handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_KEYBOARD, kbListener,
-            hinst, Kernel32.INSTANCE.GetCurrentThreadId()); // hinst, 0
+      handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_KEYBOARD_LL, kbListener,hinst, 0);
+      // handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_KEYBOARD, kbListener,
+      //hinst, Kernel32.INSTANCE.GetCurrentThreadId()); 
       // Kernel32.INSTANCE.GetCurrentThreadId()
       System.out.println("error: " + Kernel32.INSTANCE.GetLastError());
       System.out.println("java. ThreadID: " + Thread.currentThread().getId());
@@ -119,10 +120,11 @@ public class KeyboardUtils {
 
       MSG msg = new MSG();
       while (User32.INSTANCE.GetMessageW(msg, null, 0, 0) != 0) {
-         User32.INSTANCE.DispatchMessage(msg);
-         // TODO: translateMessage
-         msg = new MSG();
+ //        User32.INSTANCE.DispatchMessage(msg);
+ //        User32.INSTANCE.TranslateMessage(msg);
       }
+      
+      // TODO: unregister hook!
 
       System.out.println("Done.");
    }

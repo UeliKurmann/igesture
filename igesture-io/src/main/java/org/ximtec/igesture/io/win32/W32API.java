@@ -69,9 +69,9 @@ public interface W32API extends StdCallLibrary, W32Errors {
     	public LONG_PTR() { this(0); }
     	public LONG_PTR(long value) { super(Pointer.SIZE, value); }
     }
-    public static class LPARAM extends LONG_PTR { 
+    public static class LPARAM extends IntegerType { //LONG_PTR
     	public LPARAM() { this(0); }
-    	public LPARAM(long value) { super(value); }
+    	public LPARAM(long value) { super(Pointer.SIZE, value);}//super(value); 
     } 
     public static class WPARAM extends IntegerType { //IntegerType 
     	public WPARAM() { this(0); }
