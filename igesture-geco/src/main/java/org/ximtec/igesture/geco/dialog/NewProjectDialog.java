@@ -70,14 +70,14 @@ public class NewProjectDialog extends BasicDialog{
    
    private GecoMainView view;
    
-   private int DIALOG_WIDTH = 400;
+   private int DIALOG_WIDTH = 700;
    private int DIALOG_HEIGHT = 300;
    
    private static String XML_EXTENSION = "xml";
    private  BasicTextField fileTextField;
    private  BasicTextField projectTextField;
    private JButton createButton;
-   private String filePath="C:\\";
+   private String filePath="";
 
    
    public NewProjectDialog(GecoMainView view){
@@ -90,6 +90,8 @@ public class NewProjectDialog extends BasicDialog{
     * Inits the dialog.
     */
    private void init(){
+      File[] roots = File.listRoots();
+      filePath = System.getProperty ("user.home");
       JPanel mainPanel = new JPanel();
       mainPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GecoConstants.NEW_PROJECT_DIALOG_TITLE));
      
@@ -97,7 +99,7 @@ public class NewProjectDialog extends BasicDialog{
       this.setTitle(GecoConstants.NEW_PROJECT_DIALOG_TITLE);
       mainPanel.setLayout(new GridBagLayout());
       this.setLayout(new GridBagLayout());
-      Point p = new Point(view.getLocation().x+200, view.getLocation().y+100);
+      Point p = new Point(view.getLocation().x+50, view.getLocation().y+100);
       this.setLocation(p);
       this.setSize(new Dimension( DIALOG_WIDTH, DIALOG_HEIGHT ));
 
@@ -125,7 +127,7 @@ public class NewProjectDialog extends BasicDialog{
       JButton browseButton = SwingTool.createButton(GecoConstants.BROWSE);
       browseButton.addActionListener(new BrowseListener());
       mainPanel.add(browseButton,  
-            new GridBagConstraints(2,1,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,
+            new GridBagConstraints(2,1,1,1,0,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
             new Insets(10,10,10,10),0,0 ) );
       
       createButton = SwingTool.createButton(GecoConstants.CREATE);
