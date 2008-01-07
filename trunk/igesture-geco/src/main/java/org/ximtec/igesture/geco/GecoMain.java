@@ -26,6 +26,7 @@
 package org.ximtec.igesture.geco;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -115,8 +116,17 @@ public class GecoMain  {
               else {
                  conf = new GestureConfiguration(DEFAULT_CONFIGURATION);
               }
-              configuration = XMLGeco.importConfiguration(new File(
-                    ClassLoader.getSystemResource(RUBINE_CONFIGURATION).getFile()));
+             // configuration = XMLGeco.importConfiguration(new File(
+               //     ClassLoader.getSystemResource(RUBINE_CONFIGURATION).getFile()));
+              
+              File confFile;
+              try {
+                 confFile = new File(ClassLoader.getSystemResource(RUBINE_CONFIGURATION).toURI());
+              } catch(URISyntaxException e) {
+                 confFile = new File(ClassLoader.getSystemResource(RUBINE_CONFIGURATION).getPath());
+              }
+              
+              configuration = XMLGeco.importConfiguration(confFile);
               
               client = new InputDeviceClient(conf.getInputDevice(),
                     conf.getInputDeviceEventListener());

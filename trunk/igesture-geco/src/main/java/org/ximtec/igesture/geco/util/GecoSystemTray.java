@@ -3,7 +3,7 @@
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
- * Purpose		: 
+ * Purpose		:  Add an icon to the system tray
  *
  * -----------------------------------------------------------------------
  *
@@ -38,14 +38,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.net.URISyntaxException;
 
+import org.ximtec.igesture.geco.GUI.GecoConstants;
 import org.ximtec.igesture.geco.GUI.GecoMainView;
 import org.ximtec.igesture.geco.GUI.action.GecoActionHandler;
 
 
 
 /**
- * Comment
+ * Add an icon to the system tray
  * @version 1.0 Dec 17, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
@@ -56,6 +59,8 @@ public class GecoSystemTray {
    private PopupMenu popup;
    private Image image;
    private static SystemTray tray;
+
+
    
    
    public GecoSystemTray(GecoMainView view){
@@ -67,12 +72,14 @@ public class GecoSystemTray {
 
       if(SystemTray.isSupported()){
          tray = SystemTray.getSystemTray();
-         image = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("tray_icon.png"));
+         
+
+         image = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource(GecoConstants.ICON_NAME).getFile());
 
          popup = new PopupMenu();
-         trayIcon = new TrayIcon(image, "Geco", popup);
+         trayIcon = new TrayIcon(image, GecoConstants.GECO_NAME, popup);
          
-         MenuItem exitItem = new MenuItem("Exit");
+         MenuItem exitItem = new MenuItem(GecoConstants.EXIT);
          exitItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                tray.remove(trayIcon);
@@ -81,7 +88,7 @@ public class GecoSystemTray {
          exitItem.addActionListener(mainView.getActionHandler().getExitApplicationAction());
          popup.add(exitItem);
          
-         MenuItem showItem = new MenuItem("Show");
+         MenuItem showItem = new MenuItem(GecoConstants.SHOW);
          showItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                mainView.setVisible(true);

@@ -55,6 +55,7 @@
 							<mainClass>
 								org.ximtec.igesture.geco.GecoMain
 							</mainClass>
+							<packageName>org.ximtec.igesture.geco</packageName>
 						</manifest>
 					</archive>
 				</configuration>

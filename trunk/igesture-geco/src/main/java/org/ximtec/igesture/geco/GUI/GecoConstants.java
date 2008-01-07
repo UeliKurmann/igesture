@@ -96,6 +96,8 @@ public class GecoConstants {
    
    public static final String EXIT = "EXIT";
    
+   public static final String SHOW = "SHOW";
+   
    public static final String EDIT = "EDIT";
    
    public static final String REMOVE = "REMOVE";
@@ -133,7 +135,13 @@ public class GecoConstants {
    public static final String GECO_ABOUT_ACTION = "GecoAboutAction";
    
 
+   /*
+    * System Tray
+    */
    
+   public static final String GECO_NAME = "GECO";
+   
+   public static final String ICON_NAME = "tray_icon.png";
 
 
 

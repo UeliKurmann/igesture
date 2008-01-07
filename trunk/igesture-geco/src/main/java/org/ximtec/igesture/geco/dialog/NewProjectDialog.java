@@ -35,6 +35,7 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.net.URISyntaxException;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -91,7 +92,7 @@ public class NewProjectDialog extends BasicDialog{
     */
    private void init(){
       File[] roots = File.listRoots();
-      filePath = System.getProperty ("user.home");
+      filePath = System.getProperty ("user.home")+"\\";
       JPanel mainPanel = new JPanel();
       mainPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GecoConstants.NEW_PROJECT_DIALOG_TITLE));
      
@@ -232,8 +233,20 @@ public class NewProjectDialog extends BasicDialog{
               
             if(ok){
                //update model
-               GestureSet gestureSet = XMLGeco.importGestureSet(
-                     new File(ClassLoader.getSystemResource(GecoMainModel.GESTURE_SET).getFile())).get(0);
+               File gsFile;
+               try {
+                  gsFile = new File(ClassLoader.getSystemResource(GecoMainModel.GESTURE_SET).toURI());
+               } catch(URISyntaxException ex) {
+                  gsFile = new File(ClassLoader.getSystemResource(GecoMainModel.GESTURE_SET).getPath());
+               }
+               
+               GestureSet gestureSet = XMLGeco.importGestureSet(gsFile).get(0);
+             
+               
+               
+       //        GestureSet gestureSet = XMLGeco.importGestureSet(
+         //            new File(ClassLoader.getSystemResource(GecoMainModel.GESTURE_SET).getFile())).get(0);
+ 
                view.getModel().clearData();
                view.getModel().initRecogniser(gestureSet);
                view.getModel().loadGestureSet(gestureSet);
