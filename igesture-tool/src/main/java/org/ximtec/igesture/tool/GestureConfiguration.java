@@ -25,6 +25,8 @@
 
 package org.ximtec.igesture.tool;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,8 +62,14 @@ public class GestureConfiguration {
 
 	public GestureConfiguration(String file) {
 		try {
+		   File confFile;
+           try {
+              confFile = new File(ClassLoader.getSystemResource(file).toURI());
+           } catch(URISyntaxException e) {
+              confFile = new File(ClassLoader.getSystemResource(file).getPath());
+           }
 			configuration = new XMLConfiguration();
-			configuration.setFileName(file);
+			configuration.setFileName(confFile.getPath());
 			configuration.setExpressionEngine(new XPathExpressionEngine());
 			configuration.setAutoSave(true);
 			configuration.load();
@@ -109,7 +117,6 @@ public class GestureConfiguration {
 	 */
 	public InputDevice getInputDevice() {
 		List list = configuration.getList(SELECTED_INPUT_DEVICE);
-
 		if (!list.isEmpty()) {
 			String deviceName = (String) list.get(0);
 			return InputDeviceFactory.createInputDevice(deviceName,

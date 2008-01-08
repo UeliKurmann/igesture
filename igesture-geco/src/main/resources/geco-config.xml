@@ -10,7 +10,10 @@
 				</parameter>
 			</parameters>
 		</device>
-		<device selected="true" name="Mouse">
+		<device selected="false" name="Mouse">
+			<class></class>
+		</device>
+		<device selected="true" name="TabletPC">
 			<class></class>
 		</device>
 	</inputdevices>

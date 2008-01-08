@@ -72,6 +72,7 @@ public class Win32TabletProxy {
     */
    public void getNextPacket() {
 
+		   //lastPacket = tabletUtils.getOnePacket();
 		   lastPacket = tabletUtils.getPacket();
    } 
    
@@ -174,6 +175,10 @@ public class Win32TabletProxy {
 		   return null;
    } 
    
+   
+   public int buttonPressed(){
+      return lastPacket.pkButtons;
+   }
    
    
    //public static int LEFT = 0X01;

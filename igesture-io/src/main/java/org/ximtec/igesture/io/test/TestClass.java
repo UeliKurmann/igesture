@@ -23,20 +23,21 @@
  */
 
 
-package org.ximtec.igesture.io.wacom;
+package org.ximtec.igesture.io.test;
 
 import org.ximtec.igesture.io.keyboard.KeyboardUtils;
 import org.ximtec.igesture.io.mouse.MouseUtils;
+import org.ximtec.igesture.io.wacom.TabletUtils;
 import org.ximtec.igesture.io.wacom.Wintab32.PACKET;
 
 
 
 
-public class WacomTestClass {
+public class TestClass {
    
    public static void main(String[] args) throws InterruptedException {
       
-
+/*
       new Thread(){
           public void run(){
               KeyboardUtils hook = new KeyboardUtils();
@@ -52,18 +53,17 @@ public class WacomTestClass {
           }
       }.start();
       
-
+*/
    
   
-      /*
+      
       new Thread(){
           public void run(){
              TabletUtils tu = new TabletUtils();
               tu.open();
-              tu.registerHook();
           }
       }.start();
-*/
+
    
   
       

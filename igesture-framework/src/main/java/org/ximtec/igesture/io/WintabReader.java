@@ -26,6 +26,7 @@
 
 package org.ximtec.igesture.io;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -37,7 +38,11 @@ import org.sigtec.ink.input.CompleteLocation;
 import org.sigtec.ink.input.Location;
 import org.sigtec.input.InputDeviceEvent;
 import org.sigtec.util.Constant;
+import org.ximtec.igesture.io.wacom.TabletUtils;
+import org.ximtec.igesture.io.wacom.WacomCallback;
 import org.ximtec.igesture.io.wacom.Win32TabletProxy;
+import org.ximtec.igesture.io.wacom.Wintab32.ORIENTATION;
+import org.ximtec.igesture.io.wacom.Wintab32.ROTATION;
 
 
 
@@ -49,19 +54,22 @@ import org.ximtec.igesture.io.wacom.Win32TabletProxy;
  */
  
 public class WintabReader extends org.sigtec.input.AbstractInputDevice implements
-      ButtonDevice {
+      ButtonDevice, WacomCallback {
 
    private static final Logger LOGGER = Logger.getLogger(WintabReader.class
          .getName());
 
    private static final int FREQUENCE = 20;
+   
+   final WintabReader tabletReader = this;
 
-   //private boolean lastKeyState = false;
+   private boolean lastKeyState = false;
 
    private HashSet<ButtonDeviceEventListener> buttonUpEvents;
 
 
    public WintabReader() {
+      super();
       init();
       buttonUpEvents = new HashSet<ButtonDeviceEventListener>();
    }
@@ -73,44 +81,92 @@ public class WintabReader extends org.sigtec.input.AbstractInputDevice implement
     */
    public void init() {
       final WintabReader tabletReader = this;
-
+      
+      //NEW VERSION: callback --> DOESN'T NOT WORK YET!
+      /*
+       final Thread t = new Thread() {
+          public void run(){
+             TabletUtils tu = new TabletUtils(WintabReader.this);
+          }
+       };
+       t.start();
+*/
 	
-      final Thread t = new Thread() {
+      // OLD VERSION: poll the device
+      final Thread t2 = new Thread() {
     	 
          @Override
          public void run() {
         	Win32TabletProxy proxy = new Win32TabletProxy();
         	
         	 while (true) {
-        	    //if (Win32TabletProxy. .isMiddleButtonPressed()) {
+        	    
         	       proxy.getNextPacket();
         	       
         	       if(proxy.getLastPacket()!=null){
-        	         
-                     Location location = new Location("screen", 1, proxy.getLastCursorLocation());
-                     System.out.println(location);
-                     CompleteLocation tbl = null;
-                   	  tbl = new CompleteLocation(location, proxy.getTimeStamp(), proxy.getPressure(),
-                   	        new Orientation(proxy.getRotation().roYaw, proxy.getRotation().roPitch,
-                   	              proxy.getRotation().roRoll));
-                     tabletReader.fireInputDeviceEvent(new WintabReaderEvent(tbl));
-                  }
-   
+        	         // System.out.println("button: "+proxy.buttonPressed());
+              	        if (proxy.buttonPressed()==5) {
+              	         
+                           Location location = new Location("screen", 1, proxy.getLastCursorLocation());
+                           System.out.println(location+" - button: "+proxy.buttonPressed());
+                           CompleteLocation tbl = null;
+                         	  tbl = new CompleteLocation(location, proxy.getTimeStamp(), proxy.getPressure(),
+                         	        new Orientation(proxy.getRotation().roYaw, proxy.getRotation().roPitch,
+                         	              proxy.getRotation().roRoll));
+                           tabletReader.fireInputDeviceEvent(new WintabReaderEvent(tbl));
+                           
+                          lastKeyState = true;
+                         }
+                         else {
+      
+                            if (lastKeyState) {
+                               tabletReader.fireTabletButtonEvent(new InputDeviceEvent() {
+                                  public long getTimestamp() {
+                                     return System.currentTimeMillis();
+                                  }
+                               });
+                               
+                               lastKeyState = false;
+                            }
+                         }
+
+//TODO: XXX
                   try {
-                     Thread.sleep(1000 / FREQUENCE);
+                     Thread.sleep(100 / FREQUENCE);
                   }
                   catch (InterruptedException e) {
                      LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
                   }
-        	 //}
         	 }
-			
+        	 }
             }
-
          };
-
-      t.start();
+      t2.start();
+      
+    
+     
    } // init
+   
+  // public void callbackFunction(){
+
+  // }
+   
+   public void callbackFunction(int x, int y, int z, int npress, int tpress, long timeStamp,
+         ORIENTATION orientation, ROTATION rotation, int button){
+         
+      //   if(button==5){
+            final WintabReader tabletReader = this;
+            
+            Location location = new Location("screen", 1, new Point(x,y));
+            System.out.println(location+" - "+button);
+            CompleteLocation tbl = null;
+             tbl = new CompleteLocation(location, timeStamp, npress,
+                   new Orientation(rotation.roYaw, rotation.roPitch,
+                         rotation.roRoll));
+             tabletReader.fireInputDeviceEvent(new WintabReaderEvent(tbl));
+            
+        // }
+   }
 
 
    /**
@@ -136,7 +192,9 @@ public class WintabReader extends org.sigtec.input.AbstractInputDevice implement
 
 
    private void fireTabletButtonEvent(InputDeviceEvent event) {
+      System.out.println("WintabReaderEventListener2!!!!");
       for (final ButtonDeviceEventListener listener : buttonUpEvents) {
+         System.out.println("WintabReaderEventListener!!!!");
          listener.handleButtonPressedEvent(event);
       }
 
