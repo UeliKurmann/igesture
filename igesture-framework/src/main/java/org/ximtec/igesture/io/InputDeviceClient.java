@@ -32,6 +32,7 @@ import java.util.HashSet;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.TraceTool;
+import org.sigtec.ink.input.TimestampedInputEvent;
 import org.sigtec.ink.input.TimestampedLocation;
 import org.sigtec.input.BufferedInputDeviceEventListener;
 import org.sigtec.input.InputDevice;
@@ -160,9 +161,14 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
    } // removeButtonDeviceEventListener
 
 
-   public void handle(Object invoker, TimestampedLocation location) {
-      for (final InputHandler listener : inputHandlerListeners) {
-         listener.handle(invoker, location);
+   public void handle(Object invoker, TimestampedInputEvent timestampedEvent) {
+      if (timestampedEvent instanceof TimestampedLocation) {
+         TimestampedLocation location = (TimestampedLocation)timestampedEvent;
+
+         for (final InputHandler listener : inputHandlerListeners) {
+            listener.handle(invoker, location);
+         }
+         
       }
       
    } // handle
@@ -177,12 +183,12 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
       for (final InputDeviceEventListener listener : inputDeviceListeners) {
          listener.inputDeviceEvent(inputDevice, event);
       }
-      
+
    } // inputDeviceEvent
 
 
    public void removeInputHandler(InputHandler handler) {
       inputHandlerListeners.remove(handler);
    } // removeInputHandler
-   
+
 }
