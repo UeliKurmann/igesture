@@ -75,6 +75,7 @@ public class InputDeviceFactory {
       }
       else if(identifier.equals(TABLET_PC)){
     	  return createWintabInputDevice();
+    	 
       }
 
       return null;

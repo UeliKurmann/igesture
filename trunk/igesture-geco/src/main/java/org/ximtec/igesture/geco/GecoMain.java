@@ -57,7 +57,7 @@ public class GecoMain  {
    private static final Logger LOGGER = Logger.getLogger(GecoMain.class
          .getName());
 
-   private static final String DEFAULT_CONFIGURATION = "config.xml";
+   private static final String GECO_CONFIGURATION = "geco-config.xml";
    
    private static final String GUI_BUNDLE_FILE = "gecoProperties";
 
@@ -114,23 +114,19 @@ public class GecoMain  {
 
               }
               else {
-                 conf = new GestureConfiguration(DEFAULT_CONFIGURATION);
+                 conf = new GestureConfiguration(GECO_CONFIGURATION);
               }
              // configuration = XMLGeco.importConfiguration(new File(
                //     ClassLoader.getSystemResource(RUBINE_CONFIGURATION).getFile()));
-              
               File confFile;
               try {
                  confFile = new File(ClassLoader.getSystemResource(RUBINE_CONFIGURATION).toURI());
               } catch(URISyntaxException e) {
                  confFile = new File(ClassLoader.getSystemResource(RUBINE_CONFIGURATION).getPath());
               }
-              
               configuration = XMLGeco.importConfiguration(confFile);
-              
               client = new InputDeviceClient(conf.getInputDevice(),
                     conf.getInputDeviceEventListener());
-              
               GecoMainModel model = new GecoMainModel(configuration, client);
               GecoMainView view = new GecoMainView(model);
               initDevice(conf);
