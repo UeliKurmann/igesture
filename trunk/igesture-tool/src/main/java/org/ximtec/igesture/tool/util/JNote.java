@@ -46,6 +46,7 @@ import javax.swing.JLabel;
 import org.sigtec.graphix.Points;
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Point;
+import org.sigtec.ink.input.TimestampedInputEvent;
 import org.sigtec.ink.input.TimestampedLocation;
 import org.sigtec.input.InputHandler;
 import org.sigtec.util.Constant;
@@ -137,13 +138,17 @@ public class JNote extends JLabel implements InputHandler {
    }
 
 
-   public void handle(Object invoker, TimestampedLocation location) {
-      if (freeze) {
-         clear();
-         freeze = false;
-      }
+   public void handle(Object invoker, TimestampedInputEvent timestampedEvent) {
+      if (timestampedEvent instanceof TimestampedLocation) {
+         TimestampedLocation location = (TimestampedLocation)timestampedEvent;
+         
+         if (freeze) {
+            clear();
+            freeze = false;
+         }
 
-      drawNextPoint(location.toPoint());
+         drawNextPoint(location.toPoint());
+      }
    } // handle
 
 
