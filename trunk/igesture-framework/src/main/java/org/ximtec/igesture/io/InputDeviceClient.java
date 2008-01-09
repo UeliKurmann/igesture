@@ -54,7 +54,7 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
 
    private InputDeviceEventListener listener = null;
 
-   private InputDevice pen = null;
+   private InputDevice inputDevice = null;
 
    private HashSet<InputDeviceEventListener> inputDeviceListeners;
 
@@ -63,8 +63,8 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
    private HashSet<InputHandler> inputHandlerListeners;
 
 
-   public InputDeviceClient(InputDevice pen, InputDeviceEventListener listener) {
-      this.pen = pen;
+   public InputDeviceClient(InputDevice inputDevice, InputDeviceEventListener listener) {
+      this.inputDevice = inputDevice;
       this.listener = listener;
       inputDeviceListeners = new HashSet<InputDeviceEventListener>();
       buttonDeviceListeners = new HashSet<ButtonDeviceEventListener>();
@@ -78,15 +78,15 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
     */
    public void init() {
       listener.addInputHandler(this);
-      pen.addInputDeviceEventListener(listener);
-      pen.addInputDeviceEventListener(this);
+      inputDevice.addInputDeviceEventListener(listener);
+      inputDevice.addInputDeviceEventListener(this);
 
-      if (pen instanceof ButtonDevice) {
-         ((ButtonDevice)pen).addButtonDeviceEventListener(this);
+      if (inputDevice instanceof ButtonDevice) {
+         ((ButtonDevice)inputDevice).addButtonDeviceEventListener(this);
       }
 
-      if (pen instanceof InputDeviceEventListener) {
-         ((InputDeviceEventListener)pen).addInputHandler(this);
+      if (inputDevice instanceof InputDeviceEventListener) {
+         ((InputDeviceEventListener)inputDevice).addInputHandler(this);
       }
 
    } // init

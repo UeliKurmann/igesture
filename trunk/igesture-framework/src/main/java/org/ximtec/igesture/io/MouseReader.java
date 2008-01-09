@@ -138,6 +138,7 @@ public class MouseReader extends org.sigtec.input.AbstractInputDevice implements
 
    private void fireMouseButtonEvent(InputDeviceEvent event) {
       for (final ButtonDeviceEventListener listener : buttonUpEvents) {
+         System.out.println("Listener: "+listener.toString());
          listener.handleButtonPressedEvent(event);
       }
 
