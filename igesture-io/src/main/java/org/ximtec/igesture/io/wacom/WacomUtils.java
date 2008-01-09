@@ -1,6 +1,6 @@
 
 /*
- * @(#)TabletUtils.java 1.0   Nov 14, 2007
+ * @(#)WacomUtils.java 1.0   Nov 14, 2007
  *
  * Author       :   Croci Michele, mcroci@gmail.com
  *
