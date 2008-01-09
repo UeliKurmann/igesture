@@ -37,7 +37,7 @@ import org.ximtec.igesture.io.win32.W32API.*;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.win32.StdCallLibrary.StdCallCallback;
 
-public class TabletUtils{
+public class WacomUtils{
 
 	/** Provide access to a Wacom Tablet PC.
 	 * 
@@ -53,7 +53,7 @@ public class TabletUtils{
 	private WacomCallback wCallback;
 	
 	
-    public TabletUtils(WacomCallback wCallback) {
+    public WacomUtils(WacomCallback wCallback) {
        this.wCallback = wCallback;
        init();
        registerHook();
@@ -62,7 +62,7 @@ public class TabletUtils{
     }
 	
 	
-	   public TabletUtils() {
+	   public WacomUtils() {
 	    init();
 	   }
 	   
@@ -72,11 +72,16 @@ public class TabletUtils{
           tabletListener = new TabletProc() {
 
              public LRESULT callback(int code, WPARAM wParam, LPARAM lParam) {
-                 
+                
+              
+                
                 PACKET p = getPacket();
                 if(p!=null){
                     fireEvent(p);
                 }
+                PACKET[] arr = new PACKET[5];
+                lib.WTPacketsGet(hdc, 5,arr);//discard 5 packets (otherwise is too slow!)
+
                 return User32.INSTANCE.CallNextHookEx(handle, code, wParam, lParam);
                 
              }

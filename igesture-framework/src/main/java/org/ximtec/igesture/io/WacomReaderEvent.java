@@ -36,7 +36,7 @@ import org.sigtec.input.InputDeviceEvent;
  * @version 1.0, Nov 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public class WintabReaderEvent implements InputDeviceEvent {
+public class WacomReaderEvent implements InputDeviceEvent {
 
    private TimestampedLocation location;
 
@@ -46,7 +46,7 @@ public class WintabReaderEvent implements InputDeviceEvent {
     * 
     * @param location the position captured by the tablet.
     */
-   public WintabReaderEvent(TimestampedLocation location) {
+   public WacomReaderEvent(TimestampedLocation location) {
       this.location = location;
    }
 

@@ -39,11 +39,11 @@ import org.sigtec.input.InputDeviceEventListener;
  * @author Michele Croci, mcroci@gmail.com
  */
 
-public class WintabReaderEventListener extends AbstractInputDeviceEventListener
+public class WacomReaderEventListener extends AbstractInputDeviceEventListener
       implements InputDeviceEventListener {
 
    public void inputDeviceEvent(InputDevice arg0, InputDeviceEvent event) {
-      final WintabReaderEvent tabletEvent = (WintabReaderEvent)event;
+      final WacomReaderEvent tabletEvent = (WacomReaderEvent)event;
 
       if (tabletEvent.getTimestampedLocation() != null) {
          fireLocationEvent(tabletEvent.getTimestampedLocation());
