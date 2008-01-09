@@ -69,7 +69,6 @@ public class WintabReader extends org.sigtec.input.AbstractInputDevice implement
 
 
    public WintabReader() {
-      super();
       init();
       buttonUpEvents = new HashSet<ButtonDeviceEventListener>();
    }
@@ -103,7 +102,7 @@ public class WintabReader extends org.sigtec.input.AbstractInputDevice implement
         	    
         	       proxy.getNextPacket();
         	       
-        	       if(proxy.getLastPacket()!=null){
+        	   //    if(proxy.getLastPacket()!=null){
         	         // System.out.println("button: "+proxy.buttonPressed());
               	        if (proxy.buttonPressed()==5) {
               	         
@@ -130,14 +129,14 @@ public class WintabReader extends org.sigtec.input.AbstractInputDevice implement
                             }
                          }
 
-//TODO: XXX
+
                   try {
                      Thread.sleep(100 / FREQUENCE);
                   }
                   catch (InterruptedException e) {
                      LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
                   }
-        	 }
+        //	 }
         	 }
             }
          };
@@ -194,7 +193,7 @@ public class WintabReader extends org.sigtec.input.AbstractInputDevice implement
    private void fireTabletButtonEvent(InputDeviceEvent event) {
       System.out.println("WintabReaderEventListener2!!!!");
       for (final ButtonDeviceEventListener listener : buttonUpEvents) {
-         System.out.println("WintabReaderEventListener!!!!");
+         System.out.println("Listener: "+listener.toString());
          listener.handleButtonPressedEvent(event);
       }
 

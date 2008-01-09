@@ -68,14 +68,6 @@ public class GecoMain  {
      * @param args
      */
     public static void main(String[] args) {
-       /*
-       System.out.println("Starting Geco...");
-       JDialog dialog = new JDialog();
-       dialog.add(new JLabel("Hello"));
-       dialog.setVisible(true);
-       dialog.setSize(100,100);
-       dialog.setLocation(100,100);
-       */
        try{
           new GecoMain(args);
        }
@@ -129,21 +121,12 @@ public class GecoMain  {
                     conf.getInputDeviceEventListener());
               GecoMainModel model = new GecoMainModel(configuration, client);
               GecoMainView view = new GecoMainView(model);
-              initDevice(conf);
+
               //add icon to tray
               new GecoSystemTray(view);
               LOGGER.info(INITIALISED);
        }
 
-
-       
-       /**
-        * Init the input device
-        */
-       private void initDevice(GestureConfiguration configuration) {
-          client = new InputDeviceClient(configuration.getInputDevice(),
-                configuration.getInputDeviceEventListener());
-       } // initDevice
 
 
 

@@ -362,7 +362,7 @@ public class GecoMainModel implements ButtonDeviceEventListener{
    public void initRecogniser(GestureSet gestureSet){
       if (recogniser==null){
          try{
-            
+            System.out.println("xinitRecogniser");
          this.configuration.setEventManager(eventManager);
          configuration.addGestureSet(gestureSet);
          recogniser = new Recogniser(configuration);
