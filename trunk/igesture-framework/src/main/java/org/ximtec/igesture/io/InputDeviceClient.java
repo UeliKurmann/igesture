@@ -40,7 +40,7 @@ import org.sigtec.input.InputDeviceEvent;
 import org.sigtec.input.InputDeviceEventListener;
 import org.sigtec.input.InputHandler;
 import org.sigtec.input.util.CaptureTool;
-
+ 
 
 /**
  * Bundles input devices. Used to capture notes.
@@ -51,7 +51,7 @@ import org.sigtec.input.util.CaptureTool;
  */
 public class InputDeviceClient implements ButtonDeviceEventListener,
       InputDeviceEventListener, InputHandler, ButtonDevice {
-
+ 
    private InputDeviceEventListener listener = null;
 
    private InputDevice inputDevice = null;
@@ -61,7 +61,7 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
    private HashSet<ButtonDeviceEventListener> buttonDeviceListeners;
 
    private HashSet<InputHandler> inputHandlerListeners;
-
+ 
 
    public InputDeviceClient(InputDevice inputDevice, InputDeviceEventListener listener) {
       this.inputDevice = inputDevice;

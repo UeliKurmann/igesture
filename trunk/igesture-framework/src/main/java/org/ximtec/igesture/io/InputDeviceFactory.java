@@ -119,8 +119,8 @@ public class InputDeviceFactory {
     * 
     * @return the newly created tablet input device.
     */
-   private static WintabReader createWintabInputDevice() {
-      return new WintabReader();
+   private static WacomReader createWintabInputDevice() {
+      return new WacomReader();
    } // createTabletInputDevice
 
    
@@ -203,7 +203,7 @@ public class InputDeviceFactory {
     */
    private static BufferedInputDeviceEventListener getTabletListener() {
       return new BufferedInputDeviceEventListener(
-            new WintabReaderEventListener(), DEFAULT_BUFFER_SIZE);
+            new WacomReaderEventListener(), DEFAULT_BUFFER_SIZE);
    } // getTabletListener
 
    /**
