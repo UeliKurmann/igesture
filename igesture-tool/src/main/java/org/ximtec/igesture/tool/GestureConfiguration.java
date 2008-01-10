@@ -51,6 +51,7 @@ public class GestureConfiguration {
 	private static final Logger LOGGER = Logger
 			.getLogger(GestureConfiguration.class.getName());
 
+	private static final String ALL_INPUT_DEVICES = "inputdevices/device/@name";
 	private static final String SELECTED_INPUT_DEVICE = "inputdevices/device[@selected='true']/@name";
 	private static final String SELECTED_INPUT_DEVICE2 = "inputdevices/device/name";
 
@@ -125,6 +126,32 @@ public class GestureConfiguration {
 
 		return null;
 	} // getInputDevice
+	
+	
+	 /**
+     * Returns the selected input device name.
+     * 
+     * @return the selected input device name.
+     * 
+     */
+    public String getInputDeviceName() {
+        List list = configuration.getList(SELECTED_INPUT_DEVICE);
+        if (!list.isEmpty()) {
+            return (String) list.get(0); 
+        }
+        return null;
+    } // getInputDeviceName
+	
+	/**
+     * Returns all the available input devices.
+     * 
+     * @return the input devices.
+     * 
+     */
+    public List getInputDevices() {
+        List list = configuration.getList(ALL_INPUT_DEVICES);
+        return list;
+    } // getInputDevices
 
 	/**
 	 * Returns the input device.

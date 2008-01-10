@@ -77,6 +77,8 @@ public class GecoMainModel implements ButtonDeviceEventListener{
    
    private Configuration configuration;
    
+   private GestureConfiguration gestureConfiguration;
+   
    private boolean toBeSaved;
    
    private StorageManager storageManager;
@@ -96,7 +98,7 @@ public class GecoMainModel implements ButtonDeviceEventListener{
     * 
     * @param engine the storage engine used by the storage manager.
     */
-   public GecoMainModel(Configuration conf, InputDeviceClient client) {
+   public GecoMainModel(Configuration conf, GestureConfiguration gestConf) {
 //      loadData(engine);
       /*
       this.configuration = configuration;
@@ -106,7 +108,9 @@ public class GecoMainModel implements ButtonDeviceEventListener{
     configuration.addGestureSet(gestureSet);
     */
       this.configuration = conf;
-      this.client = client;
+      this.gestureConfiguration = gestConf;
+      configureInputDevice();
+      
       Comparator<GestureClass> c1 =new Comparator<GestureClass>() {
          public int compare(GestureClass a, GestureClass b) {
             return a.getName().compareTo(b.getName());
@@ -388,6 +392,32 @@ public class GecoMainModel implements ButtonDeviceEventListener{
          recogniser.recognise(note);
       }
    } // handleButtonPressedEvent
+   
+   
+   /**
+    * Configure Input Client
+    */
+   public void configureInputDevice(){
+      client = new InputDeviceClient(gestureConfiguration.getInputDevice(),
+            gestureConfiguration.getInputDeviceEventListener());
+      
+   }
+   
+   
+   /**
+    * Get GestureConfiguration
+    */
+   public GestureConfiguration getGestureConfiguration(){
+     return gestureConfiguration;      
+   }
+   
+   /**
+    * Set GestureConfiguration
+    */
+   public void setGestureConfiguration(GestureConfiguration conf){
+     gestureConfiguration=conf;
+     configureInputDevice();
+   }
    
 
 

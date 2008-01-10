@@ -301,9 +301,10 @@ public class GecoMainView extends JFrame{
 	       saveMenuItem = SwingTool.createMenuItem(handler.getSaveProjectAction(),null);
 	       saveMenuItem.setEnabled(false);
 	       menu.add(saveMenuItem);
-	       
-	      menu.addSeparator();
-	      menu.add(new JMenuItem(handler.getExitApplicationAction()));
+	       menu.addSeparator();
+	       menu.add(SwingTool.createMenuItem(handler.getOptionsAction(),null));
+      	   menu.addSeparator();
+      	   menu.add(new JMenuItem(handler.getExitApplicationAction()));
 	  
 	      return menu;
 	   } // createFileMenu

@@ -28,6 +28,7 @@ package org.ximtec.igesture.geco.GUI;
 
 import org.ximtec.igesture.geco.dialog.MappingDialog;
 import org.ximtec.igesture.geco.dialog.NewProjectDialog;
+import org.ximtec.igesture.geco.dialog.OptionsDialog;
 
 
 
@@ -43,6 +44,7 @@ public class GecoComponentHandler {
    private GecoMainView view;
    private MappingDialog mappingDialog;
    private NewProjectDialog newProjectDialog;
+   private OptionsDialog optionsDialog;
 
 
 
@@ -76,6 +78,18 @@ public class GecoComponentHandler {
 
       return newProjectDialog;
    } // getExitApplicationAction
+   
+   /**
+    * Get the dialog for creating a new project
+    */
+   public OptionsDialog getOptionsDialog() {
+      if (optionsDialog == null) {
+         optionsDialog = new OptionsDialog(view);
+      }
+
+      return optionsDialog;
+   } // getExitApplicationAction
+  
   
 
    
