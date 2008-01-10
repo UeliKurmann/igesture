@@ -60,10 +60,11 @@ public class WacomReader extends org.sigtec.input.AbstractInputDevice implements
          .getName());
 
    private static final int FREQUENCE = 20;
-   
    final WacomReader tabletReader = this;
-
    private boolean lastKeyState = false;
+   
+   private int BUTTON_0 = 0;
+   private int BUTTON_5 = 5;
 
    private HashSet<ButtonDeviceEventListener> buttonUpEvents;
 
@@ -81,14 +82,11 @@ public class WacomReader extends org.sigtec.input.AbstractInputDevice implements
    public void init() {
       final WacomReader tabletReader = this;
       
-      //NEW VERSION: callback --> DOESN'T NOT WORK YET!
+      //New version: callback
       init_callback();
 	
-      // OLD VERSION: poll the device
+      // Old version: poll the device
       //init_loop();
-      
-    
-     
    } // init
    
    void init_callback(){
@@ -101,20 +99,17 @@ public class WacomReader extends org.sigtec.input.AbstractInputDevice implements
    }
    
    void init_loop(){
+      
    final Thread t2 = new Thread() {
          
          @Override
          public void run() {
+          
             Win32TabletProxy proxy = new Win32TabletProxy();
-            
              while (true) {
-                
                    proxy.getNextPacket();
-                   
-               //    if(proxy.getLastPacket()!=null){
-                     // System.out.println("button: "+proxy.buttonPressed());
-                   if (!(proxy.buttonPressed()==0)) {
-                        if (proxy.buttonPressed()==5) {
+                   if (!(proxy.buttonPressed()==BUTTON_0)) {
+                        if (proxy.buttonPressed()==BUTTON_5) {
                          
                            Location location = new Location("screen", 1, proxy.getLastCursorLocation());
                            System.out.println(location+" - button: "+proxy.buttonPressed());
@@ -141,28 +136,24 @@ public class WacomReader extends org.sigtec.input.AbstractInputDevice implements
 
                    }
                   try {
-                     Thread.sleep(100 / FREQUENCE);
+                     Thread.sleep(1000 / FREQUENCE);
                   }
                   catch (InterruptedException e) {
                      LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-                  }
-        //   }
+                  }  
              }
+              
             }
          };
-      t2.start();
+      t2.start(); 
    }
    
-   
-  // public void callbackFunction(){
 
-  // }
-   
    public void callbackFunction(int x, int y, int z, int npress, int tpress, long timeStamp,
          ORIENTATION orientation, ROTATION rotation, int button){
        
-      if (!(button==0)) {
-               if(button==5){
+      if (!(button==BUTTON_0)) {
+               if(button==BUTTON_5){
                   final WacomReader tabletReader = this;
                   
                   Location location = new Location("screen", 1, new Point(x,y));

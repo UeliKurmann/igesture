@@ -47,6 +47,7 @@ import com.sun.jna.win32.StdCallLibrary.StdCallCallback;
 
 public class KeyboardUtils {
 
+   
    HINSTANCE hinst;
    KeyboardProc kbListener;
    HANDLE handle;
@@ -55,16 +56,13 @@ public class KeyboardUtils {
    public KeyboardUtils() {
       // HMODULE hmod = new HMODULE();
       hinst = Kernel32.INSTANCE.GetModuleHandle(null);
-      if (hinst != null) {
-         System.out.println("not null");
-      }
       kbListener = new KeyboardProc() {
 
          public LRESULT callback(int code, WPARAM wParam, LPARAM lParam) {
             System.out.println("keyboard callback code: " + code + " wParam "
                   + wParam + " lParam " + lParam);
     
-            //lparam is alwys the same! How to get the pressed key?
+            //lparam is always the same! How to get the pressed key?
             return User32.INSTANCE.CallNextHookEx(null, code, wParam, lParam);
 
          }
@@ -84,11 +82,8 @@ public class KeyboardUtils {
       // handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_KEYBOARD, kbListener,
       //hinst, Kernel32.INSTANCE.GetCurrentThreadId()); 
       // Kernel32.INSTANCE.GetCurrentThreadId()
-      System.out.println("error: " + Kernel32.INSTANCE.GetLastError());
-      System.out.println("java. ThreadID: " + Thread.currentThread().getId());
-      if (handle != null) {
-         System.out.println("not null 2");
-      }
+      //System.out.println("error: " + Kernel32.INSTANCE.GetLastError());
+      //System.out.println("java. ThreadID: " + Thread.currentThread().getId());
       start_loop();
    }
 
@@ -105,9 +100,7 @@ public class KeyboardUtils {
 
 
    public static void main(String[] args) {
-      System.out.println("Start.");
-      System.out.println("1. ThreadID: "
-            + System.identityHashCode(Thread.currentThread()));
+      //System.out.println("1. ThreadID: "+ System.identityHashCode(Thread.currentThread()));
       KeyboardUtils k = new KeyboardUtils();
       k.registerHook();
 
