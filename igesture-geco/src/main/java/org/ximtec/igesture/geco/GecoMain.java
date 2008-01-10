@@ -97,8 +97,7 @@ public class GecoMain  {
               GuiTool.addGuiBundle(GUI_BUNDLE_FILE);
               Logger.getAnonymousLogger().setLevel(Level.ALL);
               LOGGER.info(INITIALISING);
-              
-              
+            
               GestureConfiguration conf;
               
               if (args.length > 0) {

@@ -42,6 +42,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 
 import org.ximtec.igesture.geco.GUI.GecoConstants;
+import org.ximtec.igesture.geco.GUI.GecoMainModel;
 import org.ximtec.igesture.geco.GUI.GecoMainView;
 import org.ximtec.igesture.geco.GUI.action.GecoActionHandler;
 
@@ -73,8 +74,16 @@ public class GecoSystemTray {
       if(SystemTray.isSupported()){
          tray = SystemTray.getSystemTray();
          
-
-         image = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource(GecoConstants.ICON_NAME).getFile());
+         
+         String icon;
+         try {
+            icon = ClassLoader.getSystemResource(GecoConstants.ICON_NAME).toURI().getPath();
+         } catch(URISyntaxException ex) {
+            icon = ClassLoader.getSystemResource(GecoConstants.ICON_NAME).getPath();
+         }
+         
+         //image = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource(GecoConstants.ICON_NAME).getFile());
+         image = Toolkit.getDefaultToolkit().getImage(icon);
 
          popup = new PopupMenu();
          trayIcon = new TrayIcon(image, GecoConstants.GECO_NAME, popup);

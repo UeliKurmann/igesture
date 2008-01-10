@@ -48,14 +48,11 @@ public class MouseUtils {
    public MouseUtils() {
 
       hinst = Kernel32.INSTANCE.GetModuleHandle(null);
-      if (hinst != null) {
-         System.out.println("not null");
-      }
       msListener = new MouseProc() {
 
          public LRESULT callback(int code, WPARAM wParam, LPARAM lParam) {
-            System.out.println("mouse callback code: " + code + " wParam "
-                  + wParam + " lParam " + lParam);
+            //System.out.println("mouse callback code: " + code + " wParam "
+            //      + wParam + " lParam " + lParam);
             // getCoordinates!!
              POINT p = new POINT();
              User32.INSTANCE.GetCursorPos(p);
@@ -79,12 +76,11 @@ public class MouseUtils {
 
 
    public static void main(String[] args) {
-      System.out.println("Start.");
       MouseUtils instance = new MouseUtils();
       try {
          MSG msg = new MSG();
          while (User32.INSTANCE.GetMessageW(msg, null, 0, 0) != 0) {
-            // TODO: translate message
+            // translate message
             // User32.INSTANCE.DispatchMessageW(msg);
          }
          // TODO: unregister hook!
@@ -92,8 +88,6 @@ public class MouseUtils {
       catch (Exception ex) {
          ex.printStackTrace();
       }
-      System.out.println("Done.");
-
    }
 
    public interface MouseProc extends StdCallCallback {
@@ -103,27 +97,20 @@ public class MouseUtils {
    
    
    public void registerHook(){
-      handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_KEYBOARD_LL, msListener, hinst, 0); //hinst, Kernel32.INSTANCE.GetCurrentThreadId()j
+      handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_KEYBOARD_LL, msListener, hinst, 0);
+      //handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_KEYBOARD_LL, msListener,  hinst, Kernel32.INSTANCE.GetCurrentThreadId());
       //Kernel32.INSTANCE.GetCurrentThreadId()
-      System.out.println("error: "+Kernel32.INSTANCE.GetLastError());
-      System.out.println("java. ThreadID: "+Thread.currentThread().getId());
-      if (handle!=null){
-          System.out.println("not null 2");
-      }
+      //System.out.println("error: "+Kernel32.INSTANCE.GetLastError());
       start_loop();
   }
   
    void start_loop(){
-      System.out.println("3. ThreadID: "+Kernel32.INSTANCE.GetCurrentThreadId());
-      
           MSG msg = new MSG();
           while(User32.INSTANCE.GetMessageW(msg,null,0,0)!=0){
               User32.INSTANCE.DispatchMessage(msg);
-              //TODO: translateMessage
+              //translateMessage
               msg = new MSG();
           }
-
-      System.out.println("Done.");
   }
 
 }

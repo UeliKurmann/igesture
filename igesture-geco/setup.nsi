@@ -61,8 +61,7 @@ Section -Main SEC0000
     SetOverwrite on
     File target\igesture-geco-1.2-SNAPSHOT\tray_icon.png
     File target\igesture-geco-1.2-SNAPSHOT\about.html
-    File target\igesture-geco-1.2-SNAPSHOT\config2.xml
-    File target\igesture-geco-1.2-SNAPSHOT\config.xml
+    File target\igesture-geco-1.2-SNAPSHOT\geco-config.xml
     File target\igesture-geco-1.2-SNAPSHOT\geco_exe.exe
     File target\igesture-geco-1.2-SNAPSHOT\gecoProperties.properties
     File target\igesture-geco-1.2-SNAPSHOT\gecoProperties.properties.bak

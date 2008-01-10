@@ -72,16 +72,10 @@ public class WacomUtils{
           tabletListener = new TabletProc() {
 
              public LRESULT callback(int code, WPARAM wParam, LPARAM lParam) {
-                
-              
-                
                 PACKET p = getPacket();
                 if(p!=null){
                     fireEvent(p);
                 }
-                PACKET[] arr = new PACKET[5];
-                lib.WTPacketsGet(hdc, 5,arr);//discard 5 packets (otherwise is too slow!)
-
                 return User32.INSTANCE.CallNextHookEx(handle, code, wParam, lParam);
                 
              }
@@ -104,7 +98,6 @@ public class WacomUtils{
      * Open session with wacom Tablet PC
      */
 	    public void open() {
-//	    	System.out.println("TabletUnit: open()");
 
 	    	HWND hwnd = new HWND();
 	    	hwnd.setPointer(new IntByReference(Wintab32.HWND_BROADCAST).getPointer());//getPointer(0)
@@ -129,7 +122,6 @@ public class WacomUtils{
 	     */
 	    public void close() {
 	    	boolean ret = lib.WTClose(hdc);
-//	    	System.out.println("return val: "+ret);
 	    	lib.WacomDoSpecialContextHandling(false);
 	    }
 	    
@@ -200,9 +192,6 @@ public class WacomUtils{
 	       Kernel32.INSTANCE.GetCurrentThreadId()
 	       System.out.println("error: "+Kernel32.INSTANCE.GetLastError());
 	       System.out.println("java. ThreadID: "+Thread.currentThread().getId());
-	       if (handle!=null){
-	           System.out.println("not null 2");
-	       }
 	       */
 	   }
 
@@ -212,11 +201,10 @@ public class WacomUtils{
 	           MSG msg = new MSG();
 	           while(User32.INSTANCE.GetMessageW(msg,null,0,0)!=0){
 	               //User32.INSTANCE.DispatchMessage(msg);
-	               //TODO: translateMessage
+	               //translateMessage
 	           }
 	           // TODO: unregister hook!
 	       close();
-//	       System.out.println("Done.");
 	   }
 	    
 	     /**
@@ -271,10 +259,5 @@ public class WacomUtils{
 		public static final int DVC_ORIENTATION	=	17;
 		public static final int DVC_ROTATION	=	18; /* 1.1 */
 		
-		
-		private void registerWacomCallbackFunction(WacomCallback wCallback){
-		   this.wCallback = wCallback;
-		}
-
 	}
 
