@@ -383,7 +383,6 @@ public class GecoMainModel implements ButtonDeviceEventListener{
     * @param event the event
     */
    public void handleButtonPressedEvent(InputDeviceEvent event) {
-      System.out.println("GecoMainModel.handleButtonPressedEvent");
       Note note = client.createNote(0, event.getTimestamp(), 70);
       if (note.getPoints().size() > 5) {
          recogniser.recognise(note);
