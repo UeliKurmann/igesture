@@ -125,7 +125,7 @@ Section /o -un.Main UNSEC0000
     Delete /REBOOTOK $INSTDIR\gecoProperties.properties.bak
     Delete /REBOOTOK $INSTDIR\gecoProperties.properties
     Delete /REBOOTOK $INSTDIR\geco_exe.exe
-    Delete /REBOOTOK $INSTDIR\config.xml
+    Delete /REBOOTOK $INSTDIR\geco-config.xml
     Delete /REBOOTOK $INSTDIR\config2.xml
     Delete /REBOOTOK $INSTDIR\about.html
     Delete /REBOOTOK $INSTDIR\tray_icon.png

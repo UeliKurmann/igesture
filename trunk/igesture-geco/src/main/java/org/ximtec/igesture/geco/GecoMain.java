@@ -82,8 +82,6 @@ public class GecoMain  {
        private static final String INITIALISED = "Initialised.";
 
        private static final String RUBINE_CONFIGURATION = "rubineconfiguration.xml";
-
-       private InputDeviceClient client;
        
        private Configuration configuration;
 
@@ -98,14 +96,14 @@ public class GecoMain  {
               Logger.getAnonymousLogger().setLevel(Level.ALL);
               LOGGER.info(INITIALISING);
             
-              GestureConfiguration conf;
+              GestureConfiguration gestureConfiguration;
               
               if (args.length > 0) {
-                 conf = new GestureConfiguration(args[0]);
+                 gestureConfiguration = new GestureConfiguration(args[0]);
 
               }
               else {
-                 conf = new GestureConfiguration(GECO_CONFIGURATION);
+                 gestureConfiguration = new GestureConfiguration(GECO_CONFIGURATION);
               }
              // configuration = XMLGeco.importConfiguration(new File(
                //     ClassLoader.getSystemResource(RUBINE_CONFIGURATION).getFile()));
@@ -116,15 +114,15 @@ public class GecoMain  {
                  confFile = new File(ClassLoader.getSystemResource(RUBINE_CONFIGURATION).getPath());
               }
               configuration = XMLGeco.importConfiguration(confFile);
-              client = new InputDeviceClient(conf.getInputDevice(),
-                    conf.getInputDeviceEventListener());
-              GecoMainModel model = new GecoMainModel(configuration, client);
+              GecoMainModel model = new GecoMainModel(configuration, gestureConfiguration);
               GecoMainView view = new GecoMainView(model);
 
               //add icon to tray
               new GecoSystemTray(view);
               LOGGER.info(INITIALISED);
        }
+       
+      
 
 
 

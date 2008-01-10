@@ -68,6 +68,10 @@ public class GecoConstants {
    
    public static final String NEW_PROJECT_DIALOG_TITLE = "Create a new project";
    
+   public static final String OPTIONS_DIALOG_TITLE = "Options";
+   
+   public static final String SELECT_INPUT_DEVICE = "Select input device";
+   
    public static final String PROJECT_NAME = "ProjectName";
    
    public static final String PROJECT_FILE = "ProjectFile";
@@ -75,6 +79,10 @@ public class GecoConstants {
    public static final String PROJECT_NAME_TEXT_FIELD = "ProjectNameTextField";
    
    public static final String PROJECT_FILE_TEXT_FIELD = "ProjectNameTextField";
+   
+   public static final String WACOM = "Wacom";
+   
+   public static final String MOUSE = "Mouse";
    
    
    
@@ -93,6 +101,8 @@ public class GecoConstants {
    public static final String ADD = "ADD";
    
    public static final String CANCEL = "CANCEL";
+   
+   public static final String OK = "OK";
    
    public static final String EXIT = "EXIT";
    
@@ -121,6 +131,8 @@ public class GecoConstants {
    public static final String OPEN_PROJECT_ACTION = "OpenProjectAction";
    
    public static final String NEW_PROJECT_ACTION = "NewProjectAction";
+   
+   public static final String OPTIONS_ACTION = "OptionsAction";
    
    public static final String SAVE_PROJECT_ACTION = "SaveProjectAction";
    

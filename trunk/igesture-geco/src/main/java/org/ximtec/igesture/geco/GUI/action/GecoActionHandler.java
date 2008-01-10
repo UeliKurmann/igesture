@@ -27,8 +27,8 @@
 package org.ximtec.igesture.geco.GUI.action;
 
 import javax.swing.Action;
-
 import org.ximtec.igesture.geco.GUI.GecoMainView;
+import org.ximtec.igesture.geco.GUI.action.GecoOptionsAction;
 
 
 
@@ -53,6 +53,7 @@ public class GecoActionHandler {
    private SaveProjectAction saveProjectAction;
    private MinimizeAction minimizeAction;
    private GecoAboutAction aboutAction;
+   private GecoOptionsAction optionsAction;;
    
    private static final String ABOUT_HTML = "about.html";
 
@@ -147,6 +148,15 @@ public class GecoActionHandler {
       }
 
       return aboutAction;
+   } // getNewGestureMapAction
+   
+   
+   public Action getOptionsAction() {
+      if (optionsAction == null) {
+         optionsAction = new GecoOptionsAction(view);
+      }
+
+      return optionsAction;
    } // getNewGestureMapAction
    
 }
