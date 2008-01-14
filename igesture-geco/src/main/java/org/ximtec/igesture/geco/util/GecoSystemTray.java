@@ -3,7 +3,7 @@
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
- * Purpose		:  Add an icon to the system tray
+ * Purpose		:   Adds an icon to the system tray.
  *
  * -----------------------------------------------------------------------
  *
@@ -12,6 +12,7 @@
  * Date				Who			Reason
  *
  * Dec 17, 2007		crocimi		Initial Release
+ * Jan 14, 2008     bsigner     New icon loading mechanism
  *
  * -----------------------------------------------------------------------
  *
@@ -29,23 +30,17 @@ import java.awt.AWTException;
 import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
-import java.awt.Robot;
 import java.awt.SystemTray;
-import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
-import java.net.URISyntaxException;
 
+import org.sigtec.graphix.IconTool;
+import org.sigtec.util.Decorator;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
-import org.ximtec.igesture.geco.GUI.GecoMainModel;
 import org.ximtec.igesture.geco.GUI.GecoMainView;
-import org.ximtec.igesture.geco.GUI.action.GecoActionHandler;
-
 
 
 /**
@@ -54,7 +49,7 @@ import org.ximtec.igesture.geco.GUI.action.GecoActionHandler;
  * @author Michele Croci, mcroci@gmail.com
  */
 public class GecoSystemTray {
-   
+
    private GecoMainView mainView;
    private static TrayIcon trayIcon;
    private PopupMenu popup;
@@ -62,71 +57,63 @@ public class GecoSystemTray {
    private static SystemTray tray;
 
 
-   
-   
-   public GecoSystemTray(GecoMainView view){
+   public GecoSystemTray(GecoMainView view) {
       this.mainView = view;
       addIconToTray();
    }
-      
-   public void addIconToTray(){
 
-      if(SystemTray.isSupported()){
+
+   public void addIconToTray() {
+
+      if (SystemTray.isSupported()) {
          tray = SystemTray.getSystemTray();
-         
-         
-         String icon;
-         try {
-            icon = ClassLoader.getSystemResource(GecoConstants.ICON_NAME).toURI().getPath();
-         } catch(URISyntaxException ex) {
-            icon = ClassLoader.getSystemResource(GecoConstants.ICON_NAME).getPath();
-         }
-         
-         //image = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource(GecoConstants.ICON_NAME).getFile());
-         image = Toolkit.getDefaultToolkit().getImage(icon);
-
+         image = IconTool.getIcon(GecoConstants.GECO_ICON, Decorator.SIZE_16)
+               .getImage();
          popup = new PopupMenu();
          trayIcon = new TrayIcon(image, GecoConstants.GECO_NAME, popup);
-         
+
          MenuItem exitItem = new MenuItem(GecoConstants.EXIT);
          exitItem.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                tray.remove(trayIcon);
             }
-            });
-         exitItem.addActionListener(mainView.getActionHandler().getExitApplicationAction());
+         });
+         exitItem.addActionListener(mainView.getActionHandler()
+               .getExitApplicationAction());
          popup.add(exitItem);
-         
+
          MenuItem showItem = new MenuItem(GecoConstants.SHOW);
          showItem.addActionListener(new ActionListener() {
+
             public void actionPerformed(ActionEvent e) {
                mainView.setVisible(true);
             }
-            });
-        
+         });
+
          popup.add(showItem);
          popup.add(exitItem);
-         
-        
+
          trayIcon.setImageAutoSize(true);
-         
+
          trayIcon.addMouseListener(new IconMouseListener());
-         
-         try{
+
+         try {
             tray.add(trayIcon);
-         }catch(AWTException e){
+         }
+         catch (AWTException e) {
             e.printStackTrace();
          }
 
       }
-      else{
-         trayIcon=null;
+      else {
+         trayIcon = null;
       }
-      
+
    }
-   
-   private class IconMouseListener implements MouseListener{
-      
+
+   private class IconMouseListener implements MouseListener {
+
       /**
        * Handles an entering of the cursor in the button area.
        * @param event associated mouse event.
@@ -134,8 +121,6 @@ public class GecoSystemTray {
       public void mouseEntered(MouseEvent event) {
       } // mouseEntered
 
-
-      
 
       /**
        * Handles a leaving of the cursor from the button area.
@@ -151,25 +136,27 @@ public class GecoSystemTray {
        * @param event associated mouse event.
        */
       public void mouseClicked(MouseEvent event) {
-         if(event.getClickCount() == 2){
-            if( mainView.isVisible()){
+         if (event.getClickCount() == 2) {
+            if (mainView.isVisible()) {
                mainView.setVisible(false);
-            }else{
+            }
+            else {
                mainView.setVisible(true);
             }
-         
-         }else{
-            //try{
-             //  Robot robot = new Robot();
-             //  robot.mousePress(InputEvent.BUTTON3_MASK);
-             //  robot.mouseRelease(InputEvent.BUTTON3_MASK);
-           // mainView.getRootPane().setVisible(true);
 
-             //  }catch(AWTException e){
-             //     e.printStackTrace();
-             //  }
          }
-           // mainView.setVisible(true);
+         else {
+            // try{
+            // Robot robot = new Robot();
+            // robot.mousePress(InputEvent.BUTTON3_MASK);
+            // robot.mouseRelease(InputEvent.BUTTON3_MASK);
+            // mainView.getRootPane().setVisible(true);
+
+            // }catch(AWTException e){
+            // e.printStackTrace();
+            // }
+         }
+         // mainView.setVisible(true);
       }
 
 
@@ -187,15 +174,12 @@ public class GecoSystemTray {
        */
       public void mouseReleased(MouseEvent event) {
       }
-      
+
    }
-   
-   public static void removeTrayIcon(){
+
+
+   public static void removeTrayIcon() {
       tray.remove(trayIcon);
    }
-   
 
-
-   
 }
-
