@@ -41,7 +41,7 @@ public class GecoConstants {
     * GUI
     */
    
-   public static final String GECO = "Gestures Controller";
+   public static final String GECO_TITLE = "gesture controller";
 
    public static final String MENU_FILE = "FileMenu";
    
