@@ -117,8 +117,6 @@ public class GecoConstants {
 
    public static final String REMOVE_MAPPING = "RemoveMappingAction";
 
-   public static final String OPEN_PROJECT_ACTION = "OpenProjectAction";
-
    public static final String OPTIONS_ACTION = "OptionsAction";
 
    public static final String SAVE_PROJECT_ACTION = "SaveProjectAction";
@@ -131,7 +129,6 @@ public class GecoConstants {
 
    public static final String MINIMIZE_ACTION = "MinimizeAction";
 
-   public static final String GECO_ABOUT_ACTION = "GecoAboutAction";
 
    /*
     * System Tray

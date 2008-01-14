@@ -1,5 +1,15 @@
 <map>
   <entry>
+    <java-class>org.ximtec.igesture.core.TestSet</java-class>
+    <list>
+      <org.ximtec.igesture.core.TestSet>
+        <samples/>
+        <name>Testset</name>
+        <objectID>6b099e98-22cf-4a74-b82e-c513960a42ff</objectID>
+      </org.ximtec.igesture.core.TestSet>
+    </list>
+  </entry>
+  <entry>
     <java-class>org.ximtec.igesture.core.GestureSet</java-class>
     <list>
       <org.ximtec.igesture.core.GestureSet>
@@ -12,16 +22,6 @@
         <name>zxcv</name>
         <objectID>a2a1f1f8-27e3-4420-bd7b-55ee6d0248c9</objectID>
       </org.ximtec.igesture.core.GestureSet>
-    </list>
-  </entry>
-  <entry>
-    <java-class>org.ximtec.igesture.core.TestSet</java-class>
-    <list>
-      <org.ximtec.igesture.core.TestSet>
-        <samples/>
-        <name>Testset</name>
-        <objectID>6b099e98-22cf-4a74-b82e-c513960a42ff</objectID>
-      </org.ximtec.igesture.core.TestSet>
     </list>
   </entry>
 </map>

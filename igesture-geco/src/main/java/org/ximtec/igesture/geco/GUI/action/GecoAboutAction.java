@@ -44,15 +44,15 @@ public class GecoAboutAction extends BasicAction {
    /**
     * The key used to retrieve action details from the resource bundle.
     */
-   public static final String KEY = "GecoAboutAction";
+   public static final String KEY = "AboutAction";
 
    JAboutDialog dialog;
 
 
    public GecoAboutAction(String path) {
-      super(GecoConstants.GECO_ABOUT_ACTION, GuiTool.getGuiBundle());
-      dialog = new JAboutDialog(300, 500, GecoAboutAction.class
-            .getClassLoader().getResource(path));
+      super(KEY, GuiTool.getGuiBundle());
+      dialog = new JAboutDialog(300, 500, GecoAboutAction.class.getClassLoader()
+            .getResource(path));
    }
 
 
@@ -61,9 +61,8 @@ public class GecoAboutAction extends BasicAction {
     * @param event the action event.
     */
    public void actionPerformed(ActionEvent event) {
-      dialog.setLocation(200,200);
+      dialog.setLocation(200, 200);
       dialog.setVisible(true);
    } // actionPerformed
 
 }
-

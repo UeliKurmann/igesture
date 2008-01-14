@@ -3,7 +3,7 @@
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *
- * Purpose      :   GUI for the gesture mapping application.
+ * Purpose      :   GUI for the gesture controller application.
  *
  * -----------------------------------------------------------------------
  *
@@ -65,10 +65,11 @@ import org.ximtec.igesture.tool.GestureConstants;
 
 
 /**
- * GUI for the gesture mapping application.
+ * GUI for the gesture controller application.
  * 
- * @version 1.0, Nov 2007
- * @author Michele croci
+ * @version 0.9, Nov 2007
+ * @author Michele Croci, mcroci@gmail.com
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 
 public class GecoMainView extends JFrame {
@@ -200,10 +201,6 @@ public class GecoMainView extends JFrame {
 
    private void addMenu() {
       this.setJMenuBar(createMenuBar());
-      // this.getContentPane().add(
-      // createMenuBar(),
-      // new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
-      // GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 5, 5));
    }
 
 
@@ -301,16 +298,14 @@ public class GecoMainView extends JFrame {
    private JMenu createFileMenu() {
       JMenu menu = GuiTool.getGuiBundle().createMenu(GecoConstants.FILE_MENU);
       menu.add(new JMenuItem(handler.getNewProjectAction()));
-      menu.add(SwingTool.createMenuItem(handler.getOpenProjectAction(), null));
-      saveMenuItem = SwingTool.createMenuItem(handler.getSaveProjectAction(),
-            null);
+      menu.add(new JMenuItem(handler.getOpenProjectAction()));
+      saveMenuItem = new JMenuItem(handler.getSaveProjectAction());
       saveMenuItem.setEnabled(false);
       menu.add(saveMenuItem);
       menu.addSeparator();
-      menu.add(SwingTool.createMenuItem(handler.getOptionsAction(), null));
+      menu.add(new JMenuItem(handler.getOptionsAction()));
       menu.addSeparator();
       menu.add(new JMenuItem(handler.getExitApplicationAction()));
-
       return menu;
    } // createFileMenu
 
@@ -318,7 +313,7 @@ public class GecoMainView extends JFrame {
    private JMenu createInfoMenu() {
       JMenu menu = GuiTool.getGuiBundle().createMenu(
             GestureConstants.COMMON_HELP);
-      menu.add(SwingTool.createMenuItem(handler.getAboutAction(), null));
+      menu.add(new JMenuItem(handler.getAboutAction()));
       return menu;
    } // createInfoMenu
 
