@@ -59,7 +59,7 @@ public class GecoMain {
    private static final String GUI_BUNDLE_FILE = "gecoProperties";
 
    private static final String GECO_LOGO = "images/gecoLogo.png";
-
+   
 
    /**
     * Main method
