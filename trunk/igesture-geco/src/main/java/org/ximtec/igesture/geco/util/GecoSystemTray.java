@@ -67,7 +67,7 @@ public class GecoSystemTray {
 
       if (SystemTray.isSupported()) {
          tray = SystemTray.getSystemTray();
-         image = IconTool.getIcon(GecoConstants.GECO_ICON, Decorator.SIZE_16)
+         image = IconTool.getIcon(GecoConstants.GECO_ICON, Decorator.SIZE_32)
                .getImage();
          popup = new PopupMenu();
          trayIcon = new TrayIcon(image, GecoConstants.GECO_NAME, popup);

@@ -59,22 +59,6 @@ public class GecoMain {
    private static final String GUI_BUNDLE_FILE = "geco";
 
    private static final String GECO_LOGO = "images/gecoLogo.png";
-   
-
-   /**
-    * Main method
-    * 
-    * @param args
-    */
-   public static void main(String[] args) {
-      try {
-         new GecoMain(args);
-      }
-      catch (Exception e) {
-         e.printStackTrace();
-      }
-
-   }
 
    private static final String INITIALISING = "Initialising...";
 
@@ -90,16 +74,13 @@ public class GecoMain {
             .getResource(GECO_LOGO));
       SplashScreen splashScreen = new SplashScreen(logo, false, 4000);
       splashScreen.splash();
-
       GuiTool.addGuiBundle(GUI_BUNDLE_FILE);
       Logger.getAnonymousLogger().setLevel(Level.ALL);
       LOGGER.info(INITIALISING);
-
       GestureConfiguration gestureConfiguration;
 
       if (args.length > 0) {
          gestureConfiguration = new GestureConfiguration(args[0]);
-
       }
       else {
          gestureConfiguration = new GestureConfiguration(GECO_CONFIGURATION);
@@ -115,14 +96,29 @@ public class GecoMain {
          confFile = new File(ClassLoader.getSystemResource(RUBINE_CONFIGURATION)
                .getPath());
       }
+
       configuration = XMLGeco.importConfiguration(confFile);
       GecoMainModel model = new GecoMainModel(configuration,
             gestureConfiguration);
       GecoMainView view = new GecoMainView(model);
-
-      // add icon to tray
       new GecoSystemTray(view);
       LOGGER.info(INITIALISED);
+   }
+
+
+   /**
+    * Main method
+    * 
+    * @param args
+    */
+   public static void main(String[] args) {
+      try {
+         new GecoMain(args);
+      }
+      catch (Exception e) {
+         e.printStackTrace();
+      }
+
    }
 
 }
