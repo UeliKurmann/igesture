@@ -53,7 +53,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.sigtec.graphix.GuiTool;
+import org.sigtec.graphix.IconTool;
 import org.sigtec.util.Constant;
+import org.sigtec.util.Decorator;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.geco.GUI.action.GecoActionHandler;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
@@ -130,6 +132,7 @@ public class GecoMainView extends JFrame{
 		setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
 		setLocation(150, 100);
 		this.setTitle(GecoConstants.GECO_TITLE);
+		setIconImage(IconTool.getIcon(GecoConstants.GECO_ICON, Decorator.SIZE_16).getImage());
 		
 		setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
 		 this.getContentPane().add(contentPanel,
