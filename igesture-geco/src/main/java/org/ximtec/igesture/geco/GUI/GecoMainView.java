@@ -129,7 +129,7 @@ public class GecoMainView extends JFrame{
 	    this.getContentPane().setLayout(gbl);
 		setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
 		setLocation(150, 100);
-		this.setTitle(GecoConstants.GECO);
+		this.setTitle(GecoConstants.GECO_TITLE);
 		
 		setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
 		 this.getContentPane().add(contentPanel,
@@ -145,7 +145,7 @@ public class GecoMainView extends JFrame{
      * Initializes the view for a project
      */
 	public void initProjectView(String projectName){
-	   setTitle(GecoConstants.GECO+" - "+projectName);
+	   setTitle(GecoConstants.GECO_TITLE+ Constant.DASH_S +projectName);
 	   if(!initialized){
 	   populateDialog();
 	   setVisible(true);
