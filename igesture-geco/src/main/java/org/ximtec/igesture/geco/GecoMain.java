@@ -54,9 +54,9 @@ public class GecoMain {
    private static final Logger LOGGER = Logger.getLogger(GecoMain.class
          .getName());
 
-   private static final String GECO_CONFIGURATION = "geco-config.xml";
+   private static final String GECO_CONFIGURATION = "gecoConfig.xml";
 
-   private static final String GUI_BUNDLE_FILE = "gecoProperties";
+   private static final String GUI_BUNDLE_FILE = "geco";
 
    private static final String GECO_LOGO = "images/gecoLogo.png";
    
