@@ -37,9 +37,9 @@ public class GecoConstants {
     * GUI
     */
 
-   public static final String GECO_TITLE = "gesture controller";
+   public static final String GECO_TITLE = "Geco";
 
-   public static final String MENU_FILE = "FileMenu";
+   public static final String FILE_MENU = "FileMenu";
 
    public static final String MAP_GESTURE = "MapGesture";
 
@@ -119,8 +119,6 @@ public class GecoConstants {
 
    public static final String OPEN_PROJECT_ACTION = "OpenProjectAction";
 
-   public static final String NEW_PROJECT_ACTION = "NewProjectAction";
-
    public static final String OPTIONS_ACTION = "OptionsAction";
 
    public static final String SAVE_PROJECT_ACTION = "SaveProjectAction";
@@ -139,7 +137,7 @@ public class GecoConstants {
     * System Tray
     */
 
-   public static final String GECO_NAME = "geco";
+   public static final String GECO_NAME = "Geco";
 
    public static final String GECO_ICON = "custom/geco";
 
