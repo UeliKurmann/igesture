@@ -17,7 +17,7 @@
  *
  * -----------------------------------------------------------------------
  *
- * Copyright 1999-2007 ETH Zurich. All Rights Reserved.
+ * Copyright 1999-2008 ETH Zurich. All Rights Reserved.
  *
  * This software is the proprietary information of ETH Zurich.
  * Use is subject to license terms.
