@@ -3,7 +3,7 @@
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *
- * Purpose      :   Minimizes the application.
+ * Purpose      :   Minimises the application.
  *
  * -----------------------------------------------------------------------
  *
@@ -12,6 +12,7 @@
  * Date             Who         Reason
  *
  * Nov 15, 2006     crocimi    Initial Release
+ * Jan 15, 2008     bsigner     Cleanup
  * 
  *
  * -----------------------------------------------------------------------
@@ -30,24 +31,29 @@ import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
 
 
 /**
- * Minimizes the application.
+ * Minimises the application.
  * 
  * @version 0.9, Nov 15, 2006
- * @author  Michele Croci, mcroci@gmail.com
+ * @author Michele Croci, mcroci@gmail.com
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 
 public class MinimizeAction extends BasicAction {
 
-   
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "MinimizeAction";
+
    private MainView mainView;
 
+
    public MinimizeAction(MainView mainView) {
-      super(Constant.MINIMIZE_ACTION, GuiTool.getGuiBundle());
+      super(KEY, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
 
@@ -60,4 +66,3 @@ public class MinimizeAction extends BasicAction {
    } // actionPerformed
 
 }
-

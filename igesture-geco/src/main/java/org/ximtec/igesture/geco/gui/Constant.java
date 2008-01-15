@@ -129,7 +129,6 @@ public class Constant extends org.sigtec.util.Constant {
 
    public static final String MAP_GESTURE_ACTION = "MapGestureAction";
 
-   public static final String MINIMIZE_ACTION = "MinimizeAction";
 
    /*
     * System Tray
