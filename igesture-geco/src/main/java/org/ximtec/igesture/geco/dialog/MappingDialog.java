@@ -43,16 +43,15 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
-import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.geco.GUI1.CommandView;
-import org.ximtec.igesture.geco.GUI1.GecoConstants;
-import org.ximtec.igesture.geco.GUI1.GecoMainView;
-import org.ximtec.igesture.geco.GUI1.HotKeyView;
-import org.ximtec.igesture.geco.UserAction1.CommandExecutor;
-import org.ximtec.igesture.geco.UserAction1.KeyboardSimulation;
+import org.ximtec.igesture.geco.gui.CommandView;
+import org.ximtec.igesture.geco.gui.GecoConstants;
+import org.ximtec.igesture.geco.gui.GecoMainView;
+import org.ximtec.igesture.geco.gui.HotKeyView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
+import org.ximtec.igesture.geco.userAction.CommandExecutor;
+import org.ximtec.igesture.geco.userAction.KeyboardSimulation;
 import org.ximtec.igesture.graphics.SwingTool;
 
 

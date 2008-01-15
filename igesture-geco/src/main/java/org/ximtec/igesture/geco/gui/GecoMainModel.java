@@ -23,7 +23,7 @@
  */
 
 
-package org.ximtec.igesture.geco.GUI1;
+package org.ximtec.igesture.geco.gui;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -42,12 +42,10 @@ import org.ximtec.igesture.geco.GecoConfiguration;
 import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.util.SortedListModel;
-import org.ximtec.igesture.geco.xml.XMLGeco;
 import org.ximtec.igesture.io.ButtonDeviceEventListener;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.storage.StorageManager;
-import org.ximtec.igesture.tool.GestureConfiguration;
 
 
 

@@ -23,7 +23,7 @@
  */
 
 
-package org.ximtec.igesture.geco.GUI1;
+package org.ximtec.igesture.geco.gui;
 
 /**
  * Constants for the gesture mapping GUI application.

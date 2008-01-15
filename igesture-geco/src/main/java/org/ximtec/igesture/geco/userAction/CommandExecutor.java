@@ -23,13 +23,12 @@
  */
 
 
-package org.ximtec.igesture.geco.UserAction1;
+package org.ximtec.igesture.geco.userAction;
 
 import java.io.IOException;
 
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.EventHandler;
-import org.ximtec.igesture.io.Win32KeyboardProxy;
 
 
 

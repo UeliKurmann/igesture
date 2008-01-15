@@ -23,15 +23,15 @@
  */
 
 
-package org.ximtec.igesture.geco.GUI1.action;
+package org.ximtec.igesture.geco.gui.action;
 
 import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.geco.GUI1.GecoConstants;
-import org.ximtec.igesture.geco.GUI1.GecoMainModel;
-import org.ximtec.igesture.geco.GUI1.GecoMainView;
+import org.ximtec.igesture.geco.gui.GecoConstants;
+import org.ximtec.igesture.geco.gui.GecoMainModel;
+import org.ximtec.igesture.geco.gui.GecoMainView;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 
 

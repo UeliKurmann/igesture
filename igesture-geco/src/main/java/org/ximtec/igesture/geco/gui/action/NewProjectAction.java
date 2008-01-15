@@ -24,7 +24,7 @@
  */
 
 
-package org.ximtec.igesture.geco.GUI1.action;
+package org.ximtec.igesture.geco.gui.action;
 
 import java.awt.event.ActionEvent;
 
@@ -33,8 +33,8 @@ import javax.swing.JOptionPane;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.Constant;
-import org.ximtec.igesture.geco.GUI1.GecoConstants;
-import org.ximtec.igesture.geco.GUI1.GecoMainView;
+import org.ximtec.igesture.geco.gui.GecoConstants;
+import org.ximtec.igesture.geco.gui.GecoMainView;
 
 
 /**

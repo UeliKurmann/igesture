@@ -48,15 +48,11 @@ import javax.swing.border.TitledBorder;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicDialog;
-import org.sigtec.input.InputDevice;
 import org.ximtec.igesture.geco.GecoConfiguration;
 import org.ximtec.igesture.geco.GecoMain;
-import org.ximtec.igesture.geco.GUI1.GecoConstants;
-import org.ximtec.igesture.geco.GUI1.GecoMainView;
+import org.ximtec.igesture.geco.gui.GecoConstants;
+import org.ximtec.igesture.geco.gui.GecoMainView;
 import org.ximtec.igesture.geco.xml.XMLGeco;
-import org.ximtec.igesture.io.MouseReader;
-import org.ximtec.igesture.io.WacomReader;
-import org.ximtec.igesture.tool.GestureConfiguration;
 
 
 

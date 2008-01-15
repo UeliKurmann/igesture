@@ -23,7 +23,7 @@
  */
 
 
-package org.ximtec.igesture.geco.GUI1;
+package org.ximtec.igesture.geco.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;

@@ -24,11 +24,11 @@
  */
 
 
-package org.ximtec.igesture.geco.GUI1.action;
+package org.ximtec.igesture.geco.gui.action;
 
 import javax.swing.Action;
 
-import org.ximtec.igesture.geco.GUI1.GecoMainView;
+import org.ximtec.igesture.geco.gui.GecoMainView;
 
 
 

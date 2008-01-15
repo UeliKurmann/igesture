@@ -36,11 +36,10 @@ import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.SplashScreen;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.configuration.Configuration;
-import org.ximtec.igesture.geco.GUI1.GecoMainModel;
-import org.ximtec.igesture.geco.GUI1.GecoMainView;
+import org.ximtec.igesture.geco.gui.GecoMainModel;
+import org.ximtec.igesture.geco.gui.GecoMainView;
 import org.ximtec.igesture.geco.util.GecoSystemTray;
 import org.ximtec.igesture.geco.xml.XMLGeco;
-import org.ximtec.igesture.tool.GestureConfiguration;
 
 
 /**
