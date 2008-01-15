@@ -57,8 +57,6 @@ import org.sigtec.graphix.IconTool;
 import org.sigtec.util.Decorator;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.geco.gui.action.ActionHandler;
-import org.ximtec.igesture.geco.gui.action.LoadGestureSetAction;
-import org.ximtec.igesture.geco.gui.action.ShowMappingDialogAction;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
@@ -218,11 +216,9 @@ public class MainView extends JFrame {
             GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0,
                   0, 0), 0, 0));
 
-      editButton = SwingTool.createButton(Constant.EDIT);
-      editButton.setAction(handler.getEditMappingAction());
+      editButton = SwingTool.createButton(handler.getEditMappingAction());
       editButton.setEnabled(false);
-      removeButton = SwingTool.createButton(Constant.REMOVE);
-      removeButton.setAction(handler.getRemoveMappingAction());
+      removeButton = SwingTool.createButton(handler.getRemoveMappingAction());
       removeButton.setEnabled(false);
 
       mappingList.getList().addListSelectionListener(
@@ -265,12 +261,11 @@ public class MainView extends JFrame {
             GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0,
                   0, 0), 0, 0));
 
-      mapButton = SwingTool.createButton(ShowMappingDialogAction.KEY);
-      mapButton.setAction(handler.getAddMappingAction());
+      mapButton = SwingTool.createButton(handler.getAddMappingAction());
       mapButton.setEnabled(false);
 
-      JButton loadSetButton = SwingTool.createButton(LoadGestureSetAction.KEY);
-      loadSetButton.setAction(handler.getLoadGestureSetAction());
+      JButton loadSetButton = SwingTool.createButton(handler
+            .getLoadGestureSetAction());
 
       rightPanel.add(loadSetButton, new GridBagConstraints(0, 1, 1, 1, 0.5, 0,
             GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(20,
@@ -403,7 +398,7 @@ public class MainView extends JFrame {
 
 
    /**
-    * Returns the component handler of the applicatio
+    * Returns the component handler of the application
     * 
     * @return the component Handler
     * 
@@ -414,7 +409,7 @@ public class MainView extends JFrame {
 
 
    /**
-    * Returns the component handler of the applicatio
+    * Returns the component handler of the application
     * 
     * @return the component Handler
     * 
@@ -452,7 +447,8 @@ public class MainView extends JFrame {
          JLabel label = new JLabel();
          if (value instanceof GestureToActionMapping) {
             GestureToActionMapping gm = (GestureToActionMapping)value;
-            label.setText(gm.getGestureClass().getName() + "   -->   "
+            label.setText(gm.getGestureClass().getName() + Constant.DOUBLE_BLANK
+                  + Constant.ARROW_RIGHT + Constant.DOUBLE_BLANK
                   + gm.getAction().toString());
             label.setOpaque(true);
             label.setBackground(isSelected ? Color.CYAN : list.getBackground());

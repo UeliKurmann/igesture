@@ -113,8 +113,6 @@ public class Constant extends org.sigtec.util.Constant {
     * Actions
     */
 
-   public static final String REMOVE_MAPPING = "RemoveMappingAction";
-
    public static final String OPTIONS_ACTION = "OptionsAction";
 
    public static final String SAVE_PROJECT_ACTION = "SaveProjectAction";

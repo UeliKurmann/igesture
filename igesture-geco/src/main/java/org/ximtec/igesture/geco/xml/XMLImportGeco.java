@@ -78,7 +78,7 @@ public class XMLImportGeco {
       // import gesture set
       String gsFile = gestureSetElement.getText();
       File f = null;
-      if (gsFile.contains("\\")) {
+      if (gsFile.contains(Constant.BACKSLASH)) {
          // load from specified position
          f = new File(gsFile);
          gestureSetFileName = f.getAbsolutePath();

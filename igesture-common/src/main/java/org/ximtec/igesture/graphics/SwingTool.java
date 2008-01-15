@@ -40,7 +40,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.ListModel;
 
 import org.sigtec.graphix.GuiTool;
-import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 
