@@ -32,9 +32,9 @@ import javax.swing.JOptionPane;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.geco.gui.GecoConstants;
-import org.ximtec.igesture.geco.gui.GecoMainView;
-import org.ximtec.igesture.geco.util.GecoSystemTray;
+import org.ximtec.igesture.geco.gui.Constant;
+import org.ximtec.igesture.geco.gui.MainView;
+import org.ximtec.igesture.geco.util.SystemTray;
 
 
 /**
@@ -47,10 +47,10 @@ import org.ximtec.igesture.geco.util.GecoSystemTray;
 public class ExitApplicationAction extends BasicAction {
 
    
-   private GecoMainView mainView;
+   private MainView mainView;
 
-   public ExitApplicationAction(GecoMainView mainView) {
-      super(GecoConstants.EXIT_APPLICATION_ACTION, GuiTool.getGuiBundle());
+   public ExitApplicationAction(MainView mainView) {
+      super(Constant.EXIT_APPLICATION_ACTION, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
 
@@ -66,7 +66,7 @@ public class ExitApplicationAction extends BasicAction {
       if (mainView.getModel().needSave()){
          int n = JOptionPane.showConfirmDialog(
                mainView,
-               GecoConstants.SAVE_DIALOG_TITLE,
+               Constant.SAVE_DIALOG_TITLE,
                "",
                JOptionPane.YES_NO_CANCEL_OPTION);
          if (n==0){
@@ -76,7 +76,7 @@ public class ExitApplicationAction extends BasicAction {
             System.exit(0);
          }
       }else{
-         GecoSystemTray.removeTrayIcon();
+         SystemTray.removeTrayIcon();
          System.exit(0);
       }
       

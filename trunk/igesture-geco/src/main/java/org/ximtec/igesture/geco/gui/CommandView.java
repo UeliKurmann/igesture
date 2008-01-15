@@ -85,7 +85,7 @@ public class CommandView extends JPanel{
       this.setLayout(new GridBagLayout());
       JPanel aPanel = new JPanel();
       aPanel.setLayout(new GridLayout());
-      aPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GecoConstants.COMMAND));
+      aPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), Constant.COMMAND));
       textField = new JTextPane();
       JScrollPane scrollPane = new JScrollPane();
       scrollPane.getViewport().add(textField);

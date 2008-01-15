@@ -31,7 +31,7 @@ package org.ximtec.igesture.geco.gui;
  * @version 0.9, Nov 2007
  * @author Michele croci
  */
-public class GecoConstants {
+public class Constant {
 
    /*
     * GUI

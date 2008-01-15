@@ -29,9 +29,9 @@ import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.geco.gui.GecoConstants;
-import org.ximtec.igesture.geco.gui.GecoMainModel;
-import org.ximtec.igesture.geco.gui.GecoMainView;
+import org.ximtec.igesture.geco.gui.Constant;
+import org.ximtec.igesture.geco.gui.MainModel;
+import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 
 
@@ -44,11 +44,11 @@ import org.ximtec.igesture.geco.xml.XMLGeco;
 */
 public class SaveProjectAction extends BasicAction {
 
-  private GecoMainView mainView;
+  private MainView mainView;
 
 
-  public SaveProjectAction(GecoMainView mainView) {
-     super(GecoConstants.SAVE_PROJECT_ACTION, GuiTool.getGuiBundle());
+  public SaveProjectAction(MainView mainView) {
+     super(Constant.SAVE_PROJECT_ACTION, GuiTool.getGuiBundle());
      this.mainView = mainView;
   }
 
@@ -64,7 +64,7 @@ public class SaveProjectAction extends BasicAction {
   } // actionPerformed
   
   public void save(){
-     GecoMainModel model = mainView.getModel();
+     MainModel model = mainView.getModel();
      XMLGeco.exportProject(model.mappingTable.values(), model.getGestureSet(), 
            model.getGestureSetFileName(), model.getProjectFile());
      //update model

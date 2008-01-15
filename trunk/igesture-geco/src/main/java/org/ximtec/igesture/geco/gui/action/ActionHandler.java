@@ -1,5 +1,5 @@
 /*
- * @(#)GecoActionHandler.java	1.0   Nov 22, 2007
+ * @(#)ActionHandler.java	1.0   Nov 22, 2007
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
@@ -28,7 +28,7 @@ package org.ximtec.igesture.geco.gui.action;
 
 import javax.swing.Action;
 
-import org.ximtec.igesture.geco.gui.GecoMainView;
+import org.ximtec.igesture.geco.gui.MainView;
 
 
 
@@ -39,9 +39,9 @@ import org.ximtec.igesture.geco.gui.GecoMainView;
  * @version 0.9, Nov 22, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public class GecoActionHandler {
+public class ActionHandler {
 
-   private GecoMainView view;
+   private MainView view;
 
    private OpenProjectAction openGestureMapAction;
    private ExitApplicationAction exitApplicationAction;
@@ -52,13 +52,13 @@ public class GecoActionHandler {
    private RemoveMappingAction removeMappingAction;
    private SaveProjectAction saveProjectAction;
    private MinimizeAction minimizeAction;
-   private GecoAboutAction aboutAction;
-   private GecoOptionsAction optionsAction;;
+   private AboutAction aboutAction;
+   private OptionsAction optionsAction;;
    
    private static final String ABOUT_HTML = "about.html";
 
 
-   public GecoActionHandler(GecoMainView view) {
+   public ActionHandler(MainView view) {
       this.view = view;
    } // GecoActionHandler
 
@@ -144,7 +144,7 @@ public class GecoActionHandler {
    
    public Action getAboutAction() {
       if (aboutAction == null) {
-         aboutAction = new GecoAboutAction(ABOUT_HTML);
+         aboutAction = new AboutAction(ABOUT_HTML);
       }
 
       return aboutAction;
@@ -153,7 +153,7 @@ public class GecoActionHandler {
    
    public Action getOptionsAction() {
       if (optionsAction == null) {
-         optionsAction = new GecoOptionsAction(view);
+         optionsAction = new OptionsAction(view);
       }
 
       return optionsAction;

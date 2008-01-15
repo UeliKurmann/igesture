@@ -34,8 +34,8 @@ import javax.swing.JOptionPane;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.geco.gui.GecoConstants;
-import org.ximtec.igesture.geco.gui.GecoMainView;
+import org.ximtec.igesture.geco.gui.Constant;
+import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 
@@ -51,13 +51,13 @@ public class LoadGestureSetAction extends BasicAction {
    
    
 
-   private GecoMainView mainView;
+   private MainView mainView;
    
    private static final String XML_EXTENSION = "xml";
 
 
-   public LoadGestureSetAction(GecoMainView mainView) {
-      super(GecoConstants.LOAD_GESTURE_SET, GuiTool.getGuiBundle());
+   public LoadGestureSetAction(MainView mainView) {
+      super(Constant.LOAD_GESTURE_SET, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
 
@@ -73,7 +73,7 @@ public class LoadGestureSetAction extends BasicAction {
       if(!mainView.getModel().mappingTable.isEmpty()){
       n = JOptionPane.showConfirmDialog(
             mainView,
-            GecoConstants.LOAD_GESTURE_SET_CONFIRMATION,
+            Constant.LOAD_GESTURE_SET_CONFIRMATION,
             "",
             JOptionPane.YES_NO_OPTION);
       }

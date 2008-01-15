@@ -48,10 +48,10 @@ import javax.swing.border.TitledBorder;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicDialog;
-import org.ximtec.igesture.geco.GecoConfiguration;
-import org.ximtec.igesture.geco.GecoMain;
-import org.ximtec.igesture.geco.gui.GecoConstants;
-import org.ximtec.igesture.geco.gui.GecoMainView;
+import org.ximtec.igesture.geco.Configuration;
+import org.ximtec.igesture.geco.Geco;
+import org.ximtec.igesture.geco.gui.Constant;
+import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 
 
@@ -65,22 +65,22 @@ import org.ximtec.igesture.geco.xml.XMLGeco;
 public class OptionsDialog extends BasicDialog{
    
    
-   private GecoMainView view;
-   private GecoConfiguration configuration;
+   private MainView view;
+   private Configuration configuration;
  
    
    private int DIALOG_WIDTH = 200;
    private int DIALOG_HEIGHT = 300;
    
-   private JRadioButton mouseButton = new JRadioButton(GecoConstants.MOUSE);
-   private JRadioButton wacomButton = new JRadioButton(GecoConstants.WACOM);
+   private JRadioButton mouseButton = new JRadioButton(Constant.MOUSE);
+   private JRadioButton wacomButton = new JRadioButton(Constant.WACOM);
    private Hashtable hashTable = new Hashtable();
    private String selectedDeviceName;
    private ButtonGroup group = new ButtonGroup();
 
 
    
-   public OptionsDialog(GecoMainView view){
+   public OptionsDialog(MainView view){
       this.view=view;
       setModal(true);
       init();
@@ -92,8 +92,8 @@ public class OptionsDialog extends BasicDialog{
    private void init(){
       JPanel mainPanel = new JPanel();
       this.setResizable(false);
-      mainPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GecoConstants.SELECT_INPUT_DEVICE));
-      this.setTitle(GecoConstants.OPTIONS_DIALOG_TITLE);
+      mainPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), Constant.SELECT_INPUT_DEVICE));
+      this.setTitle(Constant.OPTIONS_DIALOG_TITLE);
       mainPanel.setLayout(new GridBagLayout());
       this.setLayout(new GridBagLayout());
       Point p = new Point(view.getLocation().x+100, view.getLocation().y+100);
@@ -126,9 +126,9 @@ public class OptionsDialog extends BasicDialog{
             new GridBagConstraints(0,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,
             new Insets(30,30,30,15),0,0 ) );
       
-      JButton okButton = GuiTool.createButton(GecoConstants.OK);
+      JButton okButton = GuiTool.createButton(Constant.OK);
       okButton.addActionListener(new OkListener());
-      JButton cancelButton = GuiTool.createButton(GecoConstants.CANCEL);
+      JButton cancelButton = GuiTool.createButton(Constant.CANCEL);
       cancelButton.addActionListener(new CancelListener());
       
       JPanel buttonPanel = new JPanel();
@@ -193,9 +193,9 @@ public class OptionsDialog extends BasicDialog{
            
             
             try {
-               confFile = new File(ClassLoader.getSystemResource(GecoMain.GECO_CONFIGURATION).toURI());
+               confFile = new File(ClassLoader.getSystemResource(Geco.GECO_CONFIGURATION).toURI());
             } catch(URISyntaxException ex) {
-               confFile = new File(ClassLoader.getSystemResource(GecoMain.GECO_CONFIGURATION).getPath());
+               confFile = new File(ClassLoader.getSystemResource(Geco.GECO_CONFIGURATION).getPath());
             }
             
             XMLGeco.exportGestureConfiguration(devices, arr, confFile);
