@@ -1,5 +1,5 @@
 /*
- * @(#)AddMappingAction.java	1.0   Nov 19, 2007
+ * @(#)ShowMappingDialogAction.java	1.0   Nov 19, 2007
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
@@ -67,6 +67,6 @@ public class ShowMappingDialogAction extends BasicAction {
       currentGesture = mainView.getSelectedClass();
       mainView.getComponentHandler().getMappingDialog().showDialog(
             currentGesture);
-   } // actionPerformed¨
+   } // actionPerformed
 
 }

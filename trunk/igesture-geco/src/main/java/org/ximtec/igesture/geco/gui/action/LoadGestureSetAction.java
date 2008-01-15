@@ -1,9 +1,9 @@
 /*
  * @(#)ActionLoadGestureSet.java	1.0   Nov 20, 2007
  *
- * Author		:	 Michele Croci, mcroci@gmail.com
+ * Author		:	Michele Croci, mcroci@gmail.com
  *
- * Purpose		:   Load a gesture set
+ * Purpose		:   Loads a gesture set
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * 	 Nov 20, 2007	crocimi		Initial Release
+ * Nov 15, 2007     crocimi     Initial Release
+ * Jan 15, 2008     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -33,6 +34,7 @@ import javax.swing.JOptionPane;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
+import org.sigtec.util.MIME;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
@@ -40,76 +42,82 @@ import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 
 
-
 /**
- * Load a gesture set
+ * Loads a gesture set
  * 
  * @version 0.9, Nov 20, 2007
- * @author  Michele Croci, mcroci@gmail.com
+ * @author Michele Croci, mcroci@gmail.com
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class LoadGestureSetAction extends BasicAction {
-   
-   
+
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "LoadGestureSetAction";
 
    private MainView mainView;
-   
-   private static final String XML_EXTENSION = "xml";
 
 
    public LoadGestureSetAction(MainView mainView) {
-      super(Constant.LOAD_GESTURE_SET, GuiTool.getGuiBundle());
+      super(KEY, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
 
 
    /**
-    * Open a dialog to allow the user to choose a gesture set.
+    * Opens a dialog to allow the user to choose a gesture set.
     * 
     * @param event the action event.
     */
    public void actionPerformed(ActionEvent event) {
-      //ask confirm
-      int n=0;
-      if(!mainView.getModel().getMappings().isEmpty()){
-      n = JOptionPane.showConfirmDialog(
-            mainView,
-            Constant.LOAD_GESTURE_SET_CONFIRMATION,
-            Constant.EMPTY_STRING,
-            JOptionPane.YES_NO_OPTION);
+      // ask confirm
+      int n = 0;
+      if (!mainView.getModel().getMappings().isEmpty()) {
+         n = JOptionPane.showConfirmDialog(mainView,
+               Constant.LOAD_GESTURE_SET_CONFIRMATION, Constant.EMPTY_STRING,
+               JOptionPane.YES_NO_OPTION);
       }
-      if (n==0){
+      if (n == 0) {
          JFileChooser fileChooser = new JFileChooser();
-         fileChooser.setFileFilter(new ExtensionFileFilter(XML_EXTENSION,
-               new String[] {XML_EXTENSION}));
+         fileChooser.setFileFilter(new ExtensionFileFilter(MIME
+               .getExtension(MIME.XML), new String[] { MIME
+               .getExtension(MIME.XML) }));
          int status = fileChooser.showOpenDialog(null);
          if (status == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            if(selectedFile != null){
-               String ext = selectedFile.getName().substring(selectedFile.getName().length()-3,
+            if (selectedFile != null) {
+               String ext = selectedFile.getName().substring(
+                     selectedFile.getName().length() - 3,
                      selectedFile.getName().length());
-               if(ext.equals(XML_EXTENSION)){
-                   //update model
-                   mainView.getModel().clearData();
-                   mainView.getModel().loadGestureSet(loadGestureSet(selectedFile));
-                   mainView.getModel().setGestureSetFileName(selectedFile.getAbsolutePath());
-                   //update view
-                   mainView.updateGestureList();
-                   mainView.enableSaveButton();
-                }
+               if (ext.equals(MIME.getExtension(MIME.XML))) {
+                  // update model
+                  mainView.getModel().clearData();
+                  mainView.getModel().loadGestureSet(
+                        loadGestureSet(selectedFile));
+                  mainView.getModel().setGestureSetFileName(
+                        selectedFile.getAbsolutePath());
+                  // update view
+                  mainView.updateGestureList();
+                  mainView.enableSaveButton();
+               }
+
             }
+
          }
+
       }
-         
+
    } // actionPerformed
-   
-   
+
+
    /**
-    * Open a dialog to allow the user to choose a gesture set.
+    * Loads the gesture set.
     * 
-    * @param event the action event.
+    * @param file the file containing the gesture set to be loaded.
     */
-   public GestureSet loadGestureSet(File file){
-     return XMLGeco.importGestureSet(file).get(0); 
-   }
+   public GestureSet loadGestureSet(File file) {
+      return XMLGeco.importGestureSet(file).get(0);
+   } // loadGestureSet
 
 }
