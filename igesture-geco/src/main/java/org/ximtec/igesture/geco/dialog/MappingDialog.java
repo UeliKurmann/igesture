@@ -105,7 +105,7 @@ public class MappingDialog extends BasicDialog {
     * @param gc the gesture to be mapped.
     */
    public void showDialog(GestureClass gc) {
-      gestureMapping = view.getModel().mappingTable.getMapping(gc);
+      gestureMapping = view.getModel().getMappings().get(gc);
       gestureClass = gc;
       initValues();
       this.setVisible(true);
@@ -196,8 +196,8 @@ public class MappingDialog extends BasicDialog {
             // update model
             addGestureMappingToTable();
             view.getModel().addMapping(
-                  MappingDialog.this.view.getModel().mappingTable
-                        .getMapping(gestureClass));
+                  MappingDialog.this.view.getModel().getMappings().get(
+                        gestureClass));
             // update view
             view.updateLists();
             view.enableSaveButton();
@@ -261,12 +261,12 @@ public class MappingDialog extends BasicDialog {
 
          GestureToActionMapping mapping = new GestureToActionMapping(
                gestureClass, new KeyboardSimulation(hotkeyView.getAllKeys()));
-         view.getModel().mappingTable.addMapping(gestureClass, mapping);
+         view.getModel().getMappings().put(gestureClass, mapping);
       }
       else if (tabbedPane.getSelectedIndex() == COMMAND) {
          GestureToActionMapping mapping = new GestureToActionMapping(
                gestureClass, new CommandExecutor(commandView.getCommand()));
-         view.getModel().mappingTable.addMapping(gestureClass, mapping);
+         view.getModel().getMappings().put(gestureClass, mapping);
       }
    }// addGestureMappingToTable
 
