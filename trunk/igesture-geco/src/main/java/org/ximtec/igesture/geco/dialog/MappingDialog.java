@@ -153,7 +153,7 @@ public class MappingDialog extends BasicDialog {
     * Init the Dialog
     */
    private void initDialog() {
-
+      this.setResizable(false);
       this.setTitle(GuiTool.getGuiBundle().getName(Constant.GESTURE_MAPPING_TITLE));
       this.setLayout(new GridBagLayout());
       this.add(tabbedPane, new GridBagConstraints(0, 1, 1, 1, 1, 1,

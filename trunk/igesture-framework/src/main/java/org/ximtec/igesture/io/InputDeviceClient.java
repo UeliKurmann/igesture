@@ -34,6 +34,7 @@ import org.sigtec.ink.Note;
 import org.sigtec.ink.TraceTool;
 import org.sigtec.ink.input.TimestampedInputEvent;
 import org.sigtec.ink.input.TimestampedLocation;
+import org.sigtec.input.AbstractInputDevice;
 import org.sigtec.input.BufferedInputDeviceEventListener;
 import org.sigtec.input.InputDevice;
 import org.sigtec.input.InputDeviceEvent;
@@ -90,6 +91,31 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
       }
 
    } // init
+   
+   
+   /**
+    * Reset the input device client.
+    */
+   public void reset() {
+      listener.removeInputHandler(this);
+      inputDevice.removeInputDeviceEventListener(listener);
+      inputDevice.removeInputDeviceEventListener(this);
+
+      if (inputDevice instanceof ButtonDevice) {
+         ((ButtonDevice)inputDevice).removeButtonDeviceEventListener(this);
+      }
+
+      if (inputDevice instanceof InputDeviceEventListener) {
+         ((InputDeviceEventListener)inputDevice).removeInputHandler(this);
+      }
+      
+
+      if (inputDevice instanceof AbstractInputDevice) {
+         ((AbstractInputDevice)inputDevice).stopLoop();
+      }
+
+   } // init
+
 
 
    /**

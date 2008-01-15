@@ -33,16 +33,19 @@ import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTabbedPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
@@ -51,6 +54,7 @@ import org.sigtec.graphix.widget.BasicDialog;
 import org.ximtec.igesture.geco.Configuration;
 import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.Constant;
+import org.ximtec.igesture.geco.gui.HotKeyView;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 
@@ -69,14 +73,17 @@ public class OptionsDialog extends BasicDialog{
    private Configuration configuration;
  
    
-   private int DIALOG_WIDTH = 200;
-   private int DIALOG_HEIGHT = 300;
+   private int DIALOG_WIDTH = 350;
+   private int DIALOG_HEIGHT = 450;
    
-   private JRadioButton mouseButton = new JRadioButton(Constant.MOUSE);
-   private JRadioButton wacomButton = new JRadioButton(Constant.WACOM);
+   private int INPUTDEVICE = 0;
+   
    private Hashtable hashTable = new Hashtable();
    private String selectedDeviceName;
    private ButtonGroup group = new ButtonGroup();
+   
+   // GUI elements
+   private JTabbedPane tabbedPane = new JTabbedPane();
 
 
    
@@ -90,53 +97,40 @@ public class OptionsDialog extends BasicDialog{
     * Inits the dialog.
     */
    private void init(){
-      JPanel mainPanel = new JPanel();
+      //JPanel mainPanel = new JPanel();
       this.setResizable(false);
-      mainPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), Constant.SELECT_INPUT_DEVICE));
+      //mainPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), Constant.SELECT_INPUT_DEVICE));
       this.setTitle(Constant.OPTIONS_DIALOG_TITLE);
-      mainPanel.setLayout(new GridBagLayout());
+      this.setLayout(new GridBagLayout());
       this.setLayout(new GridBagLayout());
       Point p = new Point(view.getLocation().x+100, view.getLocation().y+100);
       this.setLocation(p);
       this.setSize(new Dimension( DIALOG_WIDTH, DIALOG_HEIGHT ));
 
     
-      this.add(mainPanel,
-            new GridBagConstraints(0,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,
-                  new Insets(20,20,20,20),0,0 ) );
+    //  this.add(mainPanel,
+     //       new GridBagConstraints(0,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,
+       //           new Insets(20,20,20,20),0,0 ) );
       
       
+      addFirstTab();
 
-      //Creates the radio buttons.
-      JPanel radioButtonPanel = new JPanel();
-      radioButtonPanel.setLayout(new GridBagLayout());
-      List<String> devices = view.getModel().getGestureConfiguration().getInputDevices();
-      for(int i=0; i<devices.size();i++){
-         JRadioButton button = new JRadioButton(devices.get(i));
-         button.setActionCommand(devices.get(i));
-         group.add(button);
-         radioButtonPanel.add( button,
-               new GridBagConstraints(0,i,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,
-               new Insets(10,0,0,0),0,0 ) );
-         hashTable.put(devices.get(i),button);
-        
-      }
       
-      mainPanel.add(radioButtonPanel,
-            new GridBagConstraints(0,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,
+      this.add(tabbedPane,
+            new GridBagConstraints(0,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
             new Insets(30,30,30,15),0,0 ) );
       
-      JButton okButton = GuiTool.createButton(Constant.OK);
-      okButton.addActionListener(new OkListener());
+      JButton saveButton = GuiTool.createButton(Constant.SAVE);
+      saveButton.addActionListener(new OkListener());
       JButton cancelButton = GuiTool.createButton(Constant.CANCEL);
       cancelButton.addActionListener(new CancelListener());
       
       JPanel buttonPanel = new JPanel();
       buttonPanel.setLayout(new GridLayout(1,1, 20, 0));
-      buttonPanel.add(okButton);
+      buttonPanel.add(saveButton);
       buttonPanel.add(cancelButton);
       this.add(buttonPanel,  
-            new GridBagConstraints(0,2,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,
+            new GridBagConstraints(0,2,1,1,0,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
             new Insets(10,10,10,10),0,0 ) );
    }//init
    
@@ -155,21 +149,45 @@ public class OptionsDialog extends BasicDialog{
    public void reset(){
       configuration = view.getModel().getGestureConfiguration();
       selectedDeviceName = configuration.getInputDeviceName();
-      //InputDevice device = configuration.getInputDevice();
       JRadioButton button = (JRadioButton)hashTable.get(configuration.getInputDeviceName());
-      Enumeration buttons = group.getElements();
-      
-      
       button.setSelected(true);
-      /*
-      if(device instanceof MouseReader){
-         mouseButton.setSelected(true);
-      }else if(device instanceof WacomReader){
-         wacomButton.setSelected(true);
-      }
-      */
-      
    }//reset
+   
+   
+   
+   /**
+    * Add the first tab to the dialog
+    * 
+    */
+   private void addFirstTab() {
+      JPanel aPanel = new JPanel();
+      //aPanel.setBorder(new TitledBorder(new BevelBorder(0, Color.gray,
+        //    Color.gray), Constant.INPUT_DEVICE));
+      aPanel.setLayout(new GridLayout(1, 1));
+      
+      //Creates the radio buttons.
+      JPanel radioButtonPanel = new JPanel();
+      radioButtonPanel.setLayout(new GridBagLayout());
+      List<String> devices = view.getModel().getGestureConfiguration().getInputDevices();
+      for(int i=0; i<devices.size();i++){
+         JRadioButton button = new JRadioButton(devices.get(i));
+         button.setActionCommand(devices.get(i));
+         group.add(button);
+         radioButtonPanel.add(button,i);
+               
+         radioButtonPanel.add( button,
+               new GridBagConstraints(0,i,1,1,1,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
+               new Insets(50,0,0,50),0,0 ) );
+         hashTable.put(devices.get(i),button);
+        
+      }
+      
+      aPanel.add(radioButtonPanel);
+      
+      tabbedPane.addTab(Constant.INPUT_DEVICE, aPanel);
+      tabbedPane.setMnemonicAt(INPUTDEVICE, KeyEvent.VK_1);
+
+   } // addFirstTab
    
    
    
@@ -180,7 +198,7 @@ public class OptionsDialog extends BasicDialog{
       public void actionPerformed(ActionEvent e){
          
          String newSelDevice = group.getSelection().getActionCommand();
-         if(!newSelDevice.equals(configuration.getInputDevice())){
+         if(!newSelDevice.equals(configuration.getInputDeviceName())){
             List<String> devices = configuration.getInputDevices();
             boolean arr[]=new boolean[devices.size()]; 
             for(int i=0;i<devices.size();i++){
@@ -199,20 +217,18 @@ public class OptionsDialog extends BasicDialog{
             }
             
             XMLGeco.exportGestureConfiguration(devices, arr, confFile);
+            
+            view.getModel().resetInputDevice();
+            view.getModel().setGestureConfiguration(new Configuration(confFile.getName()));
+            view.getModel().configureInputDevice();
          }
-         
       
          
-         System.out.println();
-         //SE la device è stata cambiata
-         //-> aggiorna l'XML
-         //- >aggiorna il model & la clien device
-         //altrimenti non fare niente!
+         
          
         // view.getModel().setGestureConfiguration();
          OptionsDialog.this.dispose();
-      }//actionPerformed
-      
+      }
    }
    
    

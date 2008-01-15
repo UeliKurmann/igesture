@@ -73,11 +73,10 @@ public class WacomUtils{
 
              public LRESULT callback(int code, WPARAM wParam, LPARAM lParam) {
                 PACKET p = getPacket();
-                if(p!=null){
+                if((p!=null)&&(p.pkStatus==2)){
                     fireEvent(p);
                 }
                 return User32.INSTANCE.CallNextHookEx(handle, code, wParam, lParam);
-                
              }
           };
          // handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_MOUSE_LL, msListener,
@@ -153,7 +152,7 @@ public class WacomUtils{
           
           PACKET p = new PACKET();
           lib.WTPacketsGet(hdc, 1,p);
-          lib.WTPacketsGet(hdc, 10,arr);//discard 10 pakcets
+          lib.WTPacketsGet(hdc, 3,arr);//discard 3 pakcets
           return p;
 
         } 

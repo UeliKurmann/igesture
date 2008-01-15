@@ -95,14 +95,6 @@ public class MainModel implements ButtonDeviceEventListener {
     */
    public MainModel(org.ximtec.igesture.configuration.Configuration conf,
          Configuration gestConf) {
-      // loadData(engine);
-      /*
-       * this.configuration = configuration;
-       * this.configuration.setEventManager(eventManager); GestureSet gestureSet =
-       * XMLGeco.importGestureSet( new
-       * File(ClassLoader.getSystemResource(GESTURE_SET).getFile())).get(0);
-       * configuration.addGestureSet(gestureSet);
-       */
       this.configuration = conf;
       this.gestureConfiguration = gestConf;
       configureInputDevice();
@@ -404,10 +396,19 @@ public class MainModel implements ButtonDeviceEventListener {
    /**
     * Configure Input Client
     */
-   public void configureInputDevice() {
-      client = new InputDeviceClient(gestureConfiguration.getInputDevice(),
-            gestureConfiguration.getInputDeviceEventListener());
-
+   public void resetInputDevice() {
+      if(client!=null){
+         client.reset();
+      }
+   }
+   
+   public void configureInputDevice(){
+         client = new InputDeviceClient(gestureConfiguration.getInputDevice(),
+               gestureConfiguration.getInputDeviceEventListener());
+       //  client.addButtonDeviceEventListener(this);
+     if(recogniser!=null){
+        client.addButtonDeviceEventListener(this);
+     }
    }
 
 
@@ -424,7 +425,6 @@ public class MainModel implements ButtonDeviceEventListener {
     */
    public void setGestureConfiguration(Configuration conf) {
       gestureConfiguration = conf;
-      configureInputDevice();
    }
 
 }
