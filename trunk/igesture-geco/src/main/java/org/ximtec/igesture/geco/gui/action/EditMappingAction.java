@@ -33,38 +33,34 @@ import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 
+
 /**
-*  Map gesture to custom action
-* 
-* @version 1.0, Nov 2006
-* @author Michele Croci, mcroci@gmail.com
-*/
+ * Map gesture to custom action
+ * 
+ * @version 1.0, Nov 2006
+ * @author Michele Croci, mcroci@gmail.com
+ */
 public class EditMappingAction extends BasicAction {
 
-  private MainView mainView;
-  private GestureToActionMapping currentMapping;
- 
-
-  public EditMappingAction(MainView mainView) {
-     super(Constant.EDIT, GuiTool.getGuiBundle());
-     this.mainView = mainView;
-  }
+   private MainView mainView;
+   private GestureToActionMapping currentMapping;
 
 
-  /**
-   * Show a dialog
-   * 
-   * @param event the action event.
-   */
-  public void actionPerformed(ActionEvent event) {
-     currentMapping = mainView.getSelectedMapping();
-     mainView.getComponentHandler().getMappingDialog().showDialog(currentMapping.getGestureClass());
+   public EditMappingAction(MainView mainView) {
+      super(Constant.EDIT, GuiTool.getGuiBundle());
+      this.mainView = mainView;
+   }
 
-  } // actionPerformed
-  
-     
-     
-  }
-  
-  
- 
+
+   /**
+    * Show a dialog
+    * 
+    * @param event the action event.
+    */
+   public void actionPerformed(ActionEvent event) {
+      currentMapping = mainView.getSelectedMapping();
+      mainView.getComponentHandler().getMappingDialog().showDialog(
+            currentMapping.getGestureClass());
+   } // actionPerformed
+
+}
