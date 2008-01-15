@@ -74,7 +74,7 @@ public class LoadGestureSetAction extends BasicAction {
       n = JOptionPane.showConfirmDialog(
             mainView,
             Constant.LOAD_GESTURE_SET_CONFIRMATION,
-            "",
+            Constant.EMPTY_STRING,
             JOptionPane.YES_NO_OPTION);
       }
       if (n==0){

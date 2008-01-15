@@ -29,6 +29,7 @@ import java.io.IOException;
 
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.EventHandler;
+import org.ximtec.igesture.geco.gui.Constant;
 
 
 
@@ -58,7 +59,7 @@ public class CommandExecutor implements EventHandler{
     */
    public void run(ResultSet resultSet) {
       try{
-         if ((command!=null)&&(!command.equals("")))
+         if ((command!=null)&&(!command.equals(Constant.EMPTY_STRING)))
             Runtime.getRuntime().exec(command);
       }
       catch(IOException ioe){
