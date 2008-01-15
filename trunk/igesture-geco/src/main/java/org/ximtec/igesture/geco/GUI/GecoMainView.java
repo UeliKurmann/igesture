@@ -67,7 +67,7 @@ import org.ximtec.igesture.tool.GestureConstants;
 /**
  * GUI for the gesture controller application.
  * 
- * @version 0.9,, Nov 2007
+ * @version 0.9, Nov 2007
  * @author Michele Croci, mcroci@gmail.com
  * @author Beat Signer, signer@inf.ethz.ch
  */
