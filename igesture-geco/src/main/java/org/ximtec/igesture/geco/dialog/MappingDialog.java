@@ -43,12 +43,13 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.geco.gui.CommandView;
 import org.ximtec.igesture.geco.gui.Constant;
-import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.gui.HotKeyView;
+import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.userAction.CommandExecutor;
 import org.ximtec.igesture.geco.userAction.KeyboardSimulation;
@@ -153,7 +154,7 @@ public class MappingDialog extends BasicDialog {
     */
    private void initDialog() {
 
-      this.setTitle(Constant.MAIN_FRAME_TITLE);
+      this.setTitle(GuiTool.getGuiBundle().getName(Constant.GESTURE_MAPPING_TITLE));
       this.setLayout(new GridBagLayout());
       this.add(tabbedPane, new GridBagConstraints(0, 1, 1, 1, 1, 1,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(20,
