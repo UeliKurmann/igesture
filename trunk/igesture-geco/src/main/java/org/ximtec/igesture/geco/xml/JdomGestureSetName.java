@@ -26,7 +26,6 @@
 package org.ximtec.igesture.geco.xml;
 
 import org.jdom.Element;
-import org.ximtec.igesture.core.GestureSet;
 
 
 

@@ -30,7 +30,7 @@
  * @author Michele Croci, mcroci@gmail.com
  */
 
-package org.ximtec.igesture.geco.UserAction1;
+package org.ximtec.igesture.geco.userAction;
 
 import java.util.ArrayList;
 import java.util.List;

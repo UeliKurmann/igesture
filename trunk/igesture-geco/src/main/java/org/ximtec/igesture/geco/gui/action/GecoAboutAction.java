@@ -23,7 +23,7 @@
  */
 
 
-package org.ximtec.igesture.geco.GUI1.action;
+package org.ximtec.igesture.geco.gui.action;
 
 import java.awt.event.ActionEvent;
 

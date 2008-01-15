@@ -41,7 +41,6 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
-import org.sigtec.input.InputDevice;
 import org.sigtec.jdom.JdomDocument;
 import org.sigtec.jdom.id.Factory;
 import org.sigtec.util.Constant;
@@ -51,7 +50,6 @@ import org.ximtec.igesture.configuration.jdom.JdomConfiguration;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.jdom.JdomGestureSet;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
-import org.ximtec.igesture.tool.GestureConfiguration;
 import org.xml.sax.InputSource;
 
 

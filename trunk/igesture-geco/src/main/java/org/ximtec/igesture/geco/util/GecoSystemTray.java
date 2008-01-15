@@ -39,8 +39,8 @@ import java.awt.event.MouseListener;
 
 import org.sigtec.graphix.IconTool;
 import org.sigtec.util.Decorator;
-import org.ximtec.igesture.geco.GUI1.GecoConstants;
-import org.ximtec.igesture.geco.GUI1.GecoMainView;
+import org.ximtec.igesture.geco.gui.GecoConstants;
+import org.ximtec.igesture.geco.gui.GecoMainView;
 
 
 /**

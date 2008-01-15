@@ -47,14 +47,13 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import org.sigtec.graphix.GuiTool;
-import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.graphix.widget.BasicTextField;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.geco.GUI1.GecoConstants;
-import org.ximtec.igesture.geco.GUI1.GecoMainModel;
-import org.ximtec.igesture.geco.GUI1.GecoMainView;
-import org.ximtec.igesture.geco.GUI1.action.SaveProjectAction;
+import org.ximtec.igesture.geco.gui.GecoConstants;
+import org.ximtec.igesture.geco.gui.GecoMainModel;
+import org.ximtec.igesture.geco.gui.GecoMainView;
+import org.ximtec.igesture.geco.gui.action.SaveProjectAction;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 import org.ximtec.igesture.graphics.SwingTool;
 

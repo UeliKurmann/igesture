@@ -24,7 +24,7 @@
  */
 
 
-package org.ximtec.igesture.geco.GUI1;
+package org.ximtec.igesture.geco.gui;
 
 import org.ximtec.igesture.geco.dialog.MappingDialog;
 import org.ximtec.igesture.geco.dialog.NewProjectDialog;
