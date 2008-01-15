@@ -102,9 +102,9 @@ public class NewProjectDialog extends BasicDialog {
       this.setLocation(p);
       this.setSize(new Dimension(DIALOG_WIDTH, DIALOG_HEIGHT));
 
-      mainPanel.add(GuiTool.createLabel(Constant.PROJECT_NAME),
-            new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
-                  GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
+      mainPanel.add(GuiTool.createLabel(Constant.PROJECT_NAME), new GridBagConstraints(0, 0, 1,
+            1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
+            new Insets(10, 10, 10, 10), 0, 0));
 
       projectTextField = GuiTool
             .createTextField(Constant.PROJECT_NAME_TEXT_FIELD);
