@@ -41,6 +41,8 @@ public class Constant extends org.sigtec.util.Constant {
 
    public static final String FILE_MENU = "FileMenu";
 
+   public static final String GESTURE_MAPPING_TITLE = "GestureMappingTitle";
+   
    public static final String MAP_GESTURE = "MapGesture";
 
    public static final String NEW_PROJECT_TITLE = "Create a new project";
@@ -55,7 +57,7 @@ public class Constant extends org.sigtec.util.Constant {
 
    public static final String COMMAND = "Command";
 
-   public static final String MAIN_FRAME_TITLE = "mainFrame";
+   //public static final String MAIN_FRAME_TITLE = "mainFrame";
 
    public static final String SAVE_DIALOG_TITLE = "Would you like to save the changes before closing?";
 
