@@ -33,7 +33,7 @@ import org.ximtec.igesture.core.GestureClass;
 /**
  * XML jdom element for igesture
  * 
- * @version 1.0 Nov 29, 2007
+ * @version 0.9, Nov 29, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
 public class JdomGestureElement extends Element {

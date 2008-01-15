@@ -53,7 +53,7 @@ import org.ximtec.igesture.tool.GestureConfiguration;
 
 /**
  * Comment
- * @version 1.0 Nov 20, 2007
+ * @version 0.9, Nov 20, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
 public class GecoMainModel implements ButtonDeviceEventListener{

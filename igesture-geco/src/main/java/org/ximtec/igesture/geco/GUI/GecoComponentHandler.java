@@ -36,7 +36,7 @@ import org.ximtec.igesture.geco.dialog.OptionsDialog;
 
 /**
  * Provides access to available actions. Each action is instantiated only once.
- * @version 1.0 Nov 22, 2007
+ * @version 0.9, Nov 22, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
 public class GecoComponentHandler {

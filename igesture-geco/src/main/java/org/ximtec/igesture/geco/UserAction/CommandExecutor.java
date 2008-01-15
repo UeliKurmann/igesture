@@ -35,7 +35,7 @@ import org.ximtec.igesture.io.Win32KeyboardProxy;
 
 /**
  * Comment
- * @version 1.0 Dec 6, 2007
+ * @version 0.9, Dec 6, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
 public class CommandExecutor implements EventHandler{

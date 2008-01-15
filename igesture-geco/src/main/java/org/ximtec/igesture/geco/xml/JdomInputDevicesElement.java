@@ -38,7 +38,7 @@ import org.ximtec.igesture.tool.GestureConfiguration;
 /**
  * XML support for the <inputdevices> element.
  * 
- * @version 1.0 Jan 15, 2008
+ * @version 0.9, Jan 15, 2008
  * @author Michele Croci, mcroci@gmail.com
  */
 public class JdomInputDevicesElement extends Element {

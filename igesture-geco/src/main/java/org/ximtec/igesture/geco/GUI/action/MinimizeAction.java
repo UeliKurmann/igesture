@@ -37,7 +37,7 @@ import org.ximtec.igesture.geco.GUI.GecoMainView;
 /**
  * Minimizes the application.
  * 
- * @version 1.0, Nov 15, 2006
+ * @version 0.9,, Nov 15, 2006
  * @author  Michele Croci, mcroci@gmail.com
  */
 

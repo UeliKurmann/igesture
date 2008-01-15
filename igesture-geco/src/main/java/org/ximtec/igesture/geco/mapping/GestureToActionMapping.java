@@ -33,7 +33,7 @@ import org.ximtec.igesture.event.EventHandler;
 /**
  * Interface describing general Action for Gesture mapping
  * 
- * @version 1.0 Nov 19, 2007
+ * @version 0.9, Nov 19, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
 public class GestureToActionMapping {

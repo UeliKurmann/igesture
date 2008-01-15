@@ -42,7 +42,7 @@ import javax.swing.border.TitledBorder;
 
 /**
  *  View for the defined command
- * @version 1.0 Dec 11, 2007
+ * @version 0.9, Dec 11, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
 public class CommandView extends JPanel{

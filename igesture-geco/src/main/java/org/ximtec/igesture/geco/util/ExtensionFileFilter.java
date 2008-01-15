@@ -35,7 +35,7 @@ import javax.swing.filechooser.FileFilter;
 /**
  * General FileFilter based on file extension
  * 
- * @version 1.0 Nov 15, 2007
+ * @version 0.9, Nov 15, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
 public class ExtensionFileFilter extends FileFilter {

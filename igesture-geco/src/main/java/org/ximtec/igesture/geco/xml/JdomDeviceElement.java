@@ -33,7 +33,7 @@ import org.jdom.Element;
 /**
  * XML support for the <device> element.
  * 
- * @version 1.0 Jan 15, 2008
+ * @version 0.9, Jan 15, 2008
  * @author Michele Croci, mcroci@gmail.com
  */
 public class JdomDeviceElement extends Element {

@@ -36,7 +36,7 @@ import org.ximtec.igesture.geco.GUI.GecoMainView;
 
 /**
  * Comment
- * @version 1.0 Nov 26, 2007
+ * @version 0.9, Nov 26, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
 public class RemoveMappingAction extends BasicAction {

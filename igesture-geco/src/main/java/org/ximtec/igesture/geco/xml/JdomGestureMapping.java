@@ -40,7 +40,7 @@ import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 /**
  * XML support for the <gestureMapping> element.
  * 
- * @version 1.0 Nov 28, 2007
+ * @version 0.9, Nov 28, 2007
  * @author Michele croci, mcroci@gmail.com
  */
 public class JdomGestureMapping extends Element {

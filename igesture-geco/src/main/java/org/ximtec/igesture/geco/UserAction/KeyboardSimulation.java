@@ -26,7 +26,7 @@
 
 /**
  * Comment
- * @version 1.0 Nov 27, 2007
+ * @version 0.9, Nov 27, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
 
@@ -43,7 +43,7 @@ import org.ximtec.igesture.io.Win32KeyboardProxy;
 
 
 /**
- * @version 1.0 Mar 2007
+ * @version 0.9, Mar 2007
  * @author Michele Croci, mcroci@gmail.com
  */
 public class KeyboardSimulation implements EventHandler{

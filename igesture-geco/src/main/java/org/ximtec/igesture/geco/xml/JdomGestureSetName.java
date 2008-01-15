@@ -33,7 +33,7 @@ import org.ximtec.igesture.core.GestureSet;
 /**
  * XML support for the <gestureSet> element.
  * 
- * @version 1.0 Nov 28, 2007
+ * @version 0.9, Nov 28, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
 public class JdomGestureSetName extends Element {

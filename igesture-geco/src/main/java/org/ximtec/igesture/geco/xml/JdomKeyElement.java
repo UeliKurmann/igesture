@@ -33,7 +33,7 @@ import org.ximtec.igesture.geco.UserAction.KeyboardSimulation;
 /**
  * XML support for the <key> element.
  * 
- * @version 1.0 Nov 29, 2007
+ * @version 0.9, Nov 29, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
 public class JdomKeyElement extends Element {

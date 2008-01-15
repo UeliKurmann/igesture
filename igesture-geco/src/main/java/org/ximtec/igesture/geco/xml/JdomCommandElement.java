@@ -34,7 +34,7 @@ import org.ximtec.igesture.geco.UserAction.CommandExecutor;
 /**
  * XML support for the <command> element.
  * 
- * @version 1.0 Dec 06, 2007
+ * @version 0.9, Dec 06, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
 public class JdomCommandElement extends Element {

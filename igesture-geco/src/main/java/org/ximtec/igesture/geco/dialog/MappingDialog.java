@@ -59,7 +59,7 @@ import org.ximtec.igesture.graphics.SwingTool;
 /**
  * Dialog for mapping a gesture to an action
  * 
- * @version 1.0 Nov 26, 2007
+ * @version 0.9, Nov 26, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
 public class MappingDialog extends BasicDialog {
