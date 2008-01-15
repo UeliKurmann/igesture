@@ -36,7 +36,7 @@ import org.ximtec.igesture.geco.GUI.GecoMainView;
 
 /**
  * Action for showing preferences
- * @version 1.0 Jan 10, 2008
+ * @version 0.9, Jan 10, 2008
  * @author Michele Croci, mcroci@gmail.com
  */
 

@@ -3,7 +3,7 @@
  *
  * Author       :   Michele Croci, mcroci@mgail.com
  *
- * Purpose      :  Main class for the geco application
+ * Purpose      :   Main class for the geco application.
  *
  * -----------------------------------------------------------------------
  *
@@ -44,10 +44,11 @@ import org.ximtec.igesture.tool.GestureConfiguration;
 
 
 /**
- * Main class for the geco application
+ * Main class for the geco application.
  * 
- * @version 1.0 Nov 15, 2007
+ * @version 0.9, Nov 15, 2007
  * @author Michele Croci, mcroci@gmail.com
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class GecoMain {
 

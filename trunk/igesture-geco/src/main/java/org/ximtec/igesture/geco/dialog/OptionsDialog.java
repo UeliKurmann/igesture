@@ -63,7 +63,7 @@ import org.ximtec.igesture.tool.GestureConfiguration;
 /**
  *  Options dialog
  *  
- * @version 1.0 Dec 3, 2007
+ * @version 0.9, Dec 3, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
 public class OptionsDialog extends BasicDialog{

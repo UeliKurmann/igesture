@@ -44,7 +44,7 @@ import org.ximtec.igesture.geco.xml.XMLGeco;
 /**
  * Load a gesture set
  * 
- * @version 1.0 Nov 20, 2007
+ * @version 0.9, Nov 20, 2007
  * @author  Michele Croci, mcroci@gmail.com
  */
 public class LoadGestureSetAction extends BasicAction {

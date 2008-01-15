@@ -37,7 +37,7 @@ import javax.swing.AbstractListModel;
 
 /**
  * Provide a model for sorted JList
- * @version 1.0 Nov 22, 2007
+ * @version 0.9, Nov 22, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
 

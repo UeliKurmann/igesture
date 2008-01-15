@@ -40,7 +40,7 @@ import org.ximtec.igesture.geco.util.GecoSystemTray;
 /**
  * Terminates the application.
  * 
- * @version 1.0, Nov 15, 2006
+ * @version 0.9,, Nov 15, 2006
  * @author  Michele Croci, mcroci@gmail.com
  */
 

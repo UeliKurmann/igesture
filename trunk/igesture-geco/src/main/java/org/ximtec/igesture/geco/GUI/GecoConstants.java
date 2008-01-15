@@ -28,7 +28,7 @@ package org.ximtec.igesture.geco.GUI;
 /**
  * Constants for the gesture mapping GUI application.
  * 
- * @version 1.0, Nov 2007
+ * @version 0.9,, Nov 2007
  * @author Michele croci
  */
 public class GecoConstants {

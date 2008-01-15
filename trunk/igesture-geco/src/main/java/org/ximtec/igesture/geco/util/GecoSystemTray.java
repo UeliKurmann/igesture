@@ -45,7 +45,7 @@ import org.ximtec.igesture.geco.GUI.GecoMainView;
 
 /**
  * Add an icon to the system tray
- * @version 1.0 Dec 17, 2007
+ * @version 0.9, Dec 17, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
 public class GecoSystemTray {

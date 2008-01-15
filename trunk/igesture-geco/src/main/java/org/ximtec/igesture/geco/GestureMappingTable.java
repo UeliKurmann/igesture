@@ -34,7 +34,7 @@ import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 
 /**
  * Table containing all the user-defined gesture-mapping
- * @version 1.0 Nov 19, 2007
+ * @version 0.9, Nov 19, 2007
  * @author Michele Croci, mcroci@mgail.com
  */
 public class GestureMappingTable extends Hashtable<GestureClass,GestureToActionMapping> {
