@@ -3,7 +3,7 @@
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
- * Purpose		:   Remove gesture-action mapping
+ * Purpose		:   Removes gesture-action mapping.
  *
  * -----------------------------------------------------------------------
  *
@@ -12,6 +12,7 @@
  * Date				Who			Reason
  *
  * Nov 26, 2007		crocimi		Initial Release
+ * Jan 15, 2008     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -29,41 +30,42 @@ import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
 
 
-
 /**
- * Comment
+ * Removes gesture-action mapping.
  * @version 0.9, Nov 26, 2007
  * @author Michele Croci, mcroci@gmail.com
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class RemoveMappingAction extends BasicAction {
-   
+
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "RemoveMappingAction";
 
    private MainView mainView;
 
-   
+
    public RemoveMappingAction(MainView mainView) {
-      super(Constant.REMOVE_MAPPING, GuiTool.getGuiBundle());
+      super(KEY, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
-   
-   
+
 
    /**
-    * Remove the mapping
+    * Removes the mapping.
     * 
     * @param event the action event.
     */
    public void actionPerformed(ActionEvent event) {
-      //update model
-       mainView.getModel().removeMapping(mainView.getSelectedMapping());
-       //updateview
-       mainView.updateLists();
-       mainView.enableSaveButton();
+      // update model
+      mainView.getModel().removeMapping(mainView.getSelectedMapping());
+      // update view
+      mainView.updateLists();
+      mainView.enableSaveButton();
    } // actionPerformed
-
 
 }

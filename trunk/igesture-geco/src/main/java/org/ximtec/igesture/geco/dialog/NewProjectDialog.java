@@ -90,7 +90,7 @@ public class NewProjectDialog extends BasicDialog {
     */
    private void init() {
       File[] roots = File.listRoots();
-      filePath = System.getProperty("user.home") + "\\";
+      filePath = System.getProperty("user.home") + Constant.BACKSLASH;
       JPanel mainPanel = new JPanel();
       mainPanel.setBorder(new TitledBorder(new BevelBorder(0, Color.gray,
             Color.gray), Constant.NEW_PROJECT_TITLE));
@@ -187,13 +187,13 @@ public class NewProjectDialog extends BasicDialog {
                String fileName = Constant.EMPTY_STRING;
                if (selectedFile.getAbsolutePath().charAt(
                      selectedFile.getAbsolutePath().length() - 1) != '\\') {
-                  fileName = selectedFile.getAbsolutePath() + "\\"
+                  fileName = selectedFile.getAbsolutePath() + Constant.BACKSLASH
                         + NewProjectDialog.this.projectTextField.getText();
                   if (!NewProjectDialog.this.projectTextField.getText().equals(
                         Constant.EMPTY_STRING)) {
                      fileName += Constant.DOT + XML_EXTENSION;
                   }
-                  filePath = selectedFile.getAbsolutePath() + "\\";
+                  filePath = selectedFile.getAbsolutePath() + Constant.BACKSLASH;
                }
                else {
                   fileName = selectedFile.getAbsolutePath()
@@ -229,7 +229,8 @@ public class NewProjectDialog extends BasicDialog {
             File temp = new File(fileName);
             if (temp.exists()) {
                int n = JOptionPane.showConfirmDialog(NewProjectDialog.this,
-                     Constant.OVERWRITE_FILE, Constant.EMPTY_STRING, JOptionPane.YES_NO_OPTION);
+                     Constant.OVERWRITE_FILE, Constant.EMPTY_STRING,
+                     JOptionPane.YES_NO_OPTION);
                if (n != 0) {
                   ok = false;
                }
