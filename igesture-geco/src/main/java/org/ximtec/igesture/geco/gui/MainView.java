@@ -57,6 +57,7 @@ import org.sigtec.graphix.IconTool;
 import org.sigtec.util.Decorator;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.geco.gui.action.ActionHandler;
+import org.ximtec.igesture.geco.gui.action.LoadGestureSetAction;
 import org.ximtec.igesture.geco.gui.action.ShowMappingDialogAction;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.graphics.ScrollableList;
@@ -268,7 +269,7 @@ public class MainView extends JFrame {
       mapButton.setAction(handler.getAddMappingAction());
       mapButton.setEnabled(false);
 
-      JButton loadSetButton = SwingTool.createButton(Constant.LOAD_GESTURE_SET);
+      JButton loadSetButton = SwingTool.createButton(LoadGestureSetAction.KEY);
       loadSetButton.setAction(handler.getLoadGestureSetAction());
 
       rightPanel.add(loadSetButton, new GridBagConstraints(0, 1, 1, 1, 0.5, 0,
@@ -291,7 +292,6 @@ public class MainView extends JFrame {
       menuBar.add(createFileMenu());
       menuBar.add(createInfoMenu());
       return menuBar;
-
    } // createMenuBar
 
 
@@ -329,7 +329,7 @@ public class MainView extends JFrame {
 
 
    /**
-    * Update the gesture Set
+    * Updates the gesture set.
     * 
     */
    public void updateGestureList() {

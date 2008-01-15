@@ -113,7 +113,6 @@ public class Constant extends org.sigtec.util.Constant {
     * Actions
     */
 
-   public static final String LOAD_GESTURE_SET = "LoadGestureSetAction";
 
    public static final String REMOVE_MAPPING = "RemoveMappingAction";
 
