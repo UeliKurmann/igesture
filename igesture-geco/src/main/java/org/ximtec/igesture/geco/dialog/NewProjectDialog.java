@@ -110,7 +110,7 @@ public class NewProjectDialog extends BasicDialog {
             .createTextField(Constant.PROJECT_NAME_TEXT_FIELD);
       projectTextField.getDocument().addDocumentListener(
             new MyDocumentListener());
-      projectTextField.setText("");
+      projectTextField.setText(Constant.EMPTY_STRING);
       mainPanel.add(projectTextField, new GridBagConstraints(1, 0, 1, 1, 1, 1,
             GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
             new Insets(10, 10, 10, 10), 0, 0));
@@ -166,7 +166,7 @@ public class NewProjectDialog extends BasicDialog {
     */
    public void reset() {
       fileTextField.setText(filePath);
-      projectTextField.setText("");
+      projectTextField.setText(Constant.EMPTY_STRING);
    }// reset
 
    /**
@@ -184,13 +184,13 @@ public class NewProjectDialog extends BasicDialog {
             File selectedFile = fileChooser.getSelectedFile();
             if (selectedFile != null) {
 
-               String fileName = "";
+               String fileName = Constant.EMPTY_STRING;
                if (selectedFile.getAbsolutePath().charAt(
                      selectedFile.getAbsolutePath().length() - 1) != '\\') {
                   fileName = selectedFile.getAbsolutePath() + "\\"
                         + NewProjectDialog.this.projectTextField.getText();
                   if (!NewProjectDialog.this.projectTextField.getText().equals(
-                        "")) {
+                        Constant.EMPTY_STRING)) {
                      fileName += Constant.DOT + XML_EXTENSION;
                   }
                   filePath = selectedFile.getAbsolutePath() + "\\";
@@ -199,7 +199,7 @@ public class NewProjectDialog extends BasicDialog {
                   fileName = selectedFile.getAbsolutePath()
                         + NewProjectDialog.this.projectTextField.getText();
                   if (!NewProjectDialog.this.projectTextField.getText().equals(
-                        "")) {
+                        Constant.EMPTY_STRING)) {
                      fileName += org.sigtec.util.Constant.DOT + XML_EXTENSION;
                   }
                   filePath = selectedFile.getAbsolutePath();
@@ -221,15 +221,15 @@ public class NewProjectDialog extends BasicDialog {
 
       public void actionPerformed(ActionEvent e) {
 
-         if ((!fileTextField.getText().equals(""))
-               && (!projectTextField.getText().equals(""))) {
+         if ((!fileTextField.getText().equals(Constant.EMPTY_STRING))
+               && (!projectTextField.getText().equals(Constant.EMPTY_STRING))) {
             String fileName = fileTextField.getText();
 
             boolean ok = true;
             File temp = new File(fileName);
             if (temp.exists()) {
                int n = JOptionPane.showConfirmDialog(NewProjectDialog.this,
-                     Constant.OVERWRITE_FILE, "", JOptionPane.YES_NO_OPTION);
+                     Constant.OVERWRITE_FILE, Constant.EMPTY_STRING, JOptionPane.YES_NO_OPTION);
                if (n != 0) {
                   ok = false;
                }
@@ -309,7 +309,7 @@ public class NewProjectDialog extends BasicDialog {
 
 
       public void update() {
-         if ((!projectTextField.getText().equals(""))) {
+         if ((!projectTextField.getText().equals(Constant.EMPTY_STRING))) {
             NewProjectDialog.this.createButton.setEnabled(true);
             NewProjectDialog.this.fileTextField
                   .setText(NewProjectDialog.this.filePath
