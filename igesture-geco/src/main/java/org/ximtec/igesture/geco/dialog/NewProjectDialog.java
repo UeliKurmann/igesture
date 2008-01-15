@@ -86,25 +86,25 @@ public class NewProjectDialog extends BasicDialog {
 
 
    /**
-    * Inits the dialog.
+    * Initialises the dialog.
     */
    private void init() {
       File[] roots = File.listRoots();
       filePath = System.getProperty("user.home") + "\\";
       JPanel mainPanel = new JPanel();
       mainPanel.setBorder(new TitledBorder(new BevelBorder(0, Color.gray,
-            Color.gray), Constant.NEW_PROJECT_DIALOG_TITLE));
+            Color.gray), Constant.NEW_PROJECT_TITLE));
 
-      this.setTitle(Constant.NEW_PROJECT_DIALOG_TITLE);
+      setTitle(Constant.NEW_PROJECT_TITLE);
       mainPanel.setLayout(new GridBagLayout());
-      this.setLayout(new GridBagLayout());
+      setLayout(new GridBagLayout());
       Point p = new Point(view.getLocation().x + 50, view.getLocation().y + 100);
-      this.setLocation(p);
-      this.setSize(new Dimension(DIALOG_WIDTH, DIALOG_HEIGHT));
+      setLocation(p);
+      setSize(new Dimension(DIALOG_WIDTH, DIALOG_HEIGHT));
 
-      mainPanel.add(GuiTool.createLabel(Constant.PROJECT_NAME), new GridBagConstraints(0, 0, 1,
-            1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
-            new Insets(10, 10, 10, 10), 0, 0));
+      mainPanel.add(GuiTool.createLabel(Constant.PROJECT_NAME),
+            new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
+                  GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 
       projectTextField = GuiTool
             .createTextField(Constant.PROJECT_NAME_TEXT_FIELD);
@@ -191,7 +191,7 @@ public class NewProjectDialog extends BasicDialog {
                         + NewProjectDialog.this.projectTextField.getText();
                   if (!NewProjectDialog.this.projectTextField.getText().equals(
                         "")) {
-                     fileName += "." + XML_EXTENSION;
+                     fileName += Constant.DOT + XML_EXTENSION;
                   }
                   filePath = selectedFile.getAbsolutePath() + "\\";
                }
@@ -200,7 +200,7 @@ public class NewProjectDialog extends BasicDialog {
                         + NewProjectDialog.this.projectTextField.getText();
                   if (!NewProjectDialog.this.projectTextField.getText().equals(
                         "")) {
-                     fileName += "." + XML_EXTENSION;
+                     fileName += org.sigtec.util.Constant.DOT + XML_EXTENSION;
                   }
                   filePath = selectedFile.getAbsolutePath();
                }
@@ -313,8 +313,8 @@ public class NewProjectDialog extends BasicDialog {
             NewProjectDialog.this.createButton.setEnabled(true);
             NewProjectDialog.this.fileTextField
                   .setText(NewProjectDialog.this.filePath
-                        + NewProjectDialog.this.projectTextField.getText() + "."
-                        + XML_EXTENSION);
+                        + NewProjectDialog.this.projectTextField.getText()
+                        + org.sigtec.util.Constant.DOT + XML_EXTENSION);
          }
          else {
             NewProjectDialog.this.createButton.setEnabled(false);

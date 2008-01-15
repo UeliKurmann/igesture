@@ -70,7 +70,7 @@ public class NewProjectAction extends BasicAction {
       if (mainView.getModel().needSave()) {
          int n = JOptionPane.showConfirmDialog(mainView,
                Constant.SAVE_DIALOG_TITLE,
-               org.sigtec.util.Constant.EMPTY_STRING, JOptionPane.YES_NO_OPTION);
+               Constant.EMPTY_STRING, JOptionPane.YES_NO_OPTION);
 
          if (n == 0) {
             (new SaveProjectAction(mainView)).save();

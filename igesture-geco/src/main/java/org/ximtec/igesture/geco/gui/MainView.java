@@ -119,7 +119,7 @@ public class MainView extends JFrame {
          UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
       }
       catch (Exception e) {
-         LOGGER.log(Level.SEVERE, org.sigtec.util.Constant.EMPTY_STRING, e);
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
 
       GridBagLayout gbl = new GridBagLayout();
