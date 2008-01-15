@@ -49,6 +49,7 @@ import javax.swing.border.TitledBorder;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.input.InputDevice;
+import org.ximtec.igesture.geco.GecoConfiguration;
 import org.ximtec.igesture.geco.GecoMain;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
 import org.ximtec.igesture.geco.GUI.GecoMainView;
@@ -69,7 +70,7 @@ public class OptionsDialog extends BasicDialog{
    
    
    private GecoMainView view;
-   private GestureConfiguration configuration;
+   private GecoConfiguration configuration;
  
    
    private int DIALOG_WIDTH = 200;
@@ -121,7 +122,7 @@ public class OptionsDialog extends BasicDialog{
          radioButtonPanel.add( button,
                new GridBagConstraints(0,i,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,
                new Insets(10,0,0,0),0,0 ) );
-         //hashTable.put(devices.get(i),button);
+         hashTable.put(devices.get(i),button);
         
       }
       

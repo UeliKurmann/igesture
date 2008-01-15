@@ -77,13 +77,13 @@ public class GecoMain {
       GuiTool.addGuiBundle(GUI_BUNDLE_FILE);
       Logger.getAnonymousLogger().setLevel(Level.ALL);
       LOGGER.info(INITIALISING);
-      GestureConfiguration gestureConfiguration;
+      GecoConfiguration gestureConfiguration;
 
       if (args.length > 0) {
-         gestureConfiguration = new GestureConfiguration(args[0]);
+         gestureConfiguration = new GecoConfiguration(args[0]);
       }
       else {
-         gestureConfiguration = new GestureConfiguration(GECO_CONFIGURATION);
+         gestureConfiguration = new GecoConfiguration(GECO_CONFIGURATION);
       }
       // configuration = XMLGeco.importConfiguration(new File(
       // ClassLoader.getSystemResource(RUBINE_CONFIGURATION).getFile()));
