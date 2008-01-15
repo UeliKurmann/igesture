@@ -75,7 +75,7 @@ public class NewProjectDialog extends BasicDialog {
    private BasicTextField fileTextField;
    private BasicTextField projectTextField;
    private JButton createButton;
-   private String filePath = "";
+   private String filePath = Constant.EMPTY_STRING;
 
 
    public NewProjectDialog(MainView view) {

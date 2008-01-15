@@ -77,7 +77,7 @@ public class CommandView extends JPanel{
     * Reset the view.
     */
    public void initView(){
-      textField.setText("");
+      textField.setText(Constant.EMPTY_STRING);
    }
 
    
