@@ -41,6 +41,7 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
+import org.sigtec.input.InputDevice;
 import org.sigtec.jdom.JdomDocument;
 import org.sigtec.jdom.id.Factory;
 import org.sigtec.util.Constant;
@@ -162,25 +163,14 @@ public class XMLGeco {
     * @param file the XML file
     * @return the configuration.
     */
-   /*
-   public static void exportConfiguration(GestureConfiguration configuration) {
+   
+   public static void exportGestureConfiguration(List<String> devices, boolean[] arr, File file) {
    final JdomDocument igestureDocument = new JdomDocument(CONFIG_ROOT_TAG);
       
-      igestureDocument.attach(new JdomGestureSetName(gestureSetFileName));
-
-      for (final GestureToActionMapping map :  mappings) {
-            igestureDocument.attach(new JdomGestureMapping(map, gestureSet ));
-      }
-
+      igestureDocument.attach(new JdomInputDevicesElement(devices, arr));
       FileHandler.writeFile(file.getPath(), igestureDocument.toXml());
-      
-      Configuration configuration = new Configuration();
-      final Document document = importDocument(file);
-      configuration = (Configuration)JdomConfiguration.unmarshal(document
-            .getRootElement());
-      return configuration;
    } // importConfiguration
-*/
+
 
 
 

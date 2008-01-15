@@ -24,7 +24,6 @@
 
 
 package org.ximtec.igesture.geco.dialog;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -34,6 +33,9 @@ import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -44,11 +46,13 @@ import javax.swing.JRadioButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.input.InputDevice;
+import org.ximtec.igesture.geco.GecoMain;
 import org.ximtec.igesture.geco.GUI.GecoConstants;
 import org.ximtec.igesture.geco.GUI.GecoMainView;
-import org.ximtec.igesture.graphics.SwingTool;
+import org.ximtec.igesture.geco.xml.XMLGeco;
 import org.ximtec.igesture.io.MouseReader;
 import org.ximtec.igesture.io.WacomReader;
 import org.ximtec.igesture.tool.GestureConfiguration;
@@ -112,11 +116,12 @@ public class OptionsDialog extends BasicDialog{
       List<String> devices = view.getModel().getGestureConfiguration().getInputDevices();
       for(int i=0; i<devices.size();i++){
          JRadioButton button = new JRadioButton(devices.get(i));
+         button.setActionCommand(devices.get(i));
          group.add(button);
          radioButtonPanel.add( button,
                new GridBagConstraints(0,i,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,
                new Insets(10,0,0,0),0,0 ) );
-         hashTable.put(devices.get(i),button);
+         //hashTable.put(devices.get(i),button);
         
       }
       
@@ -124,9 +129,9 @@ public class OptionsDialog extends BasicDialog{
             new GridBagConstraints(0,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,
             new Insets(30,30,30,15),0,0 ) );
       
-      JButton okButton = SwingTool.createButton(GecoConstants.OK);
+      JButton okButton = GuiTool.createButton(GecoConstants.OK);
       okButton.addActionListener(new OkListener());
-      JButton cancelButton = SwingTool.createButton(GecoConstants.CANCEL);
+      JButton cancelButton = GuiTool.createButton(GecoConstants.CANCEL);
       cancelButton.addActionListener(new CancelListener());
       
       JPanel buttonPanel = new JPanel();
@@ -153,8 +158,11 @@ public class OptionsDialog extends BasicDialog{
    public void reset(){
       configuration = view.getModel().getGestureConfiguration();
       selectedDeviceName = configuration.getInputDeviceName();
-      InputDevice device = configuration.getInputDevice();
+      //InputDevice device = configuration.getInputDevice();
       JRadioButton button = (JRadioButton)hashTable.get(configuration.getInputDeviceName());
+      Enumeration buttons = group.getElements();
+      
+      
       button.setSelected(true);
       /*
       if(device instanceof MouseReader){
@@ -173,6 +181,32 @@ public class OptionsDialog extends BasicDialog{
     */
    private class OkListener implements ActionListener{
       public void actionPerformed(ActionEvent e){
+         
+         String newSelDevice = group.getSelection().getActionCommand();
+         if(!newSelDevice.equals(configuration.getInputDevice())){
+            List<String> devices = configuration.getInputDevices();
+            boolean arr[]=new boolean[devices.size()]; 
+            for(int i=0;i<devices.size();i++){
+               if(newSelDevice.equals(devices.get(i)))
+                  arr[i]=true;
+               else
+                  arr[i]=false;
+            }
+            File confFile;
+           
+            
+            try {
+               confFile = new File(ClassLoader.getSystemResource(GecoMain.GECO_CONFIGURATION).toURI());
+            } catch(URISyntaxException ex) {
+               confFile = new File(ClassLoader.getSystemResource(GecoMain.GECO_CONFIGURATION).getPath());
+            }
+            
+            XMLGeco.exportGestureConfiguration(devices, arr, confFile);
+         }
+         
+      
+         
+         System.out.println();
          //SE la device è stata cambiata
          //-> aggiorna l'XML
          //- >aggiorna il model & la clien device

@@ -30,6 +30,7 @@ import java.util.List;
 import org.jdom.Element;
 import org.sigtec.input.InputDevice;
 import org.ximtec.igesture.geco.UserAction.CommandExecutor;
+import org.ximtec.igesture.tool.GestureConfiguration;
 
 
 
@@ -45,7 +46,7 @@ public class JdomInputDevicesElement extends Element {
    private static final String COMMAND = "inputdevices";
 
 
-   public JdomInputDevicesElement(List<InputDevice> devices, boolean[] arr) {
+   public JdomInputDevicesElement(List<String> devices, boolean[] arr) {
       this(COMMAND);
       for(int i=0; i<devices.size();i++){
     	  this.addContent(new JdomDeviceElement(devices.get(i), arr[i]));
