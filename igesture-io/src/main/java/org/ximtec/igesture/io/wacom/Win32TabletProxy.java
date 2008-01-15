@@ -71,7 +71,7 @@ public class Win32TabletProxy {
     * 
     */
    public void getNextPacket() {
-		   lastPacket = tabletUtils.getPacket();
+		   lastPacket = tabletUtils.getOnePacket();
    } 
    
    /**

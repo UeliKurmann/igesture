@@ -106,13 +106,13 @@ public class WacomReader extends org.sigtec.input.AbstractInputDevice implements
          public void run() {
           
             Win32TabletProxy proxy = new Win32TabletProxy();
-             while (true) {
+             while (!stop) {
                    proxy.getNextPacket();
                    if (!(proxy.buttonPressed()==BUTTON_0)) {
-                        if (proxy.buttonPressed()==BUTTON_5) {
+                       if (proxy.buttonPressed()==BUTTON_5) {
                          
                            Location location = new Location("screen", 1, proxy.getLastCursorLocation());
-                           System.out.println(location+" - button: "+proxy.buttonPressed());
+                           System.out.println("button: "+proxy.buttonPressed());
                            CompleteLocation tbl = null;
                               tbl = new CompleteLocation(location, proxy.getTimeStamp(), proxy.getPressure(),
                                     new Orientation(proxy.getRotation().roYaw, proxy.getRotation().roPitch,
@@ -152,12 +152,11 @@ public class WacomReader extends org.sigtec.input.AbstractInputDevice implements
    public void callbackFunction(int x, int y, int z, int npress, int tpress, long timeStamp,
          ORIENTATION orientation, ROTATION rotation, int button){
        
-      if (!(button==BUTTON_0)) {
                if(button==BUTTON_5){
                   final WacomReader tabletReader = this;
                   
                   Location location = new Location("screen", 1, new Point(x,y));
-                  System.out.println(location+" - button: "+button);
+                  System.out.println("button: "+button);
                   CompleteLocation tbl = null;
                    tbl = new CompleteLocation(location, timeStamp, npress,
                          new Orientation(rotation.roYaw, rotation.roPitch,
@@ -177,7 +176,6 @@ public class WacomReader extends org.sigtec.input.AbstractInputDevice implements
                      lastKeyState = false;
                   }
                }
-         }
       }
 
 

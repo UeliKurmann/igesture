@@ -47,14 +47,14 @@ public class JdomDeviceElement extends Element {
 
 
    public JdomDeviceElement(String device, boolean selected) {
-      this(COMMAND, device);
-   } // JdomConfigurationElement
+      this(COMMAND, device, selected);
+   } // JdomDeviceElement
 
 
-   public JdomDeviceElement(String name, String device) {
+   public JdomDeviceElement(String name, String device, boolean selected) {
       super(name);
-      //add attribute
-      //add 2 attribute
-   } // JdomConfigurationElement
+      this.setAttribute(NAME, device);
+      this.setAttribute(SELECTED, String.valueOf(selected));
+   } // JdomDeviceElement
 
 }

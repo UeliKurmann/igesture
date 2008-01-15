@@ -55,6 +55,7 @@ public class MouseReader extends org.sigtec.input.AbstractInputDevice implements
 
    private boolean lastKeyState = false;
 
+
    private HashSet<ButtonDeviceEventListener> buttonUpEvents;
 
 
@@ -74,7 +75,7 @@ public class MouseReader extends org.sigtec.input.AbstractInputDevice implements
 
          @Override
          public void run() {
-            while (true) {
+            while (!stop) {
 
                if (Win32MouseProxy.isMiddleButtonPressed()) {
                   Location location = new Location("screen", 1, Win32MouseProxy
@@ -112,6 +113,8 @@ public class MouseReader extends org.sigtec.input.AbstractInputDevice implements
 
       t.start();
    } // init
+   
+
 
 
    /**

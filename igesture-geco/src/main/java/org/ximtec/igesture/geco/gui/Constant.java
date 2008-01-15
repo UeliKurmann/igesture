@@ -78,6 +78,8 @@ public class Constant extends org.sigtec.util.Constant {
    public static final String WACOM = "Wacom";
 
    public static final String MOUSE = "Mouse";
+   
+   public static final String INPUT_DEVICE = "Input Device";
 
    /*
     * Commands
