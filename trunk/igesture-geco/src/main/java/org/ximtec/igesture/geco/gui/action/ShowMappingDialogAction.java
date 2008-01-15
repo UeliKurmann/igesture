@@ -3,7 +3,7 @@
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
- * Purpose		:   Map gesture to custom action
+ * Purpose		:   Maps a gesture to a custom action.
  *
  * -----------------------------------------------------------------------
  *
@@ -12,6 +12,7 @@
  * Date				Who			Reason
  *
  * Nov 19, 2007		crocimi		Initial Release
+ * Jan 15, 2008     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -30,41 +31,42 @@ import java.awt.event.ActionEvent;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
 
+
 /**
-*  Map gesture to custom action
-* 
-* @version 1.0, Nov 2006
-* @author Michele Croci, mcroci@gmail.com
-*/
+ * Maps a gesture to a custom action.
+ * 
+ * @version 1.0, Nov 2006
+ * @author Michele Croci, mcroci@gmail.com
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class ShowMappingDialogAction extends BasicAction {
 
-  private MainView mainView;
-  private GestureClass currentGesture;
- 
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "MapGestureAction";
 
-  public ShowMappingDialogAction(MainView mainView) {
-     super(Constant.MAP_GESTURE, GuiTool.getGuiBundle());
-     this.mainView = mainView;
-  }
+   private MainView mainView;
+   private GestureClass currentGesture;
 
 
-  /**
-   * Show a dialog
-   * 
-   * @param event the action event.
-   */
-  public void actionPerformed(ActionEvent event) {
-     currentGesture = mainView.getSelectedClass();
-     mainView.getComponentHandler().getMappingDialog().showDialog(currentGesture);
+   public ShowMappingDialogAction(MainView mainView) {
+      super(KEY, GuiTool.getGuiBundle());
+      this.mainView = mainView;
+   }
 
-  } // actionPerformed¨
-  
-     
-     
-  }
-  
-  
- 
+
+   /**
+    * Shows a dialog.
+    * 
+    * @param event the action event.
+    */
+   public void actionPerformed(ActionEvent event) {
+      currentGesture = mainView.getSelectedClass();
+      mainView.getComponentHandler().getMappingDialog().showDialog(
+            currentGesture);
+   } // actionPerformed¨
+
+}

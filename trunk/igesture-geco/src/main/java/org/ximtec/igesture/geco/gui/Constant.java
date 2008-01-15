@@ -43,8 +43,6 @@ public class Constant extends org.sigtec.util.Constant {
 
    public static final String GESTURE_MAPPING_TITLE = "GestureMappingTitle";
    
-   public static final String MAP_GESTURE = "MapGesture";
-
    public static final String NEW_PROJECT_TITLE = "Create a new project";
 
    public static final String USER_DEFINED_MAPPING = "User-defined mappings";

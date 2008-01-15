@@ -57,6 +57,7 @@ import org.sigtec.graphix.IconTool;
 import org.sigtec.util.Decorator;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.geco.gui.action.ActionHandler;
+import org.ximtec.igesture.geco.gui.action.ShowMappingDialogAction;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
@@ -263,7 +264,7 @@ public class MainView extends JFrame {
             GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0,
                   0, 0), 0, 0));
 
-      mapButton = SwingTool.createButton(Constant.MAP_GESTURE);
+      mapButton = SwingTool.createButton(ShowMappingDialogAction.KEY);
       mapButton.setAction(handler.getAddMappingAction());
       mapButton.setEnabled(false);
 
