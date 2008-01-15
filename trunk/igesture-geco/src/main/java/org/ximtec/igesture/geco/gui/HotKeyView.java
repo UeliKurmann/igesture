@@ -110,12 +110,12 @@ public class HotKeyView extends JPanel {
     * Reset the view. No key has been choosed.
     */
    public void initView() {
-      keys = "";
+      keys = Constant.EMPTY_STRING;
       ctrlCheckBox.setSelected(false);
       altCheckBox.setSelected(false);
       shiftCheckBox.setSelected(false);
       comboBox.setSelectedIndex(0);
-      buttonLabel.setText("");
+      buttonLabel.setText(Constant.EMPTY_STRING);
    }
 
 
@@ -150,7 +150,7 @@ public class HotKeyView extends JPanel {
          update = false;
       }
       else {
-         if (!s.equals("")) {
+         if (!s.equals(Constant.EMPTY_STRING)) {
             comboBox.setSelectedItem(s);
             if (!comboBox.getSelectedItem().equals(s)) {
                comboBox.setSelectedItem("Invalid Key");
@@ -171,7 +171,7 @@ public class HotKeyView extends JPanel {
     * Update the text field displaying the keys
     */
    private void updateTextFieldElement() {
-      String text = "";
+      String text = Constant.EMPTY_STRING;
       if (ctrlCheckBox.isSelected()) {
          text += "CTRL";
       }
@@ -189,7 +189,7 @@ public class HotKeyView extends JPanel {
       }
       if (ctrlCheckBox.isSelected() || shiftCheckBox.isSelected()
             || altCheckBox.isSelected()) {
-         if (!comboBox.getSelectedItem().equals("")) {
+         if (!comboBox.getSelectedItem().equals(Constant.EMPTY_STRING)) {
             text += "+";
          }
       }
@@ -203,13 +203,13 @@ public class HotKeyView extends JPanel {
       public void keyPressed(KeyEvent e) {
 
       }
-      String text = "";
+      String text = Constant.EMPTY_STRING;
       boolean notLastKey = false;
 
 
       public void keyReleased(KeyEvent e) {
 
-         if (!text.equals(""))
+         if (!text.equals(Constant.EMPTY_STRING))
             text = "+" + text;
 
          text = e.getKeyText(e.getKeyCode()).toUpperCase() + text;
@@ -223,7 +223,7 @@ public class HotKeyView extends JPanel {
             buttonLabel.setText(text);
             keys = text;
             updateBoxElements();
-            text = "";
+            text = Constant.EMPTY_STRING;
          }
 
       }
@@ -271,8 +271,8 @@ public class HotKeyView extends JPanel {
       comboBox.addActionListener(new ActionListener() {
 
          public void actionPerformed(ActionEvent e) {
-            String s = "";
-            if (!keys.equals(""))
+            String s = Constant.EMPTY_STRING;
+            if (!keys.equals(Constant.EMPTY_STRING))
                s = keys.split("\\+")[keys.split("\\+").length - 1];
             if (!comboBox.getSelectedItem().equals(s)) {
                if (update) {
