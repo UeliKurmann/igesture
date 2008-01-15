@@ -173,15 +173,9 @@ public class MainView extends JFrame {
             GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0,
                   0, 0), 0, 0));
 
-      saveButton = SwingTool.createButton(Constant.SAVE);
-      exitButton = SwingTool.createButton(Constant.EXIT);
-
-      exitButton.setAction(handler.getExitApplicationAction());
-      saveButton.setAction(handler.getSaveProjectAction());
-
-      JButton minimize = SwingTool.createButton(Constant.MINIMIZE);
-      minimize.setAction(handler.getMinimizeAction());
-
+      saveButton = SwingTool.createButton(handler.getSaveProjectAction());
+      exitButton = SwingTool.createButton(handler.getExitApplicationAction());
+      JButton minimize = SwingTool.createButton(handler.getMinimizeAction());
       JPanel buttonPanel = new JPanel();
       buttonPanel.setLayout(new FlowLayout());
       buttonPanel.add(saveButton);

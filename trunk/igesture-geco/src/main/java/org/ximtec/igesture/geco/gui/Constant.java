@@ -55,8 +55,6 @@ public class Constant extends org.sigtec.util.Constant {
 
    public static final String COMMAND = "Command";
 
-   // public static final String MAIN_FRAME_TITLE = "mainFrame";
-
    public static final String SAVE_DIALOG_TITLE = "Would you like to save the changes before closing?";
 
    public static final String OVERWRITE_FILE = "File already exists. Do you want to overwrite it?";
@@ -85,6 +83,8 @@ public class Constant extends org.sigtec.util.Constant {
     * Commands
     */
 
+   public static final String OK_LABEL = "OkLabel";
+   
    public static final String COMMON_NEW = "NEW";
 
    public static final String COMMON_OPEN = "OPEN";
@@ -94,8 +94,6 @@ public class Constant extends org.sigtec.util.Constant {
    public static final String ADD = "ADD";
 
    public static final String CANCEL = "CANCEL";
-
-   public static final String OK = "OK";
 
    public static final String EXIT = "EXIT";
 
