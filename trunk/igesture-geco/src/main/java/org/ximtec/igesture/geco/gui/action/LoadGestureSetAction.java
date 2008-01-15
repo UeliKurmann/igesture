@@ -70,7 +70,7 @@ public class LoadGestureSetAction extends BasicAction {
    public void actionPerformed(ActionEvent event) {
       //ask confirm
       int n=0;
-      if(!mainView.getModel().mappingTable.isEmpty()){
+      if(!mainView.getModel().getMappings().isEmpty()){
       n = JOptionPane.showConfirmDialog(
             mainView,
             Constant.LOAD_GESTURE_SET_CONFIRMATION,

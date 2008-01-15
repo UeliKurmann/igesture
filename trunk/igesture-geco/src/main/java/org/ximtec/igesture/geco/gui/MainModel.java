@@ -62,7 +62,7 @@ public class MainModel implements ButtonDeviceEventListener {
 
    private EventManager eventManager = new EventManager();
 
-   public GestureMappingTable mappingTable = new GestureMappingTable();
+   private Hashtable<GestureClass, GestureToActionMapping> mappings = new Hashtable<GestureClass, GestureToActionMapping>();
 
    public Hashtable<String, GestureClass> gestureClassesTable = new Hashtable<String, GestureClass>();
 
@@ -190,7 +190,7 @@ public class MainModel implements ButtonDeviceEventListener {
       gestureClassesTable.clear();
       mappingListModel.clear();
       gestureListModel.clear();
-      mappingTable.clear();
+      mappings.clear();
    }// clearData
 
 
@@ -265,6 +265,13 @@ public class MainModel implements ButtonDeviceEventListener {
       return gestureSet;
    } // getGestureSets
 
+   
+   
+   public Hashtable<GestureClass, GestureToActionMapping> getMappings() {
+      return mappings;
+   } // getMappings
+   
+   
 
    /**
     * Adds a gesture-action mapping
@@ -278,7 +285,7 @@ public class MainModel implements ButtonDeviceEventListener {
             .getAction());
       mappingListModel.removeElement(gm);
       mappingListModel.add(gm);
-      mappingTable.put(gm.getGestureClass(), gm);
+      mappings.put(gm.getGestureClass(), gm);
       toBeSaved = true;
    }// addMapping
 
@@ -286,10 +293,10 @@ public class MainModel implements ButtonDeviceEventListener {
    /**
     * Removes a gesture-action mapping
     * 
-    * @param the mappping to be removed
+    * @param the mapping to be removed
     */
    public void removeMapping(GestureToActionMapping gm) {
-      mappingTable.remove(gm.getGestureClass());
+      mappings.remove(gm.getGestureClass());
       eventManager.unRegisterEventHandler(gm.getGestureClass().getName());
       mappingListModel.removeElement(gm);
       gestureListModel.add(gm.getGestureClass());

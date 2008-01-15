@@ -38,7 +38,7 @@ import org.ximtec.igesture.event.EventHandler;
  */
 public class GestureToActionMapping {
    
-   protected GestureClass gestureClass=null;
+   protected GestureClass gestureClass = null;
    
    protected EventHandler action = null;
    
