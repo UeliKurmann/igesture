@@ -23,7 +23,7 @@
  */
 
 
-package org.ximtec.igesture.geco.GUI;
+package org.ximtec.igesture.geco.GUI1;
 
 import java.io.File;
 import java.util.ArrayList;

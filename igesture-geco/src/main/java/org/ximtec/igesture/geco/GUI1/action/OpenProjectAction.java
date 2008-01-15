@@ -24,7 +24,7 @@
  */
 
 
-package org.ximtec.igesture.geco.GUI.action;
+package org.ximtec.igesture.geco.GUI1.action;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -36,8 +36,8 @@ import javax.swing.JOptionPane;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.MIME;
-import org.ximtec.igesture.geco.GUI.GecoConstants;
-import org.ximtec.igesture.geco.GUI.GecoMainView;
+import org.ximtec.igesture.geco.GUI1.GecoConstants;
+import org.ximtec.igesture.geco.GUI1.GecoMainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 import org.ximtec.igesture.geco.xml.XMLImportGeco;

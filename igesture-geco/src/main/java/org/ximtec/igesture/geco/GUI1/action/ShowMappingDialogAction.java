@@ -23,15 +23,15 @@
  */
 
 
-package org.ximtec.igesture.geco.GUI.action;
+package org.ximtec.igesture.geco.GUI1.action;
 
 import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.geco.GUI.GecoConstants;
-import org.ximtec.igesture.geco.GUI.GecoMainView;
+import org.ximtec.igesture.geco.GUI1.GecoConstants;
+import org.ximtec.igesture.geco.GUI1.GecoMainView;
 
 /**
 *  Map gesture to custom action

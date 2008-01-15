@@ -24,7 +24,7 @@
  */
 
 
-package org.ximtec.igesture.geco.GUI;
+package org.ximtec.igesture.geco.GUI1;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -57,7 +57,7 @@ import org.sigtec.graphix.IconTool;
 import org.sigtec.util.Constant;
 import org.sigtec.util.Decorator;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.geco.GUI.action.GecoActionHandler;
+import org.ximtec.igesture.geco.GUI1.action.GecoActionHandler;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
