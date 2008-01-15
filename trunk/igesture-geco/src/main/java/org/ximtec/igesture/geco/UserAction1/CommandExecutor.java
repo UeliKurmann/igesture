@@ -23,7 +23,7 @@
  */
 
 
-package org.ximtec.igesture.geco.UserAction;
+package org.ximtec.igesture.geco.UserAction1;
 
 import java.io.IOException;
 

@@ -29,7 +29,7 @@ import java.util.List;
 
 import org.jdom.Element;
 import org.sigtec.input.InputDevice;
-import org.ximtec.igesture.geco.UserAction.CommandExecutor;
+import org.ximtec.igesture.geco.UserAction1.CommandExecutor;
 import org.ximtec.igesture.tool.GestureConfiguration;
 
 
