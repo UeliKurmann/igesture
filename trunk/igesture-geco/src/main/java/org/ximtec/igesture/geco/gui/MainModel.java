@@ -38,7 +38,6 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.EventManager;
 import org.ximtec.igesture.geco.Configuration;
-import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.util.SortedListModel;
 import org.ximtec.igesture.io.ButtonDeviceEventListener;
