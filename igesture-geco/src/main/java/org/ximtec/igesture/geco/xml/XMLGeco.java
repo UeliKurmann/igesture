@@ -58,7 +58,7 @@ import org.xml.sax.InputSource;
 /**
  * Provides methods with XML import/export functionality.
  * 
- * @version 0.9,, Dec 2006
+ * @version 0.9, Dec 2006
  * @author Michele Croci, mcroci@gmail.com
  */
 public class XMLGeco {

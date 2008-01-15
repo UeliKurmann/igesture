@@ -36,7 +36,7 @@ import org.ximtec.igesture.tool.util.JAboutDialog;
 /**
  * About dialog.
  * 
- * @version 0.9,, Nov 2006
+ * @version 0.9, Nov 2006
  * @author Michele Croci, mcroci@gmail.com
  */
 public class GecoAboutAction extends BasicAction {
