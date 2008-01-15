@@ -38,6 +38,7 @@ import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.EventManager;
+import org.ximtec.igesture.geco.GecoConfiguration;
 import org.ximtec.igesture.geco.GestureMappingTable;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.util.SortedListModel;
@@ -77,7 +78,7 @@ public class GecoMainModel implements ButtonDeviceEventListener{
    
    private Configuration configuration;
    
-   private GestureConfiguration gestureConfiguration;
+   private GecoConfiguration gestureConfiguration;
    
    private boolean toBeSaved;
    
@@ -98,7 +99,7 @@ public class GecoMainModel implements ButtonDeviceEventListener{
     * 
     * @param engine the storage engine used by the storage manager.
     */
-   public GecoMainModel(Configuration conf, GestureConfiguration gestConf) {
+   public GecoMainModel(Configuration conf, GecoConfiguration gestConf) {
 //      loadData(engine);
       /*
       this.configuration = configuration;
@@ -407,14 +408,14 @@ public class GecoMainModel implements ButtonDeviceEventListener{
    /**
     * Get GestureConfiguration
     */
-   public GestureConfiguration getGestureConfiguration(){
+   public GecoConfiguration getGestureConfiguration(){
      return gestureConfiguration;      
    }
    
    /**
     * Set GestureConfiguration
     */
-   public void setGestureConfiguration(GestureConfiguration conf){
+   public void setGestureConfiguration(GecoConfiguration conf){
      gestureConfiguration=conf;
      configureInputDevice();
    }

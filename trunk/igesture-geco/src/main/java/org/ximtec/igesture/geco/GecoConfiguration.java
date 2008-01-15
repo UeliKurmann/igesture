@@ -1,9 +1,10 @@
 /*
  * @(#)GestureConfiguration.java  1.0   Jan 24, 2007
  *
- * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ * Author       :   Michele Croci, mcroci@gmail.com,
+ *                  based on the GestureConfiguration class
  *
- * Purpose      :   Gesture configuration.
+ * Purpose      :   Geco configuration.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,19 +12,18 @@
  *
  * Date             Who         Reason
  *
- * Jan 24, 2007     ukurmann    Initial Release
- * Mar 24, 2007     bsigner     Cleanup
+ * Jan 24, 2007     crocimi    Initial Release
  *
  * -----------------------------------------------------------------------
  *
- * Copyright 1999-2007 ETH Zurich. All Rights Reserved.
+ * Copyright 1999-2008 ETH Zurich. All Rights Reserved.
  *
  * This software is the proprietary information of ETH Zurich.
  * Use is subject to license terms.
  * 
  */
 
-package org.ximtec.igesture.tool;
+package org.ximtec.igesture.geco;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -40,18 +40,17 @@ import org.sigtec.util.Constant;
 import org.ximtec.igesture.io.InputDeviceFactory;
 
 /**
- * Gesture configuration.
+ * Geco configuration.
  * 
- * @version 1.0, Jan 2007
- * @author Ueli Kurmann, kurmannu@ethz.ch
- * @author Beat Signer, signer@inf.ethz.ch
+ * @version 1.0, Jan 2008
+ * @author Michele Croci, mcroci@gmail.com
  */
-public class GestureConfiguration {
+public class GecoConfiguration {
 
     private static final Logger LOGGER = Logger
-            .getLogger(GestureConfiguration.class.getName());
+            .getLogger(GecoConfiguration.class.getName());
 
-
+    private static final String ALL_INPUT_DEVICES = "inputdevices/device/@name";
     private static final String SELECTED_INPUT_DEVICE = "inputdevices/device[@selected='true']/@name";
     private static final String SELECTED_INPUT_DEVICE2 = "inputdevices/device/name";
 
@@ -61,7 +60,7 @@ public class GestureConfiguration {
 
     private XMLConfiguration configuration;
 
-    public GestureConfiguration(String file) {
+    public GecoConfiguration(String file) {
         try {
            File confFile;
            try {
@@ -126,7 +125,32 @@ public class GestureConfiguration {
 
         return null;
     } // getInputDevice
-
+    
+    
+     /**
+     * Returns the selected input device name.
+     * 
+     * @return the selected input device name.
+     * 
+     */
+    public String getInputDeviceName() {
+        List list = configuration.getList(SELECTED_INPUT_DEVICE);
+        if (!list.isEmpty()) {
+            return (String) list.get(0); 
+        }
+        return null;
+    } // getInputDeviceName
+    
+    /**
+     * Returns all the available input devices.
+     * 
+     * @return the input devices.
+     * 
+     */
+    public List getInputDevices() {
+        List list = configuration.getList(ALL_INPUT_DEVICES);
+        return list;
+    } // getInputDevices
 
     /**
      * Returns the input device.
