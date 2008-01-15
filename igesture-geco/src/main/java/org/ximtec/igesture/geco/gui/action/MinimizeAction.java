@@ -30,8 +30,8 @@ import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.geco.gui.GecoConstants;
-import org.ximtec.igesture.geco.gui.GecoMainView;
+import org.ximtec.igesture.geco.gui.Constant;
+import org.ximtec.igesture.geco.gui.MainView;
 
 
 /**
@@ -44,10 +44,10 @@ import org.ximtec.igesture.geco.gui.GecoMainView;
 public class MinimizeAction extends BasicAction {
 
    
-   private GecoMainView mainView;
+   private MainView mainView;
 
-   public MinimizeAction(GecoMainView mainView) {
-      super(GecoConstants.MINIMIZE_ACTION, GuiTool.getGuiBundle());
+   public MinimizeAction(MainView mainView) {
+      super(Constant.MINIMIZE_ACTION, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
 

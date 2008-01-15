@@ -46,8 +46,8 @@ import javax.swing.border.TitledBorder;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.geco.gui.CommandView;
-import org.ximtec.igesture.geco.gui.GecoConstants;
-import org.ximtec.igesture.geco.gui.GecoMainView;
+import org.ximtec.igesture.geco.gui.Constant;
+import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.gui.HotKeyView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.userAction.CommandExecutor;
@@ -65,7 +65,7 @@ public class MappingDialog extends BasicDialog {
 
    private GestureClass gestureClass;
    private GestureToActionMapping gestureMapping;
-   private GecoMainView view;
+   private MainView view;
 
    // GUI elements
    private JTabbedPane tabbedPane = new JTabbedPane();
@@ -88,7 +88,7 @@ public class MappingDialog extends BasicDialog {
    // models
    // private HotKeyModel hotkeyModel = new HotKeyModel();
 
-   public MappingDialog(GecoMainView gmv) {
+   public MappingDialog(MainView gmv) {
       view = gmv;
       setFocusable(false);
       setModal(true);
@@ -153,7 +153,7 @@ public class MappingDialog extends BasicDialog {
     */
    private void initDialog() {
 
-      this.setTitle(GecoConstants.MAIN_FRAME_TITLE);
+      this.setTitle(Constant.MAIN_FRAME_TITLE);
       this.setLayout(new GridBagLayout());
       this.add(tabbedPane, new GridBagConstraints(0, 1, 1, 1, 1, 1,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(20,
@@ -173,7 +173,7 @@ public class MappingDialog extends BasicDialog {
    private void showGesture() {
       JPanel topPanel = new JPanel();
       topPanel.setBorder(new TitledBorder(new BevelBorder(0, Color.gray,
-            Color.gray), GecoConstants.GESTURE));
+            Color.gray), Constant.GESTURE));
       topPanel.add(gestureLabel);
       this.add(topPanel, new GridBagConstraints(0, 0, 1, 1, 1, 1,
             GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
@@ -188,8 +188,8 @@ public class MappingDialog extends BasicDialog {
     */
    private void addButtonPanel() {
       JPanel buttonPanel = new JPanel();
-      addButton = SwingTool.createButton(GecoConstants.ADD);
-      JButton cancelButton = SwingTool.createButton(GecoConstants.CANCEL);
+      addButton = SwingTool.createButton(Constant.ADD);
+      JButton cancelButton = SwingTool.createButton(Constant.CANCEL);
       addButton.addActionListener(new ActionListener() {
 
          public void actionPerformed(ActionEvent event) {
@@ -228,12 +228,12 @@ public class MappingDialog extends BasicDialog {
 
       JPanel aPanel = new JPanel();
       aPanel.setBorder(new TitledBorder(new BevelBorder(0, Color.gray,
-            Color.gray), GecoConstants.HOTKEY));
+            Color.gray), Constant.HOTKEY));
 
       aPanel.setLayout(new GridLayout(1, 1));
       aPanel.add(hotkeyView);
 
-      tabbedPane.addTab(GecoConstants.HOTKEY, aPanel);
+      tabbedPane.addTab(Constant.HOTKEY, aPanel);
       tabbedPane.setMnemonicAt(HOTKEY, KeyEvent.VK_1);
 
    } // addFirstTab
@@ -246,7 +246,7 @@ public class MappingDialog extends BasicDialog {
    private void addSecondTab() {
 
       commandView = new CommandView();
-      tabbedPane.addTab(GecoConstants.COMMAND, commandView);
+      tabbedPane.addTab(Constant.COMMAND, commandView);
       tabbedPane.setMnemonicAt(COMMAND, KeyEvent.VK_2);
 
    }

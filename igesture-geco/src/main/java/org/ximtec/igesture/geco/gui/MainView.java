@@ -1,5 +1,5 @@
 /*
- * @(#)GecoMainView.java 1.0   Nov 15, 2007
+ * @(#)MainView.java 1.0   Nov 15, 2007
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *
@@ -54,10 +54,9 @@ import javax.swing.event.ListSelectionListener;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.IconTool;
-import org.sigtec.util.Constant;
 import org.sigtec.util.Decorator;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.geco.gui.action.GecoActionHandler;
+import org.ximtec.igesture.geco.gui.action.ActionHandler;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
@@ -72,14 +71,14 @@ import org.ximtec.igesture.tool.GestureConstants;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 
-public class GecoMainView extends JFrame {
+public class MainView extends JFrame {
 
-   private static final Logger LOGGER = Logger.getLogger(GecoMainView.class
+   private static final Logger LOGGER = Logger.getLogger(MainView.class
          .getName());
 
-   private GecoMainModel model;
-   private GecoActionHandler handler = new GecoActionHandler(this);
-   private GecoComponentHandler compHandler = new GecoComponentHandler(this);
+   private MainModel model;
+   private ActionHandler handler = new ActionHandler(this);
+   private ComponentHandler compHandler = new ComponentHandler(this);
    private boolean initialized;
 
    private final int WINDOW_HEIGHT = 600;
@@ -104,7 +103,7 @@ public class GecoMainView extends JFrame {
     * 
     * @param model the model for this main view.
     */
-   public GecoMainView(GecoMainModel model) {
+   public MainView(MainModel model) {
       super();
       this.model = model;
       createVoidDialog();
@@ -120,15 +119,15 @@ public class GecoMainView extends JFrame {
          UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
       }
       catch (Exception e) {
-         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+         LOGGER.log(Level.SEVERE, org.sigtec.util.Constant.EMPTY_STRING, e);
       }
 
       GridBagLayout gbl = new GridBagLayout();
       this.getContentPane().setLayout(gbl);
       setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
       setLocation(150, 100);
-      this.setTitle(GecoConstants.GECO_TITLE);
-      setIconImage(IconTool.getIcon(GecoConstants.GECO_ICON, Decorator.SIZE_32)
+      this.setTitle(Constant.GECO_TITLE);
+      setIconImage(IconTool.getIcon(Constant.GECO_ICON, Decorator.SIZE_32)
             .getImage());
       setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
       this.getContentPane().add(
@@ -144,7 +143,8 @@ public class GecoMainView extends JFrame {
     * Initialises the view for a project
     */
    public void initProjectView(String projectName) {
-      setTitle(GecoConstants.GECO_TITLE + Constant.DASH_S + projectName);
+      setTitle(Constant.GECO_TITLE + org.sigtec.util.Constant.DASH_S
+            + projectName);
 
       if (!initialized) {
          populateDialog();
@@ -160,9 +160,9 @@ public class GecoMainView extends JFrame {
    private void populateDialog() {
       initialized = true;
       leftPanel.setBorder(new TitledBorder(new BevelBorder(0, Color.gray,
-            Color.gray), GecoConstants.USER_DEFINED_MAPPING));
+            Color.gray), Constant.USER_DEFINED_MAPPING));
       rightPanel.setBorder(new TitledBorder(new BevelBorder(0, Color.gray,
-            Color.gray), GecoConstants.GESTURE_SET));
+            Color.gray), Constant.GESTURE_SET));
 
       contentPanel.setLayout(new GridBagLayout());
       contentPanel.add(leftPanel, new GridBagConstraints(0, 0, 1, 1, 1, 1,
@@ -173,13 +173,13 @@ public class GecoMainView extends JFrame {
             GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0,
                   0, 0), 0, 0));
 
-      saveButton = SwingTool.createButton(GecoConstants.SAVE);
-      exitButton = SwingTool.createButton(GecoConstants.EXIT);
+      saveButton = SwingTool.createButton(Constant.SAVE);
+      exitButton = SwingTool.createButton(Constant.EXIT);
 
       exitButton.setAction(handler.getExitApplicationAction());
       saveButton.setAction(handler.getSaveProjectAction());
 
-      JButton minimize = SwingTool.createButton(GecoConstants.MINIMIZE);
+      JButton minimize = SwingTool.createButton(Constant.MINIMIZE);
       minimize.setAction(handler.getMinimizeAction());
 
       JPanel buttonPanel = new JPanel();
@@ -216,10 +216,10 @@ public class GecoMainView extends JFrame {
             GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0,
                   0, 0), 0, 0));
 
-      editButton = SwingTool.createButton(GecoConstants.EDIT);
+      editButton = SwingTool.createButton(Constant.EDIT);
       editButton.setAction(handler.getEditMappingAction());
       editButton.setEnabled(false);
-      removeButton = SwingTool.createButton(GecoConstants.REMOVE);
+      removeButton = SwingTool.createButton(Constant.REMOVE);
       removeButton.setAction(handler.getRemoveMappingAction());
       removeButton.setEnabled(false);
 
@@ -227,8 +227,8 @@ public class GecoMainView extends JFrame {
             new ListSelectionListener() {
 
                public void valueChanged(ListSelectionEvent e) {
-                  GecoMainView.this.editButton.setEnabled(true);
-                  GecoMainView.this.removeButton.setEnabled(true);
+                  MainView.this.editButton.setEnabled(true);
+                  MainView.this.removeButton.setEnabled(true);
                }
             });
 
@@ -254,7 +254,7 @@ public class GecoMainView extends JFrame {
          @Override
          public void mouseReleased(MouseEvent event) {
             if (event.getButton() == MouseEvent.BUTTON1) {
-               GecoMainView.this.mapButton.setEnabled(true);
+               MainView.this.mapButton.setEnabled(true);
             }
          }
       });
@@ -263,12 +263,11 @@ public class GecoMainView extends JFrame {
             GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0,
                   0, 0), 0, 0));
 
-      mapButton = SwingTool.createButton(GecoConstants.MAP_GESTURE);
+      mapButton = SwingTool.createButton(Constant.MAP_GESTURE);
       mapButton.setAction(handler.getAddMappingAction());
       mapButton.setEnabled(false);
 
-      JButton loadSetButton = SwingTool
-            .createButton(GecoConstants.LOAD_GESTURE_SET);
+      JButton loadSetButton = SwingTool.createButton(Constant.LOAD_GESTURE_SET);
       loadSetButton.setAction(handler.getLoadGestureSetAction());
 
       rightPanel.add(loadSetButton, new GridBagConstraints(0, 1, 1, 1, 0.5, 0,
@@ -296,7 +295,7 @@ public class GecoMainView extends JFrame {
 
 
    private JMenu createFileMenu() {
-      JMenu menu = GuiTool.getGuiBundle().createMenu(GecoConstants.FILE_MENU);
+      JMenu menu = GuiTool.getGuiBundle().createMenu(Constant.FILE_MENU);
       menu.add(new JMenuItem(handler.getNewProjectAction()));
       menu.add(new JMenuItem(handler.getOpenProjectAction()));
       saveMenuItem = new JMenuItem(handler.getSaveProjectAction());
@@ -323,7 +322,7 @@ public class GecoMainView extends JFrame {
     * 
     * @return the main model.
     */
-   public GecoMainModel getModel() {
+   public MainModel getModel() {
       return model;
    } // getModel
 
@@ -408,7 +407,7 @@ public class GecoMainView extends JFrame {
     * @return the component Handler
     * 
     */
-   public GecoComponentHandler getComponentHandler() {
+   public ComponentHandler getComponentHandler() {
       return compHandler;
    }// getComponentHandler
 
@@ -419,7 +418,7 @@ public class GecoMainView extends JFrame {
     * @return the component Handler
     * 
     */
-   public GecoActionHandler getActionHandler() {
+   public ActionHandler getActionHandler() {
       return handler;
    }// getActionHandler
 

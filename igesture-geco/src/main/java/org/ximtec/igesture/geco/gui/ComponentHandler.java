@@ -39,9 +39,9 @@ import org.ximtec.igesture.geco.dialog.OptionsDialog;
  * @version 0.9, Nov 22, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public class GecoComponentHandler {
+public class ComponentHandler {
 
-   private GecoMainView view;
+   private MainView view;
    private MappingDialog mappingDialog;
    private NewProjectDialog newProjectDialog;
    private OptionsDialog optionsDialog;
@@ -51,7 +51,7 @@ public class GecoComponentHandler {
    /**
     * Constructor.
     */
-   public GecoComponentHandler(GecoMainView view) {
+   public ComponentHandler(MainView view) {
       this.view = view;
    } // GecoActionHandler
 

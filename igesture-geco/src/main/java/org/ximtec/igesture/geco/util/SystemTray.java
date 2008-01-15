@@ -1,5 +1,5 @@
 /*
- * @(#)GecoSystemTray.java	1.0   Dec 17, 2007
+ * @(#)SystemTray.java	1.0   Dec 17, 2007
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
@@ -30,7 +30,6 @@ import java.awt.AWTException;
 import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
-import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,8 +38,8 @@ import java.awt.event.MouseListener;
 
 import org.sigtec.graphix.IconTool;
 import org.sigtec.util.Decorator;
-import org.ximtec.igesture.geco.gui.GecoConstants;
-import org.ximtec.igesture.geco.gui.GecoMainView;
+import org.ximtec.igesture.geco.gui.Constant;
+import org.ximtec.igesture.geco.gui.MainView;
 
 
 /**
@@ -48,16 +47,16 @@ import org.ximtec.igesture.geco.gui.GecoMainView;
  * @version 0.9, Dec 17, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public class GecoSystemTray {
+public class SystemTray {
 
-   private GecoMainView mainView;
+   private MainView mainView;
    private static TrayIcon trayIcon;
    private PopupMenu popup;
    private Image image;
-   private static SystemTray tray;
+   private static java.awt.SystemTray tray;
 
 
-   public GecoSystemTray(GecoMainView view) {
+   public SystemTray(MainView view) {
       this.mainView = view;
       addIconToTray();
    }
@@ -65,14 +64,14 @@ public class GecoSystemTray {
 
    public void addIconToTray() {
 
-      if (SystemTray.isSupported()) {
-         tray = SystemTray.getSystemTray();
-         image = IconTool.getIcon(GecoConstants.GECO_ICON, Decorator.SIZE_32)
+      if (java.awt.SystemTray.isSupported()) {
+         tray = java.awt.SystemTray.getSystemTray();
+         image = IconTool.getIcon(Constant.GECO_ICON, Decorator.SIZE_32)
                .getImage();
          popup = new PopupMenu();
-         trayIcon = new TrayIcon(image, GecoConstants.GECO_NAME, popup);
+         trayIcon = new TrayIcon(image, Constant.GECO_NAME, popup);
 
-         MenuItem exitItem = new MenuItem(GecoConstants.EXIT);
+         MenuItem exitItem = new MenuItem(Constant.EXIT);
          exitItem.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -83,7 +82,7 @@ public class GecoSystemTray {
                .getExitApplicationAction());
          popup.add(exitItem);
 
-         MenuItem showItem = new MenuItem(GecoConstants.SHOW);
+         MenuItem showItem = new MenuItem(Constant.SHOW);
          showItem.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {

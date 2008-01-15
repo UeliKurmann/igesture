@@ -1,5 +1,5 @@
 /*
- * @(#)GecoOptionsAction.java	1.0   Jan 10, 2008
+ * @(#)OptionsAction.java	1.0   Jan 10, 2008
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
@@ -29,9 +29,8 @@ import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.geco.gui.GecoConstants;
-import org.ximtec.igesture.geco.gui.GecoMainView;
-
+import org.ximtec.igesture.geco.gui.Constant;
+import org.ximtec.igesture.geco.gui.MainView;
 
 
 /**
@@ -40,13 +39,13 @@ import org.ximtec.igesture.geco.gui.GecoMainView;
  * @author Michele Croci, mcroci@gmail.com
  */
 
-public class GecoOptionsAction extends BasicAction {
+public class OptionsAction extends BasicAction {
 
-   private GecoMainView mainView;
+   private MainView mainView;
 
 
-   public GecoOptionsAction(GecoMainView mainView) {
-      super(GecoConstants.OPTIONS_ACTION, GuiTool.getGuiBundle());
+   public OptionsAction(MainView mainView) {
+      super(Constant.OPTIONS_ACTION, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
 
@@ -57,14 +56,10 @@ public class GecoOptionsAction extends BasicAction {
     * @param event the action event.
     */
    public void actionPerformed(ActionEvent event) {
-      //display save dialog, if needed
-     
-      
-      //display new project dialog
+      // display save dialog, if needed
+
+      // display new project dialog
       mainView.getComponentHandler().getOptionsDialog().showDialog();
    } // actionPerformed
-   
 
-   
 }
-

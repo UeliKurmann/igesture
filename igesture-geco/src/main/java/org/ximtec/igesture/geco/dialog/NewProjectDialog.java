@@ -50,9 +50,9 @@ import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.graphix.widget.BasicTextField;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.geco.gui.GecoConstants;
-import org.ximtec.igesture.geco.gui.GecoMainModel;
-import org.ximtec.igesture.geco.gui.GecoMainView;
+import org.ximtec.igesture.geco.gui.Constant;
+import org.ximtec.igesture.geco.gui.MainModel;
+import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.gui.action.SaveProjectAction;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 import org.ximtec.igesture.graphics.SwingTool;
@@ -68,7 +68,7 @@ import org.ximtec.igesture.graphics.SwingTool;
 public class NewProjectDialog extends BasicDialog{
    
    
-   private GecoMainView view;
+   private MainView view;
    
    private int DIALOG_WIDTH = 700;
    private int DIALOG_HEIGHT = 300;
@@ -80,7 +80,7 @@ public class NewProjectDialog extends BasicDialog{
    private String filePath="";
 
    
-   public NewProjectDialog(GecoMainView view){
+   public NewProjectDialog(MainView view){
       this.view=view;
       setModal(true);
       init();
@@ -93,20 +93,20 @@ public class NewProjectDialog extends BasicDialog{
       File[] roots = File.listRoots();
       filePath = System.getProperty ("user.home")+"\\";
       JPanel mainPanel = new JPanel();
-      mainPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GecoConstants.NEW_PROJECT_DIALOG_TITLE));
+      mainPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), Constant.NEW_PROJECT_DIALOG_TITLE));
      
       
-      this.setTitle(GecoConstants.NEW_PROJECT_DIALOG_TITLE);
+      this.setTitle(Constant.NEW_PROJECT_DIALOG_TITLE);
       mainPanel.setLayout(new GridBagLayout());
       this.setLayout(new GridBagLayout());
       Point p = new Point(view.getLocation().x+50, view.getLocation().y+100);
       this.setLocation(p);
       this.setSize(new Dimension( DIALOG_WIDTH, DIALOG_HEIGHT ));
 
-      mainPanel.add(GuiTool.createLabel(GecoConstants.PROJECT_NAME),  new GridBagConstraints(0,0,1,1,0,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
+      mainPanel.add(GuiTool.createLabel(Constant.PROJECT_NAME),  new GridBagConstraints(0,0,1,1,0,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
             new Insets(10,10,10,10),0,0 ) );
       
-      projectTextField = GuiTool.createTextField(GecoConstants.PROJECT_NAME_TEXT_FIELD);
+      projectTextField = GuiTool.createTextField(Constant.PROJECT_NAME_TEXT_FIELD);
       projectTextField.getDocument().addDocumentListener(new MyDocumentListener());
       projectTextField.setText("");
       mainPanel.add(projectTextField,  
@@ -114,26 +114,26 @@ public class NewProjectDialog extends BasicDialog{
             new Insets(10,10,10,10),0,0 ) );
       
       
-      mainPanel.add(GuiTool.createLabel(GecoConstants.PROJECT_FILE),  new GridBagConstraints(0,1,1,1,0,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
+      mainPanel.add(GuiTool.createLabel(Constant.PROJECT_FILE),  new GridBagConstraints(0,1,1,1,0,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
             new Insets(10,10,10,10),0,0 ) );
       
-      fileTextField = GuiTool.createTextField(GecoConstants.PROJECT_FILE_TEXT_FIELD);
+      fileTextField = GuiTool.createTextField(Constant.PROJECT_FILE_TEXT_FIELD);
       fileTextField.setEditable(false);
       fileTextField.setText(filePath);
       mainPanel.add(fileTextField,  
             new GridBagConstraints(1,1,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
             new Insets(10,10,10,10),0,0 ) );
       
-      JButton browseButton = SwingTool.createButton(GecoConstants.BROWSE);
+      JButton browseButton = SwingTool.createButton(Constant.BROWSE);
       browseButton.addActionListener(new BrowseListener());
       mainPanel.add(browseButton,  
             new GridBagConstraints(2,1,1,1,0,0, GridBagConstraints.CENTER, GridBagConstraints.NONE,
             new Insets(10,10,10,10),0,0 ) );
       
-      createButton = SwingTool.createButton(GecoConstants.CREATE);
+      createButton = SwingTool.createButton(Constant.CREATE);
       createButton.setEnabled(false);
       createButton.addActionListener(new CreateListener());
-      JButton cancelButton = SwingTool.createButton(GecoConstants.CANCEL);
+      JButton cancelButton = SwingTool.createButton(Constant.CANCEL);
       cancelButton.addActionListener(new CancelListener());
       
       JPanel buttonPanel = new JPanel();
@@ -222,7 +222,7 @@ public class NewProjectDialog extends BasicDialog{
             if (temp.exists()){
                int n = JOptionPane.showConfirmDialog(
                      NewProjectDialog.this,
-                     GecoConstants.OVERWRITE_FILE,
+                     Constant.OVERWRITE_FILE,
                      "",
                      JOptionPane.YES_NO_OPTION);
                if (n!=0){
@@ -234,9 +234,9 @@ public class NewProjectDialog extends BasicDialog{
                //update model
                File gsFile;
                try {
-                  gsFile = new File(ClassLoader.getSystemResource(GecoMainModel.GESTURE_SET).toURI());
+                  gsFile = new File(ClassLoader.getSystemResource(MainModel.GESTURE_SET).toURI());
                } catch(URISyntaxException ex) {
-                  gsFile = new File(ClassLoader.getSystemResource(GecoMainModel.GESTURE_SET).getPath());
+                  gsFile = new File(ClassLoader.getSystemResource(MainModel.GESTURE_SET).getPath());
                }
                
                GestureSet gestureSet = XMLGeco.importGestureSet(gsFile).get(0);

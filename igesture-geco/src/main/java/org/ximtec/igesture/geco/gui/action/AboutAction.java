@@ -1,5 +1,5 @@
 /*
- * @(#)GecoAboutAction.java   1.0   Dec 18, 2007
+ * @(#)AboutAction.java   1.0   Dec 18, 2007
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *
@@ -38,7 +38,7 @@ import org.ximtec.igesture.tool.util.JAboutDialog;
  * @version 0.9, Nov 2006
  * @author Michele Croci, mcroci@gmail.com
  */
-public class GecoAboutAction extends BasicAction {
+public class AboutAction extends BasicAction {
 
    /**
     * The key used to retrieve action details from the resource bundle.
@@ -48,9 +48,9 @@ public class GecoAboutAction extends BasicAction {
    JAboutDialog dialog;
 
 
-   public GecoAboutAction(String path) {
+   public AboutAction(String path) {
       super(KEY, GuiTool.getGuiBundle());
-      dialog = new JAboutDialog(300, 500, GecoAboutAction.class.getClassLoader()
+      dialog = new JAboutDialog(300, 500, AboutAction.class.getClassLoader()
             .getResource(path));
    }
 

@@ -34,7 +34,7 @@ import javax.swing.JOptionPane;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.geco.gui.GecoMainView;
+import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.userAction.CommandExecutor;
 import org.ximtec.igesture.geco.userAction.KeyboardSimulation;
@@ -52,14 +52,14 @@ public class XMLImportGeco {
    private List<GestureToActionMapping> mappings;
    
    private static GestureSet gestureSet;
-   private GecoMainView view;
+   private MainView view;
    private String gestureSetFileName;
    
    private boolean importError;
    
    
 
-   public XMLImportGeco(GecoMainView view){
+   public XMLImportGeco(MainView view){
       this.view = view;
    }
    

@@ -32,9 +32,8 @@ import javax.swing.JOptionPane;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
-import org.sigtec.util.Constant;
-import org.ximtec.igesture.geco.gui.GecoConstants;
-import org.ximtec.igesture.geco.gui.GecoMainView;
+import org.ximtec.igesture.geco.gui.Constant;
+import org.ximtec.igesture.geco.gui.MainView;
 
 
 /**
@@ -51,10 +50,10 @@ public class NewProjectAction extends BasicAction {
     */
    public static final String KEY = "NewProjectAction";
 
-   private GecoMainView mainView;
+   private MainView mainView;
 
 
-   public NewProjectAction(GecoMainView mainView) {
+   public NewProjectAction(MainView mainView) {
       super(KEY, GuiTool.getGuiBundle());
       this.mainView = mainView;
    }
@@ -70,8 +69,8 @@ public class NewProjectAction extends BasicAction {
 
       if (mainView.getModel().needSave()) {
          int n = JOptionPane.showConfirmDialog(mainView,
-               GecoConstants.SAVE_DIALOG_TITLE, Constant.EMPTY_STRING,
-               JOptionPane.YES_NO_OPTION);
+               Constant.SAVE_DIALOG_TITLE,
+               org.sigtec.util.Constant.EMPTY_STRING, JOptionPane.YES_NO_OPTION);
 
          if (n == 0) {
             (new SaveProjectAction(mainView)).save();

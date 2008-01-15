@@ -1,5 +1,5 @@
 /*
- * @(#)GestureMappingTable.java 1.0   Nov 19, 2007
+ * @(#)Geco.java 1.0   Nov 19, 2007
  *
  * Author       :   Michele Croci, mcroci@mgail.com
  *
@@ -35,10 +35,9 @@ import javax.swing.ImageIcon;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.SplashScreen;
 import org.ximtec.igesture.algorithm.AlgorithmException;
-import org.ximtec.igesture.configuration.Configuration;
-import org.ximtec.igesture.geco.gui.GecoMainModel;
-import org.ximtec.igesture.geco.gui.GecoMainView;
-import org.ximtec.igesture.geco.util.GecoSystemTray;
+import org.ximtec.igesture.geco.gui.MainModel;
+import org.ximtec.igesture.geco.gui.MainView;
+import org.ximtec.igesture.geco.util.SystemTray;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 
 
@@ -49,10 +48,9 @@ import org.ximtec.igesture.geco.xml.XMLGeco;
  * @author Michele Croci, mcroci@gmail.com
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class GecoMain {
+public class Geco {
 
-   private static final Logger LOGGER = Logger.getLogger(GecoMain.class
-         .getName());
+   private static final Logger LOGGER = Logger.getLogger(Geco.class.getName());
 
    public static final String GECO_CONFIGURATION = "gecoConfig.xml";
 
@@ -66,24 +64,24 @@ public class GecoMain {
 
    private static final String RUBINE_CONFIGURATION = "rubineconfiguration.xml";
 
-   private Configuration configuration;
+   private org.ximtec.igesture.configuration.Configuration configuration;
 
 
-   public GecoMain(String[] args) throws AlgorithmException {
-      ImageIcon logo = new ImageIcon(GecoMain.class.getClassLoader()
-            .getResource(GECO_LOGO));
+   public Geco(String[] args) throws AlgorithmException {
+      ImageIcon logo = new ImageIcon(Geco.class.getClassLoader().getResource(
+            GECO_LOGO));
       SplashScreen splashScreen = new SplashScreen(logo, false, 4000);
       splashScreen.splash();
       GuiTool.addGuiBundle(GUI_BUNDLE_FILE);
       Logger.getAnonymousLogger().setLevel(Level.ALL);
       LOGGER.info(INITIALISING);
-      GecoConfiguration gestureConfiguration;
+      Configuration gestureConfiguration;
 
       if (args.length > 0) {
-         gestureConfiguration = new GecoConfiguration(args[0]);
+         gestureConfiguration = new Configuration(args[0]);
       }
       else {
-         gestureConfiguration = new GecoConfiguration(GECO_CONFIGURATION);
+         gestureConfiguration = new Configuration(GECO_CONFIGURATION);
       }
       // configuration = XMLGeco.importConfiguration(new File(
       // ClassLoader.getSystemResource(RUBINE_CONFIGURATION).getFile()));
@@ -98,10 +96,9 @@ public class GecoMain {
       }
 
       configuration = XMLGeco.importConfiguration(confFile);
-      GecoMainModel model = new GecoMainModel(configuration,
-            gestureConfiguration);
-      GecoMainView view = new GecoMainView(model);
-      new GecoSystemTray(view);
+      MainModel model = new MainModel(configuration, gestureConfiguration);
+      MainView view = new MainView(model);
+      new SystemTray(view);
       LOGGER.info(INITIALISED);
    }
 
@@ -113,7 +110,7 @@ public class GecoMain {
     */
    public static void main(String[] args) {
       try {
-         new GecoMain(args);
+         new Geco(args);
       }
       catch (Exception e) {
          e.printStackTrace();
