@@ -90,6 +90,7 @@ public class OptionsDialog extends BasicDialog{
     */
    private void init(){
       JPanel mainPanel = new JPanel();
+      this.setResizable(false);
       mainPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), GecoConstants.SELECT_INPUT_DEVICE));
       this.setTitle(GecoConstants.OPTIONS_DIALOG_TITLE);
       mainPanel.setLayout(new GridBagLayout());
@@ -100,7 +101,7 @@ public class OptionsDialog extends BasicDialog{
 
     
       this.add(mainPanel,
-            new GridBagConstraints(0,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+            new GridBagConstraints(0,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,
                   new Insets(20,20,20,20),0,0 ) );
       
       
@@ -113,14 +114,14 @@ public class OptionsDialog extends BasicDialog{
          JRadioButton button = new JRadioButton(devices.get(i));
          group.add(button);
          radioButtonPanel.add( button,
-               new GridBagConstraints(0,i,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+               new GridBagConstraints(0,i,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,
                new Insets(10,0,0,0),0,0 ) );
          hashTable.put(devices.get(i),button);
         
       }
       
       mainPanel.add(radioButtonPanel,
-            new GridBagConstraints(0,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+            new GridBagConstraints(0,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,
             new Insets(30,30,30,15),0,0 ) );
       
       JButton okButton = SwingTool.createButton(GecoConstants.OK);
@@ -133,7 +134,7 @@ public class OptionsDialog extends BasicDialog{
       buttonPanel.add(okButton);
       buttonPanel.add(cancelButton);
       this.add(buttonPanel,  
-            new GridBagConstraints(0,2,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+            new GridBagConstraints(0,2,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,
             new Insets(10,10,10,10),0,0 ) );
    }//init
    

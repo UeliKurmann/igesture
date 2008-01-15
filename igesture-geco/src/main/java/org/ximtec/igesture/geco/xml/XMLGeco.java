@@ -50,6 +50,7 @@ import org.ximtec.igesture.configuration.jdom.JdomConfiguration;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.jdom.JdomGestureSet;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
+import org.ximtec.igesture.tool.GestureConfiguration;
 import org.xml.sax.InputSource;
 
 
@@ -65,6 +66,8 @@ public class XMLGeco {
          .getLogger(XMLGeco.class.getName());
 
    public static final String ROOT_TAG = "gestureMappings";
+   
+   public static final String CONFIG_ROOT_TAG = "configuration";
 
 
 
@@ -151,6 +154,33 @@ public class XMLGeco {
             .getRootElement());
       return configuration;
    } // importConfiguration
+   
+   
+   /**
+    * Imports a configuration.
+    * 
+    * @param file the XML file
+    * @return the configuration.
+    */
+   /*
+   public static void exportConfiguration(GestureConfiguration configuration) {
+   final JdomDocument igestureDocument = new JdomDocument(CONFIG_ROOT_TAG);
+      
+      igestureDocument.attach(new JdomGestureSetName(gestureSetFileName));
+
+      for (final GestureToActionMapping map :  mappings) {
+            igestureDocument.attach(new JdomGestureMapping(map, gestureSet ));
+      }
+
+      FileHandler.writeFile(file.getPath(), igestureDocument.toXml());
+      
+      Configuration configuration = new Configuration();
+      final Document document = importDocument(file);
+      configuration = (Configuration)JdomConfiguration.unmarshal(document
+            .getRootElement());
+      return configuration;
+   } // importConfiguration
+*/
 
 
 
