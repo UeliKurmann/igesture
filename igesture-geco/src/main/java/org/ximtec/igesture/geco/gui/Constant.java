@@ -42,7 +42,7 @@ public class Constant extends org.sigtec.util.Constant {
    public static final String FILE_MENU = "FileMenu";
 
    public static final String GESTURE_MAPPING_TITLE = "GestureMappingTitle";
-   
+
    public static final String NEW_PROJECT_TITLE = "Create a new project";
 
    public static final String USER_DEFINED_MAPPING = "User-defined mappings";
@@ -55,7 +55,7 @@ public class Constant extends org.sigtec.util.Constant {
 
    public static final String COMMAND = "Command";
 
-   //public static final String MAIN_FRAME_TITLE = "mainFrame";
+   // public static final String MAIN_FRAME_TITLE = "mainFrame";
 
    public static final String SAVE_DIALOG_TITLE = "Would you like to save the changes before closing?";
 
@@ -113,7 +113,6 @@ public class Constant extends org.sigtec.util.Constant {
     * Actions
     */
 
-
    public static final String REMOVE_MAPPING = "RemoveMappingAction";
 
    public static final String OPTIONS_ACTION = "OptionsAction";
@@ -122,10 +121,7 @@ public class Constant extends org.sigtec.util.Constant {
 
    public static final String EXIT_APPLICATION_ACTION = "ExitApplicationAction";
 
-   public static final String LOAD_GESTURE_SET_ACTION = "LoadGestureSetAction";
-
    public static final String MAP_GESTURE_ACTION = "MapGestureAction";
-
 
    /*
     * System Tray
