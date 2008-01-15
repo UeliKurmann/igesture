@@ -26,8 +26,6 @@
 package org.ximtec.igesture.geco.xml;
 
 import org.jdom.Element;
-import org.sigtec.input.InputDevice;
-import org.ximtec.igesture.geco.UserAction.CommandExecutor;
 
 
 
@@ -48,13 +46,15 @@ public class JdomDeviceElement extends Element {
    
 
 
-   public JdomDeviceElement(InputDevice device, boolean selected) {
-      this(COMMAND);
+   public JdomDeviceElement(String device, boolean selected) {
+      this(COMMAND, device);
    } // JdomConfigurationElement
 
 
-   public JdomDeviceElement(String name) {
+   public JdomDeviceElement(String name, String device) {
       super(name);
+      //add attribute
+      //add 2 attribute
    } // JdomConfigurationElement
 
 }
