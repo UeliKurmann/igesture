@@ -69,7 +69,7 @@ public class Constant {
 
    public static final String PROJECT_NAME = "ProjectName";
 
-   public static final String PROJECT_FILE = "ProjectFile";
+   public static final String PROJECT_LOCATION = "ProjectLocation";
 
    public static final String PROJECT_NAME_TEXT_FIELD = "ProjectNameTextField";
 
