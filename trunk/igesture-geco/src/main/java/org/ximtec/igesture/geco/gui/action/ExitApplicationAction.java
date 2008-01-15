@@ -41,13 +41,13 @@ import org.ximtec.igesture.geco.util.SystemTray;
  * Terminates the application.
  * 
  * @version 0.9, Nov 15, 2006
- * @author  Michele Croci, mcroci@gmail.com
+ * @author Michele Croci, mcroci@gmail.com
  */
 
 public class ExitApplicationAction extends BasicAction {
 
-   
    private MainView mainView;
+
 
    public ExitApplicationAction(MainView mainView) {
       super(Constant.EXIT_APPLICATION_ACTION, GuiTool.getGuiBundle());
@@ -59,27 +59,25 @@ public class ExitApplicationAction extends BasicAction {
     * @param event the action event.
     */
    public void actionPerformed(ActionEvent event) {
-      //display save dialog, if needed
-      
+      // display save dialog, if needed
 
-      
-      if (mainView.getModel().needSave()){
-         int n = JOptionPane.showConfirmDialog(
-               mainView,
-               Constant.SAVE_DIALOG_TITLE,
-               "",
+      if (mainView.getModel().needSave()) {
+         int n = JOptionPane.showConfirmDialog(mainView,
+               Constant.SAVE_DIALOG_TITLE, Constant.EMPTY_STRING,
                JOptionPane.YES_NO_CANCEL_OPTION);
-         if (n==0){
+         if (n == 0) {
             (new SaveProjectAction(mainView)).save();
             System.exit(0);
-         }else if(n==1){
+         }
+         else if (n == 1) {
             System.exit(0);
          }
-      }else{
+      }
+      else {
          SystemTray.removeTrayIcon();
          System.exit(0);
       }
-      
+
    } // actionPerformed
 
 }

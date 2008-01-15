@@ -31,7 +31,7 @@ package org.ximtec.igesture.geco.gui;
  * @version 0.9, Nov 2007
  * @author Michele croci
  */
-public class Constant {
+public class Constant extends org.sigtec.util.Constant {
 
    /*
     * GUI
@@ -42,6 +42,8 @@ public class Constant {
    public static final String FILE_MENU = "FileMenu";
 
    public static final String MAP_GESTURE = "MapGesture";
+
+   public static final String NEW_PROJECT_TITLE = "Create a new project";
 
    public static final String USER_DEFINED_MAPPING = "User-defined mappings";
 
@@ -60,8 +62,6 @@ public class Constant {
    public static final String OVERWRITE_FILE = "File already exists. Do you want to overwrite it?";
 
    public static final String LOAD_GESTURE_SET_CONFIRMATION = "Loading another gesture set will delete all existing mapping. Do you want to continue?";
-
-   public static final String NEW_PROJECT_DIALOG_TITLE = "Create a new project";
 
    public static final String OPTIONS_DIALOG_TITLE = "Options";
 
@@ -128,7 +128,6 @@ public class Constant {
    public static final String MAP_GESTURE_ACTION = "MapGestureAction";
 
    public static final String MINIMIZE_ACTION = "MinimizeAction";
-
 
    /*
     * System Tray
