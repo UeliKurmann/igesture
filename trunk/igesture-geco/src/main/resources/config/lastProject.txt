@@ -1,0 +1,1 @@
+C:\develop\igesture\igesture-geco\target\classes\Mappings\test2.xml

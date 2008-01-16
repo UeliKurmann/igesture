@@ -41,6 +41,7 @@ import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
@@ -77,7 +78,7 @@ public class OptionsDialog extends BasicDialog{
    private Hashtable hashTable = new Hashtable();
    private String selectedDeviceName;
    private ButtonGroup group = new ButtonGroup();
-   
+   private JCheckBox startupBox = new JCheckBox(Constant.MINIMIZE_STARTUP);
    // GUI elements
    private JTabbedPane tabbedPane = new JTabbedPane();
 
@@ -102,6 +103,7 @@ public class OptionsDialog extends BasicDialog{
       this.setSize(new Dimension( DIALOG_WIDTH, DIALOG_HEIGHT ));
 
       addFirstTab();
+      addSecondTab();
 
       
       this.add(tabbedPane,
@@ -139,6 +141,7 @@ public class OptionsDialog extends BasicDialog{
       selectedDeviceName = configuration.getInputDeviceName();
       JRadioButton button = (JRadioButton)hashTable.get(configuration.getInputDeviceName());
       button.setSelected(true);
+      startupBox.setSelected(configuration.getMinimize());
    }//reset
    
    
@@ -181,11 +184,12 @@ public class OptionsDialog extends BasicDialog{
     */
    private void addSecondTab() {
       JPanel aPanel = new JPanel();
-      aPanel.setLayout(new GridLayout(1, 1));
+      aPanel.setLayout(new GridBagLayout());
       
       //Creates the radio buttons.
-      JPanel radioButtonPanel = new JPanel();
-      aPanel.add(radioButtonPanel);
+      aPanel.add(startupBox,
+            new GridBagConstraints(0,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,
+            new Insets(50,50,50,50),0,0 ) );
       
       tabbedPane.addTab(Constant.STARTUP, aPanel);
       tabbedPane.setMnemonicAt(STARTUP, KeyEvent.VK_2);
@@ -195,13 +199,16 @@ public class OptionsDialog extends BasicDialog{
    
    
    /**
-    * Listener for create project event.
+    * Listener for save options event.
     */
    private class OkListener implements ActionListener{
       public void actionPerformed(ActionEvent e){
-         
          String newSelDevice = group.getSelection().getActionCommand();
-         if(!newSelDevice.equals(configuration.getInputDeviceName())){
+         boolean needUpdate = (!newSelDevice.equals(configuration.getInputDeviceName())||
+               configuration.getMinimize()!=startupBox.isSelected());
+         
+         
+         if(needUpdate){
             List<String> devices = configuration.getInputDevices();
             boolean arr[]=new boolean[devices.size()]; 
             for(int i=0;i<devices.size();i++){
@@ -218,11 +225,10 @@ public class OptionsDialog extends BasicDialog{
             } catch(URISyntaxException ex) {
                confFile = new File(ClassLoader.getSystemResource(Geco.GECO_CONFIGURATION).getPath());
             }
-            
-            XMLGeco.exportGestureConfiguration(devices, arr, confFile);
+            XMLGeco.exportGestureConfiguration(devices, arr, confFile, startupBox.isSelected());
             
             view.getModel().resetInputDevice();
-            view.getModel().setGestureConfiguration(new Configuration(confFile.getName()));
+            view.getModel().setGestureConfiguration(new Configuration(Geco.GECO_CONFIGURATION));
             view.getModel().configureInputDevice();
          }
       

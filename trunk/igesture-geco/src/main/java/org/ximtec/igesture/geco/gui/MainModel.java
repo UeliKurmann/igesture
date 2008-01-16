@@ -3,7 +3,7 @@
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
- * Purpose		:   Model for GestureMappingView class 
+ * Purpose		:   Model for MainView class 
  *
  * -----------------------------------------------------------------------
  *
@@ -48,7 +48,7 @@ import org.ximtec.igesture.storage.StorageManager;
 
 
 /**
- * Comment
+ * Model for MainView class 
  * @version 0.9, Nov 20, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
@@ -87,6 +87,8 @@ public class MainModel implements ButtonDeviceEventListener {
    private Recogniser recogniser;
 
    private InputDeviceClient client;
+   
+   private boolean minimize;
 
 
    /**
@@ -99,6 +101,7 @@ public class MainModel implements ButtonDeviceEventListener {
       this.configuration = conf;
       this.gestureConfiguration = gestConf;
       configureInputDevice();
+      minimize = gestureConfiguration.getMinimize();
 
       Comparator<GestureClass> c1 = new Comparator<GestureClass>() {
 
@@ -427,6 +430,14 @@ public class MainModel implements ButtonDeviceEventListener {
     */
    public void setGestureConfiguration(Configuration conf) {
       gestureConfiguration = conf;
+   }
+   
+   
+   /**
+    * Application should be minimized
+    */
+   public boolean minimizeAsStartup() {
+      return minimize;
    }
    
 

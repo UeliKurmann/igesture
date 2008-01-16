@@ -8,5 +8,6 @@
 			<class></class>
 		</device>
 	</inputdevices>
+	<minimize>true</minimize>
 </configuration>
 

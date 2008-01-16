@@ -80,6 +80,8 @@ public class Constant extends org.sigtec.util.Constant {
    public static final String INPUT_DEVICE = "Input Device";
    
    public static final String STARTUP = "Startup";
+   
+   public static final String MINIMIZE_STARTUP = "Minimize at Startup";
 
    /*
     * Commands

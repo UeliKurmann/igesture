@@ -25,7 +25,12 @@
 
 package org.ximtec.igesture.geco;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,6 +69,10 @@ public class Geco {
    private static final String INITIALISED = "Initialised.";
 
    private static final String RUBINE_CONFIGURATION = "\\config\\rubineconfiguration.xml";
+   
+   public static final String LAST_PROJECT = "\\config\\lastProject.txt";
+   
+   private static final String DEFAULT_PROJECT = "\\Mappings\\ms_gestures_mapping.xml";
 
    private org.ximtec.igesture.configuration.Configuration configuration;
    
@@ -123,9 +132,35 @@ public class Geco {
 
    }
    
-   public void openLastProject(){
-         String file = gestureConfiguration.getLastOpenedProject();
-         System.out.println("Last opened Project: "+file);
+   public void openLastProject(){ 
+      String file = "";
+      try
+      {
+            File confFile;
+            try {
+               confFile = new File(ClassLoader.getSystemResource(LAST_PROJECT).toURI());
+            }
+            catch (URISyntaxException e) {
+               confFile = new File(ClassLoader.getSystemResource(LAST_PROJECT)
+                     .getPath());
+            }
+
+            FileReader fr = new FileReader(confFile);  
+             file = new BufferedReader(fr).readLine();
+             fr.close();        
+         }
+         catch (IOException e)
+         {
+             e.printStackTrace();
+         }
+         if ((file==null)||file.equals("")){
+               try {
+                  file = ClassLoader.getSystemResource(DEFAULT_PROJECT).toURI().getPath();
+               }
+               catch (URISyntaxException e) {
+                  file = ClassLoader.getSystemResource(DEFAULT_PROJECT).getPath();
+               }
+         }
          (new OpenProjectAction(view)).openProject(new File(file));
    }
 

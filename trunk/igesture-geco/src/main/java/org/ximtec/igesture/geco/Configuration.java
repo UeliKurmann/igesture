@@ -59,7 +59,10 @@ public class Configuration {
    private static final String PROPERTY_ALGORITHM = "algorithm/class";
    private static final String PROPERTY_TAB = "tab/class";
    
-   private static final String LAST_PROJECT = "lastproject";
+   private static final String MINIMIZE = "minimize";
+   
+   private static final String TRUE = "true";
+   private static final String FALSE = "false";
    
 
    private XMLConfiguration configuration;
@@ -135,23 +138,6 @@ public class Configuration {
 
       return null;
    } // getInputDevice
-   
-   
-   /**
-    * Returns the input device.
-    * 
-    * @return the input device.
-    * 
-    */
-   public String getLastOpenedProject() {
-      List list = configuration.getList(LAST_PROJECT);
-      if (!list.isEmpty()) {
-         return (String)list.get(0);
-      }else{
-         return "";
-      }
-   } // getInputDevice
-
 
 
    /**
@@ -166,6 +152,25 @@ public class Configuration {
          return (String)list.get(0);
       }
       return null;
+   } // getInputDeviceName
+   
+   /**
+    * Returns true if the value of <minimize> is true, otherwise false;
+    * 
+    * @return the value of <minimize>
+    * 
+    */
+   public boolean getMinimize() {
+      List list = configuration.getList(MINIMIZE);
+      if (!list.isEmpty()) {
+         if(((String)list.get(0)).equals(TRUE)){
+            return true;
+         }
+         else{
+            return false;
+         }
+      }
+      return false;
    } // getInputDeviceName
 
 

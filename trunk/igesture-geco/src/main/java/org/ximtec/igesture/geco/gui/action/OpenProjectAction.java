@@ -27,7 +27,12 @@
 package org.ximtec.igesture.geco.gui.action;
 
 import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -37,6 +42,7 @@ import javax.swing.JOptionPane;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.MIME;
+import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
@@ -58,8 +64,6 @@ public class OpenProjectAction extends BasicAction {
     * The key used to retrieve action details from the resource bundle.
     */
    public static final String KEY = "OpenProjectAction";
-   
-   private static final String DEFAULT_PROJECT = "\\Mappings\\ms_gestures_mapping.xml";
 
    private MainView mainView;
 
@@ -121,6 +125,7 @@ public class OpenProjectAction extends BasicAction {
                }
             if (ext.equals(Constant.DOT+MIME.getExtension(MIME.XML))) {
                   openProject(selectedFile);
+                  writeFilePath(selectedFile);
             }
 
          }
@@ -131,15 +136,7 @@ public class OpenProjectAction extends BasicAction {
    
    public void openProject(File selFile){
       File selectedFile = selFile;
-      if(selectedFile.getPath().equals("")){
-         try {
-            selectedFile = new File(ClassLoader.getSystemResource(DEFAULT_PROJECT).toURI());
-         }
-         catch (URISyntaxException e) {
-            selectedFile = new File(ClassLoader.getSystemResource(DEFAULT_PROJECT)
-                  .getPath());
-         }
-      }
+    
       XMLImportGeco XMLImport = new XMLImportGeco(mainView);
       XMLImport.importProject(selectedFile);
 
@@ -174,5 +171,29 @@ public class OpenProjectAction extends BasicAction {
             mainView.enableMenuItem();
          }
       }
+   }
+   
+   
+   public void writeFilePath(File file){
+      try
+      {
+            File confFile;
+            try {
+               confFile = new File(ClassLoader.getSystemResource(Geco.LAST_PROJECT).toURI());
+            }
+            catch (URISyntaxException e) {
+               confFile = new File(ClassLoader.getSystemResource(Geco.LAST_PROJECT)
+                     .getPath());
+            }
+            FileWriter fw = new FileWriter(confFile);  
+            BufferedWriter bw = new BufferedWriter (fw);
+            bw.write(file.getPath()); 
+            bw.close();
+         }
+         catch (IOException e)
+         {
+            e.printStackTrace();
+         }
+      
    }
 }
