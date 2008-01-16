@@ -12,7 +12,7 @@
 
     <target name="geco">
         <mkdir dir="${log.dir}" />
-        <launch classname="org.ximtec.igesture.geco.GecoMain">
+        <launch classname="org.ximtec.igesture.geco.Geco">
             <classpath refid="base.class.path"/>
             <syspropertyset>
                 <sysproperty key="log.dir" file="${log.dir}"/>
