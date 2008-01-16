@@ -192,7 +192,7 @@ public class NewProjectDialog extends BasicDialog {
 
          JFileChooser fileChooser = new JFileChooser();
          fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-         fileChooser.setCurrentDirectory(new File(filePath));
+         //fileChooser.setCurrentDirectory(new File(filePath));
          int status = fileChooser.showDialog(null, "Open");
          if (status == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
