@@ -37,6 +37,7 @@ import org.sigtec.graphix.SplashScreen;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.geco.gui.MainModel;
 import org.ximtec.igesture.geco.gui.MainView;
+import org.ximtec.igesture.geco.gui.action.OpenProjectAction;
 import org.ximtec.igesture.geco.util.SystemTray;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 
@@ -52,7 +53,7 @@ public class Geco {
 
    private static final Logger LOGGER = Logger.getLogger(Geco.class.getName());
 
-   public static final String GECO_CONFIGURATION = "gecoConfig.xml";
+   public static final String GECO_CONFIGURATION = "\\config\\gecoConfig.xml";
 
    private static final String GUI_BUNDLE_FILE = "geco";
 
@@ -62,9 +63,13 @@ public class Geco {
 
    private static final String INITIALISED = "Initialised.";
 
-   private static final String RUBINE_CONFIGURATION = "rubineconfiguration.xml";
+   private static final String RUBINE_CONFIGURATION = "\\config\\rubineconfiguration.xml";
 
    private org.ximtec.igesture.configuration.Configuration configuration;
+   
+   private Configuration gestureConfiguration;
+   
+   private MainView view;
 
 
    public Geco(String[] args) throws AlgorithmException {
@@ -75,7 +80,7 @@ public class Geco {
       GuiTool.addGuiBundle(GUI_BUNDLE_FILE);
       Logger.getAnonymousLogger().setLevel(Level.ALL);
       LOGGER.info(INITIALISING);
-      Configuration gestureConfiguration;
+
 
       if (args.length > 0) {
          gestureConfiguration = new Configuration(args[0]);
@@ -83,8 +88,6 @@ public class Geco {
       else {
          gestureConfiguration = new Configuration(GECO_CONFIGURATION);
       }
-      // configuration = XMLGeco.importConfiguration(new File(
-      // ClassLoader.getSystemResource(RUBINE_CONFIGURATION).getFile()));
       File confFile;
       try {
          confFile = new File(ClassLoader.getSystemResource(RUBINE_CONFIGURATION)
@@ -97,7 +100,9 @@ public class Geco {
 
       configuration = XMLGeco.importConfiguration(confFile);
       MainModel model = new MainModel(configuration, gestureConfiguration);
-      MainView view = new MainView(model);
+      view = new MainView(model);
+      //open last opened Document
+      openLastProject();
       new SystemTray(view);
       LOGGER.info(INITIALISED);
    }
@@ -116,6 +121,12 @@ public class Geco {
          e.printStackTrace();
       }
 
+   }
+   
+   public void openLastProject(){
+         String file = gestureConfiguration.getLastOpenedProject();
+         System.out.println("Last opened Project: "+file);
+         (new OpenProjectAction(view)).openProject(new File(file));
    }
 
 }

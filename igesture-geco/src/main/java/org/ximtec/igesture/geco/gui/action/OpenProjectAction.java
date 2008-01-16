@@ -41,6 +41,7 @@ import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
+import org.ximtec.igesture.geco.xml.XMLGeco;
 import org.ximtec.igesture.geco.xml.XMLImportGeco;
 
 
@@ -57,6 +58,8 @@ public class OpenProjectAction extends BasicAction {
     * The key used to retrieve action details from the resource bundle.
     */
    public static final String KEY = "OpenProjectAction";
+   
+   private static final String DEFAULT_PROJECT = "\\Mappings\\ms_gestures_mapping.xml";
 
    private MainView mainView;
 
@@ -112,54 +115,64 @@ public class OpenProjectAction extends BasicAction {
          if (selectedFile != null) {
             String ext = "";
                if(selectedFile.getName().length()>=4){
-                  selectedFile.getName().substring(
+                  ext = selectedFile.getName().substring(
                   selectedFile.getName().length() - 4,
                   selectedFile.getName().length());
                }
-
             if (ext.equals(Constant.DOT+MIME.getExtension(MIME.XML))) {
-               XMLImportGeco XMLImport = new XMLImportGeco(mainView);
-               XMLImport.importProject(selectedFile);
-
-               if (!XMLImport.hasError()) {
-                  String projectName = selectedFile.getName();
-                  projectName = projectName.substring(0,
-                        projectName.length() - 4);
-
-                  // update model
-                  mainView.getModel().clearData();
-
-                  if (XMLImport.getGestureSet() != null) {
-                     mainView.getModel().initRecogniser(
-                           XMLImport.getGestureSet());
-                     mainView.getModel().loadGestureSet(
-                           XMLImport.getGestureSet());
-                     List<GestureToActionMapping> list = XMLImport.getMappings();
-
-                     for (GestureToActionMapping mapping : list) {
-                        mainView.getModel().addMapping(mapping);
-                     }
-
-                     mainView.getModel().setProjectFile(selectedFile);
-                     mainView.getModel().setProjectName(projectName);
-                     mainView.getModel().setGestureSetFileName(
-                           XMLImport.getGestureSetFileName());
-                     mainView.getModel().setNeedSave(false);
-
-                     // update view
-                     mainView.initProjectView(projectName);
-                     mainView.updateGestureList();
-                     mainView.enableMenuItem();
-                  }
-
-               }
-
+                  openProject(selectedFile);
             }
 
          }
-
+         
       }
+}
 
+   
+   public void openProject(File selFile){
+      File selectedFile = selFile;
+      if(selectedFile.getPath().equals("")){
+         try {
+            selectedFile = new File(ClassLoader.getSystemResource(DEFAULT_PROJECT).toURI());
+         }
+         catch (URISyntaxException e) {
+            selectedFile = new File(ClassLoader.getSystemResource(DEFAULT_PROJECT)
+                  .getPath());
+         }
+      }
+      XMLImportGeco XMLImport = new XMLImportGeco(mainView);
+      XMLImport.importProject(selectedFile);
+
+      if (!XMLImport.hasError()) {
+         String projectName = selectedFile.getName();
+         projectName = projectName.substring(0,
+               projectName.length() - 4);
+
+         // update model
+         mainView.getModel().clearData();
+
+         if (XMLImport.getGestureSet() != null) {
+            mainView.getModel().initRecogniser(
+                  XMLImport.getGestureSet());
+            mainView.getModel().loadGestureSet(
+                  XMLImport.getGestureSet());
+            List<GestureToActionMapping> list = XMLImport.getMappings();
+
+            for (GestureToActionMapping mapping : list) {
+               mainView.getModel().addMapping(mapping);
+            }
+
+            mainView.getModel().setProjectFile(selectedFile);
+            mainView.getModel().setProjectName(projectName);
+            mainView.getModel().setGestureSetFileName(
+                  XMLImport.getGestureSetFileName());
+            mainView.getModel().setNeedSave(false);
+
+            // update view
+            mainView.initProjectView(projectName);
+            mainView.updateGestureList();
+            mainView.enableMenuItem();
+         }
+      }
    }
-
 }

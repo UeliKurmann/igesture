@@ -24,7 +24,7 @@
 
 
 package org.ximtec.igesture.geco.dialog;
-import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -36,25 +36,20 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.net.URISyntaxException;
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.TitledBorder;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.ximtec.igesture.geco.Configuration;
 import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.Constant;
-import org.ximtec.igesture.geco.gui.HotKeyView;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 
@@ -77,6 +72,7 @@ public class OptionsDialog extends BasicDialog{
    private int DIALOG_HEIGHT = 450;
    
    private int INPUTDEVICE = 0;
+   private int STARTUP = 0;
    
    private Hashtable hashTable = new Hashtable();
    private String selectedDeviceName;
@@ -97,9 +93,7 @@ public class OptionsDialog extends BasicDialog{
     * Inits the dialog.
     */
    private void init(){
-      //JPanel mainPanel = new JPanel();
       this.setResizable(false);
-      //mainPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), Constant.SELECT_INPUT_DEVICE));
       this.setTitle(Constant.OPTIONS_DIALOG_TITLE);
       this.setLayout(new GridBagLayout());
       this.setLayout(new GridBagLayout());
@@ -107,12 +101,6 @@ public class OptionsDialog extends BasicDialog{
       this.setLocation(p);
       this.setSize(new Dimension( DIALOG_WIDTH, DIALOG_HEIGHT ));
 
-    
-    //  this.add(mainPanel,
-     //       new GridBagConstraints(0,0,1,1,1,1, GridBagConstraints.CENTER, GridBagConstraints.NONE,
-       //           new Insets(20,20,20,20),0,0 ) );
-      
-      
       addFirstTab();
 
       
@@ -161,8 +149,6 @@ public class OptionsDialog extends BasicDialog{
     */
    private void addFirstTab() {
       JPanel aPanel = new JPanel();
-      //aPanel.setBorder(new TitledBorder(new BevelBorder(0, Color.gray,
-        //    Color.gray), Constant.INPUT_DEVICE));
       aPanel.setLayout(new GridLayout(1, 1));
       
       //Creates the radio buttons.
@@ -186,6 +172,23 @@ public class OptionsDialog extends BasicDialog{
       
       tabbedPane.addTab(Constant.INPUT_DEVICE, aPanel);
       tabbedPane.setMnemonicAt(INPUTDEVICE, KeyEvent.VK_1);
+
+   } // addFirstTab
+   
+   /**
+    * Add the first tab to the dialog
+    * 
+    */
+   private void addSecondTab() {
+      JPanel aPanel = new JPanel();
+      aPanel.setLayout(new GridLayout(1, 1));
+      
+      //Creates the radio buttons.
+      JPanel radioButtonPanel = new JPanel();
+      aPanel.add(radioButtonPanel);
+      
+      tabbedPane.addTab(Constant.STARTUP, aPanel);
+      tabbedPane.setMnemonicAt(STARTUP, KeyEvent.VK_2);
 
    } // addFirstTab
    

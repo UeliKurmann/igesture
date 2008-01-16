@@ -38,6 +38,7 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.EventManager;
 import org.ximtec.igesture.geco.Configuration;
+import org.ximtec.igesture.geco.gui.action.OpenProjectAction;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.util.SortedListModel;
 import org.ximtec.igesture.io.ButtonDeviceEventListener;
@@ -137,6 +138,7 @@ public class MainModel implements ButtonDeviceEventListener {
     * Loads the data from the database. All elements are available in memory and
     * write operations are forwarded to the database.
     */
+   /*
    private void loadData() {
       gestureClasses = new ArrayList<GestureClass>();
 
@@ -144,11 +146,11 @@ public class MainModel implements ButtonDeviceEventListener {
          gestureClasses.add(dataObject);
       }
 
-      // for (GestureSet dataObject : storageManager.load(GestureSet.class)) {
-      // gestureSets.add(dataObject);
-      // }
+       for (GestureSet dataObject : storageManager.load(GestureSet.class)) {
+       gestureSets.add(dataObject);
+       }
    } // loadData
-
+*/
 
    /**
     * Adds the gesture set to the gesture main model
@@ -426,5 +428,7 @@ public class MainModel implements ButtonDeviceEventListener {
    public void setGestureConfiguration(Configuration conf) {
       gestureConfiguration = conf;
    }
+   
+
 
 }

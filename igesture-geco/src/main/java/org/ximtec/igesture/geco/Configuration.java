@@ -58,6 +58,9 @@ public class Configuration {
    private static final String PROPERTY_DATABASE = "database";
    private static final String PROPERTY_ALGORITHM = "algorithm/class";
    private static final String PROPERTY_TAB = "tab/class";
+   
+   private static final String LAST_PROJECT = "lastproject";
+   
 
    private XMLConfiguration configuration;
 
@@ -132,6 +135,23 @@ public class Configuration {
 
       return null;
    } // getInputDevice
+   
+   
+   /**
+    * Returns the input device.
+    * 
+    * @return the input device.
+    * 
+    */
+   public String getLastOpenedProject() {
+      List list = configuration.getList(LAST_PROJECT);
+      if (!list.isEmpty()) {
+         return (String)list.get(0);
+      }else{
+         return "";
+      }
+   } // getInputDevice
+
 
 
    /**
