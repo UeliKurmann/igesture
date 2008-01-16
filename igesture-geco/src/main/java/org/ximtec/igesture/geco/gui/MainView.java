@@ -100,6 +100,8 @@ public class MainView extends JFrame implements WindowListener{
    private JButton editButton;
    private JButton removeButton;
    private JMenuItem saveMenuItem;
+   
+   private boolean first=true;
 
 
    /**
@@ -111,7 +113,9 @@ public class MainView extends JFrame implements WindowListener{
       super();
       this.model = model;
       createVoidDialog();
-      setVisible(true);
+      if ((!model.minimizeAsStartup())){
+         setVisible(true);
+      }
    }
 
 
@@ -153,7 +157,11 @@ public class MainView extends JFrame implements WindowListener{
 
       if (!initialized) {
          populateDialog();
-         setVisible(true);
+         if ((!first)||(!model.minimizeAsStartup())){
+            setVisible(true);
+         }else{
+            first=false;
+         }
       }
 
    }
