@@ -59,12 +59,12 @@ ShowUninstDetails hide
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
-    File target\igesture-geco-1.2-SNAPSHOT\tray_icon.png
+  #  File target\igesture-geco-1.2-SNAPSHOT\tray_icon.png
     File target\igesture-geco-1.2-SNAPSHOT\about.html
-    File target\igesture-geco-1.2-SNAPSHOT\geco-config.xml
+    File target\igesture-geco-1.2-SNAPSHOT\gecoConfig.xml
     File target\igesture-geco-1.2-SNAPSHOT\geco_exe.exe
-    File target\igesture-geco-1.2-SNAPSHOT\gecoProperties.properties
-    File target\igesture-geco-1.2-SNAPSHOT\gecoProperties.properties.bak
+    File target\igesture-geco-1.2-SNAPSHOT\geco.properties
+  #  File target\igesture-geco-1.2-SNAPSHOT\gecoProperties.properties.bak
     File target\igesture-geco-1.2-SNAPSHOT\ms_application_gestures.xml
     File target\igesture-geco-1.2-SNAPSHOT\ms_gestures_mapping.xml
     File target\igesture-geco-1.2-SNAPSHOT\rubineconfiguration.xml
@@ -122,20 +122,20 @@ Section /o -un.Main UNSEC0000
     Delete /REBOOTOK $INSTDIR\rubineconfiguration.xml
     Delete /REBOOTOK $INSTDIR\ms_gestures_mapping.xml
     Delete /REBOOTOK $INSTDIR\ms_application_gestures.xml
-    Delete /REBOOTOK $INSTDIR\gecoProperties.properties.bak
-    Delete /REBOOTOK $INSTDIR\gecoProperties.properties
+ #   Delete /REBOOTOK $INSTDIR\gecoProperties.properties.bak
+    Delete /REBOOTOK $INSTDIR\geco.properties
     Delete /REBOOTOK $INSTDIR\geco_exe.exe
-    Delete /REBOOTOK $INSTDIR\geco-config.xml
+    Delete /REBOOTOK $INSTDIR\gecoConfig.xml
     Delete /REBOOTOK $INSTDIR\config2.xml
     Delete /REBOOTOK $INSTDIR\about.html
-    Delete /REBOOTOK $INSTDIR\tray_icon.png
+  #  Delete /REBOOTOK $INSTDIR\tray_icon.png
     DeleteRegValue HKLM "${REGKEY}\Components" Main
 SectionEnd
 
 Section -un.post UNSEC0001
     DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
     Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk"
-    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Run $(^Name).lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\$(^Name).lnk"
     Delete /REBOOTOK $INSTDIR\uninstall.exe
     DeleteRegValue HKLM "${REGKEY}" StartMenuGroup
     DeleteRegValue HKLM "${REGKEY}" Path

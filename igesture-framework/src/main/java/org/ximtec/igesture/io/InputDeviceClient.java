@@ -111,7 +111,7 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
       
 
       if (inputDevice instanceof AbstractInputDevice) {
-         ((AbstractInputDevice)inputDevice).stopLoop();
+         ((ExtendedInputDevice)inputDevice).stopLoop();
       }
 
    } // init

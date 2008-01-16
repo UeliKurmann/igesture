@@ -34,6 +34,8 @@ import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.net.URISyntaxException;
 
@@ -110,6 +112,7 @@ public class NewProjectDialog extends BasicDialog {
             .createTextField(Constant.PROJECT_NAME_TEXT_FIELD);
       projectTextField.getDocument().addDocumentListener(
             new MyDocumentListener());
+      projectTextField.addKeyListener(new MyKeyListener());
       projectTextField.setText(Constant.EMPTY_STRING);
       mainPanel.add(projectTextField, new GridBagConstraints(1, 0, 1, 1, 1, 1,
             GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
@@ -221,59 +224,7 @@ public class NewProjectDialog extends BasicDialog {
 
       public void actionPerformed(ActionEvent e) {
 
-         if ((!fileTextField.getText().equals(Constant.EMPTY_STRING))
-               && (!projectTextField.getText().equals(Constant.EMPTY_STRING))) {
-            String fileName = fileTextField.getText();
-
-            boolean ok = true;
-            File temp = new File(fileName);
-            if (temp.exists()) {
-               int n = JOptionPane.showConfirmDialog(NewProjectDialog.this,
-                     Constant.OVERWRITE_FILE, Constant.EMPTY_STRING,
-                     JOptionPane.YES_NO_OPTION);
-               if (n != 0) {
-                  ok = false;
-               }
-            }
-
-            if (ok) {
-               // update model
-               File gsFile;
-               try {
-                  gsFile = new File(ClassLoader.getSystemResource(
-                        MainModel.GESTURE_SET).toURI());
-               }
-               catch (URISyntaxException ex) {
-                  gsFile = new File(ClassLoader.getSystemResource(
-                        MainModel.GESTURE_SET).getPath());
-               }
-
-               GestureSet gestureSet = XMLGeco.importGestureSet(gsFile).get(0);
-
-               // GestureSet gestureSet = XMLGeco.importGestureSet(
-               // new
-               // File(ClassLoader.getSystemResource(GecoMainModel.GESTURE_SET).getFile())).get(0);
-
-               view.getModel().clearData();
-               view.getModel().initRecogniser(gestureSet);
-               view.getModel().loadGestureSet(gestureSet);
-
-               view.getModel().setProjectFile(temp);
-               view.getModel()
-                     .setGestureSetFileName(view.getModel().GESTURE_SET);
-               view.getModel().setProjectName(projectTextField.getText());
-
-               // update view
-               view.initProjectView(projectTextField.getText());
-               view.enableMenuItem();
-               view.updateGestureList();
-               NewProjectDialog.this.dispose();
-
-               // save
-               (new SaveProjectAction(view)).save();
-            }
-         }
-
+            createProject();
       }// actionPerformed
 
    }
@@ -323,7 +274,81 @@ public class NewProjectDialog extends BasicDialog {
                   .setText(NewProjectDialog.this.filePath
                         + NewProjectDialog.this.projectTextField.getText());
          }
-
       }// update
+   }
+   
+   /**
+    * Listener for key event.
+    */
+   
+   private class MyKeyListener implements KeyListener{
+      public void keyPressed(KeyEvent e){ 
+         System.out.println("Ola");
+         if (e.getKeyCode()==KeyEvent.VK_ENTER){
+            createProject();
+         }
+      }
+
+      public void keyReleased(KeyEvent e){
+      }
+
+      public void keyTyped(KeyEvent e){
+      }
+   }
+   
+   public void createProject(){
+      if ((!fileTextField.getText().equals(Constant.EMPTY_STRING))
+            && (!projectTextField.getText().equals(Constant.EMPTY_STRING))) {
+         String fileName = fileTextField.getText();
+
+         boolean ok = true;
+         File temp = new File(fileName);
+         if (temp.exists()) {
+            int n = JOptionPane.showConfirmDialog(NewProjectDialog.this,
+                  Constant.OVERWRITE_FILE, Constant.EMPTY_STRING,
+                  JOptionPane.YES_NO_OPTION);
+            if (n != 0) {
+               ok = false;
+            }
+         }
+
+         if (ok) {
+            // update model
+            File gsFile;
+            try {
+               gsFile = new File(ClassLoader.getSystemResource(
+                     MainModel.GESTURE_SET).toURI());
+            }
+            catch (URISyntaxException ex) {
+               gsFile = new File(ClassLoader.getSystemResource(
+                     MainModel.GESTURE_SET).getPath());
+            }
+
+            GestureSet gestureSet = XMLGeco.importGestureSet(gsFile).get(0);
+
+            // GestureSet gestureSet = XMLGeco.importGestureSet(
+            // new
+            // File(ClassLoader.getSystemResource(GecoMainModel.GESTURE_SET).getFile())).get(0);
+
+            view.getModel().clearData();
+            view.getModel().initRecogniser(gestureSet);
+            view.getModel().loadGestureSet(gestureSet);
+
+            view.getModel().setProjectFile(temp);
+            view.getModel()
+                  .setGestureSetFileName(view.getModel().GESTURE_SET);
+            view.getModel().setProjectName(projectTextField.getText());
+
+            // update view
+            view.initProjectView(projectTextField.getText());
+            view.enableMenuItem();
+            view.updateGestureList();
+            NewProjectDialog.this.dispose();
+
+            // save
+            (new SaveProjectAction(view)).save();
+         }
+      }
+
    }
 }

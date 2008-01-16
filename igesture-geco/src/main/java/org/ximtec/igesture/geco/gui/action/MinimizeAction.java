@@ -62,7 +62,11 @@ public class MinimizeAction extends BasicAction {
     * @param event the action event.
     */
    public void actionPerformed(ActionEvent event) {
-      mainView.setVisible(false);
+      minimizeWindow();
    } // actionPerformed
+   
+   public void minimizeWindow(){
+      mainView.setVisible(false);
+   }
 
 }

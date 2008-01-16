@@ -53,7 +53,7 @@ import org.ximtec.igesture.io.wacom.Wintab32.ROTATION;
  * @author Michele Croci, mcroci@gmail.com
  */
  
-public class WacomReader extends org.sigtec.input.AbstractInputDevice implements
+public class WacomReader extends ExtendedInputDevice implements
       ButtonDevice, WacomCallback {
 
    private static final Logger LOGGER = Logger.getLogger(WacomReader.class
