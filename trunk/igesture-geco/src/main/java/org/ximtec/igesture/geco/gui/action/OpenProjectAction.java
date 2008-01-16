@@ -28,6 +28,7 @@ package org.ximtec.igesture.geco.gui.action;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.swing.JFileChooser;
@@ -89,20 +90,34 @@ public class OpenProjectAction extends BasicAction {
 
 
    private void displayFileChooser() {
+      String filePath;
+      try {
+         filePath = new File(ClassLoader.getSystemResource(org.ximtec.igesture.geco.gui.Constant.MAPPINGS)
+               .toURI()).getPath()+ Constant.BACKSLASH;;
+      }
+      catch (URISyntaxException e) {
+         filePath = new File(ClassLoader.getSystemResource(org.ximtec.igesture.geco.gui.Constant.MAPPINGS)
+               .getPath()).getPath()+ Constant.BACKSLASH;;
+      }
+
       JFileChooser fileChooser = new JFileChooser();
       fileChooser.setFileFilter(new ExtensionFileFilter(MIME
             .getExtension(MIME.XML),
             new String[] { MIME.getExtension(MIME.XML) }));
+      fileChooser.setCurrentDirectory(new File(filePath));
       int status = fileChooser.showOpenDialog(null);
 
       if (status == JFileChooser.APPROVE_OPTION) {
          File selectedFile = fileChooser.getSelectedFile();
          if (selectedFile != null) {
-            String ext = selectedFile.getName().substring(
-                  selectedFile.getName().length() - 3,
+            String ext = "";
+               if(selectedFile.getName().length()>=4){
+                  selectedFile.getName().substring(
+                  selectedFile.getName().length() - 4,
                   selectedFile.getName().length());
+               }
 
-            if (ext.equals(MIME.getExtension(MIME.XML))) {
+            if (ext.equals(Constant.DOT+MIME.getExtension(MIME.XML))) {
                XMLImportGeco XMLImport = new XMLImportGeco(mainView);
                XMLImport.importProject(selectedFile);
 

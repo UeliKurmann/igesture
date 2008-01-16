@@ -180,12 +180,12 @@ public class MainView extends JFrame implements WindowListener{
 
       saveButton = SwingTool.createButton(handler.getSaveProjectAction());
       exitButton = SwingTool.createButton(handler.getExitApplicationAction());
-      JButton minimize = SwingTool.createButton(handler.getMinimizeAction());
+      //JButton minimize = SwingTool.createButton(handler.getMinimizeAction());
       JPanel buttonPanel = new JPanel();
       buttonPanel.setLayout(new FlowLayout());
       buttonPanel.add(saveButton);
       buttonPanel.add(exitButton);
-      buttonPanel.add(minimize);
+      //buttonPanel.add(minimize);
       buttonPanel.setBackground(this.getBackground());
       this.getContentPane().add(
             buttonPanel,
@@ -296,6 +296,7 @@ public class MainView extends JFrame implements WindowListener{
       saveMenuItem = new JMenuItem(handler.getSaveProjectAction());
       saveMenuItem.setEnabled(false);
       menu.add(saveMenuItem);
+      menu.add(new JMenuItem(handler.getSaveAsAction()));
       menu.addSeparator();
       menu.add(new JMenuItem(handler.getOptionsAction()));
       menu.addSeparator();

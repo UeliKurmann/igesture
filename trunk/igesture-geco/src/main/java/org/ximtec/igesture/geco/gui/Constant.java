@@ -108,6 +108,8 @@ public class Constant extends org.sigtec.util.Constant {
    public static final String CREATE = "CREATE";
 
    public static final String MINIMIZE = "MINIMIZE";
+   
+   public static final String MAPPINGS = "Mappings";
 
    /*
     * Actions
@@ -116,6 +118,8 @@ public class Constant extends org.sigtec.util.Constant {
    public static final String OPTIONS_ACTION = "OptionsAction";
 
    public static final String SAVE_PROJECT_ACTION = "SaveProjectAction";
+   
+   public static final String SAVE_AS_ACTION = "SaveAsAction";
 
    public static final String EXIT_APPLICATION_ACTION = "ExitApplicationAction";
 

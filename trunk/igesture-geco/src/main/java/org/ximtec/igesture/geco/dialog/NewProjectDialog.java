@@ -78,7 +78,8 @@ public class NewProjectDialog extends BasicDialog {
    private BasicTextField projectTextField;
    private JButton createButton;
    private String filePath = Constant.EMPTY_STRING;
-
+   
+  
 
    public NewProjectDialog(MainView view) {
       this.view = view;
@@ -91,8 +92,17 @@ public class NewProjectDialog extends BasicDialog {
     * Initialises the dialog.
     */
    private void init() {
-      File[] roots = File.listRoots();
-      filePath = System.getProperty("user.home") + Constant.BACKSLASH;
+      
+      try {
+         filePath = new File(ClassLoader.getSystemResource(org.ximtec.igesture.geco.gui.Constant.MAPPINGS)
+               .toURI()).getPath()+ Constant.BACKSLASH;;
+      }
+      catch (URISyntaxException e) {
+         filePath = new File(ClassLoader.getSystemResource(org.ximtec.igesture.geco.gui.Constant.MAPPINGS)
+               .getPath()).getPath()+ Constant.BACKSLASH;;
+      }
+
+      
       JPanel mainPanel = new JPanel();
       mainPanel.setBorder(new TitledBorder(new BevelBorder(0, Color.gray,
             Color.gray), Constant.NEW_PROJECT_TITLE));
@@ -182,6 +192,7 @@ public class NewProjectDialog extends BasicDialog {
 
          JFileChooser fileChooser = new JFileChooser();
          fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+         fileChooser.setCurrentDirectory(new File(filePath));
          int status = fileChooser.showDialog(null, "Open");
          if (status == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
@@ -283,7 +294,6 @@ public class NewProjectDialog extends BasicDialog {
    
    private class MyKeyListener implements KeyListener{
       public void keyPressed(KeyEvent e){ 
-         System.out.println("Ola");
          if (e.getKeyCode()==KeyEvent.VK_ENTER){
             createProject();
          }
@@ -313,6 +323,9 @@ public class NewProjectDialog extends BasicDialog {
          }
 
          if (ok) {
+            //close dialog
+            NewProjectDialog.this.dispose();
+            
             // update model
             File gsFile;
             try {
@@ -326,24 +339,19 @@ public class NewProjectDialog extends BasicDialog {
 
             GestureSet gestureSet = XMLGeco.importGestureSet(gsFile).get(0);
 
-            // GestureSet gestureSet = XMLGeco.importGestureSet(
-            // new
-            // File(ClassLoader.getSystemResource(GecoMainModel.GESTURE_SET).getFile())).get(0);
-
             view.getModel().clearData();
             view.getModel().initRecogniser(gestureSet);
             view.getModel().loadGestureSet(gestureSet);
 
             view.getModel().setProjectFile(temp);
-            view.getModel()
-                  .setGestureSetFileName(view.getModel().GESTURE_SET);
+            view.getModel().setGestureSetFileName(MainModel.GESTURE_SET);
             view.getModel().setProjectName(projectTextField.getText());
 
             // update view
             view.initProjectView(projectTextField.getText());
             view.enableMenuItem();
             view.updateGestureList();
-            NewProjectDialog.this.dispose();
+            
 
             // save
             (new SaveProjectAction(view)).save();

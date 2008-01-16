@@ -53,7 +53,8 @@ public class ActionHandler {
    private SaveProjectAction saveProjectAction;
    private MinimizeAction minimizeAction;
    private AboutAction aboutAction;
-   private OptionsAction optionsAction;;
+   private OptionsAction optionsAction;
+   private SaveAsAction saveAsAction;
    
    private static final String ABOUT_HTML = "about.html";
 
@@ -131,6 +132,14 @@ public class ActionHandler {
       }
 
       return saveProjectAction;
+   } // getNewGestureMapAction
+   
+   public Action getSaveAsAction() {
+      if (saveAsAction == null) {
+         saveAsAction = new SaveAsAction(view);
+      }
+
+      return saveAsAction;
    } // getNewGestureMapAction
    
    public Action getMinimizeAction() {
