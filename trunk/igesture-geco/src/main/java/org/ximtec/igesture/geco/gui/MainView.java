@@ -29,11 +29,14 @@ package org.ximtec.igesture.geco.gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -57,6 +60,7 @@ import org.sigtec.graphix.IconTool;
 import org.sigtec.util.Decorator;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.geco.gui.action.ActionHandler;
+import org.ximtec.igesture.geco.gui.action.MinimizeAction;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
@@ -71,7 +75,7 @@ import org.ximtec.igesture.tool.GestureConstants;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 
-public class MainView extends JFrame {
+public class MainView extends JFrame implements WindowListener{
 
    private static final Logger LOGGER = Logger.getLogger(MainView.class
          .getName());
@@ -135,6 +139,7 @@ public class MainView extends JFrame {
             new GridBagConstraints(0, 1, 1, 1, 1.0, 1.0,
                   GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                   new Insets(20, 20, 20, 20), 0, 0));
+      this.addWindowListener(this);
       addMenu();
    }
 
@@ -464,5 +469,30 @@ public class MainView extends JFrame {
          return component;
       } // getListCellRendererComponent
    }
+   
+   
+   public void windowClosed(WindowEvent e) {
+  }
+
+  public void windowOpened(WindowEvent e) {
+  }
+
+  public void windowIconified(WindowEvent e) {
+     ((MinimizeAction)handler.getMinimizeAction()).minimizeWindow();
+     
+  }
+
+  public void windowDeiconified(WindowEvent e) {
+  }
+  
+  public void windowActivated(WindowEvent e) {
+ }
+
+ public void windowDeactivated(WindowEvent e) {
+ }
+
+ public void windowClosing(WindowEvent e) {
+ }
+
 
 }

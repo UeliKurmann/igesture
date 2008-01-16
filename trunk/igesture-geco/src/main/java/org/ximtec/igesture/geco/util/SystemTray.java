@@ -27,6 +27,7 @@
 package org.ximtec.igesture.geco.util;
 
 import java.awt.AWTException;
+import java.awt.Frame;
 import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -141,19 +142,9 @@ public class SystemTray {
             }
             else {
                mainView.setVisible(true);
+               mainView.setState(Frame.NORMAL);
             }
 
-         }
-         else {
-            // try{
-            // Robot robot = new Robot();
-            // robot.mousePress(InputEvent.BUTTON3_MASK);
-            // robot.mouseRelease(InputEvent.BUTTON3_MASK);
-            // mainView.getRootPane().setVisible(true);
-
-            // }catch(AWTException e){
-            // e.printStackTrace();
-            // }
          }
          // mainView.setVisible(true);
       }

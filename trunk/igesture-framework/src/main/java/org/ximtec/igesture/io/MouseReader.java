@@ -45,7 +45,7 @@ import org.sigtec.util.Constant;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class MouseReader extends org.sigtec.input.AbstractInputDevice implements
+public class MouseReader extends ExtendedInputDevice implements
       ButtonDevice {
 
    private static final Logger LOGGER = Logger.getLogger(MouseReader.class
