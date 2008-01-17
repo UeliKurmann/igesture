@@ -62,6 +62,7 @@
       	<exclude>junit:junit</exclude>
       	<exclude>com.lowagie:itext</exclude>      	
       	<exclude>org.jpedal:jpedalSTD</exclude>     	
+      	<exclude>xalan:xalan</exclude> 
 
 
 
