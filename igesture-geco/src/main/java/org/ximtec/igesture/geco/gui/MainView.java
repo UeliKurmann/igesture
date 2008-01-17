@@ -29,7 +29,6 @@ package org.ximtec.igesture.geco.gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -44,7 +43,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JMenu; 
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -53,7 +52,7 @@ import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener; 
+import javax.swing.event.ListSelectionListener;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.IconTool;
@@ -64,7 +63,6 @@ import org.ximtec.igesture.geco.gui.action.MinimizeAction;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
-import org.ximtec.igesture.tool.GestureConstants;
 
 
 /**
@@ -75,7 +73,7 @@ import org.ximtec.igesture.tool.GestureConstants;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 
-public class MainView extends JFrame implements WindowListener{
+public class MainView extends JFrame implements WindowListener {
 
    private static final Logger LOGGER = Logger.getLogger(MainView.class
          .getName());
@@ -100,8 +98,8 @@ public class MainView extends JFrame implements WindowListener{
    private JButton editButton;
    private JButton removeButton;
    private JMenuItem saveMenuItem;
-   
-   private boolean first=true;
+
+   private boolean first = true;
 
 
    /**
@@ -113,7 +111,7 @@ public class MainView extends JFrame implements WindowListener{
       super();
       this.model = model;
       createVoidDialog();
-      if ((!model.minimizeAsStartup())){
+      if ((!model.minimizeAsStartup())) {
          setVisible(true);
       }
    }
@@ -157,10 +155,11 @@ public class MainView extends JFrame implements WindowListener{
 
       if (!initialized) {
          populateDialog();
-         if ((!first)||(!model.minimizeAsStartup())){
+         if ((!first) || (!model.minimizeAsStartup())) {
             setVisible(true);
-         }else{
-            first=false;
+         }
+         else {
+            first = false;
          }
       }
 
@@ -188,12 +187,12 @@ public class MainView extends JFrame implements WindowListener{
 
       saveButton = SwingTool.createButton(handler.getSaveProjectAction());
       exitButton = SwingTool.createButton(handler.getExitApplicationAction());
-      //JButton minimize = SwingTool.createButton(handler.getMinimizeAction());
+      // JButton minimize = SwingTool.createButton(handler.getMinimizeAction());
       JPanel buttonPanel = new JPanel();
       buttonPanel.setLayout(new FlowLayout());
       buttonPanel.add(saveButton);
       buttonPanel.add(exitButton);
-      //buttonPanel.add(minimize);
+      // buttonPanel.add(minimize);
       buttonPanel.setBackground(this.getBackground());
       this.getContentPane().add(
             buttonPanel,
@@ -314,8 +313,7 @@ public class MainView extends JFrame implements WindowListener{
 
 
    private JMenu createInfoMenu() {
-      JMenu menu = GuiTool.getGuiBundle().createMenu(
-            GestureConstants.COMMON_HELP);
+      JMenu menu = GuiTool.getGuiBundle().createMenu(Constant.COMMON_HELP);
       menu.add(new JMenuItem(handler.getAboutAction()));
       return menu;
    } // createInfoMenu
@@ -478,30 +476,35 @@ public class MainView extends JFrame implements WindowListener{
          return component;
       } // getListCellRendererComponent
    }
-   
-   
+
+
    public void windowClosed(WindowEvent e) {
-  }
+   }
 
-  public void windowOpened(WindowEvent e) {
-  }
 
-  public void windowIconified(WindowEvent e) {
-     ((MinimizeAction)handler.getMinimizeAction()).minimizeWindow();
-     
-  }
+   public void windowOpened(WindowEvent e) {
+   }
 
-  public void windowDeiconified(WindowEvent e) {
-  }
-  
-  public void windowActivated(WindowEvent e) {
- }
 
- public void windowDeactivated(WindowEvent e) {
- }
+   public void windowIconified(WindowEvent e) {
+      ((MinimizeAction)handler.getMinimizeAction()).minimizeWindow();
 
- public void windowClosing(WindowEvent e) {
- }
+   }
 
+
+   public void windowDeiconified(WindowEvent e) {
+   }
+
+
+   public void windowActivated(WindowEvent e) {
+   }
+
+
+   public void windowDeactivated(WindowEvent e) {
+   }
+
+
+   public void windowClosing(WindowEvent e) {
+   }
 
 }
