@@ -51,12 +51,13 @@ public class MouseUtils {
       msListener = new MouseProc() {
 
          public LRESULT callback(int code, WPARAM wParam, LPARAM lParam) {
-            //System.out.println("mouse callback code: " + code + " wParam "
-            //      + wParam + " lParam " + lParam);
+            System.out.println("mouse callback code: " + code + " wParam "
+                  + wParam + " lParam " + lParam);
             // getCoordinates!!
              POINT p = new POINT();
              User32.INSTANCE.GetCursorPos(p);
              System.out.println("x: "+p.x+" - y: "+p.y);
+             System.out.println(String.valueOf(User32.INSTANCE.GetAsyncKeyState(4)));
 
             return User32.INSTANCE.CallNextHookEx(handle, code, wParam, lParam);
          }
@@ -67,6 +68,10 @@ public class MouseUtils {
        handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_MOUSE_LL, msListener, hinst,0);
 
    }
+   public void disableCallback(){
+      User32.INSTANCE.UnhookWindowsHookExW(handle);
+   }
+   
 
 
    protected void finalize() throws Throwable {

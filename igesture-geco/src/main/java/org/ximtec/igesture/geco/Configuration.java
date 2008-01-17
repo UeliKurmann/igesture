@@ -60,6 +60,7 @@ public class Configuration {
    private static final String PROPERTY_TAB = "tab/class";
    
    private static final String MINIMIZE = "minimize";
+   private static final String LAST_PROJECT = "lastproject";
    
    private static final String TRUE = "true";
    private static final String FALSE = "false";
@@ -153,6 +154,20 @@ public class Configuration {
       }
       return null;
    } // getInputDeviceName
+   
+   /**
+    * Returns the last opened project.
+    * 
+    * @return path of the last opened project.
+    * 
+    */
+   public String getLastProject() {
+      List list = configuration.getList(LAST_PROJECT);
+      if (!list.isEmpty()) {
+         return (String)list.get(0);
+      }
+      return null;
+   } // getLastProject
    
    /**
     * Returns true if the value of <minimize> is true, otherwise false;

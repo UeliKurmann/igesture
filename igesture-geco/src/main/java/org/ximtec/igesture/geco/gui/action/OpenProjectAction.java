@@ -45,7 +45,9 @@ import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
+import org.ximtec.igesture.geco.xml.XMLGeco;
 import org.ximtec.igesture.geco.xml.XMLImportGeco;
+import org.ximtec.igesture.geco.Configuration;;
 
 
 /**
@@ -122,7 +124,8 @@ public class OpenProjectAction extends BasicAction {
                }
             if (ext.equals(Constant.DOT+MIME.getExtension(MIME.XML))) {
                   openProject(selectedFile);
-                  writeFilePath(selectedFile); 
+                  exportConfiguration();
+                  //writeFilePath(selectedFile); 
             }
 
          }
@@ -170,27 +173,29 @@ public class OpenProjectAction extends BasicAction {
       }
    }
    
+
    
-   public void writeFilePath(File file){
-      try
-      {
-            File confFile;
-            try {
-               confFile = new File(ClassLoader.getSystemResource(Geco.LAST_PROJECT).toURI());
-            }
-            catch (URISyntaxException e) {
-               confFile = new File(ClassLoader.getSystemResource(Geco.LAST_PROJECT)
-                     .getPath());
-            }
-            FileWriter fw = new FileWriter(confFile);  
-            BufferedWriter bw = new BufferedWriter (fw);
-            bw.write(file.getPath()); 
-            bw.close();
+   
+   
+   public void exportConfiguration(){
+         File file;
+         try {
+            file = new File(ClassLoader.getSystemResource(Geco.GECO_CONFIGURATION).toURI());
          }
-         catch (IOException e)
-         {
-            e.printStackTrace();
+         catch (URISyntaxException e) {
+            file = new File(ClassLoader.getSystemResource(Geco.GECO_CONFIGURATION).getPath());
          }
-      
-   }
+
+         Configuration configuration = mainView.getModel().getGestureConfiguration();
+         List<String> devices = configuration.getInputDevices();
+         String s = configuration.getInputDeviceName();
+         boolean[] arr  = new boolean[devices.size()];
+         for(int i=0; i<devices.size(); i++){
+            if(s.equals(devices.get(i))){
+               arr[i]=true;
+            }
+         }
+         boolean min = configuration.getMinimize();
+         XMLGeco.exportGestureConfiguration(file, devices, arr, min, mainView.getModel().getProjectFile().getPath());
+      }
 }

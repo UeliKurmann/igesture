@@ -225,7 +225,8 @@ public class OptionsDialog extends BasicDialog{
             } catch(URISyntaxException ex) {
                confFile = new File(ClassLoader.getSystemResource(Geco.GECO_CONFIGURATION).getPath());
             }
-            XMLGeco.exportGestureConfiguration(devices, arr, confFile, startupBox.isSelected());
+            XMLGeco.exportGestureConfiguration(confFile, devices, arr, startupBox.isSelected(), 
+                  view.getModel().getProjectFile().getPath());
             
             view.getModel().resetInputDevice();
             view.getModel().setGestureConfiguration(new Configuration(Geco.GECO_CONFIGURATION));

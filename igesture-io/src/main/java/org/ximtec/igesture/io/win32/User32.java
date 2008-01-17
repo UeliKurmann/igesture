@@ -21,7 +21,7 @@ public interface User32 extends W32API{//StdCallLibrary {
 	
 	
 	
-	int GetAsyncKeyState(int input);
+	boolean GetAsyncKeyState(int input);
 	int GetCursorPos(POINT p);
 	int GetCurrentThreadId();
 

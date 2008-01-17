@@ -13,6 +13,7 @@
  *
  * Dec 10, 2006		ukurmann	Initial Release
  * Mar 22, 2007     bsigner     Cleanup
+ * Jan 17, 2008     crocimi     added dependency from MouseCallback
  *
  * -----------------------------------------------------------------------
  *
@@ -26,6 +27,7 @@
 
 package org.ximtec.igesture.io;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -36,6 +38,8 @@ import org.sigtec.ink.input.Location;
 import org.sigtec.ink.input.TimestampedLocation;
 import org.sigtec.input.InputDeviceEvent;
 import org.sigtec.util.Constant;
+import org.ximtec.igesture.io.mouse.MouseCallback;
+import org.ximtec.igesture.io.mouse.MouseUtils;
 
 
 /**
@@ -46,7 +50,7 @@ import org.sigtec.util.Constant;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class MouseReader extends ExtendedInputDevice implements
-      ButtonDevice {
+      ButtonDevice, MouseCallback {
 
    private static final Logger LOGGER = Logger.getLogger(MouseReader.class
          .getName());
@@ -57,6 +61,10 @@ public class MouseReader extends ExtendedInputDevice implements
 
 
    private HashSet<ButtonDeviceEventListener> buttonUpEvents;
+   
+   final MouseReader mouseReader = this;
+   
+   //final MouseUtils mouseUtils = new MouseUtils();
 
 
    public MouseReader() {
@@ -70,7 +78,7 @@ public class MouseReader extends ExtendedInputDevice implements
     * 
     */
    public void init() {
-      final MouseReader mouseReader = this;
+
       final Thread t = new Thread() {
 
          @Override
@@ -144,5 +152,37 @@ public class MouseReader extends ExtendedInputDevice implements
       }
 
    } // fireMouseButtonEvent
+   
 
+
+   public void callbackFunction(int x, int y, int button){
+
+      if (button ==4) {
+         Location location = new Location("screen", 1, new Point(x,y));
+         TimestampedLocation tsl = new TimestampedLocation(location,
+               System.currentTimeMillis());
+         mouseReader.fireInputDeviceEvent(new MouseReaderEvent(tsl));
+         lastKeyState = true;
+      }
+      else {
+
+         if (lastKeyState) {
+            mouseReader.fireMouseButtonEvent(new InputDeviceEvent() {
+
+               public long getTimestamp() {
+                  return System.currentTimeMillis();
+               }
+            });
+            lastKeyState = false;
+         }
+      }
+      
+   }
+   /* 
+   public void disableCallback(){
+      stop=true;
+      mouseUtils.disableCallback();
+      
+   }
+*/
 }

@@ -91,7 +91,7 @@ public class Geco {
       SplashScreen splashScreen = new SplashScreen(logo, false, 4000);
       splashScreen.splash();
       GuiTool.addGuiBundle(GUI_BUNDLE_FILE);
-      Logger.getAnonymousLogger().setLevel(Level.ALL);
+      Logger.getAnonymousLogger().setLevel(Level.INFO);
       LOGGER.info(INITIALISING);
 
 
@@ -136,49 +136,21 @@ public class Geco {
 
    }
    
+   
+   
    public void openLastProject(){ 
-      String file = "";
-      try
-      {
-            URL url = ClassLoader.getSystemResource(LAST_PROJECT);
-            File confFile;
-            if (url !=null){               
-               try {
-                  confFile = new File(ClassLoader.getSystemResource(LAST_PROJECT).toURI());
-               }
-               catch (URISyntaxException e) {
-                  confFile = new File(ClassLoader.getSystemResource(LAST_PROJECT).getPath());
-               }
-            }else
-            {
-               File f;
-               try {
-                  f = new File(ClassLoader.getSystemResource(CONFIG).toURI());
-               }
-               catch (URISyntaxException e) {
-                  f = new File(ClassLoader.getSystemResource(CONFIG).getPath());
-               }
-               confFile = new File(f.getPath()+Constant.BACKSLASH+LAST_PROJECT_FILE);
-               confFile.createNewFile();
+      String file = view.getModel().getGestureConfiguration().getLastProject();
+      if ((file == null)||(file.equals(""))){
+         try {
+               file = ClassLoader.getSystemResource(DEFAULT_PROJECT).toURI().getPath();
             }
-
-            FileReader fr = new FileReader(confFile);  
-             file = new BufferedReader(fr).readLine();
-             fr.close();        
-         }
-         catch (IOException e)
-         {
-             e.printStackTrace();
-         }
-         if ((file==null)||file.equals("")){
-               try {
-                  file = ClassLoader.getSystemResource(DEFAULT_PROJECT).toURI().getPath();
-               }
-               catch (URISyntaxException e) {
-                  file = ClassLoader.getSystemResource(DEFAULT_PROJECT).getPath();
-               }
-         }
-         (new OpenProjectAction(view)).openProject(new File(file));
+            catch (URISyntaxException e) {
+               file = ClassLoader.getSystemResource(DEFAULT_PROJECT).getPath();
+            }
+      }
+      (new OpenProjectAction(view)).openProject(new File(file));
    }
+   
+
 
 }
