@@ -10,6 +10,7 @@ Name Geco
 !define URL ""
 
 # MUI defines
+!define MUI_ICON geco.ico
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT HKLM
 !define MUI_STARTMENUPAGE_REGISTRY_KEY ${REGKEY}
@@ -59,23 +60,22 @@ ShowUninstDetails hide
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
-  #  File target\igesture-geco-1.2-SNAPSHOT\tray_icon.png
     File target\igesture-geco-1.2-SNAPSHOT\about.html
-    File target\igesture-geco-1.2-SNAPSHOT\gecoConfig.xml
-    File target\igesture-geco-1.2-SNAPSHOT\geco_exe.exe
     File target\igesture-geco-1.2-SNAPSHOT\geco.properties
-  #  File target\igesture-geco-1.2-SNAPSHOT\gecoProperties.properties.bak
     File target\igesture-geco-1.2-SNAPSHOT\ms_application_gestures.xml
-    File target\igesture-geco-1.2-SNAPSHOT\ms_gestures_mapping.xml
-    File target\igesture-geco-1.2-SNAPSHOT\rubineconfiguration.xml
+#    File target\igesture-geco-1.2-SNAPSHOT\geco.ico
+    SetOutPath $INSTDIR\mappings
+    File /r target\igesture-geco-1.2-SNAPSHOT\mappings\*
+    SetOutPath $INSTDIR\config
+    File /r target\igesture-geco-1.2-SNAPSHOT\config\*
     SetOutPath $INSTDIR\bin
     File /r target\igesture-geco-1.2-SNAPSHOT\bin\*
     SetOutPath $INSTDIR\lib
     File /r target\igesture-geco-1.2-SNAPSHOT\lib\*
-    SetOutPath $INSTDIR\gestureSets
-    File /r target\igesture-geco-1.2-SNAPSHOT\gestureSets\*
-    SetOutPath $INSTDIR\log
-#    File /r target\igesture-geco-1.2-SNAPSHOT\log\*
+    SetOutPath $INSTDIR\icons
+    File /r target\igesture-geco-1.2-SNAPSHOT\icons\*
+    SetOutPath $INSTDIR\images
+    File /r target\igesture-geco-1.2-SNAPSHOT\images\*
 #    SetOutPath $INSTDIR
     File target\igesture-geco-1.2-SNAPSHOT\bin\run.bat
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
@@ -89,7 +89,7 @@ Section -post SEC0001
     SetOutPath $SMPROGRAMS\$StartMenuGroup
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk" $INSTDIR\uninstall.exe
     SetOutPath $INSTDIR\bin
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Run $(^Name).lnk" $INSTDIR\bin\run.bat
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$(^Name).lnk" "$INSTDIR\bin\run.bat" "" "$INSTDIR\icons\32x32\custom\geco.ico"
     !insertmacro MUI_STARTMENU_WRITE_END
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayVersion "${VERSION}"
@@ -115,20 +115,15 @@ done${UNSECTION_ID}:
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
     Delete /REBOOTOK $INSTDIR\run.bat
-    RmDir /r /REBOOTOK $INSTDIR\log
-    RmDir /r /REBOOTOK $INSTDIR\gestureSets
     RmDir /r /REBOOTOK $INSTDIR\lib
     RmDir /r /REBOOTOK $INSTDIR\bin
-    Delete /REBOOTOK $INSTDIR\rubineconfiguration.xml
-    Delete /REBOOTOK $INSTDIR\ms_gestures_mapping.xml
+    RmDir /r /REBOOTOK $INSTDIR\config
+    RmDir /r /REBOOTOK $INSTDIR\images
+    RmDir /r /REBOOTOK $INSTDIR\icons
+    RmDir /r /REBOOTOK $INSTDIR\mappings
     Delete /REBOOTOK $INSTDIR\ms_application_gestures.xml
- #   Delete /REBOOTOK $INSTDIR\gecoProperties.properties.bak
     Delete /REBOOTOK $INSTDIR\geco.properties
-    Delete /REBOOTOK $INSTDIR\geco_exe.exe
-    Delete /REBOOTOK $INSTDIR\gecoConfig.xml
-    Delete /REBOOTOK $INSTDIR\config2.xml
     Delete /REBOOTOK $INSTDIR\about.html
-  #  Delete /REBOOTOK $INSTDIR\tray_icon.png
     DeleteRegValue HKLM "${REGKEY}\Components" Main
 SectionEnd
 

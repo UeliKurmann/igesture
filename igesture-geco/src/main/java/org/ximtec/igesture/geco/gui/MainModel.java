@@ -26,7 +26,6 @@
 package org.ximtec.igesture.geco.gui;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.List;
@@ -38,7 +37,6 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.EventManager;
 import org.ximtec.igesture.geco.Configuration;
-import org.ximtec.igesture.geco.gui.action.OpenProjectAction;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.util.SortedListModel;
 import org.ximtec.igesture.io.ButtonDeviceEventListener;
