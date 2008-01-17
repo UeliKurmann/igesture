@@ -51,6 +51,8 @@
       <outputDirectory>lib/</outputDirectory>
       <unpack>false</unpack>
       <excludes>
+      	<exclude>com.db4o:db4o-java5</exclude>
+      	<exclude>com.db4o:db4o-nqopt</exclude>
       	<exclude>attjsapi:attjsapi</exclude>
       	<exclude>myscript:engine</exclude>
       	<exclude>myscript:inksearch</exclude>
