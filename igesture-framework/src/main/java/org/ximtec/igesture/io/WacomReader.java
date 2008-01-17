@@ -112,7 +112,6 @@ public class WacomReader extends ExtendedInputDevice implements
                        if (proxy.buttonPressed()==BUTTON_5) {
                          
                            Location location = new Location("screen", 1, proxy.getLastCursorLocation());
-                           System.out.println("button: "+proxy.buttonPressed());
                            CompleteLocation tbl = null;
                               tbl = new CompleteLocation(location, proxy.getTimeStamp(), proxy.getPressure(),
                                     new Orientation(proxy.getRotation().roYaw, proxy.getRotation().roPitch,
@@ -156,7 +155,6 @@ public class WacomReader extends ExtendedInputDevice implements
                   final WacomReader tabletReader = this;
                   
                   Location location = new Location("screen", 1, new Point(x,y));
-                  System.out.println("button: "+button);
                   CompleteLocation tbl = null;
                    tbl = new CompleteLocation(location, timeStamp, npress,
                          new Orientation(rotation.roYaw, rotation.roPitch,

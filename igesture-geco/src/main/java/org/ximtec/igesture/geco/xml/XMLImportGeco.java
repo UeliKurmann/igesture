@@ -83,7 +83,6 @@ public class XMLImportGeco {
          // load from specified position
          f = new File(gsFile);
          gestureSetFileName = f.getAbsolutePath();
-         System.out.println(f.getAbsolutePath());
       }
       else {
          // load from classpath
@@ -99,7 +98,6 @@ public class XMLImportGeco {
                   .getPath());
          }
          f= confFile;
-         System.out.println(f.getAbsolutePath());
            
       }
       if (f.exists()) {

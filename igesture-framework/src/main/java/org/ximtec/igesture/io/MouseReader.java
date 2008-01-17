@@ -80,7 +80,6 @@ public class MouseReader extends ExtendedInputDevice implements
                if (Win32MouseProxy.isMiddleButtonPressed()) {
                   Location location = new Location("screen", 1, Win32MouseProxy
                         .getCursorLocation());
-                  System.out.println(location);
                   TimestampedLocation tsl = new TimestampedLocation(location,
                         System.currentTimeMillis());
                   mouseReader.fireInputDeviceEvent(new MouseReaderEvent(tsl));
