@@ -51,12 +51,22 @@
       <outputDirectory>lib/</outputDirectory>
       <unpack>false</unpack>
       <excludes>
+      	<exclude>org.fife.plaf:officeLnFs</exclude>
       	<exclude>com.db4o:db4o-java5</exclude>
       	<exclude>com.db4o:db4o-nqopt</exclude>
       	<exclude>attjsapi:attjsapi</exclude>
       	<exclude>myscript:engine</exclude>
       	<exclude>myscript:inksearch</exclude>
       	<exclude>myscript:hwr</exclude>
+      	<exclude>javax.servlet:servlet-api</exclude>      	
+      	<exclude>junit:junit</exclude>
+      	<exclude>com.lowagie:itext</exclude>      	
+      	<exclude>org.jpedal:jpedalSTD</exclude>     	
+
+
+
+      	
+      	
       </excludes>
     </dependencySet>
   </dependencySets>
