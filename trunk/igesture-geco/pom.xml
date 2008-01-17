@@ -138,14 +138,7 @@
 			<groupId>org.sigtec</groupId>
 			<artifactId>sigtec-graphix</artifactId>
 		</dependency>	
-		
-		<!-- to be removed later -->
-		<dependency>
-			<groupId>org.ximtec.igesture</groupId>
-			<artifactId>igesture-tool</artifactId>
-		</dependency>
-		
-		<!-- to be removed later -->
+				
 		<dependency>
 			<groupId>org.ximtec.igesture</groupId>
 			<artifactId>igesture-common</artifactId>

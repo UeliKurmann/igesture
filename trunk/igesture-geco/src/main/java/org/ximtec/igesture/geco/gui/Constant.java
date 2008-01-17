@@ -119,6 +119,12 @@ public class Constant extends org.sigtec.util.Constant {
 
    public static final String COMMON_HELP = "HELP";
    
+   public static final String COMMON_CLOSE = "CLOSE";
+
+   public static final String COMMON_ABOUT = "ABOUT";
+   
+   
+   
    /*
     * Actions
     */
