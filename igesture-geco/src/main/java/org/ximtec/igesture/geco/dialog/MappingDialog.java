@@ -89,7 +89,7 @@ public class MappingDialog extends BasicDialog {
    // constants
    private final int HOTKEY = 0;
    private final int COMMAND = 1;
-   private final int OPEN_FILE = 1;
+   private final int OPEN_FILE = 2;
 
 
    // models
@@ -203,8 +203,7 @@ public class MappingDialog extends BasicDialog {
          public void actionPerformed(ActionEvent event) {
             // update model
             addGestureMappingToTable();
-            view.getModel().addMapping(
-                  MappingDialog.this.view.getModel().getMappings().get(
+            view.getModel().addMapping(MappingDialog.this.view.getModel().getMappings().get(
                         gestureClass));
             // update view
             view.updateLists();
@@ -266,7 +265,7 @@ public class MappingDialog extends BasicDialog {
     */
    private void addThirdTab() {
       JPanel aPanel = new JPanel();
-      aPanel.setLayout(new GridLayout(2,1));
+      aPanel.setLayout(new GridBagLayout());
       tabbedPane.addTab(Constant.OPEN_FILE, aPanel);
       tabbedPane.setMnemonicAt(OPEN_FILE, KeyEvent.VK_3);
       JButton browse = GuiTool.createButton(Constant.BROWSE);
@@ -286,8 +285,12 @@ public class MappingDialog extends BasicDialog {
                }
             });
       
-      aPanel.add(textField);
-      aPanel.add(browse);
+      aPanel.add(textField,
+            new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER, 
+                  GridBagConstraints.HORIZONTAL, new Insets(50, 20, 50, 20), 0, 0));
+      aPanel.add(browse,
+            new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER, 
+            GridBagConstraints.HORIZONTAL, new Insets(50, 50, 50, 50), 0, 0));
 
 
     
@@ -312,6 +315,11 @@ public class MappingDialog extends BasicDialog {
       else if (tabbedPane.getSelectedIndex() == COMMAND) {
          GestureToActionMapping mapping = new GestureToActionMapping(
                gestureClass, new CommandExecutor(commandView.getCommand()));
+         view.getModel().getMappings().put(gestureClass, mapping);
+      }
+      else if (tabbedPane.getSelectedIndex() == OPEN_FILE) {
+         GestureToActionMapping mapping = new GestureToActionMapping(
+               gestureClass, new CommandExecutor(textField.getText()));
          view.getModel().getMappings().put(gestureClass, mapping);
       }
    }// addGestureMappingToTable
