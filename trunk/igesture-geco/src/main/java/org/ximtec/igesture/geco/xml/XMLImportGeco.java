@@ -26,6 +26,7 @@
 package org.ximtec.igesture.geco.xml;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,14 +83,24 @@ public class XMLImportGeco {
          // load from specified position
          f = new File(gsFile);
          gestureSetFileName = f.getAbsolutePath();
+         System.out.println(f.getAbsolutePath());
       }
       else {
          // load from classpath
          gestureSetFileName = GESTURE_SET_NAME;
-         String s = ClassLoader.getSystemResource(GESTURE_SET_NAME).getFile();
-         if (s != null) {
-            f = new File(s);
+         
+         File confFile;
+         try {
+            confFile = new File(ClassLoader.getSystemResource(GESTURE_SET_NAME)
+                  .toURI());
          }
+         catch (URISyntaxException e) {
+            confFile = new File(ClassLoader.getSystemResource(GESTURE_SET_NAME)
+                  .getPath());
+         }
+         f= confFile;
+         System.out.println(f.getAbsolutePath());
+           
       }
       if (f.exists()) {
 
@@ -118,8 +129,7 @@ public class XMLImportGeco {
          // file not exists, display error message!
          importError = true;
          gestureSetFileName = Constant.EMPTY_STRING;
-         JOptionPane.showMessageDialog(view,
-               "Gesture set file not found! \n Project could not be loaded");
+         JOptionPane.showMessageDialog(view, Constant.GESTURE_SET_NOT_FOUND);
       }
    } // importKeyMappings
 

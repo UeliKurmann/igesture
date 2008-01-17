@@ -82,6 +82,8 @@ public class Constant extends org.sigtec.util.Constant {
    public static final String STARTUP = "Startup";
    
    public static final String MINIMIZE_STARTUP = "Minimize at Startup";
+   
+   public static final String GESTURE_SET_NOT_FOUND = "Gesture set file not found! \n Project could not be loaded";
 
    /*
     * Commands

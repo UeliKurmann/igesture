@@ -25,8 +25,6 @@
 
 package org.ximtec.igesture.geco.xml;
 
-import java.util.List;
-
 import org.jdom.Element;
 
 

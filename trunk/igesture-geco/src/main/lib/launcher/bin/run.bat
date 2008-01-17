@@ -1,1 +1,1 @@
-java -cp . LauncherBootstrap geco
+start javaw -cp . LauncherBootstrap geco

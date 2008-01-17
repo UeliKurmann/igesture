@@ -26,12 +26,11 @@
 package org.ximtec.igesture.geco;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,6 +38,7 @@ import javax.swing.ImageIcon;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.SplashScreen;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.geco.gui.MainModel;
 import org.ximtec.igesture.geco.gui.MainView;
@@ -72,8 +72,12 @@ public class Geco {
    
    public static final String LAST_PROJECT = "\\config\\lastProject.txt";
    
+   public static final String LAST_PROJECT_FILE = "lastProject.txt";
+   
+   public static final String CONFIG = "config";
+   
    private static final String DEFAULT_PROJECT = "\\mappings\\ms_gestures_mapping.xml";
-
+   
    private org.ximtec.igesture.configuration.Configuration configuration;
    
    private Configuration gestureConfiguration;
@@ -136,13 +140,26 @@ public class Geco {
       String file = "";
       try
       {
+            URL url = ClassLoader.getSystemResource(LAST_PROJECT);
             File confFile;
-            try {
-               confFile = new File(ClassLoader.getSystemResource(LAST_PROJECT).toURI());
-            }
-            catch (URISyntaxException e) {
-               confFile = new File(ClassLoader.getSystemResource(LAST_PROJECT)
-                     .getPath());
+            if (url !=null){               
+               try {
+                  confFile = new File(ClassLoader.getSystemResource(LAST_PROJECT).toURI());
+               }
+               catch (URISyntaxException e) {
+                  confFile = new File(ClassLoader.getSystemResource(LAST_PROJECT).getPath());
+               }
+            }else
+            {
+               File f;
+               try {
+                  f = new File(ClassLoader.getSystemResource(CONFIG).toURI());
+               }
+               catch (URISyntaxException e) {
+                  f = new File(ClassLoader.getSystemResource(CONFIG).getPath());
+               }
+               confFile = new File(f.getPath()+Constant.BACKSLASH+LAST_PROJECT_FILE);
+               confFile.createNewFile();
             }
 
             FileReader fr = new FileReader(confFile);  

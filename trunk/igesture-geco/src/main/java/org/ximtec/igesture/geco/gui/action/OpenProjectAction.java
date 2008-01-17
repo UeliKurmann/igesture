@@ -27,10 +27,8 @@
 package org.ximtec.igesture.geco.gui.action;
 
 import java.awt.event.ActionEvent;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -47,7 +45,6 @@ import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
-import org.ximtec.igesture.geco.xml.XMLGeco;
 import org.ximtec.igesture.geco.xml.XMLImportGeco;
 
 
@@ -125,7 +122,7 @@ public class OpenProjectAction extends BasicAction {
                }
             if (ext.equals(Constant.DOT+MIME.getExtension(MIME.XML))) {
                   openProject(selectedFile);
-                  writeFilePath(selectedFile);
+                  writeFilePath(selectedFile); 
             }
 
          }
@@ -168,7 +165,7 @@ public class OpenProjectAction extends BasicAction {
             // update view
             mainView.initProjectView(projectName);
             mainView.updateGestureList();
-            mainView.enableMenuItem();
+            mainView.disableSaveButton();
          }
       }
    }
