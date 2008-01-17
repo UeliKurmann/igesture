@@ -143,6 +143,8 @@ public class SystemTray {
             else {
                mainView.setVisible(true);
                mainView.setState(Frame.NORMAL);
+               mainView.requestFocus();
+               mainView.toFront();
             }
 
          }
