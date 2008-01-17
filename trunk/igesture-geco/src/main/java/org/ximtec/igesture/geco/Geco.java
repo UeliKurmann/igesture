@@ -72,7 +72,7 @@ public class Geco {
    
    public static final String LAST_PROJECT = "\\config\\lastProject.txt";
    
-   private static final String DEFAULT_PROJECT = "\\Mappings\\ms_gestures_mapping.xml";
+   private static final String DEFAULT_PROJECT = "\\mappings\\ms_gestures_mapping.xml";
 
    private org.ximtec.igesture.configuration.Configuration configuration;
    
