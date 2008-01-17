@@ -54,6 +54,8 @@ public class Constant extends org.sigtec.util.Constant {
    public static final String HOTKEY = "Hotkey";
 
    public static final String COMMAND = "Command";
+   
+   public static final String OPEN_FILE = "OpenFile";
 
    public static final String SAVE_DIALOG_TITLE = "Would you like to save the changes before closing?";
 

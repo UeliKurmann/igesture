@@ -162,11 +162,13 @@ public class XMLGeco {
     * @return the configuration.
     */
    
-   public static void exportGestureConfiguration(List<String> devices, boolean[] arr, File file, boolean min) {
+   public static void exportGestureConfiguration(File file, List<String> devices, boolean[] arr,  boolean min,
+                  String lastProjectPath) {
    final JdomDocument igestureDocument = new JdomDocument(CONFIG_ROOT_TAG);
       
       igestureDocument.attach(new JdomInputDevicesElement(devices, arr));
       igestureDocument.attach(new JdomMinimizeElement(min));
+      igestureDocument.attach(new JdomLastProjectElement(lastProjectPath));
       FileHandler.writeFile(file.getPath(), igestureDocument.toXml());
    } // importConfiguration
 

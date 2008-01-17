@@ -37,14 +37,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicDialog;
+import org.sigtec.util.MIME;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.geco.gui.CommandView;
 import org.ximtec.igesture.geco.gui.Constant;
@@ -53,6 +56,7 @@ import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.userAction.CommandExecutor;
 import org.ximtec.igesture.geco.userAction.KeyboardSimulation;
+import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 import org.ximtec.igesture.graphics.SwingTool;
 
 
@@ -72,6 +76,7 @@ public class MappingDialog extends BasicDialog {
    private JTabbedPane tabbedPane = new JTabbedPane();
    private JLabel gestureLabel = new JLabel();
    private JButton addButton;
+   private JTextField textField = GuiTool.createTextField("");
    private int DIALOG_WIDTH = 450;
    private int DIALOG_HEIGHT = 500;
 
@@ -84,6 +89,7 @@ public class MappingDialog extends BasicDialog {
    // constants
    private final int HOTKEY = 0;
    private final int COMMAND = 1;
+   private final int OPEN_FILE = 1;
 
 
    // models
@@ -167,6 +173,7 @@ public class MappingDialog extends BasicDialog {
       addButtonPanel();
       addFirstTab();
       addSecondTab();
+      addThirdTab();
       // tabbedPane.addChangeListener(hotkeyView.getChangeListener());
    } // initDialog
 
@@ -249,6 +256,44 @@ public class MappingDialog extends BasicDialog {
       commandView = new CommandView();
       tabbedPane.addTab(Constant.COMMAND, commandView);
       tabbedPane.setMnemonicAt(COMMAND, KeyEvent.VK_2);
+
+   }
+   
+   
+   /**
+    * Add third tab to the dialog
+    * 
+    */
+   private void addThirdTab() {
+      JPanel aPanel = new JPanel();
+      aPanel.setLayout(new GridLayout(2,1));
+      tabbedPane.addTab(Constant.OPEN_FILE, aPanel);
+      tabbedPane.setMnemonicAt(OPEN_FILE, KeyEvent.VK_3);
+      JButton browse = GuiTool.createButton(Constant.BROWSE);
+      
+      
+      browse.addActionListener(
+
+            new ActionListener(){
+               public void actionPerformed(ActionEvent e){
+                  JFileChooser fileChooser = new JFileChooser();
+
+                  int status = fileChooser.showOpenDialog(null);
+
+                  if (status == JFileChooser.APPROVE_OPTION) {
+                     textField.setText(fileChooser.getSelectedFile().getPath());
+                  }
+               }
+            });
+      
+      aPanel.add(textField);
+      aPanel.add(browse);
+
+
+    
+      
+      
+      
 
    }
 

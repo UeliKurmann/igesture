@@ -65,6 +65,7 @@ import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
 
 
+
 /**
  * GUI for the gesture controller application.
  * 
@@ -185,8 +186,8 @@ public class MainView extends JFrame implements WindowListener {
             GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0,
                   0, 0), 0, 0));
 
-      saveButton = SwingTool.createButton(handler.getSaveProjectAction());
-      exitButton = SwingTool.createButton(handler.getExitApplicationAction());
+      saveButton = GuiTool.createButton(handler.getSaveProjectAction());
+      exitButton = GuiTool.createButton(handler.getExitApplicationAction());
       // JButton minimize = SwingTool.createButton(handler.getMinimizeAction());
       JPanel buttonPanel = new JPanel();
       buttonPanel.setLayout(new FlowLayout());
@@ -222,9 +223,9 @@ public class MainView extends JFrame implements WindowListener {
             GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0,
                   0, 0), 0, 0));
 
-      editButton = SwingTool.createButton(handler.getEditMappingAction());
+      editButton = GuiTool.createButton(handler.getEditMappingAction());
       editButton.setEnabled(false);
-      removeButton = SwingTool.createButton(handler.getRemoveMappingAction());
+      removeButton = GuiTool.createButton(handler.getRemoveMappingAction());
       removeButton.setEnabled(false);
 
       mappingList.getList().addListSelectionListener(
@@ -267,10 +268,10 @@ public class MainView extends JFrame implements WindowListener {
             GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0,
                   0, 0), 0, 0));
 
-      mapButton = SwingTool.createButton(handler.getAddMappingAction());
+      mapButton = GuiTool.createButton(handler.getAddMappingAction());
       mapButton.setEnabled(false);
 
-      JButton loadSetButton = SwingTool.createButton(handler
+      JButton loadSetButton = GuiTool.createButton(handler
             .getLoadGestureSetAction());
 
       rightPanel.add(loadSetButton, new GridBagConstraints(0, 1, 1, 1, 0.5, 0,
