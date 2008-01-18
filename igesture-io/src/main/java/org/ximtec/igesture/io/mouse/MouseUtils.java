@@ -38,26 +38,31 @@ import org.ximtec.igesture.io.win32.W32API.WPARAM;
 import com.sun.jna.win32.StdCallLibrary.StdCallCallback;
 
 
-public class MouseUtils {
+public class MouseUtils extends Thread{
 
    HINSTANCE hinst;
    MouseProc msListener;
    HANDLE handle;
+   private final MouseCallback mouseCallback;
 
 
-   public MouseUtils() {
-
+   public MouseUtils(MouseCallback mC) {
+      mouseCallback = mC;
+   }
+      
+ public void init(){
+      
+    
       hinst = Kernel32.INSTANCE.GetModuleHandle(null);
       msListener = new MouseProc() {
 
          public LRESULT callback(int code, WPARAM wParam, LPARAM lParam) {
-            System.out.println("mouse callback code: " + code + " wParam "
-                  + wParam + " lParam " + lParam);
             // getCoordinates!!
              POINT p = new POINT();
              User32.INSTANCE.GetCursorPos(p);
-             System.out.println("x: "+p.x+" - y: "+p.y);
-             System.out.println(String.valueOf(User32.INSTANCE.GetAsyncKeyState(4)));
+
+             boolean pressed = User32.INSTANCE.GetAsyncKeyState(mouseCallback.getMouseButton());
+             mouseCallback.callbackFunction(p.x, p.y, pressed);
 
             return User32.INSTANCE.CallNextHookEx(handle, code, wParam, lParam);
          }
@@ -75,47 +80,40 @@ public class MouseUtils {
 
 
    protected void finalize() throws Throwable {
+      System.out.println("finalize");
       User32.INSTANCE.UnhookWindowsHookExW(handle);
       super.finalize();
-   }
-
-
-   public static void main(String[] args) {
-      MouseUtils instance = new MouseUtils();
-      try {
-         MSG msg = new MSG();
-         while (User32.INSTANCE.GetMessageW(msg, null, 0, 0) != 0) {
-            // translate message
-            // User32.INSTANCE.DispatchMessageW(msg);
-         }
-         // TODO: unregister hook!
-      }
-      catch (Exception ex) {
-         ex.printStackTrace();
-      }
    }
 
    public interface MouseProc extends StdCallCallback {
 
       LRESULT callback(int code, WPARAM wParam, LPARAM lParam);
    }
-   
+  
    
    public void registerHook(){
       handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_KEYBOARD_LL, msListener, hinst, 0);
       //handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_KEYBOARD_LL, msListener,  hinst, Kernel32.INSTANCE.GetCurrentThreadId());
       //Kernel32.INSTANCE.GetCurrentThreadId()
       //System.out.println("error: "+Kernel32.INSTANCE.GetLastError());
-      start_loop();
   }
+   
+   public void run(){
+
+      init();
+      registerHook();
+      MSG msg = new MSG();
+      while((User32.INSTANCE.GetMessageW(msg,null,0,0)!=0)){
+         System.out.println("loop"); 
+         User32.INSTANCE.DispatchMessage(msg);
+          //translateMessage
+        //  msg = new MSG();
+      }
+   }
   
-   void start_loop(){
-          MSG msg = new MSG();
-          while(User32.INSTANCE.GetMessageW(msg,null,0,0)!=0){
-              User32.INSTANCE.DispatchMessage(msg);
-              //translateMessage
-              msg = new MSG();
-          }
-  }
+   
+   public void unregisterHook(){
+      User32.INSTANCE.UnhookWindowsHookExW(handle);
+   }
 
 }

@@ -56,7 +56,7 @@ public class WacomUtils{
     public WacomUtils(WacomCallback wCallback) {
        this.wCallback = wCallback;
        init();
-       registerHook();
+       //registerHook();
        start_loop();
 
     }

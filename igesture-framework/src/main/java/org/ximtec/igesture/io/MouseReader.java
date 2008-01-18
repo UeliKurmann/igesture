@@ -64,11 +64,12 @@ public class MouseReader extends ExtendedInputDevice implements
    
    final MouseReader mouseReader = this;
    
-   //final MouseUtils mouseUtils = new MouseUtils();
-
-
+   private MouseUtils mouseUtils;
+   
+   
    public MouseReader() {
-      init();
+     // init();
+      initCallback();
       buttonUpEvents = new HashSet<ButtonDeviceEventListener>();
    }
 
@@ -121,6 +122,31 @@ public class MouseReader extends ExtendedInputDevice implements
       t.start();
    } // init
    
+   
+   
+
+   /**
+    * Initialises the callback.
+    * 
+    */
+   public void initCallback() {
+
+      mouseUtils = new MouseUtils(this);
+      mouseUtils.start();
+      /*
+      final Thread t = new Thread() {
+
+         @Override
+         public void run() {
+            new MouseUtils(MouseReader.this);
+         }
+
+      };
+
+      t.start();
+      */
+   } // init
+  
 
 
 
@@ -155,9 +181,9 @@ public class MouseReader extends ExtendedInputDevice implements
    
 
 
-   public void callbackFunction(int x, int y, int button){
-
-      if (button ==4) {
+   public void callbackFunction(int x, int y, boolean buttonPressed){
+     // System.out.println("callback: "+x+" - "+y);
+      if (buttonPressed) {
          Location location = new Location("screen", 1, new Point(x,y));
          TimestampedLocation tsl = new TimestampedLocation(location,
                System.currentTimeMillis());
@@ -178,11 +204,13 @@ public class MouseReader extends ExtendedInputDevice implements
       }
       
    }
-   /* 
-   public void disableCallback(){
-      stop=true;
-      mouseUtils.disableCallback();
-      
+   
+   public int getMouseButton(){
+      int MIDDLE= 0x04;
+      return MIDDLE;
    }
-*/
+   
+   public boolean hasToBeStopped(){
+      return stop;
+   }
 }
