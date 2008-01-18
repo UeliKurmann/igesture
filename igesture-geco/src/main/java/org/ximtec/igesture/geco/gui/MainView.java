@@ -49,6 +49,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 import javax.swing.UIManager;
+import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -128,7 +129,7 @@ public class MainView extends JFrame implements WindowListener {
       catch (Exception e) {
          LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
-
+      this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
       GridBagLayout gbl = new GridBagLayout();
       this.getContentPane().setLayout(gbl);
       setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -136,7 +137,7 @@ public class MainView extends JFrame implements WindowListener {
       this.setTitle(Constant.GECO_TITLE);
       setIconImage(IconTool.getIcon(Constant.GECO_ICON, Decorator.SIZE_32)
             .getImage());
-      setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+      //setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
       this.getContentPane().add(
             contentPanel,
             new GridBagConstraints(0, 1, 1, 1, 1.0, 1.0,
@@ -506,6 +507,7 @@ public class MainView extends JFrame implements WindowListener {
 
 
    public void windowClosing(WindowEvent e) {
+
    }
 
 }

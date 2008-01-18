@@ -3,7 +3,7 @@
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
- * Purpose		:  Class encapsulating the exectuion od a command
+ * Purpose		:  Class encapsulating the execution of a command
  *
  * -----------------------------------------------------------------------
  *
@@ -40,6 +40,9 @@ import org.ximtec.igesture.geco.gui.Constant;
  */
 public class CommandExecutor implements EventHandler{
    
+   private final static String WIN_CONSOLE = "cmd /C "; 
+   private final static String WIN = "WIN"; 
+
    
    private String command;
    
@@ -59,8 +62,12 @@ public class CommandExecutor implements EventHandler{
     */
    public void run(ResultSet resultSet) {
       try{
-         if ((command!=null)&&(!command.equals(Constant.EMPTY_STRING)))
-            Runtime.getRuntime().exec(command);
+            if ((command!=null)&&(!command.equals(Constant.EMPTY_STRING))){
+               System.out.println(System.getProperty( "os.name")) ;
+               if(System.getProperty( "os.name" ).toUpperCase().substring(0,3).equals(WIN)){
+                  Runtime.getRuntime().exec(WIN_CONSOLE+command);
+               }
+            }
       }
       catch(IOException ioe){
          ioe.printStackTrace();
