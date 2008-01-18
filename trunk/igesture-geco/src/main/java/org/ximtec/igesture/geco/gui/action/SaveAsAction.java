@@ -107,6 +107,7 @@ public class SaveAsAction extends BasicAction {
                     
                     mainView.getModel().setNeedSave(true);
                     (new SaveProjectAction(mainView)).save();
+                    (new OpenProjectAction(mainView)).exportConfiguration();
            }
 
         }

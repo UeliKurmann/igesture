@@ -290,7 +290,7 @@ public class MappingDialog extends BasicDialog {
                   GridBagConstraints.HORIZONTAL, new Insets(50, 20, 50, 20), 0, 0));
       aPanel.add(browse,
             new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER, 
-            GridBagConstraints.HORIZONTAL, new Insets(50, 50, 50, 50), 0, 0));
+            GridBagConstraints.NONE, new Insets(50, 50, 50, 50), 0, 0));
 
 
     
