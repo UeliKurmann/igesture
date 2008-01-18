@@ -51,6 +51,7 @@ import javax.swing.event.DocumentListener;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.graphix.widget.BasicTextField;
+import org.sigtec.util.MIME;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainModel;
@@ -73,13 +74,11 @@ public class NewProjectDialog extends BasicDialog {
    private int DIALOG_WIDTH = 700;
    private int DIALOG_HEIGHT = 300;
 
-   private static String XML_EXTENSION = "xml";
    private BasicTextField fileTextField;
    private BasicTextField projectTextField;
    private JButton createButton;
    private String filePath = Constant.EMPTY_STRING;
-   
-  
+
 
    public NewProjectDialog(MainView view) {
       this.view = view;
@@ -92,17 +91,22 @@ public class NewProjectDialog extends BasicDialog {
     * Initialises the dialog.
     */
    private void init() {
-      
+
       try {
-         filePath = new File(ClassLoader.getSystemResource(org.ximtec.igesture.geco.gui.Constant.MAPPINGS)
-               .toURI()).getPath()+ Constant.BACKSLASH;;
+         filePath = new File(ClassLoader.getSystemResource(
+               org.ximtec.igesture.geco.gui.Constant.MAPPINGS).toURI())
+               .getPath()
+               + Constant.BACKSLASH;
+         ;
       }
       catch (URISyntaxException e) {
-         filePath = new File(ClassLoader.getSystemResource(org.ximtec.igesture.geco.gui.Constant.MAPPINGS)
-               .getPath()).getPath()+ Constant.BACKSLASH;;
+         filePath = new File(ClassLoader.getSystemResource(
+               org.ximtec.igesture.geco.gui.Constant.MAPPINGS).getPath())
+               .getPath()
+               + Constant.BACKSLASH;
+         ;
       }
 
-      
       JPanel mainPanel = new JPanel();
       mainPanel.setBorder(new TitledBorder(new BevelBorder(0, Color.gray,
             Color.gray), Constant.NEW_PROJECT_TITLE));
@@ -192,7 +196,7 @@ public class NewProjectDialog extends BasicDialog {
 
          JFileChooser fileChooser = new JFileChooser();
          fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-         //fileChooser.setCurrentDirectory(new File(filePath));
+         // fileChooser.setCurrentDirectory(new File(filePath));
          int status = fileChooser.showDialog(null, "Open");
          if (status == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
@@ -205,7 +209,7 @@ public class NewProjectDialog extends BasicDialog {
                         + NewProjectDialog.this.projectTextField.getText();
                   if (!NewProjectDialog.this.projectTextField.getText().equals(
                         Constant.EMPTY_STRING)) {
-                     fileName += Constant.DOT + XML_EXTENSION;
+                     fileName += Constant.DOT + MIME.getExtension(MIME.XML);
                   }
                   filePath = selectedFile.getAbsolutePath() + Constant.BACKSLASH;
                }
@@ -214,7 +218,8 @@ public class NewProjectDialog extends BasicDialog {
                         + NewProjectDialog.this.projectTextField.getText();
                   if (!NewProjectDialog.this.projectTextField.getText().equals(
                         Constant.EMPTY_STRING)) {
-                     fileName += org.sigtec.util.Constant.DOT + XML_EXTENSION;
+                     fileName += org.sigtec.util.Constant.DOT
+                           + MIME.getExtension(MIME.XML);
                   }
                   filePath = selectedFile.getAbsolutePath();
                }
@@ -235,7 +240,7 @@ public class NewProjectDialog extends BasicDialog {
 
       public void actionPerformed(ActionEvent e) {
 
-            createProject();
+         createProject();
       }// actionPerformed
 
    }
@@ -277,7 +282,8 @@ public class NewProjectDialog extends BasicDialog {
             NewProjectDialog.this.fileTextField
                   .setText(NewProjectDialog.this.filePath
                         + NewProjectDialog.this.projectTextField.getText()
-                        + org.sigtec.util.Constant.DOT + XML_EXTENSION);
+                        + org.sigtec.util.Constant.DOT
+                        + MIME.getExtension(MIME.XML));
          }
          else {
             NewProjectDialog.this.createButton.setEnabled(false);
@@ -287,26 +293,30 @@ public class NewProjectDialog extends BasicDialog {
          }
       }// update
    }
-   
+
    /**
     * Listener for key event.
     */
-   
-   private class MyKeyListener implements KeyListener{
-      public void keyPressed(KeyEvent e){ 
-         if (e.getKeyCode()==KeyEvent.VK_ENTER){
+
+   private class MyKeyListener implements KeyListener {
+
+      public void keyPressed(KeyEvent e) {
+         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             createProject();
          }
       }
 
-      public void keyReleased(KeyEvent e){
+
+      public void keyReleased(KeyEvent e) {
       }
 
-      public void keyTyped(KeyEvent e){
+
+      public void keyTyped(KeyEvent e) {
       }
    }
-   
-   public void createProject(){
+
+
+   public void createProject() {
       if ((!fileTextField.getText().equals(Constant.EMPTY_STRING))
             && (!projectTextField.getText().equals(Constant.EMPTY_STRING))) {
          String fileName = fileTextField.getText();
@@ -323,9 +333,9 @@ public class NewProjectDialog extends BasicDialog {
          }
 
          if (ok) {
-            //close dialog
+            // close dialog
             NewProjectDialog.this.dispose();
-            
+
             // update model
             File gsFile;
             try {
@@ -351,7 +361,6 @@ public class NewProjectDialog extends BasicDialog {
             view.initProjectView(projectTextField.getText());
             view.enableMenuItem();
             view.updateGestureList();
-            
 
             // save
             (new SaveProjectAction(view)).save();
