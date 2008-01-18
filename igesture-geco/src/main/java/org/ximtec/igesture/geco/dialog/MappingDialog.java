@@ -3,7 +3,7 @@
  *
  * Author       :   Michele Croci, mcroci@gmail.com  
  *
- * Purpose      :   Dialog for mapping a gesture to an action
+ * Purpose      :   Dialog for mapping a gesture to an action.
  *
  * -----------------------------------------------------------------------
  *
@@ -12,6 +12,7 @@
  * Date             Who         Reason
  *
  * Nov 26, 2007     crocimi     Initial Release
+ * Jan 18, 2008     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -47,7 +48,6 @@ import javax.swing.border.TitledBorder;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicDialog;
-import org.sigtec.util.MIME;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.geco.gui.CommandView;
 import org.ximtec.igesture.geco.gui.Constant;
@@ -56,7 +56,6 @@ import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.userAction.CommandExecutor;
 import org.ximtec.igesture.geco.userAction.KeyboardSimulation;
-import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 import org.ximtec.igesture.graphics.SwingTool;
 
 
@@ -65,6 +64,7 @@ import org.ximtec.igesture.graphics.SwingTool;
  * 
  * @version 0.9, Nov 26, 2007
  * @author Michele Croci, mcroci@gmail.com
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class MappingDialog extends BasicDialog {
 
@@ -76,7 +76,7 @@ public class MappingDialog extends BasicDialog {
    private JTabbedPane tabbedPane = new JTabbedPane();
    private JLabel gestureLabel = new JLabel();
    private JButton addButton;
-   private JTextField textField = GuiTool.createTextField("");
+   private JTextField textField = GuiTool.createTextField(Constant.EMPTY_STRING);
    private int DIALOG_WIDTH = 450;
    private int DIALOG_HEIGHT = 500;
 
@@ -128,7 +128,7 @@ public class MappingDialog extends BasicDialog {
 
 
    /**
-    * Inits the state of the buttons.
+    * Initialises the state of the buttons.
     */
    private void initValues() {
       gestureLabel.setText(gestureClass.getName());
@@ -160,7 +160,8 @@ public class MappingDialog extends BasicDialog {
     */
    private void initDialog() {
       this.setResizable(false);
-      this.setTitle(GuiTool.getGuiBundle().getName(Constant.GESTURE_MAPPING_TITLE));
+      this.setTitle(GuiTool.getGuiBundle().getName(
+            Constant.GESTURE_MAPPING_TITLE));
       this.setLayout(new GridBagLayout());
       this.add(tabbedPane, new GridBagConstraints(0, 1, 1, 1, 1, 1,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(20,
@@ -203,7 +204,8 @@ public class MappingDialog extends BasicDialog {
          public void actionPerformed(ActionEvent event) {
             // update model
             addGestureMappingToTable();
-            view.getModel().addMapping(MappingDialog.this.view.getModel().getMappings().get(
+            view.getModel().addMapping(
+                  MappingDialog.this.view.getModel().getMappings().get(
                         gestureClass));
             // update view
             view.updateLists();
@@ -257,8 +259,8 @@ public class MappingDialog extends BasicDialog {
       tabbedPane.setMnemonicAt(COMMAND, KeyEvent.VK_2);
 
    }
-   
-   
+
+
    /**
     * Add third tab to the dialog
     * 
@@ -269,34 +271,28 @@ public class MappingDialog extends BasicDialog {
       tabbedPane.addTab(Constant.OPEN_FILE, aPanel);
       tabbedPane.setMnemonicAt(OPEN_FILE, KeyEvent.VK_3);
       JButton browse = GuiTool.createButton(Constant.BROWSE);
-      
-      
+
       browse.addActionListener(
 
-            new ActionListener(){
-               public void actionPerformed(ActionEvent e){
-                  JFileChooser fileChooser = new JFileChooser();
+      new ActionListener() {
 
-                  int status = fileChooser.showOpenDialog(null);
+         public void actionPerformed(ActionEvent e) {
+            JFileChooser fileChooser = new JFileChooser();
 
-                  if (status == JFileChooser.APPROVE_OPTION) {
-                     textField.setText(fileChooser.getSelectedFile().getPath());
-                  }
-               }
-            });
-      
-      aPanel.add(textField,
-            new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER, 
-                  GridBagConstraints.HORIZONTAL, new Insets(50, 20, 50, 20), 0, 0));
-      aPanel.add(browse,
-            new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER, 
-            GridBagConstraints.NONE, new Insets(50, 50, 50, 50), 0, 0));
+            int status = fileChooser.showOpenDialog(null);
 
+            if (status == JFileChooser.APPROVE_OPTION) {
+               textField.setText(fileChooser.getSelectedFile().getPath());
+            }
+         }
+      });
 
-    
-      
-      
-      
+      aPanel.add(textField, new GridBagConstraints(0, 0, 1, 1, 1, 1,
+            GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+            new Insets(50, 20, 50, 20), 0, 0));
+      aPanel.add(browse, new GridBagConstraints(0, 1, 1, 1, 1, 1,
+            GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(50,
+                  50, 50, 50), 0, 0));
 
    }
 
