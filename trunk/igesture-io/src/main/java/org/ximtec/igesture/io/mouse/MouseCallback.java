@@ -33,7 +33,8 @@ package org.ximtec.igesture.io.mouse;
  */
 public interface MouseCallback {
    
-   public void callbackFunction(int x, int y, int button);
-
- //  public void callbackFunction();
+   public void callbackFunction(int x, int y, boolean buttonPressed);
+   
+   public int getMouseButton();
+   
 }
