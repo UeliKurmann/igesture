@@ -51,23 +51,27 @@
       <outputDirectory>lib/</outputDirectory>
       <unpack>false</unpack>
       <excludes>
-      	<exclude>org.fife.plaf:officeLnFs</exclude>
       	<exclude>com.db4o:db4o-java5</exclude>
       	<exclude>com.db4o:db4o-nqopt</exclude>
-      	<exclude>attjsapi:attjsapi</exclude>
-      	<exclude>myscript:engine</exclude>
-      	<exclude>myscript:inksearch</exclude>
-      	<exclude>myscript:hwr</exclude>
       	<exclude>javax.servlet:servlet-api</exclude>      	
-      	<exclude>junit:junit</exclude>
-      	<exclude>com.lowagie:itext</exclude>      	
+      	<exclude>junit:junit</exclude>     	
       	<exclude>org.jpedal:jpedalSTD</exclude>     	
       	<exclude>xalan:xalan</exclude> 
-
-
-
-      	
-      	
+        <exclude>ant:ant-optional</exclude>
+        <exclude>commons-beanutils:commons-beanutils</exclude>
+        <exclude>commons-codec:commons-codec</exclude>
+        <exclude>commons-beanutils:commons-beanutils</exclude>
+        <exclude>commons-digester:commons-digester</exclude>
+        <exclude>commons-discovery:commons-discovery</exclude>
+        <exclude>dom4j:dom4j</exclude>
+        <exclude>jdom:jdom-contrib</exclude>
+        <exclude>spline:spline</exclude>
+        <exclude>xerces:xerces</exclude>
+        <exclude>xerces:xercesImpl</exclude>
+        <exclude>xml-apis:xml-apis</exclude>
+        <exclude>xom:xom</exclude>
+        <exclude>xstream:xstream</exclude>    	
+    	
       </excludes>
     </dependencySet>
   </dependencySets>
