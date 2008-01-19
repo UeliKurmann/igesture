@@ -58,7 +58,7 @@ public class Geco {
 
    private static final Logger LOGGER = Logger.getLogger(Geco.class.getName());
 
-   public static final String GECO_CONFIGURATION = "\\config\\gecoConfig.xml";
+   public static final String GECO_CONFIGURATION = "\\config\\geco.xml";
 
    private static final String GUI_BUNDLE_FILE = "geco";
 
@@ -69,8 +69,6 @@ public class Geco {
    private static final String INITIALISED = "Initialised.";
 
    private static final String RUBINE_CONFIGURATION = "\\config\\rubineconfiguration.xml";
-   
-   public static final String LAST_PROJECT = "\\config\\lastProject.txt";
    
    public static final String LAST_PROJECT_FILE = "lastProject.txt";
    
