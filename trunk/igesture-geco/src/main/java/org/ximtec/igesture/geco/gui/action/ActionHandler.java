@@ -43,7 +43,7 @@ public class ActionHandler {
    private OpenProjectAction openGestureMapAction;
    private ExitApplicationAction exitApplicationAction;
    private LoadGestureSetAction loadGestureSetAction;
-   private ShowMappingDialogAction showMappingDialogAction;
+   private MapGestureAction showMappingDialogAction;
    private NewProjectAction newProjectAction;
    private EditMappingAction editMappingAction;
    private RemoveMappingAction removeMappingAction;
@@ -88,7 +88,7 @@ public class ActionHandler {
 
    public Action getAddMappingAction() {
       if (showMappingDialogAction == null) {
-         showMappingDialogAction = new ShowMappingDialogAction(view);
+         showMappingDialogAction = new MapGestureAction(view);
       }
 
       return showMappingDialogAction;

@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * Nov 15, 2006     crocimi    Initial Release
+ * Nov 15, 2006     crocimi     Initial Release
+ * Jan 20, 2007     bsigner     Cleanup
  * 
  *
  * -----------------------------------------------------------------------
@@ -40,31 +41,38 @@ import org.ximtec.igesture.geco.util.SystemTray;
 /**
  * Terminates the application.
  * 
- * @version 0.9, Nov 15, 2006
+ * @version 0.9, Nov 2007
  * @author Michele Croci, mcroci@gmail.com
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 
 public class ExitApplicationAction extends BasicAction {
+
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "ExitApplicationAction";
 
    private MainView mainView;
 
 
    public ExitApplicationAction(MainView mainView) {
-      super(Constant.EXIT_APPLICATION_ACTION, Geco.getGuiBundle());
+      super(KEY, Geco.getGuiBundle());
       this.mainView = mainView;
    }
 
 
    /**
-    * @param event the action event.
+    * Exits the application.
+    * 
+    * @param event the event to be handled.
     */
    public void actionPerformed(ActionEvent event) {
-      // display save dialog, if needed
-
       if (mainView.getModel().needSave()) {
          int n = JOptionPane.showConfirmDialog(mainView,
                Constant.SAVE_DIALOG_TITLE, Constant.EMPTY_STRING,
                JOptionPane.YES_NO_CANCEL_OPTION);
+
          if (n == 0) {
             (new SaveProjectAction(mainView)).save();
             System.exit(0);
@@ -72,6 +80,7 @@ public class ExitApplicationAction extends BasicAction {
          else if (n == 1) {
             System.exit(0);
          }
+
       }
       else {
          SystemTray.removeTrayIcon();
