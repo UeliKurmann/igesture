@@ -53,6 +53,11 @@ import org.ximtec.igesture.geco.xml.XMLGeco;
  */
 public class Geco {
 
+   /**
+    * The key used to retrieve information from the resource bundle.
+    */
+   public static final String KEY = "Geco";
+
    private static final Logger LOGGER = Logger.getLogger(Geco.class.getName());
 
    public static final String GECO_CONFIGURATION = "\\config\\geco.xml";
