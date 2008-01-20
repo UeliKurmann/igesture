@@ -100,8 +100,8 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
       scrollPane = new JScrollPane(null);
       scrollPane.setAutoscrolls(true);
       scrollPane.setPreferredSize(new Dimension(380, 300));
-      JButton saveButton = SwingTool.createButton(new SaveConfigurationAction(
-            this));
+      JButton saveButton = GuiTool
+            .createButton(new SaveConfigurationAction(this));
       addComponent(createConfigurationList(), SwingTool.createGridBagConstraint(
             0, 0));
       addComponent(scrollPane, SwingTool.createGridBagConstraint(0, 1));

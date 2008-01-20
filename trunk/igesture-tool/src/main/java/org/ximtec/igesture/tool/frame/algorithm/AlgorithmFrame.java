@@ -96,7 +96,7 @@ public class AlgorithmFrame extends BasicInternalFrame implements
 
    private Component createRunButton() {
       return GuiTool.createButton(new ExecuteRecogniserAction(mainView
-            .getModel(), tab, setList, resultList), false);
+            .getModel(), tab, setList, resultList)); // FIXME: no image
    } // createRunButton
 
 
@@ -122,8 +122,7 @@ public class AlgorithmFrame extends BasicInternalFrame implements
 
 
    private Component createResultLabel() {
-      return GuiTool
-            .createLabel(GestureConstants.ALGORITHM_FRAME_RESULT_LABEL);
+      return GuiTool.createLabel(GestureConstants.ALGORITHM_FRAME_RESULT_LABEL);
    } // createResultLabel
 
 

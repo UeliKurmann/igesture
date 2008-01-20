@@ -3,7 +3,7 @@
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
- * Purpose		:  New project dialog
+ * Purpose		:   New project dialog.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date				Who			Reason
  *
- * Dec 3, 2007		crocimi		Initial Release
+ * Dec 03, 2007		crocimi		Initial Release
+ * Jan 20, 2008     bsigner     Redesign 
  *
  * -----------------------------------------------------------------------
  *
@@ -26,7 +27,6 @@
 package org.ximtec.igesture.geco.dialog;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -50,29 +50,33 @@ import javax.swing.event.DocumentListener;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicDialog;
+import org.sigtec.graphix.widget.BasicLabel;
 import org.sigtec.graphix.widget.BasicTextField;
 import org.sigtec.util.MIME;
 import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainModel;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.gui.action.SaveProjectAction;
 import org.ximtec.igesture.geco.xml.XMLGeco;
-import org.ximtec.igesture.graphics.SwingTool;
 
 
 /**
- * New project dialog
+ * New project dialog.
  * 
- * @version 0.9, Dec 3, 2007
+ * @version 0.9, Dec 2007
  * @author Michele Croci, mcroci@gmail.com
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class NewProjectDialog extends BasicDialog {
 
-   private MainView view;
+   /**
+    * The key used to retrieve dialog details from the resource bundle.
+    */
+   public static final String KEY = "NewProjectDialog";
 
-   private int DIALOG_WIDTH = 700;
-   private int DIALOG_HEIGHT = 300;
+   private MainView view;
 
    private BasicTextField fileTextField;
    private BasicTextField projectTextField;
@@ -81,6 +85,7 @@ public class NewProjectDialog extends BasicDialog {
 
 
    public NewProjectDialog(MainView view) {
+      super(KEY, Geco.getGuiBundle());
       this.view = view;
       setModal(true);
       init();
@@ -109,21 +114,18 @@ public class NewProjectDialog extends BasicDialog {
 
       JPanel mainPanel = new JPanel();
       mainPanel.setBorder(new TitledBorder(new BevelBorder(0, Color.gray,
-            Color.gray), Constant.NEW_PROJECT_TITLE));
+            Color.gray), KEY)); // FIXME
 
-      setTitle(Constant.NEW_PROJECT_TITLE);
       mainPanel.setLayout(new GridBagLayout());
       setLayout(new GridBagLayout());
       Point p = new Point(view.getLocation().x + 50, view.getLocation().y + 100);
       setLocation(p);
-      setSize(new Dimension(DIALOG_WIDTH, DIALOG_HEIGHT));
-
-      mainPanel.add(GuiTool.createLabel(Constant.PROJECT_NAME),
+      mainPanel.add(new BasicLabel(Constant.PROJECT_NAME, Geco.getGuiBundle()),
             new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
                   GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 
-      projectTextField = GuiTool
-            .createTextField(Constant.PROJECT_NAME_TEXT_FIELD);
+      projectTextField = new BasicTextField(Constant.PROJECT_NAME_TEXT_FIELD,
+            Geco.getGuiBundle());
       projectTextField.getDocument().addDocumentListener(
             new MyDocumentListener());
       projectTextField.addKeyListener(new MyKeyListener());
@@ -132,27 +134,29 @@ public class NewProjectDialog extends BasicDialog {
             GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
             new Insets(10, 10, 10, 10), 0, 0));
 
-      mainPanel.add(GuiTool.createLabel(Constant.PROJECT_LOCATION),
-            new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.CENTER,
-                  GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
+      mainPanel.add(new BasicLabel(Constant.PROJECT_LOCATION, Geco
+            .getGuiBundle()), new GridBagConstraints(0, 1, 1, 1, 0, 0,
+            GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(10,
+                  10, 10, 10), 0, 0));
 
-      fileTextField = GuiTool.createTextField(Constant.PROJECT_FILE_TEXT_FIELD);
+      fileTextField = new BasicTextField(Constant.PROJECT_FILE_TEXT_FIELD, Geco
+            .getGuiBundle());
       fileTextField.setEditable(false);
       fileTextField.setText(filePath);
       mainPanel.add(fileTextField, new GridBagConstraints(1, 1, 1, 1, 1, 1,
             GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
             new Insets(10, 10, 10, 10), 0, 0));
 
-      JButton browseButton = SwingTool.createButton(Constant.BROWSE);
+      JButton browseButton = GuiTool.createButton(Constant.BROWSE, Geco.getGuiBundle());
       browseButton.addActionListener(new BrowseListener());
       mainPanel.add(browseButton, new GridBagConstraints(2, 1, 1, 1, 0, 0,
             GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(10,
                   10, 10, 10), 0, 0));
 
-      createButton = SwingTool.createButton(Constant.CREATE);
+      createButton = GuiTool.createButton(Constant.CREATE, Geco.getGuiBundle());
       createButton.setEnabled(false);
       createButton.addActionListener(new CreateListener());
-      JButton cancelButton = SwingTool.createButton(Constant.CANCEL);
+      JButton cancelButton = GuiTool.createButton(Constant.CANCEL, Geco.getGuiBundle());
       cancelButton.addActionListener(new CancelListener());
 
       JPanel buttonPanel = new JPanel();

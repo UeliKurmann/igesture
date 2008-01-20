@@ -28,9 +28,9 @@ package org.ximtec.igesture.geco.gui.action;
 
 import java.awt.event.ActionEvent;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureClass;
+import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.MainView;
 
 
@@ -53,7 +53,7 @@ public class ShowMappingDialogAction extends BasicAction {
 
 
    public ShowMappingDialogAction(MainView mainView) {
-      super(KEY, GuiTool.getGuiBundle());
+      super(KEY, Geco.getGuiBundle());
       this.mainView = mainView;
    }
 

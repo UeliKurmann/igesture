@@ -91,7 +91,7 @@ public class BatchFrame extends BasicInternalFrame implements
 
       outputPath = new JTextField();
       outputPath.setPreferredSize(new Dimension(100, 20));
-      JButton configButton = SwingTool.createButton(new SelectConfigFileAction(
+      JButton configButton = GuiTool.createButton(new SelectConfigFileAction(
             configPath));
       addComponent(configLabel, SwingTool.createGridBagConstraint(0, 0));
       addComponent(configPath, SwingTool.createGridBagConstraint(1, 0));
@@ -104,12 +104,12 @@ public class BatchFrame extends BasicInternalFrame implements
             .getTestSets()));
       addComponent(testSetLabel, SwingTool.createGridBagConstraint(0, 2));
       addComponent(testSets, SwingTool.createGridBagConstraint(1, 2, 2, 1));
-      JButton outputButton = SwingTool.createButton(new SelectResultFileAction(
+      JButton outputButton = GuiTool.createButton(new SelectResultFileAction(
             outputPath));
       addComponent(outputLabel, SwingTool.createGridBagConstraint(0, 3));
       addComponent(outputPath, SwingTool.createGridBagConstraint(1, 3));
       addComponent(outputButton, SwingTool.createGridBagConstraint(2, 3));
-      JButton startButton = SwingTool.createButton(new StartBatchAction(
+      JButton startButton = GuiTool.createButton(new StartBatchAction(
             configPath, outputPath, gestureSets, testSets));
       addComponent(startButton, SwingTool.createGridBagConstraint(0, 4));
    } // init

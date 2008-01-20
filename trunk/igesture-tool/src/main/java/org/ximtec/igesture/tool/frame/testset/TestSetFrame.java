@@ -85,7 +85,7 @@ public class TestSetFrame extends BasicInternalFrame implements
       gestureImage.setPreferredSize(new Dimension(180, 180));
       addComponent(gestureImage, SwingTool.createGridBagConstraint(0, 0));
       addComponent(createDropDownMenu(), SwingTool.createGridBagConstraint(0, 1));
-      addComponent(SwingTool.createButton(new TestSetAddAction(testTab, this)),
+      addComponent(GuiTool.createButton(new TestSetAddAction(testTab, this)),
             SwingTool.createGridBagConstraint(0, 2));
    } // init
 

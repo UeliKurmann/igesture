@@ -27,19 +27,16 @@
 package org.ximtec.igesture.geco.gui.action;
 
 import java.awt.event.ActionEvent;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.MIME;
+import org.ximtec.igesture.geco.Configuration;
 import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
@@ -47,7 +44,6 @@ import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 import org.ximtec.igesture.geco.xml.XMLImportGeco;
-import org.ximtec.igesture.geco.Configuration;;
 
 
 /**
@@ -68,7 +64,7 @@ public class OpenProjectAction extends BasicAction {
 
 
    public OpenProjectAction(MainView mainView) {
-      super(KEY, GuiTool.getGuiBundle());
+      super(KEY, Geco.getGuiBundle());
       this.mainView = mainView;
    }
 

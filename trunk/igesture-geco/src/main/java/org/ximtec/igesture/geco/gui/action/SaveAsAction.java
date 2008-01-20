@@ -30,9 +30,9 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.MIME;
+import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
@@ -51,7 +51,7 @@ public class SaveAsAction extends BasicAction {
 
 
   public SaveAsAction(MainView mainView) {
-     super(Constant.SAVE_AS_ACTION, GuiTool.getGuiBundle());
+     super(Constant.SAVE_AS_ACTION, Geco.getGuiBundle());
      this.mainView = mainView;
   }
 

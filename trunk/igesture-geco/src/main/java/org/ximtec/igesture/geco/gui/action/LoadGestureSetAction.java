@@ -32,10 +32,10 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.MIME;
 import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
@@ -60,7 +60,7 @@ public class LoadGestureSetAction extends BasicAction {
 
 
    public LoadGestureSetAction(MainView mainView) {
-      super(KEY, GuiTool.getGuiBundle());
+      super(KEY, Geco.getGuiBundle());
       this.mainView = mainView;
    }
 

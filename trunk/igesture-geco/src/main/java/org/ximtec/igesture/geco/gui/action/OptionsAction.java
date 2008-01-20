@@ -27,8 +27,8 @@ package org.ximtec.igesture.geco.gui.action;
 
 import java.awt.event.ActionEvent;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
 
@@ -45,7 +45,7 @@ public class OptionsAction extends BasicAction {
 
 
    public OptionsAction(MainView mainView) {
-      super(Constant.OPTIONS_ACTION, GuiTool.getGuiBundle());
+      super(Constant.OPTIONS_ACTION, Geco.getGuiBundle());
       this.mainView = mainView;
    }
 

@@ -85,12 +85,12 @@ public class TextDescriptorFrame extends BasicInternalFrame {
 
 
    private Component createSaveButton() {
-      return SwingTool.createButton(new SaveTextAction(this));
+      return GuiTool.createButton(new SaveTextAction(this));
    } // createSaveButton
 
 
    private Component createCloseButton() {
-      return SwingTool.createButton(new CloseFrameAction(
+      return GuiTool.createButton(new CloseFrameAction(
             GuiConstant.CLOSE_FRAME_ACTION));
    } // createCloseButton
 
