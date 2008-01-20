@@ -53,9 +53,6 @@ import org.sigtec.graphix.widget.BasicInternalFrame;
  */
 public class SwingTool {
 
-   public static final Dimension BUTTON_PREFERRED_SIZE = new java.awt.Dimension(
-         80, 26);
-
    public static final Dimension DIALOG_SIZE = new java.awt.Dimension(300, 300);
 
    public static final Dimension FRAME_SIZE = new java.awt.Dimension(240, 320);
@@ -203,28 +200,5 @@ public class SwingTool {
          int height, int width) {
       return new ScrollableList(model, height, width);
    } // createScrollableList
-
-
-   /**
-    * Creates a new button with some default settings.
-    * 
-    * @param key the key of the button to be created.
-    * @return button configured with data from the GUI bundle.
-    */
-   public static JButton createButton(String key) {
-      return GuiTool.createButton(key, BUTTON_PREFERRED_SIZE,
-            javax.swing.SwingConstants.CENTER, false);
-   } // createButton
-
-
-   /**
-    * Creates a new JButton with an action.
-    * @param action the action to be used.
-    * @return the newly created JButton.
-    */
-   public static JButton createButton(Action action) {
-      return GuiTool.createButton(action, BUTTON_PREFERRED_SIZE,
-            javax.swing.SwingConstants.CENTER, false);
-   } // createButton
 
 }

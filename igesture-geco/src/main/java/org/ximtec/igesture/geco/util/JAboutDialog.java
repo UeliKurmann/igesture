@@ -38,9 +38,9 @@ import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
 import javax.swing.plaf.basic.BasicHTML;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicDialog;
+import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.graphics.SwingTool;
 
@@ -59,7 +59,7 @@ public class JAboutDialog extends BasicDialog {
 
 
    public JAboutDialog(int width, int height, URL path) {
-      super(Constant.COMMON_ABOUT, GuiTool.getGuiBundle());
+      super(Constant.COMMON_ABOUT, Geco.getGuiBundle());
       init(width, height, path);
    }
 
@@ -89,7 +89,7 @@ public class JAboutDialog extends BasicDialog {
       }
 
       BasicButton okButton = new BasicButton(Constant.COMMON_CLOSE,
-            GuiTool.getGuiBundle());
+            Geco.getGuiBundle());
       okButton.addMouseListener(new MouseAdapter() {
 
          @Override

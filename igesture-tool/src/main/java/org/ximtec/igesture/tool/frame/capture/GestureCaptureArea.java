@@ -88,9 +88,9 @@ public class GestureCaptureArea extends BasicInternalFrame implements
       image = new JNote(200, 200);
       mainView.getModel().getPenClient().addInputHandler(image);
       addComponent(image, SwingTool.createGridBagConstraint(0, 0, 2, 1));
-      addComponent(SwingTool.createButton(new CaptureGestureClearAction(this)),
+      addComponent(GuiTool.createButton(new CaptureGestureClearAction(this)),
             SwingTool.createGridBagConstraint(0, 1));
-      addComponent(SwingTool.createButton(new CaptureGestureAction(this)),
+      addComponent(GuiTool.createButton(new CaptureGestureAction(this)),
             SwingTool.createGridBagConstraint(1, 1));
 
       if (mainView.getModel().getCurrentNote() != null) {

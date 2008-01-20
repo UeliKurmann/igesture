@@ -108,7 +108,7 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
             .createGridBagConstraint(1, 0));
       addComponent(createList(), SwingTool.createGridBagConstraint(0, 1, 2, 1));
       addComponent(createSaveButton(), SwingTool.createGridBagConstraint(0, 2));
-      addComponent(SwingTool.createButton(new CloseFrameAction(
+      addComponent(GuiTool.createButton(new CloseFrameAction(
             GuiConstant.CANCEL_FRAME_ACTION)), SwingTool
             .createGridBagConstraint(1, 2));
       setVisible(true);
@@ -140,8 +140,7 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
 
 
    private Component createSaveButton() {
-      final JButton button = SwingTool
-            .createButton(GestureConstants.COMMON_SAVE);
+      final JButton button = GuiTool.createButton(GestureConstants.COMMON_SAVE);
       button.addActionListener(new ActionListener() {
 
          public void actionPerformed(ActionEvent event) {

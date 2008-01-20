@@ -59,12 +59,12 @@ import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.IconTool;
 import org.sigtec.util.Decorator;
 import org.ximtec.igesture.core.GestureClass;
+import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.action.ActionHandler;
 import org.ximtec.igesture.geco.gui.action.MinimizeAction;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
-
 
 
 /**
@@ -137,7 +137,7 @@ public class MainView extends JFrame implements WindowListener {
       this.setTitle(Constant.GECO_TITLE);
       setIconImage(IconTool.getIcon(Constant.GECO_ICON, Decorator.SIZE_32)
             .getImage());
-      //setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+      // setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
       this.getContentPane().add(
             contentPanel,
             new GridBagConstraints(0, 1, 1, 1, 1.0, 1.0,
@@ -299,7 +299,7 @@ public class MainView extends JFrame implements WindowListener {
 
 
    private JMenu createFileMenu() {
-      JMenu menu = GuiTool.getGuiBundle().createMenu(Constant.FILE_MENU);
+      JMenu menu = Geco.getGuiBundle().createMenu(Constant.FILE_MENU);
       menu.add(new JMenuItem(handler.getNewProjectAction()));
       menu.add(new JMenuItem(handler.getOpenProjectAction()));
       saveMenuItem = new JMenuItem(handler.getSaveProjectAction());
@@ -315,7 +315,7 @@ public class MainView extends JFrame implements WindowListener {
 
 
    private JMenu createInfoMenu() {
-      JMenu menu = GuiTool.getGuiBundle().createMenu(Constant.COMMON_HELP);
+      JMenu menu = Geco.getGuiBundle().createMenu(Constant.COMMON_HELP);
       menu.add(new JMenuItem(handler.getAboutAction()));
       return menu;
    } // createInfoMenu

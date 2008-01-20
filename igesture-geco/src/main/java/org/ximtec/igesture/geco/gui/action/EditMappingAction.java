@@ -27,8 +27,8 @@ package org.ximtec.igesture.geco.gui.action;
 
 import java.awt.event.ActionEvent;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
@@ -47,7 +47,7 @@ public class EditMappingAction extends BasicAction {
 
 
    public EditMappingAction(MainView mainView) {
-      super(Constant.EDIT, GuiTool.getGuiBundle());
+      super(Constant.EDIT, Geco.getGuiBundle());
       this.mainView = mainView;
    }
 

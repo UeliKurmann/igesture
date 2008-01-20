@@ -49,6 +49,7 @@ import javax.swing.border.TitledBorder;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.ximtec.igesture.core.GestureClass;
+import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.CommandView;
 import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.HotKeyView;
@@ -160,7 +161,7 @@ public class MappingDialog extends BasicDialog {
     */
    private void initDialog() {
       this.setResizable(false);
-      this.setTitle(GuiTool.getGuiBundle().getName(
+      this.setTitle(Geco.getGuiBundle().getName(
             Constant.GESTURE_MAPPING_TITLE));
       this.setLayout(new GridBagLayout());
       this.add(tabbedPane, new GridBagConstraints(0, 1, 1, 1, 1, 1,
@@ -197,8 +198,8 @@ public class MappingDialog extends BasicDialog {
     */
    private void addButtonPanel() {
       JPanel buttonPanel = new JPanel();
-      addButton = SwingTool.createButton(Constant.ADD);
-      JButton cancelButton = SwingTool.createButton(Constant.CANCEL);
+      addButton = GuiTool.createButton(Constant.ADD);
+      JButton cancelButton = GuiTool.createButton(Constant.CANCEL);
       addButton.addActionListener(new ActionListener() {
 
          public void actionPerformed(ActionEvent event) {

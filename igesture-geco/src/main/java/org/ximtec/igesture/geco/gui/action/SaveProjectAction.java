@@ -27,8 +27,8 @@ package org.ximtec.igesture.geco.gui.action;
 
 import java.awt.event.ActionEvent;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainModel;
 import org.ximtec.igesture.geco.gui.MainView;
@@ -48,7 +48,7 @@ public class SaveProjectAction extends BasicAction {
 
 
   public SaveProjectAction(MainView mainView) {
-     super(Constant.SAVE_PROJECT_ACTION, GuiTool.getGuiBundle());
+     super(Constant.SAVE_PROJECT_ACTION, Geco.getGuiBundle());
      this.mainView = mainView;
   }
 

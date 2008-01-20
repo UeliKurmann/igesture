@@ -12,6 +12,7 @@
  * Date             Who         Reason
  *
  * Nov 19, 2007     crocimi     Initial Release
+ * Jan 20, 2008     bsigner     Cleanup and new GuiBundle functionality
  *
  * -----------------------------------------------------------------------
  *
@@ -25,20 +26,16 @@
 
 package org.ximtec.igesture.geco;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 
+import org.sigtec.graphix.GuiBundle;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.SplashScreen;
-import org.sigtec.util.Constant;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.geco.gui.MainModel;
 import org.ximtec.igesture.geco.gui.MainView;
@@ -60,6 +57,8 @@ public class Geco {
 
    public static final String GECO_CONFIGURATION = "\\config\\geco.xml";
 
+   private static final String GUI_BUNDLE_NAME = "geco";
+
    private static final String GUI_BUNDLE_FILE = "geco";
 
    private static final String GECO_LOGO = "images/gecoLogo.png";
@@ -69,17 +68,17 @@ public class Geco {
    private static final String INITIALISED = "Initialised.";
 
    private static final String RUBINE_CONFIGURATION = "\\config\\rubineconfiguration.xml";
-   
+
    public static final String LAST_PROJECT_FILE = "lastProject.txt";
-   
+
    public static final String CONFIG = "config";
-   
+
    private static final String DEFAULT_PROJECT = "\\mappings\\ms_gestures_mapping.xml";
-   
+
    private org.ximtec.igesture.configuration.Configuration configuration;
-   
+
    private Configuration gestureConfiguration;
-   
+
    private MainView view;
 
 
@@ -88,10 +87,9 @@ public class Geco {
             GECO_LOGO));
       SplashScreen splashScreen = new SplashScreen(logo, false, 4000);
       splashScreen.splash();
-      GuiTool.addGuiBundle(GUI_BUNDLE_FILE);
+      GuiTool.addGuiBundle(GUI_BUNDLE_NAME, GUI_BUNDLE_FILE);
       Logger.getAnonymousLogger().setLevel(Level.INFO);
       LOGGER.info(INITIALISING);
-
 
       if (args.length > 0) {
          gestureConfiguration = new Configuration(args[0]);
@@ -112,11 +110,16 @@ public class Geco {
       configuration = XMLGeco.importConfiguration(confFile);
       MainModel model = new MainModel(configuration, gestureConfiguration);
       view = new MainView(model);
-      //open last opened Document
+      // open last opened Document
       openLastProject();
       new SystemTray(view);
       LOGGER.info(INITIALISED);
    }
+
+
+   public static final GuiBundle getGuiBundle() {
+      return GuiTool.getGuiBundle(GUI_BUNDLE_NAME);
+   } // getGuiBundle
 
 
    /**
@@ -133,22 +136,20 @@ public class Geco {
       }
 
    }
-   
-   
-   
-   public void openLastProject(){ 
+
+
+   public void openLastProject() {
       String file = view.getModel().getGestureConfiguration().getLastProject();
-      if ((file == null)||(file.equals(""))){
+      if ((file == null) || (file.equals(""))) {
          try {
-               file = ClassLoader.getSystemResource(DEFAULT_PROJECT).toURI().getPath();
-            }
-            catch (URISyntaxException e) {
-               file = ClassLoader.getSystemResource(DEFAULT_PROJECT).getPath();
-            }
+            file = ClassLoader.getSystemResource(DEFAULT_PROJECT).toURI()
+                  .getPath();
+         }
+         catch (URISyntaxException e) {
+            file = ClassLoader.getSystemResource(DEFAULT_PROJECT).getPath();
+         }
       }
       (new OpenProjectAction(view)).openProject(new File(file));
    }
-   
-
 
 }

@@ -87,12 +87,12 @@ public class SampleDescriptorFrame extends BasicInternalFrame {
 
 
    private Component createAddButton() {
-      return SwingTool.createButton(new AddSampleAction(this));
+      return GuiTool.createButton(new AddSampleAction(this));
    } // createAddButton
 
 
    private Component createCloseButton() {
-      return SwingTool.createButton(new CloseFrameAction(
+      return GuiTool.createButton(new CloseFrameAction(
             GuiConstant.CLOSE_FRAME_ACTION));
    } // createCloseButton
 
