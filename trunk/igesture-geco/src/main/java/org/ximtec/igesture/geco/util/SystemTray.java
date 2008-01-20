@@ -13,6 +13,7 @@
  *
  * Dec 17, 2007		crocimi		Initial Release
  * Jan 14, 2008     bsigner     New icon loading mechanism
+ * Jan 20, 2008     bsigner     Update to new GUI bundle functionality
  *
  * -----------------------------------------------------------------------
  *
@@ -37,16 +38,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import org.sigtec.graphix.IconTool;
-import org.sigtec.util.Decorator;
+import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
 
 
 /**
- * Add an icon to the system tray
- * @version 0.9, Dec 17, 2007
+ * Adds an icon to the system tray.
+ * @version 0.9, Dec 2007
  * @author Michele Croci, mcroci@gmail.com
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class SystemTray {
 
@@ -64,14 +65,12 @@ public class SystemTray {
 
 
    public void addIconToTray() {
-
       if (java.awt.SystemTray.isSupported()) {
          tray = java.awt.SystemTray.getSystemTray();
-         image = IconTool.getIcon(Constant.GECO_ICON, Decorator.SIZE_32)
-               .getImage();
+         image = Geco.getGuiBundle().getSmallIcon(Geco.KEY).getImage();
          popup = new PopupMenu();
-         trayIcon = new TrayIcon(image, Constant.GECO_NAME, popup);
-
+         trayIcon = new TrayIcon(image, Geco.getGuiBundle().getShortDescription(
+               Geco.KEY), popup);
          MenuItem exitItem = new MenuItem(Constant.EXIT);
          exitItem.addActionListener(new ActionListener() {
 
@@ -79,10 +78,10 @@ public class SystemTray {
                tray.remove(trayIcon);
             }
          });
+
          exitItem.addActionListener(mainView.getActionHandler()
                .getExitApplicationAction());
          popup.add(exitItem);
-
          MenuItem showItem = new MenuItem(Constant.SHOW);
          showItem.addActionListener(new ActionListener() {
 
@@ -93,9 +92,7 @@ public class SystemTray {
 
          popup.add(showItem);
          popup.add(exitItem);
-
          trayIcon.setImageAutoSize(true);
-
          trayIcon.addMouseListener(new IconMouseListener());
 
          try {
@@ -110,7 +107,7 @@ public class SystemTray {
          trayIcon = null;
       }
 
-   }
+   } // addIconToTray
 
    private class IconMouseListener implements MouseListener {
 
@@ -127,7 +124,6 @@ public class SystemTray {
        * @param event associated mouse event.
        */
       public void mouseExited(MouseEvent event) {
-
       } // mouseExited
 
 
@@ -137,6 +133,7 @@ public class SystemTray {
        */
       public void mouseClicked(MouseEvent event) {
          if (event.getClickCount() == 2) {
+
             if (mainView.isVisible()) {
                mainView.setVisible(false);
             }
@@ -148,30 +145,30 @@ public class SystemTray {
             }
 
          }
-         // mainView.setVisible(true);
-      }
+
+      } // mouseClicked
 
 
       /**
        * Handles a pressed button.
-       * @param event associated mouse event.
+       * @param event the associated mouse event.
        */
       public void mousePressed(MouseEvent event) {
-      }
+      } // mousePressed
 
 
       /**
        * Handles a released button.
-       * @param event associated mouse event.
+       * @param event the associated mouse event.
        */
       public void mouseReleased(MouseEvent event) {
-      }
+      } // mouseReleased
 
    }
 
 
    public static void removeTrayIcon() {
       tray.remove(trayIcon);
-   }
+   } // removeTrayIcon
 
 }

@@ -129,15 +129,16 @@ public class MainView extends JFrame implements WindowListener {
       catch (Exception e) {
          LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
+
       this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
       GridBagLayout gbl = new GridBagLayout();
       this.getContentPane().setLayout(gbl);
       setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
       setLocation(150, 100);
       this.setTitle(Constant.GECO_TITLE);
-      setIconImage(IconTool.getIcon(Constant.GECO_ICON, Decorator.SIZE_32)
-            .getImage());
-      // setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+      Geco.getGuiBundle().getSmallIcon(Geco.KEY);
+      setIconImage(Geco.getGuiBundle().getSmallIcon(Geco.KEY).getImage());
+
       this.getContentPane().add(
             contentPanel,
             new GridBagConstraints(0, 1, 1, 1, 1.0, 1.0,

@@ -129,8 +129,6 @@ public class Constant extends org.sigtec.util.Constant {
     * System Tray
     */
 
-   public static final String GECO_NAME = "Geco";
-
-   public static final String GECO_ICON = "custom/geco";
+   //public static final String GECO_ICON = "custom/geco";
 
 }
