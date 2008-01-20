@@ -38,7 +38,7 @@ import org.ximtec.igesture.geco.xml.XMLGeco;
 /**
  * Saves the gesture mappings.
  * 
- * @version 1.0, Nov 2007
+ * @version 0.9, Nov 2007
  * @author Michele Croci, mcroci@gmail.com
  * @author Beat Signer, signer@inf.ethz.ch
  */

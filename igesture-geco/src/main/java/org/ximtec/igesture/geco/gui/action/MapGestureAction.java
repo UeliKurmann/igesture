@@ -1,5 +1,5 @@
 /*
- * @(#)ShowMappingDialogAction.java	1.0   Nov 19, 2007
+ * @(#)MapgestureAction.java	1.0   Nov 19, 2007
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
@@ -41,7 +41,7 @@ import org.ximtec.igesture.geco.gui.MainView;
  * @author Michele Croci, mcroci@gmail.com
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ShowMappingDialogAction extends BasicAction {
+public class MapGestureAction extends BasicAction {
 
    /**
     * The key used to retrieve action details from the resource bundle.
@@ -52,16 +52,16 @@ public class ShowMappingDialogAction extends BasicAction {
    private GestureClass currentGesture;
 
 
-   public ShowMappingDialogAction(MainView mainView) {
+   public MapGestureAction(MainView mainView) {
       super(KEY, Geco.getGuiBundle());
       this.mainView = mainView;
    }
 
 
    /**
-    * Shows a dialog.
+    * Shows an add mapping dialog.
     * 
-    * @param event the action event.
+    * @param event the event to be handled.
     */
    public void actionPerformed(ActionEvent event) {
       currentGesture = mainView.getSelectedClass();
