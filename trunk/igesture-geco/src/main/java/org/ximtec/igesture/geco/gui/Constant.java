@@ -39,7 +39,7 @@ public class Constant extends org.sigtec.util.Constant {
     * GUI
     */
 
-   public static final String GECO_TITLE = "Geco";
+   //public static final String GECO_TITLE = "Geco";
 
    public static final String FILE_MENU = "FileMenu";
 
@@ -123,12 +123,5 @@ public class Constant extends org.sigtec.util.Constant {
 
    public static final String COMMON_CLOSE = "CLOSE";
 
-
-
-   /*
-    * System Tray
-    */
-
-   //public static final String GECO_ICON = "custom/geco";
 
 }
