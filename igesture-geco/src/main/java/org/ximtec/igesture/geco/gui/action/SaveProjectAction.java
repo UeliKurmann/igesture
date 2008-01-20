@@ -3,7 +3,7 @@
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *
- * Purpose      :  Save the gesture map project.
+ * Purpose      :   Saves the gesture mappings.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * Nov 15, 2007     crocimi    Initial Release
+ * Nov 15, 2007     crocimi     Initial Release
+ * Jan 20, 2008     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -29,50 +30,50 @@ import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.geco.Geco;
-import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainModel;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 
 
-
 /**
-* Save the gesture map project.
-* 
-* @version 1.0, Nov 2006
-* @author Michele Croci, mcroci@gmail.com
-*/
+ * Saves the gesture mappings.
+ * 
+ * @version 1.0, Nov 2007
+ * @author Michele Croci, mcroci@gmail.com
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class SaveProjectAction extends BasicAction {
 
-  private MainView mainView;
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "SaveProjectAction";
+
+   private MainView mainView;
 
 
-  public SaveProjectAction(MainView mainView) {
-     super(Constant.SAVE_PROJECT_ACTION, Geco.getGuiBundle());
-     this.mainView = mainView;
-  }
+   public SaveProjectAction(MainView mainView) {
+      super(KEY, Geco.getGuiBundle());
+      this.mainView = mainView;
+   }
 
 
-  /**
-   * Creates a new mapping
-   * 
-   * @param event the action event.
-   */
-  public void actionPerformed(ActionEvent event) {
-     save();
+   /**
+    * Save the mappings.
+    * 
+    * @param event the event to be handled.
+    */
+   public void actionPerformed(ActionEvent event) {
+      save();
+   } // actionPerformed
 
-  } // actionPerformed
-  
-  public void save(){
-     MainModel model = mainView.getModel();
-     XMLGeco.exportProject(model.getMappings().values(), model.getGestureSet(), 
-           model.getGestureSetFileName(), model.getProjectFile());
-     //update model
-     mainView.getModel().setNeedSave(false);
-     //update view
-     mainView.disableSaveButton();
-  }//save
- 
-  
+
+   public void save() {
+      MainModel model = mainView.getModel();
+      XMLGeco.exportProject(model.getMappings().values(), model.getGestureSet(),
+            model.getGestureSetFileName(), model.getProjectFile());
+      mainView.getModel().setNeedSave(false);
+      mainView.disableSaveButton(); // FIXME: work directly on button action
+   } // save
+
 }
-

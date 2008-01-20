@@ -51,7 +51,7 @@ public class ActionHandler {
    private MinimizeAction minimizeAction;
    private AboutAction aboutAction;
    private OptionsAction optionsAction;
-   private SaveAsAction saveAsAction;
+   private SaveProjectAsAction saveAsAction;
 
 
    public ActionHandler(MainView view) {
@@ -133,7 +133,7 @@ public class ActionHandler {
 
    public Action getSaveAsAction() {
       if (saveAsAction == null) {
-         saveAsAction = new SaveAsAction(view);
+         saveAsAction = new SaveProjectAsAction(view);
       }
 
       return saveAsAction;

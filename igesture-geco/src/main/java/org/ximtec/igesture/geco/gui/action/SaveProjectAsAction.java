@@ -3,7 +3,7 @@
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *
- * Purpose      :  Save the gesture map project in another file.
+ * Purpose      :   Saves the mappings with a new name.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * Jan 16, 2008     crocimi    Initial Release
+ * Jan 16, 2008     crocimi     Initial Release
+ * Jan 20, 2008     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -31,6 +32,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 
 import org.sigtec.graphix.widget.BasicAction;
+import org.sigtec.util.FileHandler;
 import org.sigtec.util.MIME;
 import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.Constant;
@@ -39,71 +41,75 @@ import org.ximtec.igesture.geco.util.ExtensionFileFilter;
 
 
 /**
- * Save the gesture map project in another file.
+ * Saves the mappings with a new name.
  * 
- * @version Jan 16, 2008
+ * @version 0.9, Jan 2008
  * @author Michele Croci, mcroci@gmail.com
+ * @author Beat Signer, signer@inf.ethz.ch
  */
-public class SaveAsAction extends BasicAction {
+public class SaveProjectAsAction extends BasicAction {
+
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "SaveProjectAsAction";
 
    private MainView mainView;
 
 
-   public SaveAsAction(MainView mainView) {
-      super(Constant.SAVE_AS_ACTION, Geco.getGuiBundle());
+   public SaveProjectAsAction(MainView mainView) {
+      super(KEY, Geco.getGuiBundle());
       this.mainView = mainView;
    }
 
 
    /**
-    * Creates a new mapping
+    * Saves the mappings.
     * 
     * @param event the action event.
     */
    public void actionPerformed(ActionEvent event) {
       showSaveDialog();
-
    } // actionPerformed
 
 
    private void showSaveDialog() {
-
+      String xmlExtension = MIME.getExtension(MIME.XML);
       JFileChooser fileChooser = new JFileChooser();
-      fileChooser.setFileFilter(new ExtensionFileFilter(MIME
-            .getExtension(MIME.XML),
-            new String[] { MIME.getExtension(MIME.XML) }));
+      fileChooser.setFileFilter(new ExtensionFileFilter(xmlExtension,
+            new String[] { xmlExtension }));
       fileChooser.setCurrentDirectory(mainView.getModel().getProjectFile());
       int status = fileChooser.showSaveDialog(null);
 
       if (status == JFileChooser.APPROVE_OPTION) {
          File selectedFile = fileChooser.getSelectedFile();
+
          if (selectedFile != null) {
             String ext = Constant.EMPTY_STRING;
+
             if (selectedFile.getName().length() >= 4) {
                ext = selectedFile.getName().substring(
                      selectedFile.getName().length() - 4,
                      selectedFile.getName().length());
             }
+
             File pFile = null;
-            if (!ext.equals(Constant.DOT + MIME.getExtension(MIME.XML))) {
-               pFile = new File(selectedFile.getPath()
-                     + org.sigtec.util.Constant.DOT
-                     + MIME.getExtension(MIME.XML));
+
+            if (!ext.equals(Constant.DOT + xmlExtension)) {
+               pFile = FileHandler.createFile(selectedFile.getPath(),
+                     xmlExtension);
             }
             else {
                pFile = selectedFile;
             }
+
             String projectName = pFile.getName();
             projectName = projectName.substring(0, projectName.length() - 4);
-
             mainView.getModel().setProjectFile(pFile);
             mainView.getModel().setProjectName(projectName);
-
-            // update view
             mainView.initProjectView(projectName);
             mainView.updateGestureList();
             mainView.enableMenuItem();
-
             mainView.getModel().setNeedSave(true);
             (new SaveProjectAction(mainView)).save();
             (new OpenProjectAction(mainView)).exportConfiguration();
@@ -111,5 +117,6 @@ public class SaveAsAction extends BasicAction {
 
       }
 
-   }
+   } // showSaveDialog
+
 }
