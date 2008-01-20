@@ -31,9 +31,6 @@ import javax.swing.Action;
 import org.ximtec.igesture.geco.gui.MainView;
 
 
-
-
-
 /**
  * Provides access to available actions. Each action is instantiated only once.
  * @version 0.9, Nov 22, 2007
@@ -55,8 +52,6 @@ public class ActionHandler {
    private AboutAction aboutAction;
    private OptionsAction optionsAction;
    private SaveAsAction saveAsAction;
-   
-   private static final String ABOUT_HTML = "about.html";
 
 
    public ActionHandler(MainView view) {
@@ -80,7 +75,8 @@ public class ActionHandler {
 
       return exitApplicationAction;
    } // getExitApplicationAction
-   
+
+
    public Action getLoadGestureSetAction() {
       if (loadGestureSetAction == null) {
          loadGestureSetAction = new LoadGestureSetAction(view);
@@ -88,8 +84,8 @@ public class ActionHandler {
 
       return loadGestureSetAction;
    } // getLoadGestureSetAction
-   
-   
+
+
    public Action getAddMappingAction() {
       if (showMappingDialogAction == null) {
          showMappingDialogAction = new ShowMappingDialogAction(view);
@@ -97,8 +93,8 @@ public class ActionHandler {
 
       return showMappingDialogAction;
    } // getMapGestureAction
-   
-   
+
+
    public Action getNewProjectAction() {
       if (newProjectAction == null) {
          newProjectAction = new NewProjectAction(view);
@@ -106,8 +102,8 @@ public class ActionHandler {
 
       return newProjectAction;
    } // getNewGestureMapAction
-   
-   
+
+
    public Action getEditMappingAction() {
       if (editMappingAction == null) {
          editMappingAction = new EditMappingAction(view);
@@ -115,8 +111,8 @@ public class ActionHandler {
 
       return editMappingAction;
    } // getNewGestureMapAction
-   
-   
+
+
    public Action getRemoveMappingAction() {
       if (removeMappingAction == null) {
          removeMappingAction = new RemoveMappingAction(view);
@@ -124,8 +120,8 @@ public class ActionHandler {
 
       return removeMappingAction;
    } // getNewGestureMapAction
-   
-   
+
+
    public Action getSaveProjectAction() {
       if (saveProjectAction == null) {
          saveProjectAction = new SaveProjectAction(view);
@@ -133,7 +129,8 @@ public class ActionHandler {
 
       return saveProjectAction;
    } // getNewGestureMapAction
-   
+
+
    public Action getSaveAsAction() {
       if (saveAsAction == null) {
          saveAsAction = new SaveAsAction(view);
@@ -141,7 +138,8 @@ public class ActionHandler {
 
       return saveAsAction;
    } // getNewGestureMapAction
-   
+
+
    public Action getMinimizeAction() {
       if (minimizeAction == null) {
          minimizeAction = new MinimizeAction(view);
@@ -149,17 +147,17 @@ public class ActionHandler {
 
       return minimizeAction;
    } // getNewGestureMapAction
-   
-   
+
+
    public Action getAboutAction() {
       if (aboutAction == null) {
-         aboutAction = new AboutAction(ABOUT_HTML);
+         aboutAction = new AboutAction();
       }
 
       return aboutAction;
    } // getNewGestureMapAction
-   
-   
+
+
    public Action getOptionsAction() {
       if (optionsAction == null) {
          optionsAction = new OptionsAction(view);
@@ -167,5 +165,5 @@ public class ActionHandler {
 
       return optionsAction;
    } // getNewGestureMapAction
-   
+
 }

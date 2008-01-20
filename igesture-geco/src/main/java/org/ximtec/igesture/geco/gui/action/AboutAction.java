@@ -11,7 +11,8 @@
  *
  * Date             Who         Reason
  *
- * Dec 18, 2007     crocimi    Initial Release
+ * Dec 18, 2007     crocimi     Initial Release
+ * Jan 20, 2008     bsigner     Redesign with externalisation of data
  *
  * -----------------------------------------------------------------------
  *
@@ -29,7 +30,7 @@ import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.geco.Geco;
-import org.ximtec.igesture.geco.util.JAboutDialog;
+import org.ximtec.igesture.geco.dialog.AboutDialog;
 
 
 /**
@@ -37,6 +38,7 @@ import org.ximtec.igesture.geco.util.JAboutDialog;
  * 
  * @version 0.9, Nov 2006
  * @author Michele Croci, mcroci@gmail.com
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class AboutAction extends BasicAction {
 
@@ -45,13 +47,13 @@ public class AboutAction extends BasicAction {
     */
    public static final String KEY = "AboutAction";
 
-   JAboutDialog dialog;
+   AboutDialog dialog;
 
 
-   public AboutAction(String path) {
+   public AboutAction() {
       super(KEY, Geco.getGuiBundle());
-      dialog = new JAboutDialog(300, 500, AboutAction.class.getClassLoader()
-            .getResource(path));
+      dialog = new AboutDialog(AboutDialog.KEY, AboutDialog.KEY, Geco
+            .getGuiBundle());
    }
 
 

@@ -63,8 +63,6 @@ public class Constant extends org.sigtec.util.Constant {
 
    public static final String LOAD_GESTURE_SET_CONFIRMATION = "Loading another gesture set will delete all existing mapping. Do you want to continue?";
 
-   public static final String OPTIONS_DIALOG_TITLE = "Options";
-
    public static final String SELECT_INPUT_DEVICE = "Select input device";
 
    public static final String PROJECT_NAME = "ProjectName";
@@ -125,13 +123,12 @@ public class Constant extends org.sigtec.util.Constant {
 
    public static final String COMMON_CLOSE = "CLOSE";
 
-   public static final String COMMON_ABOUT = "ABOUT";
+   //public static final String COMMON_ABOUT = "ABOUT";
 
    /*
     * Actions
     */
 
-   public static final String OPTIONS_ACTION = "OptionsAction";
 
    public static final String SAVE_PROJECT_ACTION = "SaveProjectAction";
 

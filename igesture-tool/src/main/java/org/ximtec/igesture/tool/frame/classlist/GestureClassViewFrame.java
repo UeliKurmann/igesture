@@ -140,7 +140,8 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
 
 
    private Component createSaveButton() {
-      final JButton button = GuiTool.createButton(GestureConstants.COMMON_SAVE);
+      final JButton button = GuiTool.createButton(GestureConstants.COMMON_SAVE,
+            GuiTool.getGuiBundle());
       button.addActionListener(new ActionListener() {
 
          public void actionPerformed(ActionEvent event) {

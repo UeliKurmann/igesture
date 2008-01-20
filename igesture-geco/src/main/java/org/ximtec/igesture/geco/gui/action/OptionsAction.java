@@ -3,7 +3,7 @@
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
- * Purpose		:   Action for showing preferences
+ * Purpose		:   Action to show options.
  *
  * -----------------------------------------------------------------------
  *
@@ -12,6 +12,7 @@
  * Date				Who			Reason
  *
  * Jan 10, 2008		crocimi		Initial Release
+ * Jan 20, 2008     bsigner     Redesign
  *
  * -----------------------------------------------------------------------
  *
@@ -29,36 +30,39 @@ import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.geco.Geco;
-import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
 
 
 /**
- * Action for showing preferences
- * @version 0.9, Jan 10, 2008
+ * Action to show options.
+ * @version 0.9, Dec 2007
  * @author Michele Croci, mcroci@gmail.com
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 
 public class OptionsAction extends BasicAction {
+
+   /**
+    * The key used to retrieve action details from the resource bundle.
+    */
+   public static final String KEY = "OptionsAction";
 
    private MainView mainView;
 
 
    public OptionsAction(MainView mainView) {
-      super(Constant.OPTIONS_ACTION, Geco.getGuiBundle());
+      super(KEY, Geco.getGuiBundle());
       this.mainView = mainView;
    }
 
 
    /**
-    * Creates a new mapping
+    * Shows the options dialog.
+    * @param event the event to be handled.
     * 
     * @param event the action event.
     */
    public void actionPerformed(ActionEvent event) {
-      // display save dialog, if needed
-
-      // display new project dialog
       mainView.getComponentHandler().getOptionsDialog().showDialog();
    } // actionPerformed
 

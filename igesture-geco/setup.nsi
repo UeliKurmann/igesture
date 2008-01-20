@@ -65,7 +65,6 @@ ShowUninstDetails hide
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
-    File target\igesture-geco-1.2-SNAPSHOT\about.html
     File target\igesture-geco-1.2-SNAPSHOT\geco.properties
     File target\igesture-geco-1.2-SNAPSHOT\ms_application_gestures.xml
 #    File target\igesture-geco-1.2-SNAPSHOT\geco.ico
@@ -128,7 +127,6 @@ Section /o -un.Main UNSEC0000
     RmDir /r /REBOOTOK $INSTDIR\mappings
     Delete /REBOOTOK $INSTDIR\ms_application_gestures.xml
     Delete /REBOOTOK $INSTDIR\geco.properties
-    Delete /REBOOTOK $INSTDIR\about.html
     DeleteRegValue HKLM "${REGKEY}\Components" Main
 SectionEnd
 
