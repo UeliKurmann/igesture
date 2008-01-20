@@ -36,7 +36,7 @@ import org.ximtec.igesture.geco.dialog.AboutDialog;
 /**
  * About dialog.
  * 
- * @version 0.9, Nov 2006
+ * @version 0.9, Nov 2007
  * @author Michele Croci, mcroci@gmail.com
  * @author Beat Signer, signer@inf.ethz.ch
  */

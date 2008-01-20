@@ -123,16 +123,13 @@ public class Constant extends org.sigtec.util.Constant {
 
    public static final String COMMON_CLOSE = "CLOSE";
 
-   //public static final String COMMON_ABOUT = "ABOUT";
 
    /*
     * Actions
     */
 
 
-   public static final String SAVE_PROJECT_ACTION = "SaveProjectAction";
-
-   public static final String SAVE_AS_ACTION = "SaveAsAction";
+   //public static final String SAVE_AS_ACTION = "SaveAsAction";
 
    public static final String EXIT_APPLICATION_ACTION = "ExitApplicationAction";
 
