@@ -135,7 +135,7 @@ public class MainView extends JFrame implements WindowListener {
       this.getContentPane().setLayout(gbl);
       setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
       setLocation(150, 100);
-      this.setTitle(Constant.GECO_TITLE);
+      this.setTitle(Geco.getGuiBundle().getName(Geco.KEY));
       Geco.getGuiBundle().getSmallIcon(Geco.KEY);
       setIconImage(Geco.getGuiBundle().getSmallIcon(Geco.KEY).getImage());
 
@@ -153,8 +153,8 @@ public class MainView extends JFrame implements WindowListener {
     * Initialises the view for a project
     */
    public void initProjectView(String projectName) {
-      setTitle(Constant.GECO_TITLE + org.sigtec.util.Constant.DASH_S
-            + projectName);
+      setTitle(Geco.getGuiBundle().getName(Geco.KEY)
+            + org.sigtec.util.Constant.DASH_S + projectName);
 
       if (!initialized) {
          populateDialog();
