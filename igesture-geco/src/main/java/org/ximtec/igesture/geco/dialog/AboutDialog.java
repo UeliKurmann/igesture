@@ -34,12 +34,13 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
 import javax.swing.plaf.basic.BasicHTML;
 
 import org.sigtec.graphix.GuiBundle;
-import org.sigtec.graphix.widget.BasicButton;
+import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.Constant;
@@ -123,7 +124,7 @@ public class AboutDialog extends BasicDialog {
                Boolean.TRUE);
          aboutField.putClientProperty(BasicHTML.documentBaseKey,
                AboutDialog.class.getResource(Constant.SLASH));
-         aboutField.setSize(width - 10, height - 50);
+         aboutField.setPreferredSize(new Dimension(width - 10, height - 50));
          JScrollPane scrollPane = new JScrollPane(aboutField);
          scrollPane.setPreferredSize(new Dimension(width - 10, height - 50));
          scrollPane.setAutoscrolls(true);
@@ -133,8 +134,8 @@ public class AboutDialog extends BasicDialog {
          LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
 
-      BasicButton okButton = new BasicButton(Constant.COMMON_CLOSE, Geco
-            .getGuiBundle());
+      JButton okButton = GuiTool.createButton(Constant.CLOSE_ABOUT_BUTTON,
+            Constant.CLOSE_ABOUT_BUTTON, Geco.getGuiBundle());
       okButton.addMouseListener(new MouseAdapter() {
 
          @Override

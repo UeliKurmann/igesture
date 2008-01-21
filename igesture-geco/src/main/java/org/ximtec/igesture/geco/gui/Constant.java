@@ -39,6 +39,8 @@ public class Constant extends org.sigtec.util.Constant {
    
    public static final String PROJECT_PROPERTIES_STRING = "ProjectPropertiesString";
    
+   public static final String CLOSE_ABOUT_BUTTON = "CloseAboutButton";
+   
    
    /*
     * GUI
@@ -117,7 +119,6 @@ public class Constant extends org.sigtec.util.Constant {
 
    public static final String COMMON_HELP = "HELP";
 
-   public static final String COMMON_CLOSE = "CLOSE";
 
 
 }
