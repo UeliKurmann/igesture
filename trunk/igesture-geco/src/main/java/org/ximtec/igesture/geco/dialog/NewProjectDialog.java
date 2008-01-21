@@ -113,8 +113,8 @@ public class NewProjectDialog extends BasicDialog {
 
       JPanel mainPanel = new JPanel();
       mainPanel.setBorder(new TitledBorder(new BevelBorder(0, Color.gray,
-            Color.gray), KEY)); // FIXME
-
+            Color.gray), Geco.getGuiBundle().getName(
+            Constant.PROJECT_PROPERTIES_STRING)));
       mainPanel.setLayout(new GridBagLayout());
       setLayout(new GridBagLayout());
       Point p = new Point(view.getLocation().x + 50, view.getLocation().y + 100);
@@ -123,12 +123,12 @@ public class NewProjectDialog extends BasicDialog {
             new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
                   GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
 
-      projectTextField = new BasicTextField(Constant.PROJECT_NAME_TEXT_FIELD,
-            Geco.getGuiBundle());
+      projectTextField = new BasicTextField(
+            Constant.PROJECT_PROPERTIES_TEXT_FIELD, Geco.getGuiBundle());
       projectTextField.getDocument().addDocumentListener(
             new MyDocumentListener());
       projectTextField.addKeyListener(new MyKeyListener());
-      projectTextField.setText(Constant.EMPTY_STRING);
+
       mainPanel.add(projectTextField, new GridBagConstraints(1, 0, 1, 1, 1, 1,
             GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
             new Insets(10, 10, 10, 10), 0, 0));
@@ -146,7 +146,8 @@ public class NewProjectDialog extends BasicDialog {
             GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
             new Insets(10, 10, 10, 10), 0, 0));
 
-      JButton browseButton = GuiTool.createButton(Constant.BROWSE, Geco.getGuiBundle());
+      JButton browseButton = GuiTool.createButton(Constant.BROWSE, Geco
+            .getGuiBundle());
       browseButton.addActionListener(new BrowseListener());
       mainPanel.add(browseButton, new GridBagConstraints(2, 1, 1, 1, 0, 0,
             GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(10,
@@ -155,7 +156,8 @@ public class NewProjectDialog extends BasicDialog {
       createButton = GuiTool.createButton(Constant.CREATE, Geco.getGuiBundle());
       createButton.setEnabled(false);
       createButton.addActionListener(new CreateListener());
-      JButton cancelButton = GuiTool.createButton(Constant.CANCEL, Geco.getGuiBundle());
+      JButton cancelButton = GuiTool.createButton(Constant.CANCEL, Geco
+            .getGuiBundle());
       cancelButton.addActionListener(new CancelListener());
 
       JPanel buttonPanel = new JPanel();

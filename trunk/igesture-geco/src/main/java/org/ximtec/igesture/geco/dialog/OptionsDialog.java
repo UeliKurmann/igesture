@@ -1,9 +1,9 @@
 /*
- * @(#)NewProjectDialog.java    1.0   Jan 10, 2008
+ * @(#)OptionsDialog.java    1.0   Jan 10, 2008
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *
- * Purpose      :   Options dialog
+ * Purpose      :   Options dialog.
  *
  * -----------------------------------------------------------------------
  *
@@ -56,9 +56,9 @@ import org.ximtec.igesture.geco.xml.XMLGeco;
 
 
 /**
- * Options dialog
+ * Options dialog.
  * 
- * @version 0.9, Dec 3, 2007
+ * @version 0.9, Jan 2008
  * @author Michele Croci, mcroci@gmail.com
  */
 public class OptionsDialog extends BasicDialog {
@@ -116,6 +116,7 @@ public class OptionsDialog extends BasicDialog {
       this.add(buttonPanel, new GridBagConstraints(0, 2, 1, 1, 0, 0,
             GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(10,
                   10, 10, 10), 0, 0));
+      pack();
    }// init
 
 

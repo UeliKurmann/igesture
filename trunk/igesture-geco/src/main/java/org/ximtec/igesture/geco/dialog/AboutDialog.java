@@ -115,6 +115,7 @@ public class AboutDialog extends BasicDialog {
          String resource = guiBundle.getProperty(GuiBundle.createPropertyName(
                dialogKey, RESOURCE));
          URL path = AboutDialog.class.getClassLoader().getResource(resource);
+         System.out.println("PATH = " + path);
          aboutField = new JEditorPane(path);
          aboutField.setEditable(false);
          aboutField.setContentType("text/html");
@@ -144,7 +145,7 @@ public class AboutDialog extends BasicDialog {
       });
 
       addComponent(okButton, SwingTool.createGridBagConstraint(0, 1));
-      this.pack();
+      pack();
    } // init
 
 
