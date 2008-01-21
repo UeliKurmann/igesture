@@ -89,11 +89,9 @@ public class Constant extends org.sigtec.util.Constant {
     */
 
 
-   public static final String BROWSER_OPEN = "Open";
 
-   public static final String COMMON_NEW = "NEW";
 
-   public static final String COMMON_OPEN = "OPEN";
+
 
    public static final String SAVE = "SAVE";
 
