@@ -35,6 +35,11 @@ package org.ximtec.igesture.geco.gui;
  */
 public class Constant extends org.sigtec.util.Constant {
 
+   public static final String PROJECT_PROPERTIES_TEXT_FIELD = "ProjectPropertiesTextField";
+   
+   public static final String PROJECT_PROPERTIES_STRING = "ProjectPropertiesString";
+   
+   
    /*
     * GUI
     */
@@ -69,13 +74,7 @@ public class Constant extends org.sigtec.util.Constant {
 
    public static final String PROJECT_LOCATION = "ProjectLocation";
 
-   public static final String PROJECT_NAME_TEXT_FIELD = "ProjectNameTextField";
-
    public static final String PROJECT_FILE_TEXT_FIELD = "ProjectNameTextField";
-
-   public static final String WACOM = "Wacom";
-
-   public static final String MOUSE = "Mouse";
 
    public static final String INPUT_DEVICE = "Input Device";
 
@@ -89,7 +88,6 @@ public class Constant extends org.sigtec.util.Constant {
     * Commands
     */
 
-   public static final String OK_LABEL = "OkLabel";
 
    public static final String BROWSER_OPEN = "Open";
 
