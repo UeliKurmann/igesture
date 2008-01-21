@@ -101,9 +101,9 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
 
 
    private void init() {
-      this.addComponent(GuiTool
-            .createLabel(GestureConstants.GESTURE_CLASS_VIEW_NAME_LABEL),
-            SwingTool.createGridBagConstraint(0, 0));
+      this.addComponent(GuiTool.createLabel(
+            GestureConstants.GESTURE_CLASS_VIEW_NAME_LABEL, GuiTool
+                  .getGuiBundle()), SwingTool.createGridBagConstraint(0, 0));
       addComponent(createNameTextField(), SwingTool
             .createGridBagConstraint(1, 0));
       addComponent(createList(), SwingTool.createGridBagConstraint(0, 1, 2, 1));
@@ -116,8 +116,9 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
 
 
    private Component createNameTextField() {
-      nameTextField = GuiTool
-            .createTextField(GestureConstants.GESTURE_CLASS_VIEW_NAME_TEXT);
+      nameTextField = GuiTool.createTextField(
+            GestureConstants.GESTURE_CLASS_VIEW_NAME_TEXT, GuiTool
+                  .getGuiBundle());
       nameTextField.setText(gestureClass.getName());
       return nameTextField;
    } // createNameTextField
