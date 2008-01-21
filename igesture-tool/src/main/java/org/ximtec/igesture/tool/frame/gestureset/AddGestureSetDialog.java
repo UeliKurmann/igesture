@@ -62,9 +62,10 @@ public class AddGestureSetDialog extends BasicDialog {
    private void init() {
       setLayout(new GridBagLayout());
       setSize(SwingTool.DIALOG_SIZE);
-      addComponent(GuiTool.createLabel(GestureConstants.COMMON_NAME), SwingTool
-            .createGridBagConstraint(0, 0));
-      txtName = GuiTool.createTextField(Constant.EMPTY_STRING);
+      addComponent(GuiTool.createLabel(GestureConstants.COMMON_NAME, GuiTool
+            .getGuiBundle()), SwingTool.createGridBagConstraint(0, 0));
+      txtName = GuiTool.createTextField(Constant.EMPTY_STRING, GuiTool
+            .getGuiBundle());
       addComponent(txtName, SwingTool.createGridBagConstraint(1, 0));
       addComponent(GuiTool.createButton(new AddGestureSetAction(model)),
             SwingTool.createGridBagConstraint(0, 1));

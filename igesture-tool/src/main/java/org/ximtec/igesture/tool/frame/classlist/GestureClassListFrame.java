@@ -39,6 +39,7 @@ import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.SimpleListModel;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.core.GestureClass;
+import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.AdminTab;
@@ -74,9 +75,10 @@ public class GestureClassListFrame extends BasicInternalFrame implements
 
 
    private void init() {
-      addComponent(GuiTool
-            .createLabel(GestureConstants.GESTURE_CLASS_LIST_FRAME_TITLE),
-            SwingTool.createGridBagConstraint(0, 0, 2, 1));
+      addComponent(GuiTool.createLabel(
+            GestureConstants.GESTURE_CLASS_LIST_FRAME_TITLE, GuiTool
+                  .getGuiBundle()), SwingTool
+            .createGridBagConstraint(0, 0, 2, 1));
       addComponent(createList(), SwingTool.createGridBagConstraint(0, 1, 2, 1));
    } // init
 

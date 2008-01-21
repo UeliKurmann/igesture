@@ -310,7 +310,7 @@ public class HotKeyView extends JPanel {
             GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
             new Insets(0, 0, 0, 20), 0, 0));
 
-      buttonLabel = GuiTool.createTextField("buttonTextField");
+      buttonLabel = GuiTool.createTextField("buttonTextField", GuiTool.getGuiBundle());
       buttonLabel.setEditable(false);
       buttonLabel.setBackground(Color.WHITE);
 

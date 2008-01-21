@@ -57,7 +57,6 @@ import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.userAction.CommandExecutor;
 import org.ximtec.igesture.geco.userAction.KeyboardSimulation;
-import org.ximtec.igesture.graphics.SwingTool;
 
 
 /**
@@ -77,7 +76,7 @@ public class MappingDialog extends BasicDialog {
    private JTabbedPane tabbedPane = new JTabbedPane();
    private JLabel gestureLabel = new JLabel();
    private JButton addButton;
-   private JTextField textField = GuiTool.createTextField(Constant.EMPTY_STRING);
+   private JTextField textField = GuiTool.createTextField(Constant.EMPTY_STRING, Geco.getGuiBundle());
    private int DIALOG_WIDTH = 450;
    private int DIALOG_HEIGHT = 500;
 
