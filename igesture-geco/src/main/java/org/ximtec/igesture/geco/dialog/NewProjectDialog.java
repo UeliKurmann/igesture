@@ -96,7 +96,6 @@ public class NewProjectDialog extends BasicDialog {
     * Initialises the dialog.
     */
    private void init() {
-
       try {
          filePath = new File(ClassLoader.getSystemResource(
                org.ximtec.igesture.geco.gui.Constant.MAPPINGS).toURI())
@@ -170,6 +169,7 @@ public class NewProjectDialog extends BasicDialog {
       this.add(mainPanel, new GridBagConstraints(0, 3, 3, 1, 1, 1,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(20,
                   20, 20, 20), 0, 0));
+      this.pack();
    }// init
 
 

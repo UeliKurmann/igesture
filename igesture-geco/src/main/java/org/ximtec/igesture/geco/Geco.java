@@ -78,7 +78,7 @@ public class Geco {
 
    public static final String CONFIG = "config";
 
-   private static final String DEFAULT_PROJECT = "\\mappings\\ms_gestures_mapping.xml";
+   private static final String DEFAULT_PROJECT = "\\mappings\\defaultMappings.xml";
 
    private org.ximtec.igesture.configuration.Configuration configuration;
 
