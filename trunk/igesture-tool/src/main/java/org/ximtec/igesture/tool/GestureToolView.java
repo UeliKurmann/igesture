@@ -165,7 +165,8 @@ public class GestureToolView extends JFrame {
 
 
    private JMenu createFileMenu() {
-      JMenu menu = GuiTool.getGuiBundle().createMenu(GuiConstant.FILE_MENU);
+      JMenu menu = GuiTool.createMenu(GuiConstant.FILE_MENU, GuiTool
+            .getGuiBundle());
       menu.add(new JMenuItem(getActionHandler().getNewDataSourceAction()));
       menu.add(new JMenuItem(getActionHandler().getOpenDataSourceAction()));
       menu.addSeparator();

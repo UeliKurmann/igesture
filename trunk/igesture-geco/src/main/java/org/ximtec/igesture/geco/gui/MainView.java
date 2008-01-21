@@ -300,7 +300,7 @@ public class MainView extends JFrame implements WindowListener {
 
 
    private JMenu createFileMenu() {
-      JMenu menu = Geco.getGuiBundle().createMenu(Constant.FILE_MENU);
+      JMenu menu = GuiTool.createMenu(Constant.FILE_MENU, Geco.getGuiBundle());
       menu.add(new JMenuItem(handler.getNewProjectAction()));
       menu.add(new JMenuItem(handler.getOpenProjectAction()));
       saveMenuItem = new JMenuItem(handler.getSaveProjectAction());
@@ -316,7 +316,7 @@ public class MainView extends JFrame implements WindowListener {
 
 
    private JMenu createInfoMenu() {
-      JMenu menu = Geco.getGuiBundle().createMenu(Constant.COMMON_HELP);
+      JMenu menu = GuiTool.createMenu(Constant.COMMON_HELP, Geco.getGuiBundle());
       menu.add(new JMenuItem(handler.getAboutAction()));
       return menu;
    } // createInfoMenu
