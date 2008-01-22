@@ -113,8 +113,7 @@ public class AboutDialog extends BasicDialog {
       JEditorPane aboutField;
 
       try {
-         String resource = guiBundle.getProperty(GuiBundle.createPropertyName(
-               dialogKey, RESOURCE));
+         String resource = guiBundle.getProperty(dialogKey, RESOURCE);
          URL path = AboutDialog.class.getClassLoader().getResource(resource);
          System.out.println("PATH = " + path);
          aboutField = new JEditorPane(path);
@@ -134,8 +133,8 @@ public class AboutDialog extends BasicDialog {
          LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
 
-      JButton okButton = GuiTool.createButton(Constant.CLOSE_ABOUT_BUTTON,
-            Constant.CLOSE_ABOUT_BUTTON, Geco.getGuiBundle());
+      JButton okButton = GuiTool.createButton(Constant.CLOSE_ABOUT_BUTTON, Geco
+            .getGuiBundle());
       okButton.addMouseListener(new MouseAdapter() {
 
          @Override
