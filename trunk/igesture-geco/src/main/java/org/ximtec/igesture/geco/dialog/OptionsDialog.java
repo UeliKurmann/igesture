@@ -80,7 +80,7 @@ public class OptionsDialog extends BasicDialog {
 
 
    public OptionsDialog(MainView view) {
-      super(OPTIONS_DIALOG_KEY, OPTIONS_DIALOG_KEY, Geco.getGuiBundle());
+      super(OPTIONS_DIALOG_KEY, Geco.getGuiBundle());
       this.view = view;
       setModal(true);
       init();

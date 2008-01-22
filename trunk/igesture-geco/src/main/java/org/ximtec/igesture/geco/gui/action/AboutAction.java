@@ -52,8 +52,7 @@ public class AboutAction extends BasicAction {
 
    public AboutAction() {
       super(KEY, Geco.getGuiBundle());
-      dialog = new AboutDialog(AboutDialog.KEY, AboutDialog.KEY, Geco
-            .getGuiBundle());
+      dialog = new AboutDialog(AboutDialog.KEY, Geco.getGuiBundle());
    }
 
 

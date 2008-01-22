@@ -78,25 +78,12 @@ public class AboutDialog extends BasicDialog {
 
    /**
     * Constructs a new AboutDialog.
-    * @param key the key to be used for the lookup of text field information in
+    * @param key the key to be used for the lookup of information in
     *            the GUI bundle.
     * @param guiBundle the GUI bundle to be used to create the about dialog.
     */
    public AboutDialog(String key, GuiBundle guiBundle) {
-      super(key, null, guiBundle);
-   }
-
-
-   /**
-    * Constructs a new AboutDialog.
-    * @param key the key to be used for the lookup of action-specific information
-    *            in the GUI bundle.
-    * @param dialogKey the key to be used for the lookup of dialog-specific
-    *            information in the GUI bundle.
-    * @param guiBundle the GUI bundle to be used to create the about dialog.
-    */
-   public AboutDialog(String key, String aboutKey, GuiBundle guiBundle) {
-      super(key, aboutKey, guiBundle);
+      super(key, guiBundle);
    }
 
 
@@ -106,14 +93,14 @@ public class AboutDialog extends BasicDialog {
     *            GUI bundle.
     * @param guiBundle the GUI bundle to be used to create the dialogue.
     */
-   protected void init(String key, String dialogKey, GuiBundle guiBundle) {
-      super.init(key, dialogKey, guiBundle);
-      int width = guiBundle.getWidth(dialogKey);
-      int height = guiBundle.getHeight(dialogKey);
+   protected void init(String key, GuiBundle guiBundle) {
+      super.init(key, guiBundle);
+      int width = guiBundle.getWidth(key);
+      int height = guiBundle.getHeight(key);
       JEditorPane aboutField;
 
       try {
-         String resource = guiBundle.getProperty(dialogKey, RESOURCE);
+         String resource = guiBundle.getProperty(key, RESOURCE);
          URL path = AboutDialog.class.getClassLoader().getResource(resource);
          System.out.println("PATH = " + path);
          aboutField = new JEditorPane(path);
