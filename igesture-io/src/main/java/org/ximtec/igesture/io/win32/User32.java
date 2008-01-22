@@ -79,6 +79,8 @@ public interface User32 extends W32API{//StdCallLibrary {
 	
 	public boolean TranslateMessage(MSG msg);
 	
+    void keybd_event(long key, long b, long state, long d);
+	
 	//C specification:
 	
 	/*
