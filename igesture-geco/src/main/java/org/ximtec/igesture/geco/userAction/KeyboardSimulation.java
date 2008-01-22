@@ -64,7 +64,6 @@ public class KeyboardSimulation implements EventHandler {
 
 
    public void run(ResultSet resultSet) {
-      System.out.println("ExeAction:   "+stringKeys);
       Win32KeyboardProxy.pressKey(keys);
    } // run
 
