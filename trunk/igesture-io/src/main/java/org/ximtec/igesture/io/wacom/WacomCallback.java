@@ -37,7 +37,7 @@ import org.ximtec.igesture.io.wacom.Wintab32.ROTATION;
  */
 public interface WacomCallback {
    
-   public void callbackFunction(int x, int y, int z, int npress, int tpress, long timeStamp,
+   public void callbackFunction(int x, int y, int z, int pkStatus, int npress, int tpress, long timeStamp,
          ORIENTATION orientation, ROTATION rotation, int button);
 
  //  public void callbackFunction();

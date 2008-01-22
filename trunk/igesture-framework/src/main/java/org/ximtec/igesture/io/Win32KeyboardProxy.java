@@ -32,6 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.sigtec.util.Constant;
+import org.ximtec.igesture.io.keyboard.KeyboardUtils;
 
 import sun.misc.ServiceConfigurationError;
 
@@ -50,6 +51,8 @@ public class Win32KeyboardProxy {
 
    private static final Logger LOGGER = Logger
          .getLogger(Win32KeyboardProxy.class.getName());
+   
+   private static KeyboardUtils kbUtils = new KeyboardUtils();
 
    public static int SHIFT = 0x10;
    public static int CTRL = 0x11;
@@ -226,6 +229,8 @@ public class Win32KeyboardProxy {
       final IntCall ic = new IntCall("user32", "keybd_event");
       ic.executeCall(new Object[] { key, 0, state, 0 });
       ic.destroy();
+      
+    
    } // nativeKey
 
 }

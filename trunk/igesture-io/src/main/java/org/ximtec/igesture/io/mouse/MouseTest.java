@@ -62,9 +62,6 @@ public class MouseTest {
          return MIDDLE;
       }
       
-      public void hello(){
-         System.out.println("Hello");
-      }
    }
    
 }

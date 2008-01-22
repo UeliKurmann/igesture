@@ -133,18 +133,6 @@ public class MouseReader extends ExtendedInputDevice implements
 
       mouseUtils = new MouseUtils(this);
       mouseUtils.start();
-      /*
-      final Thread t = new Thread() {
-
-         @Override
-         public void run() {
-            new MouseUtils(MouseReader.this);
-         }
-
-      };
-
-      t.start();
-      */
    } // init
   
 

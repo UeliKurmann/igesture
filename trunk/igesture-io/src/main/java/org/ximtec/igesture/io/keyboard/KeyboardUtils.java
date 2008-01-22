@@ -51,18 +51,18 @@ public class KeyboardUtils {
    HINSTANCE hinst;
    KeyboardProc kbListener;
    HANDLE handle;
-
+   User32 lib = User32.INSTANCE;
+   
 
    public KeyboardUtils() {
-      // HMODULE hmod = new HMODULE();
+
       hinst = Kernel32.INSTANCE.GetModuleHandle(null);
       kbListener = new KeyboardProc() {
 
          public LRESULT callback(int code, WPARAM wParam, LPARAM lParam) {
             System.out.println("keyboard callback code: " + code + " wParam "
                   + wParam + " lParam " + lParam);
-    
-            //lparam is always the same! How to get the pressed key?
+
             return User32.INSTANCE.CallNextHookEx(null, code, wParam, lParam);
 
          }
@@ -79,11 +79,6 @@ public class KeyboardUtils {
 
    public void registerHook() {
       handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_KEYBOARD_LL, kbListener,hinst, 0);
-      // handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_KEYBOARD, kbListener,
-      //hinst, Kernel32.INSTANCE.GetCurrentThreadId()); 
-      // Kernel32.INSTANCE.GetCurrentThreadId()
-      //System.out.println("error: " + Kernel32.INSTANCE.GetLastError());
-      //System.out.println("java. ThreadID: " + Thread.currentThread().getId());
       start_loop();
    }
 
@@ -100,7 +95,6 @@ public class KeyboardUtils {
 
 
    public static void main(String[] args) {
-      //System.out.println("1. ThreadID: "+ System.identityHashCode(Thread.currentThread()));
       KeyboardUtils k = new KeyboardUtils();
       k.registerHook();
 
@@ -116,17 +110,18 @@ public class KeyboardUtils {
  //        User32.INSTANCE.DispatchMessage(msg);
  //        User32.INSTANCE.TranslateMessage(msg);
       }
-      
-      // TODO: unregister hook!
-
-      System.out.println("Done.");
+   }
+   
+   public void keyEvent(int key, int status){
+      lib.keybd_event(key, 0 , status, 0);
    }
 
    public interface KeyboardProc extends StdCallCallback {
-
       LRESULT callback(int code, WPARAM wParam, LPARAM lParam);
    }
 
+   
+   
    public interface Kernel32 extends W32API {
 
       Kernel32 INSTANCE = (Kernel32)Native.loadLibrary("kernel32",
@@ -143,6 +138,8 @@ public class KeyboardUtils {
 
 
       int GetLastError();
+      
+
    }
 
 }

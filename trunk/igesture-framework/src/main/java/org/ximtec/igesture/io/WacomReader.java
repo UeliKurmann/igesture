@@ -38,6 +38,7 @@ import org.sigtec.ink.input.CompleteLocation;
 import org.sigtec.ink.input.Location;
 import org.sigtec.input.InputDeviceEvent;
 import org.sigtec.util.Constant;
+import org.ximtec.igesture.io.mouse.MouseUtils;
 import org.ximtec.igesture.io.wacom.WacomUtils;
 import org.ximtec.igesture.io.wacom.WacomCallback;
 import org.ximtec.igesture.io.wacom.Win32TabletProxy;
@@ -62,6 +63,7 @@ public class WacomReader extends ExtendedInputDevice implements
    private static final int FREQUENCE = 20;
    final WacomReader tabletReader = this;
    private boolean lastKeyState = false;
+   private WacomUtils wacomUtils;
    
    private int BUTTON_0 = 0;
    private int BUTTON_5 = 5;
@@ -90,12 +92,9 @@ public class WacomReader extends ExtendedInputDevice implements
    } // init
    
    void init_callback(){
-      final Thread t = new Thread() {
-         public void run(){
-            WacomUtils tu = new WacomUtils(WacomReader.this);
-         }
-      };
-      t.start();
+
+      wacomUtils = new WacomUtils(this);
+      wacomUtils.start();
    }
    
    void init_loop(){
@@ -148,12 +147,10 @@ public class WacomReader extends ExtendedInputDevice implements
    }
    
 
-   public void callbackFunction(int x, int y, int z, int npress, int tpress, long timeStamp,
+   public void callbackFunction(int x, int y, int z, int pkstatus, int npress, int tpress, long timeStamp,
          ORIENTATION orientation, ROTATION rotation, int button){
        
                if(button==BUTTON_5){
-                  final WacomReader tabletReader = this;
-                  
                   Location location = new Location("screen", 1, new Point(x,y));
                   CompleteLocation tbl = null;
                    tbl = new CompleteLocation(location, timeStamp, npress,
@@ -164,6 +161,7 @@ public class WacomReader extends ExtendedInputDevice implements
                   
                }     else {
                   
+
                   if (lastKeyState) {
                      tabletReader.fireTabletButtonEvent(new InputDeviceEvent() {
                         public long getTimestamp() {
@@ -174,6 +172,7 @@ public class WacomReader extends ExtendedInputDevice implements
                      lastKeyState = false;
                   }
                }
+               
       }
 
 

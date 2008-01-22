@@ -49,10 +49,11 @@ public class MouseUtils extends Thread{
    public MouseUtils(MouseCallback mC) {
       mouseCallback = mC;
    }
-      
+   
+   /**
+    * Initialization
+    */
  public void init(){
-      
-    
       hinst = Kernel32.INSTANCE.GetModuleHandle(null);
       msListener = new MouseProc() {
 
@@ -67,51 +68,49 @@ public class MouseUtils extends Thread{
             return User32.INSTANCE.CallNextHookEx(handle, code, wParam, lParam);
          }
       };
-     // handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_MOUSE_LL, msListener,
-       //     hinst, Kernel32.INSTANCE.GetCurrentThreadId());
-      
        handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_MOUSE_LL, msListener, hinst,0);
-
    }
-   public void disableCallback(){
-      User32.INSTANCE.UnhookWindowsHookExW(handle);
-   }
-   
+ 
+ 
 
 
+   /**
+    * Finalize thread
+    */
    protected void finalize() throws Throwable {
-      System.out.println("finalize");
-      User32.INSTANCE.UnhookWindowsHookExW(handle);
+      unregisterHook();
       super.finalize();
    }
 
+   /**
+    * Finalize thread
+    */
    public interface MouseProc extends StdCallCallback {
-
       LRESULT callback(int code, WPARAM wParam, LPARAM lParam);
    }
   
    
+   /**
+    * Register callback function
+    */
    public void registerHook(){
       handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_KEYBOARD_LL, msListener, hinst, 0);
-      //handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_KEYBOARD_LL, msListener,  hinst, Kernel32.INSTANCE.GetCurrentThreadId());
-      //Kernel32.INSTANCE.GetCurrentThreadId()
-      //System.out.println("error: "+Kernel32.INSTANCE.GetLastError());
   }
    
+   
+   
    public void run(){
-
       init();
       registerHook();
       MSG msg = new MSG();
       while((User32.INSTANCE.GetMessageW(msg,null,0,0)!=0)){
-         System.out.println("loop"); 
-         User32.INSTANCE.DispatchMessage(msg);
-          //translateMessage
-        //  msg = new MSG();
+       //  User32.INSTANCE.DispatchMessage(msg);
       }
    }
   
-   
+   /**
+    * Unregister callback function
+    */
    public void unregisterHook(){
       User32.INSTANCE.UnhookWindowsHookExW(handle);
    }
