@@ -41,6 +41,8 @@ public class Constant extends org.sigtec.util.Constant {
    
    public static final String CLOSE_ABOUT_BUTTON = "CloseAboutButton";
    
+   public static final String HELP_MENU = "HelpMenu";
+   
    
    /*
     * GUI

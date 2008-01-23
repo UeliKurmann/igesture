@@ -316,7 +316,7 @@ public class MainView extends JFrame implements WindowListener {
 
 
    private JMenu createInfoMenu() {
-      JMenu menu = GuiTool.createMenu(Constant.COMMON_HELP, Geco.getGuiBundle());
+      JMenu menu = GuiTool.createMenu(Constant.HELP_MENU, Geco.getGuiBundle());
       menu.add(new JMenuItem(handler.getAboutAction()));
       return menu;
    } // createInfoMenu
