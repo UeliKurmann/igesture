@@ -117,7 +117,7 @@ public class Constant extends org.sigtec.util.Constant {
 
    public static final String MAPPINGS = "Mappings";
 
-   public static final String COMMON_HELP = "HELP";
+   //public static final String COMMON_HELP = "HELP";
 
 
 
