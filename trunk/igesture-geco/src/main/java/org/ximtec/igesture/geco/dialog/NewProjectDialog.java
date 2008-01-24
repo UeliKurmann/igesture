@@ -156,7 +156,8 @@ public class NewProjectDialog extends BasicDialog {
             GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(10,
                   10, 10, 10), 0, 0));
 
-      createButton = GuiTool.createButton(Constant.CREATE, Geco.getGuiBundle());
+      createButton = GuiTool.createButton(Constant.CREATE_PROJECT_BUTTON, Geco
+            .getGuiBundle());
       createButton.setEnabled(false);
       createButton.addActionListener(new CreateListener());
       JButton cancelButton = GuiTool.createButton(Constant.CANCEL, Geco
