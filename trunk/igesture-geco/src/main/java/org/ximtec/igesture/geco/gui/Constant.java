@@ -40,10 +40,11 @@ public class Constant extends org.sigtec.util.Constant {
    public static final String PROJECT_PROPERTIES_STRING = "ProjectPropertiesString";
    
    public static final String CLOSE_ABOUT_BUTTON = "CloseAboutButton";
-   
    public static final String CREATE_PROJECT_BUTTON = "CreateProjectButton";
    
    public static final String HELP_MENU = "HelpMenu";
+   
+   public static final String SHOW_APPLICATION_MENU_ITEM = "ShowApplicationMenuItem";
    
    public static final String SETTINGS = "Settings";
    
@@ -100,9 +101,6 @@ public class Constant extends org.sigtec.util.Constant {
 
 
 
-
-
-
    public static final String SAVE = "SAVE";
 
    public static final String ADD = "ADD";
@@ -111,11 +109,9 @@ public class Constant extends org.sigtec.util.Constant {
 
    public static final String EXIT = "EXIT";
 
-   public static final String SHOW = "SHOW";
+   //public static final String SHOW = "SHOW";
 
    public static final String EDIT = "EDIT";
-
-   public static final String REMOVE = "REMOVE";
 
    public static final String BROWSE = "BROWSE";
 
