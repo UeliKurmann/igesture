@@ -28,8 +28,8 @@ package org.ximtec.igesture.tool.action;
 
 import java.awt.event.ActionEvent;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.util.JAboutDialog;
 
 
@@ -51,7 +51,7 @@ public class AboutDialogAction extends BasicAction {
 
 
    public AboutDialogAction(String path) {
-      super(KEY, GuiTool.getGuiBundle());
+      super(KEY, GestureToolMain.getGuiBundle());
       dialog = new JAboutDialog(300, 500, AboutDialogAction.class
             .getClassLoader().getResource(path));
    }

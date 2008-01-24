@@ -42,6 +42,7 @@ import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.GestureSetListener;
 import org.ximtec.igesture.tool.event.TestSetListener;
@@ -66,7 +67,8 @@ public class BatchFrame extends BasicInternalFrame implements
 
 
    public BatchFrame(GestureToolView mainView) {
-      super(GestureConstants.GESTUREVIEW_TAB_BATCH, GuiTool.getGuiBundle());
+      super(GestureConstants.GESTUREVIEW_TAB_BATCH, GestureToolMain
+            .getGuiBundle());
       this.mainView = mainView;
       this.setResizable(true);
       mainView.getModel().addGestureSetListener(this);
@@ -79,13 +81,17 @@ public class BatchFrame extends BasicInternalFrame implements
       setSize(400, 300);
       setVisible(true);
       JLabel configLabel = GuiTool.createLabel(
-            GestureConstants.BATCHPROCESSING_CONFIG, GuiTool.getGuiBundle());
+            GestureConstants.BATCHPROCESSING_CONFIG, GestureToolMain
+                  .getGuiBundle());
       JLabel gestureSetLabel = GuiTool.createLabel(
-            GestureConstants.BATCHPROCESSING_GESTURESET, GuiTool.getGuiBundle());
+            GestureConstants.BATCHPROCESSING_GESTURESET, GestureToolMain
+                  .getGuiBundle());
       JLabel testSetLabel = GuiTool.createLabel(
-            GestureConstants.BATCHPROCESSING_TESTSET, GuiTool.getGuiBundle());
+            GestureConstants.BATCHPROCESSING_TESTSET, GestureToolMain
+                  .getGuiBundle());
       JLabel outputLabel = GuiTool.createLabel(
-            GestureConstants.BATCHPROCESSING_OUTPUT, GuiTool.getGuiBundle());
+            GestureConstants.BATCHPROCESSING_OUTPUT, GestureToolMain
+                  .getGuiBundle());
       configPath = new JTextField();
       configPath.setPreferredSize(new Dimension(100, 20));
 

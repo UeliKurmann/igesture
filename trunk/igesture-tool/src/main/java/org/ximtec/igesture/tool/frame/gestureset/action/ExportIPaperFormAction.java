@@ -36,11 +36,11 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.util.PDFTool;
 
 import com.lowagie.text.Document;
@@ -71,7 +71,7 @@ public class ExportIPaperFormAction extends BasicAction {
 
 
    public ExportIPaperFormAction(GestureSet set) {
-      super(KEY, GuiTool.getGuiBundle());
+      super(KEY, GestureToolMain.getGuiBundle());
       this.set = set;
    }
 

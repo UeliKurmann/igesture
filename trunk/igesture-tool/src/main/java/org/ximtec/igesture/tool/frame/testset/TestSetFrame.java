@@ -40,6 +40,7 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.TestTab;
 import org.ximtec.igesture.tool.event.CurrentGestureListener;
@@ -69,7 +70,7 @@ public class TestSetFrame extends BasicInternalFrame implements
 
 
    public TestSetFrame(TestTab testTab) {
-      super(GestureConstants.TESTSET_SELECTION_FRAME_KEY, GuiTool
+      super(GestureConstants.TESTSET_SELECTION_FRAME_KEY, GestureToolMain
             .getGuiBundle());
       SwingTool.initFrame(this);
       this.mainView = testTab.getMainView();

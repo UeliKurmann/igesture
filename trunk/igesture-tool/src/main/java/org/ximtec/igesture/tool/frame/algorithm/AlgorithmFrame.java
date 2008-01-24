@@ -41,6 +41,7 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.CaptureTab;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.GestureSetListener;
 import org.ximtec.igesture.tool.frame.algorithm.action.ExecuteRecogniserAction;
@@ -72,7 +73,7 @@ public class AlgorithmFrame extends BasicInternalFrame implements
     * @param tab the capture tab to be added.
     */
    public AlgorithmFrame(GestureToolView mainView, CaptureTab tab) {
-      super(GestureConstants.ALGORITHM_FRAME_KEY, GuiTool.getGuiBundle());
+      super(GestureConstants.ALGORITHM_FRAME_KEY, GestureToolMain.getGuiBundle());
       SwingTool.initFrame(this);
       this.mainView = mainView;
       this.tab = tab;
@@ -123,7 +124,7 @@ public class AlgorithmFrame extends BasicInternalFrame implements
 
    private Component createResultLabel() {
       return GuiTool.createLabel(GestureConstants.ALGORITHM_FRAME_RESULT_LABEL,
-            GuiTool.getGuiBundle());
+            GestureToolMain.getGuiBundle());
    } // createResultLabel
 
 

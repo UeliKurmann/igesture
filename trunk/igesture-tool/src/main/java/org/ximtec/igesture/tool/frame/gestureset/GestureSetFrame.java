@@ -33,23 +33,23 @@ import javax.swing.Action;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.GestureSetListener;
 import org.ximtec.igesture.tool.frame.gestureset.action.AddGestureClassAction;
 import org.ximtec.igesture.tool.frame.gestureset.action.AddGestureSetAction;
 import org.ximtec.igesture.tool.frame.gestureset.action.CreateTestSetAction;
-import org.ximtec.igesture.tool.frame.gestureset.action.RemoveGestureClassAction;
-import org.ximtec.igesture.tool.frame.gestureset.action.RemoveGestureSetAction;
 import org.ximtec.igesture.tool.frame.gestureset.action.ExportGestureSetAction;
 import org.ximtec.igesture.tool.frame.gestureset.action.ExportIPaperFormAction;
 import org.ximtec.igesture.tool.frame.gestureset.action.ExportPDFGestureSetAction;
 import org.ximtec.igesture.tool.frame.gestureset.action.ImportGestureSetAction;
+import org.ximtec.igesture.tool.frame.gestureset.action.RemoveGestureClassAction;
+import org.ximtec.igesture.tool.frame.gestureset.action.RemoveGestureSetAction;
 
 
 /**
@@ -70,7 +70,7 @@ public class GestureSetFrame extends BasicInternalFrame implements
 
 
    public GestureSetFrame(GestureToolView mainView) {
-      super(GestureConstants.GESTURE_SET_FRAME_KEY, GuiTool.getGuiBundle());
+      super(GestureConstants.GESTURE_SET_FRAME_KEY, GestureToolMain.getGuiBundle());
       SwingTool.initFrame(this);
       this.mainView = mainView;
       this.gestureTreeModel = new GestureTreeModel(mainView.getModel());

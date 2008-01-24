@@ -31,10 +31,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.frame.gestureset.GestureTreeModel;
 
 
@@ -61,7 +61,7 @@ public class RemoveGestureClassAction extends BasicAction {
 
    public RemoveGestureClassAction(GestureTreeModel gestureTreeModel,
          GestureClass gestureClass, GestureSet gestureSet) {
-      super(KEY, GuiTool.getGuiBundle());
+      super(KEY, GestureToolMain.getGuiBundle());
       this.gestureClass = gestureClass;
       this.gestureTreeModel = gestureTreeModel;
       this.gestureSet = gestureSet;

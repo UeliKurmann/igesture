@@ -28,8 +28,8 @@ package org.ximtec.igesture.tool.frame.classlist.action;
 
 import java.awt.event.ActionEvent;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.frame.classlist.SampleDescriptorFrame;
 
 
@@ -51,7 +51,7 @@ public class DeleteSampleAction extends BasicAction {
 
 
    public DeleteSampleAction(SampleDescriptorFrame listModel) {
-      super(KEY, GuiTool.getGuiBundle());
+      super(KEY, GestureToolMain.getGuiBundle());
       this.frame = listModel;
    }
 

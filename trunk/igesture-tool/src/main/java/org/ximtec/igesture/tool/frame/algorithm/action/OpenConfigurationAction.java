@@ -28,8 +28,8 @@ package org.ximtec.igesture.tool.frame.algorithm.action;
 
 import java.awt.event.ActionEvent;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.frame.algorithm.AlgorithmConfiguration;
 
 
@@ -51,7 +51,7 @@ public class OpenConfigurationAction extends BasicAction {
 
 
    public OpenConfigurationAction(AlgorithmConfiguration algorithmConfiguration) {
-      super(KEY, GuiTool.getGuiBundle());
+      super(KEY, GestureToolMain.getGuiBundle());
       this.algorithmConfiguration = algorithmConfiguration;
    }
 

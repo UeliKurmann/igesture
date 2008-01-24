@@ -28,8 +28,8 @@ package org.ximtec.igesture.tool.action;
 
 import java.awt.event.ActionEvent;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.GestureToolView;
 
 
@@ -51,7 +51,7 @@ public class ExitApplicationAction extends BasicAction {
 
 
    public ExitApplicationAction(GestureToolView mainView) {
-      super(KEY, GuiTool.getGuiBundle());
+      super(KEY, GestureToolMain.getGuiBundle());
       this.mainView = mainView;
    }
 

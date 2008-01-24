@@ -30,9 +30,9 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JList;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestSet;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.frame.testset.TestSetListModel;
 
@@ -57,7 +57,7 @@ public class TestSetDeleteAction extends BasicAction {
 
 
    public TestSetDeleteAction(JList list, GestureToolView mainView) {
-      super(KEY, GuiTool.getGuiBundle());
+      super(KEY, GestureToolMain.getGuiBundle());
       this.list = list;
       this.mainView = mainView;
    }

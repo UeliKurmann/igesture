@@ -39,11 +39,11 @@ import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.SimpleListModel;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.AdminTab;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.event.GestureClassListener;
 import org.ximtec.igesture.tool.frame.classlist.action.ActionOpenEditClassFrame;
 import org.ximtec.igesture.tool.frame.classlist.action.DeleteClassAction;
@@ -65,7 +65,7 @@ public class GestureClassListFrame extends BasicInternalFrame implements
 
 
    public GestureClassListFrame(AdminTab adminTab) {
-      super(GestureConstants.GESTURE_CLASS_LIST_FRAME_KEY, GuiTool
+      super(GestureConstants.GESTURE_CLASS_LIST_FRAME_KEY, GestureToolMain
             .getGuiBundle());
       SwingTool.initFrame(this);
       this.adminTab = adminTab;
@@ -76,7 +76,7 @@ public class GestureClassListFrame extends BasicInternalFrame implements
 
    private void init() {
       addComponent(GuiTool.createLabel(
-            GestureConstants.GESTURE_CLASS_LIST_FRAME_TITLE, GuiTool
+            GestureConstants.GESTURE_CLASS_LIST_FRAME_TITLE, GestureToolMain
                   .getGuiBundle()), SwingTool
             .createGridBagConstraint(0, 0, 2, 1));
       addComponent(createList(), SwingTool.createGridBagConstraint(0, 1, 2, 1));

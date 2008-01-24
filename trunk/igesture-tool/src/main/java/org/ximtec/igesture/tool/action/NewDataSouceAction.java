@@ -31,9 +31,9 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.storage.Db4oStorageEngine;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.GestureToolView;
 
 
@@ -55,7 +55,7 @@ public class NewDataSouceAction extends BasicAction {
 
 
    public NewDataSouceAction(GestureToolView mainView) {
-      super(KEY, GuiTool.getGuiBundle());
+      super(KEY, GestureToolMain.getGuiBundle());
       this.mainView = mainView;
    }
 

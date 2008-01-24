@@ -42,6 +42,7 @@ import org.sigtec.util.Constant;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.CurrentGestureListener;
 import org.ximtec.igesture.tool.frame.capture.action.CaptureGestureAction;
@@ -73,7 +74,7 @@ public class GestureCaptureArea extends BasicInternalFrame implements
     * @param mainView the main view.
     */
    public GestureCaptureArea(GestureToolView mainView) {
-      super(GestureConstants.DRAW_AREA_KEY, GuiTool.getGuiBundle());
+      super(GestureConstants.DRAW_AREA_KEY, GestureToolMain.getGuiBundle());
       SwingTool.initFrame(this);
       this.mainView = mainView;
       mainView.getModel().addCurrentGestureListener(this);

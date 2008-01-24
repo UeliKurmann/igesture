@@ -31,8 +31,8 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.frame.algorithm.AlgorithmConfiguration;
 import org.ximtec.igesture.util.XMLTool;
 
@@ -55,7 +55,7 @@ public class ExportConfigurationAction extends BasicAction {
 
 
    public ExportConfigurationAction(AlgorithmConfiguration algorithmConfiguration) {
-      super(KEY, GuiTool.getGuiBundle());
+      super(KEY, GestureToolMain.getGuiBundle());
       this.algorithmConfiguration = algorithmConfiguration;
    }
 
