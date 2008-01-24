@@ -38,6 +38,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import org.sigtec.graphix.GuiTool;
 import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
@@ -82,7 +83,8 @@ public class SystemTray {
          exitItem.addActionListener(mainView.getActionHandler()
                .getExitApplicationAction());
          popup.add(exitItem);
-         MenuItem showItem = new MenuItem(Constant.SHOW);
+         MenuItem showItem = new MenuItem(Geco.getGuiBundle().getName(
+               Constant.SHOW_APPLICATION_MENU_ITEM));
          showItem.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
