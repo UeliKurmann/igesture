@@ -53,6 +53,7 @@ import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.graphix.widget.BasicLabel;
 import org.sigtec.graphix.widget.BasicTextField;
 import org.sigtec.util.MIME;
+import org.sigtec.util.ResourceTool;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.Constant;
@@ -98,15 +99,17 @@ public class NewProjectDialog extends BasicDialog {
    private void init() {
       try {
          filePath = new File(ClassLoader.getSystemResource(
-               org.ximtec.igesture.geco.gui.Constant.MAPPINGS).toURI())
-               .getPath()
+               ResourceTool.getProperty(Constant.SETTINGS,
+                     Constant.SETTINGS_ATTRIBUTE_MAPPINGS, Geco.getGuiBundle()))
+               .toURI()).getPath()
                + Constant.BACKSLASH;
          ;
       }
       catch (URISyntaxException e) {
          filePath = new File(ClassLoader.getSystemResource(
-               org.ximtec.igesture.geco.gui.Constant.MAPPINGS).getPath())
-               .getPath()
+               ResourceTool.getProperty(Constant.SETTINGS,
+                     Constant.SETTINGS_ATTRIBUTE_MAPPINGS, Geco.getGuiBundle()))
+               .getPath()).getPath()
                + Constant.BACKSLASH;
          ;
       }

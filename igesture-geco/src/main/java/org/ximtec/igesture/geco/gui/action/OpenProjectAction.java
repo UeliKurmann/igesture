@@ -36,6 +36,7 @@ import javax.swing.JOptionPane;
 
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.MIME;
+import org.sigtec.util.ResourceTool;
 import org.ximtec.igesture.geco.Configuration;
 import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.Constant;
@@ -94,12 +95,20 @@ public class OpenProjectAction extends BasicAction {
    private void displayFileChooser() {
       String filePath;
       try {
-         filePath = new File(ClassLoader.getSystemResource(org.ximtec.igesture.geco.gui.Constant.MAPPINGS)
-               .toURI()).getPath()+ Constant.BACKSLASH;;
+         filePath = new File(ClassLoader.getSystemResource(
+               ResourceTool.getProperty(Constant.SETTINGS,
+                     Constant.SETTINGS_ATTRIBUTE_MAPPINGS, Geco.getGuiBundle()))
+               .toURI()).getPath()
+               + Constant.BACKSLASH;
+         ;
       }
       catch (URISyntaxException e) {
-         filePath = new File(ClassLoader.getSystemResource(org.ximtec.igesture.geco.gui.Constant.MAPPINGS)
-               .getPath()).getPath()+ Constant.BACKSLASH;;
+         filePath = new File(ClassLoader.getSystemResource(
+               ResourceTool.getProperty(Constant.SETTINGS,
+                     Constant.SETTINGS_ATTRIBUTE_MAPPINGS, Geco.getGuiBundle()))
+               .getPath()).getPath()
+               + Constant.BACKSLASH;
+         ;
       }
 
       JFileChooser fileChooser = new JFileChooser();
@@ -113,42 +122,39 @@ public class OpenProjectAction extends BasicAction {
          File selectedFile = fileChooser.getSelectedFile();
          if (selectedFile != null) {
             String ext = "";
-               if(selectedFile.getName().length()>=4){
-                  ext = selectedFile.getName().substring(
-                  selectedFile.getName().length() - 4,
-                  selectedFile.getName().length());
-               }
-            if (ext.equals(Constant.DOT+MIME.getExtension(MIME.XML))) {
-                  openProject(selectedFile);
-                  exportConfiguration();
-                  //writeFilePath(selectedFile); 
+            if (selectedFile.getName().length() >= 4) {
+               ext = selectedFile.getName().substring(
+                     selectedFile.getName().length() - 4,
+                     selectedFile.getName().length());
+            }
+            if (ext.equals(Constant.DOT + MIME.getExtension(MIME.XML))) {
+               openProject(selectedFile);
+               exportConfiguration();
+               // writeFilePath(selectedFile);
             }
 
          }
-         
-      }
-}
 
-   
-   public void openProject(File selFile){
+      }
+   }
+
+
+   public void openProject(File selFile) {
       File selectedFile = selFile;
-    
+
       XMLImportGeco XMLImport = new XMLImportGeco(mainView);
       XMLImport.importProject(selectedFile);
 
       if (!XMLImport.hasError()) {
          String projectName = selectedFile.getName();
-         projectName = projectName.substring(0,
-               projectName.length() - 4);
+         projectName = projectName.substring(0, projectName.length() - 4);
 
          // update model
          mainView.getModel().clearData();
 
          if (XMLImport.getGestureSet() != null) {
-            mainView.getModel().initRecogniser(
-                  XMLImport.getGestureSet());
-            mainView.getModel().loadGestureSet(
-                  XMLImport.getGestureSet());
+            mainView.getModel().initRecogniser(XMLImport.getGestureSet());
+            mainView.getModel().loadGestureSet(XMLImport.getGestureSet());
             List<GestureToActionMapping> list = XMLImport.getMappings();
 
             for (GestureToActionMapping mapping : list) {
@@ -168,30 +174,31 @@ public class OpenProjectAction extends BasicAction {
          }
       }
    }
-   
 
-   
-   
-   
-   public void exportConfiguration(){
-         File file;
-         try {
-            file = new File(ClassLoader.getSystemResource(Geco.GECO_CONFIGURATION).toURI());
-         }
-         catch (URISyntaxException e) {
-            file = new File(ClassLoader.getSystemResource(Geco.GECO_CONFIGURATION).getPath());
-         }
 
-         Configuration configuration = mainView.getModel().getGestureConfiguration();
-         List<String> devices = configuration.getInputDevices();
-         String s = configuration.getInputDeviceName();
-         boolean[] arr  = new boolean[devices.size()];
-         for(int i=0; i<devices.size(); i++){
-            if(s.equals(devices.get(i))){
-               arr[i]=true;
-            }
-         }
-         boolean min = configuration.getMinimize();
-         XMLGeco.exportGestureConfiguration(file, devices, arr, min, mainView.getModel().getProjectFile().getPath());
+   public void exportConfiguration() {
+      File file;
+      try {
+         file = new File(ClassLoader.getSystemResource(Geco.GECO_CONFIGURATION)
+               .toURI());
       }
+      catch (URISyntaxException e) {
+         file = new File(ClassLoader.getSystemResource(Geco.GECO_CONFIGURATION)
+               .getPath());
+      }
+
+      Configuration configuration = mainView.getModel()
+            .getGestureConfiguration();
+      List<String> devices = configuration.getInputDevices();
+      String s = configuration.getInputDeviceName();
+      boolean[] arr = new boolean[devices.size()];
+      for (int i = 0; i < devices.size(); i++) {
+         if (s.equals(devices.get(i))) {
+            arr[i] = true;
+         }
+      }
+      boolean min = configuration.getMinimize();
+      XMLGeco.exportGestureConfiguration(file, devices, arr, min, mainView
+            .getModel().getProjectFile().getPath());
+   }
 }

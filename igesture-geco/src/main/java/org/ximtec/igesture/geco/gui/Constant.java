@@ -43,6 +43,10 @@ public class Constant extends org.sigtec.util.Constant {
    
    public static final String HELP_MENU = "HelpMenu";
    
+   public static final String SETTINGS = "Settings";
+   
+   public static final String SETTINGS_ATTRIBUTE_MAPPINGS = "MappingsLocation";
+   
    
    /*
     * GUI
@@ -116,10 +120,6 @@ public class Constant extends org.sigtec.util.Constant {
    public static final String CREATE = "CREATE";
 
    public static final String MINIMIZE = "MINIMIZE";
-
-   public static final String MAPPINGS = "Mappings";
-
-   //public static final String COMMON_HELP = "HELP";
 
 
 
