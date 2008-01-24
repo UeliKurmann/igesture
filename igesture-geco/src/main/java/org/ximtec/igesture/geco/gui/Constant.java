@@ -41,6 +41,8 @@ public class Constant extends org.sigtec.util.Constant {
    
    public static final String CLOSE_ABOUT_BUTTON = "CloseAboutButton";
    
+   public static final String CREATE_PROJECT_BUTTON = "CreateProjectButton";
+   
    public static final String HELP_MENU = "HelpMenu";
    
    public static final String SETTINGS = "Settings";
@@ -117,9 +119,8 @@ public class Constant extends org.sigtec.util.Constant {
 
    public static final String BROWSE = "BROWSE";
 
-   public static final String CREATE = "CREATE";
 
-   public static final String MINIMIZE = "MINIMIZE";
+
 
 
 
