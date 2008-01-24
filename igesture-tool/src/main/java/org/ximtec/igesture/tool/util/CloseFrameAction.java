@@ -31,8 +31,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JInternalFrame;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.tool.GestureToolMain;
 
 
 /**
@@ -45,7 +45,7 @@ import org.sigtec.graphix.widget.BasicAction;
 public class CloseFrameAction extends BasicAction {
 
    public CloseFrameAction(String key) {
-      super(key, GuiTool.getGuiBundle());
+      super(key, GestureToolMain.getGuiBundle());
    }
 
 

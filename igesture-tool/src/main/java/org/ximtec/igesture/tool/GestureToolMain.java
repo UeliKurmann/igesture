@@ -30,6 +30,7 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.sigtec.graphix.GuiBundle;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.util.Constant;
 import org.sigtec.util.SystemProperty;
@@ -49,13 +50,20 @@ public class GestureToolMain {
    private static final Logger LOGGER = Logger.getLogger(GestureToolMain.class
          .getName());
 
+   private static final String GUI_BUNDLE_KEY = "igestureTool";
+
    private static final String GUI_BUNDLE_FILE = "igestureMenu";
 
    private static final String DEFAULT_CONFIGURATION = "config.xml";
 
 
+   public static GuiBundle getGuiBundle() {
+      return GuiTool.getBundle(GUI_BUNDLE_KEY);
+   }
+
+
    public static void main(String[] args) {
-      GuiTool.addGuiBundle(GUI_BUNDLE_FILE);
+      GuiTool.addBundle(GUI_BUNDLE_KEY, GUI_BUNDLE_FILE);
       Logger.getAnonymousLogger().setLevel(Level.ALL);
       GestureConfiguration configuration;
 

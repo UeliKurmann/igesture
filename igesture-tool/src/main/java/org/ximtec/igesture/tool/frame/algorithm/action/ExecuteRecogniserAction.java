@@ -33,7 +33,6 @@ import java.util.logging.Logger;
 
 import javax.swing.JList;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.SimpleListModel;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.Constant;
@@ -46,6 +45,7 @@ import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.tool.CaptureTab;
 import org.ximtec.igesture.tool.GestureMainModel;
+import org.ximtec.igesture.tool.GestureToolMain;
 
 
 /**
@@ -76,7 +76,7 @@ public class ExecuteRecogniserAction extends BasicAction {
 
    public ExecuteRecogniserAction(GestureMainModel mainModel, CaptureTab tab,
          JList set, JList result) {
-      super(KEY, GuiTool.getGuiBundle());
+      super(KEY, GestureToolMain.getGuiBundle());
       this.mainModel = mainModel;
       this.set = set;
       this.result = result;

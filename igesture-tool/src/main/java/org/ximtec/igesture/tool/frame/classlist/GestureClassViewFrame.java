@@ -52,6 +52,7 @@ import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.AdminTab;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.GestureClassListener;
 import org.ximtec.igesture.tool.frame.classlist.action.ActionOpenDescriptorDialog;
@@ -84,7 +85,7 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
 
 
    public GestureClassViewFrame(GestureClass gestureClass, AdminTab adminTab) {
-      super(GestureConstants.GESTURE_CLASS_VIEW_KEY, GuiTool.getGuiBundle());
+      super(GestureConstants.GESTURE_CLASS_VIEW_KEY, GestureToolMain.getGuiBundle());
       SwingTool.initFrame(this);
       this.gestureClass = gestureClass;
       this.mainView = adminTab.getMainView();
@@ -102,7 +103,7 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
 
    private void init() {
       this.addComponent(GuiTool.createLabel(
-            GestureConstants.GESTURE_CLASS_VIEW_NAME_LABEL, GuiTool
+            GestureConstants.GESTURE_CLASS_VIEW_NAME_LABEL, GestureToolMain
                   .getGuiBundle()), SwingTool.createGridBagConstraint(0, 0));
       addComponent(createNameTextField(), SwingTool
             .createGridBagConstraint(1, 0));
@@ -117,7 +118,7 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
 
    private Component createNameTextField() {
       nameTextField = GuiTool.createTextField(
-            GestureConstants.GESTURE_CLASS_VIEW_NAME_TEXT, GuiTool
+            GestureConstants.GESTURE_CLASS_VIEW_NAME_TEXT, GestureToolMain
                   .getGuiBundle());
       nameTextField.setText(gestureClass.getName());
       return nameTextField;
@@ -142,7 +143,7 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
 
    private Component createSaveButton() {
       final JButton button = GuiTool.createButton(GestureConstants.COMMON_SAVE,
-            GuiTool.getGuiBundle());
+            GestureToolMain.getGuiBundle());
       button.addActionListener(new ActionListener() {
 
          public void actionPerformed(ActionEvent event) {
@@ -157,7 +158,7 @@ public class GestureClassViewFrame extends BasicInternalFrame implements
 
    private void showPopUpMenu(MouseEvent e) {
       final JPopupMenu popupMenu = new JPopupMenu();
-      final JMenu createMenu = SwingTool.createMenu(GuiTool.getGuiBundle()
+      final JMenu createMenu = SwingTool.createMenu(GestureToolMain.getGuiBundle()
             .getName(GestureConstants.COMMON_ADD), new Action[] {
             new ActionOpenDescriptorDialog(
                   GestureConstants.GESTURE_CLASS_VIEW_ADD_SAMPLE, adminTab,

@@ -37,6 +37,7 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.frame.gestureset.action.AddGestureClassAction;
 import org.ximtec.igesture.tool.util.CloseDialogAction;
 
@@ -58,7 +59,7 @@ public class AddGestureClassDialog extends BasicDialog {
 
 
    public AddGestureClassDialog(GestureTreeModel model, GestureSet set) {
-      super(GestureConstants.ADD_CLASS_DIALOG_KEY, GuiTool.getGuiBundle());
+      super(GestureConstants.ADD_CLASS_DIALOG_KEY, GestureToolMain.getGuiBundle());
       this.model = model;
       this.set = set;
       init();

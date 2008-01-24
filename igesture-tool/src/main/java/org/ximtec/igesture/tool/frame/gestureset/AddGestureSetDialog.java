@@ -34,6 +34,7 @@ import org.sigtec.graphix.widget.BasicTextField;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.frame.gestureset.action.AddGestureSetAction;
 import org.ximtec.igesture.tool.util.CloseDialogAction;
 
@@ -53,7 +54,7 @@ public class AddGestureSetDialog extends BasicDialog {
 
 
    public AddGestureSetDialog(GestureTreeModel model) {
-      super(GestureConstants.ADD_SET_DIALOG_KEY, GuiTool.getGuiBundle());
+      super(GestureConstants.ADD_SET_DIALOG_KEY, GestureToolMain.getGuiBundle());
       this.model = model;
       init();
    }
@@ -62,9 +63,9 @@ public class AddGestureSetDialog extends BasicDialog {
    private void init() {
       setLayout(new GridBagLayout());
       setSize(SwingTool.DIALOG_SIZE);
-      addComponent(GuiTool.createLabel(GestureConstants.COMMON_NAME, GuiTool
+      addComponent(GuiTool.createLabel(GestureConstants.COMMON_NAME, GestureToolMain
             .getGuiBundle()), SwingTool.createGridBagConstraint(0, 0));
-      txtName = GuiTool.createTextField(Constant.EMPTY_STRING, GuiTool
+      txtName = GuiTool.createTextField(Constant.EMPTY_STRING, GestureToolMain
             .getGuiBundle());
       addComponent(txtName, SwingTool.createGridBagConstraint(1, 0));
       addComponent(GuiTool.createButton(new AddGestureSetAction(model)),

@@ -42,12 +42,13 @@ import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.GestureToolView;
-import org.ximtec.igesture.tool.frame.classlist.action.DeleteSampleAction;
 import org.ximtec.igesture.tool.frame.classlist.action.AddSampleAction;
+import org.ximtec.igesture.tool.frame.classlist.action.DeleteSampleAction;
 import org.ximtec.igesture.tool.util.CloseFrameAction;
-import org.ximtec.igesture.tool.util.GuiConstant;
 import org.ximtec.igesture.tool.util.CustomCellRenderer;
+import org.ximtec.igesture.tool.util.GuiConstant;
 
 
 /**
@@ -70,7 +71,7 @@ public class SampleDescriptorFrame extends BasicInternalFrame {
 
    public SampleDescriptorFrame(GestureToolView mainView,
          SampleDescriptor descriptor) {
-      super(GestureConstants.SAMPLE_DESCRIPTOR_KEY, GuiTool.getGuiBundle());
+      super(GestureConstants.SAMPLE_DESCRIPTOR_KEY, GestureToolMain.getGuiBundle());
       SwingTool.initFrame(this);
       this.mainView = mainView;
       this.descriptor = descriptor;

@@ -53,6 +53,7 @@ import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.ConfigurationListener;
 import org.ximtec.igesture.tool.frame.algorithm.action.CreateConfigurationAction;
@@ -88,7 +89,7 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
 
 
    public AlgorithmConfiguration(GestureToolView mainView) {
-      super(GestureConstants.ALGORITHM_FRAME_KEY, GuiTool.getGuiBundle());
+      super(GestureConstants.ALGORITHM_FRAME_KEY, GestureToolMain.getGuiBundle());
       SwingTool.initFrame(this);
       this.mainView = mainView;
       mainView.getModel().addConfigurationListener(this);
@@ -139,7 +140,7 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
 
    public JMenu createAlgorithmPopupMenu() {
       final JMenu menu = new JMenu();
-      menu.setText(GuiTool.getGuiBundle().getName(
+      menu.setText(GestureToolMain.getGuiBundle().getName(
             GestureConstants.CONFIG_CREATE_ACTION));
 
       for (final String name : mainView.getModel().getAlgorithms()) {

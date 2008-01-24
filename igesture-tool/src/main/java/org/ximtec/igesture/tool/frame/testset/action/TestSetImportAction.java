@@ -34,10 +34,10 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.storage.StorageManager;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.util.XMLTool;
 
@@ -60,7 +60,7 @@ public class TestSetImportAction extends BasicAction {
 
 
    public TestSetImportAction(GestureToolView mainView) {
-      super(KEY, GuiTool.getGuiBundle());
+      super(KEY, GestureToolMain.getGuiBundle());
       this.mainView = mainView;
    }
 

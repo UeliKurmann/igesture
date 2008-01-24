@@ -38,12 +38,12 @@ import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
 import javax.swing.plaf.basic.BasicHTML;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.GestureToolMain;
 
 
 /**
@@ -60,7 +60,7 @@ public class JAboutDialog extends BasicDialog {
 
 
    public JAboutDialog(int width, int height, URL path) {
-      super(GestureConstants.COMMON_ABOUT, GuiTool.getGuiBundle());
+      super(GestureConstants.COMMON_ABOUT, GestureToolMain.getGuiBundle());
       init(width, height, path);
    }
 
@@ -90,7 +90,7 @@ public class JAboutDialog extends BasicDialog {
       }
 
       BasicButton okButton = new BasicButton(GestureConstants.COMMON_CLOSE,
-            GuiTool.getGuiBundle());
+            GestureToolMain.getGuiBundle());
       okButton.addMouseListener(new MouseAdapter() {
 
          @Override

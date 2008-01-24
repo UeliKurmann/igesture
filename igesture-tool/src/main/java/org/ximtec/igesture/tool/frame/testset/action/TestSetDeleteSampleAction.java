@@ -28,8 +28,8 @@ package org.ximtec.igesture.tool.frame.testset.action;
 
 import java.awt.event.ActionEvent;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.frame.testset.TestSetListFrame;
 
 
@@ -51,7 +51,7 @@ public class TestSetDeleteSampleAction extends BasicAction {
 
 
    public TestSetDeleteSampleAction(TestSetListFrame frame) {
-      super(KEY, GuiTool.getGuiBundle());
+      super(KEY, GestureToolMain.getGuiBundle());
       this.frame = frame;
    }
 

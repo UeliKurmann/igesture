@@ -35,6 +35,7 @@ import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.core.TextDescriptor;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.frame.classlist.action.SaveTextAction;
 import org.ximtec.igesture.tool.util.CloseFrameAction;
@@ -59,7 +60,7 @@ public class TextDescriptorFrame extends BasicInternalFrame {
 
    public TextDescriptorFrame(GestureToolView mainView,
          TextDescriptor textDescriptor) {
-      super(GestureConstants.TEXT_DESCRIPTOR_KEY, GuiTool.getGuiBundle());
+      super(GestureConstants.TEXT_DESCRIPTOR_KEY, GestureToolMain.getGuiBundle());
       this.textDescriptor = textDescriptor;
       this.mainView = mainView;
       SwingTool.initFrame(this);

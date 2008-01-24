@@ -28,9 +28,9 @@ package org.ximtec.igesture.tool.frame.testset.action;
 
 import java.awt.event.ActionEvent;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestSet;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.TestTab;
 import org.ximtec.igesture.tool.frame.testset.TestSetFrame;
 
@@ -55,7 +55,7 @@ public class TestSetAddAction extends BasicAction {
 
 
    public TestSetAddAction(TestTab testTab, TestSetFrame testSetFrame) {
-      super(KEY, GuiTool.getGuiBundle());
+      super(KEY, GestureToolMain.getGuiBundle());
       this.testTab = testTab;
       this.testSetFrame = testSetFrame;
    }

@@ -103,7 +103,7 @@ public class GestureToolView extends JFrame {
       setBounds(0, 0, 900, 650);
       setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
       setJMenuBar(createMenuBar());
-      setTitle(GuiTool.getGuiBundle().getName(
+      setTitle(GestureToolMain.getGuiBundle().getName(
             GestureConstants.GESTUREVIEW_MAINFRAME_KEY));
       setVisible(true);
       tabbedPane = new JTabbedPane();
@@ -123,7 +123,7 @@ public class GestureToolView extends JFrame {
             final GestureTab tab = (GestureTab)Class.forName(className)
                   .newInstance();
             tab.init(this);
-            tabbedPane.add(GuiTool.getGuiBundle().getName(tab.getName()), tab
+            tabbedPane.add(GestureToolMain.getGuiBundle().getName(tab.getName()), tab
                   .getDesktopPane());
          }
          catch (InstantiationException e) {
@@ -165,7 +165,7 @@ public class GestureToolView extends JFrame {
 
 
    private JMenu createFileMenu() {
-      JMenu menu = GuiTool.createMenu(GuiConstant.FILE_MENU, GuiTool
+      JMenu menu = GuiTool.createMenu(GuiConstant.FILE_MENU, GestureToolMain
             .getGuiBundle());
       menu.add(new JMenuItem(getActionHandler().getNewDataSourceAction()));
       menu.add(new JMenuItem(getActionHandler().getOpenDataSourceAction()));
@@ -181,7 +181,7 @@ public class GestureToolView extends JFrame {
     * @return the newly created info model.
     */
    private JMenu createInfoMenu() {
-      JMenu menu = SwingTool.createMenu(GuiTool.getGuiBundle().getName(
+      JMenu menu = SwingTool.createMenu(GestureToolMain.getGuiBundle().getName(
             GestureConstants.COMMON_HELP), null);
       menu.add(new JMenuItem(new AboutDialogAction(ABOUT_HTML)));
       return menu;

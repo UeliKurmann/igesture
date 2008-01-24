@@ -33,9 +33,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestSet;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.frame.testset.TestSetListModel;
 import org.ximtec.igesture.util.XMLTool;
 
@@ -58,7 +58,7 @@ public class TestSetExportAction extends BasicAction {
 
 
    public TestSetExportAction(JList list) {
-      super(KEY, GuiTool.getGuiBundle());
+      super(KEY, GestureToolMain.getGuiBundle());
       this.list = list;
    }
 

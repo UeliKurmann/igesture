@@ -92,7 +92,7 @@ public class Geco {
             GECO_LOGO));
       SplashScreen splashScreen = new SplashScreen(logo, false, 4000);
       splashScreen.splash();
-      GuiTool.addGuiBundle(GUI_BUNDLE_NAME, GUI_BUNDLE_FILE);
+      GuiTool.addBundle(GUI_BUNDLE_NAME, GUI_BUNDLE_FILE);
       Logger.getAnonymousLogger().setLevel(Level.INFO);
       LOGGER.info(INITIALISING);
 
@@ -123,7 +123,7 @@ public class Geco {
 
 
    public static final GuiBundle getGuiBundle() {
-      return GuiTool.getGuiBundle(GUI_BUNDLE_NAME);
+      return GuiTool.getBundle(GUI_BUNDLE_NAME);
    } // getGuiBundle
 
 

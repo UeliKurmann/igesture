@@ -30,9 +30,9 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JList;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestSet;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.frame.testset.TestSetListFrame;
 import org.ximtec.igesture.tool.frame.testset.TestSetListModel;
 
@@ -57,7 +57,7 @@ public class TestSetOpenAction extends BasicAction {
 
 
    public TestSetOpenAction(JList list, TestSetListFrame frame) {
-      super(KEY, GuiTool.getGuiBundle());
+      super(KEY, GestureToolMain.getGuiBundle());
       this.list = list;
       this.frame = frame;
    }

@@ -37,13 +37,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.GestureToolMain;
 import org.ximtec.igesture.tool.GestureToolView;
 import org.ximtec.igesture.tool.event.TestSetListener;
 import org.ximtec.igesture.tool.frame.classlist.SampleListModel;
@@ -78,7 +78,7 @@ public class TestSetListFrame extends BasicInternalFrame implements
 
 
    public TestSetListFrame(GestureToolView mainView, TestSet testSet) {
-      super(GestureConstants.TESTSET_VIEW_FRAME_KEY, GuiTool.getGuiBundle());
+      super(GestureConstants.TESTSET_VIEW_FRAME_KEY, GestureToolMain.getGuiBundle());
       SwingTool.initFrame(this);
       this.mainView = mainView;
       mainView.getModel().addTestSetListener(this);

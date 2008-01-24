@@ -33,13 +33,12 @@ import java.awt.Insets;
 
 import javax.swing.Action;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.ListModel;
 
-import org.sigtec.graphix.GuiTool;
+import org.sigtec.graphix.GuiBundle;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 
@@ -102,8 +101,8 @@ public class SwingTool {
     * @param key the key of the dialogue to be created.
     * @return dialogue configured with data from the GUI bundle.
     */
-   public static BasicDialog createDialog(String key) {
-      final BasicDialog dialog = new BasicDialog(key, GuiTool.getGuiBundle());
+   public static BasicDialog createDialog(String key, GuiBundle guiBundle) {
+      final BasicDialog dialog = new BasicDialog(key, guiBundle);
       dialog.setSize(DIALOG_SIZE);
       return dialog;
    } // createDialog
@@ -115,9 +114,9 @@ public class SwingTool {
     * @param key the key of the internal frame to be created.
     * @return internal frame configured with data from the GUI bundle.
     */
-   public static BasicInternalFrame createInternalFrame(String key) {
-      final BasicInternalFrame frame = new BasicInternalFrame(key, GuiTool
-            .getGuiBundle());
+   public static BasicInternalFrame createInternalFrame(String key,
+         GuiBundle guiBundle) {
+      final BasicInternalFrame frame = new BasicInternalFrame(key, guiBundle);
       initFrame(frame);
       return frame;
    } // createFrame
