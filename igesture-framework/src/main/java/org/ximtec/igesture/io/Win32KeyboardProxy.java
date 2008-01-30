@@ -129,7 +129,7 @@ public class Win32KeyboardProxy {
    private static int KEY_DOWN = 0x0;
    private static int KEY_UP = 0x2;
 
-
+/*
    static {
       try {
          NativeCall.init();
@@ -151,7 +151,7 @@ public class Win32KeyboardProxy {
       }
 
    }
-
+*/
 
    public static void pressKey(Integer[] keys) {
       for (int key : keys) {
@@ -221,14 +221,17 @@ public class Win32KeyboardProxy {
 
 
    private static void keyUp(int key) {
-      nativeKey(key, KEY_UP);
+      //nativeKey(key, KEY_UP);
    } // keyUp
 
 
+   private static KeyboardUtils ku = new KeyboardUtils();
    private static void nativeKey(int key, int state) {
-      final IntCall ic = new IntCall("user32", "keybd_event");
-      ic.executeCall(new Object[] { key, 0, state, 0 });
-      ic.destroy();
+	   //final IntCall ic = new IntCall("user32", "keybd_event");
+	   //ic.executeCall(new Object[] { key, 0, state, 0 });
+	   //ic.destroy();
+	   
+	   ku.keyEvent(key,state);
       
     
    } // nativeKey

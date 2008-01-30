@@ -55,6 +55,9 @@ public class KeyboardUtils {
    
 
    public KeyboardUtils() {
+   }
+   
+   /*
 
       hinst = Kernel32.INSTANCE.GetModuleHandle(null);
       kbListener = new KeyboardProc() {
@@ -69,7 +72,7 @@ public class KeyboardUtils {
       };
 
    }
-
+*/
 
    /**
     * 
