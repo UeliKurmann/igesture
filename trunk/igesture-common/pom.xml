@@ -19,18 +19,6 @@
 	<name>igesture-common</name>
 	<url>http://www.igesture.org</url>
 
-	<scm>
-		<connection>
-			scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-common
-		</connection>
-		<developerConnection>
-			scm:svn:https://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-common
-		</developerConnection>
-		<url>
-			http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-common
-		</url>
-	</scm>
-
 	<build>
 		<resources>
 			<resource>
@@ -104,4 +92,11 @@
 			<url>ftp://www.igesture.org/httpdocs/igesture-common</url>
 		</site>
 	</distributionManagement>
+	
+    <scm>
+        <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-common</connection>
+        <developerConnection>scm:svn:https://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-common</developerConnection>
+        <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-common</url>
+    </scm>
+	
 </project>

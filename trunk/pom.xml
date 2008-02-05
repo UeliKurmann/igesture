@@ -20,18 +20,6 @@
 	<name>igesture</name>
 	<url>http://www.igesture.org</url>
 
-	<scm>   
-		<connection>
-			scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk
-		</connection>
-		<developerConnection>
-			scm:svn:https://igesture.svn.sourceforge.net/svnroot/igesture/trunk
-		</developerConnection>
-		<url>
-			http://igesture.svn.sourceforge.net/viewvc/igesture/trunk
-		</url>
-	</scm>
-
 	<issueManagement>
 		<system>SourceForge</system>
 		<url>http://sourceforge.net/tracker/?group_id=188690</url>
@@ -194,4 +182,38 @@
 			<url>ftp://www.igesture.org/httpdocs</url>
 		</site>
 	</distributionManagement>
+
+    <scm>
+        <connection>scm:svn:https://igesture.svn.sourceforge.net/svnroot/igesture/trunk</connection>
+        <developerConnection>scm:svn:https://igesture.svn.sourceforge.net/svnroot/igesture/trunk</developerConnection>
+        <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk</url>
+    </scm>    
+
+    <ciManagement>
+        <system>continuum</system>
+        <url>http://maven.globis.ethz.ch/continuum/</url>
+        <notifiers>
+            <notifier>
+                <type>mail</type>
+                <sendOnError>true</sendOnError>
+                <sendOnFailure>true</sendOnFailure>
+                <sendOnWarning>true</sendOnWarning>
+                <sendOnSuccess>true</sendOnSuccess>
+                <configuration>
+                    <address>signer@inf.ethz.ch</address>
+                </configuration>
+            </notifier>
+            <notifier>
+                <type>mail</type>
+                <sendOnError>true</sendOnError>
+                <sendOnFailure>true</sendOnFailure>
+                <sendOnWarning>true</sendOnWarning>
+                <sendOnSuccess>true</sendOnSuccess>
+                <configuration>
+                    <address>ueli@smartness.ch</address>
+                </configuration>
+            </notifier>
+        </notifiers>
+    </ciManagement>
+
 </project>

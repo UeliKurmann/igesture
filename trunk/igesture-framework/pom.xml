@@ -17,13 +17,6 @@
 	<name>igesture-framework</name>
 	<url>http://www.igesture.org</url>
 
-	<scm>
-		<connection> scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/framework </connection>
-		<developerConnection>
-			scm:svn:https://igesture.svn.sourceforge.net/svnroot/igesture/trunk/framework </developerConnection>
-		<url> http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/framework </url>
-	</scm>
-
 	<build>
 		<resources>
 			<resource>
@@ -237,4 +230,11 @@
 			<url> ftp://www.igesture.org/httpdocs/igesture-framework </url>
 		</site>
 	</distributionManagement>
+	
+    <scm>
+        <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/framework</connection>
+        <developerConnection>scm:svn:https://igesture.svn.sourceforge.net/svnroot/igesture/trunk/framework</developerConnection>
+        <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/framework</url>
+    </scm>
+	
 </project>
