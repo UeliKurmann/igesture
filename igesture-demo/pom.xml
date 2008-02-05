@@ -138,7 +138,7 @@
 	
     <scm>
         <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-demo</connection>
-        <developerConnection>scm:svn:https://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-demo</developerConnection>
+        <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-demo</developerConnection>
         <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-demo</url>
     </scm>
 	

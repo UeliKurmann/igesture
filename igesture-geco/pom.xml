@@ -162,7 +162,7 @@
 	
     <scm>
         <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-geco</connection>
-        <developerConnection>scm:svn:https://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-geco</developerConnection>
+        <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-geco</developerConnection>
         <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-geco</url>
     </scm>
 	

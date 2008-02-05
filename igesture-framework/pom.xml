@@ -233,7 +233,7 @@
 	
     <scm>
         <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/framework</connection>
-        <developerConnection>scm:svn:https://igesture.svn.sourceforge.net/svnroot/igesture/trunk/framework</developerConnection>
+        <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/framework</developerConnection>
         <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/framework</url>
     </scm>
 	
