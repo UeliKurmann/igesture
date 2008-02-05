@@ -95,7 +95,7 @@
 	
     <scm>
         <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-common</connection>
-        <developerConnection>scm:svn:https://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-common</developerConnection>
+        <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-common</developerConnection>
         <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-common</url>
     </scm>
 	

@@ -184,8 +184,8 @@
 	</distributionManagement>
 
     <scm>
-        <connection>scm:svn:https://igesture.svn.sourceforge.net/svnroot/igesture/trunk</connection>
-        <developerConnection>scm:svn:https://igesture.svn.sourceforge.net/svnroot/igesture/trunk</developerConnection>
+        <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk</connection>
+        <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk</developerConnection>
         <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk</url>
     </scm>    
 
