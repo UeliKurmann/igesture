@@ -203,6 +203,7 @@
                     <address>signer@inf.ethz.ch</address>
                 </configuration>
             </notifier>
+            <!--  
             <notifier>
                 <type>mail</type>
                 <sendOnError>true</sendOnError>
@@ -213,6 +214,7 @@
                     <address>ueli@smartness.ch</address>
                 </configuration>
             </notifier>
+            -->
         </notifiers>
     </ciManagement>
 
