@@ -19,18 +19,6 @@
 	<name>igesture-demo</name>
 	<url>http://www.igesture.org</url>
 
-	<scm>
-		<connection>
-			scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-demo
-		</connection>
-		<developerConnection>
-			scm:svn:https://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-demo
-		</developerConnection>
-		<url>
-			http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-demo
-		</url>
-	</scm>
-
 	<build>
 		<resources>
 			<resource>
@@ -147,4 +135,11 @@
 			<url>ftp://www.igesture.org/httpdocs/igesture-demo</url>
 		</site>
 	</distributionManagement>
+	
+    <scm>
+        <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-demo</connection>
+        <developerConnection>scm:svn:https://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-demo</developerConnection>
+        <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-demo</url>
+    </scm>
+	
 </project>

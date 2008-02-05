@@ -19,18 +19,6 @@
 	<name>igesture-io</name>
 	<url>http://www.igesture.org</url>
 
-	<scm>
-		<connection>
-			scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-io
-		</connection>
-		<developerConnection>
-			scm:svn:https://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-io
-		</developerConnection>
-		<url>
-			http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-io
-		</url>
-	</scm>
-
 	<build>
 		<resources>
 			<resource>
@@ -100,4 +88,11 @@
 			<url>ftp://www.igesture.org/httpdocs/igesture-io</url>
 		</site>
 	</distributionManagement>
+	
+    <scm>
+        <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-io</connection>
+        <developerConnection>scm:svn:https://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-io</developerConnection>
+        <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-io</url>
+    </scm>
+	
 </project>
