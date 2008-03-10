@@ -46,16 +46,15 @@ import org.ximtec.igesture.io.wacom.Wintab32.ORIENTATION;
 import org.ximtec.igesture.io.wacom.Wintab32.ROTATION;
 
 
-
 /**
  * A wacom tablet PC reader.
  * 
  * @version 1.0, Nov 2007
  * @author Michele Croci, mcroci@gmail.com
  */
- 
-public class WacomReader extends ExtendedInputDevice implements
-      ButtonDevice, WacomCallback {
+
+public class WacomReader extends ExtendedInputDevice implements ButtonDevice,
+      WacomCallback {
 
    private static final Logger LOGGER = Logger.getLogger(WacomReader.class
          .getName());
@@ -64,7 +63,7 @@ public class WacomReader extends ExtendedInputDevice implements
    final WacomReader tabletReader = this;
    private boolean lastKeyState = false;
    private WacomUtils wacomUtils;
-   
+
    private int BUTTON_0 = 0;
    private int BUTTON_5 = 5;
 
@@ -83,97 +82,107 @@ public class WacomReader extends ExtendedInputDevice implements
     */
    public void init() {
       final WacomReader tabletReader = this;
-      
-      //New version: callback
+
+      // New version: callback
       init_callback();
-	
+
       // Old version: poll the device
-      //init_loop();
+      // init_loop();
    } // init
-   
-   void init_callback(){
+
+
+   void init_callback() {
 
       wacomUtils = new WacomUtils(this);
       wacomUtils.start();
    }
-   
-   void init_loop(){
-      
-   final Thread t2 = new Thread() {
-         
+
+
+   void init_loop() {
+
+      final Thread t2 = new Thread() {
+
          @Override
          public void run() {
-          
+
             Win32TabletProxy proxy = new Win32TabletProxy();
-             while (!stop) {
-                   proxy.getNextPacket();
-                   if (!(proxy.buttonPressed()==BUTTON_0)) {
-                       if (proxy.buttonPressed()==BUTTON_5) {
-                         
-                           Location location = new Location("screen", 1, proxy.getLastCursorLocation());
-                           CompleteLocation tbl = null;
-                              tbl = new CompleteLocation(location, proxy.getTimeStamp(), proxy.getPressure(),
-                                    new Orientation(proxy.getRotation().roYaw, proxy.getRotation().roPitch,
-                                          proxy.getRotation().roRoll));
-                           tabletReader.fireInputDeviceEvent(new WacomReaderEvent(tbl));
-                           
-                          lastKeyState = true;
-                         }
-                         else {
-      
-                            if (lastKeyState) {
-                               tabletReader.fireTabletButtonEvent(new InputDeviceEvent() {
-                                  public long getTimestamp() {
-                                     return System.currentTimeMillis();
-                                  }
-                               });
-                               
-                               lastKeyState = false;
-                            }
-                         }
+            while (!stop) {
+               proxy.getNextPacket();
+               if (!(proxy.buttonPressed() == BUTTON_0)) {
+                  if (proxy.buttonPressed() == BUTTON_5) {
 
-                   }
-                  try {
-                     Thread.sleep(1000 / FREQUENCE);
+                     Location location = new Location("screen", 1, proxy
+                           .getLastCursorLocation());
+                     CompleteLocation tbl = null;
+                     tbl = new CompleteLocation(location, proxy.getTimeStamp(),
+                           proxy.getPressure(), Constant.NOT_AVAILABLE,
+                           new Orientation(proxy.getRotation().roYaw, proxy
+                                 .getRotation().roPitch,
+                                 proxy.getRotation().roRoll));
+                     tabletReader
+                           .fireInputDeviceEvent(new WacomReaderEvent(tbl));
+
+                     lastKeyState = true;
                   }
-                  catch (InterruptedException e) {
-                     LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-                  }  
-             }
-              
-            }
-         };
-      t2.start(); 
-   }
-   
+                  else {
 
-   public void callbackFunction(int x, int y, int z, int pkstatus, int npress, int tpress, long timeStamp,
-         ORIENTATION orientation, ROTATION rotation, int button){
-       
-               if(button==BUTTON_5){
-                  Location location = new Location("screen", 1, new Point(x,y));
-                  CompleteLocation tbl = null;
-                   tbl = new CompleteLocation(location, timeStamp, npress,
-                         new Orientation(rotation.roYaw, rotation.roPitch,
-                               rotation.roRoll));
-                   tabletReader.fireInputDeviceEvent(new WacomReaderEvent(tbl));
-                   lastKeyState = true;
-                  
-               }     else {
-                  
+                     if (lastKeyState) {
+                        tabletReader
+                              .fireTabletButtonEvent(new InputDeviceEvent() {
 
-                  if (lastKeyState) {
-                     tabletReader.fireTabletButtonEvent(new InputDeviceEvent() {
-                        public long getTimestamp() {
-                           return System.currentTimeMillis();
-                        }
-                     });
-                     
-                     lastKeyState = false;
+                                 public long getTimestamp() {
+                                    return System.currentTimeMillis();
+                                 }
+                              });
+
+                        lastKeyState = false;
+                     }
                   }
+
                }
-               
+               try {
+                  Thread.sleep(1000 / FREQUENCE);
+               }
+               catch (InterruptedException e) {
+                  LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+               }
+            }
+
+         }
+      };
+      t2.start();
+   }
+
+
+   public void callbackFunction(int x, int y, int z, int pkstatus, int npress,
+         int tpress, long timeStamp, ORIENTATION orientation, ROTATION rotation,
+         int button) {
+
+      if (button == BUTTON_5) {
+         Location location = new Location("screen", 1, new Point(x, y));
+         CompleteLocation tbl = null;
+         tbl = new CompleteLocation(location, timeStamp, npress,
+               Constant.NOT_AVAILABLE, new Orientation(rotation.roYaw,
+                     rotation.roPitch, rotation.roRoll));
+         tabletReader.fireInputDeviceEvent(new WacomReaderEvent(tbl));
+         lastKeyState = true;
+
       }
+      else {
+
+         if (lastKeyState) {
+            tabletReader.fireTabletButtonEvent(new InputDeviceEvent() {
+
+               public long getTimestamp() {
+                  return System.currentTimeMillis();
+               }
+            });
+
+            lastKeyState = false;
+         }
+      }
+
+   }
 
 
    /**
@@ -204,6 +213,5 @@ public class WacomReader extends ExtendedInputDevice implements
       }
 
    } // fireTabletButtonEvent
-   
-}
 
+}
