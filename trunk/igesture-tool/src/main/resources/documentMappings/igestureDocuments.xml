@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documents>
+	
+	<!-- streaming pattern -->
+	<document>
+		<identifier>slideController</identifier>
+		<connectedPages>
+			<startPage>1</startPage>
+			<pageOffset>1</pageOffset>
+			<origin>
+				<point>
+					<x>55651363</x>
+					<y>2516592</y>
+				</point>
+			</origin>
+			<size>
+				<width>210</width>
+				<height>297</height>
+			</size>
+			<columns>10</columns>
+			<rows>1</rows>
+			<spacingX>1069</spacingX>
+			<spacingY>0</spacingY>
+		</connectedPages>
+		<connectedPages>
+			<startPage>11</startPage>
+			<pageOffset>1</pageOffset>
+			<origin>
+				<point>
+					<x>55684623</x>
+					<y>2516592</y>
+				</point>
+			</origin>
+			<size>
+				<width>210</width>
+				<height>297</height>
+			</size>
+			<columns>6</columns>
+			<rows>1</rows>
+			<spacingX>1069</spacingX>
+			<spacingY>0</spacingY>
+		</connectedPages>
+	</document>
+		
+</documents>

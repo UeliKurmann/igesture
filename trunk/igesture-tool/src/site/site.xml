@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="iGesture-tool">
+	<skin>
+		<groupId>ch.ethz.globis.pad</groupId>
+		<artifactId>maven-pad-skin</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</skin>
+
+	<bannerLeft>
+		<name>iGesture: A General Gesture Recognition Framework</name>
+		<src>../images/igesture.gif</src>
+		<href>http://www.igesture.org/</href>
+	</bannerLeft>
+	<bannerRight>
+		<name>
+			Global Information Systems Group, Swiss Federal Institute of
+			Technology Zurich
+		</name>
+		<src>../images/globis.gif</src>
+	</bannerRight>
+	<body>
+		<links>
+			<item name="sigtec" href="http://www.sigtec.org/" />
+			<item name="XIMA" href="http://www.globis.ethz.ch/research/webeng/xima" />
+			<item name="iPaper" href="http://www.globis.ethz.ch/research/ipaper" />
+			<item name="iServer" href="http://www.globis.ethz.ch/research/iserver" />
+			<item name="Global Information Systems Group"
+				href="http://www.globis.ethz.ch/" />
+			<item name="ETH Zurich" href="http://www.ethz.ch/" />
+		</links>
+		<menu name="iGesture">
+			<item name="iGesture" href="../index.html" />
+			<item name="iGesture Tool" href="index.html" />
+			<item name="Download" href="http://sourceforge.net/projects/igesture" />
+		</menu>
+		${reports}
+	</body>
+</project>
+
+
+
+
