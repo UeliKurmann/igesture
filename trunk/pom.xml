@@ -70,7 +70,7 @@
 		<module>igesture-geco</module>
 		<module>igesture-io</module>
 		<module>igesture-test</module>
-		<module>igesture-tool</module>
+		<module>igesture-tool-old</module>
 	</modules>
 
 	<build>
