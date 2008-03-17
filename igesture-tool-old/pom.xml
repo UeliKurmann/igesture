@@ -8,13 +8,13 @@
 		<version>1.2-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>igesture-tool</artifactId>
+	<artifactId>igesture-tool-old</artifactId>
 	<packaging>jar</packaging>
 	<version>1.2-SNAPSHOT</version>
 	<inceptionYear>2007</inceptionYear>
 	<description> iGesture: a general gesture recognition framework.</description>
 
-	<name>igesture-tool</name>
+	<name>igesture-tool-old</name>
 	<url>http://www.igesture.org</url>
 
 	<build>
@@ -173,14 +173,14 @@
 	<distributionManagement>
 		<site>
 			<id>ftp-repository</id>
-			<url> ftp://www.igesture.org/httpdocs/igesture-tool </url>
+			<url>ftp://www.igesture.org/httpdocs/igesture-tool-old</url>
 		</site>
 	</distributionManagement>
 	
     <scm>
-        <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/tool</connection>
-        <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/tool</developerConnection>
-        <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/tool</url>
+        <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-tool</connection>
+        <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-tool</developerConnection>
+        <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-tool</url>
     </scm>
 	
 </project>
