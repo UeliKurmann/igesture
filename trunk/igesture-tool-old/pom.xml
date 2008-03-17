@@ -178,9 +178,9 @@
 	</distributionManagement>
 	
     <scm>
-        <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-tool</connection>
-        <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-tool</developerConnection>
-        <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-tool</url>
+        <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-tool-old</connection>
+        <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-tool-old</developerConnection>
+        <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-tool-old</url>
     </scm>
 	
 </project>
