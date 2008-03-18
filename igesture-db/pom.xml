@@ -64,10 +64,10 @@
 	</developers>
 	
 	<modules>
-		<module>graffitiLetters</module>
-        <module>graffitiNumbers</module>
-        <module>msApplicationGestures</module>
-        <module>multistrokeGestures</module>
+		<module>igesture-db-graffitiLetters</module>
+        <module>igesture-db-graffitiNumbers</module>
+        <module>igesture-db-msApplicationGestures</module>
+        <module>igesture-db-multistrokeGestures</module>
 	</modules>
 
 	<build>
