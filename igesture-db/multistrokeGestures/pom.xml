@@ -8,7 +8,7 @@
 		<version>1.2-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>multistrokeGestures</artifactId>
+	<artifactId>igesture-db-multistrokeGestures</artifactId>
 	<packaging>jar</packaging>
 	<version>1.2-SNAPSHOT</version>
 	<inceptionYear>2008</inceptionYear>
@@ -77,14 +77,14 @@
 	<distributionManagement>
 		<site>
 			<id>ftp-repository</id>
-			<url>ftp://www.igesture.org/httpdocs/igesture-db/msApplicationGestures</url>
+			<url>ftp://www.igesture.org/httpdocs/igesture-db/igesture-db-msApplicationGestures</url>
 		</site>
 	</distributionManagement>
 	
     <scm>
-        <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-db/multistrokeGesture</connection>
-        <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-db/multistrokeGesture</developerConnection>
-        <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-db/multistrokeGesture</url>
+        <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-db/igesture-db-multistrokeGesture</connection>
+        <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-db/igesture-db-multistrokeGesture</developerConnection>
+        <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-db/igesture-db-multistrokeGesture</url>
     </scm>
 	
 </project>
