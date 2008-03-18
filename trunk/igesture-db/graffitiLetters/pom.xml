@@ -8,7 +8,7 @@
 		<version>1.2-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>graffitiLetters</artifactId>
+	<artifactId>igesture-db-graffitiLetters</artifactId>
 	<packaging>jar</packaging>
 	<version>1.2-SNAPSHOT</version>
 	<inceptionYear>2008</inceptionYear>
@@ -16,7 +16,7 @@
 		Graffiti letters.
 	</description>
 
-	<name>graffitiLetters</name>
+	<name>igesture-db-graffitiLetters</name>
 	<url>http://www.igesture.org</url>
 
 	<build>
@@ -82,9 +82,9 @@
 	</distributionManagement>
 	
     <scm>
-        <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-db/graffitiLetters</connection>
-        <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-db/graffitiLetters</developerConnection>
-        <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-db/graffitiLetters</url>
+        <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-db/igesture-db-graffitiLetters</connection>
+        <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-db/igesture-db-graffitiLetters</developerConnection>
+        <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-db/igesture-db-graffitiLetters</url>
     </scm>
 	
 </project>
