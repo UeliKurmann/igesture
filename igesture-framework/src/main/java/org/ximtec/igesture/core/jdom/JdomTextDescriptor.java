@@ -49,7 +49,7 @@ public class JdomTextDescriptor extends Element {
 
    public JdomTextDescriptor(TextDescriptor descriptor) {
       super(ROOT_TAG);
-      setAttribute(UUID_ATTRIBUTE, descriptor.getID());
+      setAttribute(UUID_ATTRIBUTE, descriptor.getId());
       addContent(new JdomStringElement(TEXT, descriptor.getText()));
    }
 
@@ -57,7 +57,7 @@ public class JdomTextDescriptor extends Element {
    public static Object unmarshal(Element descriptor) {
       final String uuid = descriptor.getAttributeValue(UUID_ATTRIBUTE);
       final TextDescriptor textDescriptor = new TextDescriptor();
-      textDescriptor.setID(uuid);
+      textDescriptor.setId(uuid);
       textDescriptor.setText(descriptor.getChild(TEXT).getText());
       return textDescriptor;
    } // unmarshal

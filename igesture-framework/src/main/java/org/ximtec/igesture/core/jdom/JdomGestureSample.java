@@ -54,7 +54,7 @@ public class JdomGestureSample extends Element {
    public JdomGestureSample(GestureSample sample) {
       super(ROOT_TAG);
       setAttribute(NAME_ATTRIBUTE, sample.getName());
-      setAttribute(UUID_ATTRIBUTE, sample.getID());
+      setAttribute(UUID_ATTRIBUTE, sample.getId());
       addContent(new JdomNote(sample.getNote()));
    }
 
@@ -73,7 +73,7 @@ public class JdomGestureSample extends Element {
       final String name = sample.getAttributeValue(NAME_ATTRIBUTE);
       final String uuid = sample.getAttributeValue(UUID_ATTRIBUTE);
       final GestureSample gestureSample = new GestureSample(name, note);
-      gestureSample.setID(uuid);
+      gestureSample.setId(uuid);
       return gestureSample;
    } // unmarshal
 

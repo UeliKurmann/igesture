@@ -52,7 +52,7 @@ public class JdomSampleDescriptor extends Element {
    public JdomSampleDescriptor(SampleDescriptor descriptor) {
       super(ROOT_TAG);
       setAttribute(TYPE_ATTRIBUTE, descriptor.getType().getName());
-      setAttribute(UUID_ATTRIBUTE, descriptor.getID());
+      setAttribute(UUID_ATTRIBUTE, descriptor.getId());
 
       for (final GestureSample sample : descriptor.getSamples()) {
          addContent(new JdomGestureSample(sample));
@@ -65,7 +65,7 @@ public class JdomSampleDescriptor extends Element {
    public static Object unmarshal(Element descriptor) {
       final String uuid = descriptor.getAttributeValue(UUID_ATTRIBUTE);
       final SampleDescriptor gestureDescriptor = new SampleDescriptor();
-      gestureDescriptor.setID(uuid);
+      gestureDescriptor.setId(uuid);
 
       for (final Element sample : (List<Element>)descriptor
             .getChildren(JdomGestureSample.ROOT_TAG)) {
