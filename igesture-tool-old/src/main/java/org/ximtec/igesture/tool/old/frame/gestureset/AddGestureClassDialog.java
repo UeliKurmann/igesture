@@ -36,7 +36,6 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
-import org.ximtec.igesture.tool.GestureTreeModel;
 import org.ximtec.igesture.tool.old.GestureConstants;
 import org.ximtec.igesture.tool.old.GestureToolMain;
 import org.ximtec.igesture.tool.old.frame.gestureset.action.AddGestureClassAction;

@@ -28,8 +28,6 @@ package org.ximtec.igesture.tool.old.action;
 
 import javax.swing.Action;
 
-import org.ximtec.igesture.tool.NewDataSouceAction;
-import org.ximtec.igesture.tool.OpenDataSouceAction;
 import org.ximtec.igesture.tool.old.GestureToolView;
 
 

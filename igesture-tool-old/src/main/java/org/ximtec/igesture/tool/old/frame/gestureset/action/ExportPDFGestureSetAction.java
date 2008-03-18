@@ -37,7 +37,6 @@ import javax.swing.JMenuItem;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.tool.ExportPDFGestureSetAction;
 import org.ximtec.igesture.tool.old.GestureToolMain;
 import org.ximtec.igesture.tool.old.util.PDFTool;
 
