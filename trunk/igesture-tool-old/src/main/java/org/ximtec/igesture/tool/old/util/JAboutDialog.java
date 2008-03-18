@@ -42,7 +42,6 @@ import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.graphics.SwingTool;
-import org.ximtec.igesture.tool.JAboutDialog;
 import org.ximtec.igesture.tool.old.GestureConstants;
 import org.ximtec.igesture.tool.old.GestureToolMain;
 

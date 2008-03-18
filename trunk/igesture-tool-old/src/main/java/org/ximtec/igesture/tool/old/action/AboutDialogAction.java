@@ -29,7 +29,6 @@ package org.ximtec.igesture.tool.old.action;
 import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.tool.AboutDialogAction;
 import org.ximtec.igesture.tool.old.GestureToolMain;
 import org.ximtec.igesture.tool.old.util.JAboutDialog;
 

@@ -41,7 +41,6 @@ import org.sigtec.input.util.CaptureTool;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.io.InputDeviceClient;
-import org.ximtec.igesture.tool.GestureCaptureArea;
 import org.ximtec.igesture.tool.old.GestureConstants;
 import org.ximtec.igesture.tool.old.GestureToolMain;
 import org.ximtec.igesture.tool.old.GestureToolView;

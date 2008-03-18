@@ -52,7 +52,6 @@ import org.ximtec.igesture.algorithm.AlgorithmFactory;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
-import org.ximtec.igesture.tool.ConfigurationListModel;
 import org.ximtec.igesture.tool.old.GestureConstants;
 import org.ximtec.igesture.tool.old.GestureToolMain;
 import org.ximtec.igesture.tool.old.GestureToolView;
