@@ -78,7 +78,7 @@ public class TestSetImportAction extends BasicAction {
 
             for (final TestSet testSet : testSets) {
 
-               if (storageManager.load(TestSet.class, testSet.getID()) == null) {
+               if (storageManager.load(TestSet.class, testSet.getId()) == null) {
                   mainView.getModel().addTestSet(testSet);
                }
                else {
