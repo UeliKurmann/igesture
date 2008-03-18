@@ -31,7 +31,7 @@
 		<class>org.ximtec.igesture.tool.old.TestTab</class>
 		<class>org.ximtec.igesture.tool.old.BatchTab</class>
 	</tab>
-	<database>igesture.db</database>
+	<database>igesture.xml</database>
 	<gui-state>
 		<tab name="">
 			<component name="">
