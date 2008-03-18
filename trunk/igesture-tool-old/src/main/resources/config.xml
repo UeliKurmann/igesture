@@ -26,10 +26,10 @@
 		</class>
 	</algorithm>
 	<tab>
-		<class>org.ximtec.igesture.tool.CaptureTab</class>
-		<class>org.ximtec.igesture.tool.AdminTab</class>
-		<class>org.ximtec.igesture.tool.TestTab</class>
-		<class>org.ximtec.igesture.tool.BatchTab</class>
+		<class>org.ximtec.igesture.tool.old.CaptureTab</class>
+		<class>org.ximtec.igesture.tool.old.AdminTab</class>
+		<class>org.ximtec.igesture.tool.old.TestTab</class>
+		<class>org.ximtec.igesture.tool.old.BatchTab</class>
 	</tab>
 	<database>igesture.db</database>
 	<gui-state>
