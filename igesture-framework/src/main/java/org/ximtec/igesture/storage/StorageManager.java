@@ -170,6 +170,7 @@ public class StorageManager {
    public static StorageEngine createStorageEngine(File file) {
       LOGGER.info(LOADING_DB + file + Constant.SINGLE_QUOTE);
       StorageEngine engine = null;
+      
       switch (getFileType(file)) {
          case db:
             engine = new Db4oStorageEngine(file.getPath());
