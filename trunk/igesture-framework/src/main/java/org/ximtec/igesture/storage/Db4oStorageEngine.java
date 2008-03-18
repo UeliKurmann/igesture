@@ -65,7 +65,7 @@ public class Db4oStorageEngine extends DefaultStorageEngine {
             .cascadeOnUpdate(true);
       Db4o.configure().objectClass(SampleDescriptor.class.getName())
             .cascadeOnUpdate(true);
-      //Db4o.configure().allowVersionUpdates(true);
+      Db4o.configure().allowVersionUpdates(true);
       db = Db4o.openFile(filename);
    }
 
