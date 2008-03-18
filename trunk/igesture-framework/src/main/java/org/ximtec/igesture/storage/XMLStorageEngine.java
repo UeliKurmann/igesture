@@ -144,7 +144,7 @@ public class XMLStorageEngine extends DefaultStorageEngine{
 
          for (final DataObject tmp : dataObjects.get(clazz)) {
 
-            if (tmp.getID().equals(id)) {
+            if (tmp.getId().equals(id)) {
                dataObject = (T)tmp;
                break;
             }

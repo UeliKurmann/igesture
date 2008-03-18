@@ -23,11 +23,12 @@
  * 
  */
 
-
 package org.ximtec.igesture.core;
 
-import org.ximtec.igesture.storage.StorageManager;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
+import org.ximtec.igesture.storage.StorageManager;
 
 /**
  * Default data object implementation.
@@ -38,28 +39,47 @@ import org.ximtec.igesture.storage.StorageManager;
  */
 public abstract class DefaultDataObject implements DataObject {
 
-   private String objectID;
+	private String id;
 
+	protected PropertyChangeSupport propertyChangeSupport;
 
-   /**
-    * Constructs a new default data object.
-    */
-   public DefaultDataObject() {
-      this.objectID = StorageManager.generateUUID();
-   }
+	/**
+	 * Constructs a new default data object.
+	 */
+	public DefaultDataObject() {
+		this.id = StorageManager.generateUUID();
+		this.propertyChangeSupport = new PropertyChangeSupport(this);
+	}
 
+	public void setId(String objectID) {
+		this.id = objectID;
+	} // setID
 
-   public void setID(String objectID) {
-      this.objectID = objectID;
-   } // setID
+	public String getId() {
+		if (id == null) {
+			id = StorageManager.generateUUID();
+		}
 
+		return id;
+	} // getID
 
-   public String getID() {
-      if (objectID == null) {
-         objectID = StorageManager.generateUUID();
-      }
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		propertyChangeSupport.addPropertyChangeListener(listener);
+	}
 
-      return objectID;
-   } // getID
+	public void addPropertyChangeListener(String propertyName,
+			PropertyChangeListener listener) {
+		propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
+	}
+
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		propertyChangeSupport.removePropertyChangeListener(listener);
+	}
+
+	public void removePropertyChangeListener(String propertyName,
+			PropertyChangeListener listener) {
+		propertyChangeSupport.removePropertyChangeListener(propertyName,
+				listener);
+	}
 
 }

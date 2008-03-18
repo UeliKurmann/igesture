@@ -44,7 +44,7 @@ public interface DataObject extends Serializable {
     * 
     * @return the object's UUID.
     */
-   public String getID();
+   public String getId();
 
 
    /**
@@ -52,6 +52,6 @@ public interface DataObject extends Serializable {
     * 
     * @param id the object's UUID.
     */
-   public void setID(String id);
+   public void setId(String id);
 
 }

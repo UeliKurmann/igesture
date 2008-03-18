@@ -83,7 +83,7 @@ public class Db4oStorageEngine extends DefaultStorageEngine {
          @Override
          public boolean match(T dataObject) {
             return dataObject.getClass().equals(clazz)
-                  && dataObject.getID().equals(id);
+                  && dataObject.getId().equals(id);
          }
       });
 

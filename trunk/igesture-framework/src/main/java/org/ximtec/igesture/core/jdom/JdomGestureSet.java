@@ -62,12 +62,12 @@ public class JdomGestureSet extends Element {
    public JdomGestureSet(GestureSet gestureSet) {
       super(ROOT_TAG);
       setAttribute(NAME_ATTRIBUTE, gestureSet.getName());
-      setAttribute(UUID_ATTRIBUTE, gestureSet.getID());
+      setAttribute(UUID_ATTRIBUTE, gestureSet.getId());
 
       for (final GestureClass gestureClass : gestureSet.getGestureClasses()) {
          // addContent(new JdomGestureClass(gestureClass));
          final Element classElement = new Element(JdomGestureClass.ROOT_TAG);
-         classElement.setAttribute(REFID_ATTRIBUTE, gestureClass.getID());
+         classElement.setAttribute(REFID_ATTRIBUTE, gestureClass.getId());
          addContent(classElement);
       }
 
@@ -79,7 +79,7 @@ public class JdomGestureSet extends Element {
       final String name = setElement.getAttributeValue(NAME_ATTRIBUTE);
       final String uuid = setElement.getAttributeValue(UUID_ATTRIBUTE);
       final GestureSet gestureSet = new GestureSet(name);
-      gestureSet.setID(uuid);
+      gestureSet.setId(uuid);
 
       for (final Element classElement : (List<Element>)setElement
             .getChildren(JdomGestureClass.ROOT_TAG)) {

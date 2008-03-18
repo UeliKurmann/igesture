@@ -54,7 +54,7 @@ public class JdomGestureClass extends Element {
    public JdomGestureClass(GestureClass gestureClass) {
       super(ROOT_TAG);
       setAttribute(NAME_ATTRIBUTE, gestureClass.getName());
-      setAttribute(UUID_ATTRIBUTE, gestureClass.getID());
+      setAttribute(UUID_ATTRIBUTE, gestureClass.getId());
 
       for (final Descriptor descriptor : gestureClass.getDescriptors()) {
 
@@ -75,7 +75,7 @@ public class JdomGestureClass extends Element {
       final String name = gestureClassElement.getAttributeValue(NAME_ATTRIBUTE);
       final String uuid = gestureClassElement.getAttributeValue(UUID_ATTRIBUTE);
       final GestureClass gestureClass = new GestureClass(name);
-      gestureClass.setID(uuid);
+      gestureClass.setId(uuid);
 
       for (final Element descriptorElement : (List<Element>)gestureClassElement
             .getChildren(JdomSampleDescriptor.ROOT_TAG)) {

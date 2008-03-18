@@ -41,6 +41,8 @@ import org.sigtec.util.Constant;
  */
 public class GestureSet extends DefaultDataObject {
 
+	public static String PROPERTY_NAME = "name";
+	
    private List<GestureClass> gestureClasses;
 
    private String name;
@@ -74,6 +76,12 @@ public class GestureSet extends DefaultDataObject {
     */
    public GestureSet(List<GestureClass> gestureClasses) {
       this.gestureClasses = gestureClasses;
+   }
+   
+   public void setName(String name){
+	   String oldValue = this.name;
+	   this.name = name;
+	   propertyChangeSupport.firePropertyChange(PROPERTY_NAME, oldValue, name);
    }
 
 
