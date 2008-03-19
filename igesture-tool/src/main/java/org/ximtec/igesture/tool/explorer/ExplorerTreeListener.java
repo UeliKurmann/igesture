@@ -2,10 +2,8 @@ package org.ximtec.igesture.tool.explorer;
 
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 
-public class ExplorerTreeListener implements TreeModelListener, TreeSelectionListener{
+public class ExplorerTreeListener implements TreeModelListener{
 
 	@Override
 	public void treeNodesChanged(TreeModelEvent arg0) {
@@ -28,12 +26,6 @@ public class ExplorerTreeListener implements TreeModelListener, TreeSelectionLis
 	@Override
 	public void treeStructureChanged(TreeModelEvent arg0) {
 		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void valueChanged(TreeSelectionEvent e) {
-		System.out.println(e.getPaths());
 		
 	}
 
