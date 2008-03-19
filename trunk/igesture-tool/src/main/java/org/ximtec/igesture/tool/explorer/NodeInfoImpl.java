@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.Icon;
-import javax.swing.text.View;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeView;
@@ -21,9 +20,9 @@ public class NodeInfoImpl implements NodeInfo {
 	private String childList;
 	private Class<? extends ExplorerTreeView> view;
 
-	private Class type;
+	private Class<?> type;
 
-	public NodeInfoImpl(Class type, String propertyName, String childList, Class<? extends ExplorerTreeView> view) {
+	public NodeInfoImpl(Class<?> type, String propertyName, String childList, Class<? extends ExplorerTreeView> view) {
 		this.type = type;
 		this.propertyName = propertyName;
 		this.childList = childList;
@@ -41,9 +40,9 @@ public class NodeInfoImpl implements NodeInfo {
 					field.setAccessible(true);
 					Object o = field.get(node);
 					if (o instanceof Collection) {
-						result.addAll((Collection) o);
+						result.addAll((Collection<?>) o);
 					} else if (o instanceof Map) {
-						result.addAll(((Map) o).values());
+						result.addAll(((Map<?,?>) o).values());
 					} else {
 						result.add(o);
 					}
@@ -91,7 +90,7 @@ public class NodeInfoImpl implements NodeInfo {
 	}
 
 	@Override
-	public Class<Object> getType() {
+	public Class getType() {
 		return type;
 	}
 
