@@ -65,9 +65,8 @@
 	
 	<modules>
 		<module>igesture-db-graffitiLetters</module>
-        <module>igesture-db-graffitiNumbers</module>
-        <module>igesture-db-msApplicationGestures</module>
-        <module>igesture-db-multistrokeGestures</module>
+    <module>igesture-db-graffitiNumbers</module>
+    <module>igesture-db-msApplicationGestures</module>
 	</modules>
 
 	<build>
