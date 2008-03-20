@@ -95,9 +95,8 @@ public class NodeInfoImpl implements NodeInfo {
 	}
 
 	@Override
-	public boolean isLeaf() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isLeaf(Object object) {
+		return getChildren(object).size() == 0;
 	}
 
 	@Override

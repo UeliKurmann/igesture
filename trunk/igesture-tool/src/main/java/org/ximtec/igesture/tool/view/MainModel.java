@@ -1,6 +1,8 @@
 package org.ximtec.igesture.tool.view;
 
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 
 import org.ximtec.igesture.core.GestureSet;
@@ -9,7 +11,7 @@ import org.ximtec.igesture.storage.StorageManager;
 import org.ximtec.igesture.tool.locator.Service;
 import org.ximtec.igesture.util.XMLTool;
 
-public class MainModel implements Service{
+public class MainModel implements Service, PropertyChangeListener{
 	
 	public static final String IDENTIFIER = "MainModel";
 	
@@ -43,6 +45,12 @@ public class MainModel implements Service{
 	@Override
 	public void stop() {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent arg0) {
+		System.out.println(arg0);
 		
 	}
 }

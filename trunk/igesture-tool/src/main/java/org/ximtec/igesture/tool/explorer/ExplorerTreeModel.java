@@ -27,9 +27,10 @@ public class ExplorerTreeModel implements TreeModel{
 	
 	
 	@Override
-	public Object getChild(Object arg0, int arg1) {
-		NodeInfo nodeInfo = nodeMapping.get(arg0.getClass());
-		return nodeInfo.getChildren(arg0).get(arg1);
+	public Object getChild(Object node, int index) {
+		NodeInfo nodeInfo = nodeMapping.get(node.getClass());
+		
+		return nodeInfo.getChildren(node).get(index);
 	}
 
 	@Override
@@ -52,7 +53,7 @@ public class ExplorerTreeModel implements TreeModel{
 	@Override
 	public boolean isLeaf(Object node) {
 		NodeInfo nodeInfo = nodeMapping.get(node.getClass());
-		return nodeInfo.isLeaf();
+		return nodeInfo.isLeaf(node);
 	}
 
 	@Override
