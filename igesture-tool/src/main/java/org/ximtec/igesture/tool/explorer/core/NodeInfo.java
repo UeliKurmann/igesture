@@ -16,7 +16,7 @@ public interface NodeInfo{
 	
 	List<Object> getChildren(Object node);
 	
-	boolean isLeaf();
+	boolean isLeaf(Object node);
 	
 	ExplorerTreeView getView(Object node);
 	
