@@ -23,14 +23,12 @@
  * 
  */
 
-
 package org.ximtec.igesture.core;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.sigtec.util.Constant;
-
 
 /**
  * Container to manage a set of gesture classes.
@@ -41,135 +39,135 @@ import org.sigtec.util.Constant;
  */
 public class GestureSet extends DefaultDataObject {
 
-	public static String PROPERTY_NAME = "name";
+	public static final String PROPERTY_NAME = "name";
+
+	public static final String PROPERTY_CLASSES = "gestureClasses";
 	
-   private List<GestureClass> gestureClasses;
+	private List<GestureClass> gestureClasses;
 
-   private String name;
+	private String name;
 
+	/**
+	 * Constructs a new gesture set.
+	 * 
+	 */
+	public GestureSet() {
+		this(Constant.EMPTY_STRING);
+	}
 
-   /**
-    * Constructs a new gesture set.
-    * 
-    */
-   public GestureSet() {
-      this(Constant.EMPTY_STRING);
-   }
+	/**
+	 * Constructs a new gesture set with a given name.
+	 * 
+	 * @param name
+	 *            the name of the gesture set to be constructed.
+	 */
+	public GestureSet(String name) {
+		super();
+		gestureClasses = new ArrayList<GestureClass>();
+		this.name = name;
+	}
 
+	/**
+	 * Constructs a new gesture set from a list of gesture classes.
+	 * 
+	 * @param gestureClasses
+	 *            a list of gesture classes.
+	 */
+	public GestureSet(List<GestureClass> gestureClasses) {
+		this.gestureClasses = gestureClasses;
+	}
 
-   /**
-    * Constructs a new gesture set with a given name.
-    * 
-    * @param name the name of the gesture set to be constructed.
-    */
-   public GestureSet(String name) {
-      super();
-      gestureClasses = new ArrayList<GestureClass>();
-      this.name = name;
-   }
+	public void setName(String name) {
+		String oldValue = this.name;
+		this.name = name;
+		propertyChangeSupport.firePropertyChange(PROPERTY_NAME, oldValue, name);
+	}
 
+	/**
+	 * Returns the name of the gesture set.
+	 * 
+	 * @return the gesture set's name.
+	 */
+	public String getName() {
+		return name;
+	} // getName
 
-   /**
-    * Constructs a new gesture set from a list of gesture classes.
-    * 
-    * @param gestureClasses a list of gesture classes.
-    */
-   public GestureSet(List<GestureClass> gestureClasses) {
-      this.gestureClasses = gestureClasses;
-   }
-   
-   public void setName(String name){
-	   String oldValue = this.name;
-	   this.name = name;
-	   propertyChangeSupport.firePropertyChange(PROPERTY_NAME, oldValue, name);
-   }
+	/**
+	 * Adds a gesture class to the set.
+	 * 
+	 * @param gestureClass
+	 *            the gesture class to be added.
+	 */
+	public void addGestureClass(GestureClass gestureClass) {
+		this.gestureClasses.add(gestureClass);
+		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_CLASSES, gestureClasses.indexOf(gestureClass), null, gestureClass);
+	} // addGestureClass
 
+	/**
+	 * Removes a gesture class from the gesture set.
+	 * 
+	 * @param gestureClass
+	 *            the gesture class to be removed.
+	 */
+	public void removeGestureClass(GestureClass gestureClass) {
+		int index = gestureClasses.indexOf(gestureClass);
+		this.gestureClasses.remove(gestureClass);
+		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_CLASSES, index, gestureClass, null);
+	} // removeGestureClass
 
-   /**
-    * Returns the name of the gesture set.
-    * 
-    * @return the gesture set's name.
-    */
-   public String getName() {
-      return name;
-   } // getName
+	/**
+	 * Returns the gesture class at position index.
+	 * 
+	 * @param index
+	 *            the index of the gesture class to be returned.
+	 * @return the gesture class at position index.
+	 */
+	public GestureClass getGestureClass(int index) {
+		assert (index >= 0 && index < gestureClasses.size());
+		return this.gestureClasses.toArray(new GestureClass[gestureClasses
+				.size()])[index];
+	} // getGestureClass
 
+	/**
+	 * Returns the number of gesture classes the gesture set contains.
+	 * 
+	 * @return the number of gesture classes the gesture set contains.
+	 */
+	public int size() {
+		return gestureClasses.size();
+	} // size
 
-   /**
-    * Adds a gesture class to the set.
-    * 
-    * @param gestureClass the gesture class to be added.
-    */
-   public void addGestureClass(GestureClass gestureClass) {
-      this.gestureClasses.add(gestureClass);
-   } // addGestureClass
+	/**
+	 * Returns the list of all gesture classes the gesture set contains.
+	 * 
+	 * @return the list of all gesture classes the gesture set contains.
+	 */
+	public List<GestureClass> getGestureClasses() {
+		return gestureClasses;
+	} // getGestureClasses
 
+	/**
+	 * Returns the gesture class with the specified name or null if a gesture
+	 * class with the specified name does not exist.
+	 * 
+	 * @param name
+	 *            name of the gesture class to be returned.
+	 * @return the gesture class with the given name.
+	 */
+	public GestureClass getGestureClass(String name) {
+		for (final GestureClass gestureClass : gestureClasses) {
 
-   /**
-    * Removes a gesture class from the gesture set.
-    * 
-    * @param gestureClass the gesture class to be removed.
-    */
-   public void removeGestureClass(GestureClass gestureClass) {
-      this.gestureClasses.remove(gestureClass);
-   } // removeGestureClass
+			if (gestureClass.getName().equals(name)) {
+				return gestureClass;
+			}
 
+		}
+		return null;
+	} // getGestureClass
 
-   /**
-    * Returns the gesture class at position index.
-    * 
-    * @param index the index of the gesture class to be returned.
-    * @return the gesture class at position index.
-    */
-   public GestureClass getGestureClass(int index) {
-      assert (index >= 0 && index < gestureClasses.size());
-      return this.gestureClasses
-            .toArray(new GestureClass[gestureClasses.size()])[index];
-   } // getGestureClass
-
-
-   /**
-    * Returns the number of gesture classes the gesture set contains.
-    * 
-    * @return the number of gesture classes the gesture set contains.
-    */
-   public int size() {
-      return gestureClasses.size();
-   } // size
-
-
-   /**
-    * Returns the list of all gesture classes the gesture set contains.
-    * 
-    * @return the list of all gesture classes the gesture set contains.
-    */
-   public List<GestureClass> getGestureClasses() {
-      return gestureClasses;
-   } // getGestureClasses
-
-
-   /**
-    * Returns the gesture class with the specified name or null if a gesture
-    * class with the specified name does not exist.
-    * 
-    * @param name name of the gesture class to be returned.
-    * @return the gesture class with the given name.
-    */
-   public GestureClass getGestureClass(String name) {
-      for (final GestureClass gestureClass : gestureClasses) {
-
-         if (gestureClass.getName().equals(name)) {
-            return gestureClass;
-         }
-
-      }
-      return null;
-   } // getGestureClass
-
-
-   @Override
-   public String toString() {
-      return name;
-   } // toString
+	@Override
+	public String toString() {
+		return name;
+	} // toString
 
 }

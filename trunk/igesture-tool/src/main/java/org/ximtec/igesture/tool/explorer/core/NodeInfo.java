@@ -6,7 +6,7 @@ import javax.swing.Icon;
 
 public interface NodeInfo{
 	
-	Class<Object> getType();
+	Class<?> getType();
 	
 	String getName(Object object);
 	

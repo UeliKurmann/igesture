@@ -33,6 +33,7 @@ package org.ximtec.igesture.core;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -46,7 +47,7 @@ import java.util.List;
  */
 public class GestureClass extends DefaultDataObject {
 
-   private HashMap<Class< ? extends Descriptor>, Descriptor> descriptors;
+   private Map<Class< ? extends Descriptor>, Descriptor> descriptors;
 
    /**
     * The name of the gesture class (e.g. circle).

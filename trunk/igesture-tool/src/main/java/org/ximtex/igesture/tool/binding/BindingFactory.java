@@ -26,8 +26,6 @@
 
 package org.ximtex.igesture.tool.binding;
 
-import java.util.Map;
-
 import javax.swing.JComponent;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -36,9 +34,8 @@ import org.ximtec.igesture.core.DataObject;
 
 public class BindingFactory {
 	
-	private static Map<Class<? extends JComponent>, DataBinding<? extends JComponent>> bindingMapping;
 
-    public static DataBinding createInstance(JComponent component, DataObject obj, String property) {
+    public static DataBinding<?> createInstance(JComponent component, DataObject obj, String property) {
         if(component instanceof JTextField){
         	return new TextFieldBinding((JTextField)component, obj, property);
         }else if(component instanceof JTextArea){

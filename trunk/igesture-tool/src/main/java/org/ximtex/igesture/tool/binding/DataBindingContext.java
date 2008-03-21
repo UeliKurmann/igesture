@@ -34,10 +34,10 @@ import org.ximtec.igesture.core.DataObject;
 
 public class DataBindingContext {
 
-    private HashMap<JComponent, DataBinding> context;
+    private HashMap<JComponent, DataBinding<?>> context;
 
     public DataBindingContext() {
-        context = new HashMap<JComponent, DataBinding>();
+        context = new HashMap<JComponent, DataBinding<?>>();
     }
 
     public JComponent addBinding(DataBinding<?> binding) {
@@ -45,8 +45,8 @@ public class DataBindingContext {
         return binding.getComponent();
     }
 
-    public DataBinding addBinding(JComponent component, DataObject obj, String property) {
-        DataBinding db = BindingFactory.createInstance(component, obj, property);
+    public DataBinding<?> addBinding(JComponent component, DataObject obj, String property) {
+        DataBinding<?> db = BindingFactory.createInstance(component, obj, property);
         addBinding(db);
         return db; 
     }

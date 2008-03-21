@@ -50,6 +50,7 @@ public class ExplorerNode<T> implements MutableTreeNode {
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void setUserObject(Object userObject) {
 		this.userObject = (T)userObject;
@@ -57,7 +58,7 @@ public class ExplorerNode<T> implements MutableTreeNode {
 	}
 
 	@Override
-	public Enumeration children() {
+	public Enumeration<?> children() {
 		// TODO Auto-generated method stub
 		return null;
 	}

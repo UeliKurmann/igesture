@@ -55,7 +55,7 @@ public class StorageManager {
 
    public enum Filetype {
       db, xml
-   };
+   }
 
 
    /**

@@ -129,29 +129,6 @@ public class Win32KeyboardProxy {
    private static int KEY_DOWN = 0x0;
    private static int KEY_UP = 0x2;
 
-/*
-   static {
-      try {
-         NativeCall.init();
-      }
-      catch (final SecurityException e) {
-         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-      }
-      catch (final UnsatisfiedLinkError e) {
-         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-      }
-      catch (final UnsupportedOperationException e) {
-         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-      }
-      catch (final IOException e) {
-         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-      }
-      catch (final ServiceConfigurationError e) {
-         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-      }
-
-   }
-*/
 
    public static void pressKey(Integer[] keys) {
       for (int key : keys) {
@@ -226,11 +203,8 @@ public class Win32KeyboardProxy {
 
 
    private static KeyboardUtils ku = new KeyboardUtils();
+   
    private static void nativeKey(int key, int state) {
-	   //final IntCall ic = new IntCall("user32", "keybd_event");
-	   //ic.executeCall(new Object[] { key, 0, state, 0 });
-	   //ic.destroy();
-	   
 	   ku.keyEvent(key,state);
       
     

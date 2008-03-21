@@ -81,8 +81,6 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
 
    private ScrollableList configurationList;
 
-   private JButton saveButton;
-
    private Configuration currentConfiguration;
 
    private List<ConfigParameter> configurationParameters;
@@ -189,7 +187,7 @@ public class AlgorithmConfiguration extends BasicInternalFrame implements
       final Configuration configuration = new Configuration();
       configuration.addAlgorithm(algorithm.getClass().getCanonicalName());
 
-      for (final Enum e : algorithm.getConfigParameters()) {
+      for (final Enum<?> e : algorithm.getConfigParameters()) {
          configuration.addParameter(algorithm.getClass().getName(), e.name(),
                algorithm.getDefaultParameterValue(e.name()));
       }

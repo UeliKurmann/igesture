@@ -63,7 +63,6 @@ public class Configuration {
    private static final String LAST_PROJECT = "lastproject";
    
    private static final String TRUE = "true";
-   private static final String FALSE = "false";
    
 
    private XMLConfiguration configuration;
@@ -130,10 +129,11 @@ public class Configuration {
     * @return the input device.
     * 
     */
-   public InputDevice getInputDevice() {
-      List list = configuration.getList(SELECTED_INPUT_DEVICE);
+   @SuppressWarnings("unchecked")
+public InputDevice getInputDevice() {
+      List<String> list = configuration.getList(SELECTED_INPUT_DEVICE);
       if (!list.isEmpty()) {
-         String deviceName = (String)list.get(0);
+         String deviceName = list.get(0);
          return InputDeviceFactory.createInputDevice(deviceName, configuration);
       }
 
@@ -147,10 +147,11 @@ public class Configuration {
     * @return the selected input device name.
     * 
     */
-   public String getInputDeviceName() {
-      List list = configuration.getList(SELECTED_INPUT_DEVICE);
+   @SuppressWarnings("unchecked")
+public String getInputDeviceName() {
+      List<String> list = configuration.getList(SELECTED_INPUT_DEVICE);
       if (!list.isEmpty()) {
-         return (String)list.get(0);
+         return list.get(0);
       }
       return null;
    } // getInputDeviceName
@@ -161,10 +162,11 @@ public class Configuration {
     * @return path of the last opened project.
     * 
     */
-   public String getLastProject() {
-      List list = configuration.getList(LAST_PROJECT);
+   @SuppressWarnings("unchecked")
+public String getLastProject() {
+      List<String> list = configuration.getList(LAST_PROJECT);
       if (!list.isEmpty()) {
-         return (String)list.get(0);
+         return list.get(0);
       }
       return null;
    } // getLastProject
@@ -175,10 +177,11 @@ public class Configuration {
     * @return the value of <minimize>
     * 
     */
-   public boolean getMinimize() {
-      List list = configuration.getList(MINIMIZE);
+   @SuppressWarnings("unchecked")
+public boolean getMinimize() {
+      List<String> list = configuration.getList(MINIMIZE);
       if (!list.isEmpty()) {
-         if(((String)list.get(0)).equals(TRUE)){
+         if((list.get(0)).equals(TRUE)){
             return true;
          }
          else{
@@ -195,8 +198,9 @@ public class Configuration {
     * @return the input devices.
     * 
     */
-   public List getInputDevices() {
-      List list = configuration.getList(ALL_INPUT_DEVICES);
+   @SuppressWarnings("unchecked")
+public List<String> getInputDevices() {
+      List<String> list = configuration.getList(ALL_INPUT_DEVICES);
       return list;
    } // getInputDevices
 
@@ -207,11 +211,12 @@ public class Configuration {
     * @return the input device.
     * 
     */
-   public InputDeviceEventListener getInputDeviceEventListener() {
-      List list = configuration.getList(SELECTED_INPUT_DEVICE);
+   @SuppressWarnings("unchecked")
+public InputDeviceEventListener getInputDeviceEventListener() {
+      List<String> list = configuration.getList(SELECTED_INPUT_DEVICE);
 
       if (!list.isEmpty()) {
-         String deviceName = (String)list.get(0);
+         String deviceName = list.get(0);
          return InputDeviceFactory.createInputDeviceEventListener(deviceName,
                configuration);
       }

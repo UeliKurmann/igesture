@@ -26,6 +26,7 @@ public class Locator {
 		return services.get(name);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public <T> T getService(String name, Class<T> type){
 		return (T)services.get(name);
 	}

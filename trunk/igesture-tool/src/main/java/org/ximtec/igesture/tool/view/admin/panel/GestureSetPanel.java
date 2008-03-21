@@ -1,13 +1,11 @@
 package org.ximtec.igesture.tool.view.admin.panel;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.explorer.DefaultExplorerTreeView;
 import org.ximtex.igesture.tool.binding.BindingFactory;
