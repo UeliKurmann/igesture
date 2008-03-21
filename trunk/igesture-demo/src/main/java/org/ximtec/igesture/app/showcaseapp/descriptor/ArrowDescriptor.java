@@ -31,6 +31,7 @@ import java.awt.RenderingHints;
 
 import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.DigitalDescriptor;
+import org.ximtec.igesture.core.Visitor;
 
 
 /**

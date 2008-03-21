@@ -79,6 +79,14 @@ public class TextDescriptor extends DefaultDescriptor {
    public String getText() {
       return this.text;
    } // getText
+   
+   /**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+	}
 
 
    @Override

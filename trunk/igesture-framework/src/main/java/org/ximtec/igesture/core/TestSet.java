@@ -160,6 +160,17 @@ public class TestSet extends DefaultDataObject {
    public boolean isEmpty() {
       return samples.isEmpty();
    } // isEmpty
+   
+   /**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+		for(GestureSample sample:samples){
+			sample.accept(visitor);
+		}
+	}
 
 
    @Override
