@@ -44,7 +44,7 @@ import org.ximtec.igesture.core.DataObject;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class StorageManager {
+public class StorageManager implements IStorageManager{
 
    private static final Logger LOGGER = Logger.getLogger(StorageManager.class
          .getName());
@@ -76,6 +76,7 @@ public class StorageManager {
     * @param id the id of the data object.
     * @return the data object with the given id.
     */
+   @Override
    public <T extends DataObject> T load(Class<T> clazz, String id) {
       return storageEngine.load(clazz, id);
    } // load
@@ -89,6 +90,7 @@ public class StorageManager {
     * @param clazz the type of the data objects.
     * @return a list of data objects of the given type.
     */
+   @Override
    public <T extends DataObject> List<T> load(Class<T> clazz) {
       return storageEngine.load(clazz);
    } // load
@@ -97,6 +99,7 @@ public class StorageManager {
    /**
     * Removes the given data object from the storage.
     */
+   @Override
    public void remove(DataObject obj) {
       storageEngine.remove(obj);
    } // remove
@@ -107,6 +110,7 @@ public class StorageManager {
     * 
     * @param dataObject the data object to be stored.
     */
+   @Override
    public void store(DataObject dataObject) {
       storageEngine.store(dataObject);
    } // store
@@ -118,6 +122,7 @@ public class StorageManager {
     * @param <T>
     * @param dataObjects the data objects to be stored.
     */
+   @Override
    public void store(List<DataObject> dataObjects) {
       for (final DataObject dataObject : dataObjects) {
          store(dataObject);
@@ -131,6 +136,7 @@ public class StorageManager {
     * 
     * @param dataObject the data object to be updated.
     */
+   @Override
    public void update(DataObject dataObject) {
       storageEngine.update(dataObject);
    } // update
@@ -141,6 +147,7 @@ public class StorageManager {
     * 
     * @param dataObjects the list of data objects to be updated.
     */
+   @Override
    public void update(List<DataObject> dataObjects) {
       for (final DataObject obj : dataObjects) {
          update(obj);
@@ -194,11 +201,13 @@ public class StorageManager {
    /**
     * Disposes the storage engine.
     */
+   @Override
    public void dispose() {
       storageEngine.dispose();
    } // dispose
 
 
+   @Override
    public <T extends DataObject> List<T> load(Class<T> clazz, String fieldName,
          Object value) {
       return storageEngine.load(clazz, fieldName, value);
