@@ -20,9 +20,9 @@ public class NodeInfoImpl implements NodeInfo {
 	private String childList;
 	private Class<? extends ExplorerTreeView> view;
 
-	private Class<?> type;
+	private Class<? extends Object> type;
 
-	public NodeInfoImpl(Class<?> type, String propertyName, String childList, Class<? extends ExplorerTreeView> view) {
+	public NodeInfoImpl(Class<? extends Object> type, String propertyName, String childList, Class<? extends ExplorerTreeView> view) {
 		this.type = type;
 		this.propertyName = propertyName;
 		this.childList = childList;
@@ -90,7 +90,7 @@ public class NodeInfoImpl implements NodeInfo {
 	}
 
 	@Override
-	public Class getType() {
+	public Class<?> getType() {
 		return type;
 	}
 

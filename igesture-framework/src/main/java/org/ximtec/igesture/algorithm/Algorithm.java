@@ -78,7 +78,7 @@ public interface Algorithm {
     * 
     * @return the configuration parameters.
     */
-   public Enum[] getConfigParameters();
+   public Enum<?>[] getConfigParameters();
 
 
    /**

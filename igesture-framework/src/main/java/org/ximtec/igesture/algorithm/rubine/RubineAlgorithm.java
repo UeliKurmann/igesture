@@ -561,7 +561,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    } // getMahalanobisDistance
 
 
-   public Enum[] getConfigParameters() {
+   public Config[] getConfigParameters() {
       return Config.values();
    } // getConfigParameters
 

@@ -22,6 +22,7 @@ public class ExplorerTreeController implements TreeSelectionListener{
 		
 		ExplorerTree tree = new ExplorerTree(model);
 		tree.addTreeSelectionListener(this);
+		tree.addMouseListener(new ExplorerPopup());
 		container.setTree(tree);
 	}
 	

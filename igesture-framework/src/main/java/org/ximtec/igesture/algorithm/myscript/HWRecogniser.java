@@ -67,7 +67,7 @@ public class HWRecogniser extends DefaultAlgorithm {
    } // recognise
 
 
-   public Enum[] getConfigParameters() {
+   public Config[] getConfigParameters() {
       return Config.values();
    } // getConfigParameters
 

@@ -14,12 +14,12 @@ public class ExplorerTreeModel implements TreeModel{
 
 	private Object rootElement;
 	
-	private Map<Class<Object>, NodeInfo> nodeMapping;
+	private Map<Class<?>, NodeInfo> nodeMapping;
 	
 	public ExplorerTreeModel(Object rootElement, List<NodeInfo> nodeDefinitions){
 		this.rootElement = rootElement;
 		
-		nodeMapping = new HashMap<Class<Object>, NodeInfo>();
+		nodeMapping = new HashMap<Class<?>, NodeInfo>();
 		for(NodeInfo node:nodeDefinitions){
 			nodeMapping.put(node.getType(), node);
 		}

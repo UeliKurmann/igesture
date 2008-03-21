@@ -5,13 +5,10 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
-import org.sigtec.ink.NoteTool;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.tool.explorer.DefaultExplorerTreeView;
-import org.ximtec.igesture.tool.old.util.JNote;
 import org.ximtec.igesture.util.GestureTool;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;

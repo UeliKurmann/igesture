@@ -24,11 +24,10 @@
  * 
  */
 
-
 package org.ximtec.igesture.core;
 
+import java.beans.PropertyChangeListener;
 import java.io.Serializable;
-
 
 /**
  * Interface to be implemented by persistent-capable objects.
@@ -39,19 +38,29 @@ import java.io.Serializable;
  */
 public interface DataObject extends Serializable {
 
-   /**
-    * Returns the object's universally unique identifier (UUID).
-    * 
-    * @return the object's UUID.
-    */
-   public String getId();
+	/**
+	 * Returns the object's universally unique identifier (UUID).
+	 * 
+	 * @return the object's UUID.
+	 */
+	public String getId();
 
+	/**
+	 * Sets the object's universally unique identifier (UUID).
+	 * 
+	 * @param id
+	 *            the object's UUID.
+	 */
+	public void setId(String id);
 
-   /**
-    * Sets the object's universally unique identifier (UUID).
-    * 
-    * @param id the object's UUID.
-    */
-   public void setId(String id);
+	public void addPropertyChangeListener(PropertyChangeListener listener);
+
+	public void addPropertyChangeListener(String propertyName,
+			PropertyChangeListener listener);
+
+	public void removePropertyChangeListener(PropertyChangeListener listener);
+
+	public void removePropertyChangeListener(String propertyName,
+			PropertyChangeListener listener);
 
 }

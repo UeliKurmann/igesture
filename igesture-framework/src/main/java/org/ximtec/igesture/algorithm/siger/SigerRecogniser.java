@@ -74,7 +74,7 @@ public class SigerRecogniser extends DefaultAlgorithm {
    } // init
 
 
-   public Enum[] getConfigParameters() {
+   public Config[] getConfigParameters() {
       return Config.values();
    } // getConfigParameters
 
