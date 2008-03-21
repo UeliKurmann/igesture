@@ -1,7 +1,5 @@
 package org.ximtec.igesture.tool.view.admin.panel;
 
-import java.awt.BorderLayout;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
