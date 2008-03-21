@@ -49,8 +49,8 @@ public abstract class DefaultDataObject implements DataObject {
 	 * Constructs a new default data object.
 	 */
 	public DefaultDataObject() {
-		setId(StorageManager.generateUUID());
 		this.propertyChangeSupport = new PropertyChangeSupport(this);
+		setId(StorageManager.generateUUID());
 	}
 
 	/**
