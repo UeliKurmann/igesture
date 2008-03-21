@@ -2,6 +2,7 @@ package org.ximtec.igesture.tool.view.admin.action;
 
 import hacks.GestureConstants;
 import hacks.GuiBundleService;
+import hacks.PDFTool;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -15,7 +16,6 @@ import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.old.util.PDFTool;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
