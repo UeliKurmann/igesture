@@ -80,6 +80,17 @@ public class SampleDescriptor extends DefaultDescriptor {
    public void removeSample(GestureSample sample) {
       samples.remove(sample);
    } // removeSample
+   
+   /**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+		for(GestureSample sample:samples){
+			sample.accept(visitor);
+		}
+	}
 
 
    @Override

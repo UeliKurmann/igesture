@@ -93,6 +93,15 @@ public class GestureSample extends DefaultDataObject implements Cloneable {
    public Note getNote() {
       return note;
    } // getNote
+   
+   /**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void accept(Visitor visitor) {
+		// TODO Auto-generated method stub
+
+	}
 
 
    @Override

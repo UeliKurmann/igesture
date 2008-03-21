@@ -164,6 +164,17 @@ public class GestureSet extends DefaultDataObject {
 		}
 		return null;
 	} // getGestureClass
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+		for(GestureClass gestureClass:gestureClasses){
+			gestureClass.accept(visitor);
+		}
+	}
 
 	@Override
 	public String toString() {

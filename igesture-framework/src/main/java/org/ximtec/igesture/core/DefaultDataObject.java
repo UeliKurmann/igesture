@@ -51,10 +51,18 @@ public abstract class DefaultDataObject implements DataObject {
 		this.propertyChangeSupport = new PropertyChangeSupport(this);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void setId(String objectID) {
 		this.id = objectID;
 	} // setID
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public String getId() {
 		if (id == null) {
 			id = StorageManager.generateUUID();
@@ -63,23 +71,46 @@ public abstract class DefaultDataObject implements DataObject {
 		return id;
 	} // getID
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		propertyChangeSupport.addPropertyChangeListener(listener);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void addPropertyChangeListener(String propertyName,
 			PropertyChangeListener listener) {
 		propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void removePropertyChangeListener(PropertyChangeListener listener) {
 		propertyChangeSupport.removePropertyChangeListener(listener);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void removePropertyChangeListener(String propertyName,
 			PropertyChangeListener listener) {
 		propertyChangeSupport.removePropertyChangeListener(propertyName,
 				listener);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public void accept(Visitor visitor) {
+		// not implemented
 	}
 
 }
