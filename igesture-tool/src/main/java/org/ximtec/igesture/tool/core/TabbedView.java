@@ -3,7 +3,7 @@ package org.ximtec.igesture.tool.core;
 import javax.swing.Icon;
 import javax.swing.JComponent;
 
-public interface TabbedView {
+public interface TabbedView{
 
 	String getName();
 
