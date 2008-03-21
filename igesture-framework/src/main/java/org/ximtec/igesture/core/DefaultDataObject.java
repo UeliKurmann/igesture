@@ -39,6 +39,8 @@ import org.ximtec.igesture.storage.StorageManager;
  */
 public abstract class DefaultDataObject implements DataObject {
 
+  public static final String PROPERTY_ID = "id";
+  
 	private String id;
 
 	protected PropertyChangeSupport propertyChangeSupport;
@@ -47,7 +49,7 @@ public abstract class DefaultDataObject implements DataObject {
 	 * Constructs a new default data object.
 	 */
 	public DefaultDataObject() {
-		this.id = StorageManager.generateUUID();
+		setId(StorageManager.generateUUID());
 		this.propertyChangeSupport = new PropertyChangeSupport(this);
 	}
 
@@ -55,8 +57,10 @@ public abstract class DefaultDataObject implements DataObject {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void setId(String objectID) {
-		this.id = objectID;
+	public void setId(String id) {
+		String oldValue = this.id;
+	  this.id = id;
+	  propertyChangeSupport.firePropertyChange(PROPERTY_ID, oldValue, id);
 	} // setID
 
 	/**
@@ -65,7 +69,7 @@ public abstract class DefaultDataObject implements DataObject {
 	@Override
 	public String getId() {
 		if (id == null) {
-			id = StorageManager.generateUUID();
+			setId(StorageManager.generateUUID());
 		}
 
 		return id;

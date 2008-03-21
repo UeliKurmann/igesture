@@ -44,6 +44,11 @@ import java.util.Map;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class GestureClass extends DefaultDataObject {
+	
+	public static final String PROPERTY_NAME = "name";
+	
+	public static final String PROPERTY_DESCRIPTORS = "descriptors";
+	
 
 	private Map<Class<? extends Descriptor>, Descriptor> descriptors;
 
@@ -60,7 +65,7 @@ public class GestureClass extends DefaultDataObject {
 	 */
 	public GestureClass(String name) {
 		super();
-		this.name = name;
+		setName(name);
 		this.descriptors = new HashMap<Class<? extends Descriptor>, Descriptor>();
 	}
 
@@ -71,7 +76,9 @@ public class GestureClass extends DefaultDataObject {
 	 *            the name of the gesture class.
 	 */
 	public void setName(String name) {
+		String oldValue = this.name;
 		this.name = name;
+		propertyChangeSupport.firePropertyChange(PROPERTY_NAME, oldValue, name);
 	} // setName
 
 	/**
@@ -113,7 +120,7 @@ public class GestureClass extends DefaultDataObject {
 	 *            the descriptor to be added.
 	 */
 	public void addDescriptor(Descriptor descriptor) {
-		descriptors.put(descriptor.getType(), descriptor);
+		addDescriptor(descriptor.getType(), descriptor);
 	} // addDescriptor
 
 	/**
@@ -127,6 +134,7 @@ public class GestureClass extends DefaultDataObject {
 	public void addDescriptor(Class<? extends Descriptor> classname,
 			Descriptor descriptor) {
 		descriptors.put(classname, descriptor);
+		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_DESCRIPTORS, 0, null, descriptor);
 	} // addDescriptor
 
 	/**
@@ -137,6 +145,7 @@ public class GestureClass extends DefaultDataObject {
 	 */
 	public void removeDescriptor(Class<? extends Descriptor> descriptor) {
 		descriptors.remove(descriptor);
+		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_DESCRIPTORS, 0, descriptor, null);
 	} // removeDescriptor
 
 	@Override
