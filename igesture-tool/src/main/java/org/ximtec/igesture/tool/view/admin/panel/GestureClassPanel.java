@@ -6,7 +6,6 @@ import javax.swing.JTextField;
 
 import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.core.GestureSet;
 import org.ximtex.igesture.tool.binding.BindingFactory;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
