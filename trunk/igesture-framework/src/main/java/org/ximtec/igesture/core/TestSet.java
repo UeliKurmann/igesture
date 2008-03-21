@@ -23,12 +23,10 @@
  * 
  */
 
-
 package org.ximtec.igesture.core;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * Set of gesture samples used to evaluate algorithms.
@@ -39,143 +37,147 @@ import java.util.List;
  */
 public class TestSet extends DefaultDataObject {
 
-   private List<GestureSample> samples;
+  public static final String PROPERTY_NAME = "name";
+  public static final String PROPERTY_SAMPLES = "samples";
 
-   public static final String NOISE = "None";
+  private List<GestureSample> samples;
 
-   private String name;
+  public static final String NOISE = "None";
 
+  private String name;
 
-   /**
-    * Constructs a new test set.
-    * 
-    * @param name the name of the test set.
-    */
-   public TestSet(String name) {
-      super();
-      samples = new ArrayList<GestureSample>();
-      this.name = name;
-   }
+  /**
+   * Constructs a new test set.
+   * 
+   * @param name
+   *          the name of the test set.
+   */
+  public TestSet(String name) {
+    super();
+    samples = new ArrayList<GestureSample>();
+    setName(name);
+  }
 
+  /**
+   * Adds a sample to the list of samples.
+   * 
+   * @param sample
+   *          the sample to be added.
+   */
+  public void add(GestureSample sample) {
+    samples.add(sample);
+    propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SAMPLES, samples
+        .indexOf(sample), null, sample);
+  } // add
 
-   /**
-    * Adds a sample to the list of samples.
-    * 
-    * @param sample the sample to be added.
-    */
-   public void add(GestureSample sample) {
-      samples.add(sample);
-   } // add
+  /**
+   * Adds a list of samples.
+   * 
+   * @param samples
+   *          the samples to be added.
+   */
+  public void addAll(List<GestureSample> samples) {
+    this.samples.addAll(samples);
+    for (GestureSample sample : samples) {
+      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SAMPLES, samples
+          .indexOf(sample), null, sample);
+    }
+  } // addAll
 
+  /**
+   * Removes a the sample from the list of samples.
+   * 
+   * @param sample
+   *          the sample to be removed.
+   */
+  public void remove(GestureSample sample) {
+    propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SAMPLES, samples
+        .indexOf(sample), null, sample);
+  } // remove
 
-   /**
-    * Adds a list of samples.
-    * 
-    * @param samples the samples to be added.
-    */
-   public void addAll(List<GestureSample> samples) {
-      this.samples.addAll(samples);
-   } // addAll
+  /**
+   * Returns all samples.
+   * 
+   * @return a list with all samples.
+   */
+  public List<GestureSample> getSamples() {
+    return samples;
+  } // getSamples
 
+  /**
+   * Returns the number of samples which should be rejected by the recogniser.
+   * 
+   * @return the number of "noise" entries in the test set.
+   */
+  public int getNoiseSize() {
+    int i = 0;
 
-   /**
-    * Removes a the sample from the list of samples.
-    * 
-    * @param sample the sample to be removed.
-    */
-   public void remove(GestureSample sample) {
-      samples.remove(sample);
-   } // remove
-
-
-   /**
-    * Returns all samples.
-    * 
-    * @return a list with all samples.
-    */
-   public List<GestureSample> getSamples() {
-      return samples;
-   } // getSamples
-
-
-   /**
-    * Returns the number of samples which should be rejected by the recogniser.
-    * 
-    * @return the number of "noise" entries in the test set.
-    */
-   public int getNoiseSize() {
-      int i = 0;
-
-      for (final GestureSample sample : getSamples()) {
-
-         if (sample.getName().equals(NOISE)) {
-            i++;
-         }
-
+    for (final GestureSample sample : getSamples()) {
+      if (sample.getName().equals(NOISE)) {
+        i++;
       }
+    }
 
-      return i;
-   } // getNoiseSize
+    return i;
+  } // getNoiseSize
 
+  /**
+   * Sets the name of the test set.
+   * 
+   * @param name
+   *          the name of the test set.
+   */
+  public void setName(String name) {
+    String oldValue = this.name;
+    this.name = name;
+    propertyChangeSupport.firePropertyChange(PROPERTY_NAME,oldValue,name);
+  } // setName
 
-   /**
-    * Sets the name of the test set.
-    * 
-    * @param name the name of the test set.
-    */
-   public void setName(String name) {
-      this.name = name;
-   } // setName
+  /**
+   * Returns the name of the test set.
+   * 
+   * @return the name of the test set.
+   */
+  public String getName() {
+    if (name == null) {
+      name = String.valueOf(System.currentTimeMillis());
+    }
 
+    return name;
+  } // getName
 
-   /**
-    * Returns the name of the test set.
-    * 
-    * @return the name of the test set.
-    */
-   public String getName() {
-      if (name == null) {
-         name = String.valueOf(System.currentTimeMillis());
-      }
+  /**
+   * Returns the size of the test set.
+   * 
+   * @return the size of the test set.
+   */
+  public int size() {
+    return samples.size();
+  } // size
 
-      return name;
-   } // getName
+  /**
+   * Returns true if the test set is empty.
+   * 
+   * @return true if the test set is empty.
+   */
+  public boolean isEmpty() {
+    return samples.isEmpty();
+  } // isEmpty
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void accept(Visitor visitor) {
+    visitor.visit(this);
+    for (GestureSample sample : samples) {
+      sample.accept(visitor);
+    }
+  }
 
-   /**
-    * Returns the size of the test set.
-    * 
-    * @return the size of the test set.
-    */
-   public int size() {
-      return samples.size();
-   } // size
-
-
-   /**
-    * Returns true if the test set is empty.
-    * 
-    * @return true if the test set is empty.
-    */
-   public boolean isEmpty() {
-      return samples.isEmpty();
-   } // isEmpty
-   
-   /**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
-		for(GestureSample sample:samples){
-			sample.accept(visitor);
-		}
-	}
-
-
-   @Override
-   public String toString() {
-      return name;
-   } // toString
+  @Override
+  public String toString() {
+    return name;
+  } // toString
 
 }

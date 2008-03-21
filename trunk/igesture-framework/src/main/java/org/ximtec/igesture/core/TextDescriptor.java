@@ -23,11 +23,9 @@
  * 
  */
 
-
 package org.ximtec.igesture.core;
 
 import org.sigtec.util.Constant;
-
 
 /**
  * Implementation of the text descriptor.
@@ -38,49 +36,52 @@ import org.sigtec.util.Constant;
  */
 public class TextDescriptor extends DefaultDescriptor {
 
-   private String text;
+	public static final String PROPERTY_TEXT = "text";
 
+	private String text;
 
-   /**
-    * Constructs a new text descriptor.
-    * 
-    */
-   public TextDescriptor() {
-      this(Constant.EMPTY_STRING);
-   }
+	/**
+	 * Constructs a new text descriptor.
+	 * 
+	 */
+	public TextDescriptor() {
+		this(Constant.EMPTY_STRING);
+	}
 
+	/**
+	 * Constructs a new text descriptor with a given text.
+	 * 
+	 * @param text
+	 *            the textual description.
+	 */
+	public TextDescriptor(String text) {
+		super();
+		setText(text);
+	}
 
-   /**
-    * Constructs a new text descriptor with a given text.
-    * 
-    * @param text the textual description.
-    */
-   public TextDescriptor(String text) {
-      super();
-      this.text = text;
-   }
+	/**
+	 * Sets the text description.
+	 * 
+	 * @param text
+	 *            the textual description to be added.
+	 */
+	public void setText(String text) {
+		String oldValue = this.text;
+		this.text = text;
+		propertyChangeSupport.firePropertyChange(PROPERTY_TEXT, oldValue, text);
 
+	} // setText
 
-   /**
-    * Sets the text description.
-    * 
-    * @param text the textual description to be added.
-    */
-   public void setText(String text) {
-      this.text = text;
-   } // setText
+	/**
+	 * Returns the textual description.
+	 * 
+	 * @return the textual description.
+	 */
+	public String getText() {
+		return this.text;
+	} // getText
 
-
-   /**
-    * Returns the textual description.
-    * 
-    * @return the textual description.
-    */
-   public String getText() {
-      return this.text;
-   } // getText
-   
-   /**
+	/**
 	 * {@inheritDoc}
 	 */
 	@Override
@@ -88,10 +89,9 @@ public class TextDescriptor extends DefaultDescriptor {
 		visitor.visit(this);
 	}
 
-
-   @Override
-   public String toString() {
-      return this.getClass().getSimpleName();
-   } // toString
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName();
+	} // toString
 
 }

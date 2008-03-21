@@ -52,8 +52,6 @@ public abstract class DefaultDescriptor extends DefaultDataObject implements
       return this.getClass();
    } // getType
    
-   public void accept(Visitor visitor){
-	   // not implemented
-   }
+   
 
 }

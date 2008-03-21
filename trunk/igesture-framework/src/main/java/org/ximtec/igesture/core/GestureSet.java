@@ -64,7 +64,7 @@ public class GestureSet extends DefaultDataObject {
 	public GestureSet(String name) {
 		super();
 		gestureClasses = new ArrayList<GestureClass>();
-		this.name = name;
+		setName(name);
 	}
 
 	/**
