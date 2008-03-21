@@ -1,38 +1,56 @@
 package org.ximtec.igesture.tool.view;
 
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.File;
 
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.storage.StorageManager;
+import org.ximtec.igesture.storage.IStorageManager;
 import org.ximtec.igesture.tool.locator.Service;
 import org.ximtec.igesture.tool.util.PropertyChangeVisitor;
+import org.ximtec.igesture.tool.util.StorageManagerProxy;
 import org.ximtec.igesture.util.XMLTool;
 
-public class MainModel implements Service, PropertyChangeListener{
+public class MainModel implements Service{
 	
 	public static final String IDENTIFIER = "MainModel";
 	
-	private StorageManager storageManager;
+	private IStorageManager storageManager;
 	
-	public MainModel(StorageEngine engine){
-		this.storageManager = new StorageManager(engine);
+	private MainController mainController;
+	
+	public MainModel(StorageEngine engine, MainController mainController){
+		
+		this.mainController = mainController;
+		
+		// StorageManager is wrapped with a Dynamic Proxy to register a PropertyChangeListener
+		PropertyChangeVisitor visitor = new PropertyChangeVisitor(mainController);
+		this.storageManager = StorageManagerProxy.newInstance(new StorageManager(engine), visitor);
 	}
 	
+	
+	
+	
 	/**
-	 * This method is used for test purposes only and will be removed later...
+	 * This method is used for test purposes only and will be removed later on...
 	 * @return
 	 */
+	private GestureSet gestureSet;
 	@Deprecated
-	public GestureSet getTestGestureSet(){
-		String filename = "D:/workspace/igesture/igesture/igesture-db/igesture-db-graffitiNumbers/src/main/resources/gestureSet/graffitiNumbers.xml";
-		GestureSet set = XMLTool.importGestureSet(new File(filename)).get(0);
-		PropertyChangeVisitor visitor = new PropertyChangeVisitor(this);
-		set.accept(visitor);
-		return set;
+	public RootSet getTestGestureSet(){
+		if(gestureSet == null){
+	  String filename = "D:/workspace/igesture/igesture/igesture-db/igesture-db-graffitiNumbers/src/main/resources/gestureSet/graffitiNumbers.xml";
+		gestureSet = XMLTool.importGestureSet(new File(filename)).get(0);
+		PropertyChangeVisitor visitor = new PropertyChangeVisitor(mainController);
+		gestureSet.accept(visitor);
+		}
+		
+		RootSet rootSet = new RootSet();
+		rootSet.addGestureSet(gestureSet);
+		rootSet.addPropertyChangeListener(mainController);
+		
+		return rootSet;
 	}
 
 	@Override
@@ -53,13 +71,11 @@ public class MainModel implements Service, PropertyChangeListener{
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
-		
+		storageManager.dispose();
+	}
+	
+	public IStorageManager getStorageManager(){
+	  return storageManager;
 	}
 
-	@Override
-	public void propertyChange(PropertyChangeEvent event) {
-		System.out.println(event);
-		
-	}
 }

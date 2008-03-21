@@ -7,29 +7,27 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.tool.explorer.DefaultExplorerTreeView;
 import org.ximtex.igesture.tool.binding.BindingFactory;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
 
-public class GestureSetPanel extends DefaultExplorerTreeView {
+public class GestureSetPanel extends AbstractAdminPanel {
 	
 	public GestureSetPanel(GestureSet gestureSet){
 		
-		setLayout(new BorderLayout());
+	  setTitle("Gesture Set " + gestureSet.getName());
+    
 		
 		FormLayout layout = new FormLayout(
-				"100dlu, 4dlu, pref",
+				"100dlu, 4dlu, 200dlu",
 				"pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref,, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref");
 
 		DefaultFormBuilder builder = new DefaultFormBuilder(layout);
 		builder.setDefaultDialogBorder();
 
-		builder.append(new JLabel("Gesture Set " + gestureSet.getName()));
-		builder.nextLine(4);
-
+		
 		builder.append(new JLabel("Name"));
 		JTextField textField = new JTextField();
 		
@@ -44,7 +42,7 @@ public class GestureSetPanel extends DefaultExplorerTreeView {
 		JPanel panel = builder.getPanel();
 		panel.setOpaque(false);
 
-		this.add(panel,BorderLayout.CENTER);
+		setCenter(panel);
 
 	}
 	
