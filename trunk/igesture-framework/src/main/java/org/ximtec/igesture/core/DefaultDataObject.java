@@ -40,81 +40,80 @@ import org.ximtec.igesture.storage.StorageManager;
 public abstract class DefaultDataObject implements DataObject {
 
   public static final String PROPERTY_ID = "id";
-  
-	private String id;
 
-	protected PropertyChangeSupport propertyChangeSupport;
+  private String id;
 
-	/**
-	 * Constructs a new default data object.
-	 */
-	public DefaultDataObject() {
-		this.propertyChangeSupport = new PropertyChangeSupport(this);
-		setId(StorageManager.generateUUID());
-	}
+  protected PropertyChangeSupport propertyChangeSupport;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void setId(String id) {
-		String oldValue = this.id;
-	  this.id = id;
-	  propertyChangeSupport.firePropertyChange(PROPERTY_ID, oldValue, id);
-	} // setID
+  /**
+   * Constructs a new default data object.
+   */
+  public DefaultDataObject() {
+    this.propertyChangeSupport = new PropertyChangeSupport(this);
+    setId(StorageManager.generateUUID());
+  }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getId() {
-		if (id == null) {
-			setId(StorageManager.generateUUID());
-		}
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setId(String id) {
+    String oldValue = this.id;
+    this.id = id;
+    propertyChangeSupport.firePropertyChange(PROPERTY_ID, oldValue, id);
+  } // setID
 
-		return id;
-	} // getID
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String getId() {
+    if (id == null) {
+      setId(StorageManager.generateUUID());
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		propertyChangeSupport.addPropertyChangeListener(listener);
-	}
+    return id;
+  } // getID
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void addPropertyChangeListener(String propertyName,
-			PropertyChangeListener listener) {
-		propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
-	}
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void addPropertyChangeListener(PropertyChangeListener listener) {
+    propertyChangeSupport.addPropertyChangeListener(listener);
+  }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void removePropertyChangeListener(PropertyChangeListener listener) {
-		propertyChangeSupport.removePropertyChangeListener(listener);
-	}
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void addPropertyChangeListener(String propertyName,
+      PropertyChangeListener listener) {
+    propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
+  }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void removePropertyChangeListener(String propertyName,
-			PropertyChangeListener listener) {
-		propertyChangeSupport.removePropertyChangeListener(propertyName,
-				listener);
-	}
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void removePropertyChangeListener(PropertyChangeListener listener) {
+    propertyChangeSupport.removePropertyChangeListener(listener);
+  }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public void accept(Visitor visitor) {
-		// not implemented
-	}
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void removePropertyChangeListener(String propertyName,
+      PropertyChangeListener listener) {
+    propertyChangeSupport.removePropertyChangeListener(propertyName, listener);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public void accept(Visitor visitor) {
+    // not implemented
+  }
 
 }
