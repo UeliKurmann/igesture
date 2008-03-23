@@ -31,7 +31,13 @@ import javax.swing.Icon;
 import javax.swing.JPopupMenu;
 import javax.swing.tree.TreePath;
 
-
+/**
+ * NodeInfo. Defines the structure of an Exlorer Tree.
+ *
+ * @author  UeliKurmann
+ * @version 1.0
+ * @since   igesture
+ */
 public interface NodeInfo {
 
    Class< ? > getType();

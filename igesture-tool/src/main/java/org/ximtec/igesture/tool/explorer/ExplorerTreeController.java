@@ -23,6 +23,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.explorer;
 
 import java.beans.PropertyChangeEvent;
@@ -38,16 +39,46 @@ import org.ximtec.igesture.tool.explorer.core.ExplorerTreeContainer;
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
 
 
+/**
+ * Controller Component of the Explorer Tree.
+ * 
+ * @author UeliKurmann
+ * @version 1.0
+ * @since igesture
+ */
 public class ExplorerTreeController implements TreeSelectionListener, Controller {
 
-   private static final Logger LOG = Logger.getLogger(ExplorerTreeController.class.getName());
+   private static final Logger LOG = Logger
+         .getLogger(ExplorerTreeController.class.getName());
 
+   /**
+    * The Container where the Tree and Views are shown. A Container has to
+    * implement the Container interface.
+    */
    private ExplorerTreeContainer container;
+
+   /**
+    * The Model of the Explorer Tree
+    */
    private ExplorerTreeModel model;
+
+   /**
+    * A Map of NodeInfo. Node Info contains information about a specific node.
+    */
    private Map<Class< ? >, NodeInfo> nodeInfos;
+
+   /**
+    * The Explorer Tree instance.
+    */
    private ExplorerTree tree;
 
 
+   /**
+    * 
+    * @param container the container where the components are visualized.
+    * @param model the Explorer Tree model.
+    * @param nodeInfos a map of NodeInfos
+    */
    public ExplorerTreeController(ExplorerTreeContainer container,
          ExplorerTreeModel model, Map<Class< ? >, NodeInfo> nodeInfos) {
       this.container = container;
@@ -60,10 +91,13 @@ public class ExplorerTreeController implements TreeSelectionListener, Controller
       container.setTree(tree);
       container.setView((JComponent)nodeInfos.get(model.getRoot().getClass())
             .getView(model.getRoot()));
-
    }
 
 
+   /*
+    * (non-Javadoc)
+    * @see javax.swing.event.TreeSelectionListener#valueChanged(javax.swing.event.TreeSelectionEvent)
+    */
    @Override
    public void valueChanged(TreeSelectionEvent e) {
       Object node = e.getPath().getLastPathComponent();
@@ -74,12 +108,20 @@ public class ExplorerTreeController implements TreeSelectionListener, Controller
    }
 
 
+   /*
+    * (non-Javadoc)
+    * @see org.ximtec.igesture.tool.core.Controller#getView()
+    */
    @Override
    public JComponent getView() {
       return tree;
    }
 
 
+   /*
+    * (non-Javadoc)
+    * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
+    */
    @Override
    public void propertyChange(PropertyChangeEvent arg0) {
       LOG.info("PropertyChange, Update Tree");

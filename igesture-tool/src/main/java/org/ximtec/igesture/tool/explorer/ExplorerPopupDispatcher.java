@@ -36,7 +36,13 @@ import javax.swing.tree.TreePath;
 
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
 
-
+/**
+ * Dispatches Popup Trigger Events and shows the corresponding menu.
+ *
+ * @author  UeliKurmann
+ * @version 1.0
+ * @since   igesture
+ */
 public class ExplorerPopupDispatcher extends MouseAdapter {
 
    private static final Logger LOG = Logger.getLogger(ExplorerPopupDispatcher.class.getName());
@@ -44,6 +50,10 @@ public class ExplorerPopupDispatcher extends MouseAdapter {
    private Map<Class< ? >, NodeInfo> nodeInfos;
 
 
+   /**
+    * 
+    * @param nodeInfos
+    */
    public ExplorerPopupDispatcher(Map<Class< ? >, NodeInfo> nodeInfos) {
       this.nodeInfos = nodeInfos;
    }
@@ -72,9 +82,7 @@ public class ExplorerPopupDispatcher extends MouseAdapter {
             // show Popup Menu
             JPopupMenu popupMenu = nodeInfo.getPopupMenu(closestPathForLocation);
             popupMenu.show(e.getComponent(), e.getX(), e.getY());
-
          }
-
       }
 
    } // mouseReleased

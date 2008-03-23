@@ -29,12 +29,26 @@ import javax.swing.JComponent;
 
 import org.ximtec.igesture.tool.explorer.ExplorerTree;
 
-
+/**
+ * Interface is implemented by components displaying an Exploerer Tree
+ *
+ * @author  UeliKurmann
+ * @version 1.0
+ * @since   igesture
+ */
 public interface ExplorerTreeContainer {
 
+   /**
+    * Set the Explorer Tree (this method is invoked by the ExplorerTreeController)
+    * @param tree
+    */
    void setTree(ExplorerTree tree);
 
 
+   /**
+    * Set the View of the Explorer Tree (this method is invoked by the ExplorerTreeController)
+    * @param view
+    */
    void setView(JComponent view);
 
 }

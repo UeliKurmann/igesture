@@ -30,7 +30,13 @@ import java.awt.Component;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
-
+/**
+ * TODO: use node info to use defined icons.
+ *
+ * @author  UeliKurmann
+ * @version 1.0
+ * @since   igesture
+ */
 public class NodeRenderer extends DefaultTreeCellRenderer {
 
    @Override
