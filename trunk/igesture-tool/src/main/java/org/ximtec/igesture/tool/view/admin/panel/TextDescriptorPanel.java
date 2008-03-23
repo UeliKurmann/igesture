@@ -1,5 +1,5 @@
 /*
- * @(#)$Id: Main.java 454 2008-03-23 17:06:49Z kurmannu $
+ * @(#)$Id$
  *
  * Author   : Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
