@@ -23,13 +23,6 @@
         <include>**</include>
       </includes>
     </fileSet>
-    <fileSet>
-      <directory>src/main/lib</directory>
-      <outputDirectory>/lib</outputDirectory>
-      <includes>
-        <include>*.dll</include>
-      </includes>
-    </fileSet>
 		<fileSet>
 			<directory>src/main/resources</directory> 
 			<outputDirectory>/</outputDirectory>
@@ -53,6 +46,8 @@
       <excludes>
       	<exclude>com.db4o:db4o-java5</exclude>
       	<exclude>com.db4o:db4o-nqopt</exclude>
+      	<exclude>de.johannburkard.nativecall:nativecall</exclude>
+      	<exclude>de.johannburkard.nativecall:nativeloader</exclude>
       	<exclude>javax.servlet:servlet-api</exclude>      	
       	<exclude>junit:junit</exclude>     	
       	<exclude>org.jpedal:jpedalSTD</exclude>     	
