@@ -86,6 +86,8 @@ public class Geco {
 
    private MainView view;
 
+   private File configFile;
+
 
    public Geco(String[] args) throws AlgorithmException {
       ImageIcon logo = new ImageIcon(Geco.class.getClassLoader().getResource(
@@ -102,17 +104,17 @@ public class Geco {
       else {
          gestureConfiguration = new Configuration(GECO_CONFIGURATION);
       }
-      File confFile;
+
       try {
-         confFile = new File(ClassLoader.getSystemResource(RUBINE_CONFIGURATION)
-               .toURI());
+         configFile = new File(ClassLoader.getSystemResource(
+               RUBINE_CONFIGURATION).toURI());
       }
       catch (URISyntaxException e) {
-         confFile = new File(ClassLoader.getSystemResource(RUBINE_CONFIGURATION)
-               .getPath());
+         configFile = new File(ClassLoader.getSystemResource(
+               RUBINE_CONFIGURATION).getPath());
       }
 
-      configuration = XMLGeco.importConfiguration(confFile);
+      configuration = XMLGeco.importConfiguration(configFile);
       MainModel model = new MainModel(configuration, gestureConfiguration);
       view = new MainView(model);
       // open last opened Document
