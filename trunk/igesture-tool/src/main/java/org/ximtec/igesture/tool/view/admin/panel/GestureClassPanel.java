@@ -1,3 +1,5 @@
+
+
 package org.ximtec.igesture.tool.view.admin.panel;
 
 import javax.swing.JLabel;
@@ -11,46 +13,47 @@ import org.ximtex.igesture.tool.binding.BindingFactory;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
-public class GestureClassPanel extends AbstractAdminPanel{
 
-	public GestureClassPanel(GestureClass gestureClass) {
+public class GestureClassPanel extends AbstractAdminPanel {
 
-	  setTitle(gestureClass.getName());
-	  
-		FormLayout layout = new FormLayout(
-		    "100dlu, 4dlu, 200dlu",
-				"pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref,, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref");
+   public GestureClassPanel(GestureClass gestureClass) {
 
-		DefaultFormBuilder builder = new DefaultFormBuilder(layout);
-		builder.setDefaultDialogBorder();
+      setTitle(gestureClass.getName());
 
-		
-		builder.nextLine(4);
+      FormLayout layout = new FormLayout(
+            "100dlu, 4dlu, 200dlu",
+            "pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref,, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref");
 
-		builder.append(new JLabel("Name"));
-		JTextField textField = new JTextField();
-		
-		BindingFactory.createInstance(textField, gestureClass, GestureClass.PROPERTY_NAME);
-		
-		//textField.setText(gestureClass.getName());
-		builder.append(textField);
-		builder.nextLine(2);
+      DefaultFormBuilder builder = new DefaultFormBuilder(layout);
+      builder.setDefaultDialogBorder();
 
-		builder.append(new JLabel("Number of Descriptors"));
-		builder.append(new JLabel(Integer.toString(gestureClass
-				.getDescriptors().size())));
-		builder.nextLine(2);
-		for (Descriptor descriptor : gestureClass.getDescriptors()) {
-			builder.append(new JLabel("Descriptor Name"));
-			builder.append(new JLabel(descriptor.getType().getName()));
-			builder.nextLine(2);
-		}
+      builder.nextLine(4);
 
-		JPanel panel = builder.getPanel();
-		panel.setOpaque(false);
+      builder.append(new JLabel("Name"));
+      JTextField textField = new JTextField();
 
-		setCenter(panel);
+      BindingFactory.createInstance(textField, gestureClass,
+            GestureClass.PROPERTY_NAME);
 
-	}
+      // textField.setText(gestureClass.getName());
+      builder.append(textField);
+      builder.nextLine(2);
+
+      builder.append(new JLabel("Number of Descriptors"));
+      builder.append(new JLabel(Integer.toString(gestureClass.getDescriptors()
+            .size())));
+      builder.nextLine(2);
+      for (Descriptor descriptor : gestureClass.getDescriptors()) {
+         builder.append(new JLabel("Descriptor Name"));
+         builder.append(new JLabel(descriptor.getType().getName()));
+         builder.nextLine(2);
+      }
+
+      JPanel panel = builder.getPanel();
+      panel.setOpaque(false);
+
+      setCenter(panel);
+
+   }
 
 }

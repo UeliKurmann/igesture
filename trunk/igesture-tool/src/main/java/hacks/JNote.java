@@ -40,6 +40,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -135,13 +136,15 @@ public class JNote extends JLabel implements InputHandler {
             RenderingHints.VALUE_ANTIALIAS_ON);
       setIcon(new ImageIcon(bufferedImage));
       graphic.setColor(Color.BLACK);
+      this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+
    }
 
 
    public void handle(Object invoker, TimestampedInputEvent timestampedEvent) {
       if (timestampedEvent instanceof TimestampedLocation) {
          TimestampedLocation location = (TimestampedLocation)timestampedEvent;
-         
+
          if (freeze) {
             clear();
             freeze = false;
@@ -368,6 +371,7 @@ public class JNote extends JLabel implements InputHandler {
       space = new int[] { initialSpaceWidth, initialSpaceHeight };
       clearBufferedImage();
       traceNumber = 0;
+      repaint();
    } // clear
 
 

@@ -79,7 +79,7 @@ public class SampleDescriptor extends DefaultDescriptor {
 	public void removeSample(GestureSample sample) {
 		int index = samples.indexOf(sample);
 		samples.remove(sample);
-		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SAMPLES, samples.indexOf(sample), sample, null);
+		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SAMPLES, index, sample, null);
 	} // removeSample
 
 	/**

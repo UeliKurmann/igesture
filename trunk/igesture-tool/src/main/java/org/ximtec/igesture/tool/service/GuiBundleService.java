@@ -1,5 +1,5 @@
 /*
- * @(#)$Id$
+ * @(#)$Id: Main.java 454 2008-03-23 17:06:49Z kurmannu $
  *
  * Author   : Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
@@ -23,39 +23,46 @@
  * 
  */
 
-package org.ximtec.igesture.tool.explorer;
+package org.ximtec.igesture.tool.service;
 
-import javax.swing.event.TreeModelEvent;
-import javax.swing.event.TreeModelListener;
+import org.sigtec.graphix.GuiBundle;
+import org.ximtec.igesture.tool.locator.Service;
 
 
-public class ExplorerTreeListener implements TreeModelListener {
+public class GuiBundleService extends GuiBundle implements Service {
+
+   public static final String IDENTIFIER = "guiBundle";
+
+
+   public GuiBundleService(String resourceBundleName) {
+      super(resourceBundleName);
+   }
+
 
    @Override
-   public void treeNodesChanged(TreeModelEvent arg0) {
+   public void reset() {
       // TODO Auto-generated method stub
 
    }
 
 
    @Override
-   public void treeNodesInserted(TreeModelEvent arg0) {
+   public void start() {
       // TODO Auto-generated method stub
 
    }
 
 
    @Override
-   public void treeNodesRemoved(TreeModelEvent arg0) {
+   public void stop() {
       // TODO Auto-generated method stub
 
    }
 
 
    @Override
-   public void treeStructureChanged(TreeModelEvent arg0) {
-      // TODO Auto-generated method stub
-
+   public String getIdentifier() {
+      return IDENTIFIER;
    }
 
 }
