@@ -36,28 +36,35 @@ import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
+import org.ximtec.igesture.tool.view.admin.panel.SampleDescriptorPanel;
 
 
 public class AddGestureSampleAction extends BasicAction {
 
    SampleDescriptor descriptor;
+   SampleDescriptorPanel panel;
 
 
-   public AddGestureSampleAction(SampleDescriptor descriptor) {
+   public AddGestureSampleAction(SampleDescriptor descriptor, SampleDescriptorPanel panel) {
       super(GestureConstants.GESTURE_SAMPLE_ADD, Locator.getDefault()
             .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
+      this.panel = panel;
       this.descriptor = descriptor;
    }
 
 
    @Override
-   public void actionPerformed(ActionEvent arg0) {
+   public void actionPerformed(ActionEvent action) {
+      System.out.println(action);
       InputDeviceClient client = Locator.getDefault().getService(
             InputDeviceClientService.IDENTIFIER, InputDeviceClient.class);
-
-      Note note = client.createNote(0, Integer.MAX_VALUE, 50);
-      GestureSample sample = new GestureSample("SupiDupi", note);
+      // FIXME how to use sigtec's trace detection? 
+      Note note = client.createNote(0, System.currentTimeMillis(), 70);
+      client.clearBuffer();
+      GestureSample sample = new GestureSample("", note);
       descriptor.addSample(sample);
+      // FIXME find a proper design
+      panel.reload();
    }
 
 }

@@ -71,7 +71,7 @@ public class MainController implements Controller {
 
       deviceClient = new InputDeviceClientService(new MouseReader(),
             new BufferedInputDeviceEventListener(new MouseReaderEventListener(),
-                  100));
+                  32000));
 
       locator = Locator.getDefault();
       locator.addService(mainModel);
