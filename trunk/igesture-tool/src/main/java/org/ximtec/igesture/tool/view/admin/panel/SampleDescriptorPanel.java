@@ -29,7 +29,6 @@ import hacks.JNote;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -37,14 +36,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.graphix.widget.BasicButton;
-import org.sigtec.input.BufferedInputDeviceEventListener;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.io.InputDeviceClient;
-import org.ximtec.igesture.io.MouseReader;
-import org.ximtec.igesture.io.MouseReaderEventListener;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureSampleAction;
@@ -56,8 +51,12 @@ import com.jgoodies.forms.layout.FormLayout;
 
 
 public class SampleDescriptorPanel extends AbstractAdminPanel {
-
+   //FIXME CLEANUP!!!
+   private SampleDescriptor descriptor;
+   private JNote note;
+   
    public SampleDescriptorPanel(SampleDescriptor descriptor) {
+      this.descriptor = descriptor;
       init(descriptor);
    }
 
@@ -121,7 +120,7 @@ public class SampleDescriptorPanel extends AbstractAdminPanel {
       // input area
       basePanel.setLayout(new FlowLayout());
 
-      JNote note = new JNote(200, 200);
+      note = new JNote(200, 200);
 
       Locator.getDefault().getService(InputDeviceClientService.IDENTIFIER,
             InputDeviceClient.class).addInputHandler(note);
@@ -130,14 +129,19 @@ public class SampleDescriptorPanel extends AbstractAdminPanel {
 
       // buttons
       JPanel buttonPanel = new JPanel();
-      buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-      buttonPanel.add(new BasicButton(new AddGestureSampleAction(descriptor)));
+      buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS)); 
+      buttonPanel.add(new BasicButton(new AddGestureSampleAction(descriptor, this)));
 
       buttonPanel.add(new BasicButton(new ClearGestureSampleAction(note)));
 
       basePanel.add(buttonPanel);
 
       setBottom(basePanel);
+   }
+   
+   public void reload(){
+      note.clear();
+      initSampleSection(descriptor);
    }
 
 }
