@@ -1,1 +1,1 @@
-start javaw -cp . LauncherBootstrap geco
+start javaw -cp ..;../lib/* org.ximtec.igesture.geco.Geco
