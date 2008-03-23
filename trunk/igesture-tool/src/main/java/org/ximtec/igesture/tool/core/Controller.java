@@ -32,6 +32,10 @@ import javax.swing.JComponent;
 
 public interface Controller extends PropertyChangeListener {
 
+   /**
+    * Returns the Ciew component belonging to this Controller.
+    * @return
+    */
    JComponent getView();
 
 }

@@ -31,11 +31,23 @@ import javax.swing.JComponent;
 
 public interface TabbedView {
 
+   /**
+    * Returns the name of the Tab. This name is used as the tab name.
+    * @return
+    */
    String getName();
 
 
+   /**
+    * Returns the icon of the Tab. This icon is used in the tab browser.
+    * @return
+    */
    Icon getIcon();
 
 
+   /**
+    * Returns the pane of the Tab. This JComponent represents the content of the pane.
+    * @return
+    */
    JComponent getPane();
 }

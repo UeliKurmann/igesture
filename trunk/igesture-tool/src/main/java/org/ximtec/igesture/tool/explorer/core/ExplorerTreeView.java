@@ -25,6 +25,13 @@
 
 package org.ximtec.igesture.tool.explorer.core;
 
+/**
+ * Explorer Tree View
+ *
+ * @author  UeliKurmann
+ * @version 1.0
+ * @since   igesture
+ */
 public interface ExplorerTreeView {
 
 }

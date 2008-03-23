@@ -28,7 +28,13 @@ package org.ximtec.igesture.tool.explorer;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 
-
+/**
+ * Not used at the moment.
+ *
+ * @author  UeliKurmann
+ * @version 1.0
+ * @since   igesture
+ */
 public class ExplorerTreeListener implements TreeModelListener {
 
    @Override

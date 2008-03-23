@@ -28,7 +28,13 @@ package org.ximtec.igesture.tool.service;
 import org.sigtec.graphix.GuiBundle;
 import org.ximtec.igesture.tool.locator.Service;
 
-
+/**
+ * Services Wrapper for GuiBundle.
+ *
+ * @author  UeliKurmann
+ * @version 1.0
+ * @since   igesture
+ */
 public class GuiBundleService extends GuiBundle implements Service {
 
    public static final String IDENTIFIER = "guiBundle";

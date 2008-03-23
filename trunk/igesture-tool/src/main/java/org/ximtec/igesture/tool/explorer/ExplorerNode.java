@@ -32,7 +32,13 @@ import javax.swing.tree.TreeNode;
 
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
 
-
+/**
+ * Not used at the moment. 
+ *
+ * @author  UeliKurmann
+ * @version 1.0
+ * @since   igesture
+ */
 public class ExplorerNode<T> implements MutableTreeNode {
 
    private NodeInfo nodeInfo;

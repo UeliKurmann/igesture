@@ -30,7 +30,13 @@ import org.sigtec.input.InputDeviceEventListener;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.tool.locator.Service;
 
-
+/**
+ * Service Wrapper for InputDeviceClient
+ *
+ * @author  UeliKurmann
+ * @version 1.0
+ * @since   igesture
+ */
 public class InputDeviceClientService extends InputDeviceClient implements
       Service {
 

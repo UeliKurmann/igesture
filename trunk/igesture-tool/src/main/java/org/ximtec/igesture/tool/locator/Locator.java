@@ -23,6 +23,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.locator;
 
 import java.util.ArrayList;
@@ -31,6 +32,14 @@ import java.util.List;
 import java.util.Map;
 
 
+/**
+ * Implements the locator pattern. Services can be located, started and stopped.
+ * A default Locator is available through a singleton.
+ * 
+ * @author UeliKurmann
+ * @version 1.0
+ * @since igesture
+ */
 public class Locator {
 
    private static Locator defaultLocator;

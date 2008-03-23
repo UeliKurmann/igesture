@@ -23,6 +23,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.explorer;
 
 import java.util.Map;
@@ -34,38 +35,56 @@ import javax.swing.tree.TreePath;
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
 
 
+/**
+ * Explorer Tree Model. NodeMappings are used to dynamically build up the tree in
+ * a generic manner. The tree structure is defined with NodeInfo instances. 
+ * 
+ * @author UeliKurmann
+ * @version 1.0
+ * @since igesture
+ */
 public class ExplorerTreeModel implements TreeModel {
 
+   /**
+    * The root element of the tree.
+    */
    private Object rootElement;
 
-   private Map<Class< ? >, NodeInfo> nodeMapping;
+   /**
+    * Node Info Map
+    */
+   private Map<Class< ? >, NodeInfo> nodeInfos;
 
 
+   /**
+    * Explorer Tree Model Model
+    * @param rootElement the root node
+    * @param nodeInfos node Info
+    */
    public ExplorerTreeModel(Object rootElement,
-         Map<Class< ? >, NodeInfo> nodeDefinitions) {
+         Map<Class< ? >, NodeInfo> nodeInfos) {
       this.rootElement = rootElement;
-      this.nodeMapping = nodeDefinitions;
+      this.nodeInfos = nodeInfos;
    }
 
 
    @Override
    public Object getChild(Object node, int index) {
-      NodeInfo nodeInfo = nodeMapping.get(node.getClass());
-
+      NodeInfo nodeInfo = nodeInfos.get(node.getClass());
       return nodeInfo.getChildren(node).get(index);
    }
 
 
    @Override
    public int getChildCount(Object node) {
-      NodeInfo nodeInfo = nodeMapping.get(node.getClass());
+      NodeInfo nodeInfo = nodeInfos.get(node.getClass());
       return nodeInfo.getChildren(node).size();
    }
 
 
    @Override
    public int getIndexOfChild(Object node, Object child) {
-      NodeInfo nodeInfo = nodeMapping.get(node.getClass());
+      NodeInfo nodeInfo = nodeInfos.get(node.getClass());
       return nodeInfo.getChildren(node).indexOf(child);
    }
 
@@ -78,7 +97,7 @@ public class ExplorerTreeModel implements TreeModel {
 
    @Override
    public boolean isLeaf(Object node) {
-      NodeInfo nodeInfo = nodeMapping.get(node.getClass());
+      NodeInfo nodeInfo = nodeInfos.get(node.getClass());
       return nodeInfo.isLeaf(node);
    }
 
