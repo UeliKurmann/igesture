@@ -1,5 +1,5 @@
 /*
- * @(#)$Id$
+ * @(#)$Id: AddGestureClassAction.java 457 2008-03-23 17:23:35Z kurmannu $
  *
  * Author   : Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
@@ -23,27 +23,27 @@
  * 
  */
 
-package org.ximtec.igesture.tool.view.admin.action;
+package org.ximtec.igesture.tool.view.action;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.tree.TreePath;
 
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
-import org.ximtec.igesture.tool.view.admin.wrapper.GestureSetList;
 
-
-public class RemoveGestureSetAction extends BasicAction {
+//FIXME implement...
+public class LoadWorkspaceAction extends BasicAction {
 
    private TreePath treePath;
 
 
-   public RemoveGestureSetAction(TreePath treePath) {
-      super(GestureConstants.GESTURE_SET_DEL, Locator.getDefault().getService(
+   public LoadWorkspaceAction(TreePath treePath) {
+      super(GestureConstants.GESTURE_CLASS_ADD, Locator.getDefault().getService(
             GuiBundleService.IDENTIFIER, GuiBundleService.class));
       this.treePath = treePath;
    }
@@ -52,9 +52,8 @@ public class RemoveGestureSetAction extends BasicAction {
    @Override
    public void actionPerformed(ActionEvent arg0) {
       GestureSet gestureSet = (GestureSet)treePath.getLastPathComponent();
-      GestureSetList rootSet = (GestureSetList)treePath.getParentPath().getLastPathComponent();
-      rootSet.removeGestureSet(gestureSet);
-
+      GestureClass gestureClass = new GestureClass("");
+      gestureSet.addGestureClass(gestureClass);
    }
 
 }

@@ -1,5 +1,5 @@
 /*
- * @(#)$Id$
+ * @(#)$Id: RootSet.java 456 2008-03-23 17:16:31Z kurmannu $
  *
  * Author   : Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
@@ -23,48 +23,40 @@
  * 
  */
 
-package org.ximtec.igesture.tool.view;
+package org.ximtec.igesture.tool.view.testbench.wrapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.ximtec.igesture.core.DefaultDataObject;
-import org.ximtec.igesture.core.GestureSet;
 
 
-public class RootSet extends DefaultDataObject {
+public class AlgorithmList extends DefaultDataObject {
 
-   public static final String PROPERTY_SETS = "sets";
+   public static final String PROPERTY_SETS = "algorithms";
 
-   public List<GestureSet> sets;
+   public List<AlgorithmWrapper> algorithms;
+   
 
 
-   public RootSet() {
-      sets = new ArrayList<GestureSet>();
+   public AlgorithmList() {
+      algorithms = new ArrayList<AlgorithmWrapper>();
    }
 
 
-   public void addGestureSet(GestureSet set) {
-      sets.add(set);
-      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SETS, sets
-            .indexOf(set), null, set);
+   public void addAlgorithm(AlgorithmWrapper algorithmWrapper) {
+      algorithms.add(algorithmWrapper);
    }
 
 
-   public void removeGestureSet(GestureSet set) {
-      sets.remove(set);
-      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SETS, 0, set,
-            null);
-   }
-
-
-   public List<GestureSet> getGestureSets() {
-      return sets;
+   public List<AlgorithmWrapper> getAlgorithms() {
+      return algorithms;
    }
 
 
    @Override
    public String toString() {
-      return "GestureSets";
+      // FIXME use resource bundle
+      return "Algorithms";
    }
 }

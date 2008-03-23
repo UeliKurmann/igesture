@@ -50,6 +50,9 @@ public class GestureConstants {
    public static final String TEXT_DESCRIPTOR_ADD = "AddTextDescriptorAction";
    public static final String GESTURE_SAMPLE_ADD = "AddGestureSampleAction";
    public static final String GESTURE_SAMPLE_CLEAR = "ClearGestureSampleAction";
+   public static final String CONFIGURATION_ADD = "AddConfigurationAction";
+   public static final String CONFIGURATION_DEL = "RemoveConfigurationAction";
+   public static final String CONFIGURATION_EXPORT = "ConfigExportAction";
 
    // --------------------- version 2.0 ---------------------
 

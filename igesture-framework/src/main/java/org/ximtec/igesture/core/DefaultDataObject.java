@@ -41,9 +41,9 @@ public abstract class DefaultDataObject implements DataObject {
 
   public static final String PROPERTY_ID = "id";
 
-  private String id;
+  private String objectID;
 
-  protected PropertyChangeSupport propertyChangeSupport;
+  protected transient PropertyChangeSupport propertyChangeSupport;
 
   /**
    * Constructs a new default data object.
@@ -52,14 +52,23 @@ public abstract class DefaultDataObject implements DataObject {
     this.propertyChangeSupport = new PropertyChangeSupport(this);
     setId(StorageManager.generateUUID());
   }
+  
+  /**
+   * This method is used to deserialize transient fields
+   * @return
+   */
+  private Object readResolve() {
+     this.propertyChangeSupport = new PropertyChangeSupport(this);
+     return this;
+   }
 
   /**
    * {@inheritDoc}
    */
   @Override
   public void setId(String id) {
-    String oldValue = this.id;
-    this.id = id;
+    String oldValue = this.objectID;
+    this.objectID = id;
     propertyChangeSupport.firePropertyChange(PROPERTY_ID, oldValue, id);
   } // setID
 
@@ -68,11 +77,11 @@ public abstract class DefaultDataObject implements DataObject {
    */
   @Override
   public String getId() {
-    if (id == null) {
+    if (objectID == null) {
       setId(StorageManager.generateUUID());
     }
 
-    return id;
+    return objectID;
   } // getID
 
   /**
