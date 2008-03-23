@@ -66,11 +66,6 @@ public class MainModel implements Service {
             engine), visitor);
    }
 
-   /**
-    * This method is used for test purposes only and will be removed later on...
-    * @return
-    */
-   private GestureSet gestureSet;
 
 
    /**

@@ -1,5 +1,5 @@
 /*
- * @(#)$Id: AddGestureClassAction.java 457 2008-03-23 17:23:35Z kurmannu $
+ * @(#)$Id$
  *
  * Author   : Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
