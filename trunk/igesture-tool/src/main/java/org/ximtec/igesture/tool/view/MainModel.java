@@ -23,18 +23,27 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.view;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.ximtec.igesture.algorithm.Algorithm;
+import org.ximtec.igesture.algorithm.rubine.RubineAlgorithm;
+import org.ximtec.igesture.algorithm.siger.SigerRecogniser;
+import org.ximtec.igesture.algorithm.signature.SignatureAlgorithm;
+import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.storage.IStorageManager;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.storage.StorageManager;
-import org.ximtec.igesture.storage.IStorageManager;
 import org.ximtec.igesture.tool.locator.Service;
 import org.ximtec.igesture.tool.util.PropertyChangeVisitor;
 import org.ximtec.igesture.tool.util.StorageManagerProxy;
-import org.ximtec.igesture.util.XMLTool;
+import org.ximtec.igesture.tool.view.admin.wrapper.GestureSetList;
+import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmList;
+import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmWrapper;
 
 
 public class MainModel implements Service {
@@ -64,21 +73,50 @@ public class MainModel implements Service {
    private GestureSet gestureSet;
 
 
-   @Deprecated
-   public RootSet getTestGestureSet() {
-      if (gestureSet == null) {
-         String filename = "D:/workspace/igesture/igesture/igesture-db/igesture-db-graffitiNumbers/src/main/resources/gestureSet/graffitiNumbers.xml";
-         gestureSet = XMLTool.importGestureSet(new File(filename)).get(0);
-         PropertyChangeVisitor visitor = new PropertyChangeVisitor(
-               mainController);
-         gestureSet.accept(visitor);
-      }
+   /**
+    * Returns a list of Gesture Sets
+    * @return a list of Gesture Sets
+    */
+   public List<GestureSet> getGestureSets() {
+      return storageManager.load(GestureSet.class);
+   }
 
-      RootSet rootSet = new RootSet();
-      rootSet.addGestureSet(gestureSet);
+
+   public List<Class< ? extends Algorithm>> getAlgorithms() {
+      // FIXME TODO load class names from a property file
+      List<Class< ? extends Algorithm>> algorithms = new ArrayList<Class< ? extends Algorithm>>();
+      algorithms.add(RubineAlgorithm.class);
+      algorithms.add(SigerRecogniser.class);
+      algorithms.add(SignatureAlgorithm.class);
+      return algorithms;
+   }
+
+
+   public List<Configuration> getConfigurations() {
+      return storageManager.load(Configuration.class);
+   }
+
+
+   public GestureSetList getRootSet() {
+      GestureSetList rootSet = new GestureSetList();
+      for (GestureSet gestureSet : getGestureSets()) {
+         rootSet.addGestureSet(gestureSet);
+      }
       rootSet.addPropertyChangeListener(mainController);
 
       return rootSet;
+   }
+   
+   public AlgorithmList getAlgorithmList() {
+      AlgorithmList algorithmList = new AlgorithmList();
+      for (Class< ? extends Algorithm> algorithmClass : getAlgorithms() ) {
+         AlgorithmWrapper algorithmWrapper = new AlgorithmWrapper(algorithmClass);
+         algorithmWrapper.addPropertyChangeListener(mainController);
+         algorithmList.addAlgorithm(algorithmWrapper);
+      }
+      algorithmList.addPropertyChangeListener(mainController);
+
+      return algorithmList;
    }
 
 

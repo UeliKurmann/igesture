@@ -47,7 +47,6 @@ import org.ximtec.igesture.tool.explorer.NodeInfoImpl;
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.view.MainModel;
-import org.ximtec.igesture.tool.view.RootSet;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureClassAction;
 import org.ximtec.igesture.tool.view.admin.action.AddSampleDescriptorAction;
 import org.ximtec.igesture.tool.view.admin.action.AddTextDescriptorAction;
@@ -63,6 +62,7 @@ import org.ximtec.igesture.tool.view.admin.panel.GestureSetPanel;
 import org.ximtec.igesture.tool.view.admin.panel.GestureSetsPanel;
 import org.ximtec.igesture.tool.view.admin.panel.SampleDescriptorPanel;
 import org.ximtec.igesture.tool.view.admin.panel.TextDescriptorPanel;
+import org.ximtec.igesture.tool.view.admin.wrapper.GestureSetList;
 
 
 public class AdminController implements Controller {
@@ -99,7 +99,7 @@ public class AdminController implements Controller {
       descriptorActions.add(RemoveDescriptorAction.class);
 
       nodeInfos = new ArrayList<NodeInfo>();
-      nodeInfos.add(new NodeInfoImpl(RootSet.class, "name", "sets",
+      nodeInfos.add(new NodeInfoImpl(GestureSetList.class, "name", "sets",
             GestureSetsPanel.class, rootActions));
       nodeInfos.add(new NodeInfoImpl(GestureSet.class, "name", "gestureClasses",
             GestureSetPanel.class, setActions));
@@ -123,7 +123,7 @@ public class AdminController implements Controller {
       adminView = new AdminView();
 
       ExplorerTreeModel explorerModel = new ExplorerTreeModel(mainModel
-            .getTestGestureSet(), getNodeInfoList());
+            .getRootSet(), getNodeInfoList());
       explorerTreeController = new ExplorerTreeController(adminView,
             explorerModel, getNodeInfoList());
 

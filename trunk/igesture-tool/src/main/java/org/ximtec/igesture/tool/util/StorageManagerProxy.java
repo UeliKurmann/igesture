@@ -23,6 +23,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.util;
 
 import java.lang.reflect.InvocationHandler;
@@ -33,8 +34,8 @@ import java.util.List;
 
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.Visitor;
-import org.ximtec.igesture.storage.StorageManager;
 import org.ximtec.igesture.storage.IStorageManager;
+import org.ximtec.igesture.storage.StorageManager;
 
 
 public class StorageManagerProxy implements InvocationHandler {
@@ -79,13 +80,16 @@ public class StorageManagerProxy implements InvocationHandler {
       else if (result instanceof List) {
          for (Object listElement : (List< ? >)result) {
             if (listElement instanceof DataObject) {
-               ((DataObject)result).accept(visitor);
+               try {
+                  ((DataObject)listElement).accept(visitor);
+               }
+               catch (ClassCastException e) {
+                  e.printStackTrace();
+               }
             }
          }
       }
-
       return result;
-
    }
 
 

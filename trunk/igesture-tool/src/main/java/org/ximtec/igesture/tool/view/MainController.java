@@ -28,23 +28,26 @@ package org.ximtec.igesture.tool.view;
 import java.beans.IndexedPropertyChangeEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 
 import org.sigtec.input.BufferedInputDeviceEventListener;
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.io.MouseReader;
 import org.ximtec.igesture.io.MouseReaderEventListener;
-import org.ximtec.igesture.storage.XMLStorageEngine;
+import org.ximtec.igesture.storage.StorageManager;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
 import org.ximtec.igesture.tool.view.admin.AdminController;
+import org.ximtec.igesture.tool.view.testbench.TestbenchController;
 
 
 public class MainController implements Controller {
@@ -66,9 +69,13 @@ public class MainController implements Controller {
       controllers = new ArrayList<Controller>();
 
       guiBundle = new GuiBundleService(RESOURCE_BUNDLE);
+      
       // FIXME for test purposes only!
-      mainModel = new MainModel(new XMLStorageEngine("file.xml"), this);
+      mainModel = new MainModel(StorageManager.createStorageEngine(getDatabase()), this);
 
+      
+      
+      
       deviceClient = new InputDeviceClientService(new MouseReader(),
             new BufferedInputDeviceEventListener(new MouseReaderEventListener(),
                   32000));
@@ -89,8 +96,11 @@ public class MainController implements Controller {
 
       AdminController adminController = new AdminController();
       controllers.add(adminController);
-
       mainView.addTab((TabbedView)adminController.getView());
+      
+      TestbenchController testbenchController = new TestbenchController();
+      controllers.add(testbenchController);
+      mainView.addTab((TabbedView)testbenchController.getView());
    }
 
 
@@ -119,10 +129,15 @@ public class MainController implements Controller {
 
    }
 
-
    @Override
    public JComponent getView() {
       return null;
+   }
+   
+   private File getDatabase(){
+      JFileChooser chooser = new JFileChooser();
+      chooser.showOpenDialog(null);
+      return chooser.getSelectedFile();
    }
 
 }

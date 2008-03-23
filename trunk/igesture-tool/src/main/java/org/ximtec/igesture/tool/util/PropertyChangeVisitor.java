@@ -23,11 +23,15 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.util;
 
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.lang.reflect.Field;
 
 import org.ximtec.igesture.core.DataObject;
+import org.ximtec.igesture.core.DefaultDataObject;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
@@ -48,6 +52,7 @@ public class PropertyChangeVisitor implements Visitor {
 
    @Override
    public void visit(DataObject dataObject) {
+      setUp(dataObject);
       dataObject.addPropertyChangeListener(listener);
 
    }
@@ -55,6 +60,7 @@ public class PropertyChangeVisitor implements Visitor {
 
    @Override
    public void visit(GestureClass gestureClass) {
+      setUp(gestureClass);
       gestureClass.addPropertyChangeListener(listener);
 
    }
@@ -62,6 +68,7 @@ public class PropertyChangeVisitor implements Visitor {
 
    @Override
    public void visit(GestureSet gestureSet) {
+      setUp(gestureSet);
       gestureSet.addPropertyChangeListener(listener);
 
    }
@@ -69,6 +76,7 @@ public class PropertyChangeVisitor implements Visitor {
 
    @Override
    public void visit(GestureSample gestureSample) {
+      setUp(gestureSample);
       gestureSample.addPropertyChangeListener(listener);
 
    }
@@ -76,6 +84,7 @@ public class PropertyChangeVisitor implements Visitor {
 
    @Override
    public void visit(TestSet testSet) {
+      setUp(testSet);
       testSet.addPropertyChangeListener(listener);
 
    }
@@ -83,8 +92,27 @@ public class PropertyChangeVisitor implements Visitor {
 
    @Override
    public void visit(SampleDescriptor sampleDescriptor) {
+      setUp(sampleDescriptor);
       sampleDescriptor.addPropertyChangeListener(listener);
 
+   }
+
+
+   private void setUp(DataObject dataObject) {
+      if (dataObject instanceof DefaultDataObject) {
+         try {
+            Field field = DefaultDataObject.class
+                  .getDeclaredField("propertyChangeSupport");
+            field.setAccessible(true);
+            if (field.get(dataObject) == null) {
+               PropertyChangeSupport pcs = new PropertyChangeSupport(dataObject);
+               field.set(dataObject, pcs);
+            }
+         }
+         catch (Exception e) {
+            e.printStackTrace();
+         }
+      }
    }
 
 }

@@ -1,5 +1,5 @@
 /*
- * @(#)$Id$
+ * @(#)$Id: AdminView.java 457 2008-03-23 17:23:35Z kurmannu $
  *
  * Author   : Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
@@ -23,7 +23,7 @@
  * 
  */
 
-package org.ximtec.igesture.tool.view.admin;
+package org.ximtec.igesture.tool.view.testbench;
 
 import java.awt.Color;
 
@@ -38,13 +38,13 @@ import org.ximtec.igesture.tool.explorer.ExplorerTree;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeContainer;
 
 
-public class AdminView extends JSplitPane implements TabbedView,
+public class TestbenchView extends JSplitPane implements TabbedView,
       ExplorerTreeContainer {
 
    private JScrollPane scrollPaneLeft;
 
 
-   public AdminView() {
+   public TestbenchView() {
       super(JSplitPane.HORIZONTAL_SPLIT);
 
       setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -67,7 +67,7 @@ public class AdminView extends JSplitPane implements TabbedView,
    @Override
    public String getName() {
       // FIXME use resource bundle
-      return "Admin";
+      return "Test Bench";
    }
 
 

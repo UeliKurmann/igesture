@@ -52,6 +52,7 @@ public class Configuration extends DefaultDataObject implements Cloneable {
 
 	private static final Logger LOGGER = Logger.getLogger(Configuration.class
 			.getName());
+	
 
 	/**
 	 * The list of gesture sets which are selected for the recognition process
