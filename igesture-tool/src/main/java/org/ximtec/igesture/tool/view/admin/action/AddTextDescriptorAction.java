@@ -8,20 +8,20 @@ import javax.swing.tree.TreePath;
 
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.core.TextDescriptor;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 
 
-public class RemoveGestureClassAction extends BasicAction {
+public class AddTextDescriptorAction extends BasicAction {
 
    private TreePath treePath;
 
 
-   public RemoveGestureClassAction(TreePath treePath) {
-      super(GestureConstants.GESTURE_CLASS_DEL, Locator.getDefault().getService(
-            GuiBundleService.IDENTIFIER, GuiBundleService.class));
+   public AddTextDescriptorAction(TreePath treePath) {
+      super(GestureConstants.TEXT_DESCRIPTOR_ADD, Locator.getDefault()
+            .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
       this.treePath = treePath;
    }
 
@@ -29,10 +29,7 @@ public class RemoveGestureClassAction extends BasicAction {
    @Override
    public void actionPerformed(ActionEvent arg0) {
       GestureClass gestureClass = (GestureClass)treePath.getLastPathComponent();
-      GestureSet gestureSet = (GestureSet)treePath.getParentPath()
-            .getLastPathComponent();
-      gestureSet.removeGestureClass(gestureClass);
-
+      gestureClass.addDescriptor(new TextDescriptor());
    }
 
 }

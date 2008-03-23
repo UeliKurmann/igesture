@@ -26,18 +26,10 @@
 
 package org.ximtec.igesture.io;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.sigtec.util.Constant;
 import org.ximtec.igesture.io.keyboard.KeyboardUtils;
-
-import sun.misc.ServiceConfigurationError;
-
-import com.eaio.nativecall.IntCall;
-import com.eaio.nativecall.NativeCall;
 
 
 /**

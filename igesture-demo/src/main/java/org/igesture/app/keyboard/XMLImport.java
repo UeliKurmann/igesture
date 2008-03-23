@@ -45,8 +45,7 @@ public class XMLImport {
    public static List<GestureKeyMapping> importKeyMappings(File file) {
       final List<GestureKeyMapping> mappings = new ArrayList<GestureKeyMapping>();
       final Document document = XMLTool.importDocument(file);
-      final List<Element> mappingElements = document.getRootElement()
-            .getChildren(ROOT_TAG);
+      final List<Element> mappingElements = document.getRootElement().getChildren(ROOT_TAG);
 
       for (final Element mappingElement : mappingElements) {
          String key = mappingElement.getChildText(KEY);

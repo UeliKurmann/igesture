@@ -23,38 +23,29 @@
  * 
  */
 
-package org.ximtec.igesture.tool.explorer.core;
+package org.ximtec.igesture.tool.util;
 
-import java.util.List;
-
-import javax.swing.Icon;
-import javax.swing.JPopupMenu;
-import javax.swing.tree.TreePath;
+import java.awt.Font;
 
 
-public interface NodeInfo {
+public class FontFactory {
 
-   Class< ? > getType();
-
-
-   String getName(Object object);
+   private static final String HELVETICA = "Helvetica";
+   private static final String ARIAL = "Arial";
 
 
-   String getTooltip();
+   public static Font getHelveticaPlain(int size) {
+      return new Font(HELVETICA, Font.PLAIN, size);
+   }
 
 
-   Icon getIcon();
+   public static Font getArialPlain(int size) {
+      return new Font(ARIAL, Font.PLAIN, size);
+   }
 
 
-   List<Object> getChildren(Object node);
-
-
-   boolean isLeaf(Object node);
-
-
-   ExplorerTreeView getView(Object node);
-
-
-   JPopupMenu getPopupMenu(TreePath node);
+   public static Font getArialBold(int size) {
+      return new Font(ARIAL, Font.BOLD, size);
+   }
 
 }

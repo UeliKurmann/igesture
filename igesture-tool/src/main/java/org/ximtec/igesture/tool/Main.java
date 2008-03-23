@@ -1,10 +1,9 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
- * Author   : Ueli Kurmann, ueli@smartness.ch
- *                  
- *                  
- *
+ * Author   : Ueli Kurmann, igesture@uelikurmann.ch
+ *                                   
+ *                                   
  * Purpose    : 
  *
  * -----------------------------------------------------------------------

@@ -2,23 +2,22 @@
 
 package org.ximtec.igesture.tool.view.admin.panel;
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JTextArea;
 
-import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.core.TextDescriptor;
 import org.ximtex.igesture.tool.binding.BindingFactory;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
 
-public class GestureSetPanel extends AbstractAdminPanel {
+public class TextDescriptorPanel extends AbstractAdminPanel {
 
-   public GestureSetPanel(GestureSet gestureSet) {
+   public TextDescriptorPanel(TextDescriptor textDescriptor) {
 
-      setTitle("Gesture Set " + gestureSet.getName());
+      setTitle(textDescriptor.getClass().getName());
 
       FormLayout layout = new FormLayout(
             "100dlu, 4dlu, 200dlu",
@@ -27,17 +26,14 @@ public class GestureSetPanel extends AbstractAdminPanel {
       DefaultFormBuilder builder = new DefaultFormBuilder(layout);
       builder.setDefaultDialogBorder();
 
-      builder.append(new JLabel("Name"));
-      JTextField textField = new JTextField();
+      builder.append(new JLabel("Text"));
+      JTextArea textArea = new JTextArea();
 
-      BindingFactory.createInstance(textField, gestureSet,
-            GestureSet.PROPERTY_NAME);
+      BindingFactory.createInstance(textArea, textDescriptor,
+            TextDescriptor.PROPERTY_TEXT);
 
-      builder.append(textField);
+      builder.append(textArea);
       builder.nextLine(2);
-
-      builder.append(new JLabel("Number of Gesture Classes"));
-      builder.append(new JLabel(Integer.toString(gestureSet.size())));
 
       JPanel panel = builder.getPanel();
       panel.setOpaque(false);
