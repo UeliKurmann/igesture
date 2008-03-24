@@ -80,7 +80,7 @@ public class MainModel implements ButtonDeviceEventListener {
 
    private List<GestureClass> gestureClasses;
 
-   public static final String GESTURE_SET = "ms_application_gestures.xml";
+   public static final String GESTURE_SET = "gestureSet/ms_application_gestures.xml";
 
    private Recogniser recogniser;
 
@@ -159,9 +159,6 @@ public class MainModel implements ButtonDeviceEventListener {
     * @param gestureSet the gesture set to be added.
     */
    public void loadGestureSet(GestureSet gestureSet) {
-      // if (configuration.getGestureSets().contains(gestureSet))
-      // configuration.removeGestureSet(this.gestureSet);
-
       if (!configuration.getGestureSets().contains(gestureSet))
          configuration.addGestureSet(gestureSet);
 
@@ -173,6 +170,7 @@ public class MainModel implements ButtonDeviceEventListener {
          gestureClassesTable.put(gc.getName(), gc);
 
       }
+      
       toBeSaved = true;
    } // loadGestureSet
 
