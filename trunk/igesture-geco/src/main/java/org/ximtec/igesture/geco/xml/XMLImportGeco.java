@@ -36,6 +36,7 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.geco.gui.Constant;
+import org.ximtec.igesture.geco.gui.MainModel;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.userAction.CommandExecutor;
@@ -49,7 +50,6 @@ public class XMLImportGeco {
    private static final String COMMAND = "command";
    private static final String ROOT_TAG = "gestureMapping";
    private static final String GESTURE_SET = "gestureSet";
-   private static final String GESTURE_SET_NAME = "ms_application_gestures.xml";
 
    private List<GestureToActionMapping> mappings;
 
@@ -84,22 +84,21 @@ public class XMLImportGeco {
          f = new File(gsFile);
          gestureSetFileName = f.getAbsolutePath();
       }
-      else {
-         // load from classpath
-         gestureSetFileName = GESTURE_SET_NAME;
-         
+      else { // load from classpath
          File confFile;
+
          try {
-            confFile = new File(ClassLoader.getSystemResource(GESTURE_SET_NAME)
-                  .toURI());
+            confFile = new File(ClassLoader.getSystemResource(
+                  MainModel.GESTURE_SET).toURI());
          }
          catch (URISyntaxException e) {
-            confFile = new File(ClassLoader.getSystemResource(GESTURE_SET_NAME)
-                  .getPath());
+            confFile = new File(ClassLoader.getSystemResource(
+                  MainModel.GESTURE_SET).getPath());
          }
-         f= confFile;
-           
+
+         f = confFile;
       }
+
       if (f.exists()) {
 
          gestureSet = XMLGeco.importGestureSet(f).get(0);

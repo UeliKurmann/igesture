@@ -80,7 +80,7 @@ public class MainModel implements ButtonDeviceEventListener {
 
    private List<GestureClass> gestureClasses;
 
-   public static final String GESTURE_SET = "gestureSet/ms_application_gestures.xml";
+   public static final String GESTURE_SET = "gestureSet/msApplicationGestures.xml";
 
    private Recogniser recogniser;
 

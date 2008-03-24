@@ -102,7 +102,6 @@ public class AboutDialog extends BasicDialog {
       try {
          String resource = guiBundle.getProperty(key, RESOURCE);
          URL path = AboutDialog.class.getClassLoader().getResource(resource);
-         System.out.println("PATH = " + path);
          aboutField = new JEditorPane(path);
          aboutField.setEditable(false);
          aboutField.setContentType("text/html");
