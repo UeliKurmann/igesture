@@ -129,7 +129,7 @@
 		
         <dependency>
             <groupId>org.ximtec.igesture</groupId>
-            <artifactId>igesture-db-msApplicationGestures</artifactId>
+            <artifactId>igesture-db-msApplicationGestures-gestures</artifactId>
         </dependency>
 	</dependencies>
 		
