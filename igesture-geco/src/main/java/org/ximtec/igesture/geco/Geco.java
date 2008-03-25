@@ -42,7 +42,7 @@ import org.ximtec.igesture.geco.gui.MainModel;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.gui.action.OpenProjectAction;
 import org.ximtec.igesture.geco.util.SystemTray;
-import org.ximtec.igesture.geco.xml.XMLGeco;
+import org.ximtec.igesture.util.XMLTool;
 
 
 /**
@@ -105,7 +105,7 @@ public class Geco {
       }
 
       configFile = FileHandler.getResource(RUBINE_CONFIGURATION);
-      configuration = XMLGeco.importConfiguration(configFile);
+      configuration = XMLTool.importConfiguration(configFile);
       MainModel model = new MainModel(configuration, gecoConfiguration);
       view = new MainView(model);
       // open last opened Document
