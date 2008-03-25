@@ -26,7 +26,6 @@
 
 package org.ximtec.igesture.geco.xml;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -65,9 +64,8 @@ public class XMLGeco {
          .getLogger(XMLGeco.class.getName());
 
    public static final String ROOT_TAG = "gestureMappings";
-   
-   public static final String CONFIG_ROOT_TAG = "configuration";
 
+   public static final String CONFIG_ROOT_TAG = "configuration";
 
 
    /**
@@ -76,20 +74,19 @@ public class XMLGeco {
     * @param set the gesture set to be exported.
     * @param file the XML file.
     */
-   public static void exportProject(Collection<GestureToActionMapping> mappings, GestureSet gestureSet, String gestureSetFileName, File file) {
-
+   public static void exportProject(Collection<GestureToActionMapping> mappings,
+         GestureSet gestureSet, String gestureSetFileName, File file) {
       final JdomDocument igestureDocument = new JdomDocument(ROOT_TAG);
-      
       igestureDocument.attach(new JdomGestureSetName(gestureSetFileName));
 
-      for (final GestureToActionMapping map :  mappings) {
-            igestureDocument.attach(new JdomGestureMapping(map, gestureSet ));
+      for (final GestureToActionMapping map : mappings) {
+         igestureDocument.attach(new JdomGestureMapping(map, gestureSet));
       }
 
       FileHandler.writeFile(file.getPath(), igestureDocument.toXml());
-   } // exportGestureSet
+   } // exportProject
 
-   
+
    /**
     * Imports an XML document.
     * 
@@ -97,7 +94,7 @@ public class XMLGeco {
     * @return the JDOM document.
     */
    public static Document importDocument(File file) {
-      Document document = null; //jdom Document
+      Document document = null; // jdom Document
 
       try {
          final InputStream inputStream = new FileInputStream(file);
@@ -117,7 +114,6 @@ public class XMLGeco {
       return document;
    } // importDocument
 
-   
 
    /**
     * Imports a gesture set.
@@ -138,8 +134,8 @@ public class XMLGeco {
 
       return sets;
    } // importGestureSet
-   
-   
+
+
    /**
     * Imports a configuration.
     * 
@@ -153,26 +149,22 @@ public class XMLGeco {
             .getRootElement());
       return configuration;
    } // importConfiguration
-   
-   
+
+
    /**
     * Imports a configuration.
     * 
     * @param file the XML file
     * @return the configuration.
     */
-   
-   public static void exportGestureConfiguration(File file, List<String> devices, boolean[] arr,  boolean min,
-                  String lastProjectPath) {
-   final JdomDocument igestureDocument = new JdomDocument(CONFIG_ROOT_TAG);
-      
+
+   public static void exportGestureConfiguration(File file,
+         List<String> devices, boolean[] arr, boolean min, String lastProjectPath) {
+      final JdomDocument igestureDocument = new JdomDocument(CONFIG_ROOT_TAG);
       igestureDocument.attach(new JdomInputDevicesElement(devices, arr));
       igestureDocument.attach(new JdomMinimizeElement(min));
       igestureDocument.attach(new JdomLastProjectElement(lastProjectPath));
       FileHandler.writeFile(file.getPath(), igestureDocument.toXml());
    } // importConfiguration
-
-
-
 
 }

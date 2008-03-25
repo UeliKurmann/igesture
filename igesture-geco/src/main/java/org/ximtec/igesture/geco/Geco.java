@@ -36,6 +36,7 @@ import javax.swing.ImageIcon;
 import org.sigtec.graphix.GuiBundle;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.SplashScreen;
+import org.sigtec.util.FileHandler;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.geco.gui.MainModel;
 import org.ximtec.igesture.geco.gui.MainView;
@@ -60,10 +61,10 @@ public class Geco {
 
    private static final Logger LOGGER = Logger.getLogger(Geco.class.getName());
 
-   public static final String GECO_CONFIGURATION = "\\config\\geco.xml";
+   public static final String GECO_CONFIGURATION = "config/geco.xml";
 
-   private static final String GUI_BUNDLE_NAME = "geco";
-
+   private static final String DEFAULT_PROJECT = "mappings/defaultMappings.xml";
+   
    private static final String GUI_BUNDLE_FILE = "geco";
 
    private static final String GECO_LOGO = "images/gecoLogo.png";
@@ -77,8 +78,6 @@ public class Geco {
    public static final String LAST_PROJECT_FILE = "lastProject.txt";
 
    public static final String CONFIG = "config";
-
-   private static final String DEFAULT_PROJECT = "\\mappings\\defaultMappings.xml";
 
    private org.ximtec.igesture.configuration.Configuration configuration;
 
@@ -94,7 +93,7 @@ public class Geco {
             GECO_LOGO));
       SplashScreen splashScreen = new SplashScreen(logo, false, 4000);
       splashScreen.splash();
-      GuiTool.addBundle(GUI_BUNDLE_NAME, GUI_BUNDLE_FILE);
+      GuiTool.addBundle(KEY, GUI_BUNDLE_FILE);
       Logger.getAnonymousLogger().setLevel(Level.INFO);
       LOGGER.info(INITIALISING);
 
@@ -105,15 +104,7 @@ public class Geco {
          gestureConfiguration = new Configuration(GECO_CONFIGURATION);
       }
 
-      try {
-         configFile = new File(ClassLoader.getSystemResource(
-               RUBINE_CONFIGURATION).toURI());
-      }
-      catch (URISyntaxException e) {
-         configFile = new File(ClassLoader.getSystemResource(
-               RUBINE_CONFIGURATION).getPath());
-      }
-
+      configFile = FileHandler.getResource(RUBINE_CONFIGURATION);
       configuration = XMLGeco.importConfiguration(configFile);
       MainModel model = new MainModel(configuration, gestureConfiguration);
       view = new MainView(model);
@@ -125,7 +116,7 @@ public class Geco {
 
 
    public static final GuiBundle getGuiBundle() {
-      return GuiTool.getBundle(GUI_BUNDLE_NAME);
+      return GuiTool.getBundle(KEY);
    } // getGuiBundle
 
 
