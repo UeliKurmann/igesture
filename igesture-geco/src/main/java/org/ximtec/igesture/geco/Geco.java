@@ -27,7 +27,6 @@
 package org.ximtec.igesture.geco;
 
 import java.io.File;
-import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,6 +35,7 @@ import javax.swing.ImageIcon;
 import org.sigtec.graphix.GuiBundle;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.SplashScreen;
+import org.sigtec.util.Constant;
 import org.sigtec.util.FileHandler;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.geco.gui.MainModel;
@@ -64,7 +64,7 @@ public class Geco {
    public static final String GECO_CONFIGURATION = "config/geco.xml";
 
    private static final String DEFAULT_PROJECT = "mappings/defaultMappings.xml";
-   
+
    private static final String GUI_BUNDLE_FILE = "geco";
 
    private static final String GECO_LOGO = "images/gecoLogo.png";
@@ -109,7 +109,7 @@ public class Geco {
       MainModel model = new MainModel(configuration, gestureConfiguration);
       view = new MainView(model);
       // open last opened Document
-      openLastProject();
+      openMostRecentProject();
       new SystemTray(view);
       LOGGER.info(INITIALISED);
    }
@@ -136,18 +136,16 @@ public class Geco {
    }
 
 
-   public void openLastProject() {
-      String file = view.getModel().getGestureConfiguration().getLastProject();
-      if ((file == null) || (file.equals(""))) {
-         try {
-            file = ClassLoader.getSystemResource(DEFAULT_PROJECT).toURI()
-                  .getPath();
-         }
-         catch (URISyntaxException e) {
-            file = ClassLoader.getSystemResource(DEFAULT_PROJECT).getPath();
-         }
+   public void openMostRecentProject() {
+      File file = null;
+      String filename = view.getModel().getGestureConfiguration()
+            .getLastProject();
+
+      if ((filename == null) || (filename.equals(Constant.EMPTY_STRING))) {
+         file = FileHandler.getResource(DEFAULT_PROJECT);
       }
-      (new OpenProjectAction(view)).openProject(new File(file));
-   }
+
+      (new OpenProjectAction(view)).openProject(file);
+   } // openMostRecentProject
 
 }

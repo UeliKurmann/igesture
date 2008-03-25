@@ -27,10 +27,9 @@ package org.ximtec.igesture.geco.userAction;
 
 import java.io.IOException;
 
+import org.sigtec.util.SystemTool;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.EventHandler;
-import org.ximtec.igesture.geco.gui.Constant;
-
 
 
 /**
@@ -38,55 +37,56 @@ import org.ximtec.igesture.geco.gui.Constant;
  * @version 0.9, Dec 6, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public class CommandExecutor implements EventHandler{
-   
-   private final static String WIN_CONSOLE = "cmd /C "; 
-   private final static String WIN = "WIN"; 
+public class CommandExecutor implements EventHandler {
 
-   
+   private final static String WIN_CONSOLE = "cmd /C ";
+
    private String command;
-   
+
+
    /**
     * Constructor.
     * 
     * @param command the command to be executed
     */
-   public CommandExecutor(String command){
+   public CommandExecutor(String command) {
       this.command = command;
    }
-   
-   
+
+
    /**
     * Execute the action
     * 
     */
    public void run(ResultSet resultSet) {
-      try{
-            if ((command!=null)&&(!command.equals(Constant.EMPTY_STRING))){
-               System.out.println(System.getProperty( "os.name")) ;
-               if(System.getProperty( "os.name" ).toUpperCase().substring(0,3).equals(WIN)){
-                  Runtime.getRuntime().exec(WIN_CONSOLE+command);
-               }
+      try {
+         if ((command != null) && (!command.isEmpty())) {
+
+            if (SystemTool.isWindowsPlatform()) {
+               Runtime.getRuntime().exec(WIN_CONSOLE + command);
             }
+
+         }
       }
-      catch(IOException ioe){
+      catch (IOException ioe) {
          ioe.printStackTrace();
       }
+      
    } // run
-   
-   public String getCommand(){
+
+
+   public String getCommand() {
       return command;
    }
 
-   
-   /**
-    * Returns a description of the action
-    * 
-    * @return the keys to be pressed
-    */
-   public String toString(){
-      return command;
-   }//toString
 
+   /**
+    * Returns a string representation of the command executor.
+    * 
+    * @return string representation of the command executor.
+    */
+   public String toString() {
+      return command;
+   }// toString
 
 }
