@@ -46,7 +46,7 @@ import org.ximtec.igesture.storage.StorageManager;
 
 
 /**
- * Model for MainView class 
+ * Model for MainView class
  * @version 0.9, Nov 20, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
@@ -85,7 +85,7 @@ public class MainModel implements ButtonDeviceEventListener {
    private Recogniser recogniser;
 
    private InputDeviceClient client;
-   
+
    private boolean minimize;
 
 
@@ -140,18 +140,14 @@ public class MainModel implements ButtonDeviceEventListener {
     * write operations are forwarded to the database.
     */
    /*
-   private void loadData() {
-      gestureClasses = new ArrayList<GestureClass>();
-
-      for (GestureClass dataObject : storageManager.load(GestureClass.class)) {
-         gestureClasses.add(dataObject);
-      }
-
-       for (GestureSet dataObject : storageManager.load(GestureSet.class)) {
-       gestureSets.add(dataObject);
-       }
-   } // loadData
-*/
+    * private void loadData() { gestureClasses = new ArrayList<GestureClass>();
+    * 
+    * for (GestureClass dataObject : storageManager.load(GestureClass.class)) {
+    * gestureClasses.add(dataObject); }
+    * 
+    * for (GestureSet dataObject : storageManager.load(GestureSet.class)) {
+    * gestureSets.add(dataObject); } } // loadData
+    */
 
    /**
     * Adds the gesture set to the gesture main model
@@ -170,7 +166,7 @@ public class MainModel implements ButtonDeviceEventListener {
          gestureClassesTable.put(gc.getName(), gc);
 
       }
-      
+
       toBeSaved = true;
    } // loadGestureSet
 
@@ -257,13 +253,11 @@ public class MainModel implements ButtonDeviceEventListener {
       return gestureSet;
    } // getGestureSets
 
-   
-   
+
    public Hashtable<GestureClass, GestureToActionMapping> getMappings() {
       return mappings;
    } // getMappings
-   
-   
+
 
    /**
     * Adds a gesture-action mapping
@@ -368,6 +362,7 @@ public class MainModel implements ButtonDeviceEventListener {
 
    public void initRecogniser(GestureSet gestureSet) {
       if (recogniser == null) {
+
          try {
             this.configuration.setEventManager(eventManager);
             configuration.addGestureSet(gestureSet);
@@ -377,8 +372,10 @@ public class MainModel implements ButtonDeviceEventListener {
          catch (Exception e) {
             e.printStackTrace();
          }
+
       }
-   }
+
+   } // initRecogniser
 
 
    /**
@@ -398,18 +395,19 @@ public class MainModel implements ButtonDeviceEventListener {
     * Configure Input Client
     */
    public void resetInputDevice() {
-      if(client!=null){
+      if (client != null) {
          client.reset();
       }
    }
-   
-   public void configureInputDevice(){
-         client = new InputDeviceClient(gestureConfiguration.getInputDevice(),
-               gestureConfiguration.getInputDeviceEventListener());
-       //  client.addButtonDeviceEventListener(this);
-     if(recogniser!=null){
-        client.addButtonDeviceEventListener(this);
-     }
+
+
+   public void configureInputDevice() {
+      client = new InputDeviceClient(gestureConfiguration.getInputDevice(),
+            gestureConfiguration.getInputDeviceEventListener());
+      // client.addButtonDeviceEventListener(this);
+      if (recogniser != null) {
+         client.addButtonDeviceEventListener(this);
+      }
    }
 
 
@@ -427,15 +425,13 @@ public class MainModel implements ButtonDeviceEventListener {
    public void setGestureConfiguration(Configuration conf) {
       gestureConfiguration = conf;
    }
-   
-   
+
+
    /**
     * Application should be minimized
     */
    public boolean minimizeAsStartup() {
       return minimize;
    }
-   
-
 
 }
