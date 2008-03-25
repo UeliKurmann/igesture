@@ -2,22 +2,72 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.ximtec.igesture</groupId>
-		<artifactId>igesture-db</artifactId>
-		<version>1.2-SNAPSHOT</version>
-	</parent>
-
+    <parent>
+        <groupId>org.ximtec.igesture</groupId>
+        <artifactId>igesture-db</artifactId>
+        <version>1.2-SNAPSHOT</version>
+    </parent>
+  
+	<groupId>org.ximtec.igesture</groupId>
 	<artifactId>igesture-db-graffitiNumbers</artifactId>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 	<version>1.2-SNAPSHOT</version>
 	<inceptionYear>2008</inceptionYear>
 	<description>
-		Graffiti numbers.
-	</description>
+		Graffiti numbers gesture dbs.
+	</description> 
 
 	<name>igesture-db-graffitiNumbers</name>
 	<url>http://www.igesture.org</url>
+
+	<issueManagement>
+		<system>SourceForge</system>
+		<url>http://sourceforge.net/tracker/?group_id=188690</url>
+	</issueManagement>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>D\signerb</id>
+			<name>Beat Signer</name>
+			<email>signer@inf.ethz.ch</email>
+			<url>http://www.globis.ethz.ch/people/signerb/</url>
+			<organization>
+				Global Information Systems Group, ETH Zurich
+			</organization>
+			<organizationUrl>
+				http://www.globis.ethz.ch/
+			</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<id>D\kurmannu</id>
+			<name>Ueli Kurmann</name>
+			<email>kurmannu@users.sourceforge.net</email>
+			<url />
+			<organization>ETH Zurich</organization>
+			<organizationUrl>http://www.ethz.ch/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+	
+	<modules>
+		<module>igesture-db-graffitiNumbers-db4o</module>
+    <module>igesture-db-graffitiNumbers-xml</module>
+    <module>igesture-db-graffitiNumbers-gestures</module>
+	</modules>
 
 	<build>
 		<resources>
@@ -26,10 +76,6 @@
 				<directory>src/main/resources</directory>
 			</resource>
 		</resources>
-
-		<plugins>
-
-		</plugins>
 	</build>
 
 	<repositories>
@@ -47,44 +93,43 @@
 			<url>http://maven.globis.ethz.ch/repository/</url>
 		</repository>
 	</repositories>
-
-	
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<configuration>
-					<author>true</author>
-					<version>true</version>
-					<source>1.5</source>
-					<groups>
-						<group>
-							<title>iGesture</title>
-							<packages>org.ximtec.igesture*</packages>
-						</group>
-					</groups>
-					<links>
-						<link>
-							http://java.sun.com/j2se/1.5.0/docs/api/
-						</link>
-					</links>
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
+ 	
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <author>true</author>
+                    <version>true</version>
+                    <source>1.5</source>
+                    <groups>
+                        <group>
+                            <title>iGesture</title>
+                            <packages>org.ximtec.igesture*</packages>
+                        </group>
+                    </groups>
+                    <links>
+                        <link>
+                            http://java.sun.com/j2se/1.5.0/docs/api/
+                        </link>
+                    </links>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 
 	<distributionManagement>
 		<site>
-			<id>ftp-repository</id>
-			<url>ftp://www.igesture.org/httpdocs/igesture-db/igesture-db-graffitiNumbers</url>
+			<id>igesture-repository</id>
+			<url>ftp://www.igesture.org/httpdocs</url>
 		</site>
 	</distributionManagement>
-	
+
     <scm>
         <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-db/igesture-db-graffitiNumbers</connection>
         <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-db/igesture-db-graffitiNumbers</developerConnection>
         <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-db/igesture-db-graffitiNumbers</url>
-    </scm>
-	
+    </scm>    
+
 </project>
