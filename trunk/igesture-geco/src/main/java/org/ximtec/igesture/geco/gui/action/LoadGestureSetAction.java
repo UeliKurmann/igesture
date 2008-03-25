@@ -39,7 +39,7 @@ import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
-import org.ximtec.igesture.geco.xml.XMLGeco;
+import org.ximtec.igesture.util.XMLTool;
 
 
 /**
@@ -117,7 +117,7 @@ public class LoadGestureSetAction extends BasicAction {
     * @param file the file containing the gesture set to be loaded.
     */
    public GestureSet loadGestureSet(File file) {
-      return XMLGeco.importGestureSet(file).get(0);
+      return XMLTool.importGestureSet(file).get(0);
    } // loadGestureSet
 
 }

@@ -41,6 +41,7 @@ import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.userAction.CommandExecutor;
 import org.ximtec.igesture.geco.userAction.KeyboardSimulation;
+import org.ximtec.igesture.util.XMLTool;
 
 
 public class XMLImportGeco {
@@ -72,7 +73,7 @@ public class XMLImportGeco {
     */
    public void importProject(File file) {
       mappings = new ArrayList<GestureToActionMapping>();
-      final Document document = XMLGeco.importDocument(file);
+      final Document document = XMLTool.importDocument(file);
       final Element gestureSetElement = document.getRootElement().getChild(
             GESTURE_SET);
 
@@ -101,7 +102,7 @@ public class XMLImportGeco {
 
       if (f.exists()) {
 
-         gestureSet = XMLGeco.importGestureSet(f).get(0);
+         gestureSet = XMLTool.importGestureSet(f).get(0);
 
          final List<Element> mappingElements = (List<Element>)document
                .getRootElement().getChildren(ROOT_TAG);

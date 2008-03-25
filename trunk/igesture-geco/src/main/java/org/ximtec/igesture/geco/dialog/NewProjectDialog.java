@@ -60,7 +60,7 @@ import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainModel;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.gui.action.SaveProjectAction;
-import org.ximtec.igesture.geco.xml.XMLGeco;
+import org.ximtec.igesture.util.XMLTool;
 
 
 /**
@@ -357,7 +357,7 @@ public class NewProjectDialog extends BasicDialog {
                      MainModel.GESTURE_SET).getPath());
             }
 
-            GestureSet gestureSet = XMLGeco.importGestureSet(gsFile).get(0);
+            GestureSet gestureSet = XMLTool.importGestureSet(gsFile).get(0);
 
             view.getModel().clearData();
             view.getModel().initRecogniser(gestureSet);
