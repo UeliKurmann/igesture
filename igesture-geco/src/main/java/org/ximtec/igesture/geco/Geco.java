@@ -73,7 +73,7 @@ public class Geco {
 
    private static final String INITIALISED = "Initialised.";
 
-   private static final String RUBINE_CONFIGURATION = "\\config\\rubineconfiguration.xml";
+   private static final String RUBINE_CONFIGURATION = "config/rubineconfiguration.xml";
 
    public static final String LAST_PROJECT_FILE = "lastProject.txt";
 
@@ -81,7 +81,7 @@ public class Geco {
 
    private org.ximtec.igesture.configuration.Configuration configuration;
 
-   private Configuration gestureConfiguration;
+   private Configuration gecoConfiguration;
 
    private MainView view;
 
@@ -98,15 +98,15 @@ public class Geco {
       LOGGER.info(INITIALISING);
 
       if (args.length > 0) {
-         gestureConfiguration = new Configuration(args[0]);
+         gecoConfiguration = new Configuration(args[0]);
       }
       else {
-         gestureConfiguration = new Configuration(GECO_CONFIGURATION);
+         gecoConfiguration = new Configuration(GECO_CONFIGURATION);
       }
 
       configFile = FileHandler.getResource(RUBINE_CONFIGURATION);
       configuration = XMLGeco.importConfiguration(configFile);
-      MainModel model = new MainModel(configuration, gestureConfiguration);
+      MainModel model = new MainModel(configuration, gecoConfiguration);
       view = new MainView(model);
       // open last opened Document
       openMostRecentProject();

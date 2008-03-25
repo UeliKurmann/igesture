@@ -109,8 +109,6 @@ public class Constant extends org.sigtec.util.Constant {
 
    public static final String EXIT = "EXIT";
 
-   //public static final String SHOW = "SHOW";
-
    public static final String EDIT = "EDIT";
 
    public static final String BROWSE = "BROWSE";
