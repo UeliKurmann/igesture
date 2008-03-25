@@ -67,6 +67,7 @@
 		<module>igesture-db-graffitiLetters</module>
     <module>igesture-db-graffitiNumbers</module>
     <module>igesture-db-msApplicationGestures</module>
+    <module>igesture-db-multistrokeGestures</module>
 	</modules>
 
 	<build>
@@ -127,36 +128,9 @@
 	</distributionManagement>
 
     <scm>
-        <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-demo</connection>
-        <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-demo</developerConnection>
-        <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-demo</url>
+        <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-db</connection>
+        <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-db</developerConnection>
+        <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-db</url>
     </scm>    
-
-    <ciManagement>
-        <system>continuum</system>
-        <url>http://maven.globis.ethz.ch/continuum/</url>
-        <notifiers>
-            <notifier>
-                <type>mail</type>
-                <sendOnError>true</sendOnError>
-                <sendOnFailure>true</sendOnFailure>
-                <sendOnWarning>true</sendOnWarning>
-                <sendOnSuccess>true</sendOnSuccess>
-                <configuration>
-                    <address>signer@inf.ethz.ch</address>
-                </configuration>
-            </notifier>
-            <notifier>
-                <type>mail</type>
-                <sendOnError>true</sendOnError>
-                <sendOnFailure>true</sendOnFailure>
-                <sendOnWarning>true</sendOnWarning>
-                <sendOnSuccess>true</sendOnSuccess>
-                <configuration>
-                    <address>ueli@smartness.ch</address>
-                </configuration>
-            </notifier>
-        </notifiers>
-    </ciManagement>
 
 </project>
