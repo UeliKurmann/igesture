@@ -27,27 +27,14 @@
 package org.ximtec.igesture.geco.xml;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
 import org.sigtec.jdom.JdomDocument;
-import org.sigtec.jdom.id.Factory;
-import org.sigtec.util.Constant;
 import org.sigtec.util.FileHandler;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.core.jdom.JdomGestureSet;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
-import org.xml.sax.InputSource;
 
 
 /**
@@ -83,55 +70,6 @@ public class XMLGeco {
 
       FileHandler.writeFile(file.getPath(), igestureDocument.toXml());
    } // exportProject
-
-
-   /**
-    * Imports an XML document.
-    * 
-    * @param file the XML file.
-    * @return the JDOM document.
-    */
-   public static Document importDocument(File file) {
-      Document document = null; // jdom Document
-
-      try {
-         final InputStream inputStream = new FileInputStream(file);
-         final SAXBuilder builder = new SAXBuilder(false);
-         builder.setFactory(new Factory());
-         builder.setIgnoringElementContentWhitespace(true);
-         final InputSource is = new InputSource(inputStream);
-         document = builder.build(is);
-      }
-      catch (final IOException e) {
-         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-      }
-      catch (final JDOMException e) {
-         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-      }
-
-      return document;
-   } // importDocument
-
-
-   /**
-    * Imports a gesture set.
-    * 
-    * @param file the XML file.
-    * @return a list of gesture sets.
-    */
-   @SuppressWarnings("unchecked")
-   public static List<GestureSet> importGestureSet(File file) {
-      final List<GestureSet> sets = new ArrayList<GestureSet>();
-      final Document document = importDocument(file);
-      final List<Element> algorithmElements = document.getRootElement()
-            .getChildren(JdomGestureSet.ROOT_TAG);
-
-      for (final Element setElement : algorithmElements) {
-         sets.add((GestureSet)JdomGestureSet.unmarshal(setElement));
-      }
-
-      return sets;
-   } // importGestureSet
 
 
    /**
