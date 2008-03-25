@@ -26,7 +26,6 @@
 package org.ximtec.igesture.geco;
 
 import java.io.File;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +36,7 @@ import org.apache.commons.configuration.tree.xpath.XPathExpressionEngine;
 import org.sigtec.input.InputDevice;
 import org.sigtec.input.InputDeviceEventListener;
 import org.sigtec.util.Constant;
+import org.sigtec.util.FileHandler;
 import org.ximtec.igesture.io.InputDeviceFactory;
 
 
@@ -58,25 +58,18 @@ public class Configuration {
    private static final String PROPERTY_DATABASE = "database";
    private static final String PROPERTY_ALGORITHM = "algorithm/class";
    private static final String PROPERTY_TAB = "tab/class";
-   
+
    private static final String MINIMIZE = "minimize";
    private static final String LAST_PROJECT = "lastproject";
-   
+
    private static final String TRUE = "true";
-   
 
    private XMLConfiguration configuration;
 
 
    public Configuration(String file) {
       try {
-         File confFile;
-         try {
-            confFile = new File(ClassLoader.getSystemResource(file).toURI());
-         }
-         catch (URISyntaxException e) {
-            confFile = new File(ClassLoader.getSystemResource(file).getPath());
-         }
+         File confFile = FileHandler.getResource(file);
          configuration = new XMLConfiguration();
          configuration.setFileName(confFile.getPath());
          configuration.setExpressionEngine(new XPathExpressionEngine());
@@ -130,7 +123,7 @@ public class Configuration {
     * 
     */
    @SuppressWarnings("unchecked")
-public InputDevice getInputDevice() {
+   public InputDevice getInputDevice() {
       List<String> list = configuration.getList(SELECTED_INPUT_DEVICE);
       if (!list.isEmpty()) {
          String deviceName = list.get(0);
@@ -148,14 +141,15 @@ public InputDevice getInputDevice() {
     * 
     */
    @SuppressWarnings("unchecked")
-public String getInputDeviceName() {
+   public String getInputDeviceName() {
       List<String> list = configuration.getList(SELECTED_INPUT_DEVICE);
       if (!list.isEmpty()) {
          return list.get(0);
       }
       return null;
    } // getInputDeviceName
-   
+
+
    /**
     * Returns the last opened project.
     * 
@@ -163,14 +157,15 @@ public String getInputDeviceName() {
     * 
     */
    @SuppressWarnings("unchecked")
-public String getLastProject() {
+   public String getLastProject() {
       List<String> list = configuration.getList(LAST_PROJECT);
       if (!list.isEmpty()) {
          return list.get(0);
       }
       return null;
    } // getLastProject
-   
+
+
    /**
     * Returns true if the value of <minimize> is true, otherwise false;
     * 
@@ -178,13 +173,13 @@ public String getLastProject() {
     * 
     */
    @SuppressWarnings("unchecked")
-public boolean getMinimize() {
+   public boolean getMinimize() {
       List<String> list = configuration.getList(MINIMIZE);
       if (!list.isEmpty()) {
-         if((list.get(0)).equals(TRUE)){
+         if ((list.get(0)).equals(TRUE)) {
             return true;
          }
-         else{
+         else {
             return false;
          }
       }
@@ -199,7 +194,7 @@ public boolean getMinimize() {
     * 
     */
    @SuppressWarnings("unchecked")
-public List<String> getInputDevices() {
+   public List<String> getInputDevices() {
       List<String> list = configuration.getList(ALL_INPUT_DEVICES);
       return list;
    } // getInputDevices
@@ -212,7 +207,7 @@ public List<String> getInputDevices() {
     * 
     */
    @SuppressWarnings("unchecked")
-public InputDeviceEventListener getInputDeviceEventListener() {
+   public InputDeviceEventListener getInputDeviceEventListener() {
       List<String> list = configuration.getList(SELECTED_INPUT_DEVICE);
 
       if (!list.isEmpty()) {
