@@ -72,6 +72,7 @@ public class XMLImportGeco {
     * @param file the XML file in which the project is saved.
     */
    public void importProject(File file) {
+      GestureSet newGestureSet = null;
       mappings = new ArrayList<GestureToActionMapping>();
       final Document document = XMLTool.importDocument(file);
       final Element gestureSetElement = document.getRootElement().getChild(
@@ -84,25 +85,20 @@ public class XMLImportGeco {
          // load from specified position
          f = new File(gsFile);
          gestureSetFileName = f.getAbsolutePath();
+
+         if (f.exists()) {
+            newGestureSet = XMLTool.importGestureSet(f).get(0);
+         }
+
       }
       else { // load from classpath
-         File confFile;
-
-         try {
-            confFile = new File(ClassLoader.getSystemResource(
-                  MainModel.GESTURE_SET).toURI());
-         }
-         catch (URISyntaxException e) {
-            confFile = new File(ClassLoader.getSystemResource(
-                  MainModel.GESTURE_SET).getPath());
-         }
-
-         f = confFile;
+         newGestureSet = XMLTool.importGestureSet(
+               ClassLoader.getSystemResourceAsStream(MainModel.GESTURE_SET))
+               .get(0);
       }
 
-      if (f.exists()) {
-
-         gestureSet = XMLTool.importGestureSet(f).get(0);
+      if (newGestureSet != null) {
+         gestureSet = newGestureSet;
 
          final List<Element> mappingElements = (List<Element>)document
                .getRootElement().getChildren(ROOT_TAG);
@@ -122,6 +118,7 @@ public class XMLImportGeco {
                }
             }
          }
+
       }
       else {
          // file not exists, display error message!
@@ -129,6 +126,7 @@ public class XMLImportGeco {
          gestureSetFileName = Constant.EMPTY_STRING;
          JOptionPane.showMessageDialog(view, Constant.GESTURE_SET_NOT_FOUND);
       }
+
    } // importKeyMappings
 
 
