@@ -85,8 +85,6 @@ public class Geco {
 
    private MainView view;
 
-   private File configFile;
-
 
    public Geco(String[] args) throws AlgorithmException {
       ImageIcon logo = new ImageIcon(Geco.class.getClassLoader().getResource(
@@ -104,8 +102,8 @@ public class Geco {
          gecoConfiguration = new Configuration(GECO_CONFIGURATION);
       }
 
-      configFile = FileHandler.getResource(RUBINE_CONFIGURATION);
-      configuration = XMLTool.importConfiguration(configFile);
+      configuration = XMLTool.importConfiguration(FileHandler
+            .getResource(RUBINE_CONFIGURATION));
       MainModel model = new MainModel(configuration, gecoConfiguration);
       view = new MainView(model);
       // open last opened Document
