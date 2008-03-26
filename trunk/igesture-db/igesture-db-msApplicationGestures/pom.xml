@@ -64,7 +64,7 @@
 	</developers>
 	
 	<modules>
-		<module>igesture-db-msApplicationGestures-config</module>
+		<module>igesture-db-msApplicationGestures-common</module>
 		<module>igesture-db-msApplicationGestures-db4o</module>
     <module>igesture-db-msApplicationGestures-xml</module>
     <module>igesture-db-msApplicationGestures-gestures</module>
