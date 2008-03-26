@@ -90,12 +90,10 @@ public class Application implements ButtonDeviceEventListener {
 
 
    private void initGestures() {
-      Configuration configuration = XMLTool.importConfiguration(new File(
-            ClassLoader.getSystemResource("rubineconfiguration.xml").getFile()));
-      GestureSet gestureSet = XMLTool
-            .importGestureSet(
-                  new File(ClassLoader.getSystemResource("demogestures.xml")
-                        .getFile())).get(0);
+      Configuration configuration = XMLTool.importConfiguration(ClassLoader
+            .getSystemResourceAsStream("rubineconfiguration.xml"));
+      GestureSet gestureSet = XMLTool.importGestureSet(
+            ClassLoader.getSystemResourceAsStream("demogestures.xml")).get(0);
       EventManager eventManager = new EventManager();
       eventManager.registerRejectEvent(new RejectEventHandler());
       Style style = new Style();

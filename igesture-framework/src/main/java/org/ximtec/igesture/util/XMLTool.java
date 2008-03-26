@@ -94,9 +94,9 @@ public class XMLTool {
     * @return a list of gesture sets.
     */
    @SuppressWarnings("unchecked")
-   public static List<GestureSet> importGestureSet(File file) {
+   public static List<GestureSet> importGestureSet(InputStream inputStream) {
       final List<GestureSet> sets = new ArrayList<GestureSet>();
-      final Document document = importDocument(file);
+      final Document document = importDocument(inputStream);
       final List<Element> algorithmElements = document.getRootElement()
             .getChildren(JdomGestureSet.ROOT_TAG);
 
@@ -105,6 +105,18 @@ public class XMLTool {
       }
 
       return sets;
+   } // importGestureSet
+
+
+   public static List<GestureSet> importGestureSet(File file) {
+      try {
+         return importGestureSet(new FileInputStream(file));
+      }
+      catch (FileNotFoundException e) {
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+         return null;
+      }
+
    } // importGestureSet
 
 
@@ -208,9 +220,9 @@ public class XMLTool {
     * @param file the XML file
     * @return the configuration.
     */
-   public static Configuration importConfiguration(File file) {
+   public static Configuration importConfiguration(InputStream inputStream) {
       Configuration configuration = new Configuration();
-      final Document document = importDocument(file);
+      final Document document = importDocument(inputStream);
       configuration = (Configuration)JdomConfiguration.unmarshal(document
             .getRootElement());
       return configuration;
@@ -261,11 +273,10 @@ public class XMLTool {
     * @param file the XML file.
     * @return the JDOM document.
     */
-   public static Document importDocument(File file) {
+   public static Document importDocument(InputStream inputStream) {
       Document document = null;
 
       try {
-         final InputStream inputStream = new FileInputStream(file);
          final SAXBuilder builder = new SAXBuilder(false);
          builder.setFactory(new Factory());
          builder.setIgnoringElementContentWhitespace(true);
@@ -280,6 +291,18 @@ public class XMLTool {
       }
 
       return document;
+   } // importDocument
+
+
+   public static Document importDocument(File file) {
+      try {
+         return importDocument(new FileInputStream(file));
+      }
+      catch (FileNotFoundException e) {
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+         return null;
+      }
+
    } // importDocument
 
 

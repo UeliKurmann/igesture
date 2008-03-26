@@ -65,9 +65,8 @@ public class HelloWorldXML implements ButtonDeviceEventListener {
 
 
    public HelloWorldXML() throws AlgorithmException {
-      Configuration configuration = XMLTool.importConfiguration(new File(this
-            .getClass().getClassLoader().getResource("configuration.xml")
-            .getFile()));
+      Configuration configuration = XMLTool.importConfiguration(ClassLoader
+            .getSystemResourceAsStream("configuration.xml"));
       recogniser = new Recogniser(configuration);
       InputDevice device = new MouseReader();
       InputDeviceEventListener listener = new BufferedInputDeviceEventListener(
