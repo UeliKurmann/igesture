@@ -102,8 +102,8 @@ public class Geco {
          gecoConfiguration = new Configuration(GECO_CONFIGURATION);
       }
 
-      configuration = XMLTool.importConfiguration(FileHandler
-            .getResource(RUBINE_CONFIGURATION));
+      configuration = XMLTool.importConfiguration(ClassLoader
+            .getSystemResourceAsStream(RUBINE_CONFIGURATION));
       MainModel model = new MainModel(configuration, gecoConfiguration);
       view = new MainView(model);
       // open last opened Document

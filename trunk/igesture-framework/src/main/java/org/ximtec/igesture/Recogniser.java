@@ -26,7 +26,7 @@
 
 package org.ximtec.igesture;
 
-import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -100,28 +100,31 @@ public class Recogniser {
    /**
     * Creates a new recogniser.
     * 
-    * @param configFile the file containing the XML configuration.
+    * @param config the input stream from which the XML configuration can be
+    *            read.
     * @throws AlgorithmException if the recogniser could not be created.
     */
-   public Recogniser(File configFile) throws AlgorithmException {
-      this(XMLTool.importConfiguration(configFile));
+   public Recogniser(InputStream config) throws AlgorithmException {
+      this(XMLTool.importConfiguration(config));
    }
 
 
    /**
     * Creates a new recogniser.
     * 
-    * @param configFile the file containing the XML configuration.
-    * @param setFile the file containing the gesture set in XML format.
+    * @param config the input stream from where the XML configuration cab be
+    *            read.
+    * @param set the input stream from where the gesture set in XML format can be
+    *            read.
     * @param eventManager the event manager to be informed about results.
     * @throws AlgorithmException if the recogniser could not be created.
     */
-   public Recogniser(File configFile, File setFile, EventManager eventManager)
-         throws AlgorithmException {
-      final Configuration config = XMLTool.importConfiguration(configFile);
-      config.setEventManager(eventManager);
-      config.addGestureSets(XMLTool.importGestureSet(setFile));
-      algorithms = AlgorithmFactory.createAlgorithms(config);
+   public Recogniser(InputStream config, InputStream set,
+         EventManager eventManager) throws AlgorithmException {
+      final Configuration configuration = XMLTool.importConfiguration(config);
+      configuration.setEventManager(eventManager);
+      configuration.addGestureSets(XMLTool.importGestureSet(set));
+      algorithms = AlgorithmFactory.createAlgorithms(configuration);
    }
 
 
@@ -161,8 +164,8 @@ public class Recogniser {
 
 
    /**
-    * Recognises a gesture. The method uses all registered algorithms and stops as
-    * soon as the first algorithm returns a result.
+    * Recognises a gesture. The method uses all registered algorithms and stops
+    * as soon as the first algorithm returns a result.
     * 
     * @param note the note to be recognised.
     * @return the result set containing the recognised gesture classes.

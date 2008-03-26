@@ -346,18 +346,9 @@ public class NewProjectDialog extends BasicDialog {
             // close dialog
             NewProjectDialog.this.dispose();
 
-            // update model
-            File gsFile;
-            try {
-               gsFile = new File(ClassLoader.getSystemResource(
-                     MainModel.GESTURE_SET).toURI());
-            }
-            catch (URISyntaxException ex) {
-               gsFile = new File(ClassLoader.getSystemResource(
-                     MainModel.GESTURE_SET).getPath());
-            }
-
-            GestureSet gestureSet = XMLTool.importGestureSet(gsFile).get(0);
+            GestureSet gestureSet = XMLTool.importGestureSet(
+                  ClassLoader.getSystemResourceAsStream(MainModel.GESTURE_SET))
+                  .get(0);
 
             view.getModel().clearData();
             view.getModel().initRecogniser(gestureSet);
