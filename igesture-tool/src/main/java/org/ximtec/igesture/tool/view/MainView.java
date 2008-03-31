@@ -76,10 +76,10 @@ public class MainView extends JFrame {
       
       BasicMenuItem storeItem = new BasicMenuItem();
       storeItem.setAction(new StoreWorkspaceAction());
-      menu.add(storeItem);
+      fileMenu.add(storeItem);
       BasicMenuItem exitItem = new BasicMenuItem();
       exitItem.setAction(new ExitAction());
-      menu.add(exitItem);
+      fileMenu.add(exitItem);
    }
 
 
