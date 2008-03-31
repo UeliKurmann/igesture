@@ -28,10 +28,10 @@ package org.ximtec.igesture.tool.view.testbench.wrapper;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ximtec.igesture.core.DefaultDataObject;
+import org.ximtec.igesture.core.DefaultPropertyChangeOwner;
 
 
-public class AlgorithmList extends DefaultDataObject {
+public class AlgorithmList extends DefaultPropertyChangeOwner{
 
    public static final String PROPERTY_SETS = "algorithms";
 

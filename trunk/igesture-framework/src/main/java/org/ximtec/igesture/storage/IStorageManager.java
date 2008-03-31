@@ -10,5 +10,6 @@ public interface IStorageManager extends StorageEngine{
   void update(List<DataObject> dataObjects);
   
   
+  
 
 }

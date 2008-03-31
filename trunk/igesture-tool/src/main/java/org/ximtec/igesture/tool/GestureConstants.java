@@ -53,8 +53,11 @@ public class GestureConstants {
    public static final String CONFIGURATION_ADD = "AddConfigurationAction";
    public static final String CONFIGURATION_DEL = "RemoveConfigurationAction";
    public static final String CONFIGURATION_EXPORT = "ConfigExportAction";
+   
+   public static final String MENUBAR_FILE = "menubar.file";
+   public static final String MENUBAR_ABOUT = "menubar.about";
 
-   // --------------------- version 2.0 ---------------------
+   // --------------------- end version 2.0 ---------------------
 
    public static final String COMMON_ADD = "ADD";
 

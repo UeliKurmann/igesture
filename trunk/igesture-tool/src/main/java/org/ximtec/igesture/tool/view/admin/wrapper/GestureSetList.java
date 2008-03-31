@@ -28,11 +28,13 @@ package org.ximtec.igesture.tool.view.admin.wrapper;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ximtec.igesture.core.DefaultDataObject;
+import org.ximtec.igesture.core.DataObject;
+import org.ximtec.igesture.core.DataObjectWrapper;
+import org.ximtec.igesture.core.DefaultPropertyChangeOwner;
 import org.ximtec.igesture.core.GestureSet;
 
 
-public class GestureSetList extends DefaultDataObject {
+public class GestureSetList extends DefaultPropertyChangeOwner implements DataObjectWrapper{
 
    public static final String PROPERTY_SETS = "sets";
 
@@ -67,5 +69,13 @@ public class GestureSetList extends DefaultDataObject {
    public String toString() {
       //FIXME use resource bundle
       return "GestureSets";
+   }
+
+
+   @Override
+   public List<DataObject> getDataObjects() {
+      List<DataObject> result = new ArrayList<DataObject>();
+      result.addAll(getGestureSets());
+      return result;
    }
 }

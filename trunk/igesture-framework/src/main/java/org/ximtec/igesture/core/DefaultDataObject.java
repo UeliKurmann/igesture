@@ -23,12 +23,11 @@
  * 
  */
 
+
 package org.ximtec.igesture.core;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
 import org.ximtec.igesture.storage.StorageManager;
+
 
 /**
  * Default data object implementation.
@@ -37,92 +36,51 @@ import org.ximtec.igesture.storage.StorageManager;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public abstract class DefaultDataObject implements DataObject {
+public abstract class DefaultDataObject extends DefaultPropertyChangeOwner
+      implements DataObject {
 
-  public static final String PROPERTY_ID = "id";
+   public static final String PROPERTY_ID = "id";
 
-  private String objectID;
+   private String objectID;
 
-  protected transient PropertyChangeSupport propertyChangeSupport;
 
-  /**
-   * Constructs a new default data object.
-   */
-  public DefaultDataObject() {
-    this.propertyChangeSupport = new PropertyChangeSupport(this);
-    setId(StorageManager.generateUUID());
-  }
-  
-  /**
-   * This method is used to deserialize transient fields
-   * @return
-   */
-  private Object readResolve() {
-     this.propertyChangeSupport = new PropertyChangeSupport(this);
-     return this;
+   /**
+    * Constructs a new default data object.
+    */
+   public DefaultDataObject() {
+      setId(StorageManager.generateUUID());
    }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void setId(String id) {
-    String oldValue = this.objectID;
-    this.objectID = id;
-    propertyChangeSupport.firePropertyChange(PROPERTY_ID, oldValue, id);
-  } // setID
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public String getId() {
-    if (objectID == null) {
-      setId(StorageManager.generateUUID());
-    }
+   /**
+    * {@inheritDoc}
+    */
+   @Override
+   public void setId(String id) {
+      String oldValue = this.objectID;
+      this.objectID = id;
+      propertyChangeSupport.firePropertyChange(PROPERTY_ID, oldValue, id);
+   } // setID
 
-    return objectID;
-  } // getID
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void addPropertyChangeListener(PropertyChangeListener listener) {
-    propertyChangeSupport.addPropertyChangeListener(listener);
-  }
+   /**
+    * {@inheritDoc}
+    */
+   @Override
+   public String getId() {
+      if (objectID == null) {
+         setId(StorageManager.generateUUID());
+      }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void addPropertyChangeListener(String propertyName,
-      PropertyChangeListener listener) {
-    propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
-  }
+      return objectID;
+   } // getID
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void removePropertyChangeListener(PropertyChangeListener listener) {
-    propertyChangeSupport.removePropertyChangeListener(listener);
-  }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void removePropertyChangeListener(String propertyName,
-      PropertyChangeListener listener) {
-    propertyChangeSupport.removePropertyChangeListener(propertyName, listener);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public void accept(Visitor visitor) {
-    // not implemented
-  }
+   /**
+    * {@inheritDoc}
+    */
+   public void accept(Visitor visitor) {
+      visitor.visit(this);
+   }
 
 }

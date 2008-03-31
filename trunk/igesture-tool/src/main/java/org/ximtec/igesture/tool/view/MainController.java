@@ -23,6 +23,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.view;
 
 import java.beans.IndexedPropertyChangeEvent;
@@ -54,7 +55,8 @@ public class MainController implements Controller {
 
    private static final String RESOURCE_BUNDLE = "igestureMenu";
 
-   private static final Logger LOG = Logger.getLogger(MainController.class.getName());
+   private static final Logger LOG = Logger.getLogger(MainController.class
+         .getName());
 
    private Locator locator;
    private MainModel mainModel;
@@ -69,13 +71,11 @@ public class MainController implements Controller {
       controllers = new ArrayList<Controller>();
 
       guiBundle = new GuiBundleService(RESOURCE_BUNDLE);
-      
-      // FIXME for test purposes only!
-      mainModel = new MainModel(StorageManager.createStorageEngine(getDatabase()), this);
 
-      
-      
-      
+      // FIXME for test purposes only!
+      mainModel = new MainModel(StorageManager
+            .createStorageEngine(getDatabase()), this);
+
       deviceClient = new InputDeviceClientService(new MouseReader(),
             new BufferedInputDeviceEventListener(new MouseReaderEventListener(),
                   32000));
@@ -97,7 +97,7 @@ public class MainController implements Controller {
       AdminController adminController = new AdminController();
       controllers.add(adminController);
       mainView.addTab((TabbedView)adminController.getView());
-      
+
       TestbenchController testbenchController = new TestbenchController();
       controllers.add(testbenchController);
       mainView.addTab((TabbedView)testbenchController.getView());
@@ -114,27 +114,39 @@ public class MainController implements Controller {
       }
 
       // FIXME implement store insert, remove and update persistent model
-      if (evt.getSource() instanceof IndexedPropertyChangeEvent) {
-         LOG.info("Store, Delete, Update: indexed property " + evt.getSource());
-         if (evt.getOldValue() == null) {
-            mainModel.getStorageManager().store((DataObject)evt.getNewValue());
-            mainModel.getStorageManager().update((DataObject)evt.getSource());
+      // Dispatch DataObjects
+      if (evt.getSource() instanceof DataObject) {
+         if (evt instanceof IndexedPropertyChangeEvent) {
+            persist((IndexedPropertyChangeEvent)evt);
          }
-
+         else {
+            persist((PropertyChangeEvent)evt);
+         }
       }
-      else {
-         LOG.info("Update: property " + evt.getSource());
-         mainModel.getStorageManager().update((DataObject)evt.getSource());
-      }
-
    }
-
+   
+   private void persist(PropertyChangeEvent event){
+      LOG.info("Update: property " + event.getSource());
+      mainModel.getStorageManager().update((DataObject)event.getSource());
+   }
+   
+   private void persist(IndexedPropertyChangeEvent event){
+      LOG.info("Store, Delete, Update: indexed property " + event.getSource());
+      if (event.getOldValue() == null) {
+         mainModel.getStorageManager().store((DataObject)event.getNewValue());
+      }else if(event.getNewValue() == null){
+         mainModel.getStorageManager().remove((DataObject)event.getOldValue());
+      }
+      mainModel.getStorageManager().update((DataObject)event.getSource()); 
+   }
+   
    @Override
    public JComponent getView() {
       return null;
    }
-   
-   private File getDatabase(){
+
+
+   private File getDatabase() {
       JFileChooser chooser = new JFileChooser();
       chooser.showOpenDialog(null);
       return chooser.getSelectedFile();

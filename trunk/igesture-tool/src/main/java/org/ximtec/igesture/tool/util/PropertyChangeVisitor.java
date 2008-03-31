@@ -32,6 +32,7 @@ import java.lang.reflect.Field;
 
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.DefaultDataObject;
+import org.ximtec.igesture.core.DefaultPropertyChangeOwner;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
@@ -53,7 +54,7 @@ public class PropertyChangeVisitor implements Visitor {
    @Override
    public void visit(DataObject dataObject) {
       setUp(dataObject);
-      dataObject.addPropertyChangeListener(listener);
+      dataObject.addPropertyChangeListener(listener); 
 
    }
 
@@ -101,7 +102,7 @@ public class PropertyChangeVisitor implements Visitor {
    private void setUp(DataObject dataObject) {
       if (dataObject instanceof DefaultDataObject) {
          try {
-            Field field = DefaultDataObject.class
+            Field field = DefaultPropertyChangeOwner.class
                   .getDeclaredField("propertyChangeSupport");
             field.setAccessible(true);
             if (field.get(dataObject) == null) {

@@ -79,6 +79,11 @@ public interface StorageEngine {
     * Removes a data object.
     */
    public void remove(DataObject ojb);
+   
+   /**
+    * Commits the Transaction
+    */
+   public void commit();
 
 
    /**
