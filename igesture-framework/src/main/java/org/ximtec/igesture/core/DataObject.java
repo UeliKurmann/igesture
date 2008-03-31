@@ -26,7 +26,6 @@
 
 package org.ximtec.igesture.core;
 
-import java.beans.PropertyChangeListener;
 import java.io.Serializable;
 
 /**
@@ -36,7 +35,7 @@ import java.io.Serializable;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public interface DataObject extends Serializable {
+public interface DataObject extends Serializable, PropertyChangeOwner {
 
 	/**
 	 * Returns the object's universally unique identifier (UUID).
@@ -53,34 +52,7 @@ public interface DataObject extends Serializable {
 	 */
 	public void setId(String id);
 
-	/**
-	 * Adds a property change listener
-	 * @param listener
-	 */
-	public void addPropertyChangeListener(PropertyChangeListener listener);
-
-	/**
-	 * Adds a property change listener
-	 * @param propertyName
-	 * @param listener
-	 */
-	public void addPropertyChangeListener(String propertyName,
-			PropertyChangeListener listener);
-
-	/**
-	 * Removes a property change listener
-	 * @param listener
-	 */
-	public void removePropertyChangeListener(PropertyChangeListener listener);
-
-	/**
-	 * Removes a property change listener
-	 * @param propertyName
-	 * @param listener
-	 */
-	public void removePropertyChangeListener(String propertyName,
-			PropertyChangeListener listener);
-	
+		
 	/**
 	 * Accepts a visitor
 	 * @param visitor

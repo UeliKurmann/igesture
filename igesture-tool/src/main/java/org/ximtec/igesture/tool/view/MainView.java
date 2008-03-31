@@ -31,7 +31,14 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 
+import org.sigtec.graphix.widget.BasicMenu;
+import org.sigtec.graphix.widget.BasicMenuItem;
+import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.TabbedView;
+import org.ximtec.igesture.tool.locator.Locator;
+import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.view.action.ExitAction;
+import org.ximtec.igesture.tool.view.action.StoreWorkspaceAction;
 
 
 @SuppressWarnings("serial")
@@ -60,9 +67,19 @@ public class MainView extends JFrame {
    private void initMenu() {
       menuBar = new JMenuBar();
       setJMenuBar(menuBar);
-      JMenu menu = new JMenu("File");
-      menuBar.add(menu);
-      menu.add(new JMenuItem("Exit"));
+      //FIXME
+      JMenu fileMenu = new BasicMenu(GestureConstants.MENUBAR_FILE, Locator.getDefault().getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
+      menuBar.add(fileMenu);
+      
+      JMenu aboutMenu = new BasicMenu(GestureConstants.MENUBAR_FILE, Locator.getDefault().getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
+      menuBar.add(aboutMenu);
+      
+      BasicMenuItem storeItem = new BasicMenuItem();
+      storeItem.setAction(new StoreWorkspaceAction());
+      menu.add(storeItem);
+      BasicMenuItem exitItem = new BasicMenuItem();
+      exitItem.setAction(new ExitAction());
+      menu.add(exitItem);
    }
 
 

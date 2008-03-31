@@ -114,4 +114,10 @@ public class Db4oStorageEngine extends DefaultStorageEngine {
       db.delete(dataObject);
    } // remove
 
+
+   @Override
+   public void commit() {
+      db.commit();
+   }
+
 }

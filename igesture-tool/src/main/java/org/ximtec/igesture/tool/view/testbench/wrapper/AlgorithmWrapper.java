@@ -31,7 +31,9 @@ import java.util.List;
 
 import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.configuration.Configuration;
-import org.ximtec.igesture.core.DefaultDataObject;
+import org.ximtec.igesture.core.DataObject;
+import org.ximtec.igesture.core.DataObjectWrapper;
+import org.ximtec.igesture.core.DefaultPropertyChangeOwner;
 
 
 
@@ -40,7 +42,7 @@ import org.ximtec.igesture.core.DefaultDataObject;
  * @version 1.0 23.03.2008
  * @author Ueli Kurmann
  */
-public class AlgorithmWrapper extends DefaultDataObject{
+public class AlgorithmWrapper extends DefaultPropertyChangeOwner implements DataObjectWrapper{
    
    Class<? extends Algorithm> algorithmClass;
    
@@ -68,6 +70,13 @@ public class AlgorithmWrapper extends DefaultDataObject{
    @Override
    public String toString() {
       return algorithmClass.getSimpleName();
+   }
+
+   @Override
+   public List<DataObject> getDataObjects() {
+     List<DataObject> result = new ArrayList<DataObject>();
+     result.addAll(configurations);
+     return result;
    }
 
 }

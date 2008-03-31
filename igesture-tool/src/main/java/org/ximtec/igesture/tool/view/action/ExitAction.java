@@ -1,5 +1,5 @@
 /*
- * @(#)$Id$
+ * @(#)$Id: StoreWorkspaceAction.java 465 2008-03-23 23:14:59Z kurmannu $
  *
  * Author   : Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
@@ -35,16 +35,16 @@ import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.view.MainModel;
 
-public class StoreWorkspaceAction extends BasicAction {
+public class ExitAction extends BasicAction {
 
    
-   public StoreWorkspaceAction() {
+   public ExitAction() {
       super(GestureConstants.COMMON_SAVE, Locator.getDefault()
             .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
 
    }
    
-   public StoreWorkspaceAction(TreePath treePath) {
+   public ExitAction(TreePath treePath) {
       super(GestureConstants.GESTURE_CLASS_ADD, Locator.getDefault().getService(
             GuiBundleService.IDENTIFIER, GuiBundleService.class));
       
@@ -53,12 +53,7 @@ public class StoreWorkspaceAction extends BasicAction {
 
    @Override
    public void actionPerformed(ActionEvent arg0) {
-      // FIXME add dialog (save? exit?)
       MainModel model = Locator.getDefault().getService(MainModel.IDENTIFIER, MainModel.class);
       model.getStorageManager().commit();
-      
-      Locator.getDefault().stopAll();
-      
-      System.exit(0);
    }
 }

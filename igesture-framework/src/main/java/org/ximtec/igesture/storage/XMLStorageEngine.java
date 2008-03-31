@@ -132,7 +132,7 @@ public class XMLStorageEngine extends DefaultStorageEngine{
 
 
    public void dispose() {
-      serialize(dataObjects, xmlFile);
+      commit();
    } // dispose
 
 
@@ -212,5 +212,12 @@ public class XMLStorageEngine extends DefaultStorageEngine{
       }
 
    } // removeDataObject
+
+
+   @Override
+   public void commit() {
+      serialize(dataObjects, xmlFile);
+      
+   }
 
 }

@@ -212,4 +212,11 @@ public class StorageManager implements IStorageManager{
          Object value) {
       return storageEngine.load(clazz, fieldName, value);
    }
+
+
+   @Override
+   public void commit() {
+      storageEngine.commit();
+      
+   }
 }
