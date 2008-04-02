@@ -62,11 +62,11 @@ public class GestureTool {
 
    public static double scaleTraceTo(org.sigtec.ink.Trace trace,
          double maxWidth, double maxHeight) {
-      final Rectangle2D bounds = trace.getBounds2D();
-      final double width = bounds.getWidth();
-      final double height = bounds.getHeight();
-      final double scaleX = maxWidth / width;
-      final double scaleY = maxHeight / height;
+      Rectangle2D bounds = trace.getBounds2D();
+      double width = bounds.getWidth();
+      double height = bounds.getHeight();
+      double scaleX = maxWidth / width;
+      double scaleY = maxHeight / height;
       return (scaleX < scaleY) ? scaleX : scaleY;
    } // scaleTraceTo
 
@@ -80,7 +80,7 @@ public class GestureTool {
    public static GestureSet combine(List<GestureSet> sets) {
       final Set<GestureClass> gestureClasses = new HashSet<GestureClass>();
 
-      for (final GestureSet set : sets) {
+      for (GestureSet set : sets) {
          gestureClasses.addAll(set.getGestureClasses());
       }
 
@@ -99,7 +99,7 @@ public class GestureTool {
     */
    public static Trace getCharacteristicTrace(Trace trace, double minAngle,
          double minDistance) {
-      final Trace inputTrace = TraceTool.filterTrace(trace, minDistance);
+      Trace inputTrace = TraceTool.filterTrace(trace, minDistance);
       Trace resultTrace = new Trace();
 
       if (inputTrace.size() > 2) {
@@ -152,9 +152,9 @@ public class GestureTool {
     */
    public static Note getCharacteristicNote(Note note, double minAngle,
          double minDistance) {
-      final Note result = new Note();
+      Note result = new Note();
 
-      for (final Trace trace : note.getTraces()) {
+      for (Trace trace : note.getTraces()) {
          result.add(getCharacteristicTrace(trace, minAngle, minDistance));
       }
 
@@ -170,8 +170,8 @@ public class GestureTool {
     * @return the angle between p1 and p2.
     */
    public static double getAngle(Point p1, Point p2) {
-      final double r = p1.distance(p2);
-      final double x = p2.getX() - p1.getX();
+      double r = p1.distance(p2);
+      double x = p2.getX() - p1.getX();
       double alpha = Math.toDegrees(Math.acos(x / r));
 
       if (p2.getY() - p1.getY() < 0) {
@@ -190,10 +190,10 @@ public class GestureTool {
     * @return the buffered image.
     */
    public static BufferedImage createNoteImage(Note n, int width, int height) {
-      final Note note = (Note)n.clone();
-      final BufferedImage bufferedImage = new BufferedImage(width, height,
+      Note note = (Note)n.clone();
+      BufferedImage bufferedImage = new BufferedImage(width, height,
             BufferedImage.TYPE_INT_ARGB);
-      final Graphics graphic = bufferedImage.getGraphics();
+      Graphics graphic = bufferedImage.getGraphics();
       graphic.setColor(Color.BLACK);
       note.scaleTo(width - 10, height - 10);
       note.moveTo(5, 5);
@@ -208,17 +208,17 @@ public class GestureTool {
     * @return samples from different gesture sets.
     */
    public static GestureSet combineSampleData(List<GestureSet> sets) {
-      final HashMap<String, GestureClass> samples = new HashMap<String, GestureClass>();
-      final GestureSet result = new GestureSet(COMBINED_SET);
+      HashMap<String, GestureClass> samples = new HashMap<String, GestureClass>();
+      GestureSet result = new GestureSet(COMBINED_SET);
 
-      for (final GestureSet set : sets) {
+      for (GestureSet set : sets) {
 
-         for (final GestureClass gestureClass : set.getGestureClasses()) {
+         for (GestureClass gestureClass : set.getGestureClasses()) {
 
             if (samples.containsKey(gestureClass.getName())) {
-               final GestureClass target = samples.get(gestureClass.getName());
+               GestureClass target = samples.get(gestureClass.getName());
 
-               for (final GestureSample sample : gestureClass.getDescriptor(
+               for (GestureSample sample : gestureClass.getDescriptor(
                      SampleDescriptor.class).getSamples()) {
                   target.getDescriptor(SampleDescriptor.class).addSample(sample);
                }
@@ -242,11 +242,11 @@ public class GestureTool {
     * @return the test set.
     */
    public static TestSet createTestSet(GestureSet set) {
-      final TestSet testSet = new TestSet(DEFAULT_NAME);
+      TestSet testSet = new TestSet(DEFAULT_NAME);
 
-      for (final GestureClass gestureClass : set.getGestureClasses()) {
+      for (GestureClass gestureClass : set.getGestureClasses()) {
 
-         for (final GestureSample sample : gestureClass.getDescriptor(
+         for (GestureSample sample : gestureClass.getDescriptor(
                SampleDescriptor.class).getSamples()) {
             testSet.add(new GestureSample(gestureClass.getName(), sample
                   .getNote()));
@@ -264,11 +264,11 @@ public class GestureTool {
     * @return a noise test set.
     */
    public static TestSet createNoise(GestureSet set) {
-      final TestSet testSet = new TestSet(DEFAULT_NAME);
+      TestSet testSet = new TestSet(DEFAULT_NAME);
 
-      for (final GestureClass gestureClass : set.getGestureClasses()) {
+      for (GestureClass gestureClass : set.getGestureClasses()) {
 
-         for (final GestureSample sample : gestureClass.getDescriptor(
+         for (GestureSample sample : gestureClass.getDescriptor(
                SampleDescriptor.class).getSamples()) {
             testSet.add(new GestureSample(TestSet.NOISE, sample.getNote()));
          }
@@ -285,9 +285,9 @@ public class GestureTool {
     * @return the combined test sets.
     */
    public static TestSet combineTestSet(TestSet[] testSets) {
-      final TestSet result = new TestSet(DEFAULT_NAME);
+      TestSet result = new TestSet(DEFAULT_NAME);
 
-      for (final TestSet set : testSets) {
+      for (TestSet set : testSets) {
          result.addAll(set.getSamples());
       }
 

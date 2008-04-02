@@ -28,7 +28,6 @@ package org.ximtec.igesture.tool.view;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 
 import org.sigtec.graphix.widget.BasicMenu;
@@ -46,7 +45,6 @@ public class MainView extends JFrame {
 
    JTabbedPane tabbedPane;
    JMenuBar menuBar;
-
 
    public MainView() {
       initMenu();
@@ -71,7 +69,7 @@ public class MainView extends JFrame {
       JMenu fileMenu = new BasicMenu(GestureConstants.MENUBAR_FILE, Locator.getDefault().getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
       menuBar.add(fileMenu);
       
-      JMenu aboutMenu = new BasicMenu(GestureConstants.MENUBAR_FILE, Locator.getDefault().getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
+      JMenu aboutMenu = new BasicMenu(GestureConstants.MENUBAR_ABOUT, Locator.getDefault().getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
       menuBar.add(aboutMenu);
       
       BasicMenuItem storeItem = new BasicMenuItem();

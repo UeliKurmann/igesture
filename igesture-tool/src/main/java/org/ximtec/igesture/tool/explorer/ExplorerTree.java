@@ -26,6 +26,7 @@
 package org.ximtec.igesture.tool.explorer;
 
 import javax.swing.JTree;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeModel;
 
 /**
@@ -37,9 +38,9 @@ import javax.swing.tree.TreeModel;
  */
 public class ExplorerTree extends JTree {
 
-   public ExplorerTree(TreeModel treeModel) {
+   public ExplorerTree(TreeModel treeModel, DefaultTreeCellRenderer renderer) {
       super(treeModel);
-      setCellRenderer(new NodeRenderer());
+      setCellRenderer(renderer);
 
    }
 

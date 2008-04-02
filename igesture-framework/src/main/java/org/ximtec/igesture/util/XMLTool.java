@@ -227,6 +227,21 @@ public class XMLTool {
             .getRootElement());
       return configuration;
    } // importConfiguration
+   
+   /**
+    * Imports a configuration
+    * @param file
+    * @return
+    */
+   public static Configuration importConfiguration(File file){
+      try {
+         return importConfiguration(new FileInputStream(file));
+      }
+      catch (FileNotFoundException e) {
+         LOGGER.severe("Configuration File not found.");
+      }
+      return null;
+   } // importConfiguration
 
 
    /**

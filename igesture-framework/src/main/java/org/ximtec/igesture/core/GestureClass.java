@@ -149,6 +149,15 @@ public class GestureClass extends DefaultDataObject {
     propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_DESCRIPTORS, 0,
         descriptor, null);
   } // removeDescriptor
+  
+  /**
+   * Returns true if the given descriptor exists.
+   * @param descriptor 
+   * @return true if the given descriptor exists.
+   */
+  public boolean hasDescriptor(Class<? extends Descriptor> descriptor){
+     return descriptors.containsKey(descriptor);
+  } // hasDescriptor
 
   @Override
   public String toString() {
