@@ -97,32 +97,32 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    private int minimalNumberOfPoints;
 
    /**
-    * datastructure for storing the samples per gesture class
+    * data structure for storing the samples per gesture class
     */
    private HashMap<GestureClass, List<GestureSample>> samples;
 
    /**
-    * datastructure for storing the feature vector per sample
+    * data structure for storing the feature vector per sample
     */
    private HashMap<GestureSample, DoubleVector> sampleFeatureVector;
 
    /**
-    * datastructure for storing the mean feature vector per gesture class
+    * data structure for storing the mean feature vector per gesture class
     */
    private HashMap<GestureClass, DoubleVector> meanFeatureVector;
 
    /**
-    * datastructure for storing the weight vector per gesture class
+    * data structure for storing the weight vector per gesture class
     */
    private HashMap<GestureClass, DoubleVector> weightsVector;
 
    /**
-    * datastructure for storing the covariant matrix per gesture class
+    * data structure for storing the covariant matrix per gesture class
     */
    private HashMap<GestureClass, RealMatrix> covMatrices;
 
    /**
-    * datastructure for storing the initial weight per gesture class
+    * data structure for storing the initial weight per gesture class
     */
    private HashMap<GestureClass, Double> initialWeight;
 
@@ -180,9 +180,10 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
 
    /**
-    * Empty default constructor
+    * Default constructor
     */
    public RubineAlgorithm() {
+      super();
    }
 
 

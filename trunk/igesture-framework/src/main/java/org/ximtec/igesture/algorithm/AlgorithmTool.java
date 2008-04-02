@@ -109,16 +109,12 @@ public class AlgorithmTool {
     * @return true if all gesture classes of the gesture set have the specified
     *         descriptor.
     */
-   public static boolean verifyDescriptor(GestureSet set,
-         Class< ? extends Descriptor> descriptorType) {
+   public static boolean verifyDescriptor(GestureSet set, Class< ? extends Descriptor> descriptorType) {
       for (final GestureClass gestureClass : set.getGestureClasses()) {
-
-         if (gestureClass.getDescriptor(descriptorType) == null) {
+         if (gestureClass.hasDescriptor(descriptorType)) {
             return false;
          }
-
       }
-
       return true;
    } // verifyDescriptor
 

@@ -84,13 +84,13 @@ public class TestbenchController implements Controller {
      
       nodeInfos = new ArrayList<NodeInfo>();
       nodeInfos.add(new NodeInfoImpl(AlgorithmList.class, "name", "algorithms",
-            AlgorithmListPanel.class, algorithmListActions));
+            AlgorithmListPanel.class, algorithmListActions, null));
 
       nodeInfos.add(new NodeInfoImpl(AlgorithmWrapper.class, "name",
-            "configurations", AlgorithmWrapperPanel.class, algorithmWrapperActions));
+            "configurations", AlgorithmWrapperPanel.class, algorithmWrapperActions, null));
 
       nodeInfos.add(new NodeInfoImpl(Configuration.class, "name", null,
-            ConfigurationPanel.class, configurationActions));
+            ConfigurationPanel.class, configurationActions, null));
 
       initController();
 

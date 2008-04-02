@@ -65,6 +65,8 @@ public class NodeInfoImpl implements NodeInfo {
    private Class< ? extends Object> type;
 
    private List<Class< ? extends BasicAction>> popupActions;
+   
+   private Icon icon;
 
 
    /**
@@ -80,13 +82,14 @@ public class NodeInfoImpl implements NodeInfo {
     */
    public NodeInfoImpl(Class< ? extends Object> type, String propertyName,
          String childList, Class< ? extends ExplorerTreeView> view,
-         List<Class< ? extends BasicAction>> popupActions) {
+         List<Class< ? extends BasicAction>> popupActions, Icon icon) {
 
       this.type = type;
       this.propertyName = propertyName;
       this.childList = childList;
       this.view = view;
       this.popupActions = popupActions;
+      this.icon = icon;
    }
 
    /*
@@ -138,8 +141,7 @@ public class NodeInfoImpl implements NodeInfo {
     */
    @Override
    public Icon getIcon() {
-      // TODO Auto-generated method stub
-      return null;
+      return icon;
    }
 
    /*

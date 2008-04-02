@@ -32,9 +32,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import javax.swing.Icon;
 import javax.swing.JComponent;
 
+import org.sigtec.graphix.IconTool;
 import org.sigtec.graphix.widget.BasicAction;
+import org.sigtec.util.Decorator;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
@@ -98,22 +101,23 @@ public class AdminController implements Controller {
       List<Class< ? extends BasicAction>> descriptorActions = new ArrayList<Class< ? extends BasicAction>>();
       descriptorActions.add(RemoveDescriptorAction.class);
 
+      Icon setIcon = IconTool.getIcon("mimetypes/package-x-generic", Decorator.SIZE_16);
+      
       nodeInfos = new ArrayList<NodeInfo>();
       nodeInfos.add(new NodeInfoImpl(GestureSetList.class, "name", "sets",
-            GestureSetsPanel.class, rootActions));
+            GestureSetsPanel.class, rootActions, null));
       nodeInfos.add(new NodeInfoImpl(GestureSet.class, "name", "gestureClasses",
-            GestureSetPanel.class, setActions));
+            GestureSetPanel.class, setActions, setIcon));
       nodeInfos.add(new NodeInfoImpl(GestureClass.class, "name", "descriptors",
-            GestureClassPanel.class, classActions));
+            GestureClassPanel.class, classActions, null));
       nodeInfos.add(new NodeInfoImpl(SampleDescriptor.class, "name", null,
-            SampleDescriptorPanel.class, descriptorActions));
+            SampleDescriptorPanel.class, descriptorActions, null));
       nodeInfos.add(new NodeInfoImpl(TextDescriptor.class, "name", null,
-            TextDescriptorPanel.class, descriptorActions));
+            TextDescriptorPanel.class, descriptorActions, null));
       nodeInfos.add(new NodeInfoImpl(GestureSample.class, "name", null,
-            DefaultPanel.class, null));
+            DefaultPanel.class, null, null));
       nodeInfos.add(new NodeInfoImpl(String.class, "", null, DefaultPanel.class,
-            null));
-
+            null, null));
       initController();
 
    }

@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultTreeCellRenderer;
 
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeContainer;
@@ -84,7 +85,11 @@ public class ExplorerTreeController implements TreeSelectionListener, Controller
       this.container = container;
       this.model = model;
       this.nodeInfos = nodeInfos;
-      tree = new ExplorerTree(this.model);
+      
+      //FIXME renderer should not be hard coded. 
+      DefaultTreeCellRenderer renderer = new NodeRenderer(nodeInfos);
+      
+      tree = new ExplorerTree(this.model, renderer);
       tree.addTreeSelectionListener(this);
       tree.addMouseListener(new ExplorerPopupDispatcher(nodeInfos));
 
