@@ -273,7 +273,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
             computeFeatureVectors(gestureClass, featureList);
          }
          catch (FeatureException exception) {
-            throw new AlgorithmException(ExceptionType.Initialisation);
+            throw new AlgorithmException(ExceptionType.Initialisation, exception);
          }
          this.covMatrices.put(gestureClass,
                getCovarianceMatrixPerClass(gestureClass));
@@ -302,15 +302,36 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       // computes the feature vector per class
       final List<DoubleVector> vectors = new ArrayList<DoubleVector>();
 
-      for (final GestureSample sample : samples.get(gestureClass)) {
-         final DoubleVector vector = computeFeatureVector(sample.getNote(),
-               featureList);
-         sampleFeatureVector.put(sample, vector);
-         vectors.add(vector);
+      for (GestureSample sample : samples.get(gestureClass)) {
+         try{
+            /**
+             * FIXME
+             * This method may throw a FeatureException. If an exception occurs,
+             * the vector is not added to the list BUT we should go further to
+             * the next sample. Before this refactoring, the process was interrupted
+             * and therefore the algorithm can't be instantiated as soon as one sample
+             * does not fulfill the requirements defined in the features. 
+             */
+            DoubleVector vector = computeFeatureVector(sample.getNote(), featureList);
+            
+            sampleFeatureVector.put(sample, vector);
+            vectors.add(vector);
+         }catch(FeatureException exception){
+            LOGGER.warning("Could not compute the Feature Vector.");
+         }
       }
 
       // computes the mean vector
-      meanFeatureVector.put(gestureClass, VectorTools.mean(vectors));
+      /**
+       * FIXME
+       * The if statement is inserted to guarantee a minimal number of feature vectors. It has
+       * to be checked, if 1 vector is enough. May be this is a mathematical issue. 
+       */
+      if(vectors.size() > 0){
+         meanFeatureVector.put(gestureClass, VectorTools.mean(vectors));
+      }else{
+         throw new FeatureException("There are not enough samples for Gesture Class"+gestureClass.getName());
+      }
    } // computeFeatureVectors
 
 

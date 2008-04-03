@@ -293,5 +293,23 @@ public class GestureTool {
 
       return result;
    } // combineTestSet
+   
+   
+   public static void hasSampleEnoughPoints(GestureSet set, int min){
+      for(GestureClass gestureClass:set.getGestureClasses()){
+         hasSampleEnoughPoints(gestureClass, min);
+      }
+   } 
+   
+   public static void hasSampleEnoughPoints(GestureClass gestureClass, int min){
+      if(gestureClass.hasDescriptor(SampleDescriptor.class)){
+         SampleDescriptor descriptor = gestureClass.getDescriptor(SampleDescriptor.class);
+         for(GestureSample sample:descriptor.getSamples()){
+            if(sample.getNote().getPoints().size() <= min){
+               System.out.println(gestureClass.getName()+"  :  "+sample.getNote().getPoints().size());
+            }
+         }
+      }
+   }
 
 }
