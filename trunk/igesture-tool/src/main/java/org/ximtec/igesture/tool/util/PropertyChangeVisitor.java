@@ -54,6 +54,7 @@ public class PropertyChangeVisitor implements Visitor {
    @Override
    public void visit(DataObject dataObject) {
       setUp(dataObject);
+      dataObject.removePropertyChangeListener(listener);
       dataObject.addPropertyChangeListener(listener); 
 
    }

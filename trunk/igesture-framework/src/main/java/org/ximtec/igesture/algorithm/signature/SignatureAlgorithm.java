@@ -27,9 +27,9 @@
 package org.ximtec.igesture.algorithm.signature;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -96,7 +96,7 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
 
 
    public void init(Configuration config) {
-      final HashMap<String, String> parameters = config.getParameters(this
+      final Map<String, String> parameters = config.getParameters(this
             .getClass().getCanonicalName());
       gridSize = (int)AlgorithmTool.getDoubleParameterValue(Config.GRID_SIZE
             .name(), parameters, DEFAULT_CONFIGURATION);

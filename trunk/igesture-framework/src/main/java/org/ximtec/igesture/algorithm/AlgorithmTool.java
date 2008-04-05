@@ -26,7 +26,7 @@
 
 package org.ximtec.igesture.algorithm;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.GestureClass;
@@ -53,8 +53,8 @@ public class AlgorithmTool {
     * @return the parameter value.
     */
    public static String getParameterValue(String parameter,
-         HashMap<String, String> parameters,
-         HashMap<String, String> defaultParameters) {
+         Map<String, String> parameters,
+         Map<String, String> defaultParameters) {
       String result = parameters.get(parameter);
 
       if (result == null) {
@@ -75,8 +75,8 @@ public class AlgorithmTool {
     * @return the parameter value.
     */
    public static double getDoubleParameterValue(String parameter,
-         HashMap<String, String> parameters,
-         HashMap<String, String> defaultParameters) {
+         Map<String, String> parameters,
+         Map<String, String> defaultParameters) {
       return Double.parseDouble(getParameterValue(parameter, parameters,
             defaultParameters));
    } // getDoubleParameterValue
@@ -92,8 +92,8 @@ public class AlgorithmTool {
     * @return the parameter value.
     */
    public static int getIntParameterValue(String parameter,
-         HashMap<String, String> parameters,
-         HashMap<String, String> defaultParameters) {
+         Map<String, String> parameters,
+         Map<String, String> defaultParameters) {
       return Integer.parseInt(getParameterValue(parameter, parameters,
             defaultParameters));
    } // getIntParameterValue

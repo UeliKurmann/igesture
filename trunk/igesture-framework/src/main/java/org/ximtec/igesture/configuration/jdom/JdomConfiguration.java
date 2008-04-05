@@ -26,8 +26,8 @@
 
 package org.ximtec.igesture.configuration.jdom;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jdom.Element;
 import org.ximtec.igesture.configuration.Configuration;
@@ -65,7 +65,7 @@ public class JdomConfiguration extends Element {
       for (final String algorithmName : configuration.getAlgorithms()) {
          final Element element = new Element(ALGORITHM_TAG);
          element.setAttribute(NAME_ATTRIBUTE, algorithmName);
-         final HashMap<String, String> parameters = configuration
+         final Map<String, String> parameters = configuration
                .getParameters(algorithmName);
 
          for (final String parameterName : parameters.keySet()) {
