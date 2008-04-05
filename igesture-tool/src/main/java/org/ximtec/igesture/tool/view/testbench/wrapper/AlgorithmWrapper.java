@@ -26,7 +26,9 @@
 
 package org.ximtec.igesture.tool.view.testbench.wrapper;
 
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.ximtec.igesture.algorithm.Algorithm;
@@ -77,6 +79,10 @@ public class AlgorithmWrapper extends DefaultPropertyChangeOwner implements Data
      List<DataObject> result = new ArrayList<DataObject>();
      result.addAll(configurations);
      return result;
+   }
+   
+   public List<PropertyChangeListener> getListeners(){
+      return Arrays.asList(propertyChangeSupport.getPropertyChangeListeners());
    }
 
 }

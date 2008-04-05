@@ -54,7 +54,7 @@ public class RecogniseAction extends BasicAction {
 
 
    public RecogniseAction(Configuration configuration, ConfigurationPanel panel) {
-      super(GestureConstants.CONFIGURATION_ADD, Locator.getDefault()
+      super(GestureConstants.RECONGISE, Locator.getDefault()
             .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
       this.configuration = configuration;
       this.panel = panel;
@@ -66,6 +66,9 @@ public class RecogniseAction extends BasicAction {
       try {
          Algorithm algorithm = AlgorithmFactory.createAlgorithm(configuration);
          ResultSet resultSet = algorithm.recognise(panel.getCurrentNote());
+         
+         panel.setResultList(resultSet.getResults()); 
+         
          for(Result result:resultSet.getResults()){
             System.out.println(result.getGestureClass().getName());
          }

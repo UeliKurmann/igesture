@@ -132,6 +132,10 @@ public class Configuration extends DefaultDataObject implements Cloneable {
    public void addGestureSets(List<GestureSet> gestureSets) {
       this.gestureSets.addAll(gestureSets);
    } // addGestureSets
+   
+   public void removeAllGestureSets(){
+      this.gestureSets.clear();
+   }
 
 
    /**
@@ -285,7 +289,6 @@ public class Configuration extends DefaultDataObject implements Cloneable {
 
 
    public void setName(String name) {
-      System.out.println("Name wird gesetyt.....");
       String oldValue = this.name;
       this.name = name;
       propertyChangeSupport.firePropertyChange(PROPERTY_NAME, oldValue, name);

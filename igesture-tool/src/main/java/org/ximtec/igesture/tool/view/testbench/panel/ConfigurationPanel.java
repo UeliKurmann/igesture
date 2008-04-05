@@ -32,7 +32,9 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
@@ -49,6 +51,7 @@ import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.AlgorithmFactory;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
@@ -74,6 +77,10 @@ public class ConfigurationPanel extends AbstractAdminPanel {
 
    private JNote note;
    private InputDeviceClient client;
+   private JScrollPane resultList;
+   
+   // FIXME refactor!
+   private RecogniseAction recogniseAction;
 
 
    public ConfigurationPanel(Configuration configuration) {
@@ -83,7 +90,8 @@ public class ConfigurationPanel extends AbstractAdminPanel {
 
    }
 
-
+// FIXME use resource files
+   
    private void init() {
       setTitle("Configuration");
 
@@ -103,6 +111,9 @@ public class ConfigurationPanel extends AbstractAdminPanel {
 
    private JPanel createWorkspace(){
       JPanel basePanel = new JPanel();
+      
+      recogniseAction = new RecogniseAction(configuration, this);
+      recogniseAction.setEnabled(false);
 
       // input area
       basePanel.setLayout(new FlowLayout());
@@ -127,20 +138,23 @@ public class ConfigurationPanel extends AbstractAdminPanel {
       comboBox.addMouseListener(new MouseAdapter(){
          @Override
          public void mouseReleased(MouseEvent arg0) {
+            configuration.removeAllGestureSets();
             configuration.addGestureSet((GestureSet)comboBox.getSelectedItem());
+            recogniseAction.setEnabled(true);
          }
       });
       
+      
       buttonPanel.add(new BasicButton(new ClearGestureSampleAction(note)));
-      buttonPanel.add(new BasicButton(new RecogniseAction(configuration, this)));
+      buttonPanel.add(new BasicButton(recogniseAction));
       buttonPanel.add(comboBox);     
       
       basePanel.add(buttonPanel);
 
       // Result List
-      JScrollPane scrollPane = new JScrollPane(new JList());
+      resultList = new JScrollPane(new JList());
       
-      basePanel.add(scrollPane);
+      basePanel.add(resultList);
       
       return basePanel;
    }
@@ -195,5 +209,11 @@ public class ConfigurationPanel extends AbstractAdminPanel {
 
       return builder.getPanel();
    }
+   
+   public void setResultList(List<Result> classes){
+      resultList.setViewportView(new JList(new Vector<Result>(classes)));
+   }
+   
+ 
 
 }
