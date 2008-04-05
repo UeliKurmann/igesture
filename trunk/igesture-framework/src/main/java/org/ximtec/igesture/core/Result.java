@@ -121,5 +121,11 @@ public class Result {
       return (gestureClass != null & gestureClass.getName() != null)
             ? gestureClass.getName() : Constant.EMPTY_STRING;
    } // getGestureClassName
+   
+   @Override
+   public String toString() {
+      // TODO Auto-generated method stub
+      return getGestureClassName();
+   }
 
 }

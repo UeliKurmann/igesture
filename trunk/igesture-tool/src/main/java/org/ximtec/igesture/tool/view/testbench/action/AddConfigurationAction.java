@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -27,6 +27,7 @@
 package org.ximtec.igesture.tool.view.testbench.action;
 
 import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.tree.TreePath;
 
@@ -35,6 +36,7 @@ import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.view.MainController;
 import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmWrapper;
 
 
@@ -63,6 +65,12 @@ public class AddConfigurationAction extends BasicAction {
       Configuration configuration = new Configuration();
       configuration.addAlgorithm(algorithWrapper.getAlgorithm().getName());
       algorithWrapper.addConfiguration(configuration);
+      
+      // TODO Implementation correct?
+      for(PropertyChangeListener listener:algorithWrapper.getListeners()){
+         //configuration.addPropertyChangeListener(listener);
+      }
+      
 
    }
 

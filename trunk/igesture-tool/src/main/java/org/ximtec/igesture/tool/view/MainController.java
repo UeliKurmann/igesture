@@ -126,11 +126,7 @@ public class MainController implements Controller {
             persist((PropertyChangeEvent)evt);
          }
       }else if(evt.getSource() instanceof DataObjectWrapper){
-         PropertyChangeVisitor visitor = new PropertyChangeVisitor(this);
-         for(DataObject dataObject:((DataObjectWrapper)evt.getSource()).getDataObjects()){
-            dataObject.accept(visitor);
-         }
-         
+         LOG.info("DataObjectWrapper");
       }
    }
    

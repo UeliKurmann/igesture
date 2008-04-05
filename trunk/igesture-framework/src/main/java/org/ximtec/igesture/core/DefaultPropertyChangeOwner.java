@@ -23,6 +23,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.core;
 
 import java.beans.PropertyChangeListener;
@@ -31,64 +32,74 @@ import java.beans.PropertyChangeSupport;
 
 /**
  * Transient Data Object
- *
- * @author  UeliKurmann
+ * 
+ * @author UeliKurmann
  * @version 1.0
- * @since   igesture
+ * @since igesture
  */
 public abstract class DefaultPropertyChangeOwner implements PropertyChangeOwner {
 
-  protected transient PropertyChangeSupport propertyChangeSupport;
+   protected transient PropertyChangeSupport propertyChangeSupport;
 
-  /**
-   * Constructs a new transient data object.
-   */
-  public DefaultPropertyChangeOwner() {
-    this.propertyChangeSupport = new PropertyChangeSupport(this);
-  }
-  
-  /**
-   * This method is used to deserialize transient fields
-   * @return
-   */
-  private Object readResolve() {
-     this.propertyChangeSupport = new PropertyChangeSupport(this);
-     return this;
+
+   /**
+    * Constructs a new transient data object.
+    */
+   public DefaultPropertyChangeOwner() {
+      this.propertyChangeSupport = new PropertyChangeSupport(this);
    }
 
-  
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void addPropertyChangeListener(PropertyChangeListener listener) {
-    propertyChangeSupport.addPropertyChangeListener(listener);
-  }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void addPropertyChangeListener(String propertyName,
-      PropertyChangeListener listener) {
-    propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
-  }
+   /**
+    * This method is used to deserialize transient fields
+    * @return
+    */
+   private Object readResolve() {
+      this.propertyChangeSupport = new PropertyChangeSupport(this);
+      return this;
+   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void removePropertyChangeListener(PropertyChangeListener listener) {
-    propertyChangeSupport.removePropertyChangeListener(listener);
-  }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void removePropertyChangeListener(String propertyName,
-      PropertyChangeListener listener) {
-    propertyChangeSupport.removePropertyChangeListener(propertyName, listener);
-  }
+   /**
+    * {@inheritDoc}
+    */
+   @Override
+   public void addPropertyChangeListener(PropertyChangeListener listener) {
+      for(PropertyChangeListener registredListener:propertyChangeSupport.getPropertyChangeListeners()){
+         if(registredListener == listener){
+            return;
+         }
+      }
+      propertyChangeSupport.addPropertyChangeListener(listener);
+   }
+
+
+   /**
+    * {@inheritDoc}
+    */
+   @Override
+   public void addPropertyChangeListener(String propertyName,
+         PropertyChangeListener listener) {
+      propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
+   }
+
+
+   /**
+    * {@inheritDoc}
+    */
+   @Override
+   public void removePropertyChangeListener(PropertyChangeListener listener) {
+      propertyChangeSupport.removePropertyChangeListener(listener);
+   }
+
+
+   /**
+    * {@inheritDoc}
+    */
+   @Override
+   public void removePropertyChangeListener(String propertyName,
+         PropertyChangeListener listener) {
+      propertyChangeSupport.removePropertyChangeListener(propertyName, listener);
+   }
 
 }
