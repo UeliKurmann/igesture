@@ -55,7 +55,6 @@ public class AddGestureSampleAction extends BasicAction {
 
    @Override
    public void actionPerformed(ActionEvent action) {
-      System.out.println(action);
       InputDeviceClient client = Locator.getDefault().getService(
             InputDeviceClientService.IDENTIFIER, InputDeviceClient.class);
       // FIXME how to use sigtec's trace detection? 

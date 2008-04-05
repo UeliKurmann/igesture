@@ -36,7 +36,7 @@ import java.util.List;
  * @version 1.0 26.03.2008
  * @author Ueli Kurmann
  */
-public interface DataObjectWrapper {
+public interface DataObjectWrapper{
 
    List<DataObject> getDataObjects();
 }

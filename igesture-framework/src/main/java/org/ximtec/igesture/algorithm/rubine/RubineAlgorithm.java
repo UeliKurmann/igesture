@@ -29,6 +29,7 @@ package org.ximtec.igesture.algorithm.rubine;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -220,7 +221,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
 
    public void init(Configuration config) throws AlgorithmException {
-      final HashMap<String, String> parameters = config.getParameters(this
+      Map<String, String> parameters = config.getParameters(this
             .getClass().getCanonicalName());
       minDistance = AlgorithmTool.getDoubleParameterValue(Config.MIN_DISTANCE
             .name(), parameters, DEFAULT_CONFIGURATION);
@@ -232,7 +233,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       LOGGER.info(Config.MAHALANOBIS_DISTANCE + Constant.COLON_BLANK
             + mahalanobisDistance);
 
-      final String featureNames = AlgorithmTool.getParameterValue(
+      String featureNames = AlgorithmTool.getParameterValue(
             Config.FEATURE_LIST.name(), parameters, DEFAULT_CONFIGURATION);
       LOGGER.info(Config.FEATURE_LIST + Constant.COLON_BLANK + featureNames);
 

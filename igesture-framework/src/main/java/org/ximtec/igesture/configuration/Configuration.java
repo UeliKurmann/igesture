@@ -29,6 +29,7 @@ package org.ximtec.igesture.configuration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -102,7 +103,8 @@ public class Configuration extends DefaultDataObject implements Cloneable {
     * Constructs a new configuration and initalises the used containers.
     */
    public Configuration() {
-      this(Constant.EMPTY_STRING);
+      // FIXME resource file
+      this("New Configuration");
    }
 
 
@@ -203,8 +205,9 @@ public class Configuration extends DefaultDataObject implements Cloneable {
     * @param value the parameter value the value of the parameter to be added.
     */
    public void addParameter(String algorithm, String key, String value) {
-      final HashMap<String, String> parameters = getParameters(algorithm);
+      Map<String, String> parameters = getParameters(algorithm);
       parameters.put(key, value);
+      propertyChangeSupport.firePropertyChange("parameters", null, value);
    } // addParameter
 
 
@@ -215,7 +218,7 @@ public class Configuration extends DefaultDataObject implements Cloneable {
     *            returned.
     * @return a hashmap with the algorithms parameters.
     */
-   public HashMap<String, String> getParameters(String classname) {
+   public Map<String, String> getParameters(String classname) {
       HashMap<String, String> parameters = algorithmParameters.get(classname);
 
       if (parameters == null) {
@@ -282,6 +285,7 @@ public class Configuration extends DefaultDataObject implements Cloneable {
 
 
    public void setName(String name) {
+      System.out.println("Name wird gesetyt.....");
       String oldValue = this.name;
       this.name = name;
       propertyChangeSupport.firePropertyChange(PROPERTY_NAME, oldValue, name);
@@ -365,6 +369,7 @@ public class Configuration extends DefaultDataObject implements Cloneable {
 
    @Override
    public void accept(Visitor visitor) {
+      visitor.visit(this);
       for (GestureSet gestureSet : gestureSets) {
          gestureSet.accept(visitor);
       }

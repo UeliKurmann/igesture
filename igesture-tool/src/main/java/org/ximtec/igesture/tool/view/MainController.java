@@ -39,6 +39,8 @@ import javax.swing.JFileChooser;
 
 import org.sigtec.input.BufferedInputDeviceEventListener;
 import org.ximtec.igesture.core.DataObject;
+import org.ximtec.igesture.core.DataObjectWrapper;
+import org.ximtec.igesture.core.PropertyChangeOwner;
 import org.ximtec.igesture.io.MouseReader;
 import org.ximtec.igesture.io.MouseReaderEventListener;
 import org.ximtec.igesture.storage.StorageManager;
@@ -47,6 +49,7 @@ import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
+import org.ximtec.igesture.tool.util.PropertyChangeVisitor;
 import org.ximtec.igesture.tool.view.admin.AdminController;
 import org.ximtec.igesture.tool.view.testbench.TestbenchController;
 
@@ -122,6 +125,12 @@ public class MainController implements Controller {
          else {
             persist((PropertyChangeEvent)evt);
          }
+      }else if(evt.getSource() instanceof DataObjectWrapper){
+         PropertyChangeVisitor visitor = new PropertyChangeVisitor(this);
+         for(DataObject dataObject:((DataObjectWrapper)evt.getSource()).getDataObjects()){
+            dataObject.accept(visitor);
+         }
+         
       }
    }
    
