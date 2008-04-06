@@ -56,8 +56,7 @@ import org.ximtec.igesture.tool.explorer.core.NodeInfo;
  */
 public class NodeInfoImpl implements NodeInfo {
 
-   private static final Logger LOG = Logger.getLogger(NodeInfoImpl.class
-         .getName());
+   private static final Logger LOG = Logger.getLogger(NodeInfoImpl.class.getName());
 
    private String propertyName;
    private String childList;
@@ -155,16 +154,16 @@ public class NodeInfoImpl implements NodeInfo {
             return BeanUtils.getProperty(node, propertyName);
          }
          catch (IllegalAccessException e) {
-            LOG.log(Level.SEVERE, "Can't get the node name.", e);
+            LOG.log(Level.SEVERE, "Can't get the node name. ("+node.getClass()+")");
          }
          catch (InvocationTargetException e) {
-            LOG.log(Level.SEVERE, "Can't get the node name.", e);
+            LOG.log(Level.SEVERE, "Can't get the node name. ("+node.getClass()+")");
          }
          catch (NoSuchMethodException e) {
-            LOG.log(Level.SEVERE, "Can't get the node name.", e);
+            LOG.log(Level.SEVERE, "Can't get the node name. ("+node.getClass()+")");
          }
       }
-      return type.getName();
+      return null;
    }
 
    /*

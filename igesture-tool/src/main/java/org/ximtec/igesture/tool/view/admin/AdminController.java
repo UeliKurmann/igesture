@@ -116,7 +116,7 @@ public class AdminController implements Controller {
             GestureClassPanel.class, classActions, null));
       nodeInfos.add(new NodeInfoImpl(SampleDescriptor.class, "name", null,
             SampleDescriptorPanel.class, descriptorActions, null));
-      nodeInfos.add(new NodeInfoImpl(TextDescriptor.class, "name", null,
+      nodeInfos.add(new NodeInfoImpl(TextDescriptor.class, null, null,
             TextDescriptorPanel.class, descriptorActions, null));
       nodeInfos.add(new NodeInfoImpl(GestureSample.class, "name", null,
             DefaultPanel.class, null, null));

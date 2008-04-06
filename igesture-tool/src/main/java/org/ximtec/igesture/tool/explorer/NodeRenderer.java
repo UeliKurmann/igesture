@@ -29,6 +29,7 @@ package org.ximtec.igesture.tool.explorer;
 import java.awt.Component;
 import java.util.Map;
 
+import javax.swing.Icon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
@@ -49,11 +50,9 @@ public class NodeRenderer extends DefaultTreeCellRenderer {
     */
    private Map<Class< ? >, NodeInfo> nodeInfos;
 
-
    public NodeRenderer(Map<Class< ? >, NodeInfo> nodeInfos) {
       this.nodeInfos = nodeInfos;
    }
-
 
    @Override
    public Component getTreeCellRendererComponent(JTree tree, Object value,
@@ -62,12 +61,18 @@ public class NodeRenderer extends DefaultTreeCellRenderer {
       super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row,
             hasFocus);
 
-      if (nodeInfos.get(value.getClass()) != null
-            && nodeInfos.get(value.getClass()).getIcon() != null) {
-         setIcon(nodeInfos.get(value.getClass()).getIcon());
+      if (nodeInfos.get(value.getClass()) != null){
+         Icon icon;
+         if((icon = nodeInfos.get(value.getClass()).getIcon()) != null) {
+            setIcon(icon);
+         }
+         
+         String name;
+         if((name = nodeInfos.get(value.getClass()).getName(value)) != null){
+            setText(name);
+         }
       }
-
+      
       return this;
-
    }
 }

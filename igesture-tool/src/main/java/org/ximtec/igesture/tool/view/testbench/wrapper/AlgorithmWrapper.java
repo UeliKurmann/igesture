@@ -75,9 +75,13 @@ public class AlgorithmWrapper extends DefaultPropertyChangeOwner implements Data
       return algorithmClass;
    }
    
+   public String getName(){
+      return algorithmClass.getSimpleName();
+   }
+   
    @Override
    public String toString() {
-      return algorithmClass.getSimpleName();
+      return getName();
    }
 
    @Override
