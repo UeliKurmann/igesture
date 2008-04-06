@@ -7,7 +7,7 @@
 		<artifactId>pad</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-  
+
 	<groupId>org.ximtec.igesture</groupId>
 	<artifactId>igesture</artifactId>
 	<packaging>pom</packaging>
@@ -16,7 +16,7 @@
 	<description>
 		iGesture: a general gesture recognition framework.
 	</description> 
-  
+   
 	<name>igesture</name> 
 	<url>http://www.igesture.org</url>
 
@@ -184,7 +184,7 @@
 			<url>ftp://www.igesture.org/httpdocs</url>
 		</site>
 	</distributionManagement>
-
+ 
     <scm>
         <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk</connection>
         <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk</developerConnection>

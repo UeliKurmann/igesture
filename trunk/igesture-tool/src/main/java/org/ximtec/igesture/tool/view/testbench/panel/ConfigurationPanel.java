@@ -29,6 +29,7 @@ package org.ximtec.igesture.tool.view.testbench.panel;
 import hacks.JNote;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -42,13 +43,10 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.ink.Note;
-import org.ximtec.igesture.algorithm.Algorithm;
-import org.ximtec.igesture.algorithm.AlgorithmFactory;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
@@ -93,13 +91,8 @@ public class ConfigurationPanel extends AbstractAdminPanel {
 // FIXME use resource files
    
    private void init() {
-      setTitle("Configuration");
-
-      JTextArea textArea = new JTextArea();
-
-      textArea
-            .setText("- Configuration Properties \n- Gesture Set Selection\n- Capture Area\n- Result List");
-
+      setTitle("Configuration: "+configuration.getName());
+     
       JPanel basePanel = new JPanel();
       basePanel.setLayout(new BorderLayout());
       basePanel.add(createParameterPanel(), BorderLayout.NORTH);
@@ -124,22 +117,21 @@ public class ConfigurationPanel extends AbstractAdminPanel {
             InputDeviceClient.class);
       client.addInputHandler(note);
       
-    
-
       basePanel.add(note);
 
       // buttons
       JPanel buttonPanel = new JPanel();
       buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS)); 
       
-      
-      final JComboBox comboBox = new JComboBox(Locator.getDefault().getService(MainModel.IDENTIFIER, MainModel.class).getGestureSets().toArray());
+     final JComboBox comboBox = new JComboBox(Locator.getDefault().getService(MainModel.IDENTIFIER, MainModel.class).getGestureSets().toArray());
       
       comboBox.addMouseListener(new MouseAdapter(){
          @Override
          public void mouseReleased(MouseEvent arg0) {
             configuration.removeAllGestureSets();
-            configuration.addGestureSet((GestureSet)comboBox.getSelectedItem());
+            GestureSet gestureSet = (GestureSet)comboBox.getSelectedItem();
+            System.out.println(gestureSet.getName());
+            configuration.addGestureSet(gestureSet);
             recogniseAction.setEnabled(true);
          }
       });
@@ -153,6 +145,7 @@ public class ConfigurationPanel extends AbstractAdminPanel {
 
       // Result List
       resultList = new JScrollPane(new JList());
+      resultList.setPreferredSize(new Dimension(200,200));
       
       basePanel.add(resultList);
       
@@ -190,14 +183,6 @@ public class ConfigurationPanel extends AbstractAdminPanel {
       builder.append(textField);
       builder.nextLine(2);
       
-      
-      Algorithm algorithm = AlgorithmFactory
-            .createAlgorithmInstance(algorithmName);
-      for (Enum< ? > e : algorithm.getConfigParameters()) {
-         configuration.addParameter(algorithmName, e.name(), algorithm
-               .getDefaultParameterValue(e.name()));
-      }
-
       Map<String, String> parameter = configuration.getParameters(algorithmName);
       for (String parameterName : parameter.keySet()) {
          builder.append(new JLabel(parameterName));

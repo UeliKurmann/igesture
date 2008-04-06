@@ -32,13 +32,13 @@ import java.beans.PropertyChangeListener;
 import javax.swing.tree.TreePath;
 
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.algorithm.Algorithm;
+import org.ximtec.igesture.algorithm.AlgorithmFactory;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
-import org.ximtec.igesture.tool.view.MainController;
 import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmWrapper;
-
 
 
 /**
@@ -52,25 +52,33 @@ public class AddConfigurationAction extends BasicAction {
 
 
    public AddConfigurationAction(TreePath treePath) {
-      super(GestureConstants.CONFIGURATION_ADD, Locator.getDefault()
-            .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
+      super(GestureConstants.CONFIGURATION_ADD, Locator.getDefault().getService(
+            GuiBundleService.IDENTIFIER, GuiBundleService.class));
       this.treePath = treePath;
    }
-   
+
+
    @Override
    public void actionPerformed(ActionEvent arg0) {
-      
-      
-      AlgorithmWrapper algorithWrapper = (AlgorithmWrapper)treePath.getLastPathComponent();
+
+      AlgorithmWrapper algorithWrapper = (AlgorithmWrapper)treePath
+            .getLastPathComponent();
       Configuration configuration = new Configuration();
-      configuration.addAlgorithm(algorithWrapper.getAlgorithm().getName());
-      algorithWrapper.addConfiguration(configuration);
+      String algorithmName = algorithWrapper.getAlgorithm().getName();
+      Algorithm algorithm = AlgorithmFactory
+      .createAlgorithmInstance(algorithmName);
       
-      // TODO Implementation correct?
-      for(PropertyChangeListener listener:algorithWrapper.getListeners()){
-         //configuration.addPropertyChangeListener(listener);
+      configuration.addAlgorithm(algorithmName);
+      for (Enum< ? > e : algorithm.getConfigParameters()) {
+         configuration.addParameter(algorithmName, e.name(), algorithm
+               .getDefaultParameterValue(e.name()));
       }
-      
+      algorithWrapper.addConfiguration(configuration);
+
+      // TODO Implementation correct?
+      for (PropertyChangeListener listener : algorithWrapper.getListeners()) {
+         configuration.addPropertyChangeListener(listener);
+      }
 
    }
 

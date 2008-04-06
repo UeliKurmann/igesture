@@ -32,35 +32,45 @@ import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.DataObjectWrapper;
 import org.ximtec.igesture.core.DefaultPropertyChangeOwner;
 import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.tool.locator.Locator;
+import org.ximtec.igesture.tool.view.MainModel;
 
 
 public class GestureSetList extends DefaultPropertyChangeOwner implements DataObjectWrapper{
 
    public static final String PROPERTY_SETS = "sets";
-
-   public List<GestureSet> sets;
+   
+   MainModel model;
+   
+   List<GestureSet> sets;
 
 
    public GestureSetList() {
-      sets = new ArrayList<GestureSet>();
+      model = Locator.getDefault().getService(MainModel.IDENTIFIER, MainModel.class);
+      sets = model.getGestureSets();
    }
 
 
-   public void addGestureSet(GestureSet set) {
-      sets.add(set);
-      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SETS, sets
-            .indexOf(set), null, set);
+   public void addGestureSet(GestureSet gestureSet) {
+      model.getStorageManager().store(gestureSet);
+      sets = model.getGestureSets();
+      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SETS, 0, null, gestureSet);
    }
 
 
-   public void removeGestureSet(GestureSet set) {
-      sets.remove(set);
-      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SETS, 0, set,
-            null);
+   public void removeGestureSet(GestureSet gestureSet) {
+      model.getStorageManager().remove(gestureSet);
+      sets = model.getGestureSets();
+      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SETS, 0, gestureSet, null);
    }
 
 
    public List<GestureSet> getGestureSets() {
+      for(GestureSet set:model.getGestureSets()){
+         System.out.println(set.getName());
+      }
+      System.out.println(sets.size());
+      
       return sets;
    }
 

@@ -40,7 +40,6 @@ import javax.swing.JFileChooser;
 import org.sigtec.input.BufferedInputDeviceEventListener;
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.DataObjectWrapper;
-import org.ximtec.igesture.core.PropertyChangeOwner;
 import org.ximtec.igesture.io.MouseReader;
 import org.ximtec.igesture.io.MouseReaderEventListener;
 import org.ximtec.igesture.storage.StorageManager;
@@ -49,7 +48,6 @@ import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
-import org.ximtec.igesture.tool.util.PropertyChangeVisitor;
 import org.ximtec.igesture.tool.view.admin.AdminController;
 import org.ximtec.igesture.tool.view.testbench.TestbenchController;
 
@@ -79,10 +77,14 @@ public class MainController implements Controller {
       mainModel = new MainModel(StorageManager
             .createStorageEngine(getDatabase()), this);
 
+      // FIXME Buffer Size?
       deviceClient = new InputDeviceClientService(new MouseReader(),
             new BufferedInputDeviceEventListener(new MouseReaderEventListener(),
                   32000));
 
+      /**
+       * Register services
+       */
       locator = Locator.getDefault();
       locator.addService(mainModel);
       locator.addService(guiBundle);
@@ -126,6 +128,13 @@ public class MainController implements Controller {
             persist((PropertyChangeEvent)evt);
          }
       }else if(evt.getSource() instanceof DataObjectWrapper){
+         if(evt.getOldValue() instanceof DataObject && evt.getNewValue() == null){
+            mainModel.getStorageManager().remove((DataObject)evt.getOldValue());
+         }else if(evt.getNewValue() instanceof DataObject && evt.getOldValue() == null){
+            mainModel.getStorageManager().store((DataObject)evt.getNewValue());
+         }else if(evt.getNewValue() instanceof DataObject && evt.getOldValue() != null){
+            mainModel.getStorageManager().update((DataObject)evt.getNewValue());
+         }
          LOG.info("DataObjectWrapper");
       }
    }
@@ -139,7 +148,7 @@ public class MainController implements Controller {
       LOG.info("Store, Delete, Update: indexed property " + event.getSource());
       if (event.getOldValue() == null) {
          mainModel.getStorageManager().store((DataObject)event.getNewValue());
-      }else if(event.getNewValue() == null){
+      }else if(event.getNewValue() == null && event.getOldValue() instanceof DataObject){
          mainModel.getStorageManager().remove((DataObject)event.getOldValue());
       }
       mainModel.getStorageManager().update((DataObject)event.getSource()); 
@@ -150,7 +159,10 @@ public class MainController implements Controller {
       return null;
    }
 
-
+   /**
+    * TODO select database file (access like application)
+    * @return
+    */
    private File getDatabase() {
       JFileChooser chooser = new JFileChooser();
       chooser.showOpenDialog(null);

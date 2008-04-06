@@ -66,12 +66,7 @@ public class RecogniseAction extends BasicAction {
       try {
          Algorithm algorithm = AlgorithmFactory.createAlgorithm(configuration);
          ResultSet resultSet = algorithm.recognise(panel.getCurrentNote());
-         
          panel.setResultList(resultSet.getResults()); 
-         
-         for(Result result:resultSet.getResults()){
-            System.out.println(result.getGestureClass().getName());
-         }
       }
       catch (AlgorithmException e) {
          e.printStackTrace();

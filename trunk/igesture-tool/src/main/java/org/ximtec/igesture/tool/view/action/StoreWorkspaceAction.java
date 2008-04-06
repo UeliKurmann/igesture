@@ -52,13 +52,9 @@ public class StoreWorkspaceAction extends BasicAction {
 
 
    @Override
-   public void actionPerformed(ActionEvent arg0) {
-      // FIXME add dialog (save? exit?)
+   public void actionPerformed(ActionEvent event) {
       MainModel model = Locator.getDefault().getService(MainModel.IDENTIFIER, MainModel.class);
       model.getStorageManager().commit();
       
-      Locator.getDefault().stopAll();
-      
-      System.exit(0);
    }
 }
