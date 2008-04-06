@@ -92,10 +92,14 @@ public class SampleDescriptor extends DefaultDescriptor {
 			sample.accept(visitor);
 		}
 	}
+	
+	public String getName(){
+	   return SampleDescriptor.class.getSimpleName();
+	}
 
 	@Override
 	public String toString() {
-		return SampleDescriptor.class.getSimpleName();
+		return getName();
 	} // toString
 
 }

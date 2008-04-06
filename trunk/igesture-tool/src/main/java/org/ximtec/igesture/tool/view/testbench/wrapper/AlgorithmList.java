@@ -52,11 +52,15 @@ public class AlgorithmList extends DefaultPropertyChangeOwner{
    public List<AlgorithmWrapper> getAlgorithms() {
       return algorithms;
    }
+   
+// FIXME use resource bundle
+   public String getName(){
+      return "Algorithms";
+   }
 
 
    @Override
-   public String toString() {
-      // FIXME use resource bundle
-      return "Algorithms";
+   public String toString() {  
+      return getName();
    }
 }

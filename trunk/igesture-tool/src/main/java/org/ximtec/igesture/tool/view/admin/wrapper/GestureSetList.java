@@ -74,12 +74,15 @@ public class GestureSetList extends DefaultPropertyChangeOwner implements DataOb
       return sets;
    }
 
+   public String getName(){
+      return "GestureSets";
+   }
 
    @Override
    public String toString() {
-      //FIXME use resource bundle
-      return "GestureSets";
+      return getName();
    }
+      
 
 
    @Override
