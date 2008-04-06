@@ -114,7 +114,9 @@ public class GestureSignature {
 
    private void init() {
       List<GestureSignature.Position> points = new ArrayList<GestureSignature.Position>();
+      note.moveTo(0, 0);
       Trace trace = FeatureTool.createTrace((Note)note.clone());
+      
       double scale = GestureTool.scaleTraceTo(trace, rasterSize, rasterSize);
       trace.scale(scale, scale);
 

@@ -124,8 +124,7 @@ public class Result {
    
    @Override
    public String toString() {
-      // TODO Auto-generated method stub
-      return getGestureClassName();
+      return getGestureClassName()+Constant.COLON_BLANK+getAccuracy();
    }
 
 }

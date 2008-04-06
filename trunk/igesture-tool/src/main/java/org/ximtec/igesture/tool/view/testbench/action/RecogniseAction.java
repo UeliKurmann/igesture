@@ -29,6 +29,7 @@ package org.ximtec.igesture.tool.view.testbench.action;
 import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.widget.BasicAction;
+import org.sigtec.ink.Note;
 import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.AlgorithmFactory;
@@ -48,6 +49,7 @@ import org.ximtec.igesture.tool.view.testbench.panel.ConfigurationPanel;
  */
 public class RecogniseAction extends BasicAction {
 
+   private static final int MIN_POINTS = 5;
    private Configuration configuration;
    private ConfigurationPanel panel;
 
@@ -64,8 +66,11 @@ public class RecogniseAction extends BasicAction {
       
       try {
          Algorithm algorithm = AlgorithmFactory.createAlgorithm(configuration);
-         ResultSet resultSet = algorithm.recognise(panel.getCurrentNote());
-         panel.setResultList(resultSet.getResults()); 
+         Note note = panel.getCurrentNote();
+         if(note.getPoints().size() >= MIN_POINTS){
+            ResultSet resultSet = algorithm.recognise(note);
+            panel.setResultList(resultSet.getResults()); 
+         }
       }
       catch (AlgorithmException e) {
          e.printStackTrace();
