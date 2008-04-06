@@ -66,8 +66,6 @@ public class MainModel implements Service {
             engine), visitor);
    }
 
-
-
    /**
     * Returns a list of Gesture Sets
     * @return a list of Gesture Sets
@@ -94,9 +92,7 @@ public class MainModel implements Service {
 
    public GestureSetList getRootSet() {
       GestureSetList rootSet = new GestureSetList();
-      for (GestureSet gestureSet : getGestureSets()) {
-         rootSet.addGestureSet(gestureSet);
-      }
+      
       rootSet.addPropertyChangeListener(mainController);
 
       return rootSet;

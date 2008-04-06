@@ -147,7 +147,7 @@
 			<artifactId>igesture-io</artifactId>
 			<version>1.2-SNAPSHOT</version>
 		</dependency>
-		
+	
 		<dependency>
 			<groupId>org.sigtec</groupId>
 			<artifactId>sigtec-ink</artifactId>

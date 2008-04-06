@@ -51,6 +51,7 @@ import org.ximtec.igesture.tool.explorer.core.NodeInfo;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.view.MainModel;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureClassAction;
+import org.ximtec.igesture.tool.view.admin.action.AddGestureSetAction;
 import org.ximtec.igesture.tool.view.admin.action.AddSampleDescriptorAction;
 import org.ximtec.igesture.tool.view.admin.action.AddTextDescriptorAction;
 import org.ximtec.igesture.tool.view.admin.action.ExportGestureSetAction;
@@ -86,12 +87,15 @@ public class AdminController implements Controller {
 
       List<Class< ? extends BasicAction>> rootActions = new ArrayList<Class< ? extends BasicAction>>();
       rootActions.add(ImportGestureSetAction.class);
-      rootActions.add(RemoveGestureSetAction.class);
+      rootActions.add(AddGestureSetAction.class);
+      
 
       List<Class< ? extends BasicAction>> setActions = new ArrayList<Class< ? extends BasicAction>>();
       setActions.add(AddGestureClassAction.class);
+      setActions.add(RemoveGestureSetAction.class);
       setActions.add(ExportGestureSetAction.class);
       setActions.add(ExportPDFGestureSetAction.class);
+      
 
       List<Class< ? extends BasicAction>> classActions = new ArrayList<Class< ? extends BasicAction>>();
       classActions.add(RemoveGestureClassAction.class);

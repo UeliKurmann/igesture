@@ -26,12 +26,10 @@
 
 package org.ximtec.igesture.storage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.ximtec.igesture.core.DataObject;
-import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.core.SampleDescriptor;
 
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
@@ -59,12 +57,6 @@ public class Db4oStorageEngine extends DefaultStorageEngine {
    public Db4oStorageEngine(String filename) {
       Db4o.configure().activationDepth(Integer.MAX_VALUE);
       Db4o.configure().updateDepth(Integer.MAX_VALUE);
-      Db4o.configure().objectClass(GestureSet.class.getName()).cascadeOnUpdate(
-            true);
-      Db4o.configure().objectClass(GestureClass.class.getName())
-            .cascadeOnUpdate(true);
-      Db4o.configure().objectClass(SampleDescriptor.class.getName())
-            .cascadeOnUpdate(true);
       Db4o.configure().allowVersionUpdates(true);
       db = Db4o.openFile(filename);
    }
@@ -96,7 +88,7 @@ public class Db4oStorageEngine extends DefaultStorageEngine {
 
 
    public <T extends DataObject> List<T> load(Class<T> clazz) {
-      return db.query(clazz);
+      return new ArrayList<T>(db.query(clazz));
    } // load
 
 

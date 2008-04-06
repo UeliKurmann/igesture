@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -40,6 +40,6 @@ public class AlgorithmWrapperPanel extends AbstractAdminPanel {
 
    public AlgorithmWrapperPanel(AlgorithmWrapper algorithm){
       // FIXME Implement View
-      setTitle("Algorithm Wrapper");
+      setTitle(algorithm.getAlgorithm().getName());
    }
 }

@@ -1,5 +1,5 @@
 /*
- * @(#)$Id: StoreWorkspaceAction.java 465 2008-03-23 23:14:59Z kurmannu $
+ * @(#)$Id: AddGestureClassAction.java 457 2008-03-23 17:23:35Z kurmannu $
  *
  * Author   : Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
@@ -23,39 +23,37 @@
  * 
  */
 
-package org.ximtec.igesture.tool.view.action;
+package org.ximtec.igesture.tool.view.admin.action;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.tree.TreePath;
 
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
-import org.ximtec.igesture.tool.view.MainModel;
+import org.ximtec.igesture.tool.view.admin.wrapper.GestureSetList;
 
-public class ExitAction extends BasicAction {
 
-   
-   public ExitAction() {
-      super(GestureConstants.COMMON_CLOSE, Locator.getDefault()
-            .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
+public class AddGestureSetAction extends BasicAction {
 
-   }
-   
-   public ExitAction(TreePath treePath) {
-      super(GestureConstants.GESTURE_CLASS_ADD, Locator.getDefault().getService(
+   private TreePath treePath;
+
+
+   public AddGestureSetAction(TreePath treePath) {
+      super(GestureConstants.GESTURE_SET_ADD, Locator.getDefault().getService(
             GuiBundleService.IDENTIFIER, GuiBundleService.class));
-      
+      this.treePath = treePath;
    }
 
 
    @Override
    public void actionPerformed(ActionEvent event) {
-      MainModel model = Locator.getDefault().getService(MainModel.IDENTIFIER, MainModel.class);
-      model.getStorageManager().commit();
-      // FIXME add dialog
-      System.exit(0);
+      GestureSetList gestureSets = (GestureSetList)treePath.getLastPathComponent();
+      GestureSet gestureSet = new GestureSet();
+      gestureSets.addGestureSet(gestureSet);
    }
+
 }

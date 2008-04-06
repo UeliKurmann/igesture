@@ -36,6 +36,8 @@ import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.DataObjectWrapper;
 import org.ximtec.igesture.core.DefaultPropertyChangeOwner;
+import org.ximtec.igesture.tool.locator.Locator;
+import org.ximtec.igesture.tool.view.MainModel;
 
 
 
@@ -48,21 +50,25 @@ public class AlgorithmWrapper extends DefaultPropertyChangeOwner implements Data
    
    Class<? extends Algorithm> algorithmClass;
    
+   MainModel mainModel;
+   
    List<Configuration> configurations;
    
    public AlgorithmWrapper(Class<? extends Algorithm> algorithmClass){
       this.algorithmClass = algorithmClass;
-      this.configurations = new ArrayList<Configuration>();
+      mainModel = Locator.getDefault().getService(MainModel.IDENTIFIER, MainModel.class);
+      updateReference();
    }
    
    public void addConfiguration(Configuration configuration){
-      configurations.add(configuration);
+      mainModel.getStorageManager().store(configuration);
       propertyChangeSupport.fireIndexedPropertyChange("configurations", 0, null, configuration);
+      updateReference();
    }
    
    public void removeConfiguration(Configuration configuration){
-      configurations.remove(configuration);
       propertyChangeSupport.fireIndexedPropertyChange("configurations", 0, configuration, null);
+      updateReference();
    }
    
    public Class<? extends Algorithm> getAlgorithm(){
@@ -83,6 +89,21 @@ public class AlgorithmWrapper extends DefaultPropertyChangeOwner implements Data
    
    public List<PropertyChangeListener> getListeners(){
       return Arrays.asList(propertyChangeSupport.getPropertyChangeListeners());
+   }
+   
+   private synchronized void updateReference(){
+      if(configurations == null){
+         configurations = new ArrayList<Configuration>();
+      }
+      configurations.clear();
+      for(Configuration configuration:mainModel.getConfigurations()){
+         if(configuration.getAlgorithms().contains(algorithmClass.getName())){
+            configurations.add(configuration);
+         }
+      }
+      
+      // FIXME find another solution to notify the main controller about the update.
+      propertyChangeSupport.firePropertyChange("nil", "not","yes");
    }
 
 }
