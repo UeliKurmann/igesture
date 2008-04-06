@@ -113,14 +113,13 @@ public class GestureSignature {
 
 
    private void init() {
-      final List<GestureSignature.Position> points = new ArrayList<GestureSignature.Position>();
-      final Trace trace = FeatureTool.createTrace((Note)note.clone());
-      final double scale = GestureTool.scaleTraceTo(trace, rasterSize,
-            rasterSize);
+      List<GestureSignature.Position> points = new ArrayList<GestureSignature.Position>();
+      Trace trace = FeatureTool.createTrace((Note)note.clone());
+      double scale = GestureTool.scaleTraceTo(trace, rasterSize, rasterSize);
       trace.scale(scale, scale);
 
-      for (final Point point : trace.getPoints()) {
-         final Position p = getPosition(point);
+      for (Point point : trace.getPoints()) {
+         Position p = getPosition(point);
 
          if (lastPosition == null || !p.equals(lastPosition)) {
             addSignature(grid.getSignature(p.x, p.y));
