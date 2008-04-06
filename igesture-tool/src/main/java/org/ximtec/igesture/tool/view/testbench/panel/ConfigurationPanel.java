@@ -31,6 +31,8 @@ import hacks.JNote;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -125,16 +127,27 @@ public class ConfigurationPanel extends AbstractAdminPanel {
       
      final JComboBox comboBox = new JComboBox(Locator.getDefault().getService(MainModel.IDENTIFIER, MainModel.class).getGestureSets().toArray());
       
-      comboBox.addMouseListener(new MouseAdapter(){
-         @Override
-         public void mouseReleased(MouseEvent arg0) {
-            configuration.removeAllGestureSets();
-            GestureSet gestureSet = (GestureSet)comboBox.getSelectedItem();
-            System.out.println(gestureSet.getName());
-            configuration.addGestureSet(gestureSet);
-            recogniseAction.setEnabled(true);
-         }
-      });
+     comboBox.addActionListener(new ActionListener(){
+
+      @Override
+      public void actionPerformed(ActionEvent arg0) {
+         configuration.removeAllGestureSets();
+         GestureSet gestureSet = (GestureSet)comboBox.getSelectedItem();
+         configuration.addGestureSet(gestureSet);
+         recogniseAction.setEnabled(true);
+      }});
+     
+     comboBox.addMouseListener(new MouseAdapter(){
+        
+        @Override
+      public void mouseClicked(MouseEvent e) {
+           configuration.removeAllGestureSets();
+           GestureSet gestureSet = (GestureSet)comboBox.getSelectedItem();
+           configuration.addGestureSet(gestureSet);
+           recogniseAction.setEnabled(true);
+      }
+        
+     });
       
       
       buttonPanel.add(new BasicButton(new ClearGestureSampleAction(note)));

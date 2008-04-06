@@ -66,11 +66,6 @@ public class GestureSetList extends DefaultPropertyChangeOwner implements DataOb
 
 
    public List<GestureSet> getGestureSets() {
-      for(GestureSet set:model.getGestureSets()){
-         System.out.println(set.getName());
-      }
-      System.out.println(sets.size());
-      
       return sets;
    }
 

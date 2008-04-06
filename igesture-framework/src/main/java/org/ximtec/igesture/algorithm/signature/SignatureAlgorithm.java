@@ -27,7 +27,7 @@
 package org.ximtec.igesture.algorithm.signature;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -139,8 +139,8 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
    public ResultSet recognise(Note note) {
       final GestureSignature input = new GestureSignature((Note)note.clone(),
             null, rasterSize, gridSize);
-      final Hashtable<String, Result> tmpResults = new Hashtable<String, Result>();
-      final ResultSet resultSet = new ResultSet(maxResultSetSize);
+      Map<String, Result> tmpResults = new HashMap<String, Result>();
+      ResultSet resultSet = new ResultSet(maxResultSetSize);
 
       resultSet.setNote(note);
 
@@ -149,8 +149,8 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
 
       int minDistance = Integer.MAX_VALUE;
 
-      for (final GestureSignature signature : signatures) {
-         final int d = distanceAlgorithm.computeDistance(input, signature);
+      for (GestureSignature signature : signatures) {
+         int d = distanceAlgorithm.computeDistance(input, signature);
 
          if (d < minDistance) {
             minDistance = d;
