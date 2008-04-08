@@ -62,13 +62,13 @@ public class JdomConfiguration extends Element {
    public JdomConfiguration(Configuration configuration) {
       super(ROOT_TAG);
 
-      for (final String algorithmName : configuration.getAlgorithms()) {
-         final Element element = new Element(ALGORITHM_TAG);
+      for (String algorithmName : configuration.getAlgorithms()) {
+         Element element = new Element(ALGORITHM_TAG);
          element.setAttribute(NAME_ATTRIBUTE, algorithmName);
-         final Map<String, String> parameters = configuration
+         Map<String, String> parameters = configuration
                .getParameters(algorithmName);
 
-         for (final String parameterName : parameters.keySet()) {
+         for (String parameterName : parameters.keySet()) {
             element.addContent(new JdomConfigurationParameter(parameterName,
                   parameters.get(parameterName)));
          }

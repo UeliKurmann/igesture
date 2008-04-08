@@ -31,6 +31,7 @@ import javax.swing.JTextField;
 
 import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.GestureClass;
+import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtex.igesture.tool.binding.BindingFactory;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -41,7 +42,7 @@ public class GestureClassPanel extends AbstractAdminPanel {
 
    public GestureClassPanel(GestureClass gestureClass) {
 
-      setTitle(gestureClass.getName());
+      setTitle(TitleFactory.createDynamicTitle(gestureClass, GestureClass.PROPERTY_NAME));
 
       FormLayout layout = new FormLayout(
             "100dlu, 4dlu, 200dlu",

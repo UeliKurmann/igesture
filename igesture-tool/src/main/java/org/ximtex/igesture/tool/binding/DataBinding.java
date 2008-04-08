@@ -41,7 +41,7 @@ import org.ximtec.igesture.core.DataObject;
 public abstract class DataBinding<T extends JComponent> implements
       FocusListener, PropertyChangeListener {
 
-   private Object dataObject;
+   private DataObject dataObject;
    private String property;
 
 
@@ -54,6 +54,7 @@ public abstract class DataBinding<T extends JComponent> implements
     */
    public DataBinding(DataObject dataObject, String property) {
       this.dataObject = dataObject;
+      this.dataObject.addPropertyChangeListener(this);
       this.property = property;
    }
 

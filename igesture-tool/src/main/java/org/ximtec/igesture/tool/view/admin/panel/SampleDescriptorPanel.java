@@ -42,6 +42,7 @@ import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
+import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
 import org.ximtec.igesture.util.GestureTool;
@@ -74,7 +75,7 @@ public class SampleDescriptorPanel extends AbstractAdminPanel {
     * @param descriptor
     */
    private void initTitle(SampleDescriptor descriptor) {
-      setTitle(descriptor.toString());
+      setTitle(TitleFactory.createStaticTitle(descriptor.toString()));
    }
 
 

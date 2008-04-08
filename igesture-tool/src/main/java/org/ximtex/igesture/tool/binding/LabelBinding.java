@@ -1,5 +1,5 @@
 /*
- * @(#)$Id$
+ * @(#)$Id: TextFieldBinding.java 456 2008-03-23 17:16:31Z kurmannu $
  *
  * Author   : Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
@@ -25,25 +25,37 @@
 
 package org.ximtex.igesture.tool.binding;
 
-import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 import org.ximtec.igesture.core.DataObject;
 
 
-public class BindingFactory {
+public class LabelBinding extends DataBinding<JLabel> {
 
-   public static DataBinding< ? > createInstance(JComponent component,
-         DataObject obj, String property) {
-      if (component instanceof JTextField) {
-         return new TextFieldBinding((JTextField)component, obj, property);
-      }else if (component instanceof JTextArea) {
-         return new TextAreaBinding((JTextArea)component, obj, property);
-      }else if (component instanceof JLabel) {
-         return new LabelBinding((JLabel)component, obj, property);
-      }
-      return null;
+   private JLabel label;
+
+
+   public LabelBinding(JLabel textField, DataObject obj, String property) {
+      super(obj, property);
+      this.label = textField;
+      updateView();
+   }
+
+
+   @Override
+   public JLabel getComponent() {
+      return label;
+   }
+
+
+   @Override
+   public void updateView() {
+      label.setText(getValue());
+   }
+
+
+   @Override
+   public void updateModel() {
+      // do nothing, read only component
    }
 }

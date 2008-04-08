@@ -251,9 +251,9 @@ public class XMLTool {
     * @param file the XML file.
     */
    public static void exportConfiguration(Configuration configuration, File file) {
-      final JdomDocument ipaperDocument = new JdomDocument(
+      final JdomDocument document = new JdomDocument(
             new JdomConfiguration(configuration));
-      FileHandler.writeFile(file.getPath(), ipaperDocument.toXml());
+      FileHandler.writeFile(file.getPath(), document.toXml());
    } // exportConfiguration
 
 
