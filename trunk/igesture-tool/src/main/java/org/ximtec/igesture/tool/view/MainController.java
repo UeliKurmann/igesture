@@ -164,9 +164,13 @@ public class MainController implements Controller {
     * @return
     */
    private File getDatabase() {
-      JFileChooser chooser = new JFileChooser();
-      chooser.showOpenDialog(null);
-      return chooser.getSelectedFile();
+      File file = null;
+      while(file == null){
+         JFileChooser chooser = new JFileChooser();
+         chooser.showOpenDialog(null);
+         file = chooser.getSelectedFile();
+      }
+      return file;
    }
 
 }

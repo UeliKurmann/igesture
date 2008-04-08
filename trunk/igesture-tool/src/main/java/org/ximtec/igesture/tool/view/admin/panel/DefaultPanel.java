@@ -25,10 +25,12 @@
 
 package org.ximtec.igesture.tool.view.admin.panel;
 
+import org.ximtec.igesture.tool.util.TitleFactory;
+
 public class DefaultPanel extends AbstractAdminPanel {
 
    public DefaultPanel(Object obj) {
       super();
-      setTitle(obj.toString());
+      setTitle(TitleFactory.createStaticTitle(obj.toString()));
    }
 }

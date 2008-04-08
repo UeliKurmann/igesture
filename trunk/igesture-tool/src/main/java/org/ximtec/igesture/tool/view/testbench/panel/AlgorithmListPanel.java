@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -26,6 +26,7 @@
 
 package org.ximtec.igesture.tool.view.testbench.panel;
 
+import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.admin.panel.AbstractAdminPanel;
 import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmList;
 
@@ -40,6 +41,6 @@ public class AlgorithmListPanel extends AbstractAdminPanel {
 
    public AlgorithmListPanel(AlgorithmList algorithmList){
       // FIXME Implement View
-      setTitle("Algorithm List");
+      setTitle(TitleFactory.createStaticTitle("Algorithm List"));
    }
 }

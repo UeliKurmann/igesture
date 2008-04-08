@@ -37,6 +37,7 @@ import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.view.action.ExitAction;
+import org.ximtec.igesture.tool.view.action.LoadWorkspaceAction;
 import org.ximtec.igesture.tool.view.action.StoreWorkspaceAction;
 
 
@@ -72,6 +73,9 @@ public class MainView extends JFrame {
       JMenu aboutMenu = new BasicMenu(GestureConstants.MENUBAR_ABOUT, Locator.getDefault().getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
       menuBar.add(aboutMenu);
       
+      BasicMenuItem openItem = new BasicMenuItem();
+      openItem.setAction(new LoadWorkspaceAction(null));
+      fileMenu.add(openItem);
       BasicMenuItem storeItem = new BasicMenuItem();
       storeItem.setAction(new StoreWorkspaceAction());
       fileMenu.add(storeItem);

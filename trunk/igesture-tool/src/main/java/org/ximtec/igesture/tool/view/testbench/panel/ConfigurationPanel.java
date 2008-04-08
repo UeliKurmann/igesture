@@ -55,6 +55,7 @@ import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
+import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.MainModel;
 import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.panel.AbstractAdminPanel;
@@ -93,7 +94,7 @@ public class ConfigurationPanel extends AbstractAdminPanel {
 // FIXME use resource files
    
    private void init() {
-      setTitle("Configuration: "+configuration.getName());
+      setTitle(TitleFactory.createDynamicTitle(configuration, Configuration.PROPERTY_NAME));
      
       JPanel basePanel = new JPanel();
       basePanel.setLayout(new BorderLayout());

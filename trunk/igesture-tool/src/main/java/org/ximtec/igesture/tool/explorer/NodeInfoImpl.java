@@ -56,12 +56,14 @@ import org.ximtec.igesture.tool.explorer.core.NodeInfo;
  */
 public class NodeInfoImpl implements NodeInfo {
 
+   public static final String CHILD_DELIMITER = ";";
+
    private static final Logger LOG = Logger.getLogger(NodeInfoImpl.class.getName());
 
    private String propertyName;
    private String childList;
-   private Class< ? extends ExplorerTreeView> view;
-   private Class< ? extends Object> type;
+   private Class< ? extends ExplorerTreeView> viewClass;
+   private Class< ? extends Object> nodeClass;
 
    private List<Class< ? extends BasicAction>> popupActions;
    
@@ -83,10 +85,10 @@ public class NodeInfoImpl implements NodeInfo {
          String childList, Class< ? extends ExplorerTreeView> view,
          List<Class< ? extends BasicAction>> popupActions, Icon icon) {
 
-      this.type = type;
+      this.nodeClass = type;
       this.propertyName = propertyName;
       this.childList = childList;
-      this.view = view;
+      this.viewClass = view;
       this.popupActions = popupActions;
       this.icon = icon;
    }
@@ -99,10 +101,10 @@ public class NodeInfoImpl implements NodeInfo {
    public List<Object> getChildren(Object node) {
       List<Object> result = new ArrayList<Object>();
       if (childList != null) {
-         for (String name : childList.split(";")) {
+         for (String name : childList.split(CHILD_DELIMITER)) {
 
             try {
-               Field field = type.getDeclaredField(name);
+               Field field = nodeClass.getDeclaredField(name);
                field.setAccessible(true);
                Object o = field.get(node);
                if (o instanceof Collection) {
@@ -182,7 +184,7 @@ public class NodeInfoImpl implements NodeInfo {
     */
    @Override
    public Class< ? > getType() {
-      return type;
+      return nodeClass;
    }
 
    /*
@@ -202,8 +204,8 @@ public class NodeInfoImpl implements NodeInfo {
    public ExplorerTreeView getView(Object node) {
 
       try {
-         Constructor< ? extends ExplorerTreeView> ctor = view
-               .getConstructor(type);
+         Constructor< ? extends ExplorerTreeView> ctor = viewClass
+               .getConstructor(nodeClass);
          return ctor.newInstance(node);
       }
       catch (InstantiationException e) {

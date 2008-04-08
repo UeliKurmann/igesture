@@ -54,11 +54,8 @@ public abstract class AbstractAdminPanel extends DefaultExplorerTreeView {
    }
 
 
-   public void setTitle(String s) {
-      JLabel title = new JLabel(s);
-      title.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-      title.setFont(FontFactory.getArialBold(24));
-      this.add(title, BorderLayout.NORTH);
+   public void setTitle(JComponent component) {
+      this.add(component, BorderLayout.NORTH);
    }
 
 

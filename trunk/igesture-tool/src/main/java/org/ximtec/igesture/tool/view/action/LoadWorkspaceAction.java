@@ -27,33 +27,27 @@ package org.ximtec.igesture.tool.view.action;
 
 import java.awt.event.ActionEvent;
 
-import javax.swing.tree.TreePath;
-
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.view.MainController;
 
-//FIXME implement...
 public class LoadWorkspaceAction extends BasicAction {
 
-   private TreePath treePath;
+   private MainController mainController;
+  
 
-
-   public LoadWorkspaceAction(TreePath treePath) {
-      super(GestureConstants.GESTURE_CLASS_ADD, Locator.getDefault().getService(
+   public LoadWorkspaceAction(MainController mainController) {
+      super(GestureConstants.COMMON_BROWSE, Locator.getDefault().getService(
             GuiBundleService.IDENTIFIER, GuiBundleService.class));
-      this.treePath = treePath;
+      this.mainController = mainController;
    }
 
 
    @Override
    public void actionPerformed(ActionEvent arg0) {
-      GestureSet gestureSet = (GestureSet)treePath.getLastPathComponent();
-      GestureClass gestureClass = new GestureClass("");
-      gestureSet.addGestureClass(gestureClass);
+     
    }
 
 }

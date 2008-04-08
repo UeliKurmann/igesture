@@ -25,6 +25,7 @@
 
 package org.ximtec.igesture.tool.view.admin.panel;
 
+import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.admin.wrapper.GestureSetList;
 
 
@@ -40,7 +41,7 @@ public class GestureSetsPanel extends AbstractAdminPanel {
 
 
    private void init() {
-      setTitle("Gesture Sets");
+      setTitle(TitleFactory.createStaticTitle("Gesture Sets"));
    }
 
 }
