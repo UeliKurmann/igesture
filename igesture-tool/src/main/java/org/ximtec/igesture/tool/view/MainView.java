@@ -25,6 +25,8 @@
 
 package org.ximtec.igesture.tool.view;
 
+import java.awt.Frame;
+
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -49,13 +51,13 @@ public class MainView extends JFrame {
 
    public MainView() {
       initMenu();
-      initView();
+      initView(); 
    }
 
 
    private void initView() {
       setBounds(100, 100, 900, 650);
-      setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+      setDefaultCloseOperation(Frame.NORMAL);
       setVisible(true);
 
       tabbedPane = new JTabbedPane();

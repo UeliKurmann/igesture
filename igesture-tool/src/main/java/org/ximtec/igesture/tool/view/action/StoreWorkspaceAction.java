@@ -31,9 +31,10 @@ import javax.swing.tree.TreePath;
 
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.core.Command;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
-import org.ximtec.igesture.tool.view.MainModel;
+import org.ximtec.igesture.tool.view.MainController;
 
 public class StoreWorkspaceAction extends BasicAction {
 
@@ -53,8 +54,9 @@ public class StoreWorkspaceAction extends BasicAction {
 
    @Override
    public void actionPerformed(ActionEvent event) {
-      MainModel model = Locator.getDefault().getService(MainModel.IDENTIFIER, MainModel.class);
-      model.getStorageManager().commit();
+      Locator.getDefault().getService(MainController.IDENTIFIER,
+            MainController.class).execute(
+            new Command(MainController.CMD_SAVE, event));
       
    }
 }
