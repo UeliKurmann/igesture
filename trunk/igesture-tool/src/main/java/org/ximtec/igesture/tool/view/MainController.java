@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import org.sigtec.input.BufferedInputDeviceEventListener;
 import org.ximtec.igesture.core.DataObject;
@@ -54,6 +55,8 @@ import org.ximtec.igesture.tool.view.testbench.TestbenchController;
 public class MainController extends DefaultController implements Service {
 
    public static final String CMD_LOAD = "load";
+   public static final String CMD_CLOSE = "close";
+   public static final String CMD_SAVE = "save";
    
    public enum Cmd{loadWorkspace, newWorkspace}
    
@@ -107,8 +110,7 @@ public class MainController extends DefaultController implements Service {
    private void initViews() {
       if(mainView == null){
          mainView = new MainView();
-      }else{
-         mainView.removeAllTabs();
+         mainView.addWindowListener(new MainWindowAdapter(this));
       }
       
       // Init Admin Tab
@@ -132,31 +134,41 @@ public class MainController extends DefaultController implements Service {
       if(command != null && command.getCommand() != null){
          if(CMD_LOAD.equals(command.getCommand())){
             execLoadCommand();
-         }  
+         }else if(CMD_CLOSE.equals(command.getCommand())){
+            execCloseCommand();
+         }else if(CMD_SAVE.equals(command.getCommand())){
+            execSaveCommand();
+         }else{
+            LOG.warning("Command not supportet. "+command.getCommand());
+         }
       }else{
          LOG.warning("Command not set.");
       }
    }
    
    private void execLoadCommand(){
+      LOG.info("Command Load");
       mainView.removeAllTabs();
-      
       mainModel.stop();
-      
       mainModel.setStorageEngine(StorageManager.createStorageEngine(getDatabase()));
+      mainModel.start();
       
-   // Init Admin Tab
-      AdminController adminController = new AdminController();
-      addController(adminController);
-      mainView.addTab((TabbedView)adminController.getView());
-
-      // Init TestBench Tab
-      TestbenchController testbenchController = new TestbenchController();
-      addController(testbenchController);
-      mainView.addTab((TabbedView)testbenchController.getView());
+      initViews();
    }
    
+   private void execSaveCommand(){
+      LOG.info("Command Save");
+      mainModel.getStorageManager().commit();
+   }
    
+   private void execCloseCommand(){
+      LOG.info("Command Close");
+      if(JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, "Exit iGesture Tool?", "Confirm Exit", JOptionPane.YES_NO_OPTION)){
+         mainModel.getStorageManager().commit();
+         Locator.getDefault().stopAll();
+         System.exit(0);
+      }
+   }
  
    @Override
    public void propertyChange(PropertyChangeEvent event) {
@@ -181,7 +193,6 @@ public class MainController extends DefaultController implements Service {
          }else if(event.getNewValue() instanceof DataObject && event.getOldValue() != null){
             mainModel.getStorageManager().update((DataObject)event.getNewValue());
          }
-         
       }
    }
    
@@ -226,20 +237,17 @@ public class MainController extends DefaultController implements Service {
 
    @Override
    public void reset() {
-      // TODO Auto-generated method stub
-      
+      LOG.warning("method not implemented.");
    }
 
    @Override
    public void start() {
-      // TODO Auto-generated method stub
-      
+      LOG.warning("method not implemented.");      
    }
 
    @Override
    public void stop() {
-      // TODO Auto-generated method stub
-      
+      LOG.warning("method not implemented.");
    }
 
 }

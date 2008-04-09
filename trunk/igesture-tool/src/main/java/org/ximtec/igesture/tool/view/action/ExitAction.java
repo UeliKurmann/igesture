@@ -23,39 +23,32 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.view.action;
 
 import java.awt.event.ActionEvent;
 
-import javax.swing.tree.TreePath;
-
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.core.Command;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
-import org.ximtec.igesture.tool.view.MainModel;
+import org.ximtec.igesture.tool.view.MainController;
+
 
 public class ExitAction extends BasicAction {
 
-   
    public ExitAction() {
-      super(GestureConstants.COMMON_CLOSE, Locator.getDefault()
-            .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
-
-   }
-   
-   public ExitAction(TreePath treePath) {
-      super(GestureConstants.GESTURE_CLASS_ADD, Locator.getDefault().getService(
+      super(GestureConstants.COMMON_CLOSE, Locator.getDefault().getService(
             GuiBundleService.IDENTIFIER, GuiBundleService.class));
-      
+
    }
 
 
    @Override
    public void actionPerformed(ActionEvent event) {
-      MainModel model = Locator.getDefault().getService(MainModel.IDENTIFIER, MainModel.class);
-      model.getStorageManager().commit();
-      // FIXME add dialog
-      System.exit(0);
+      Locator.getDefault().getService(MainController.IDENTIFIER,
+            MainController.class).execute(
+            new Command(MainController.CMD_CLOSE, event));
    }
 }
