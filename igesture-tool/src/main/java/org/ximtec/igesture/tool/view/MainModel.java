@@ -58,12 +58,10 @@ public class MainModel implements Service {
    public MainModel(StorageEngine engine, MainController mainController) {
 
       this.mainController = mainController;
-
+ 
       // StorageManager is wrapped with a Dynamic Proxy to register a
       // PropertyChangeListener
-      PropertyChangeVisitor visitor = new PropertyChangeVisitor(mainController);
-      this.storageManager = StorageManagerProxy.newInstance(new StorageManager(
-            engine), visitor);
+      setStorageEngine(engine);
    }
 
    /**
@@ -138,6 +136,11 @@ public class MainModel implements Service {
 
    public IStorageManager getStorageManager() {
       return storageManager;
+   }
+   
+   public void setStorageEngine(StorageEngine storageEngine){
+      PropertyChangeVisitor visitor = new PropertyChangeVisitor(mainController);
+      this.storageManager = StorageManagerProxy.newInstance(new StorageManager(storageEngine), visitor);
    }
 
 }

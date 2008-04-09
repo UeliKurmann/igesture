@@ -33,7 +33,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JComponent;
 
-import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeModel;
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
@@ -42,7 +42,7 @@ import org.ximtec.igesture.tool.util.NodeInfoFactory;
 import org.ximtec.igesture.tool.view.MainModel;
 
 
-public class AdminController implements Controller {
+public class AdminController extends DefaultController {
 
    private static final Logger LOG = Logger.getLogger(AdminController.class.getName());
 

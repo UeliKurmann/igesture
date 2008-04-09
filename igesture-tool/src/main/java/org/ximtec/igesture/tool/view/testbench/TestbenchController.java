@@ -37,7 +37,7 @@ import javax.swing.JComponent;
 
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.configuration.Configuration;
-import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeModel;
 import org.ximtec.igesture.tool.explorer.NodeInfoImpl;
@@ -54,10 +54,9 @@ import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmList;
 import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmWrapper;
 
 
-public class TestbenchController implements Controller {
+public class TestbenchController extends DefaultController {
 
-   private static final Logger LOG = Logger.getLogger(TestbenchController.class
-         .getName());
+   private static final Logger LOG = Logger.getLogger(TestbenchController.class.getName());
 
    private static List<NodeInfo> nodeInfos;
 
@@ -104,7 +103,7 @@ public class TestbenchController implements Controller {
             .getAlgorithmList(), getNodeInfoList());
       explorerTreeController = new ExplorerTreeController(testbenchView,
             explorerModel, getNodeInfoList());
-
+      addController(explorerTreeController);
    }
 
 
@@ -125,9 +124,8 @@ public class TestbenchController implements Controller {
 
    @Override
    public void propertyChange(PropertyChangeEvent evt) {
-      // FIXME use a list of controller.
-      explorerTreeController.propertyChange(evt);
-
+      super.propertyChange(evt);
+      
       LOG.info("PropertyChange");
 
    }

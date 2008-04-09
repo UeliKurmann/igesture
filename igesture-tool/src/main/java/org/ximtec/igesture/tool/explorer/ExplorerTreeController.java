@@ -35,7 +35,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
-import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeContainer;
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
 
@@ -47,7 +47,7 @@ import org.ximtec.igesture.tool.explorer.core.NodeInfo;
  * @version 1.0
  * @since igesture
  */
-public class ExplorerTreeController implements TreeSelectionListener, Controller {
+public class ExplorerTreeController extends DefaultController implements TreeSelectionListener {
 
    private static final Logger LOG = Logger
          .getLogger(ExplorerTreeController.class.getName());

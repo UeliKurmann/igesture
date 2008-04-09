@@ -88,4 +88,8 @@ public class MainView extends JFrame {
    public void addTab(TabbedView view) {
       tabbedPane.add(view.getName(), view.getPane());
    }
+   
+   public void removeAllTabs(){
+      tabbedPane.removeAll();
+   }
 }
