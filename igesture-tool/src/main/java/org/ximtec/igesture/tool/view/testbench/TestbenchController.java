@@ -27,7 +27,6 @@
 package org.ximtec.igesture.tool.view.testbench;
 
 import java.beans.PropertyChangeEvent;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,23 +34,13 @@ import java.util.logging.Logger;
 
 import javax.swing.JComponent;
 
-import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeModel;
-import org.ximtec.igesture.tool.explorer.NodeInfoImpl;
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
 import org.ximtec.igesture.tool.locator.Locator;
+import org.ximtec.igesture.tool.util.NodeInfoFactory;
 import org.ximtec.igesture.tool.view.MainModel;
-import org.ximtec.igesture.tool.view.testbench.action.AddConfigurationAction;
-import org.ximtec.igesture.tool.view.testbench.action.ExportConfigurationAction;
-import org.ximtec.igesture.tool.view.testbench.action.RemoveConfigurationAction;
-import org.ximtec.igesture.tool.view.testbench.panel.AlgorithmListPanel;
-import org.ximtec.igesture.tool.view.testbench.panel.AlgorithmWrapperPanel;
-import org.ximtec.igesture.tool.view.testbench.panel.ConfigurationPanel;
-import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmList;
-import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmWrapper;
 
 
 public class TestbenchController extends DefaultController {
@@ -69,30 +58,8 @@ public class TestbenchController extends DefaultController {
 
 
    public TestbenchController() {
-
-      List<Class< ? extends BasicAction>> algorithmListActions = new ArrayList<Class< ? extends BasicAction>>();
-      
-
-      List<Class< ? extends BasicAction>> algorithmWrapperActions = new ArrayList<Class< ? extends BasicAction>>();
-      algorithmWrapperActions.add(AddConfigurationAction.class);
-  
-      List<Class< ? extends BasicAction>> configurationActions = new ArrayList<Class< ? extends BasicAction>>();
-      configurationActions.add(RemoveConfigurationAction.class);
-      configurationActions.add(ExportConfigurationAction.class);
-      
-     
-      nodeInfos = new ArrayList<NodeInfo>();
-      nodeInfos.add(new NodeInfoImpl(AlgorithmList.class, "name", "algorithms",
-            AlgorithmListPanel.class, algorithmListActions, null));
-
-      nodeInfos.add(new NodeInfoImpl(AlgorithmWrapper.class, "name",
-            "configurations", AlgorithmWrapperPanel.class, algorithmWrapperActions, null));
-
-      nodeInfos.add(new NodeInfoImpl(Configuration.class, "name", null,
-            ConfigurationPanel.class, configurationActions, null));
-
+      nodeInfos = NodeInfoFactory.createTestBenchNodeInfo();
       initController();
-
    }
 
 

@@ -34,6 +34,7 @@ import javax.swing.Icon;
 import org.sigtec.graphix.IconTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.Decorator;
+import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
@@ -58,7 +59,14 @@ import org.ximtec.igesture.tool.view.admin.panel.GestureSetsPanel;
 import org.ximtec.igesture.tool.view.admin.panel.SampleDescriptorPanel;
 import org.ximtec.igesture.tool.view.admin.panel.TextDescriptorPanel;
 import org.ximtec.igesture.tool.view.admin.wrapper.GestureSetList;
-
+import org.ximtec.igesture.tool.view.testbench.action.AddConfigurationAction;
+import org.ximtec.igesture.tool.view.testbench.action.ExportConfigurationAction;
+import org.ximtec.igesture.tool.view.testbench.action.RemoveConfigurationAction;
+import org.ximtec.igesture.tool.view.testbench.panel.AlgorithmListPanel;
+import org.ximtec.igesture.tool.view.testbench.panel.AlgorithmWrapperPanel;
+import org.ximtec.igesture.tool.view.testbench.panel.ConfigurationPanel;
+import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmList;
+import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmWrapper;
 
 
 /**
@@ -67,21 +75,19 @@ import org.ximtec.igesture.tool.view.admin.wrapper.GestureSetList;
  * @author Ueli Kurmann
  */
 public class NodeInfoFactory {
-   
-   public static List<NodeInfo> createAdminNodeInfo(){
+
+   public static List<NodeInfo> createAdminNodeInfo() {
       List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
-      
+
       List<Class< ? extends BasicAction>> rootActions = new ArrayList<Class< ? extends BasicAction>>();
       rootActions.add(ImportGestureSetAction.class);
       rootActions.add(AddGestureSetAction.class);
-      
 
       List<Class< ? extends BasicAction>> setActions = new ArrayList<Class< ? extends BasicAction>>();
       setActions.add(AddGestureClassAction.class);
       setActions.add(RemoveGestureSetAction.class);
       setActions.add(ExportGestureSetAction.class);
       setActions.add(ExportPDFGestureSetAction.class);
-      
 
       List<Class< ? extends BasicAction>> classActions = new ArrayList<Class< ? extends BasicAction>>();
       classActions.add(RemoveGestureClassAction.class);
@@ -91,8 +97,9 @@ public class NodeInfoFactory {
       List<Class< ? extends BasicAction>> descriptorActions = new ArrayList<Class< ? extends BasicAction>>();
       descriptorActions.add(RemoveDescriptorAction.class);
 
-      Icon setIcon = IconTool.getIcon("mimetypes/package-x-generic", Decorator.SIZE_16);
-      
+      Icon setIcon = IconTool.getIcon("mimetypes/package-x-generic",
+            Decorator.SIZE_16);
+
       nodeInfos = new ArrayList<NodeInfo>();
       nodeInfos.add(new NodeInfoImpl(GestureSetList.class, "name", "sets",
             GestureSetsPanel.class, rootActions, null));
@@ -108,8 +115,36 @@ public class NodeInfoFactory {
             DefaultPanel.class, null, null));
       nodeInfos.add(new NodeInfoImpl(String.class, "", null, DefaultPanel.class,
             null, null));
-      
+
       return nodeInfos;
+   }
+
+
+   public static List<NodeInfo> createTestBenchNodeInfo() {
+      
+      List<Class< ? extends BasicAction>> algorithmListActions = new ArrayList<Class< ? extends BasicAction>>();
+      List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
+
+      List<Class< ? extends BasicAction>> algorithmWrapperActions = new ArrayList<Class< ? extends BasicAction>>();
+      algorithmWrapperActions.add(AddConfigurationAction.class);
+
+      List<Class< ? extends BasicAction>> configurationActions = new ArrayList<Class< ? extends BasicAction>>();
+      configurationActions.add(RemoveConfigurationAction.class);
+      configurationActions.add(ExportConfigurationAction.class);
+
+      nodeInfos = new ArrayList<NodeInfo>();
+      nodeInfos.add(new NodeInfoImpl(AlgorithmList.class, "name", "algorithms",
+            AlgorithmListPanel.class, algorithmListActions, null));
+
+      nodeInfos.add(new NodeInfoImpl(AlgorithmWrapper.class, "name",
+            "configurations", AlgorithmWrapperPanel.class,
+            algorithmWrapperActions, null));
+
+      nodeInfos.add(new NodeInfoImpl(Configuration.class, "name", null,
+            ConfigurationPanel.class, configurationActions, null));
+
+      return nodeInfos;
+
    }
 
 }
