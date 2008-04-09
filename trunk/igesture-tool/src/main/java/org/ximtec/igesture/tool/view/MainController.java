@@ -28,10 +28,7 @@ package org.ximtec.igesture.tool.view;
 
 import java.beans.IndexedPropertyChangeEvent;
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 import javax.swing.JComponent;
@@ -43,34 +40,47 @@ import org.ximtec.igesture.core.DataObjectWrapper;
 import org.ximtec.igesture.io.MouseReader;
 import org.ximtec.igesture.io.MouseReaderEventListener;
 import org.ximtec.igesture.storage.StorageManager;
-import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.Command;
+import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.locator.Locator;
+import org.ximtec.igesture.tool.locator.Service;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
 import org.ximtec.igesture.tool.view.admin.AdminController;
 import org.ximtec.igesture.tool.view.testbench.TestbenchController;
 
 
-public class MainController implements Controller {
+public class MainController extends DefaultController implements Service {
 
+   public static final String CMD_LOAD = "load";
+   
+   public enum Cmd{loadWorkspace, newWorkspace}
+   
+   public static final String IDENTIFIER = "mainController";
+   
    private static final String RESOURCE_BUNDLE = "igestureMenu";
 
    private static final Logger LOG = Logger.getLogger(MainController.class
          .getName());
 
+   // Service Locator
    private Locator locator;
+   
+   // Services
    private MainModel mainModel;
-   private MainView mainView;
    private GuiBundleService guiBundle;
    private InputDeviceClientService deviceClient;
 
-   private List<Controller> controllers;
-
-
+   // Main View
+   private MainView mainView;
+   
    public MainController() {
-      controllers = new ArrayList<Controller>();
-
+      initServices();
+      initViews();
+   }
+   
+   private void initServices(){
       guiBundle = new GuiBundleService(RESOURCE_BUNDLE);
 
       // FIXME for test purposes only!
@@ -89,53 +99,89 @@ public class MainController implements Controller {
       locator.addService(mainModel);
       locator.addService(guiBundle);
       locator.addService(deviceClient);
+      locator.addService(this);
       locator.startAll();
-
-      initViews();
-
    }
 
 
    private void initViews() {
-      mainView = new MainView();
-
+      if(mainView == null){
+         mainView = new MainView();
+      }else{
+         mainView.removeAllTabs();
+      }
+      
+      // Init Admin Tab
       AdminController adminController = new AdminController();
-      controllers.add(adminController);
+      addController(adminController);
       mainView.addTab((TabbedView)adminController.getView());
 
+      // Init TestBench Tab
       TestbenchController testbenchController = new TestbenchController();
-      controllers.add(testbenchController);
+      addController(testbenchController);
       mainView.addTab((TabbedView)testbenchController.getView());
    }
-
-
+   
+   /*
+    * (non-Javadoc)
+    * @see org.ximtec.igesture.tool.core.DefaultController#execute(org.ximtec.igesture.tool.core.ControllerCommand)
+    */
    @Override
-   public void propertyChange(PropertyChangeEvent evt) {
-      LOG.info("PropertyChange");
-
-      // dispatch property change event to all controllers
-      for (PropertyChangeListener listener : controllers) {
-         listener.propertyChange(evt);
+   public void execute(Command command) {
+      // command dispatcher
+      if(command != null && command.getCommand() != null){
+         if(CMD_LOAD.equals(command.getCommand())){
+            execLoadCommand();
+         }  
+      }else{
+         LOG.warning("Command not set.");
       }
+   }
+   
+   private void execLoadCommand(){
+      mainView.removeAllTabs();
+      
+      mainModel.stop();
+      
+      mainModel.setStorageEngine(StorageManager.createStorageEngine(getDatabase()));
+      
+   // Init Admin Tab
+      AdminController adminController = new AdminController();
+      addController(adminController);
+      mainView.addTab((TabbedView)adminController.getView());
 
+      // Init TestBench Tab
+      TestbenchController testbenchController = new TestbenchController();
+      addController(testbenchController);
+      mainView.addTab((TabbedView)testbenchController.getView());
+   }
+   
+   
+ 
+   @Override
+   public void propertyChange(PropertyChangeEvent event) {
+      LOG.info("PropertyChange");
+      super.propertyChange(event);
+     
       // FIXME implement store insert, remove and update persistent model
       // Dispatch DataObjects
-      if (evt.getSource() instanceof DataObject) {
-         if (evt instanceof IndexedPropertyChangeEvent) {
-            persist((IndexedPropertyChangeEvent)evt);
+      if (event.getSource() instanceof DataObject) {
+         if (event instanceof IndexedPropertyChangeEvent) {
+            persist((IndexedPropertyChangeEvent)event);
          }
          else {
-            persist((PropertyChangeEvent)evt);
+            persist((PropertyChangeEvent)event);
          }
-      }else if(evt.getSource() instanceof DataObjectWrapper){
-         if(evt.getOldValue() instanceof DataObject && evt.getNewValue() == null){
-            mainModel.getStorageManager().remove((DataObject)evt.getOldValue());
-         }else if(evt.getNewValue() instanceof DataObject && evt.getOldValue() == null){
-            mainModel.getStorageManager().store((DataObject)evt.getNewValue());
-         }else if(evt.getNewValue() instanceof DataObject && evt.getOldValue() != null){
-            mainModel.getStorageManager().update((DataObject)evt.getNewValue());
-         }
+      }else if(event.getSource() instanceof DataObjectWrapper){
          LOG.info("DataObjectWrapper");
+         if(event.getOldValue() instanceof DataObject && event.getNewValue() == null){
+            mainModel.getStorageManager().remove((DataObject)event.getOldValue());
+         }else if(event.getNewValue() instanceof DataObject && event.getOldValue() == null){
+            mainModel.getStorageManager().store((DataObject)event.getNewValue());
+         }else if(event.getNewValue() instanceof DataObject && event.getOldValue() != null){
+            mainModel.getStorageManager().update((DataObject)event.getNewValue());
+         }
+         
       }
    }
    
@@ -160,7 +206,7 @@ public class MainController implements Controller {
    }
 
    /**
-    * TODO select database file (access like application)
+    * TODO select database file (ms access like application). show recent used files. 
     * @return
     */
    private File getDatabase() {
@@ -171,6 +217,29 @@ public class MainController implements Controller {
          file = chooser.getSelectedFile();
       }
       return file;
+   }
+
+   @Override
+   public String getIdentifier() {
+      return IDENTIFIER;
+   }
+
+   @Override
+   public void reset() {
+      // TODO Auto-generated method stub
+      
+   }
+
+   @Override
+   public void start() {
+      // TODO Auto-generated method stub
+      
+   }
+
+   @Override
+   public void stop() {
+      // TODO Auto-generated method stub
+      
    }
 
 }
