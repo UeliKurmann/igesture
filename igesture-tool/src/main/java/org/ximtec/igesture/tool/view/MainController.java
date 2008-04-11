@@ -107,6 +107,10 @@ public class MainController extends DefaultController implements Service {
    }
 
 
+   /**
+    * Initializes Views
+    * TODO: generalization
+    */
    private void initViews() {
       if(mainView == null){
          mainView = new MainView();
@@ -163,6 +167,7 @@ public class MainController extends DefaultController implements Service {
    
    private void execCloseCommand(){
       LOG.info("Command Close");
+      //FIXME Use Resource File
       if(JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, "Exit iGesture Tool?", "Confirm Exit", JOptionPane.YES_NO_OPTION)){
          mainModel.getStorageManager().commit();
          Locator.getDefault().stopAll();

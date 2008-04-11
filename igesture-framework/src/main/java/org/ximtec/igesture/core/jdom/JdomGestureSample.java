@@ -55,7 +55,7 @@ public class JdomGestureSample extends Element {
       super(ROOT_TAG);
       setAttribute(NAME_ATTRIBUTE, sample.getName());
       setAttribute(UUID_ATTRIBUTE, sample.getId());
-      addContent(new JdomNote(sample.getNote()));
+      addContent(new JdomNote(sample.getGesture()));
    }
 
 

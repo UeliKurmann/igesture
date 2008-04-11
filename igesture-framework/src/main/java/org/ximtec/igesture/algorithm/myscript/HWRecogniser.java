@@ -33,7 +33,9 @@ import org.sigtec.ink.recognition.Result;
 import org.ximtec.igesture.algorithm.DefaultAlgorithm;
 import org.ximtec.igesture.algorithm.rubine.RubineAlgorithm.Config;
 import org.ximtec.igesture.configuration.Configuration;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
+import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.ResultSet;
 
 
@@ -56,12 +58,17 @@ public class HWRecogniser extends DefaultAlgorithm {
    } // init
 
 
-   public ResultSet recognise(Note note) {
-      final Note clone = (Note)note.clone();
-      final Result result = recogniser.recognise(clone);
-      final ResultSet resultSet = new ResultSet();
-      resultSet.addResult(new org.ximtec.igesture.core.Result(new GestureClass(
-            result.getText()), result.getConfidence()));
+   public ResultSet recognise(Gesture<?> gesture) {
+      ResultSet resultSet = new ResultSet();
+      
+      if(gesture instanceof GestureSample){
+         Note note = ((GestureSample)gesture).getGesture();
+         Note clone = (Note)note.clone();
+         Result result = recogniser.recognise(clone);
+         resultSet.addResult(new org.ximtec.igesture.core.Result(new GestureClass(
+               result.getText()), result.getConfidence()));   
+      }
+      
       fireEvent(resultSet);
       return resultSet;
    } // recognise

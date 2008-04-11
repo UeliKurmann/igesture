@@ -57,6 +57,7 @@ import org.ximtec.igesture.algorithm.feature.Feature;
 import org.ximtec.igesture.algorithm.feature.FeatureException;
 import org.ximtec.igesture.algorithm.feature.FeatureTool;
 import org.ximtec.igesture.configuration.Configuration;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
@@ -188,10 +189,14 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    }
 
 
-   public ResultSet recognise(Note note) throws AlgorithmException {
+   public ResultSet recognise(Gesture<?> gesture) throws AlgorithmException {
 
-      ResultSet resultSet;
-
+      ResultSet resultSet = new ResultSet();
+      Note note = null;
+      if(gesture instanceof GestureSample){
+         note = ((GestureSample)gesture).getGesture();
+      }
+      
       if (isApplicable(note)) {
 
          try {
@@ -210,9 +215,6 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
          else {
             LOGGER.info(NO_RESULT);
          }
-      }
-      else {
-         resultSet = new ResultSet();
       }
 
       fireEvent(resultSet);
@@ -313,7 +315,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
              * and therefore the algorithm can't be instantiated as soon as one sample
              * does not fulfill the requirements defined in the features. 
              */
-            DoubleVector vector = computeFeatureVector(sample.getNote(), featureList);
+            DoubleVector vector = computeFeatureVector(sample.getGesture(), featureList);
             
             sampleFeatureVector.put(sample, vector);
             vectors.add(vector);
@@ -589,8 +591,13 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    } // getConfigParameters
 
 
+   /**
+    * Tests if the note can be recognised
+    * @param note
+    * @return
+    */
    private boolean isApplicable(Note note) {
-      return note.getPoints().size() >= minimalNumberOfPoints;
+      return note != null && note.getPoints().size() >= minimalNumberOfPoints;
    }
 
 }

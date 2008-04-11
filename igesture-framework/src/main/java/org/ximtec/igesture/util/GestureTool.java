@@ -249,7 +249,7 @@ public class GestureTool {
          for (GestureSample sample : gestureClass.getDescriptor(
                SampleDescriptor.class).getSamples()) {
             testSet.add(new GestureSample(gestureClass.getName(), sample
-                  .getNote()));
+                  .getGesture()));
          }
 
       }
@@ -270,7 +270,7 @@ public class GestureTool {
 
          for (GestureSample sample : gestureClass.getDescriptor(
                SampleDescriptor.class).getSamples()) {
-            testSet.add(new GestureSample(TestSet.NOISE, sample.getNote()));
+            testSet.add(new GestureSample(TestSet.NOISE, sample.getGesture()));
          }
 
       }
@@ -305,8 +305,8 @@ public class GestureTool {
       if(gestureClass.hasDescriptor(SampleDescriptor.class)){
          SampleDescriptor descriptor = gestureClass.getDescriptor(SampleDescriptor.class);
          for(GestureSample sample:descriptor.getSamples()){
-            if(sample.getNote().getPoints().size() <= min){
-               System.out.println(gestureClass.getName()+"  :  "+sample.getNote().getPoints().size());
+            if(sample.getGesture().getPoints().size() <= min){
+               System.out.println(gestureClass.getName()+"  :  "+sample.getGesture().getPoints().size());
             }
          }
       }

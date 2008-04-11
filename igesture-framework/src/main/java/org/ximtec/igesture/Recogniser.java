@@ -31,10 +31,13 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.sigtec.ink.Note;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.AlgorithmFactory;
 import org.ximtec.igesture.configuration.Configuration;
+import org.ximtec.igesture.core.Gesture;
+import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
@@ -140,7 +143,7 @@ public class Recogniser {
     *            recognises the result has to be returned only.
     * @return the result set containing the recognised gesture classes.
     */
-   public ResultSet recognise(Note note, boolean recogniseAll) {
+   public ResultSet recognise(Gesture<?> note, boolean recogniseAll) {
       final ResultSet result = new ResultSet();
 
       for (final Algorithm algorithm : algorithms) {
@@ -170,8 +173,16 @@ public class Recogniser {
     * @param note the note to be recognised.
     * @return the result set containing the recognised gesture classes.
     */
-   public ResultSet recognise(Note note) {
+   public ResultSet recognise(Gesture<?> note) {
       return recognise(note, false);
    } // recognise
+   
+   public ResultSet recognise(Note note){
+      return recognise(note, false);
+   }
+   
+   public ResultSet recognise(Note note, boolean recogniseAll){
+      return recognise(new GestureSample(Constant.EMPTY_STRING, note));
+   }
 
 }

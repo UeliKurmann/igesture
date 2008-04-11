@@ -40,6 +40,7 @@ import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.AlgorithmFactory;
 import org.ximtec.igesture.configuration.Configuration;
+import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
@@ -89,7 +90,7 @@ public class ExecuteRecogniserAction extends BasicAction {
          final Configuration config = tab.getCurrentConfiguration();
          config.addGestureSet((GestureSet)this.set.getSelectedValue());
          final Algorithm algo = AlgorithmFactory.createAlgorithm(config);
-         final ResultSet resultSet = algo.recognise(mainModel.getCurrentNote());
+         final ResultSet resultSet = algo.recognise(new GestureSample(Constant.EMPTY_STRING, mainModel.getCurrentNote()));
          final Vector<String> results = new Vector<String>();
 
          for (final Result result : resultSet.getResults()) {

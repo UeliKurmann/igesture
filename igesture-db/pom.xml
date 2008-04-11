@@ -126,7 +126,7 @@
 			<url>ftp://www.igesture.org/httpdocs</url>
 		</site>
 	</distributionManagement>
-
+ 
     <scm>
         <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-db</connection>
         <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-db</developerConnection>

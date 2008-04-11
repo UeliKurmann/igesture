@@ -38,6 +38,7 @@ import org.sigtec.util.Constant;
 import org.ximtec.igesture.algorithm.AlgorithmTool;
 import org.ximtec.igesture.algorithm.SampleBasedAlgorithm;
 import org.ximtec.igesture.configuration.Configuration;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
@@ -127,8 +128,8 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
       for (final GestureClass gestureClass : gestureSet.getGestureClasses()) {
 
          for (final GestureSample sample : getSamples(gestureClass)) {
-            signatures.add(new GestureSignature((Note)sample.getNote().clone(),
-                  gestureClass, rasterSize, gridSize));
+            signatures.add(new GestureSignature((Note)sample.getGesture()
+                  .clone(), gestureClass, rasterSize, gridSize));
          }
 
       }
@@ -136,48 +137,53 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
    } // preprocess
 
 
-   public ResultSet recognise(Note note) {
-      final GestureSignature input = new GestureSignature((Note)note.clone(),
-            null, rasterSize, gridSize);
-      Map<String, Result> tmpResults = new HashMap<String, Result>();
+   public ResultSet recognise(Gesture<?> gesture) {
       ResultSet resultSet = new ResultSet(maxResultSetSize);
 
-      resultSet.setNote(note);
+      if (gesture instanceof GestureSample) {
+         Map<String, Result> tmpResults = new HashMap<String, Result>();
 
-      final int numOfBits = input.getBitStringLength()
-            * input.getNumberOfPoints();
+         Note note = ((GestureSample)gesture).getGesture();
 
-      int minDistance = Integer.MAX_VALUE;
+         GestureSignature input = new GestureSignature((Note)note.clone(), null,
+               rasterSize, gridSize);
+         
+         
+         resultSet.setNote(note);
 
-      for (GestureSignature signature : signatures) {
-         int d = distanceAlgorithm.computeDistance(input, signature);
+         final int numOfBits = input.getBitStringLength()
+               * input.getNumberOfPoints();
 
-         if (d < minDistance) {
-            minDistance = d;
-         }
+         int minDistance = Integer.MAX_VALUE;
 
-         LOGGER.info(signature.getGestureClass().getName() + "[Distance = " + d
-               + "; Accuracy = " + computeAccuracy(d, numOfBits) + "]");
+         for (GestureSignature signature : signatures) {
+            int d = distanceAlgorithm.computeDistance(input, signature);
 
-         if (computeAccuracy(d, numOfBits) >= minAccuracy) {
-            String gestureName = signature.getGestureClass().getName();
-            if (!tmpResults.containsKey(gestureName)) {
-               tmpResults
-                     .put(signature.getGestureClass().getName(), new Result(
-                           signature.getGestureClass(), computeAccuracy(d,
-                                 numOfBits)));
-            }
-            else {
-               Result result = tmpResults.get(signature.getGestureClass()
-                     .getName());
-               result.setAccuracy(Math.max(result.getAccuracy(),
-                     computeAccuracy(d, numOfBits)));
+            if (d < minDistance) {
+               minDistance = d;
             }
 
-         }
+            LOGGER.info(signature.getGestureClass().getName() + "[Distance = "
+                  + d + "; Accuracy = " + computeAccuracy(d, numOfBits) + "]");
 
+            if (computeAccuracy(d, numOfBits) >= minAccuracy) {
+               String gestureName = signature.getGestureClass().getName();
+               if (!tmpResults.containsKey(gestureName)) {
+                  tmpResults.put(signature.getGestureClass().getName(),
+                        new Result(signature.getGestureClass(), computeAccuracy(
+                              d, numOfBits)));
+               }
+               else {
+                  Result result = tmpResults.get(signature.getGestureClass()
+                        .getName());
+                  result.setAccuracy(Math.max(result.getAccuracy(),
+                        computeAccuracy(d, numOfBits)));
+               }
+
+            }
+         }
+         resultSet.addResults(tmpResults.values());
       }
-      resultSet.addResults(tmpResults.values());
       fireEvent(resultSet);
       return resultSet;
    } // recognise
