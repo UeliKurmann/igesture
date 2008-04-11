@@ -40,7 +40,7 @@ import org.sigtec.util.Constant;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class GestureSample extends DefaultDataObject implements Cloneable {
+public class GestureSample extends DefaultDataObject implements Cloneable, Gesture<Note> {
 
   public static final String PROPERTY_NAME = "name";
 
@@ -93,7 +93,7 @@ public class GestureSample extends DefaultDataObject implements Cloneable {
    * 
    * @return the note describing the sample.
    */
-  public Note getNote() {
+  public Note getGesture() {
     return note;
   } // getNote
 

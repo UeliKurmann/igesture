@@ -27,8 +27,8 @@
 
 package org.ximtec.igesture.algorithm;
 
-import org.sigtec.ink.Note;
 import org.ximtec.igesture.configuration.Configuration;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.EventManager;
 
@@ -61,7 +61,7 @@ public interface Algorithm {
     * @throws AlgorithmException if there was an exception while recognising the
     *            note.
     */
-   public ResultSet recognise(Note note) throws AlgorithmException;
+   public ResultSet recognise(Gesture<?> note) throws AlgorithmException;
 
 
    /**

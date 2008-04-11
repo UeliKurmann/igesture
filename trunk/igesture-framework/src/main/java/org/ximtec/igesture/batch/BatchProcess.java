@@ -125,21 +125,21 @@ public class BatchProcess {
     * @return the batch result set.
     */
    public BatchResultSet run() {
-      final BatchResultSet batchResultSet = new BatchResultSet();
+      BatchResultSet batchResultSet = new BatchResultSet();
       LOGGER.log(Level.INFO, NUMBER_CONFIGURATIONS + configurations.size());
       int counter = 1;
 
-      for (final Configuration config : configurations) {
+      for (Configuration config : configurations) {
          config.addGestureSets(sets);
-         final BatchResult batchResult = new BatchResult(testSet, config);
+         BatchResult batchResult = new BatchResult(testSet, config);
 
          try {
             batchResult.setStartTime();
             Algorithm algorithm;
             algorithm = AlgorithmFactory.createAlgorithm(config);
 
-            for (final GestureSample sample : testSet.getSamples()) {
-               final ResultSet resultSet = algorithm.recognise(sample.getNote());
+            for (GestureSample sample : testSet.getSamples()) {
+               ResultSet resultSet = algorithm.recognise(sample);
 
                if (resultSet.isEmpty()) {
 

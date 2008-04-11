@@ -99,7 +99,7 @@ public class SampleDescriptorPanel extends AbstractAdminPanel {
 
       for (GestureSample sample : descriptor.getSamples()) {
          JLabel label = new JLabel(new ImageIcon(GestureTool.createNoteImage(
-               sample.getNote(), 100, 100)));
+               sample.getGesture(), 100, 100)));
          label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
          builder.append(label);
       }

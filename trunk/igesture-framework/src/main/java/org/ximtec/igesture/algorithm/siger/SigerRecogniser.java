@@ -34,7 +34,9 @@ import org.sigtec.ink.Note;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.DefaultAlgorithm;
 import org.ximtec.igesture.configuration.Configuration;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
+import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
@@ -79,21 +81,26 @@ public class SigerRecogniser extends DefaultAlgorithm {
    } // getConfigParameters
 
 
-   public ResultSet recognise(Note note) {
-      final StrokeInfo si = new StrokeInfo(note);
-      final List<Result> resultList = new ArrayList<Result>();
-      final ResultSet result = new ResultSet();
-      result.setNote(note);
+   public ResultSet recognise(Gesture<?> gesture) {
+      ResultSet result = new ResultSet();
 
-      for (final ClassMatcher regex : gestures.keySet()) {
-         if (regex.isMatch(si)) {
-            resultList.add(new Result(gestures.get(regex), 1));
+      if (gesture instanceof GestureSample) {
+         Note note = ((GestureSample)gesture).getGesture();
+
+         StrokeInfo si = new StrokeInfo(note);
+         List<Result> resultList = new ArrayList<Result>();
+         result.setNote(note);
+
+         for (final ClassMatcher regex : gestures.keySet()) {
+            if (regex.isMatch(si)) {
+               resultList.add(new Result(gestures.get(regex), 1));
+            }
          }
-      }
 
-      for (final Result r : resultList) {
-         r.setAccuracy((double)1 / resultList.size());
-         result.addResult(r);
+         for (final Result r : resultList) {
+            r.setAccuracy((double)1 / resultList.size());
+            result.addResult(r);
+         }
       }
 
       fireEvent(result);

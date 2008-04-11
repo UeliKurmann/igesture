@@ -69,7 +69,7 @@ public class SampleListModel extends AbstractListModel {
       data.removeAllElements();
 
       for (final GestureSample sample : samples) {
-         final JPanel panel = createImage((Note)sample.getNote().clone());
+         final JPanel panel = createImage((Note)sample.getGesture().clone());
          mapping.put(panel, sample);
          data.add(panel);
       }

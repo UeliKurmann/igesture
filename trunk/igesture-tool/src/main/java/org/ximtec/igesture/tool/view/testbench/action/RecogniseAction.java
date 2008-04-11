@@ -30,10 +30,12 @@ import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.ink.Note;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.AlgorithmFactory;
 import org.ximtec.igesture.configuration.Configuration;
+import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
@@ -68,7 +70,7 @@ public class RecogniseAction extends BasicAction {
          Algorithm algorithm = AlgorithmFactory.createAlgorithm(configuration);
          Note note = panel.getCurrentNote();
          if(note.getPoints().size() >= MIN_POINTS){
-            ResultSet resultSet = algorithm.recognise(note);
+            ResultSet resultSet = algorithm.recognise(new GestureSample(Constant.EMPTY_STRING,note));
             panel.setResultList(resultSet.getResults()); 
          }
       }
