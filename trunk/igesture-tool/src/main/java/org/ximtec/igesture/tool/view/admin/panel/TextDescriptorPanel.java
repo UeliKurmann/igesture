@@ -31,13 +31,14 @@ import javax.swing.JTextArea;
 
 import org.ximtec.igesture.core.TextDescriptor;
 import org.ximtec.igesture.tool.util.TitleFactory;
+import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtex.igesture.tool.binding.BindingFactory;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
 
-public class TextDescriptorPanel extends AbstractAdminPanel {
+public class TextDescriptorPanel extends AbstractPanel {
 
    public TextDescriptorPanel(TextDescriptor textDescriptor) {
 

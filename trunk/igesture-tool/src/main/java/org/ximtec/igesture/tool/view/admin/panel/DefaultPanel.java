@@ -26,8 +26,9 @@
 package org.ximtec.igesture.tool.view.admin.panel;
 
 import org.ximtec.igesture.tool.util.TitleFactory;
+import org.ximtec.igesture.tool.view.AbstractPanel;
 
-public class DefaultPanel extends AbstractAdminPanel {
+public class DefaultPanel extends AbstractPanel {
 
    public DefaultPanel(Object obj) {
       super();

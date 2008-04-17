@@ -47,8 +47,9 @@ public class VectorTools {
     * @return the sum of the two vectors.
     */
    public static DoubleVector add(DoubleVector v1, DoubleVector v2) {
+      // FIXME remove assert statement. Exception handling?
       assert (v1.size() == v2.size());
-      final DoubleVector result = new DoubleVector(v1.size());
+      DoubleVector result = new DoubleVector(v1.size());
 
       for (int i = 0; i < v1.size(); i++) {
          result.set(i, v1.get(i) + v2.get(i));
@@ -80,7 +81,7 @@ public class VectorTools {
     * @return the vector divided by divisor.
     */
    public static DoubleVector scalarDiv(DoubleVector vector, double divisor) {
-      final DoubleVector result = new DoubleVector(vector.size());
+      DoubleVector result = new DoubleVector(vector.size());
 
       for (int i = 0; i < vector.size(); i++) {
          result.set(i, vector.get(i) / divisor);
@@ -98,11 +99,12 @@ public class VectorTools {
     * @return a double vector containing the sum of all vectors.
     */
    public static DoubleVector sum(Collection<DoubleVector> vectors) {
+      // FIXME Remvoe assert statements, use exceptions
       assert (vectors.size() > 0);
-      final int vectorLenght = vectors.iterator().next().size();
+      int vectorLenght = vectors.iterator().next().size();
       DoubleVector result = new DoubleVector(vectorLenght);
       
-      for (final DoubleVector vector : vectors) {
+      for (DoubleVector vector : vectors) {
          assert (vector.size() == vectorLenght);
          result = add(result, vector);
       }
@@ -118,8 +120,9 @@ public class VectorTools {
     * @return the mean vector of the specified set of vectors.
     */
    public static DoubleVector mean(Collection<DoubleVector> vectors) {
+      // FIXME replace assert, use exception handling
       assert (vectors.size() > 0);
-      final int numOfVectors = vectors.size();
+      int numOfVectors = vectors.size();
       return scalarDiv(sum(vectors), numOfVectors);
    } // mean
 
@@ -127,11 +130,11 @@ public class VectorTools {
    /**
     * Computes the LP norm of the vector.
     * 
-    * @param vector the vector whose LP norm has to be computed.
+    * @param vector the vector to compute the LP norm.
     * @return the LP norm of the vector.
     */
    public static double normLP(DoubleVector vector) {
-      final int dim = vector.size();
+      int dim = vector.size();
       double result = 0;
       for (int i = 0; i < dim; i++) {
          result += Math.pow(Math.abs(vector.get(i)), dim);
@@ -141,14 +144,14 @@ public class VectorTools {
 
 
    /**
-    * Normalises a vector (the LP norm is used).
+    * Normalises a vector (LP norm is used).
     * 
     * @param vector the vector to be normalised.
     * @return the normalised vector.
     */
    public static DoubleVector normalize(DoubleVector vector) {
-      final double norm = normLP(vector);
-      final DoubleVector result = new DoubleVector(vector.size());
+      double norm = normLP(vector);
+      DoubleVector result = new DoubleVector(vector.size());
       
       for (int i = 0; i < vector.size(); i++) {
          result.set(i, vector.get(i) / norm);
@@ -156,5 +159,19 @@ public class VectorTools {
       
       return result;
    } // normalize
+   
+   /**
+    * Tests if all values in the vector are valid. (not NaN, Infinite)
+    * @param vector the vector to test.
+    * @return true if all values are valid.
+    */
+   public static boolean hasValidValues(DoubleVector vector){
+      for(double d:vector){
+         if(Double.isNaN(d) || Double.isInfinite(d)){
+            return false;
+         }
+      }
+      return true;
+   }
 
 }

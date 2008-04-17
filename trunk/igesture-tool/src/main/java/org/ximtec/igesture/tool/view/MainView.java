@@ -56,12 +56,15 @@ public class MainView extends JFrame {
 
 
    private void initView() {
+      // Use sigtec Compnents?
       setBounds(100, 100, 900, 650);
       setDefaultCloseOperation(Frame.NORMAL);
       setVisible(true);
-
       tabbedPane = new JTabbedPane();
       this.add(tabbedPane);
+      // FIXME Resource File
+      setTitle("iGesture Tool 1.2");
+      
    }
 
 

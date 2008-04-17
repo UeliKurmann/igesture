@@ -23,33 +23,28 @@
  * 
  */
 
-package org.ximtec.igesture.tool.view.admin.panel;
+package org.ximtec.igesture.tool.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
 import org.ximtec.igesture.tool.explorer.DefaultExplorerTreeView;
-import org.ximtec.igesture.tool.util.FontFactory;
 
 
-public abstract class AbstractAdminPanel extends DefaultExplorerTreeView {
+public abstract class AbstractPanel extends DefaultExplorerTreeView {
 
    JScrollPane centerPane;
 
 
-   public AbstractAdminPanel() {
+   public AbstractPanel() {
       setLayout(new BorderLayout());
 
       centerPane = new JScrollPane();
       centerPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-      centerPane.setOpaque(false);
-      centerPane.setForeground(Color.white);
-      centerPane.setBackground(Color.white);
       this.add(centerPane, BorderLayout.CENTER);
    }
 
