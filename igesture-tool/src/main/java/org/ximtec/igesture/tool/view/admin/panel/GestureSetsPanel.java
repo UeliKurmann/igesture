@@ -25,11 +25,14 @@
 
 package org.ximtec.igesture.tool.view.admin.panel;
 
+import javax.swing.JLabel;
+
 import org.ximtec.igesture.tool.util.TitleFactory;
+import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.admin.wrapper.GestureSetList;
 
 
-public class GestureSetsPanel extends AbstractAdminPanel {
+public class GestureSetsPanel extends AbstractPanel {
 
    GestureSetList rootSet;
 
@@ -41,7 +44,11 @@ public class GestureSetsPanel extends AbstractAdminPanel {
 
 
    private void init() {
+      // FIXME Resource File...
       setTitle(TitleFactory.createStaticTitle("Gesture Sets"));
+      
+      // add information about available gesture sets
+      
    }
 
 }

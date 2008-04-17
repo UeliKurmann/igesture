@@ -32,13 +32,14 @@ import javax.swing.JTextField;
 import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.tool.util.TitleFactory;
+import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtex.igesture.tool.binding.BindingFactory;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
 
-public class GestureClassPanel extends AbstractAdminPanel {
+public class GestureClassPanel extends AbstractPanel {
 
    public GestureClassPanel(GestureClass gestureClass) {
 

@@ -49,6 +49,7 @@ import org.ximtec.igesture.tool.locator.Service;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
 import org.ximtec.igesture.tool.view.admin.AdminController;
+import org.ximtec.igesture.tool.view.batch.BatchController;
 import org.ximtec.igesture.tool.view.testbench.TestbenchController;
 
 
@@ -117,6 +118,8 @@ public class MainController extends DefaultController implements Service {
          mainView.addWindowListener(new MainWindowAdapter(this));
       }
       
+      // TODO: avoid casts
+      
       // Init Admin Tab
       AdminController adminController = new AdminController();
       addController(adminController);
@@ -126,6 +129,11 @@ public class MainController extends DefaultController implements Service {
       TestbenchController testbenchController = new TestbenchController();
       addController(testbenchController);
       mainView.addTab((TabbedView)testbenchController.getView());
+      
+      // Batch Processing Tat
+      BatchController batchController = new BatchController();
+      addController(batchController);
+      mainView.addTab((TabbedView)batchController.getView());
    }
    
    /*

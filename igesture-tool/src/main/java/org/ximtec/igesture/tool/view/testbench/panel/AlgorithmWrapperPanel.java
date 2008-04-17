@@ -27,7 +27,7 @@
 package org.ximtec.igesture.tool.view.testbench.panel;
 
 import org.ximtec.igesture.tool.util.TitleFactory;
-import org.ximtec.igesture.tool.view.admin.panel.AbstractAdminPanel;
+import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmWrapper;
 
 
@@ -37,7 +37,7 @@ import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmWrapper;
  * @version 1.0 23.03.2008
  * @author Ueli Kurmann
  */
-public class AlgorithmWrapperPanel extends AbstractAdminPanel {
+public class AlgorithmWrapperPanel extends AbstractPanel {
 
    public AlgorithmWrapperPanel(AlgorithmWrapper algorithm){
       // FIXME Implement View

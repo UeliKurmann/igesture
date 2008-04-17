@@ -177,7 +177,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
             + F6.class.getName() + Constant.COMMA + F7.class.getName()
             + Constant.COMMA + F8.class.getName() + Constant.COMMA
             + F9.class.getName() + Constant.COMMA + F10.class.getName());
-      LOGGER.setLevel(Level.WARNING);
+      LOGGER.setLevel(Level.INFO);
    }
 
 
@@ -262,7 +262,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       // make the samples directly available for each gesture class
       this.samples = new HashMap<GestureClass, List<GestureSample>>();
 
-      for (final GestureClass gestureClass : gestureSet.getGestureClasses()) {
+      for (GestureClass gestureClass : gestureSet.getGestureClasses()) {
          this.samples.put(gestureClass, getSamples(gestureClass));
       }
 
@@ -271,7 +271,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       this.meanFeatureVector = new HashMap<GestureClass, DoubleVector>();
       this.covMatrices = new HashMap<GestureClass, RealMatrix>();
 
-      for (final GestureClass gestureClass : gestureSet.getGestureClasses()) {
+      for (GestureClass gestureClass : gestureSet.getGestureClasses()) {
          try {
             computeFeatureVectors(gestureClass, featureList);
          }
@@ -303,7 +303,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
          Feature[] featureList) throws FeatureException {
 
       // computes the feature vector per class
-      final List<DoubleVector> vectors = new ArrayList<DoubleVector>();
+      List<DoubleVector> vectors = new ArrayList<DoubleVector>();
 
       for (GestureSample sample : samples.get(gestureClass)) {
          try{
@@ -316,9 +316,10 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
              * does not fulfill the requirements defined in the features. 
              */
             DoubleVector vector = computeFeatureVector(sample.getGesture(), featureList);
-            
             sampleFeatureVector.put(sample, vector);
-            vectors.add(vector);
+            if(VectorTools.hasValidValues(vector)){
+               vectors.add(vector);
+            }
          }catch(FeatureException exception){
             LOGGER.warning("Could not compute the Feature Vector.");
          }
@@ -328,7 +329,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       /**
        * FIXME
        * The if statement is inserted to guarantee a minimal number of feature vectors. It has
-       * to be checked, if 1 vector is enough. May be this is a mathematical issue. 
+       * to be checked, if 1 vector is enough. Maybe this is a mathematical issue. 
        */
       if(vectors.size() > 0){
          meanFeatureVector.put(gestureClass, VectorTools.mean(vectors));
@@ -351,14 +352,14 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
          throws FeatureException {
 
       // clone the note to avoid side effects
-      final Note clone = (Note)note.clone();
+      Note clone = (Note)note.clone();
       clone.scaleTo(200, 200);
 
       // filter the note using the min distance
       clone.filter(minDistance);
 
       // create the feature vector
-      final DoubleVector featureVector = new DoubleVector(featureList.length);
+      DoubleVector featureVector = new DoubleVector(featureList.length);
 
       for (int i = 0; i < featureList.length; i++) {
          featureVector.set(i, featureList[i].compute(clone));
@@ -380,25 +381,23 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       RealMatrix realMatrix = covMatrices.get(gestureClass);
 
       if (realMatrix == null) {
-         final int numOfFeatures = featureList.length;
-         final DoubleVector meanVector = meanFeatureVector.get(gestureClass);
-         final double[][] matrix = new double[numOfFeatures][numOfFeatures];
+         int numOfFeatures = featureList.length;
+         DoubleVector meanVector = meanFeatureVector.get(gestureClass);
+         double[][] matrix = new double[numOfFeatures][numOfFeatures];
 
          for (int i = 0; i < numOfFeatures; i++) {
 
             for (int j = 0; j < numOfFeatures; j++) {
                double sum = 0;
 
-               for (final GestureSample sample : samples.get(gestureClass)) {
+               for (GestureSample sample : samples.get(gestureClass)) {
                   sum += (sampleFeatureVector.get(sample).get(i) - meanVector
                         .get(i))
                         * (sampleFeatureVector.get(sample).get(j) - meanVector
                               .get(j));
                }
-
                matrix[i][j] = sum;
             }
-
          }
 
          realMatrix = new RealMatrixImpl(matrix);
@@ -414,16 +413,14 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
     * @return the common covariance matrix of the set.
     */
    private RealMatrix getCovarianceMatrix() {
-      final int dim = featureList.length;
-      final double[][] commonCovMatrix = new double[dim][dim];
+      int dim = featureList.length;
+      double[][] commonCovMatrix = new double[dim][dim];
 
       for (int i = 0; i < dim; i++) {
-
          for (int j = 0; j < dim; j++) {
             double dividend = 0;
 
-            for (final GestureClass gestureClass : gestureSet
-                  .getGestureClasses()) {
+            for (GestureClass gestureClass : gestureSet.getGestureClasses()) {
                dividend += (this.getCovarianceMatrixPerClass(gestureClass))
                      .getEntry(i, j)
                      / (samples.get(gestureClass).size() - 1);
@@ -431,8 +428,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
             double divisor = -gestureSet.size();
 
-            for (final GestureClass gestureClass : gestureSet
-                  .getGestureClasses()) {
+            for (GestureClass gestureClass : gestureSet.getGestureClasses()) {
                divisor += samples.get(gestureClass).size();
             }
 
@@ -453,20 +449,21 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       weightsVector = new HashMap<GestureClass, DoubleVector>();
       initialWeight = new HashMap<GestureClass, Double>();
 
+      
       try {
          inverse = matrix.inverse();
       }
-      catch (final InvalidMatrixException e) {
+      catch (InvalidMatrixException e) {
          throw new AlgorithmException(
-               AlgorithmException.ExceptionType.Initialisation);
+               AlgorithmException.ExceptionType.Initialisation, e);
       }
 
       // compute the weights per class
       int classIndex = 0; 
 
-      for (final GestureClass gestureClass : gestureSet.getGestureClasses()) {
-         final DoubleVector meanVector = meanFeatureVector.get(gestureClass);
-         final DoubleVector weightVector = new DoubleVector(meanVector.size());
+      for (GestureClass gestureClass : gestureSet.getGestureClasses()) {
+         DoubleVector meanVector = meanFeatureVector.get(gestureClass);
+         DoubleVector weightVector = new DoubleVector(meanVector.size());
 
          for (int j = 0; j < meanVector.size(); j++) {
             double wci = 0;
@@ -483,6 +480,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
          // compute the initial weight
          double wc0 = 0;
 
+         // TODO inline in for loop above? after weightVector.set(j, wci)
          for (int f = 0; f < meanVector.size(); f++) {
             wc0 += weightVector.get(f) * meanVector.get(f);
          }
@@ -501,12 +499,13 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    private ResultSet classify(DoubleVector inputFeatureVector) {
       double max = -Double.MAX_VALUE;
       GestureClass classifiedGesture = null;
-      final HashMap<GestureClass, Double> classifiers = new HashMap<GestureClass, Double>();
+      HashMap<GestureClass, Double> classifiers = new HashMap<GestureClass, Double>();
 
-      for (final GestureClass currentGestureClass : gestureSet
+      for (GestureClass currentGestureClass : gestureSet
             .getGestureClasses()) {
-         final DoubleVector weightVector = this.weightsVector
+         DoubleVector weightVector = this.weightsVector
                .get(currentGestureClass);
+         // FIXME: Cleanup
          assert (weightVector.size() == inputFeatureVector.size());
          double v = initialWeight.get(currentGestureClass);
 
@@ -532,18 +531,18 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       // probability
       double divisor = 0;
 
-      for (final GestureClass gestureClass : classifiers.keySet()) {
+      for (GestureClass gestureClass : classifiers.keySet()) {
          divisor += Math.exp(classifiers.get(gestureClass)
                - classifiers.get(classifiedGesture));
       }
 
-      final double probability = 1.0 / divisor;
+      double probability = 1.0 / divisor;
 
       // outliers
-      final double distance = getMahalanobisDistance(classifiedGesture,
+      double distance = getMahalanobisDistance(classifiedGesture,
             inputFeatureVector);
 
-      final ResultSet resultSet = new ResultSet();
+      ResultSet resultSet = new ResultSet();
 
       if (probability >= this.probability
             && distance <= this.mahalanobisDistance) {
@@ -570,7 +569,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    private double getMahalanobisDistance(GestureClass gestureClass,
          DoubleVector inputVector) {
       double result = 0;
-      final DoubleVector meanVector = meanFeatureVector.get(gestureClass);
+      DoubleVector meanVector = meanFeatureVector.get(gestureClass);
 
       for (int j = 0; j < featureList.length; j++) {
 
@@ -579,7 +578,6 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
                   * (inputVector.get(j) - meanVector.get(j))
                   * (inputVector.get(k) - meanVector.get(k));
          }
-
       }
 
       return result;

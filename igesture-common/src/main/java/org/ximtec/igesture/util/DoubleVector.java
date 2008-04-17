@@ -27,7 +27,7 @@
 
 package org.ximtec.igesture.util;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 import org.sigtec.util.Constant;
 
@@ -39,7 +39,7 @@ import org.sigtec.util.Constant;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class DoubleVector extends Vector<Double> {
+public class DoubleVector extends ArrayList<Double> {
 
    /**
     * Constructs a new double vector.

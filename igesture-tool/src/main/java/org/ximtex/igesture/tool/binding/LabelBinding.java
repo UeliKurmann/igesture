@@ -27,18 +27,26 @@ package org.ximtex.igesture.tool.binding;
 
 import javax.swing.JLabel;
 
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.DataObject;
 
 
 public class LabelBinding extends DataBinding<JLabel> {
 
    private JLabel label;
+   
+   private String prefix;
 
 
-   public LabelBinding(JLabel textField, DataObject obj, String property) {
+   public LabelBinding(JLabel textField, DataObject obj, String property, String prefix) {
       super(obj, property);
       this.label = textField;
+      this.prefix = prefix;
       updateView();
+   }
+   
+   public LabelBinding(JLabel textField, DataObject obj, String property) {
+      this(textField, obj, property, Constant.EMPTY_STRING);
    }
 
 
@@ -50,7 +58,7 @@ public class LabelBinding extends DataBinding<JLabel> {
 
    @Override
    public void updateView() {
-      label.setText(getValue());
+      label.setText(prefix + getValue());
    }
 
 

@@ -56,9 +56,9 @@ import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
 import org.ximtec.igesture.tool.util.TitleFactory;
+import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.MainModel;
 import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
-import org.ximtec.igesture.tool.view.admin.panel.AbstractAdminPanel;
 import org.ximtec.igesture.tool.view.testbench.action.RecogniseAction;
 import org.ximtex.igesture.tool.binding.BindingFactory;
 import org.ximtex.igesture.tool.binding.MapTextFieldBinding;
@@ -72,7 +72,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @version 1.0 23.03.2008
  * @author Ueli Kurmann
  */
-public class ConfigurationPanel extends AbstractAdminPanel {
+public class ConfigurationPanel extends AbstractPanel {
 
    private Configuration configuration;
 

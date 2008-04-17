@@ -43,6 +43,7 @@ import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
 import org.ximtec.igesture.tool.util.TitleFactory;
+import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
 import org.ximtec.igesture.util.GestureTool;
@@ -51,7 +52,7 @@ import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
 
-public class SampleDescriptorPanel extends AbstractAdminPanel {
+public class SampleDescriptorPanel extends AbstractPanel {
    //FIXME CLEANUP!!!
    private SampleDescriptor descriptor;
    private JNote note;
