@@ -34,6 +34,7 @@ import javax.swing.JComponent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreePath;
 
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeContainer;
@@ -107,8 +108,7 @@ public class ExplorerTreeController extends DefaultController implements TreeSel
    public void valueChanged(TreeSelectionEvent e) {
       Object node = e.getPath().getLastPathComponent();
       if (nodeInfos.get(node.getClass()) != null) {
-         container.setView((JComponent)nodeInfos.get(node.getClass()).getView(
-               node));
+         container.setView((JComponent)nodeInfos.get(node.getClass()).getView(node));
       }
    }
 
@@ -120,6 +120,14 @@ public class ExplorerTreeController extends DefaultController implements TreeSel
    @Override
    public JComponent getView() {
       return tree;
+   }
+   
+   public void selectNode(Object obj){
+      // FIXME how to implement this?
+      
+      TreePath path = new TreePath(obj);
+      tree.setSelectionPath(path);
+      tree.setExpandsSelectedPaths(true);
    }
 
 

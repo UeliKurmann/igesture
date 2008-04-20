@@ -94,8 +94,7 @@ public class SampleDescriptorPanel extends AbstractPanel {
       DefaultFormBuilder builder = new DefaultFormBuilder(layout);
       builder.setDefaultDialogBorder();
 
-      builder.append(new JLabel("Descriptor has "
-            + descriptor.getSamples().size() + " samples."));
+      builder.append("Descriptor has " + descriptor.getSamples().size() + " samples.");
       builder.nextLine(4);
 
       for (GestureSample sample : descriptor.getSamples()) {

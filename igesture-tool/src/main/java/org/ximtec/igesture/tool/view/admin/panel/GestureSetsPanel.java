@@ -25,8 +25,6 @@
 
 package org.ximtec.igesture.tool.view.admin.panel;
 
-import javax.swing.JLabel;
-
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.admin.wrapper.GestureSetList;

@@ -69,7 +69,6 @@ public class AdminController extends DefaultController {
             .getRootSet(), getNodeInfoList());
       explorerTreeController = new ExplorerTreeController(adminView,
             explorerModel, getNodeInfoList());
-
    }
 
 

@@ -58,6 +58,18 @@ public class SampleDescriptor extends DefaultDescriptor {
 	public List<GestureSample> getSamples() {
 		return samples;
 	} // getSamples
+	
+	/**
+	 * Returns the ith gesture sample
+	 * @param index index of the sample
+	 * @return
+	 */
+	public GestureSample getSample(int index){
+	   if(samples.size() >= index - 1){
+	      return samples.get(index);
+	   }
+	   return null;
+	} // getSample
 
 	/**
 	 * Adds a sample to the descriptor.
