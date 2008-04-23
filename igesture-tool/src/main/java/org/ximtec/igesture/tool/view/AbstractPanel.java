@@ -60,5 +60,10 @@ public abstract class AbstractPanel extends DefaultExplorerTreeView {
    public void setBottom(JComponent component) {
       this.add(component, BorderLayout.SOUTH);
    }
+   
+   @Override
+   public void refresh() {
+      
+   }
 
 }

@@ -28,8 +28,6 @@ package org.ximtec.igesture.tool.explorer;
 
 import java.awt.Color;
 
-import javax.swing.JPanel;
-
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeView;
 
 
@@ -40,7 +38,7 @@ import org.ximtec.igesture.tool.explorer.core.ExplorerTreeView;
  * @version 1.0
  * @since igesture
  */
-public class DefaultExplorerTreeView extends JPanel implements ExplorerTreeView {
+public abstract class DefaultExplorerTreeView extends ExplorerTreeView {
 
    public DefaultExplorerTreeView() {
       setOpaque(true);

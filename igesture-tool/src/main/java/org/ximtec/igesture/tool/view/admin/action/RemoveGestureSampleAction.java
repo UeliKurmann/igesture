@@ -1,5 +1,5 @@
 /*
- * @(#)$Id$
+ * @(#)$Id: AddGestureSampleAction.java 494 2008-04-05 11:57:45Z kurmannu $
  *
  * Author   : Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
@@ -29,39 +29,36 @@ import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.ink.Note;
-import org.ximtec.igesture.core.GestureSample;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.SampleDescriptor;
-import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
-import org.ximtec.igesture.tool.service.InputDeviceClientService;
 import org.ximtec.igesture.tool.view.admin.panel.SampleDescriptorPanel;
 
 
-public class AddGestureSampleAction extends BasicAction {
+public class RemoveGestureSampleAction extends BasicAction {
 
    SampleDescriptor descriptor;
-   
+   Gesture<Note> sample;
+   SampleDescriptorPanel panel;
 
 
-   public AddGestureSampleAction(SampleDescriptor descriptor) {
+   public RemoveGestureSampleAction(SampleDescriptor descriptor, Gesture<Note> sample, SampleDescriptorPanel panel) {
       super(GestureConstants.GESTURE_SAMPLE_ADD, Locator.getDefault()
             .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
+      this.panel = panel;
       this.descriptor = descriptor;
+      this.sample = sample;
    }
 
 
    @Override
    public void actionPerformed(ActionEvent action) {
-      InputDeviceClient client = Locator.getDefault().getService(
-            InputDeviceClientService.IDENTIFIER, InputDeviceClient.class);
-      // FIXME how to use sigtec's trace detection? 
-      Note note = client.createNote(0, System.currentTimeMillis(), 70);
-      client.clearBuffer();
-      GestureSample sample = new GestureSample("", note);
-      descriptor.addSample(sample);
       
+      descriptor.removeSample(sample);
+      // FIXME find a proper design
+      panel.refresh();
    }
 
 }

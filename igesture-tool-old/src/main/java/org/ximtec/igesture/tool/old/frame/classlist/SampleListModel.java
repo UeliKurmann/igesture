@@ -36,7 +36,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.sigtec.ink.Note;
-import org.ximtec.igesture.core.GestureSample;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.util.GestureTool;
 
 
@@ -51,15 +51,15 @@ public class SampleListModel extends AbstractListModel {
 
    private Vector<JPanel> data;
 
-   private HashMap<JPanel, GestureSample> mapping;
+   private HashMap<JPanel, Gesture<Note>> mapping;
 
-   private List<GestureSample> samples;
+   private List<Gesture<Note>> samples;
 
 
-   public SampleListModel(List<GestureSample> samples) {
+   public SampleListModel(List<Gesture<Note>> samples) {
       data = new Vector<JPanel>();
       this.samples = samples;
-      this.mapping = new HashMap<JPanel, GestureSample>();
+      this.mapping = new HashMap<JPanel, Gesture<Note>>();
       init();
    }
 
@@ -68,7 +68,7 @@ public class SampleListModel extends AbstractListModel {
       mapping.clear();
       data.removeAllElements();
 
-      for (final GestureSample sample : samples) {
+      for (final Gesture<Note> sample : samples) {
          final JPanel panel = createImage((Note)sample.getGesture().clone());
          mapping.put(panel, sample);
          data.add(panel);
@@ -77,7 +77,7 @@ public class SampleListModel extends AbstractListModel {
    } // init
 
 
-   public GestureSample getSample(JPanel panel) {
+   public Gesture<Note> getSample(JPanel panel) {
       return mapping.get(panel);
    } // getSample
 

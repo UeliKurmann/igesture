@@ -33,11 +33,12 @@ import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeContainer;
+import org.ximtec.igesture.tool.explorer.core.ExplorerTreeView;
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
 
 
@@ -73,8 +74,25 @@ public class ExplorerTreeController extends DefaultController implements TreeSel
     * The Explorer Tree instance.
     */
    private ExplorerTree tree;
+   
+   private ExplorerTreeView selectedExplorerTreeView;
 
 
+   public ExplorerTreeController(ExplorerTreeContainer container, ExplorerTreeModel model, Map<Class< ? >, NodeInfo> nodeInfos, TreeCellRenderer renderer){
+      this.container = container;
+      this.model = model;
+      this.nodeInfos = nodeInfos;
+      
+      tree = new ExplorerTree(this.model, renderer);
+      tree.addTreeSelectionListener(this);
+      tree.addMouseListener(new ExplorerPopupDispatcher(nodeInfos));
+
+      container.setTree(tree);
+      selectedExplorerTreeView = nodeInfos.get(model.getRoot().getClass()).getView(model.getRoot()); 
+      container.setView(selectedExplorerTreeView);
+
+   }
+   
    /**
     * 
     * @param container the container where the components are visualized.
@@ -83,20 +101,7 @@ public class ExplorerTreeController extends DefaultController implements TreeSel
     */
    public ExplorerTreeController(ExplorerTreeContainer container,
          ExplorerTreeModel model, Map<Class< ? >, NodeInfo> nodeInfos) {
-      this.container = container;
-      this.model = model;
-      this.nodeInfos = nodeInfos;
-      
-      //FIXME renderer should not be hard coded. 
-      DefaultTreeCellRenderer renderer = new NodeRenderer(nodeInfos);
-      
-      tree = new ExplorerTree(this.model, renderer);
-      tree.addTreeSelectionListener(this);
-      tree.addMouseListener(new ExplorerPopupDispatcher(nodeInfos));
-
-      container.setTree(tree);
-      container.setView((JComponent)nodeInfos.get(model.getRoot().getClass())
-            .getView(model.getRoot()));
+      this(container, model, nodeInfos, new NodeRenderer(nodeInfos));
    }
 
 
@@ -108,7 +113,8 @@ public class ExplorerTreeController extends DefaultController implements TreeSel
    public void valueChanged(TreeSelectionEvent e) {
       Object node = e.getPath().getLastPathComponent();
       if (nodeInfos.get(node.getClass()) != null) {
-         container.setView((JComponent)nodeInfos.get(node.getClass()).getView(node));
+         selectedExplorerTreeView = nodeInfos.get(node.getClass()).getView(node);
+         container.setView(selectedExplorerTreeView);
       }
    }
 
@@ -128,6 +134,10 @@ public class ExplorerTreeController extends DefaultController implements TreeSel
       TreePath path = new TreePath(obj);
       tree.setSelectionPath(path);
       tree.setExpandsSelectedPaths(true);
+   }
+   
+   public ExplorerTreeView getExplorerTreeView(){
+      return selectedExplorerTreeView;
    }
 
 

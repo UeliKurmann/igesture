@@ -69,6 +69,8 @@ public class AdminController extends DefaultController {
             .getRootSet(), getNodeInfoList());
       explorerTreeController = new ExplorerTreeController(adminView,
             explorerModel, getNodeInfoList());
+      
+      
    }
 
 
@@ -91,7 +93,7 @@ public class AdminController extends DefaultController {
    public void propertyChange(PropertyChangeEvent evt) {
       // FIXME use a list of controller.
       explorerTreeController.propertyChange(evt);
-
+      explorerTreeController.getExplorerTreeView().refresh();
       LOG.info("PropertyChange");
 
    }

@@ -31,6 +31,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.EventObject;
+import java.util.List;
 
 import javax.swing.Action;
 import javax.swing.JMenuItem;
@@ -107,7 +108,7 @@ public class TestSetListFrame extends BasicInternalFrame implements
 
    public void loadGestureListData(TestSet testSet) {
       this.testSet = testSet;
-      sampleListModel = new SampleListModel(testSet.getSamples());
+     // FIXME sampleListModel = new SampleListModel((List<GestureSample>)testSet.getSamples());
       scrollableList.setModel(sampleListModel);
    } // loadGestureListData
 
@@ -191,7 +192,7 @@ public class TestSetListFrame extends BasicInternalFrame implements
 
    private GestureSample getSelectedSample() {
       final JPanel panel = (JPanel)scrollableList.getSelectedValue();
-      return ((SampleListModel)scrollableList.getList().getModel())
+      return (GestureSample)((SampleListModel)scrollableList.getList().getModel())
             .getSample(panel);
    } // getSelectedSample
 

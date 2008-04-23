@@ -37,6 +37,8 @@ import javax.swing.JPopupMenu;
 
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicInternalFrame;
+import org.sigtec.ink.Note;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.graphics.ScrollableList;
@@ -49,6 +51,7 @@ import org.ximtec.igesture.tool.old.frame.classlist.action.DeleteSampleAction;
 import org.ximtec.igesture.tool.old.util.CloseFrameAction;
 import org.ximtec.igesture.tool.old.util.CustomCellRenderer;
 import org.ximtec.igesture.tool.old.util.GuiConstant;
+
 
 
 /**
@@ -128,7 +131,7 @@ public class SampleDescriptorFrame extends BasicInternalFrame {
    } // showPopupMenu
 
 
-   private GestureSample getSelectedSample() {
+   private Gesture<Note> getSelectedSample() {
       final JPanel panel = (JPanel)scrollableList.getSelectedValue();
       return ((SampleListModel)scrollableList.getList().getModel())
             .getSample(panel);

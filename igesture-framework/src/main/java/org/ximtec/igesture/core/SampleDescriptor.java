@@ -28,6 +28,8 @@ package org.ximtec.igesture.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.sigtec.ink.Note;
+
 /**
  * Describes a gesture by a set of gesture samples.
  * 
@@ -39,7 +41,7 @@ public class SampleDescriptor extends DefaultDescriptor {
 
 	public static final String PROPERTY_SAMPLES = "samples";
 
-	private List<GestureSample> samples;
+	private List<Gesture<Note>> samples;
 
 	/**
 	 * Constructs a new sample descriptor.
@@ -47,7 +49,7 @@ public class SampleDescriptor extends DefaultDescriptor {
 	 */
 	public SampleDescriptor() {
 		super();
-		samples = new ArrayList<GestureSample>();
+		samples = new ArrayList<Gesture<Note>>();
 	}
 
 	/**
@@ -55,7 +57,7 @@ public class SampleDescriptor extends DefaultDescriptor {
 	 * 
 	 * @return the samples.
 	 */
-	public List<GestureSample> getSamples() {
+	public List<Gesture<Note>> getSamples() {
 		return samples;
 	} // getSamples
 	
@@ -64,7 +66,7 @@ public class SampleDescriptor extends DefaultDescriptor {
 	 * @param index index of the sample
 	 * @return
 	 */
-	public GestureSample getSample(int index){
+	public Gesture<Note> getSample(int index){
 	   if(samples.size() >= index - 1){
 	      return samples.get(index);
 	   }
@@ -77,7 +79,7 @@ public class SampleDescriptor extends DefaultDescriptor {
 	 * @param sample
 	 *            the sample to be added.
 	 */
-	public void addSample(GestureSample sample) {
+	public void addSample(Gesture<Note> sample) {
 		samples.add(sample);
 		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SAMPLES, samples.indexOf(sample), null, sample);
 	} // addSample
@@ -88,7 +90,7 @@ public class SampleDescriptor extends DefaultDescriptor {
 	 * @param sample
 	 *            the sample to be removed.
 	 */
-	public void removeSample(GestureSample sample) {
+	public void removeSample(Gesture<Note> sample) {
 		int index = samples.indexOf(sample);
 		samples.remove(sample);
 		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SAMPLES, index, sample, null);
@@ -100,8 +102,10 @@ public class SampleDescriptor extends DefaultDescriptor {
 	@Override
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
-		for (GestureSample sample : samples) {
-			sample.accept(visitor);
+		for (Gesture<Note> sample : samples) {
+		   if(sample instanceof GestureSample){
+		      ((GestureSample)sample).accept(visitor);
+		   }
 		}
 	}
 	

@@ -40,6 +40,7 @@ import org.sigtec.ink.Note;
 import org.sigtec.ink.Point;
 import org.sigtec.ink.Trace;
 import org.sigtec.ink.TraceTool;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
@@ -218,7 +219,7 @@ public class GestureTool {
             if (samples.containsKey(gestureClass.getName())) {
                GestureClass target = samples.get(gestureClass.getName());
 
-               for (GestureSample sample : gestureClass.getDescriptor(
+               for (Gesture<Note> sample : gestureClass.getDescriptor(
                      SampleDescriptor.class).getSamples()) {
                   target.getDescriptor(SampleDescriptor.class).addSample(sample);
                }
@@ -246,7 +247,7 @@ public class GestureTool {
 
       for (GestureClass gestureClass : set.getGestureClasses()) {
 
-         for (GestureSample sample : gestureClass.getDescriptor(
+         for (Gesture<Note> sample : gestureClass.getDescriptor(
                SampleDescriptor.class).getSamples()) {
             testSet.add(new GestureSample(gestureClass.getName(), sample
                   .getGesture()));
@@ -268,7 +269,7 @@ public class GestureTool {
 
       for (GestureClass gestureClass : set.getGestureClasses()) {
 
-         for (GestureSample sample : gestureClass.getDescriptor(
+         for (Gesture<Note> sample : gestureClass.getDescriptor(
                SampleDescriptor.class).getSamples()) {
             testSet.add(new GestureSample(TestSet.NOISE, sample.getGesture()));
          }
@@ -304,7 +305,7 @@ public class GestureTool {
    public static void hasSampleEnoughPoints(GestureClass gestureClass, int min){
       if(gestureClass.hasDescriptor(SampleDescriptor.class)){
          SampleDescriptor descriptor = gestureClass.getDescriptor(SampleDescriptor.class);
-         for(GestureSample sample:descriptor.getSamples()){
+         for(Gesture<Note> sample:descriptor.getSamples()){
             if(sample.getGesture().getPoints().size() <= min){
                System.out.println(gestureClass.getName()+"  :  "+sample.getGesture().getPoints().size());
             }

@@ -37,5 +37,6 @@ public interface Gesture<T> {
 
    T getGesture();
    String getName();
+   void accept(Visitor visitor);
 
 }

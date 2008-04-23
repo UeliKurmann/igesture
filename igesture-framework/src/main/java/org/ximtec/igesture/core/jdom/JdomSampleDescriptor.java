@@ -29,6 +29,8 @@ package org.ximtec.igesture.core.jdom;
 import java.util.List;
 
 import org.jdom.Element;
+import org.sigtec.ink.Note;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.SampleDescriptor;
 
@@ -54,7 +56,7 @@ public class JdomSampleDescriptor extends Element {
       setAttribute(TYPE_ATTRIBUTE, descriptor.getType().getName());
       setAttribute(UUID_ATTRIBUTE, descriptor.getId());
 
-      for (final GestureSample sample : descriptor.getSamples()) {
+      for (final Gesture<Note> sample : descriptor.getSamples()) {
          addContent(new JdomGestureSample(sample));
       }
 
