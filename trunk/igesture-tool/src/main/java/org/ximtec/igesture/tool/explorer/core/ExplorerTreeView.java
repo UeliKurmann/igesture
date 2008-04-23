@@ -25,6 +25,8 @@
 
 package org.ximtec.igesture.tool.explorer.core;
 
+import javax.swing.JPanel;
+
 /**
  * Explorer Tree View
  *
@@ -32,6 +34,8 @@ package org.ximtec.igesture.tool.explorer.core;
  * @version 1.0
  * @since   igesture
  */
-public interface ExplorerTreeView {
+public abstract class ExplorerTreeView extends JPanel {
+   
+  public abstract void refresh();
 
 }

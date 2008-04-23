@@ -32,6 +32,7 @@ import org.sigtec.ink.inkml.Ink;
 import org.sigtec.ink.inkml.Transformer;
 import org.sigtec.ink.inkml.jdom.JdomInk;
 import org.sigtec.ink.jdom.JdomNote;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 
 
@@ -51,10 +52,10 @@ public class JdomGestureSample extends Element {
    public static final String UUID_ATTRIBUTE = "id";
 
 
-   public JdomGestureSample(GestureSample sample) {
+   public JdomGestureSample(Gesture<Note>  sample) {
       super(ROOT_TAG);
       setAttribute(NAME_ATTRIBUTE, sample.getName());
-      setAttribute(UUID_ATTRIBUTE, sample.getId());
+      setAttribute(UUID_ATTRIBUTE, ((GestureSample)sample).getId());
       addContent(new JdomNote(sample.getGesture()));
    }
 

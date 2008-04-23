@@ -34,9 +34,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.Descriptor;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
@@ -45,6 +46,7 @@ import org.ximtex.igesture.tool.binding.BindingFactory;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
+import com.sun.org.apache.xml.internal.security.Init;
 
 
 public class GestureClassPanel extends AbstractPanel {
@@ -75,7 +77,7 @@ public class GestureClassPanel extends AbstractPanel {
       // FIXME resource file
       builder.append("Gesture");
       if (gestureClass.hasDescriptor(SampleDescriptor.class)) {
-         GestureSample sample = null;
+         Gesture<Note> sample = null;
          if(gestureClass.getDescriptor(SampleDescriptor.class).getSamples().size() > 0){
             sample = gestureClass.getDescriptor(SampleDescriptor.class).getSample(0);
          }
@@ -110,5 +112,7 @@ public class GestureClassPanel extends AbstractPanel {
       setCenter(panel);
 
    }
+   
+   
 
 }

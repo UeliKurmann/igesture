@@ -34,4 +34,9 @@ public class DefaultPanel extends AbstractPanel {
       super();
       setTitle(TitleFactory.createStaticTitle(obj.toString()));
    }
+
+   @Override
+   public void refresh() {
+      
+   }
 }

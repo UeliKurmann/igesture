@@ -34,8 +34,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.sigtec.ink.Note;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.tool.util.TitleFactory;
@@ -79,7 +80,7 @@ public class GestureSetPanel extends AbstractPanel {
             builder.nextLine(2);
             builder.append(new JLabel(gestureClass.getName()));
 
-            GestureSample sample = null;
+            Gesture<Note> sample = null;
             if(gestureClass.getDescriptor(SampleDescriptor.class).getSamples().size() > 0){
                sample = gestureClass.getDescriptor(SampleDescriptor.class).getSample(0);
             }

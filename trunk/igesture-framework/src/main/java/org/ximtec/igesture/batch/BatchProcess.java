@@ -44,7 +44,7 @@ import org.ximtec.igesture.batch.core.BatchPowerSetValue;
 import org.ximtec.igesture.batch.core.BatchSequenceValue;
 import org.ximtec.igesture.batch.core.BatchValue;
 import org.ximtec.igesture.configuration.Configuration;
-import org.ximtec.igesture.core.GestureSample;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.core.TestSet;
@@ -138,7 +138,7 @@ public class BatchProcess {
             Algorithm algorithm;
             algorithm = AlgorithmFactory.createAlgorithm(config);
 
-            for (GestureSample sample : testSet.getSamples()) {
+            for (Gesture<?> sample : testSet.getSamples()) {
                ResultSet resultSet = algorithm.recognise(sample);
 
                if (resultSet.isEmpty()) {

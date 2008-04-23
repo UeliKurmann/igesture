@@ -40,7 +40,7 @@ public class TestSet extends DefaultDataObject {
   public static final String PROPERTY_NAME = "name";
   public static final String PROPERTY_SAMPLES = "samples";
 
-  private List<GestureSample> samples;
+  private List<Gesture<?>> samples;
 
   public static final String NOISE = "None";
 
@@ -54,7 +54,7 @@ public class TestSet extends DefaultDataObject {
    */
   public TestSet(String name) {
     super();
-    samples = new ArrayList<GestureSample>();
+    samples = new ArrayList<Gesture<?>>();
     setName(name);
   }
 
@@ -76,9 +76,9 @@ public class TestSet extends DefaultDataObject {
    * @param samples
    *          the samples to be added.
    */
-  public void addAll(List<GestureSample> samples) {
+  public void addAll(List<Gesture<?>> samples) {
     this.samples.addAll(samples);
-    for (GestureSample sample : samples) {
+    for (Gesture<?> sample : samples) {
       propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SAMPLES, samples
           .indexOf(sample), null, sample);
     }
@@ -100,7 +100,7 @@ public class TestSet extends DefaultDataObject {
    * 
    * @return a list with all samples.
    */
-  public List<GestureSample> getSamples() {
+  public List<Gesture<?>> getSamples() {
     return samples;
   } // getSamples
 
@@ -112,7 +112,7 @@ public class TestSet extends DefaultDataObject {
   public int getNoiseSize() {
     int i = 0;
 
-    for (final GestureSample sample : getSamples()) {
+    for (final Gesture<?> sample : getSamples()) {
       if (sample.getName().equals(NOISE)) {
         i++;
       }
@@ -170,8 +170,8 @@ public class TestSet extends DefaultDataObject {
   @Override
   public void accept(Visitor visitor) {
     visitor.visit(this);
-    for (GestureSample sample : samples) {
-      sample.accept(visitor);
+    for (Gesture<?> sample : samples) {
+      sample.accept(visitor); 
     }
   }
 

@@ -127,7 +127,7 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
 
       for (final GestureClass gestureClass : gestureSet.getGestureClasses()) {
 
-         for (final GestureSample sample : getSamples(gestureClass)) {
+         for (final Gesture<Note> sample : getSamples(gestureClass)) {
             signatures.add(new GestureSignature((Note)sample.getGesture()
                   .clone(), gestureClass, rasterSize, gridSize));
          }

@@ -29,15 +29,20 @@ import hacks.JNote;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 
 import org.sigtec.graphix.widget.BasicButton;
-import org.ximtec.igesture.core.GestureSample;
+import org.sigtec.ink.Note;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.tool.locator.Locator;
@@ -46,6 +51,7 @@ import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
+import org.ximtec.igesture.tool.view.admin.action.RemoveGestureSampleAction;
 import org.ximtec.igesture.util.GestureTool;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -54,7 +60,7 @@ import com.jgoodies.forms.layout.FormLayout;
 
 public class SampleDescriptorPanel extends AbstractPanel {
    //FIXME CLEANUP!!!
-   private SampleDescriptor descriptor;
+   private final SampleDescriptor descriptor;
    private JNote note;
    
    public SampleDescriptorPanel(SampleDescriptor descriptor) {
@@ -97,17 +103,38 @@ public class SampleDescriptorPanel extends AbstractPanel {
       builder.append("Descriptor has " + descriptor.getSamples().size() + " samples.");
       builder.nextLine(4);
 
-      for (GestureSample sample : descriptor.getSamples()) {
-         JLabel label = new JLabel(new ImageIcon(GestureTool.createNoteImage(
+      for (final Gesture<Note> sample : descriptor.getSamples()) {
+         final JLabel label = new JLabel(new ImageIcon(GestureTool.createNoteImage(
                sample.getGesture(), 100, 100)));
          label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+         label.addMouseListener(new MouseAdapter(){
+            
+            @Override
+            public void mouseClicked(MouseEvent arg0) {
+               popUp(arg0);
+            }
+            
+            @Override
+            public void mouseReleased(MouseEvent e) {
+               popUp(e);
+            }
+            
+            private void popUp(MouseEvent e){
+               if(e.isPopupTrigger()){
+                  JPopupMenu menu = new JPopupMenu();
+                  JMenuItem item = new JMenuItem();
+                  item.setAction(new RemoveGestureSampleAction(SampleDescriptorPanel.this.descriptor, sample, SampleDescriptorPanel.this));
+                  menu.add(item);
+                  menu.show(label, e.getX(), e.getY());
+               }
+            }
+         });
          builder.append(label);
       }
 
       JPanel panel = builder.getPanel();
       panel.setOpaque(true);
       panel.setAutoscrolls(true);
-
       setCenter(panel);
    }
 
@@ -131,7 +158,7 @@ public class SampleDescriptorPanel extends AbstractPanel {
       // buttons
       JPanel buttonPanel = new JPanel();
       buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS)); 
-      buttonPanel.add(new BasicButton(new AddGestureSampleAction(descriptor, this)));
+      buttonPanel.add(new BasicButton(new AddGestureSampleAction(descriptor)));
 
       buttonPanel.add(new BasicButton(new ClearGestureSampleAction(note)));
 
@@ -140,7 +167,8 @@ public class SampleDescriptorPanel extends AbstractPanel {
       setBottom(basePanel);
    }
    
-   public void reload(){
+   @Override
+   public void refresh(){
       note.clear();
       initSampleSection(descriptor);
    }

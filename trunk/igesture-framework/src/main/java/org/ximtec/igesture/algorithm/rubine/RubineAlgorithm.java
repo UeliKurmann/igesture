@@ -101,12 +101,12 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    /**
     * data structure for storing the samples per gesture class
     */
-   private HashMap<GestureClass, List<GestureSample>> samples;
+   private HashMap<GestureClass, List<Gesture<Note>>> samples;
 
    /**
     * data structure for storing the feature vector per sample
     */
-   private HashMap<GestureSample, DoubleVector> sampleFeatureVector;
+   private HashMap<Gesture<Note>, DoubleVector> sampleFeatureVector;
 
    /**
     * data structure for storing the mean feature vector per gesture class
@@ -260,14 +260,14 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       this.gestureSet = gestureSet;
 
       // make the samples directly available for each gesture class
-      this.samples = new HashMap<GestureClass, List<GestureSample>>();
+      this.samples = new HashMap<GestureClass, List<Gesture<Note>>>();
 
       for (GestureClass gestureClass : gestureSet.getGestureClasses()) {
          this.samples.put(gestureClass, getSamples(gestureClass));
       }
 
       // Computes the Feature Vectors for each gesture class and its samples
-      this.sampleFeatureVector = new HashMap<GestureSample, DoubleVector>();
+      this.sampleFeatureVector = new HashMap<Gesture<Note>, DoubleVector>();
       this.meanFeatureVector = new HashMap<GestureClass, DoubleVector>();
       this.covMatrices = new HashMap<GestureClass, RealMatrix>();
 
@@ -305,7 +305,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       // computes the feature vector per class
       List<DoubleVector> vectors = new ArrayList<DoubleVector>();
 
-      for (GestureSample sample : samples.get(gestureClass)) {
+      for (Gesture<Note> sample : samples.get(gestureClass)) {
          try{
             /**
              * FIXME
@@ -390,7 +390,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
             for (int j = 0; j < numOfFeatures; j++) {
                double sum = 0;
 
-               for (GestureSample sample : samples.get(gestureClass)) {
+               for (Gesture<Note> sample : samples.get(gestureClass)) {
                   sum += (sampleFeatureVector.get(sample).get(i) - meanVector
                         .get(i))
                         * (sampleFeatureVector.get(sample).get(j) - meanVector

@@ -29,6 +29,7 @@ package org.ximtec.igesture.core.jdom;
 import java.util.List;
 
 import org.jdom.Element;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.TestSet;
 
@@ -56,8 +57,10 @@ public class JdomTestSet extends Element {
       setAttribute(NAME_ATTRIBUTE, testSet.getName());
       setAttribute(UUID_ATTRIBUTE, testSet.getId());
 
-      for (final GestureSample sample : testSet.getSamples()) {
-         addContent(new JdomGestureSample(sample));
+      for (final Gesture<?> sample : testSet.getSamples()) {
+         if(sample instanceof GestureSample){
+            addContent(new JdomGestureSample((GestureSample)sample));
+         }
       }
 
    }
