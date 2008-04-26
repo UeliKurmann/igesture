@@ -45,6 +45,7 @@ import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.io.InputDeviceClient;
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
 import org.ximtec.igesture.tool.util.TitleFactory;
@@ -63,7 +64,7 @@ public class SampleDescriptorPanel extends AbstractPanel {
    private final SampleDescriptor descriptor;
    private JNote note;
    
-   public SampleDescriptorPanel(SampleDescriptor descriptor) {
+   public SampleDescriptorPanel(Controller controller, SampleDescriptor descriptor) {
       this.descriptor = descriptor;
       init(descriptor);
    }
@@ -123,7 +124,7 @@ public class SampleDescriptorPanel extends AbstractPanel {
                if(e.isPopupTrigger()){
                   JPopupMenu menu = new JPopupMenu();
                   JMenuItem item = new JMenuItem();
-                  item.setAction(new RemoveGestureSampleAction(SampleDescriptorPanel.this.descriptor, sample, SampleDescriptorPanel.this));
+                  item.setAction(new RemoveGestureSampleAction(SampleDescriptorPanel.this.descriptor, sample));
                   menu.add(item);
                   menu.show(label, e.getX(), e.getY());
                }
