@@ -34,20 +34,17 @@ import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
-import org.ximtec.igesture.tool.view.admin.panel.SampleDescriptorPanel;
 
 
 public class RemoveGestureSampleAction extends BasicAction {
 
    SampleDescriptor descriptor;
    Gesture<Note> sample;
-   SampleDescriptorPanel panel;
 
 
-   public RemoveGestureSampleAction(SampleDescriptor descriptor, Gesture<Note> sample, SampleDescriptorPanel panel) {
+   public RemoveGestureSampleAction(SampleDescriptor descriptor, Gesture<Note> sample) {
       super(GestureConstants.GESTURE_SAMPLE_ADD, Locator.getDefault()
             .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
-      this.panel = panel;
       this.descriptor = descriptor;
       this.sample = sample;
    }
@@ -55,10 +52,6 @@ public class RemoveGestureSampleAction extends BasicAction {
 
    @Override
    public void actionPerformed(ActionEvent action) {
-      
       descriptor.removeSample(sample);
-      // FIXME find a proper design
-      panel.refresh();
    }
-
 }

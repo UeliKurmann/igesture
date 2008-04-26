@@ -31,6 +31,8 @@ import javax.swing.Icon;
 import javax.swing.JPopupMenu;
 import javax.swing.tree.TreePath;
 
+import org.ximtec.igesture.tool.core.Controller;
+
 /**
  * NodeInfo. Defines the structure of an Exlorer Tree.
  *
@@ -58,7 +60,7 @@ public interface NodeInfo {
    boolean isLeaf(Object node);
 
 
-   ExplorerTreeView getView(Object node);
+   ExplorerTreeView getView(Controller controller, Object node);
 
 
    JPopupMenu getPopupMenu(TreePath node);

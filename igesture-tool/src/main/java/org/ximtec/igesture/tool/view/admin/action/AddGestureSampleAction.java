@@ -36,7 +36,6 @@ import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
-import org.ximtec.igesture.tool.view.admin.panel.SampleDescriptorPanel;
 
 
 public class AddGestureSampleAction extends BasicAction {

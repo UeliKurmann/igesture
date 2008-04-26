@@ -42,6 +42,7 @@ import javax.swing.tree.TreePath;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeView;
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
 
@@ -201,12 +202,12 @@ public class NodeInfoImpl implements NodeInfo {
     * @see org.ximtec.igesture.tool.explorer.core.NodeInfo#getView(java.lang.Object)
     */
    @Override
-   public ExplorerTreeView getView(Object node) {
+   public ExplorerTreeView getView(Controller controller, Object node) {
 
       try {
          Constructor< ? extends ExplorerTreeView> ctor = viewClass
-               .getConstructor(nodeClass);
-         return ctor.newInstance(node);
+               .getConstructor(Controller.class, nodeClass);
+         return ctor.newInstance(controller, node);
       }
       catch (InstantiationException e) {
          LOG.log(Level.SEVERE, "Can't create the view.", e);

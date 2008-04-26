@@ -26,6 +26,7 @@
 
 package org.ximtec.igesture.tool.view.testbench.panel;
 
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmList;
@@ -39,7 +40,7 @@ import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmList;
  */
 public class AlgorithmListPanel extends AbstractPanel {
 
-   public AlgorithmListPanel(AlgorithmList algorithmList){
+   public AlgorithmListPanel(Controller controller, AlgorithmList algorithmList){
       // FIXME Implement View
       setTitle(TitleFactory.createStaticTitle("Algorithm List"));
    }

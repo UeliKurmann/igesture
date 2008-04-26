@@ -29,19 +29,13 @@ package org.ximtec.igesture.tool.view.testbench.action;
 import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.widget.BasicAction;
-import org.sigtec.ink.Note;
-import org.sigtec.util.Constant;
-import org.ximtec.igesture.algorithm.Algorithm;
-import org.ximtec.igesture.algorithm.AlgorithmException;
-import org.ximtec.igesture.algorithm.AlgorithmFactory;
 import org.ximtec.igesture.configuration.Configuration;
-import org.ximtec.igesture.core.GestureSample;
-import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.core.Command;
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
-import org.ximtec.igesture.tool.view.testbench.panel.ConfigurationPanel;
-
+import org.ximtec.igesture.tool.view.testbench.TestbenchController;
 
 
 /**
@@ -51,33 +45,22 @@ import org.ximtec.igesture.tool.view.testbench.panel.ConfigurationPanel;
  */
 public class RecogniseAction extends BasicAction {
 
-   private static final int MIN_POINTS = 5;
    private Configuration configuration;
-   private ConfigurationPanel panel;
+   private Controller controller;
 
 
-   public RecogniseAction(Configuration configuration, ConfigurationPanel panel) {
-      super(GestureConstants.RECONGISE, Locator.getDefault()
-            .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
+   public RecogniseAction(Controller controller, Configuration configuration) {
+      super(GestureConstants.RECONGISE, Locator.getDefault().getService(
+            GuiBundleService.IDENTIFIER, GuiBundleService.class));
       this.configuration = configuration;
-      this.panel = panel;
+      this.controller = controller;
    }
-   
+
+
    @Override
    public void actionPerformed(ActionEvent arg0) {
-      
-      try {
-         Algorithm algorithm = AlgorithmFactory.createAlgorithm(configuration);
-         Note note = panel.getCurrentNote();
-         if(note.getPoints().size() >= MIN_POINTS){
-            ResultSet resultSet = algorithm.recognise(new GestureSample(Constant.EMPTY_STRING,note));
-            panel.setResultList(resultSet.getResults()); 
-         }
-      }
-      catch (AlgorithmException e) {
-         e.printStackTrace();
-      }
-
+      controller.execute(new Command(TestbenchController.CMD_RECOGNIZE,
+            configuration));
    }
 
 }
