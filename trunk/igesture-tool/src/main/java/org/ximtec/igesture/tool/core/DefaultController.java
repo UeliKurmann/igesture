@@ -84,7 +84,9 @@ public abstract class DefaultController implements Controller {
    
    @Override
    public void execute(Command command) {
-       throw new RuntimeException("Method not implemented.");  
+       for(Controller controller:controllers){
+          controller.execute(command);
+       }
    }
 
 

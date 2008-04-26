@@ -30,6 +30,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import org.ximtec.igesture.core.TextDescriptor;
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtex.igesture.tool.binding.BindingFactory;
@@ -40,7 +41,7 @@ import com.jgoodies.forms.layout.FormLayout;
 
 public class TextDescriptorPanel extends AbstractPanel {
 
-   public TextDescriptorPanel(TextDescriptor textDescriptor) {
+   public TextDescriptorPanel(Controller controller, TextDescriptor textDescriptor) {
 
       setTitle(TitleFactory.createStaticTitle(textDescriptor.getClass().getName()));
 

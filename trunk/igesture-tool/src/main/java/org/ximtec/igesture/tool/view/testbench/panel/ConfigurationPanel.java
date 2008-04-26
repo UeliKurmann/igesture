@@ -48,11 +48,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import org.sigtec.graphix.widget.BasicButton;
-import org.sigtec.ink.Note;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.io.InputDeviceClient;
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
 import org.ximtec.igesture.tool.util.TitleFactory;
@@ -77,15 +77,14 @@ public class ConfigurationPanel extends AbstractPanel {
    private Configuration configuration;
 
    private JNote note;
-   private InputDeviceClient client;
    private JScrollPane resultList;
+   private Controller controller;
    
    // FIXME refactor!
    private RecogniseAction recogniseAction;
 
-
-   public ConfigurationPanel(Configuration configuration) {
-
+   public ConfigurationPanel(Controller controller, Configuration configuration) {
+      this.controller = controller;
       this.configuration = configuration;
       init();
 
@@ -108,7 +107,7 @@ public class ConfigurationPanel extends AbstractPanel {
    private JPanel createWorkspace(){
       JPanel basePanel = new JPanel();
       
-      recogniseAction = new RecogniseAction(configuration, this);
+      recogniseAction = new RecogniseAction(controller, configuration);
       recogniseAction.setEnabled(false);
 
       // input area
@@ -116,9 +115,7 @@ public class ConfigurationPanel extends AbstractPanel {
 
       note = new JNote(200, 200);
       
-      client = Locator.getDefault().getService(InputDeviceClientService.IDENTIFIER,
-            InputDeviceClient.class);
-      client.addInputHandler(note);
+      Locator.getDefault().getService(InputDeviceClientService.IDENTIFIER, InputDeviceClient.class).addInputHandler(note);
       
       basePanel.add(note);
 
@@ -166,26 +163,21 @@ public class ConfigurationPanel extends AbstractPanel {
       return basePanel;
    }
    
-   public Note getCurrentNote(){
-      return client.createNote(0, System.currentTimeMillis(), 70);
-   }
 
-
-   public void reload() {
+   @Override
+   public void refresh() {
       note.clear();
    }
-
 
    private JPanel createParameterPanel() {
 
       FormLayout layout = new FormLayout(
-            "100dlu, 4dlu, 200dlu",
-            "pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref,, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref");
+            "100dlu, 4dlu, 100dlu",
+            "pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref");
 
       DefaultFormBuilder builder = new DefaultFormBuilder(layout);
       builder.setDefaultDialogBorder();
 
-      // FIXME resource file
       String algorithmName = configuration.getAlgorithms().get(0);
 
       builder.append(new JLabel("Parameters: " + algorithmName));
@@ -212,7 +204,4 @@ public class ConfigurationPanel extends AbstractPanel {
    public void setResultList(List<Result> classes){
       resultList.setViewportView(new JList(new Vector<Result>(classes)));
    }
-   
- 
-
 }

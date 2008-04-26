@@ -77,7 +77,6 @@ public class ExplorerTreeController extends DefaultController implements TreeSel
    
    private ExplorerTreeView selectedExplorerTreeView;
 
-
    public ExplorerTreeController(ExplorerTreeContainer container, ExplorerTreeModel model, Map<Class< ? >, NodeInfo> nodeInfos, TreeCellRenderer renderer){
       this.container = container;
       this.model = model;
@@ -86,9 +85,9 @@ public class ExplorerTreeController extends DefaultController implements TreeSel
       tree = new ExplorerTree(this.model, renderer);
       tree.addTreeSelectionListener(this);
       tree.addMouseListener(new ExplorerPopupDispatcher(nodeInfos));
-
+      
       container.setTree(tree);
-      selectedExplorerTreeView = nodeInfos.get(model.getRoot().getClass()).getView(model.getRoot()); 
+      selectedExplorerTreeView = nodeInfos.get(model.getRoot().getClass()).getView(this, model.getRoot()); 
       container.setView(selectedExplorerTreeView);
 
    }
@@ -113,7 +112,7 @@ public class ExplorerTreeController extends DefaultController implements TreeSel
    public void valueChanged(TreeSelectionEvent e) {
       Object node = e.getPath().getLastPathComponent();
       if (nodeInfos.get(node.getClass()) != null) {
-         selectedExplorerTreeView = nodeInfos.get(node.getClass()).getView(node);
+         selectedExplorerTreeView = nodeInfos.get(node.getClass()).getView(this, node);
          container.setView(selectedExplorerTreeView);
       }
    }

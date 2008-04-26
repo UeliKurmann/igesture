@@ -55,7 +55,6 @@ public class NodeInfoImplJdom extends Element {
 
       String propertyName = element.getChildText("propertyName");
 
-      Element children = element.getChild("children");
       StringBuilder childrenList = new StringBuilder();
       for (Element childElement : ((List<Element>)element.getChildren("child"))) {
          childrenList.append(childElement.getText());

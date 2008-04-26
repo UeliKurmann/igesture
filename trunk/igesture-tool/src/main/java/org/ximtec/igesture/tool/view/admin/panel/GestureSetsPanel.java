@@ -25,6 +25,7 @@
 
 package org.ximtec.igesture.tool.view.admin.panel;
 
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.admin.wrapper.GestureSetList;
@@ -35,7 +36,7 @@ public class GestureSetsPanel extends AbstractPanel {
    GestureSetList rootSet;
 
 
-   public GestureSetsPanel(GestureSetList rootSet) {
+   public GestureSetsPanel(Controller controller, GestureSetList rootSet) {
       this.rootSet = rootSet;
       init();
    }
