@@ -93,7 +93,7 @@ public abstract class StorageEngineTest {
 		manager.dispose();
 	}
 	
-	@Test
+	//@Test
 	public void testParamLoad() {
 		StorageManager manager = getStorageManager();
 		List<GestureClass> gestureClasses = manager.load(GestureClass.class,"name",GESTURE1_CLASS_NAME);
