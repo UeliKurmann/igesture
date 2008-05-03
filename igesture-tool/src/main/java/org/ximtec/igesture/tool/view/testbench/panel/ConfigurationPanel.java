@@ -80,7 +80,6 @@ public class ConfigurationPanel extends AbstractPanel {
    private JScrollPane resultList;
    private Controller controller;
    
-   // FIXME refactor!
    private RecogniseAction recogniseAction;
 
    public ConfigurationPanel(Controller controller, Configuration configuration) {

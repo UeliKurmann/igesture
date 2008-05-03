@@ -71,7 +71,7 @@ public class MainView extends JFrame {
    private void initMenu() {
       menuBar = new JMenuBar();
       setJMenuBar(menuBar);
-      //FIXME
+      
       JMenu fileMenu = new BasicMenu(GestureConstants.MENUBAR_FILE, Locator.getDefault().getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
       menuBar.add(fileMenu);
       

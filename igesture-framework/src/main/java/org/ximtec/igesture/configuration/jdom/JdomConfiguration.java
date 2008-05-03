@@ -57,14 +57,19 @@ public class JdomConfiguration extends Element {
    public static final String PARAMETER_ACCURACY = "accuracy";
 
    public static final String PARAMETER_RESULT_SET_SIZE = "resultSetSize";
-
+   public static final String UUID_ATTRIBUTE = "id";
 
    public JdomConfiguration(Configuration configuration) {
       super(ROOT_TAG);
+      
+      setAttribute(NAME_ATTRIBUTE, configuration.getName());
+      setAttribute(UUID_ATTRIBUTE, configuration.getId());
+
 
       for (String algorithmName : configuration.getAlgorithms()) {
          Element element = new Element(ALGORITHM_TAG);
          element.setAttribute(NAME_ATTRIBUTE, algorithmName);
+         
          Map<String, String> parameters = configuration
                .getParameters(algorithmName);
 
@@ -98,6 +103,12 @@ public class JdomConfiguration extends Element {
    @SuppressWarnings("unchecked")
    public static Object unmarshal(Element configurationElement) {
       final Configuration configuration = new Configuration();
+      
+      final String name = configurationElement.getAttributeValue(NAME_ATTRIBUTE);
+      final String uuid = configurationElement.getAttributeValue(UUID_ATTRIBUTE);
+      configuration.setName(name);
+      configuration.setId(uuid);
+    
 
       for (final Element algorithmElem : (List<Element>)configurationElement
             .getChildren(ALGORITHM_TAG)) {
