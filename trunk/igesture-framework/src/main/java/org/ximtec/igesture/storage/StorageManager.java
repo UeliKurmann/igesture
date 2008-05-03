@@ -54,7 +54,7 @@ public class StorageManager implements IStorageManager{
    private StorageEngine storageEngine;
 
    public enum Filetype {
-      db, xml
+      db, xml, zip
    }
 
 
@@ -184,6 +184,9 @@ public class StorageManager implements IStorageManager{
             break;
          case xml:
             engine = new XMLStorageEngine(file.getPath());
+            break;
+         case zip:
+            engine = new ZipStorageEngine(file.getPath());
             break;
          default:
       }

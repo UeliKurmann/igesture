@@ -75,7 +75,6 @@ public class AddConfigurationAction extends BasicAction {
       }
       algorithWrapper.addConfiguration(configuration);
 
-      // TODO Implementation correct?
       for (PropertyChangeListener listener : algorithWrapper.getListeners()) {
          configuration.addPropertyChangeListener(listener);
       }

@@ -48,6 +48,8 @@ import org.ximtec.igesture.tool.view.MainModel;
  */
 public class AlgorithmWrapper extends DefaultPropertyChangeOwner implements DataObjectWrapper{
    
+   private static final String PROPERTY_CONFIGURATIONS = "configurations";
+
    Class<? extends Algorithm> algorithmClass;
    
    MainModel mainModel;
@@ -62,12 +64,12 @@ public class AlgorithmWrapper extends DefaultPropertyChangeOwner implements Data
    
    public void addConfiguration(Configuration configuration){
       mainModel.getStorageManager().store(configuration);
-      propertyChangeSupport.fireIndexedPropertyChange("configurations", 0, null, configuration);
+      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_CONFIGURATIONS, 0, null, configuration);
       updateReference();
    }
    
    public void removeConfiguration(Configuration configuration){
-      propertyChangeSupport.fireIndexedPropertyChange("configurations", 0, configuration, null);
+      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_CONFIGURATIONS, 0, configuration, null);
       updateReference();
    }
    

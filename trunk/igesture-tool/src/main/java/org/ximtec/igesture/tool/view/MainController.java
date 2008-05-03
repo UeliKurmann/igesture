@@ -188,7 +188,6 @@ public class MainController extends DefaultController implements Service {
       LOG.info("PropertyChange");
       super.propertyChange(event);
      
-      // FIXME implement store insert, remove and update persistent model
       // Dispatch DataObjects
       if (event.getSource() instanceof DataObject) {
          if (event instanceof IndexedPropertyChangeEvent) {

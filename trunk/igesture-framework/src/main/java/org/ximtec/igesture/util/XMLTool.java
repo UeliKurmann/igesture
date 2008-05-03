@@ -30,6 +30,7 @@ package org.ximtec.igesture.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +39,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,6 +51,7 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.commons.io.IOUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -95,12 +98,12 @@ public class XMLTool {
     */
    @SuppressWarnings("unchecked")
    public static List<GestureSet> importGestureSet(InputStream inputStream) {
-      final List<GestureSet> sets = new ArrayList<GestureSet>();
-      final Document document = importDocument(inputStream);
-      final List<Element> algorithmElements = document.getRootElement()
-            .getChildren(JdomGestureSet.ROOT_TAG);
+      List<GestureSet> sets = new ArrayList<GestureSet>();
+      Document document = importDocument(inputStream);
+      List<Element> algorithmElements = document.getRootElement().getChildren(
+            JdomGestureSet.ROOT_TAG);
 
-      for (final Element setElement : algorithmElements) {
+      for (Element setElement : algorithmElements) {
          sets.add((GestureSet)JdomGestureSet.unmarshal(setElement));
       }
 
@@ -132,23 +135,30 @@ public class XMLTool {
       exportGestureSet(list, file);
    } // exportGestureSet
 
-
    /**
-    * Exports a list of gesture sets.
-    * 
-    * @param sets the gesture sets to be exported.
-    * @param file the XML file.
+    * Exports a Gesture Set as Input Stream
+    * @param set
+    * @return
     */
-   public static void exportGestureSet(List<GestureSet> sets, File file) {
-      final JdomDocument igestureDocument = new JdomDocument(ROOT_TAG);
-      final HashSet<GestureClass> hashSet = new HashSet<GestureClass>();
+   public static InputStream exportGestureSetAsStream(GestureSet set){
+      List<GestureSet> list = new ArrayList<GestureSet>();
+      list.add(set);
+      return exportGestureSetsAsStream(list);
+   }
+
+  /**
+   * Exports a list of Gesture Sets as InputStream
+   * @param sets
+   * @return
+   */
+   public static InputStream exportGestureSetsAsStream(List<GestureSet> sets) {
+      JdomDocument igestureDocument = new JdomDocument(ROOT_TAG);
+      Set<GestureClass> hashSet = new HashSet<GestureClass>();
 
       for (final GestureSet set : sets) {
-
          for (final GestureClass gestureClass : set.getGestureClasses()) {
             hashSet.add(gestureClass);
          }
-
       }
 
       for (final GestureClass gestureClass : hashSet) {
@@ -159,7 +169,28 @@ public class XMLTool {
          igestureDocument.attach(new JdomGestureSet(set));
       }
 
-      FileHandler.writeFile(file.getPath(), igestureDocument.toXml());
+      return IOUtils.toInputStream(igestureDocument.toXml());
+   }
+
+
+   /**
+    * Exports a list of gesture sets.
+    * 
+    * @param sets the gesture sets to be exported.
+    * @param file the XML file.
+    */
+   public static void exportGestureSet(List<GestureSet> sets, File file) {
+      try {
+         FileOutputStream outputStream = new FileOutputStream(file);
+         IOUtils.copy(exportGestureSetsAsStream(sets), outputStream);
+         outputStream.close();
+      }
+      catch (FileNotFoundException e) {
+         LOGGER.log(Level.SEVERE, "Could not export Gesture Sets. Export File not found.", e);
+      }
+      catch (IOException e) {
+         LOGGER.log(Level.SEVERE, "Could not export Gesture Sets.", e);
+      } 
    } // exportGestureSet
 
 
@@ -227,13 +258,14 @@ public class XMLTool {
             .getRootElement());
       return configuration;
    } // importConfiguration
-   
+
+
    /**
     * Imports a configuration
     * @param file
     * @return
     */
-   public static Configuration importConfiguration(File file){
+   public static Configuration importConfiguration(File file) {
       try {
          return importConfiguration(new FileInputStream(file));
       }
@@ -251,9 +283,15 @@ public class XMLTool {
     * @param file the XML file.
     */
    public static void exportConfiguration(Configuration configuration, File file) {
-      final JdomDocument document = new JdomDocument(
-            new JdomConfiguration(configuration));
+      JdomDocument document = new JdomDocument(new JdomConfiguration(
+            configuration));
       FileHandler.writeFile(file.getPath(), document.toXml());
+   } // exportConfiguration
+   
+   public static InputStream exportConfigurationAsStream(Configuration configuration) {
+      JdomDocument document = new JdomDocument(new JdomConfiguration(
+            configuration));
+      return IOUtils.toInputStream(document.toXml());
    } // exportConfiguration
 
 

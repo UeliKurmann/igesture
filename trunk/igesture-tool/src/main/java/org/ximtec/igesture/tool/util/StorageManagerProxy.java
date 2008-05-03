@@ -68,7 +68,7 @@ public class StorageManagerProxy implements InvocationHandler {
          result = method.invoke(storageManager, args);
       }
       catch (InvocationTargetException e) {
-
+         e.printStackTrace();
       }
       catch (Exception e) {
 

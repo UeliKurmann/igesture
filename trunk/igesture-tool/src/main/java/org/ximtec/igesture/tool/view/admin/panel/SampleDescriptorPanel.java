@@ -60,7 +60,7 @@ import com.jgoodies.forms.layout.FormLayout;
 
 
 public class SampleDescriptorPanel extends AbstractPanel {
-   //FIXME CLEANUP!!!
+
    private final SampleDescriptor descriptor;
    private JNote note;
    
