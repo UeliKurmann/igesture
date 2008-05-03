@@ -244,6 +244,8 @@ public class ZipFS {
          zipFile.close();
          file.delete();
       }
-      FileUtils.moveFile(tmpFile, file);
+      if(!file.exists()){
+         FileUtils.moveFile(tmpFile, file);
+      }
    }
 }
