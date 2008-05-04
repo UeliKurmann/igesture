@@ -83,8 +83,7 @@ public class HelloWorldXML implements ButtonDeviceEventListener {
 
 
    public void handleButtonPressedEvent(InputDeviceEvent event) {
-      ResultSet result = recogniser.recognise(client.createNote(0, event
-            .getTimestamp(), 70));
+      ResultSet result = recogniser.recognise(client.createNote());
       client.clearBuffer();
 
       if (result.isEmpty()) {

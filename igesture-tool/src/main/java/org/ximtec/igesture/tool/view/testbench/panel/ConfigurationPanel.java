@@ -26,8 +26,6 @@
 
 package org.ximtec.igesture.tool.view.testbench.panel;
 
-import hacks.JNote;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -52,6 +50,7 @@ import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.io.InputDeviceClient;
+import org.ximtec.igesture.io.SwingMouseReader;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
@@ -76,7 +75,7 @@ public class ConfigurationPanel extends AbstractPanel {
 
    private Configuration configuration;
 
-   private JNote note;
+   private SwingMouseReader note;
    private JScrollPane resultList;
    private Controller controller;
    
@@ -112,11 +111,11 @@ public class ConfigurationPanel extends AbstractPanel {
       // input area
       basePanel.setLayout(new FlowLayout());
 
-      note = new JNote(200, 200);
       
-      Locator.getDefault().getService(InputDeviceClientService.IDENTIFIER, InputDeviceClient.class).addInputHandler(note);
       
-      basePanel.add(note);
+      InputDeviceClient client = Locator.getDefault().getService(InputDeviceClientService.IDENTIFIER, InputDeviceClient.class);
+      note = ((SwingMouseReader)client.getInputDevice());
+      basePanel.add(note.getPanel(new Dimension(200,200)));
 
       // buttons
       JPanel buttonPanel = new JPanel();
