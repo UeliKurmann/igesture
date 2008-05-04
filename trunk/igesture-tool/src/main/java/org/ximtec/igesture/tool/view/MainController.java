@@ -38,8 +38,8 @@ import javax.swing.JOptionPane;
 import org.sigtec.input.BufferedInputDeviceEventListener;
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.DataObjectWrapper;
-import org.ximtec.igesture.io.MouseReader;
 import org.ximtec.igesture.io.MouseReaderEventListener;
+import org.ximtec.igesture.io.SwingMouseReader;
 import org.ximtec.igesture.storage.StorageManager;
 import org.ximtec.igesture.tool.core.Command;
 import org.ximtec.igesture.tool.core.DefaultController;
@@ -92,7 +92,7 @@ public class MainController extends DefaultController implements Service {
             .createStorageEngine(getDatabase()), this);
 
       // FIXME Buffer Size?
-      deviceClient = new InputDeviceClientService(new MouseReader(),
+      deviceClient = new InputDeviceClientService(new SwingMouseReader(),
             new BufferedInputDeviceEventListener(new MouseReaderEventListener(),
                   32000));
 
