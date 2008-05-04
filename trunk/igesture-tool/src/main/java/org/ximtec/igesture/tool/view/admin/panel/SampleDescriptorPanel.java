@@ -25,9 +25,8 @@
 
 package org.ximtec.igesture.tool.view.admin.panel;
 
-import hacks.JNote;
-
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -45,6 +44,7 @@ import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.io.InputDeviceClient;
+import org.ximtec.igesture.io.SwingMouseReader;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
@@ -62,7 +62,7 @@ import com.jgoodies.forms.layout.FormLayout;
 public class SampleDescriptorPanel extends AbstractPanel {
 
    private final SampleDescriptor descriptor;
-   private JNote note;
+   private SwingMouseReader note;
    
    public SampleDescriptorPanel(Controller controller, SampleDescriptor descriptor) {
       this.descriptor = descriptor;
@@ -149,12 +149,14 @@ public class SampleDescriptorPanel extends AbstractPanel {
       // input area
       basePanel.setLayout(new FlowLayout());
 
-      note = new JNote(200, 200);
+      
+      //FIXME save implementation!
+      InputDeviceClient client = Locator.getDefault().getService(InputDeviceClientService.IDENTIFIER,
+            InputDeviceClient.class);
+      
+      note = (SwingMouseReader)client.getInputDevice();
 
-      Locator.getDefault().getService(InputDeviceClientService.IDENTIFIER,
-            InputDeviceClient.class).addInputHandler(note);
-
-      basePanel.add(note);
+      basePanel.add(note.getPanel(new Dimension(200,200)));
 
       // buttons
       JPanel buttonPanel = new JPanel();

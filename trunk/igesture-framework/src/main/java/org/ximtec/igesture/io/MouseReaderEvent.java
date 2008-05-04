@@ -26,7 +26,7 @@
 
 package org.ximtec.igesture.io;
 
-import org.sigtec.ink.input.TimestampedLocation;
+import org.sigtec.ink.input.TimestampedInputEvent;
 import org.sigtec.input.InputDeviceEvent;
 
 
@@ -39,7 +39,7 @@ import org.sigtec.input.InputDeviceEvent;
  */
 public class MouseReaderEvent implements InputDeviceEvent {
 
-   private TimestampedLocation location;
+   private TimestampedInputEvent timestampedInputEvent;
 
 
    /**
@@ -47,8 +47,8 @@ public class MouseReaderEvent implements InputDeviceEvent {
     * 
     * @param location the position captured by the mouse.
     */
-   public MouseReaderEvent(TimestampedLocation location) {
-      this.location = location;
+   public MouseReaderEvent(TimestampedInputEvent location) {
+      this.timestampedInputEvent = location;
    }
 
 
@@ -58,17 +58,17 @@ public class MouseReaderEvent implements InputDeviceEvent {
     * @return the time when the event occurred.
     */
    public long getTimestamp() {
-      return location.getTimestamp();
+      return timestampedInputEvent.getTimestamp();
    } // getTimestamp
 
 
    /**
-    * Returns the timestamped location.
+    * Returns the time stamped location.
     * 
-    * @return the timestamped location.
+    * @return the time stamped location.
     */
-   public TimestampedLocation getTimestampedLocation() {
-      return location;
+   public TimestampedInputEvent getTimestampedEvent() { 
+      return timestampedInputEvent;
    } // getTimestampedLocation
 
 }

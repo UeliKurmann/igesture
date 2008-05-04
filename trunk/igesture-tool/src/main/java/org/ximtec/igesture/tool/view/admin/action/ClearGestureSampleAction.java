@@ -25,22 +25,23 @@
 
 package org.ximtec.igesture.tool.view.admin.action;
 
-import hacks.JNote;
-
 import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.io.InputDeviceClient;
+import org.ximtec.igesture.io.SwingMouseReader;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.service.InputDeviceClientService;
 
 
 public class ClearGestureSampleAction extends BasicAction {
 
-   JNote note;
+   SwingMouseReader note;
 
 
-   public ClearGestureSampleAction(JNote note) {
+   public ClearGestureSampleAction(SwingMouseReader note) {
       super(GestureConstants.GESTURE_SAMPLE_CLEAR, Locator.getDefault()
             .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
       this.note = note;
@@ -50,6 +51,8 @@ public class ClearGestureSampleAction extends BasicAction {
    @Override
    public void actionPerformed(ActionEvent arg0) {
       note.clear();
+      InputDeviceClient client = Locator.getDefault().getService(InputDeviceClientService.IDENTIFIER, InputDeviceClient.class);
+      client.clearBuffer();
    }
 
 }

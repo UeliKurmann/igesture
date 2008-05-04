@@ -154,7 +154,7 @@ public class Application implements ButtonDeviceEventListener {
 
 
    public void handleButtonPressedEvent(InputDeviceEvent event) {
-      Note note = client.createNote(0, event.getTimestamp(), 70);
+      Note note = client.createNote();
       Note clone = (Note)note.clone();
       clone.scale(2);
       recogniser.recognise(clone);

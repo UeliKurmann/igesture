@@ -43,10 +43,10 @@ public class MouseReaderEventListener extends AbstractInputDeviceEventListener
       implements InputDeviceEventListener {
 
    public void inputDeviceEvent(InputDevice arg0, InputDeviceEvent event) {
-      final MouseReaderEvent mouseEvent = (MouseReaderEvent)event;
+      MouseReaderEvent mouseEvent = (MouseReaderEvent)event;
 
-      if (mouseEvent.getTimestampedLocation() != null) {
-         fireLocationEvent(mouseEvent.getTimestampedLocation());
+      if (mouseEvent.getTimestampedEvent() != null) {
+         fireInputEvent(mouseEvent.getTimestampedEvent());
       }
 
    }

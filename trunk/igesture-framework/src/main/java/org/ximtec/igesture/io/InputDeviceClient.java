@@ -26,12 +26,12 @@
 
 package org.ximtec.igesture.io;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 import org.sigtec.ink.Note;
-import org.sigtec.ink.TraceTool;
+import org.sigtec.ink.Point;
+import org.sigtec.ink.Trace;
 import org.sigtec.ink.input.TimestampedInputEvent;
 import org.sigtec.ink.input.TimestampedLocation;
 import org.sigtec.input.AbstractInputDevice;
@@ -40,7 +40,6 @@ import org.sigtec.input.InputDevice;
 import org.sigtec.input.InputDeviceEvent;
 import org.sigtec.input.InputDeviceEventListener;
 import org.sigtec.input.InputHandler;
-import org.sigtec.input.util.CaptureTool;
  
 
 /**
@@ -92,6 +91,11 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
 
    } // init
    
+   public InputDevice getInputDevice(){
+      clearBuffer();
+      return inputDevice;
+   }
+   
    
    /**
     * Reset the input device client.
@@ -127,20 +131,7 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
    } // clearBuffer
 
 
-   /**
-    * Returns a list of timestamped locations in the interval start - end.
-    * 
-    * @param start the start time.
-    * @param end the end time.
-    * @return list of timestamped locations.
-    */
-   public Collection<TimestampedLocation> getTimestampedLocations(long start,
-         long end) {
-      return ((BufferedInputDeviceEventListener)listener).getLocations(start,
-            end);
-   } // getTimestampedLocations
-
-
+   
    /**
     * Creates a note from the points in the buffer.
     * 
@@ -149,12 +140,24 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
     * @param maxTime the maximal time between two points.
     * @return the note created from the device buffer.
     */
-   public Note createNote(long start, long end, int maxTime) {
-      final Collection<TimestampedLocation> locations = getTimestampedLocations(
-            start, end);
+   public Note createNote() {
+      List<List<TimestampedInputEvent>> strokes = ((BufferedInputDeviceEventListener)listener).getStrokes();
+      Note note = new Note();
+      for(List<TimestampedInputEvent> stroke:strokes){
+         Trace trace = new Trace();
+         for(TimestampedInputEvent event:stroke){
+            if(event instanceof TimestampedLocation){
+               TimestampedLocation location = (TimestampedLocation)event;
+               Point point = new Point(location.getPosition().getX(), location.getPosition().getY(), location.getTimestamp());
+               trace.add(point);
+            }
+         }
+         if(trace.size() > 0){
+            note.add(trace);
+         }
+      }
+     
       clearBuffer();
-      final Note note = new Note(TraceTool.detectTraces(CaptureTool
-            .toPoints(new ArrayList<TimestampedLocation>(locations)), maxTime));
       return note;
    } // createNote
 
@@ -187,6 +190,7 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
    } // removeButtonDeviceEventListener
 
 
+   @Override
    public void handle(Object invoker, TimestampedInputEvent timestampedEvent) {
       if (timestampedEvent instanceof TimestampedLocation) {
          TimestampedLocation location = (TimestampedLocation)timestampedEvent;

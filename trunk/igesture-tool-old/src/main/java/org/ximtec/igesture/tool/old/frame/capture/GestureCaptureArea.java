@@ -26,8 +26,6 @@
 
 package org.ximtec.igesture.tool.old.frame.capture;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.EventObject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,9 +33,6 @@ import java.util.logging.Logger;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicInternalFrame;
 import org.sigtec.ink.Note;
-import org.sigtec.ink.TraceTool;
-import org.sigtec.ink.input.TimestampedLocation;
-import org.sigtec.input.util.CaptureTool;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.graphics.SwingTool;
 import org.ximtec.igesture.io.InputDeviceClient;
@@ -105,11 +100,8 @@ public class GestureCaptureArea extends BasicInternalFrame implements
    public void updateCurrentGesture() {
       try {
          final InputDeviceClient client = mainView.getModel().getPenClient();
-         final Collection<TimestampedLocation> locations = client
-               .getTimestampedLocations(0, System.currentTimeMillis());
-         client.clearBuffer();
-         final Note note = new Note(TraceTool.detectTraces(CaptureTool
-               .toPoints(new ArrayList<TimestampedLocation>(locations)), 150));
+         
+         final Note note = client.createNote();
          note.moveTo(0, 0);
          note.scaleTo(200, 200);
          mainView.getModel().setCurrentNote(note);

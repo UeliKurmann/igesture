@@ -384,7 +384,7 @@ public class MainModel implements ButtonDeviceEventListener {
     * @param event the event
     */
    public void handleButtonPressedEvent(InputDeviceEvent event) {
-      Note note = client.createNote(0, event.getTimestamp(), 70);
+      Note note = client.createNote();
       if (note.getPoints().size() > 5) {
          recogniser.recognise(note);
       }
