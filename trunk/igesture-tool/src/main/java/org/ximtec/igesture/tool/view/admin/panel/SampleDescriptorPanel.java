@@ -150,7 +150,7 @@ public class SampleDescriptorPanel extends AbstractPanel {
       basePanel.setLayout(new FlowLayout());
 
       
-      //FIXME save implementation!
+      //FIXME save implementation! (Avoid Casts and dependences of subtypes!)
       InputDeviceClient client = Locator.getDefault().getService(InputDeviceClientService.IDENTIFIER,
             InputDeviceClient.class);
       
