@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ximtec.igesture.core.DefaultPropertyChangeOwner;
+import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.util.ComponentFactory;
 
 
 public class AlgorithmList extends DefaultPropertyChangeOwner{
@@ -53,9 +55,9 @@ public class AlgorithmList extends DefaultPropertyChangeOwner{
       return algorithms;
    }
    
-// FIXME use resource bundle
+
    public String getName(){
-      return "Algorithms";
+      return ComponentFactory.getGuiBundle().getName(GestureConstants.ALGORITHM_LIST_NAME);
    }
 
 
