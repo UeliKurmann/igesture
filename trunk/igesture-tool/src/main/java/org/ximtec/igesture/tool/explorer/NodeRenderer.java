@@ -37,7 +37,6 @@ import org.ximtec.igesture.tool.explorer.core.NodeInfo;
 
 
 /**
- * TODO: use node info to use defined icons.
  * 
  * @author UeliKurmann
  * @version 1.0
