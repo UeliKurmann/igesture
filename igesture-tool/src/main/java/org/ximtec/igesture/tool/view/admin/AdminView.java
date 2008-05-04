@@ -33,9 +33,11 @@ import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
+import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.explorer.ExplorerTree;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeContainer;
+import org.ximtec.igesture.tool.util.ComponentFactory;
 
 
 public class AdminView extends JSplitPane implements TabbedView,
@@ -58,16 +60,13 @@ public class AdminView extends JSplitPane implements TabbedView,
 
    @Override
    public Icon getIcon() {
-
       return null;
-
    }
 
 
    @Override
    public String getName() {
-      // FIXME use resource bundle
-      return "Admin";
+      return ComponentFactory.getGuiBundle().getName(GestureConstants.ADMIN_VIEW_NAME);
    }
 
 

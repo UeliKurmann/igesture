@@ -39,7 +39,7 @@ import org.ximtec.igesture.tool.view.MainController;
 public class LoadWorkspaceAction extends BasicAction {
 
    public LoadWorkspaceAction(MainController mainController) {
-      super(GestureConstants.COMMON_BROWSE, Locator.getDefault().getService(
+      super(GestureConstants.APPLICATION_BROWSE, Locator.getDefault().getService(
             GuiBundleService.IDENTIFIER, GuiBundleService.class));
    }
 

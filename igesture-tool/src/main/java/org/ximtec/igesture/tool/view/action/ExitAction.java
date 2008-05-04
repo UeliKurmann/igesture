@@ -39,7 +39,7 @@ import org.ximtec.igesture.tool.view.MainController;
 public class ExitAction extends BasicAction {
 
    public ExitAction() {
-      super(GestureConstants.COMMON_CLOSE, Locator.getDefault().getService(
+      super(GestureConstants.APPLICATION_EXIT, Locator.getDefault().getService(
             GuiBundleService.IDENTIFIER, GuiBundleService.class));
 
    }

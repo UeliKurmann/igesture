@@ -57,7 +57,6 @@ public class StorageManagerProxy implements InvocationHandler {
 
       Object result = null;
 
-      // FIXME
       if (args != null && args.length > 0) {
          if (args[0] instanceof DataObject) {
             ((DataObject)args[0]).accept(visitor);

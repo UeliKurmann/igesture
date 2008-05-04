@@ -38,6 +38,7 @@ import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.view.action.ExitAction;
 import org.ximtec.igesture.tool.view.action.LoadWorkspaceAction;
 import org.ximtec.igesture.tool.view.action.StoreWorkspaceAction;
@@ -56,14 +57,12 @@ public class MainView extends JFrame {
 
 
    private void initView() {
-      // Use sigtec Compnents?
       setBounds(100, 100, 900, 650);
       setDefaultCloseOperation(Frame.NORMAL);
       setVisible(true);
       tabbedPane = new JTabbedPane();
       this.add(tabbedPane);
-      // FIXME Resource File
-      setTitle("iGesture Tool 1.2");
+      setTitle(ComponentFactory.getGuiBundle().getName(GestureConstants.APPLICATION_TITLE));
       
    }
 

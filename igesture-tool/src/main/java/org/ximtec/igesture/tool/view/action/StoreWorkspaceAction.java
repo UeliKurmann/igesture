@@ -40,7 +40,7 @@ public class StoreWorkspaceAction extends BasicAction {
 
    
    public StoreWorkspaceAction() {
-      super(GestureConstants.COMMON_SAVE, Locator.getDefault()
+      super(GestureConstants.APPLICATION_SAVE, Locator.getDefault()
             .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
 
    }

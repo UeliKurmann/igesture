@@ -41,6 +41,7 @@ import org.ximtec.igesture.core.DataObjectWrapper;
 import org.ximtec.igesture.io.MouseReaderEventListener;
 import org.ximtec.igesture.io.SwingMouseReader;
 import org.ximtec.igesture.storage.StorageManager;
+import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Command;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.TabbedView;
@@ -48,6 +49,7 @@ import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.locator.Service;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
+import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.view.admin.AdminController;
 import org.ximtec.igesture.tool.view.batch.BatchController;
 import org.ximtec.igesture.tool.view.testbench.TestbenchController;
@@ -87,11 +89,10 @@ public class MainController extends DefaultController implements Service {
    private void initServices(){
       guiBundle = new GuiBundleService(RESOURCE_BUNDLE);
 
-      // FIXME for test purposes only!
       mainModel = new MainModel(StorageManager
             .createStorageEngine(getDatabase()), this);
 
-      // FIXME Buffer Size?
+      
       deviceClient = new InputDeviceClientService(new SwingMouseReader(),
             new BufferedInputDeviceEventListener(new MouseReaderEventListener(),
                   32000));
@@ -175,8 +176,11 @@ public class MainController extends DefaultController implements Service {
    
    private void execCloseCommand(){
       LOG.info("Command Close");
-      //FIXME Use Resource File
-      if(JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, "Exit iGesture Tool?", "Confirm Exit", JOptionPane.YES_NO_OPTION)){
+      
+      String title = ComponentFactory.getGuiBundle().getName(GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT);
+      String text = ComponentFactory.getGuiBundle().getShortDescription(GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT);
+      
+      if(JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, text, title, JOptionPane.YES_NO_OPTION)){
          mainModel.getStorageManager().commit();
          Locator.getDefault().stopAll();
          System.exit(0);
