@@ -39,6 +39,9 @@ import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.SampleDescriptor;
+import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.util.GestureTool;
@@ -50,7 +53,7 @@ import com.jgoodies.forms.layout.FormLayout;
 
 public class GestureSetPanel extends AbstractPanel {
 
-   public GestureSetPanel(GestureSet gestureSet) {
+   public GestureSetPanel(Controller controller, GestureSet gestureSet) {
 
       setTitle(TitleFactory.createDynamicTitle(gestureSet,
             GestureSet.PROPERTY_NAME));
@@ -62,7 +65,7 @@ public class GestureSetPanel extends AbstractPanel {
       DefaultFormBuilder builder = new DefaultFormBuilder(layout);
       builder.setDefaultDialogBorder();
 
-      builder.append(new JLabel("Name"));
+      builder.append(ComponentFactory.createLabel(GestureConstants.GESTURE_SET_PANEL_NAME));
       JTextField textField = new JTextField();
 
       BindingFactory.createInstance(textField, gestureSet,
@@ -71,7 +74,7 @@ public class GestureSetPanel extends AbstractPanel {
       builder.append(textField);
       builder.nextLine(2);
 
-      builder.append(new JLabel("Number of Gesture Classes"));
+      builder.append(ComponentFactory.createLabel(GestureConstants.GESTURE_SET_PANEL_NOGC));
       builder.append(new JLabel(Integer.toString(gestureSet.size())));
 
       for (GestureClass gestureClass : gestureSet.getGestureClasses()) {
@@ -90,16 +93,13 @@ public class GestureSetPanel extends AbstractPanel {
                label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
                builder.append(label);
             }else{
-               // FIXME resource file
-               builder.append("No sample available");
+               builder.append(ComponentFactory.createLabel(GestureConstants.GESTURE_SET_PANEL_NSA));
             }    
          }
       }
       
       JPanel panel = builder.getPanel();
       panel.setOpaque(false);
-      // panel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-
       setCenter(panel);
 
    }

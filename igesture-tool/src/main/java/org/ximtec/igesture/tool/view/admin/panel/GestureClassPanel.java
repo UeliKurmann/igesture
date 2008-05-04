@@ -39,7 +39,9 @@ import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.SampleDescriptor;
+import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.util.GestureTool;
@@ -65,7 +67,7 @@ public class GestureClassPanel extends AbstractPanel {
 
       builder.nextLine(4);
 
-      builder.append(new JLabel("Name"));
+      builder.append(ComponentFactory.createLabel(GestureConstants.GESTURE_CLASS_PANEL_NAME));
       JTextField textField = new JTextField();
 
       BindingFactory.createInstance(textField, gestureClass,
@@ -74,8 +76,7 @@ public class GestureClassPanel extends AbstractPanel {
       // textField.setText(gestureClass.getName());
       builder.append(textField);
       builder.nextLine(2);
-      // FIXME resource file
-      builder.append("Gesture");
+      builder.append(ComponentFactory.createLabel(GestureConstants.GESTURE_CLASS_PANEL_GESTURE));
       if (gestureClass.hasDescriptor(SampleDescriptor.class)) {
          Gesture<Note> sample = null;
          if(gestureClass.getDescriptor(SampleDescriptor.class).getSamples().size() > 0){
@@ -87,19 +88,18 @@ public class GestureClassPanel extends AbstractPanel {
             label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
             builder.append(label);
          }else{
-            // FIXME resource file
-            builder.append("No sample available");
+            builder.append(ComponentFactory.createLabel(GestureConstants.GESTURE_CLASS_PANEL_NSA));
          }    
       }
       builder.nextLine(2);
 
       
-      builder.append(new JLabel("Number of Descriptors"));
+      builder.append(ComponentFactory.createLabel(GestureConstants.GESTURE_CLASS_PANEL_NOD));
       builder.append(new JLabel(Integer.toString(gestureClass.getDescriptors()
             .size())));
       builder.nextLine(2);
       for (Descriptor descriptor : gestureClass.getDescriptors()) {
-         builder.append(new JLabel("Descriptor Name"));
+         builder.append(ComponentFactory.createLabel(GestureConstants.GESTURE_CLASS_PANEL_DESCRIPTOR_NAME));
          builder.append(new JLabel(descriptor.getType().getName()));
          builder.nextLine(2);
       }
