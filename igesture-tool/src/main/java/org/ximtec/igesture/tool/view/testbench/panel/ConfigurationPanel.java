@@ -51,9 +51,11 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.SwingMouseReader;
+import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
+import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.MainModel;
@@ -87,8 +89,6 @@ public class ConfigurationPanel extends AbstractPanel {
       init();
 
    }
-
-// FIXME use resource files
    
    private void init() {
       setTitle(TitleFactory.createDynamicTitle(configuration, Configuration.PROPERTY_NAME));
@@ -111,7 +111,6 @@ public class ConfigurationPanel extends AbstractPanel {
       // input area
       basePanel.setLayout(new FlowLayout());
 
-      
       
       InputDeviceClient client = Locator.getDefault().getService(InputDeviceClientService.IDENTIFIER, InputDeviceClient.class);
       note = ((SwingMouseReader)client.getInputDevice());
@@ -178,10 +177,10 @@ public class ConfigurationPanel extends AbstractPanel {
 
       String algorithmName = configuration.getAlgorithms().get(0);
 
-      builder.append(new JLabel("Parameters: " + algorithmName));
+      builder.append(ComponentFactory.createLabel(GestureConstants.CONFIGURATION_PANEL_PARAMETERS));
       builder.nextLine(2);
 
-      builder.append(new JLabel("Name"));
+      builder.append(ComponentFactory.createLabel(GestureConstants.CONFIGURATION_PANEL_NAME));
       JTextField textField = new JTextField();
       BindingFactory.createInstance(textField, configuration, Configuration.PROPERTY_NAME);
       builder.append(textField);

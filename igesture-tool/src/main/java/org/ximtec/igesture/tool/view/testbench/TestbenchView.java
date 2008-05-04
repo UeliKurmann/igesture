@@ -23,6 +23,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.view.testbench;
 
 import java.awt.Color;
@@ -33,9 +34,11 @@ import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
+import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.explorer.ExplorerTree;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeContainer;
+import org.ximtec.igesture.tool.util.ComponentFactory;
 
 
 public class TestbenchView extends JSplitPane implements TabbedView,
@@ -66,8 +69,8 @@ public class TestbenchView extends JSplitPane implements TabbedView,
 
    @Override
    public String getName() {
-      // FIXME use resource bundle
-      return "Test Bench";
+      return ComponentFactory.getGuiBundle().getName(
+            GestureConstants.TESTBENCH_VIEW_NAME);
    }
 
 
