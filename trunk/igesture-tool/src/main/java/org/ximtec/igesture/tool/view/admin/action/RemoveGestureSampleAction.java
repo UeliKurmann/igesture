@@ -43,7 +43,7 @@ public class RemoveGestureSampleAction extends BasicAction {
 
 
    public RemoveGestureSampleAction(SampleDescriptor descriptor, Gesture<Note> sample) {
-      super(GestureConstants.GESTURE_SAMPLE_ADD, Locator.getDefault()
+      super(GestureConstants.GESTURE_SAMPLE_DEL, Locator.getDefault()
             .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
       this.descriptor = descriptor;
       this.sample = sample;
