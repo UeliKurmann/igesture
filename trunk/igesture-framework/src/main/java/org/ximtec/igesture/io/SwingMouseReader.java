@@ -27,7 +27,6 @@
 package org.ximtec.igesture.io;
 
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -58,8 +57,8 @@ public class SwingMouseReader extends AbstractInputDevice{
    private Boolean mouseClicked;
    private Point translation;
    private Point lastPoint;
+   private SwingMouseReaderPanel currentPanel;
    
-   private SwingMouseReaderPanel panel;
    
    private List<Point> buffer;
 
@@ -68,32 +67,8 @@ public class SwingMouseReader extends AbstractInputDevice{
    public SwingMouseReader() {
       buffer = new ArrayList<Point>();
       
-      panel = new SwingMouseReaderPanel(this);
-      
       mouseClicked = false;
       identifier = SwingMouseReader.class.getName()+Constant.UNDERSCORE+System.currentTimeMillis();
-
-      panel.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
-
-      panel.addMouseListener(new MouseAdapter() {
-
-         @Override
-         public void mousePressed(MouseEvent e) {
-            super.mousePressed(e);
-            mouseClicked = true; 
-            Point p1 = e.getPoint();
-            Point p2 = MouseInfo.getPointerInfo().getLocation();
-            translation = new Point((int)(p1.getX()-p2.getX()), (int)(p1.getY()-p2.getY()));
-         }
-
-         @Override
-         public void mouseReleased(MouseEvent e) {
-            super.mouseReleased(e);
-            mouseClicked = false;
-            lastPoint = null;
-            fireInputDeviceEvent(new MouseReaderEvent(new PenUpEvent(System.currentTimeMillis(),identifier)));
-         }
-      });
       
       new Thread(worker).start();
    }
@@ -112,17 +87,41 @@ public class SwingMouseReader extends AbstractInputDevice{
    }
    
    public JPanel getPanel(Dimension dimension){
+      final SwingMouseReaderPanel panel = new SwingMouseReaderPanel(this);
       panel.setSize(dimension);
       panel.setPreferredSize(dimension);
       panel.setOpaque(true);
       panel.setBackground(Color.WHITE);
       panel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+      panel.addMouseListener(new MouseAdapter() {
+         SwingMouseReaderPanel owner = panel;
+         
+         @Override
+         public void mousePressed(MouseEvent e) {
+            super.mousePressed(e);
+            currentPanel = owner;
+            mouseClicked = true; 
+            Point p1 = e.getPoint();
+            Point p2 = MouseInfo.getPointerInfo().getLocation();
+            translation = new Point((int)(p1.getX()-p2.getX()), (int)(p1.getY()-p2.getY()));
+         }
+
+         @Override
+         public void mouseReleased(MouseEvent e) {
+            super.mouseReleased(e);
+            mouseClicked = false;
+            lastPoint = null;
+            fireInputDeviceEvent(new MouseReaderEvent(new PenUpEvent(System.currentTimeMillis(),identifier)));
+         }
+      });
       return panel;
    }
    
    public void clear(){
       buffer.clear();
-      panel.clear();
+      if(currentPanel != null){
+         currentPanel.clear();
+      }
    }
 
    private Runnable worker = new Runnable() {
@@ -141,8 +140,9 @@ public class SwingMouseReader extends AbstractInputDevice{
                   fireInputDeviceEvent(new MouseReaderEvent(new TimestampedLocation(location, System.currentTimeMillis())));
                   
                   buffer.add(currentPoint);
-                  
-                  panel.drawLine(lastPoint, currentPoint);
+                  if(currentPanel != null){
+                     currentPanel.drawLine(lastPoint, currentPoint);
+                  }
                  
                   lastPoint = currentPoint;
                }
