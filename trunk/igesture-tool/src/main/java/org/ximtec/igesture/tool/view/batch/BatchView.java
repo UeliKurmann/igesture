@@ -30,7 +30,9 @@ import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.TabbedView;
+import org.ximtec.igesture.tool.util.ComponentFactory;
 
 
 
@@ -40,9 +42,6 @@ import org.ximtec.igesture.tool.core.TabbedView;
  * @author Ueli Kurmann
  */
 public class BatchView extends JPanel implements TabbedView{
-
-   
-   
    
    @Override
    public Icon getIcon() {
@@ -51,8 +50,7 @@ public class BatchView extends JPanel implements TabbedView{
 
    @Override
    public String getName() {
-      // FIXME use resource file
-      return "Batch Processing";
+      return ComponentFactory.getGuiBundle().getName(GestureConstants.BATCH_VIEW_NAME);
    }
 
    @Override
