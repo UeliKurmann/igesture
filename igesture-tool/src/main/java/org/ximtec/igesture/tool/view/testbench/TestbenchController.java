@@ -35,6 +35,7 @@ import java.util.logging.Logger;
 import javax.swing.JComponent;
 
 import org.sigtec.ink.Note;
+import org.sigtec.ink.NoteTool;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException;
@@ -119,11 +120,12 @@ public class TestbenchController extends DefaultController {
       try {
          Algorithm algorithm = AlgorithmFactory.createAlgorithm((Configuration)command.getSender());
          Note note = Locator.getDefault().getService(
-               InputDeviceClientService.IDENTIFIER, InputDeviceClient.class)
-               .createNote(0, System.currentTimeMillis(), 70);
+               InputDeviceClientService.IDENTIFIER, InputDeviceClient.class).createNote();
          
          int MIN_POINTS = 5;
          if (note.getPoints().size() >= MIN_POINTS) {
+            NoteTool.exportJPEG(note, "D:/temp/"+System.currentTimeMillis()+".jpg");
+            
             ResultSet resultSet = algorithm.recognise(new GestureSample(
                   Constant.EMPTY_STRING, note));
             
