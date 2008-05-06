@@ -26,6 +26,7 @@
 package org.ximtec.igesture.tool.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -43,16 +44,21 @@ public abstract class AbstractPanel extends DefaultExplorerTreeView {
 
       centerPane = new JScrollPane();
       centerPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+      setBackground(Color.LIGHT_GRAY);
+      setOpaque(true);
       this.add(centerPane, BorderLayout.CENTER);
    }
 
 
    public void setTitle(JComponent component) {
+      
       this.add(component, BorderLayout.NORTH);
    }
 
 
    public void setCenter(JComponent component) {
+      component.setBackground(Color.white);
+      component.setOpaque(true);
       centerPane.setViewportView(component);
    }
 

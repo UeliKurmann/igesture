@@ -27,6 +27,7 @@
 package org.ximtec.igesture.tool.view.testbench.panel;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -94,6 +95,8 @@ public class ConfigurationPanel extends AbstractPanel {
       setTitle(TitleFactory.createDynamicTitle(configuration, Configuration.PROPERTY_NAME));
      
       JPanel basePanel = new JPanel();
+      basePanel.setBackground(Color.WHITE);
+      basePanel.setOpaque(true);
       basePanel.setLayout(new BorderLayout());
       basePanel.add(createParameterPanel(), BorderLayout.NORTH);
       basePanel.add(createWorkspace(), BorderLayout.CENTER);

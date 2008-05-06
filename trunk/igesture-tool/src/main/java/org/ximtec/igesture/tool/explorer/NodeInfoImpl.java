@@ -205,8 +205,16 @@ public class NodeInfoImpl implements NodeInfo {
    public ExplorerTreeView getView(Controller controller, Object node) {
 
       try {
-         Constructor< ? extends ExplorerTreeView> ctor = viewClass
-               .getConstructor(Controller.class, nodeClass);
+         Constructor< ? extends ExplorerTreeView> ctor = null;
+         Class<? extends Object> type = nodeClass;
+         while(ctor == null && type != null){
+            try{
+               ctor = viewClass.getConstructor(Controller.class, type);
+            }finally{
+               type = type.getSuperclass();
+            }
+         }
+         
          return ctor.newInstance(controller, node);
       }
       catch (InstantiationException e) {

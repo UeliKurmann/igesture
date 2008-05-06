@@ -37,7 +37,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.sigtec.ink.input.Location;
@@ -52,74 +51,70 @@ import org.sigtec.util.Constant;
  * @version 1.0 03.05.2008
  * @author Ueli Kurmann
  */
-public class SwingMouseReader extends AbstractInputDevice{
+public class SwingMouseReader extends AbstractInputDevice {
 
    private Boolean mouseClicked;
    private Point translation;
    private Point lastPoint;
    private SwingMouseReaderPanel currentPanel;
-   
-   
    private List<Point> buffer;
-
    private String identifier;
 
    public SwingMouseReader() {
       buffer = new ArrayList<Point>();
-      
+
       mouseClicked = false;
-      identifier = SwingMouseReader.class.getName()+Constant.UNDERSCORE+System.currentTimeMillis();
-      
-      new Thread(worker).start();
+      identifier = SwingMouseReader.class.getName() + Constant.UNDERSCORE
+            + System.currentTimeMillis();
+
+      new Thread(worker, identifier).start();
    }
-   
-   public List<Point> getBuffer(){
+
+
+   public List<Point> getBuffer() {
       return buffer;
    }
 
-
-  
-   public static void main(String... args) {
-      JFrame frame = new JFrame();
-      frame.setSize(new Dimension(400, 400));
-      frame.add(new SwingMouseReader().getPanel(new Dimension(400, 400)));
-      frame.setVisible(true);
-   }
-   
-   public JPanel getPanel(Dimension dimension){
+   public JPanel getPanel(Dimension dimension) {
       final SwingMouseReaderPanel panel = new SwingMouseReaderPanel(this);
       panel.setSize(dimension);
       panel.setPreferredSize(dimension);
       panel.setOpaque(true);
       panel.setBackground(Color.WHITE);
       panel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+
       panel.addMouseListener(new MouseAdapter() {
+
          SwingMouseReaderPanel owner = panel;
-         
+
          @Override
          public void mousePressed(MouseEvent e) {
             super.mousePressed(e);
             currentPanel = owner;
-            mouseClicked = true; 
+            mouseClicked = true;
             Point p1 = e.getPoint();
             Point p2 = MouseInfo.getPointerInfo().getLocation();
-            translation = new Point((int)(p1.getX()-p2.getX()), (int)(p1.getY()-p2.getY()));
+            translation = new Point((int)(p1.getX() - p2.getX()), (int)(p1
+                  .getY() - p2.getY()));
          }
+
 
          @Override
          public void mouseReleased(MouseEvent e) {
             super.mouseReleased(e);
             mouseClicked = false;
             lastPoint = null;
-            fireInputDeviceEvent(new MouseReaderEvent(new PenUpEvent(System.currentTimeMillis(),identifier)));
+            fireInputDeviceEvent(new MouseReaderEvent(new PenUpEvent(System
+                  .currentTimeMillis(), identifier)));
          }
       });
       return panel;
    }
-   
-   public void clear(){
+
+
+   public void clear() {
       buffer.clear();
-      if(currentPanel != null){
+      if (currentPanel != null) {
          currentPanel.clear();
       }
    }
@@ -134,16 +129,22 @@ public class SwingMouseReader extends AbstractInputDevice{
                if (mouseClicked) {
                   PointerInfo info = MouseInfo.getPointerInfo();
                   Point currentPoint = info.getLocation();
-                  currentPoint.move((int)(currentPoint.getX()+translation.getX()), (int)(currentPoint.getY()+translation.getY()));
-                  
-                  Location location = new Location("",0,currentPoint, identifier);
-                  fireInputDeviceEvent(new MouseReaderEvent(new TimestampedLocation(location, System.currentTimeMillis())));
-                  
+                  currentPoint.move((int)(currentPoint.getX() + translation
+                        .getX()),
+                        (int)(currentPoint.getY() + translation.getY()));
+
+                  Location location = new Location("", 0, currentPoint,
+                        identifier);
+                  fireInputDeviceEvent(new MouseReaderEvent(
+                        new TimestampedLocation(location, System
+                              .currentTimeMillis())));
+
                   buffer.add(currentPoint);
-                  if(currentPanel != null){
+
+                  if (currentPanel != null) {
                      currentPanel.drawLine(lastPoint, currentPoint);
                   }
-                 
+
                   lastPoint = currentPoint;
                }
             }
@@ -153,5 +154,4 @@ public class SwingMouseReader extends AbstractInputDevice{
          }
       }
    };
-
 }

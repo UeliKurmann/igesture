@@ -48,7 +48,7 @@ public class AdminView extends JSplitPane implements TabbedView,
 
    public AdminView() {
       super(JSplitPane.HORIZONTAL_SPLIT);
-
+      
       setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
       scrollPaneLeft = new JScrollPane();
       scrollPaneLeft.setOpaque(true);
