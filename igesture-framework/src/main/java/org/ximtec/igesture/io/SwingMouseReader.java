@@ -91,11 +91,12 @@ public class SwingMouseReader extends AbstractInputDevice {
          public void mousePressed(MouseEvent e) {
             super.mousePressed(e);
             currentPanel = owner;
-            mouseClicked = true;
             Point p1 = e.getPoint();
             Point p2 = MouseInfo.getPointerInfo().getLocation();
             translation = new Point((int)(p1.getX() - p2.getX()), (int)(p1
                   .getY() - p2.getY()));
+            mouseClicked = true;
+            
          }
 
 
@@ -103,9 +104,9 @@ public class SwingMouseReader extends AbstractInputDevice {
          public void mouseReleased(MouseEvent e) {
             super.mouseReleased(e);
             mouseClicked = false;
-            lastPoint = null;
             fireInputDeviceEvent(new MouseReaderEvent(new PenUpEvent(System
                   .currentTimeMillis(), identifier)));
+            lastPoint = null;
          }
       });
       return panel;
