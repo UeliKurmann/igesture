@@ -14,7 +14,7 @@
 	<inceptionYear>2007</inceptionYear>
 	<description> iGesture: a general gesture recognition framework. </description>
 
-	<name>igesture-framework</name>
+	<name>iGesture Framework</name>
 	<url>http://www.igesture.org</url>
 
 	<build>
