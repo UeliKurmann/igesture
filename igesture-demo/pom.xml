@@ -16,7 +16,7 @@
 		iGesture: a general gesture recognition framework.
 	</description>
 
-	<name>igesture-demo</name>
+	<name>iGesture Demo</name>
 	<url>http://www.igesture.org</url>
 
 	<build>

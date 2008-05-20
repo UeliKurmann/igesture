@@ -6,7 +6,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>igesture-tool</artifactId>
-  <name>igesture-tool</name>
+  <name>iGesture Tool</name>
   <version>1.2-SNAPSHOT</version>
   <description>iGesture: a general gesture recognition framework.</description>
   <url>http://www.igesture.org</url>
