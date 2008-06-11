@@ -26,11 +26,11 @@
 
 package org.ximtec.igesture.algorithm.rubine;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
 import org.apache.commons.math.linear.InvalidMatrixException;
@@ -40,22 +40,9 @@ import org.sigtec.ink.Note;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.AlgorithmFactory;
-import org.ximtec.igesture.algorithm.AlgorithmTool;
 import org.ximtec.igesture.algorithm.SampleBasedAlgorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException.ExceptionType;
-import org.ximtec.igesture.algorithm.feature.F1;
-import org.ximtec.igesture.algorithm.feature.F10;
-import org.ximtec.igesture.algorithm.feature.F2;
-import org.ximtec.igesture.algorithm.feature.F3;
-import org.ximtec.igesture.algorithm.feature.F4;
-import org.ximtec.igesture.algorithm.feature.F5;
-import org.ximtec.igesture.algorithm.feature.F6;
-import org.ximtec.igesture.algorithm.feature.F7;
-import org.ximtec.igesture.algorithm.feature.F8;
-import org.ximtec.igesture.algorithm.feature.F9;
-import org.ximtec.igesture.algorithm.feature.Feature;
 import org.ximtec.igesture.algorithm.feature.FeatureException;
-import org.ximtec.igesture.algorithm.feature.FeatureTool;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
@@ -65,7 +52,6 @@ import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.util.DoubleVector;
 import org.ximtec.igesture.util.GestureTool;
-import org.ximtec.igesture.util.VectorTools;
 
 
 /**
@@ -80,12 +66,6 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    private static final Logger LOGGER = Logger.getLogger(AlgorithmFactory.class
          .getName());
 
-   private static final String DEFAULT_MAHALANOBIS_DISTANCE = "100000";
-
-   private static final String DEFAULT_PROBABILITY = "0.95";
-
-   private static final String DEFAULT_MIN_DISTANCE = "1";
-
    private static final String RESULT = "Result: ";
 
    private static final String NO_RESULT = "No result";
@@ -96,38 +76,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
    private static final String COMPUTATION_FAILED = "Computation failed because of NaN fields in the matrix";
 
-   private int minimalNumberOfPoints;
-
-   /**
-    * data structure for storing the samples per gesture class
-    */
-   private HashMap<GestureClass, List<Gesture<Note>>> samples;
-
-   /**
-    * data structure for storing the feature vector per sample
-    */
-   private HashMap<Gesture<Note>, DoubleVector> sampleFeatureVector;
-
-   /**
-    * data structure for storing the mean feature vector per gesture class
-    */
-   private HashMap<GestureClass, DoubleVector> meanFeatureVector;
-
-   /**
-    * data structure for storing the weight vector per gesture class
-    */
-   private HashMap<GestureClass, DoubleVector> weightsVector;
-
-   /**
-    * data structure for storing the covariant matrix per gesture class
-    */
-   private HashMap<GestureClass, RealMatrix> covMatrices;
-
-   /**
-    * data structure for storing the initial weight per gesture class
-    */
-   private HashMap<GestureClass, Double> initialWeight;
-
+   
    /**
     * the common covariant matrix for the set
     */
@@ -138,47 +87,16 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
     */
    private RealMatrix inverse;
 
+   private RubineConfiguration rubineConfig;
+
+   private Map<GestureClass, GestureClassHelper> helpers;
+
    /**
     * the gesture set we are working on
     */
    GestureSet gestureSet;
 
-   public enum Config {
-      MIN_DISTANCE, FEATURE_LIST, MAHALANOBIS_DISTANCE, PROBABILITY
-   }
-
-   /**
-    * the list of features used during the recognising process
-    */
-   private Feature[] featureList;
-
-   private double minDistance;
-
-   private double mahalanobisDistance;
-
-   private double probability;
-
-   /**
-    * Set default parameter values
-    */
-   static {
-      /**
-       * Parameter default values
-       */
-      DEFAULT_CONFIGURATION
-            .put(Config.MIN_DISTANCE.name(), DEFAULT_MIN_DISTANCE);
-      DEFAULT_CONFIGURATION.put(Config.MAHALANOBIS_DISTANCE.name(),
-            DEFAULT_MAHALANOBIS_DISTANCE);
-      DEFAULT_CONFIGURATION.put(Config.PROBABILITY.name(), DEFAULT_PROBABILITY);
-      DEFAULT_CONFIGURATION.put(Config.FEATURE_LIST.name(), F1.class.getName()
-            + Constant.COMMA + F2.class.getName() + Constant.COMMA
-            + F3.class.getName() + Constant.COMMA + F4.class.getName()
-            + Constant.COMMA + F5.class.getName() + Constant.COMMA
-            + F6.class.getName() + Constant.COMMA + F7.class.getName()
-            + Constant.COMMA + F8.class.getName() + Constant.COMMA
-            + F9.class.getName() + Constant.COMMA + F10.class.getName());
-      LOGGER.setLevel(Level.SEVERE);
-   }
+   private Executor threadPool;
 
 
    /**
@@ -186,21 +104,26 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
     */
    public RubineAlgorithm() {
       super();
+      helpers = new HashMap<GestureClass, GestureClassHelper>();
+      threadPool = Executors.newFixedThreadPool(3);
    }
 
 
-   public ResultSet recognise(Gesture<?> gesture) throws AlgorithmException {
+   public ResultSet recognise(Gesture< ? > gesture) throws AlgorithmException {
 
       ResultSet resultSet = new ResultSet();
       Note note = null;
-      if(gesture instanceof GestureSample){
+      if (gesture instanceof GestureSample) {
          note = ((GestureSample)gesture).getGesture();
       }
-      
+
       if (isApplicable(note)) {
 
          try {
-            resultSet = classify(computeFeatureVector(note, featureList));
+            GestureSampleHelper helper = new GestureSampleHelper(note,
+                  rubineConfig);
+
+            resultSet = classify(helper.getFeatureVector());
          }
          catch (FeatureException exception) {
             throw new AlgorithmException(ExceptionType.Recognition);
@@ -223,35 +146,10 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
 
    public void init(Configuration config) throws AlgorithmException {
-      Map<String, String> parameters = config.getParameters(this
-            .getClass().getCanonicalName());
-      minDistance = AlgorithmTool.getDoubleParameterValue(Config.MIN_DISTANCE
-            .name(), parameters, DEFAULT_CONFIGURATION);
-      LOGGER.info(Config.MIN_DISTANCE + Constant.COLON_BLANK + minDistance);
 
-      mahalanobisDistance = AlgorithmTool.getDoubleParameterValue(
-            Config.MAHALANOBIS_DISTANCE.name(), parameters,
-            DEFAULT_CONFIGURATION);
-      LOGGER.info(Config.MAHALANOBIS_DISTANCE + Constant.COLON_BLANK
-            + mahalanobisDistance);
-
-      String featureNames = AlgorithmTool.getParameterValue(
-            Config.FEATURE_LIST.name(), parameters, DEFAULT_CONFIGURATION);
-      LOGGER.info(Config.FEATURE_LIST + Constant.COLON_BLANK + featureNames);
-
-      featureList = FeatureTool.createFeatureList(featureNames).toArray(
-            new Feature[0]);
-
-      minimalNumberOfPoints = FeatureTool
-            .computeMinimalNumberOfRequiredPoints(featureList);
-      LOGGER.info("Minimal required points: " + minimalNumberOfPoints);
-
-      probability = AlgorithmTool.getDoubleParameterValue(Config.PROBABILITY
-            .name(), parameters, DEFAULT_CONFIGURATION);
-      LOGGER.info(Config.PROBABILITY + Constant.COLON_BLANK + probability);
+      this.rubineConfig = new RubineConfiguration(config);
 
       addEventManagerListener(config.getEventManager());
-
       preprocess(GestureTool.combine(config.getGestureSets()));
    } // init
 
@@ -259,152 +157,38 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    private void preprocess(GestureSet gestureSet) throws AlgorithmException {
       this.gestureSet = gestureSet;
 
-      // make the samples directly available for each gesture class
-      this.samples = new HashMap<GestureClass, List<Gesture<Note>>>();
+      CountDownLatch latch = new CountDownLatch(gestureSet.size());
 
       for (GestureClass gestureClass : gestureSet.getGestureClasses()) {
-         this.samples.put(gestureClass, getSamples(gestureClass));
+         GestureClassHelper helper = new GestureClassHelper(gestureClass,
+               rubineConfig, latch);
+         helpers.put(gestureClass, helper);
+         threadPool.execute(helper);
       }
 
-      // Computes the Feature Vectors for each gesture class and its samples
-      this.sampleFeatureVector = new HashMap<Gesture<Note>, DoubleVector>();
-      this.meanFeatureVector = new HashMap<GestureClass, DoubleVector>();
-      this.covMatrices = new HashMap<GestureClass, RealMatrix>();
-
-      for (GestureClass gestureClass : gestureSet.getGestureClasses()) {
-         try {
-            computeFeatureVectors(gestureClass, featureList);
-         }
-         catch (FeatureException exception) {
-            throw new AlgorithmException(ExceptionType.Initialisation, exception);
-         }
-         this.covMatrices.put(gestureClass,
-               getCovarianceMatrixPerClass(gestureClass));
-
+      // FIXME cleanup
+      try {
+         latch.await();
+      }
+      catch (InterruptedException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
       }
 
       // Computes the common covariance matrix
       this.matrix = getCovarianceMatrix();
 
+      try {
+         inverse = matrix.inverse();
+      }
+      catch (InvalidMatrixException e) {
+         throw new AlgorithmException(
+               AlgorithmException.ExceptionType.Initialisation, e);
+      }
+
       // Computes weights
       computeWeights();
    } // preprocess
-
-
-   /**
-    * Iterates over each sample of the gesture class and computes the feature
-    * vector. in a second step the mean feature vector of the samples is
-    * computed. Both vectors are stored in the corresponding datastructure.
-    * 
-    * @param gestureClass the gesture class.
-    * @param featureList the feature list.
-    */
-   private void computeFeatureVectors(GestureClass gestureClass,
-         Feature[] featureList) throws FeatureException {
-
-      // computes the feature vector per class
-      List<DoubleVector> vectors = new ArrayList<DoubleVector>();
-
-      for (Gesture<Note> sample : samples.get(gestureClass)) {
-         try{
-            /**
-             * FIXME
-             * This method may throw a FeatureException. If an exception occurs,
-             * the vector is not added to the list BUT we should go further to
-             * the next sample. Before this refactoring, the process was interrupted
-             * and therefore the algorithm can't be instantiated as soon as one sample
-             * does not fulfill the requirements defined in the features. 
-             */
-            DoubleVector vector = computeFeatureVector(sample.getGesture(), featureList);
-            sampleFeatureVector.put(sample, vector);
-            if(VectorTools.hasValidValues(vector)){
-               vectors.add(vector);
-            }
-         }catch(FeatureException exception){
-            LOGGER.warning("Could not compute the Feature Vector.");
-         }
-      }
-
-      // computes the mean vector
-      /**
-       * FIXME
-       * The if statement is inserted to guarantee a minimal number of feature vectors. It has
-       * to be checked, if 1 vector is enough. Maybe this is a mathematical issue. 
-       */
-      if(vectors.size() > 0){
-         meanFeatureVector.put(gestureClass, VectorTools.mean(vectors));
-      }else{
-         throw new FeatureException("There are not enough samples for Gesture Class"+gestureClass.getName());
-      }
-   } // computeFeatureVectors
-
-
-   /**
-    * Computes the feature vector for a given sample. The features to compute are
-    * passed as an array. The method returns a double vector representing the
-    * feature vector.
-    * 
-    * @param sample the sample.
-    * @param featureList the features to compute.
-    * @return the feature vector for the given sample.
-    */
-   private DoubleVector computeFeatureVector(Note note, Feature[] featureList)
-         throws FeatureException {
-
-      // clone the note to avoid side effects
-      Note clone = (Note)note.clone();
-      clone.scaleTo(200, 200);
-
-      // filter the note using the min distance
-      clone.filter(minDistance);
-
-      // create the feature vector
-      DoubleVector featureVector = new DoubleVector(featureList.length);
-
-      for (int i = 0; i < featureList.length; i++) {
-         featureVector.set(i, featureList[i].compute(clone));
-      }
-
-      LOGGER.info(featureVector.toString());
-      return featureVector;
-   } // computeFeatureVector
-
-
-   /**
-    * Computes the covariance matrix for a given gesture class. The covariance
-    * matrix is cached.
-    * 
-    * @param gestureClass the gesture class to compute the covariance matrix.
-    * @return the covariance matrix of the gesture class.
-    */
-   private RealMatrix getCovarianceMatrixPerClass(GestureClass gestureClass) {
-      RealMatrix realMatrix = covMatrices.get(gestureClass);
-
-      if (realMatrix == null) {
-         int numOfFeatures = featureList.length;
-         DoubleVector meanVector = meanFeatureVector.get(gestureClass);
-         double[][] matrix = new double[numOfFeatures][numOfFeatures];
-
-         for (int i = 0; i < numOfFeatures; i++) {
-
-            for (int j = 0; j < numOfFeatures; j++) {
-               double sum = 0;
-
-               for (Gesture<Note> sample : samples.get(gestureClass)) {
-                  sum += (sampleFeatureVector.get(sample).get(i) - meanVector
-                        .get(i))
-                        * (sampleFeatureVector.get(sample).get(j) - meanVector
-                              .get(j));
-               }
-               matrix[i][j] = sum;
-            }
-         }
-
-         realMatrix = new RealMatrixImpl(matrix);
-      }
-
-      return realMatrix;
-   } // getCovarianceMatrixPerClass
 
 
    /**
@@ -413,7 +197,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
     * @return the common covariance matrix of the set.
     */
    private RealMatrix getCovarianceMatrix() {
-      int dim = featureList.length;
+      int dim = rubineConfig.getNumberOfFeatures();
       double[][] commonCovMatrix = new double[dim][dim];
 
       for (int i = 0; i < dim; i++) {
@@ -421,15 +205,17 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
             double dividend = 0;
 
             for (GestureClass gestureClass : gestureSet.getGestureClasses()) {
-               dividend += (this.getCovarianceMatrixPerClass(gestureClass))
-                     .getEntry(i, j)
-                     / (samples.get(gestureClass).size() - 1);
+               RealMatrix covarianceMatrix = helpers.get(gestureClass)
+                     .getCovarianceMatrix();
+
+               dividend += covarianceMatrix.getEntry(i, j)
+                     / (helpers.get(gestureClass).getNumberOfSamples() - 1);
             }
 
             double divisor = -gestureSet.size();
 
             for (GestureClass gestureClass : gestureSet.getGestureClasses()) {
-               divisor += samples.get(gestureClass).size();
+               divisor += helpers.get(gestureClass).getNumberOfSamples();
             }
 
             commonCovMatrix[i][j] = dividend / divisor;
@@ -446,49 +232,10 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
     * 
     */
    private void computeWeights() throws AlgorithmException {
-      weightsVector = new HashMap<GestureClass, DoubleVector>();
-      initialWeight = new HashMap<GestureClass, Double>();
-
-      
-      try {
-         inverse = matrix.inverse();
-      }
-      catch (InvalidMatrixException e) {
-         throw new AlgorithmException(
-               AlgorithmException.ExceptionType.Initialisation, e);
-      }
-
       // compute the weights per class
-      int classIndex = 0; 
-
-      for (GestureClass gestureClass : gestureSet.getGestureClasses()) {
-         DoubleVector meanVector = meanFeatureVector.get(gestureClass);
-         DoubleVector weightVector = new DoubleVector(meanVector.size());
-
-         for (int j = 0; j < meanVector.size(); j++) {
-            double wci = 0;
-
-            for (int i = 0; i < meanVector.size(); i++) {
-               wci += inverse.getEntry(i, j) * meanVector.get(i);
-            }
-
-            weightVector.set(j, wci);
-         }
-
-         this.weightsVector.put(gestureClass, weightVector);
-
-         // compute the initial weight
-         double wc0 = 0;
-
-         // TODO inline in for loop above? after weightVector.set(j, wci)
-         for (int f = 0; f < meanVector.size(); f++) {
-            wc0 += weightVector.get(f) * meanVector.get(f);
-         }
-
-         this.initialWeight.put(gestureClass, -0.5 * wc0);
-         classIndex++;
+      for (GestureClassHelper helper : helpers.values()) {
+         helper.computeWeights(inverse);
       }
-
    } // computeWeights
 
 
@@ -501,24 +248,21 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       GestureClass classifiedGesture = null;
       HashMap<GestureClass, Double> classifiers = new HashMap<GestureClass, Double>();
 
-      for (GestureClass currentGestureClass : gestureSet
-            .getGestureClasses()) {
-         DoubleVector weightVector = this.weightsVector
-               .get(currentGestureClass);
-         // FIXME: Cleanup
-         assert (weightVector.size() == inputFeatureVector.size());
-         double v = initialWeight.get(currentGestureClass);
+      for (GestureClassHelper helper : helpers.values()) {
+         
+         DoubleVector weightVector = helper.getWeights();
+         double v = helper.getInitialWeight();
 
-         for (int i = 0; i < weightVector.size(); i++) {
+         for (int i = 0; i < inputFeatureVector.size(); i++) {
             v += weightVector.get(i) * inputFeatureVector.get(i);
          }
 
-         LOGGER.info(currentGestureClass.getName() + Constant.COLON_BLANK + v);
-         classifiers.put(currentGestureClass, v);
+         LOGGER.info(helper.getGestureClass().getName() + Constant.COLON_BLANK + v);
+         classifiers.put(helper.getGestureClass(), v);
 
          if (v > max) {
             max = v;
-            classifiedGesture = currentGestureClass;
+            classifiedGesture = helper.getGestureClass();
          }
 
          if (Double.isNaN(v)) {
@@ -530,7 +274,6 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
       // probability
       double divisor = 0;
-
       for (GestureClass gestureClass : classifiers.keySet()) {
          divisor += Math.exp(classifiers.get(gestureClass)
                - classifiers.get(classifiedGesture));
@@ -539,20 +282,17 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       double probability = 1.0 / divisor;
 
       // outliers
-      double distance = getMahalanobisDistance(classifiedGesture,
-            inputFeatureVector);
+      double distance = getMahalanobisDistance(classifiedGesture, inputFeatureVector);
 
       ResultSet resultSet = new ResultSet();
 
-      if (probability >= this.probability
-            && distance <= this.mahalanobisDistance) {
-         resultSet.addResult(new Result(classifiedGesture, 1));
-         LOGGER.info(DISTANCE + distance);
+      if (probability >= rubineConfig.getProbability()
+            && distance <= rubineConfig.getMahalanobisDistance()) {
+         resultSet.addResult(new Result(classifiedGesture, 1)); 
       }
-      else {
-         LOGGER.info(DISTANCE + distance);
-         LOGGER.info(PROBABILITY + probability);
-      }
+      LOGGER.info(DISTANCE + distance);
+      LOGGER.info(PROBABILITY + probability);
+      
 
       return resultSet;
    } // classify
@@ -569,11 +309,11 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    private double getMahalanobisDistance(GestureClass gestureClass,
          DoubleVector inputVector) {
       double result = 0;
-      DoubleVector meanVector = meanFeatureVector.get(gestureClass);
+      DoubleVector meanVector = helpers.get(gestureClass).getMeanFeatureVector();
 
-      for (int j = 0; j < featureList.length; j++) {
+      for (int j = 0; j < rubineConfig.getNumberOfFeatures(); j++) {
 
-         for (int k = 0; k < featureList.length; k++) {
+         for (int k = 0; k < rubineConfig.getNumberOfFeatures(); k++) {
             result += inverse.getEntry(j, k)
                   * (inputVector.get(j) - meanVector.get(j))
                   * (inputVector.get(k) - meanVector.get(k));
@@ -584,18 +324,20 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    } // getMahalanobisDistance
 
 
-   public Config[] getConfigParameters() {
-      return Config.values();
+   public RubineConfiguration.Config[] getConfigParameters() {
+      return RubineConfiguration.Config.values();
    } // getConfigParameters
 
 
    /**
-    * Tests if the note can be recognised
+    * Tests if the note can be recognized
     * @param note
     * @return
     */
    private boolean isApplicable(Note note) {
-      return note != null && note.getPoints().size() >= minimalNumberOfPoints;
+      return note != null
+            && note.getPoints().size() >= rubineConfig
+                  .getMinimalNumberOfPoints();
    }
 
 }

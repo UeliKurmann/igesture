@@ -31,7 +31,8 @@ import org.sigtec.ink.recognition.MyScript;
 import org.sigtec.ink.recognition.Recogniser;
 import org.sigtec.ink.recognition.Result;
 import org.ximtec.igesture.algorithm.DefaultAlgorithm;
-import org.ximtec.igesture.algorithm.rubine.RubineAlgorithm.Config;
+import org.ximtec.igesture.algorithm.rubine.RubineConfiguration;
+import org.ximtec.igesture.algorithm.rubine.RubineConfiguration.Config;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
@@ -75,7 +76,7 @@ public class HWRecogniser extends DefaultAlgorithm {
 
 
    public Config[] getConfigParameters() {
-      return Config.values();
+      return RubineConfiguration.Config.values();
    } // getConfigParameters
 
 }
