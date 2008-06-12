@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.commons.math.linear.RealMatrix;
@@ -78,6 +79,8 @@ public class GestureClassHelper implements Runnable{
       this.configuration = configuration;
       this.sampleFeatureVector = new HashMap<Gesture<Note>, GestureSampleHelper>();
       this.latch = latch;
+      
+      LOGGER.setLevel(Level.SEVERE);
    }
    
    /**

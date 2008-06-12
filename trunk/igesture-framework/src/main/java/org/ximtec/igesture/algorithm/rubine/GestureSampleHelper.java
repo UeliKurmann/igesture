@@ -26,6 +26,7 @@
 
 package org.ximtec.igesture.algorithm.rubine;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.sigtec.ink.Note;
@@ -51,6 +52,7 @@ public class GestureSampleHelper {
    public GestureSampleHelper(Note note, RubineConfiguration config) {
       this.note = note;
       this.config = config;
+      LOGGER.setLevel(Level.SEVERE);
    }
    
    /**
