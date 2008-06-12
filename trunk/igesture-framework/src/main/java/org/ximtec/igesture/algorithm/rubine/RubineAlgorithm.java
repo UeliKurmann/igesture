@@ -180,6 +180,8 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       this.matrix = getCovarianceMatrix();
 
       try {
+         System.out.println(matrix.getColumnDimension());
+         
          inverse = matrix.inverse();
       }
       catch (InvalidMatrixException e) {
@@ -340,5 +342,10 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
             && note.getPoints().size() >= rubineConfig
                   .getMinimalNumberOfPoints();
    }
+   
+   @Override
+   public String getDefaultParameterValue(String parameterName) {
+      return RubineConfiguration.getDefaultConfiguration().get(parameterName);
+   } // getDefaultParameterValue
 
 }
