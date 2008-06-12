@@ -90,7 +90,9 @@ public class RubineConfiguration {
             + F6.class.getName() + Constant.COMMA + F7.class.getName()
             + Constant.COMMA + F8.class.getName() + Constant.COMMA
             + F9.class.getName() + Constant.COMMA + F10.class.getName());
+      
       LOGGER.setLevel(Level.SEVERE);
+      
    }
    
      

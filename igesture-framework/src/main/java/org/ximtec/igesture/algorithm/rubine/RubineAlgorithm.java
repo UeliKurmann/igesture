@@ -31,6 +31,7 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.commons.math.linear.InvalidMatrixException;
@@ -39,7 +40,6 @@ import org.apache.commons.math.linear.RealMatrixImpl;
 import org.sigtec.ink.Note;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.algorithm.AlgorithmException;
-import org.ximtec.igesture.algorithm.AlgorithmFactory;
 import org.ximtec.igesture.algorithm.SampleBasedAlgorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException.ExceptionType;
 import org.ximtec.igesture.algorithm.feature.FeatureException;
@@ -63,7 +63,7 @@ import org.ximtec.igesture.util.GestureTool;
  */
 public class RubineAlgorithm extends SampleBasedAlgorithm {
 
-   private static final Logger LOGGER = Logger.getLogger(AlgorithmFactory.class
+   private static final Logger LOGGER = Logger.getLogger(RubineAlgorithm.class
          .getName());
 
    private static final String RESULT = "Result: ";
@@ -104,6 +104,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
     */
    public RubineAlgorithm() {
       super();
+      LOGGER.setLevel(Level.SEVERE);
       helpers = new HashMap<GestureClass, GestureClassHelper>();
       threadPool = Executors.newFixedThreadPool(3);
    }
