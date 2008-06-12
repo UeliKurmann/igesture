@@ -76,7 +76,6 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
    private static final String COMPUTATION_FAILED = "Computation failed because of NaN fields in the matrix";
 
-   
    /**
     * the common covariant matrix for the set
     */
@@ -167,22 +166,15 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
          threadPool.execute(helper);
       }
 
-      // FIXME cleanup
       try {
          latch.await();
+         // Computes the common covariance matrix
+         this.matrix = getCovarianceMatrix();
+         inverse = matrix.inverse();
       }
       catch (InterruptedException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-
-      // Computes the common covariance matrix
-      this.matrix = getCovarianceMatrix();
-
-      try {
-         System.out.println(matrix.getColumnDimension());
-         
-         inverse = matrix.inverse();
+         throw new AlgorithmException(
+               AlgorithmException.ExceptionType.Initialisation, e);
       }
       catch (InvalidMatrixException e) {
          throw new AlgorithmException(
@@ -252,7 +244,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       HashMap<GestureClass, Double> classifiers = new HashMap<GestureClass, Double>();
 
       for (GestureClassHelper helper : helpers.values()) {
-         
+
          DoubleVector weightVector = helper.getWeights();
          double v = helper.getInitialWeight();
 
@@ -260,7 +252,8 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
             v += weightVector.get(i) * inputFeatureVector.get(i);
          }
 
-         LOGGER.info(helper.getGestureClass().getName() + Constant.COLON_BLANK + v);
+         LOGGER.info(helper.getGestureClass().getName() + Constant.COLON_BLANK
+               + v);
          classifiers.put(helper.getGestureClass(), v);
 
          if (v > max) {
@@ -285,17 +278,17 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       double probability = 1.0 / divisor;
 
       // outliers
-      double distance = getMahalanobisDistance(classifiedGesture, inputFeatureVector);
+      double distance = getMahalanobisDistance(classifiedGesture,
+            inputFeatureVector);
 
       ResultSet resultSet = new ResultSet();
 
       if (probability >= rubineConfig.getProbability()
             && distance <= rubineConfig.getMahalanobisDistance()) {
-         resultSet.addResult(new Result(classifiedGesture, 1)); 
+         resultSet.addResult(new Result(classifiedGesture, 1));
       }
       LOGGER.info(DISTANCE + distance);
       LOGGER.info(PROBABILITY + probability);
-      
 
       return resultSet;
    } // classify
@@ -342,7 +335,8 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
             && note.getPoints().size() >= rubineConfig
                   .getMinimalNumberOfPoints();
    }
-   
+
+
    @Override
    public String getDefaultParameterValue(String parameterName) {
       return RubineConfiguration.getDefaultConfiguration().get(parameterName);
