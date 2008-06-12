@@ -65,7 +65,7 @@ public class RubineConfiguration {
 
    private static final String DEFAULT_MIN_DISTANCE = "1";
    
-   protected static HashMap<String, String> DEFAULT_CONFIGURATION = new HashMap<String, String>();
+   protected static Map<String, String> DEFAULT_CONFIGURATION = new HashMap<String, String>();
 
    public enum Config {
       MIN_DISTANCE, FEATURE_LIST, MAHALANOBIS_DISTANCE, PROBABILITY
@@ -111,8 +111,7 @@ public class RubineConfiguration {
    }
    
    private void init(Configuration config){
-      Map<String, String> parameters = config.getParameters(this
-            .getClass().getCanonicalName());
+      Map<String, String> parameters = config.getParameters(RubineAlgorithm.class.getCanonicalName());
       minDistance = AlgorithmTool.getDoubleParameterValue(Config.MIN_DISTANCE
             .name(), parameters, DEFAULT_CONFIGURATION);
       LOGGER.info(Config.MIN_DISTANCE + Constant.COLON_BLANK + minDistance);
@@ -165,6 +164,10 @@ public class RubineConfiguration {
    
    public int getNumberOfFeatures(){
       return featureList.length;
+   }
+   
+   public static Map<String, String> getDefaultConfiguration(){
+      return DEFAULT_CONFIGURATION;
    }
 
 }

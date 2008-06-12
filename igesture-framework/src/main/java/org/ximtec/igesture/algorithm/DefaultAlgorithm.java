@@ -27,6 +27,7 @@
 package org.ximtec.igesture.algorithm;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.EventManager;
@@ -43,7 +44,7 @@ public abstract class DefaultAlgorithm implements Algorithm {
 
    EventManager eventManager;
 
-   protected static HashMap<String, String> DEFAULT_CONFIGURATION = new HashMap<String, String>();
+   protected static Map<String, String> DEFAULT_CONFIGURATION = new HashMap<String, String>();
 
 
    public void addEventManagerListener(EventManager eventManager) {
