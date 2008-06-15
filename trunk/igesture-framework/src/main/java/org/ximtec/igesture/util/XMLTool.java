@@ -102,6 +102,8 @@ public class XMLTool {
       Document document = importDocument(inputStream);
       List<Element> algorithmElements = document.getRootElement().getChildren(
             JdomGestureSet.ROOT_TAG);
+      
+     
 
       for (Element setElement : algorithmElements) {
          sets.add((GestureSet)JdomGestureSet.unmarshal(setElement));
@@ -402,9 +404,9 @@ public class XMLTool {
       }
 
       final TransformerFactory tFactory = TransformerFactory.newInstance();
-      final Transformer transformer = tFactory.newTransformer(new StreamSource(
-            xslSR));
+      final Transformer transformer = tFactory.newTransformer(new StreamSource(xslSR));
       transformer.transform(xmlIn, xmlOut);
+      
       return xmlSW.toString();
    } // transform
 

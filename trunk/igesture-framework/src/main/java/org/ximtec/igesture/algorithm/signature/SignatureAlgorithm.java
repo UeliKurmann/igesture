@@ -88,7 +88,7 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
       DEFAULT_CONFIGURATION.put(Config.DISTANCE_FUNCTION.name(),
             HammingDistance.class.getName());
       DEFAULT_CONFIGURATION.put(Config.MIN_ACCURACY.name(), "0.5");
-      LOGGER.setLevel(Level.WARNING);
+      
    }
 
 

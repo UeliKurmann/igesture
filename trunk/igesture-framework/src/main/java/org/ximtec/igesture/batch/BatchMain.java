@@ -24,7 +24,7 @@
  */
 
 
-package org.ximtec.igesture.tool.old.batch;
+package org.ximtec.igesture.batch;
 
 import java.io.File;
 import java.util.logging.Level;
@@ -44,8 +44,6 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.sigtec.util.Constant;
 import org.sigtec.util.FileHandler;
-import org.ximtec.igesture.batch.BatchProcess;
-import org.ximtec.igesture.batch.BatchResultSet;
 import org.ximtec.igesture.util.XMLTool;
 
 
