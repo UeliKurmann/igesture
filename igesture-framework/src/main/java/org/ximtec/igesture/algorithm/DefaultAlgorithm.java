@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.event.EventManager;
+import org.ximtec.igesture.event.GestureDispatcher;
 
 
 /**
@@ -42,12 +42,12 @@ import org.ximtec.igesture.event.EventManager;
  */
 public abstract class DefaultAlgorithm implements Algorithm {
 
-   EventManager eventManager;
+   GestureDispatcher eventManager;
 
    protected static Map<String, String> DEFAULT_CONFIGURATION = new HashMap<String, String>();
 
 
-   public void addEventManagerListener(EventManager eventManager) {
+   public void addEventHandler(GestureDispatcher eventManager) {
       this.eventManager = eventManager;
    } // addEventManagerListener
 
@@ -60,7 +60,7 @@ public abstract class DefaultAlgorithm implements Algorithm {
     */
    protected void fireEvent(ResultSet resultSet) {
       if (eventManager != null) {
-         eventManager.fireEvent(resultSet);
+         eventManager.dispatch(resultSet);
       }
 
    } // fireEvent

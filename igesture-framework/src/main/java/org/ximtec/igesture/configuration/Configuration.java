@@ -37,7 +37,7 @@ import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.DefaultDataObject;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Visitor;
-import org.ximtec.igesture.event.EventManager;
+import org.ximtec.igesture.event.GestureDispatcher;
 import org.ximtec.igesture.util.GestureTool;
 
 
@@ -86,7 +86,7 @@ public class Configuration extends DefaultDataObject implements Cloneable {
    /**
     * The instance of the eventManager
     */
-   private transient EventManager eventManager;
+   private transient GestureDispatcher eventManager;
 
    /**
     * The maximal size of the result set
@@ -250,7 +250,7 @@ public class Configuration extends DefaultDataObject implements Cloneable {
     * 
     * @param eventManager the event manager to be set.
     */
-   public void setEventManager(EventManager eventManager) {
+   public void setEventManager(GestureDispatcher eventManager) {
       this.eventManager = eventManager;
    } // setEventManager
 
@@ -260,7 +260,7 @@ public class Configuration extends DefaultDataObject implements Cloneable {
     * 
     * @return the event manager.
     */
-   public EventManager getEventManager() {
+   public GestureDispatcher getEventManager() {
       return eventManager;
    } // getEventManager
 

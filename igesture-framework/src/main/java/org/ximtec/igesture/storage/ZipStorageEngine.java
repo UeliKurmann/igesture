@@ -75,7 +75,8 @@ public class ZipStorageEngine extends DefaultStorageEngine {
 
    private void initData() {
       try {
-         zipFS = new ZipFS(new File(filename));
+        File file = new File(filename); 
+        zipFS = new ZipFS(file);
       }
       catch (IOException e) {
          LOGGER.log(Level.SEVERE, "Could not initialise ZIP Storage Engine.", e);
@@ -130,7 +131,7 @@ public class ZipStorageEngine extends DefaultStorageEngine {
 
    @Override
    public void commit() {
-      if (changed) {
+      if (changed || true) {
          // persist gesture sets TODO: create methods.
          for (DataObject dataObject : dataObjects.get(GestureSet.class)) {
             try {

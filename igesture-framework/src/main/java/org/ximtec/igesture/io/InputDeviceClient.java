@@ -40,6 +40,10 @@ import org.sigtec.input.InputDevice;
 import org.sigtec.input.InputDeviceEvent;
 import org.sigtec.input.InputDeviceEventListener;
 import org.sigtec.input.InputHandler;
+import org.ximtec.igesture.core.Gesture;
+import org.ximtec.igesture.core.GestureSample;
+
+import com.sun.corba.se.impl.orbutil.closure.Constant;
  
 
 /**
@@ -160,6 +164,12 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
       clearBuffer();
       return note;
    } // createNote
+   
+   public Gesture<Note> getGesture(){
+      
+      
+      return new GestureSample("", createNote());
+   }
 
 
    public void handleButtonPressedEvent(InputDeviceEvent event) {
