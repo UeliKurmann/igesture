@@ -149,7 +149,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
       this.rubineConfig = new RubineConfiguration(config);
 
-      addEventManagerListener(config.getEventManager());
+      addEventHandler(config.getEventManager());
       preprocess(GestureTool.combine(config.getGestureSets()));
    } // init
 

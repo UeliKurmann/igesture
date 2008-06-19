@@ -29,7 +29,9 @@
 package org.ximtec.igesture.event;
 
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Executors;
 
 import org.ximtec.igesture.core.ResultSet;
 
@@ -42,11 +44,9 @@ import org.ximtec.igesture.core.ResultSet;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class EventManager {
+public class EventManager implements GestureDispatcher {
 
-   Thread thread = null;
-
-   private LinkedList<ResultSet> eventQueue;
+   private Queue<ResultSet> eventQueue;
 
    /**
     * the list of registered events.
@@ -63,8 +63,9 @@ public class EventManager {
     * Constructs a new event manager.
     */
    public EventManager() {
-      eventQueue = new LinkedList<ResultSet>();
+      eventQueue = new ConcurrentLinkedQueue<ResultSet>();
       events = new HashMap<String, EventHandler>();
+      Executors.newSingleThreadExecutor().execute(new Worker());
    }
 
 
@@ -72,24 +73,23 @@ public class EventManager {
     * Registers an event.
     * 
     * @param className the classname for which the event handler has to be
-    *           registered.
+    *            registered.
     * @param event the event to be registered.
     */
    public void registerEventHandler(String className, EventHandler event) {
       events.put(className, event);
    } // registerEventHandler
-   
-   
+
+
    /**
     * UnRegisters an event.
     * 
     * @param className the classname for which the event handler has to be
-    *           registered.
+    *            registered.
     */
    public void unRegisterEventHandler(String className) {
       events.remove(className);
    } // registerEventHandler
-
 
 
    /**
@@ -109,39 +109,39 @@ public class EventManager {
     * 
     * @param resultSet the result set to be added to the queue.
     */
-   public synchronized void fireEvent(ResultSet resultSet) {
+   public synchronized void dispatch(ResultSet resultSet) {
       eventQueue.add(resultSet);
-      handleEvents();
    } // fireEvent
-
 
    /**
     * As long as elements are in the queue they are taken and the action is
     * started. The handler works sequentially.
     */
-   private synchronized void handleEvents() {
-      while (!eventQueue.isEmpty()) {
-         final ResultSet resultSet = eventQueue.poll();
+   private class Worker implements Runnable {
 
-         if (resultSet.isEmpty()) {
+      public void run() {
+         while (true) {
+            final ResultSet resultSet = eventQueue.poll();
 
-            if (rejectEventHandler != null) {
-               rejectEventHandler.run(resultSet);
+            if (resultSet.isEmpty()) {
+
+               if (rejectEventHandler != null) {
+                  rejectEventHandler.run(resultSet);
+               }
+
             }
+            else {
+               EventHandler eventHandler;
 
-         }
-         else {
-            EventHandler eventHandler;
+               if ((eventHandler = events.get(resultSet.getResult()
+                     .getGestureClassName())) != null) {
+                  eventHandler.run(resultSet);
+               }
 
-            if ((eventHandler = events.get(resultSet.getResult()
-                  .getGestureClassName())) != null) {
-               eventHandler.run(resultSet);
             }
-
          }
 
-      }
-
-   } // handleEvents
+      } // handleEvents
+   }
 
 }

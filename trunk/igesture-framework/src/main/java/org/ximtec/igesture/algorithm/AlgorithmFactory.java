@@ -80,7 +80,7 @@ public class AlgorithmFactory {
          try {
             final Algorithm algorithm = createAlgorithmInstance(algorithmName);
             algorithm.init(config);
-            algorithm.addEventManagerListener(config.getEventManager());
+            algorithm.addEventHandler(config.getEventManager());
             algorithms.add(algorithm);
          }
          catch (final NullPointerException e) {

@@ -26,6 +26,7 @@
 
 package org.ximtec.igesture;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 import java.util.logging.Logger;
@@ -41,7 +42,7 @@ import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.event.EventManager;
+import org.ximtec.igesture.event.GestureDispatcher;
 import org.ximtec.igesture.util.XMLTool;
 
 
@@ -78,7 +79,7 @@ public class Recogniser {
     * @param eventManager the event manager.
     * @throws AlgorithmException if the recogniser could not be created.
     */
-   public Recogniser(Configuration config, EventManager eventManager)
+   public Recogniser(Configuration config, GestureDispatcher eventManager)
          throws AlgorithmException {
       final Configuration clone = (Configuration)config.clone();
       clone.setEventManager(eventManager);
@@ -123,7 +124,7 @@ public class Recogniser {
     * @throws AlgorithmException if the recogniser could not be created.
     */
    public Recogniser(InputStream config, InputStream set,
-         EventManager eventManager) throws AlgorithmException {
+         GestureDispatcher eventManager) throws AlgorithmException {
       final Configuration configuration = XMLTool.importConfiguration(config);
       configuration.setEventManager(eventManager);
       configuration.addGestureSets(XMLTool.importGestureSet(set));
@@ -184,5 +185,23 @@ public class Recogniser {
    public ResultSet recognise(Note note, boolean recogniseAll){
       return recognise(new GestureSample(Constant.EMPTY_STRING, note));
    }
-
+   
+   public void addGestureDispatcher(GestureDispatcher eventManager){
+      for(Algorithm algorithm:algorithms){
+         algorithm.addEventHandler(eventManager);
+      }
+   }
+   
+   public void removeGestureDispatcher(GestureDispatcher eventManager){
+      for(Algorithm algorithm:algorithms){
+         algorithm.addEventHandler(eventManager);
+      }
+   }
+   
+   public static Recogniser newRecogniser(String configFile, String gestureSetFile) throws AlgorithmException{
+      GestureSet gestureSet = XMLTool.importGestureSet(new File(gestureSetFile)).get(0);
+      Configuration configuration = XMLTool.importConfiguration(new File(configFile));
+      return new Recogniser(configuration, gestureSet);
+      
+   }
 }

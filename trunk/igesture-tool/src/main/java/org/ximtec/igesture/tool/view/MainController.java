@@ -82,6 +82,9 @@ public class MainController extends DefaultController implements Service {
    private MainView mainView;
    
    public MainController() {
+      
+      
+      
       initServices();
       initViews();
    }
