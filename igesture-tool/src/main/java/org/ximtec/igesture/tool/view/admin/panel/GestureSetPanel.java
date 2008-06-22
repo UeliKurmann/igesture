@@ -58,9 +58,15 @@ public class GestureSetPanel extends AbstractPanel {
       setTitle(TitleFactory.createDynamicTitle(gestureSet,
             GestureSet.PROPERTY_NAME));
 
+      // FIXME
+      StringBuilder sb = new StringBuilder();
+      for(int i = 0; i < gestureSet.size()*4; i++){
+         sb.append("pref, 4dlu,");
+      }
+      
       FormLayout layout = new FormLayout(
             "100dlu, 4dlu, 200dlu",
-            "pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref,, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref");
+            sb.toString());
 
       DefaultFormBuilder builder = new DefaultFormBuilder(layout);
       builder.setDefaultDialogBorder();
