@@ -35,7 +35,7 @@ import org.sigtec.input.InputDeviceEvent;
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.event.EventManager;
+import org.ximtec.igesture.event.GestureActionManager;
 import org.ximtec.igesture.geco.Configuration;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.util.SortedListModel;
@@ -58,7 +58,7 @@ public class MainModel implements ButtonDeviceEventListener {
 
    private SortedListModel<GestureToActionMapping> mappingListModel;
 
-   private EventManager eventManager = new EventManager();
+   private GestureActionManager eventManager = new GestureActionManager();
 
    private Hashtable<GestureClass, GestureToActionMapping> mappings = new Hashtable<GestureClass, GestureToActionMapping>();
 
@@ -315,7 +315,7 @@ public class MainModel implements ButtonDeviceEventListener {
     * 
     * @return the event manager
     */
-   public EventManager getEventManager() {
+   public GestureActionManager getEventManager() {
       return eventManager;
    }// getEventManager
 

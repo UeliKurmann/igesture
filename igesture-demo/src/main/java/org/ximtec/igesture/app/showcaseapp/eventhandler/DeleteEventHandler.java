@@ -31,7 +31,7 @@ import java.awt.Graphics2D;
 
 import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.event.EventHandler;
+import org.ximtec.igesture.event.GestureAction;
 
 
 /**
@@ -39,7 +39,7 @@ import org.ximtec.igesture.event.EventHandler;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class DeleteEventHandler implements EventHandler {
+public class DeleteEventHandler implements GestureAction {
 
    private Graphics2D graphic;
 
@@ -49,7 +49,7 @@ public class DeleteEventHandler implements EventHandler {
    }
 
 
-   public void run(ResultSet resultSet) {
+   public void actionPerformed(ResultSet resultSet) {
       Note note = resultSet.getNote();
       graphic.setColor(Color.WHITE);
       graphic.fillRect((int)note.getBounds2D().getMinX(), (int)note

@@ -56,7 +56,7 @@ import org.ximtec.igesture.app.showcaseapp.eventhandler.StyleEventHandler;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.DigitalDescriptor;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.event.EventManager;
+import org.ximtec.igesture.event.GestureActionManager;
 import org.ximtec.igesture.io.ButtonDeviceEventListener;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.MouseReader;
@@ -94,7 +94,7 @@ public class Application implements ButtonDeviceEventListener {
             .getSystemResourceAsStream("rubineconfiguration.xml"));
       GestureSet gestureSet = XMLTool.importGestureSet(
             ClassLoader.getSystemResourceAsStream("demogestures.xml")).get(0);
-      EventManager eventManager = new EventManager();
+      GestureActionManager eventManager = new GestureActionManager();
       eventManager.registerRejectEvent(new RejectEventHandler());
       Style style = new Style();
       StyleEventHandler styleEventHandler = new StyleEventHandler(style);

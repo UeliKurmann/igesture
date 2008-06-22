@@ -37,7 +37,7 @@ import java.util.List;
 
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.event.EventHandler;
+import org.ximtec.igesture.event.GestureAction;
 import org.ximtec.igesture.io.Win32KeyboardProxy;
 
 
@@ -45,7 +45,7 @@ import org.ximtec.igesture.io.Win32KeyboardProxy;
  * @version 0.9, Mar 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public class KeyboardSimulation implements EventHandler {
+public class KeyboardSimulation implements GestureAction {
 
    private Integer[] keys;
    private String stringKeys;
@@ -63,7 +63,7 @@ public class KeyboardSimulation implements EventHandler {
    }// KeyboardSimulationAction
 
 
-   public void run(ResultSet resultSet) {
+   public void actionPerformed(ResultSet resultSet) {
       Win32KeyboardProxy.pressKey(keys);
    } // run
 

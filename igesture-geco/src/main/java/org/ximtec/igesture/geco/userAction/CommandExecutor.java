@@ -29,7 +29,7 @@ import java.io.IOException;
 
 import org.sigtec.util.SystemTool;
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.event.EventHandler;
+import org.ximtec.igesture.event.GestureAction;
 
 
 /**
@@ -37,7 +37,7 @@ import org.ximtec.igesture.event.EventHandler;
  * @version 0.9, Dec 6, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public class CommandExecutor implements EventHandler {
+public class CommandExecutor implements GestureAction {
 
    private final static String WIN_CONSOLE = "cmd /C ";
 
@@ -58,7 +58,7 @@ public class CommandExecutor implements EventHandler {
     * Execute the action
     * 
     */
-   public void run(ResultSet resultSet) {
+   public void actionPerformed(ResultSet resultSet) {
       try {
          if ((command != null) && (!command.isEmpty())) {
 

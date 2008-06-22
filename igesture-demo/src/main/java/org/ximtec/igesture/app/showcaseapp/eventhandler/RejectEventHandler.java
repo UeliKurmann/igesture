@@ -32,14 +32,14 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import org.sigtec.sound.SoundTool;
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.event.EventHandler;
+import org.ximtec.igesture.event.GestureAction;
 
 /**
  * @version 1.0 Nov 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class RejectEventHandler implements EventHandler {
+public class RejectEventHandler implements GestureAction {
 
 	private static final String RESOURCES_SOUND_RINGOUT_WAV = "sound/ringout.wav";
 
@@ -53,7 +53,7 @@ public class RejectEventHandler implements EventHandler {
 		this(RESOURCES_SOUND_RINGOUT_WAV);
 	}
 
-	public void run(ResultSet resultSet) {
+	public void actionPerformed(ResultSet resultSet) {
 		try {
 			SoundTool.play(AudioSystem.getAudioInputStream(ClassLoader
 					.getSystemResourceAsStream(filename)));
