@@ -124,15 +124,13 @@ public class TestbenchController extends DefaultController {
          
          int MIN_POINTS = 5;
          if (note.getPoints().size() >= MIN_POINTS) {
-            NoteTool.exportJPEG(note, "D:/temp/"+System.currentTimeMillis()+".jpg");
-            
+           
             ResultSet resultSet = algorithm.recognise(new GestureSample(
                   Constant.EMPTY_STRING, note));
             
             if(explorerTreeController.getExplorerTreeView() instanceof ConfigurationPanel){
                ConfigurationPanel panel = (ConfigurationPanel)explorerTreeController.getExplorerTreeView();
                panel.setResultList(resultSet.getResults());
-               System.out.println(resultSet.getResult());
             }   
          }
       }
