@@ -171,8 +171,13 @@ public class GestureClass extends DefaultDataObject {
   @Override
   public void accept(Visitor visitor) {
     visitor.visit(this);
+    if(descriptors == null){
+       descriptors = new HashMap<Class<? extends Descriptor>, Descriptor>();
+    }
     for (Descriptor descriptor : descriptors.values()) {
-      descriptor.accept(visitor);
+       if(descriptor != null){
+          descriptor.accept(visitor);
+       }
     }
   }
   

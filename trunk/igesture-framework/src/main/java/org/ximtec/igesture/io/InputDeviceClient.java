@@ -165,10 +165,9 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
       return note;
    } // createNote
    
-   public Gesture<Note> getGesture(){
-      
-      
-      return new GestureSample("", createNote());
+   public synchronized Gesture<Note> getGesture(){
+      Gesture<Note> gesture = new GestureSample("", createNote());
+      return gesture;
    }
 
 

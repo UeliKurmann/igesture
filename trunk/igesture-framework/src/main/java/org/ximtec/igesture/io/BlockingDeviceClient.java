@@ -26,9 +26,13 @@
 
 package org.ximtec.igesture.io;
 
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
 import org.sigtec.ink.Note;
 import org.sigtec.input.InputDeviceEvent;
 import org.ximtec.igesture.core.Gesture;
+import org.ximtec.igesture.core.GestureSample;
 
 
 /**
@@ -38,41 +42,36 @@ import org.ximtec.igesture.core.Gesture;
  */
 public class BlockingDeviceClient implements ButtonDeviceEventListener {
 
-   InputDeviceClient client;
+   private InputDeviceClient client;
 
-   volatile boolean wait;
+   private BlockingQueue<Gesture<Note>> gestureQueue;
 
 
    public BlockingDeviceClient(InputDeviceClient client) {
+      gestureQueue = new LinkedBlockingQueue<Gesture<Note>>();
       this.client = client;
       this.client.addButtonDeviceEventListener(this);
-      this.wait = true;
    }
 
 
    public Gesture<Note> getGesture() {
-      Gesture<Note> gesture;
-
-      while (wait) {
-         try {
-            Thread.sleep(20);
-         }
-         catch (InterruptedException e) {
-            e.printStackTrace();
-         }
+      try {
+         return gestureQueue.take();
       }
-
-      gesture = client.getGesture();
-      client.clearBuffer();
-      wait = true;
-
-      return gesture;
+      catch (InterruptedException e) {
+         return new GestureSample("", new Note());
+      }
    }
 
 
    @Override
    public void handleButtonPressedEvent(InputDeviceEvent event) {
-      wait = false;
+      Gesture<Note> gesture = client.getGesture();
+      try {
+         gestureQueue.put(gesture);
+      }
+      catch (InterruptedException e) {
+         e.printStackTrace();
+      }
    }
-
 }
