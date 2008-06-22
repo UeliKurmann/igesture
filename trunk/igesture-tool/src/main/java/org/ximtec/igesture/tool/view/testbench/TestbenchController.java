@@ -35,7 +35,6 @@ import java.util.logging.Logger;
 import javax.swing.JComponent;
 
 import org.sigtec.ink.Note;
-import org.sigtec.ink.NoteTool;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException;
