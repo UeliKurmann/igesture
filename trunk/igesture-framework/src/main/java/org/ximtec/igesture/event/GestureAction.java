@@ -38,12 +38,12 @@ import org.ximtec.igesture.core.ResultSet;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public interface EventHandler {
+public interface GestureAction {
 
    /**
     * Runs the event handler.
     * 
     * @param resultSet the result set.
     */
-   public void run(ResultSet resultSet);
+   public void actionPerformed(ResultSet resultSet);
 }

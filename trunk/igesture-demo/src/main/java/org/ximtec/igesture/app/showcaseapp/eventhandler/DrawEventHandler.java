@@ -35,7 +35,7 @@ import org.ximtec.igesture.app.showcaseapp.Style;
 import org.ximtec.igesture.core.DigitalDescriptor;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.event.EventHandler;
+import org.ximtec.igesture.event.GestureAction;
 
 
 /**
@@ -43,7 +43,7 @@ import org.ximtec.igesture.event.EventHandler;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class DrawEventHandler implements EventHandler {
+public class DrawEventHandler implements GestureAction {
 
    private static final Logger LOGGER = Logger.getLogger(DrawEventHandler.class
          .getName());
@@ -60,7 +60,7 @@ public class DrawEventHandler implements EventHandler {
    }
 
 
-   public void run(ResultSet resultSet) {
+   public void actionPerformed(ResultSet resultSet) {
       Result result = resultSet.getResult();
       Note note = resultSet.getNote();
       LOGGER.log(Level.INFO, GESTURE_CLASS_NAME + result.getGestureClassName());

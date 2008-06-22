@@ -31,7 +31,7 @@ import java.awt.Color;
 
 import org.ximtec.igesture.app.showcaseapp.Style;
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.event.EventHandler;
+import org.ximtec.igesture.event.GestureAction;
 
 
 /**
@@ -39,7 +39,7 @@ import org.ximtec.igesture.event.EventHandler;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class StyleEventHandler implements EventHandler {
+public class StyleEventHandler implements GestureAction {
 
    private Style style;
 
@@ -49,7 +49,7 @@ public class StyleEventHandler implements EventHandler {
    }
 
 
-   public void run(ResultSet resultSet) {
+   public void actionPerformed(ResultSet resultSet) {
       String command = resultSet.getResult().getGestureClassName();
 
       if (command.equals("Red")) {

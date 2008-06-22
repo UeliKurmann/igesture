@@ -38,7 +38,7 @@ import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.event.EventManager;
+import org.ximtec.igesture.event.GestureActionManager;
 import org.ximtec.igesture.io.ButtonDeviceEventListener;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.MouseReader;
@@ -70,7 +70,7 @@ public class GestureKeyboard implements ButtonDeviceEventListener {
 
    private InputDeviceClient client;
 
-   private EventManager eventManager;
+   private GestureActionManager eventManager;
 
 
    public GestureKeyboard() throws AlgorithmException {
@@ -103,7 +103,7 @@ public class GestureKeyboard implements ButtonDeviceEventListener {
 
 
    private void initEventManager() {
-      eventManager = new EventManager();
+      eventManager = new GestureActionManager();
 
       for (GestureKeyMapping mapping : XMLImport.importKeyMappings(new File(
             GestureKeyboard.class.getClassLoader().getResource(MAPPING_FILE)

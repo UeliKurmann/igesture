@@ -29,9 +29,9 @@
 package org.ximtec.igesture.event;
 
 import java.util.HashMap;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import org.ximtec.igesture.core.ResultSet;
 
@@ -44,27 +44,27 @@ import org.ximtec.igesture.core.ResultSet;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class EventManager implements GestureDispatcher {
+public class GestureActionManager implements GestureDispatcher {
 
-   private Queue<ResultSet> eventQueue;
+   private BlockingQueue<ResultSet> gestureQueue;
 
    /**
     * the list of registered events.
     */
-   private HashMap<String, EventHandler> events;
+   private HashMap<String, GestureAction> actions;
 
    /**
     * the event fired if the resultSet is empty
     */
-   private EventHandler rejectEventHandler;
+   private GestureAction rejectAction;
 
 
    /**
     * Constructs a new event manager.
     */
-   public EventManager() {
-      eventQueue = new ConcurrentLinkedQueue<ResultSet>();
-      events = new HashMap<String, EventHandler>();
+   public GestureActionManager() {
+      gestureQueue = new LinkedBlockingQueue<ResultSet>();
+      actions = new HashMap<String, GestureAction>();
       Executors.newSingleThreadExecutor().execute(new Worker());
    }
 
@@ -76,8 +76,8 @@ public class EventManager implements GestureDispatcher {
     *            registered.
     * @param event the event to be registered.
     */
-   public void registerEventHandler(String className, EventHandler event) {
-      events.put(className, event);
+   public void registerEventHandler(String className, GestureAction event) {
+      actions.put(className, event);
    } // registerEventHandler
 
 
@@ -88,7 +88,7 @@ public class EventManager implements GestureDispatcher {
     *            registered.
     */
    public void unRegisterEventHandler(String className) {
-      events.remove(className);
+      actions.remove(className);
    } // registerEventHandler
 
 
@@ -98,8 +98,8 @@ public class EventManager implements GestureDispatcher {
     * 
     * @param rejectEventHandler the event handler to be registered.
     */
-   public void registerRejectEvent(EventHandler rejectEventHandler) {
-      this.rejectEventHandler = rejectEventHandler;
+   public void registerRejectEvent(GestureAction rejectEventHandler) {
+      this.rejectAction = rejectEventHandler;
    } // registerRejectEvent
 
 
@@ -110,7 +110,12 @@ public class EventManager implements GestureDispatcher {
     * @param resultSet the result set to be added to the queue.
     */
    public synchronized void dispatch(ResultSet resultSet) {
-      eventQueue.add(resultSet);
+      try {
+         gestureQueue.put(resultSet);
+      }
+      catch (InterruptedException e) {
+         e.getStackTrace();
+      }
    } // fireEvent
 
    /**
@@ -121,23 +126,27 @@ public class EventManager implements GestureDispatcher {
 
       public void run() {
          while (true) {
-            final ResultSet resultSet = eventQueue.poll();
+            try {
+               final ResultSet resultSet = gestureQueue.take();
 
-            if (resultSet.isEmpty()) {
+               if (resultSet.isEmpty()) {
 
-               if (rejectEventHandler != null) {
-                  rejectEventHandler.run(resultSet);
+                  if (rejectAction != null) {
+                     rejectAction.actionPerformed(resultSet);
+                  }
+
                }
+               else {
+                  GestureAction action;
 
+                  if ((action = actions.get(resultSet.getResult()
+                        .getGestureClassName())) != null) {
+                     action.actionPerformed(resultSet);
+                  }
+               }
             }
-            else {
-               EventHandler eventHandler;
-
-               if ((eventHandler = events.get(resultSet.getResult()
-                     .getGestureClassName())) != null) {
-                  eventHandler.run(resultSet);
-               }
-
+            catch (Exception e) {
+               e.getMessage();
             }
          }
 

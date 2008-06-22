@@ -26,7 +26,7 @@
 package org.ximtec.igesture.geco.mapping;
 
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.event.EventHandler;
+import org.ximtec.igesture.event.GestureAction;
 
 
 
@@ -40,7 +40,7 @@ public class GestureToActionMapping {
    
    protected GestureClass gestureClass = null;
    
-   protected EventHandler action = null;
+   protected GestureAction action = null;
    
    
    /**
@@ -49,7 +49,7 @@ public class GestureToActionMapping {
     * @param gesture the gesture class
     * @param action the action corresponding to the gesture
     */
-   public GestureToActionMapping(GestureClass gesture, EventHandler action) {
+   public GestureToActionMapping(GestureClass gesture, GestureAction action) {
       this.gestureClass = gesture;
       this.action = action;
    }
@@ -81,7 +81,7 @@ public class GestureToActionMapping {
     * 
     * @return the action
     */
-   public EventHandler getAction(){
+   public GestureAction getAction(){
       return action;
    }
    

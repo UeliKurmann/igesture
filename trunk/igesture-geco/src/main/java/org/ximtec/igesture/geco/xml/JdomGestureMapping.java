@@ -29,7 +29,7 @@ package org.ximtec.igesture.geco.xml;
 import org.jdom.Element;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.event.EventHandler;
+import org.ximtec.igesture.event.GestureAction;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.userAction.CommandExecutor;
 import org.ximtec.igesture.geco.userAction.KeyboardSimulation;
@@ -74,7 +74,7 @@ public class JdomGestureMapping extends Element {
    @SuppressWarnings("unchecked")
    public static Object unmarshal(Element gestureMappingElement) {
       GestureClass gc = gestureSet.getGestureClass(gestureMappingElement.getChildText(GESTURE));
-      EventHandler action = null;
+      GestureAction action = null;
       if (gestureMappingElement.getChild(KEY)!=null){
          action = new KeyboardSimulation(gestureMappingElement.getChildText(KEY));
       }  

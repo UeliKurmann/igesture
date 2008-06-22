@@ -31,7 +31,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.event.EventHandler;
+import org.ximtec.igesture.event.GestureAction;
 
 
 /**
@@ -41,7 +41,7 @@ import org.ximtec.igesture.event.EventHandler;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class CloseApplication implements EventHandler {
+public class CloseApplication implements GestureAction {
 
    private static final Logger LOGGER = Logger.getLogger(CloseApplication.class
          .getName());
@@ -61,7 +61,7 @@ public class CloseApplication implements EventHandler {
    } // getName
 
 
-   public void run(ResultSet resultSet) {
+   public void actionPerformed(ResultSet resultSet) {
       LOGGER.log(Level.INFO, SHUTTING_DOWN);
       System.exit(0);
    } // run
