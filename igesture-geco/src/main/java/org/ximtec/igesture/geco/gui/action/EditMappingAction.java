@@ -28,10 +28,10 @@ package org.ximtec.igesture.geco.gui.action;
 import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.geco.Geco;
-import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
+import org.ximtec.igesture.geco.util.Constant;
+import org.ximtec.igesture.geco.util.GuiBundleTool;
 
 
 /**
@@ -47,7 +47,7 @@ public class EditMappingAction extends BasicAction {
 
 
    public EditMappingAction(MainView mainView) {
-      super(Constant.EDIT, Geco.getGuiBundle());
+      super(Constant.EDIT, GuiBundleTool.getBundle());
       this.mainView = mainView;
    }
 

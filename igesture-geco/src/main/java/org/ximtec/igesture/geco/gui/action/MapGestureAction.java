@@ -30,8 +30,8 @@ import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.MainView;
+import org.ximtec.igesture.geco.util.GuiBundleTool;
 
 
 /**
@@ -53,7 +53,7 @@ public class MapGestureAction extends BasicAction {
 
 
    public MapGestureAction(MainView mainView) {
-      super(KEY, Geco.getGuiBundle());
+      super(KEY, GuiBundleTool.getBundle());
       this.mainView = mainView;
    }
 

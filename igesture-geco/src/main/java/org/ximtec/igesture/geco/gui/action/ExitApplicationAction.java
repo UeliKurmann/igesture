@@ -32,9 +32,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.geco.Geco;
-import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
+import org.ximtec.igesture.geco.util.Constant;
+import org.ximtec.igesture.geco.util.GuiBundleTool;
 import org.ximtec.igesture.geco.util.SystemTray;
 
 
@@ -57,7 +57,7 @@ public class ExitApplicationAction extends BasicAction {
 
 
    public ExitApplicationAction(MainView mainView) {
-      super(KEY, Geco.getGuiBundle());
+      super(KEY, GuiBundleTool.getBundle());
       this.mainView = mainView;
    }
 

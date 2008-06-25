@@ -38,64 +38,67 @@ import javax.swing.JTextPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
+import org.ximtec.igesture.geco.util.Constant;
 
 
 /**
- *  View for the defined command
+ * View for the defined command
  * @version 0.9, Dec 11, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public class CommandView extends JPanel{
+public class CommandView extends JPanel {
 
-   
-   //GUI elements
+   // GUI elements
    private JTextPane textField;
 
 
-   public CommandView(){
+   public CommandView() {
       populateView();
 
       initView();
    }
-   
-   public String getCommand(){
+
+
+   public String getCommand() {
       return textField.getText();
    }
-   
-   
+
+
    /**
     * Update the view
     * 
     * @command the current command
     */
-   public void updateView(String command){
+   public void updateView(String command) {
       textField.setText(command);
    }
-   
-   
+
+
    /**
     * Reset the view.
     */
-   public void initView(){
+   public void initView() {
       textField.setText(Constant.EMPTY_STRING);
    }
 
-   
-   private void populateView(){
+
+   private void populateView() {
       this.setLayout(new GridBagLayout());
       JPanel aPanel = new JPanel();
       aPanel.setLayout(new GridLayout());
-      aPanel.setBorder(new TitledBorder(new BevelBorder(0,Color.gray,Color.gray), Constant.COMMAND));
+      aPanel.setBorder(new TitledBorder(new BevelBorder(0, Color.gray,
+            Color.gray), Constant.COMMAND));
       textField = new JTextPane();
       JScrollPane scrollPane = new JScrollPane();
       scrollPane.getViewport().add(textField);
-      textField.setMaximumSize(new Dimension(300,200));
-      textField.setBorder(new BevelBorder(0,Color.gray,Color.gray));
+      textField.setMaximumSize(new Dimension(300, 200));
+      textField.setBorder(new BevelBorder(0, Color.gray, Color.gray));
       aPanel.add(scrollPane);
-      
-      this.add(aPanel, new GridBagConstraints(0,0,1,1,1.0,1.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(40,20,40,20),0,0 ) );
+
+      this.add(aPanel, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0,
+            GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(40,
+                  20, 40, 20), 0, 0));
 
    }
-   
+
 }

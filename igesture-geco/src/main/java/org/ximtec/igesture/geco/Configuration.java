@@ -157,7 +157,7 @@ public class Configuration {
     * 
     */
    @SuppressWarnings("unchecked")
-   public String getLastProject() {
+   public String getMostRecentProject() {
       List<String> list = configuration.getList(LAST_PROJECT);
       if (!list.isEmpty()) {
          return list.get(0);

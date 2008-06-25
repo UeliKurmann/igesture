@@ -49,14 +49,14 @@ import javax.swing.border.TitledBorder;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.CommandView;
-import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.HotKeyView;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.userAction.CommandExecutor;
 import org.ximtec.igesture.geco.userAction.KeyboardSimulation;
+import org.ximtec.igesture.geco.util.Constant;
+import org.ximtec.igesture.geco.util.GuiBundleTool;
 
 
 /**
@@ -76,7 +76,8 @@ public class MappingDialog extends BasicDialog {
    private JTabbedPane tabbedPane = new JTabbedPane();
    private JLabel gestureLabel = new JLabel();
    private JButton addButton;
-   private JTextField textField = GuiTool.createTextField(Constant.EMPTY_STRING, Geco.getGuiBundle());
+   private JTextField textField = GuiTool.createTextField(Constant.EMPTY_STRING,
+         GuiBundleTool.getBundle());
    private int DIALOG_WIDTH = 450;
    private int DIALOG_HEIGHT = 500;
 
@@ -160,7 +161,8 @@ public class MappingDialog extends BasicDialog {
     */
    private void initDialog() {
       this.setResizable(false);
-      this.setTitle(Geco.getGuiBundle().getName(Constant.GESTURE_MAPPING_TITLE));
+      this.setTitle(GuiBundleTool.getBundle().getName(
+            Constant.GESTURE_MAPPING_TITLE));
       this.setLayout(new GridBagLayout());
       this.add(tabbedPane, new GridBagConstraints(0, 1, 1, 1, 1, 1,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(20,
@@ -196,9 +198,9 @@ public class MappingDialog extends BasicDialog {
     */
    private void addButtonPanel() {
       JPanel buttonPanel = new JPanel();
-      addButton = GuiTool.createButton(Constant.ADD, Geco.getGuiBundle());
-      JButton cancelButton = GuiTool.createButton(Constant.CANCEL, Geco
-            .getGuiBundle());
+      addButton = GuiTool.createButton(Constant.ADD, GuiBundleTool.getBundle());
+      JButton cancelButton = GuiTool.createButton(Constant.CANCEL, GuiBundleTool
+            .getBundle());
       addButton.addActionListener(new ActionListener() {
 
          public void actionPerformed(ActionEvent event) {
@@ -270,8 +272,8 @@ public class MappingDialog extends BasicDialog {
       aPanel.setLayout(new GridBagLayout());
       tabbedPane.addTab(Constant.OPEN_FILE, aPanel);
       tabbedPane.setMnemonicAt(OPEN_FILE, KeyEvent.VK_3);
-      JButton browse = GuiTool
-            .createButton(Constant.BROWSE, Geco.getGuiBundle());
+      JButton browse = GuiTool.createButton(Constant.BROWSE, GuiBundleTool
+            .getBundle());
 
       browse.addActionListener(
 

@@ -55,11 +55,11 @@ import org.sigtec.graphix.widget.BasicTextField;
 import org.sigtec.util.MIME;
 import org.sigtec.util.ResourceTool;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.geco.Geco;
-import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainModel;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.gui.action.SaveProjectAction;
+import org.ximtec.igesture.geco.util.Constant;
+import org.ximtec.igesture.geco.util.GuiBundleTool;
 import org.ximtec.igesture.util.XMLTool;
 
 
@@ -86,7 +86,7 @@ public class NewProjectDialog extends BasicDialog {
 
 
    public NewProjectDialog(MainView view) {
-      super(KEY, Geco.getGuiBundle());
+      super(KEY, GuiBundleTool.getBundle());
       this.view = view;
       setModal(true);
       init();
@@ -100,34 +100,35 @@ public class NewProjectDialog extends BasicDialog {
       try {
          filePath = new File(ClassLoader.getSystemResource(
                ResourceTool.getProperty(Constant.SETTINGS,
-                     Constant.SETTINGS_ATTRIBUTE_MAPPINGS, Geco.getGuiBundle()))
-               .toURI()).getPath()
+                     Constant.SETTINGS_ATTRIBUTE_MAPPINGS, GuiBundleTool
+                           .getBundle())).toURI()).getPath()
                + Constant.BACKSLASH;
          ;
       }
       catch (URISyntaxException e) {
          filePath = new File(ClassLoader.getSystemResource(
                ResourceTool.getProperty(Constant.SETTINGS,
-                     Constant.SETTINGS_ATTRIBUTE_MAPPINGS, Geco.getGuiBundle()))
-               .getPath()).getPath()
+                     Constant.SETTINGS_ATTRIBUTE_MAPPINGS, GuiBundleTool
+                           .getBundle())).getPath()).getPath()
                + Constant.BACKSLASH;
          ;
       }
 
       JPanel mainPanel = new JPanel();
       mainPanel.setBorder(new TitledBorder(new BevelBorder(0, Color.gray,
-            Color.gray), Geco.getGuiBundle().getName(
+            Color.gray), GuiBundleTool.getBundle().getName(
             Constant.PROJECT_PROPERTIES_STRING)));
       mainPanel.setLayout(new GridBagLayout());
       setLayout(new GridBagLayout());
       Point p = new Point(view.getLocation().x + 50, view.getLocation().y + 100);
       setLocation(p);
-      mainPanel.add(new BasicLabel(Constant.PROJECT_NAME, Geco.getGuiBundle()),
-            new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER,
-                  GridBagConstraints.NONE, new Insets(10, 10, 10, 10), 0, 0));
+      mainPanel.add(new BasicLabel(Constant.PROJECT_NAME, GuiBundleTool
+            .getBundle()), new GridBagConstraints(0, 0, 1, 1, 0, 0,
+            GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(10,
+                  10, 10, 10), 0, 0));
 
       projectTextField = new BasicTextField(
-            Constant.PROJECT_PROPERTIES_TEXT_FIELD, Geco.getGuiBundle());
+            Constant.PROJECT_PROPERTIES_TEXT_FIELD, GuiBundleTool.getBundle());
       projectTextField.getDocument().addDocumentListener(
             new MyDocumentListener());
       projectTextField.addKeyListener(new MyKeyListener());
@@ -136,32 +137,28 @@ public class NewProjectDialog extends BasicDialog {
             GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
             new Insets(10, 10, 10, 10), 0, 0));
 
-      mainPanel.add(new BasicLabel(Constant.PROJECT_LOCATION, Geco
-            .getGuiBundle()), new GridBagConstraints(0, 1, 1, 1, 0, 0,
+      mainPanel.add(new BasicLabel(Constant.PROJECT_LOCATION, GuiBundleTool
+            .getBundle()), new GridBagConstraints(0, 1, 1, 1, 0, 0,
             GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(10,
                   10, 10, 10), 0, 0));
 
-      fileTextField = new BasicTextField(Constant.PROJECT_FILE_TEXT_FIELD, Geco
-            .getGuiBundle());
+      fileTextField = new BasicTextField(Constant.PROJECT_FILE_TEXT_FIELD, GuiBundleTool.getBundle());
       fileTextField.setEditable(false);
       fileTextField.setText(filePath);
       mainPanel.add(fileTextField, new GridBagConstraints(1, 1, 1, 1, 1, 1,
             GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
             new Insets(10, 10, 10, 10), 0, 0));
 
-      JButton browseButton = GuiTool.createButton(Constant.BROWSE, Geco
-            .getGuiBundle());
+      JButton browseButton = GuiTool.createButton(Constant.BROWSE, GuiBundleTool.getBundle());
       browseButton.addActionListener(new BrowseListener());
       mainPanel.add(browseButton, new GridBagConstraints(2, 1, 1, 1, 0, 0,
             GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(10,
                   10, 10, 10), 0, 0));
 
-      createButton = GuiTool.createButton(Constant.CREATE_PROJECT_BUTTON, Geco
-            .getGuiBundle());
+      createButton = GuiTool.createButton(Constant.CREATE_PROJECT_BUTTON, GuiBundleTool.getBundle());
       createButton.setEnabled(false);
       createButton.addActionListener(new CreateListener());
-      JButton cancelButton = GuiTool.createButton(Constant.CANCEL, Geco
-            .getGuiBundle());
+      JButton cancelButton = GuiTool.createButton(Constant.CANCEL, GuiBundleTool.getBundle());
       cancelButton.addActionListener(new CancelListener());
 
       JPanel buttonPanel = new JPanel();

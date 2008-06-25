@@ -41,8 +41,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.sigtec.graphix.GuiTool;
-import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.dialog.MappingDialog;
+import org.ximtec.igesture.geco.util.Constant;
+import org.ximtec.igesture.geco.util.GuiBundleTool;
 
 
 /**
@@ -311,7 +312,8 @@ public class HotKeyView extends JPanel {
             GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
             new Insets(0, 0, 0, 20), 0, 0));
 
-      buttonLabel = GuiTool.createTextField("buttonTextField", Geco.getGuiBundle());
+      buttonLabel = GuiTool.createTextField("buttonTextField", GuiBundleTool
+            .getBundle());
       buttonLabel.setEditable(false);
       buttonLabel.setBackground(Color.WHITE);
 
