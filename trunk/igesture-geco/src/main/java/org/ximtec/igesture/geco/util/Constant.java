@@ -3,7 +3,7 @@
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *
- * Purpose      :   Constants for the gesture mapping GUI application.
+ * Purpose      :   Some constants for the geco application.
  *
  * -----------------------------------------------------------------------
  *
@@ -24,10 +24,10 @@
  */
 
 
-package org.ximtec.igesture.geco.gui;
+package org.ximtec.igesture.geco.util;
 
 /**
- * Constants for the gesture mapping GUI application.
+ * Some constants for the geco application.
  * 
  * @version 0.9, Nov 15, 2007
  * @author Michele Croci, mcroci@gmail.com
@@ -36,27 +36,25 @@ package org.ximtec.igesture.geco.gui;
 public class Constant extends org.sigtec.util.Constant {
 
    public static final String PROJECT_PROPERTIES_TEXT_FIELD = "ProjectPropertiesTextField";
-   
+
    public static final String PROJECT_PROPERTIES_STRING = "ProjectPropertiesString";
-   
+
    public static final String CLOSE_ABOUT_BUTTON = "CloseAboutButton";
    public static final String CREATE_PROJECT_BUTTON = "CreateProjectButton";
-   
+
    public static final String HELP_MENU = "HelpMenu";
-   
+
    public static final String SHOW_APPLICATION_MENU_ITEM = "ShowApplicationMenuItem";
-   
+
    public static final String SETTINGS = "Settings";
-   
+
    public static final String SETTINGS_ATTRIBUTE_MAPPINGS = "MappingsLocation";
-   
-   
+
    /*
     * GUI
     */
 
-   //public static final String GECO_TITLE = "Geco";
-
+   // public static final String GECO_TITLE = "Geco";
    public static final String FILE_MENU = "FileMenu";
 
    public static final String GESTURE_MAPPING_TITLE = "GestureMappingTitle";
@@ -99,8 +97,6 @@ public class Constant extends org.sigtec.util.Constant {
     * Commands
     */
 
-
-
    public static final String SAVE = "SAVE";
 
    public static final String ADD = "ADD";
@@ -112,10 +108,5 @@ public class Constant extends org.sigtec.util.Constant {
    public static final String EDIT = "EDIT";
 
    public static final String BROWSE = "BROWSE";
-
-
-
-
-
 
 }

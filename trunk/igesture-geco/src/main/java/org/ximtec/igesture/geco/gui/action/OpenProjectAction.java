@@ -39,10 +39,11 @@ import org.sigtec.util.MIME;
 import org.sigtec.util.ResourceTool;
 import org.ximtec.igesture.geco.Configuration;
 import org.ximtec.igesture.geco.Geco;
-import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
+import org.ximtec.igesture.geco.util.Constant;
 import org.ximtec.igesture.geco.util.ExtensionFileFilter;
+import org.ximtec.igesture.geco.util.GuiBundleTool;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 import org.ximtec.igesture.geco.xml.XMLImportGeco;
 
@@ -65,7 +66,7 @@ public class OpenProjectAction extends BasicAction {
 
 
    public OpenProjectAction(MainView mainView) {
-      super(KEY, Geco.getGuiBundle());
+      super(KEY, GuiBundleTool.getBundle());
       this.mainView = mainView;
    }
 
@@ -97,16 +98,16 @@ public class OpenProjectAction extends BasicAction {
       try {
          filePath = new File(ClassLoader.getSystemResource(
                ResourceTool.getProperty(Constant.SETTINGS,
-                     Constant.SETTINGS_ATTRIBUTE_MAPPINGS, Geco.getGuiBundle()))
-               .toURI()).getPath()
+                     Constant.SETTINGS_ATTRIBUTE_MAPPINGS, GuiBundleTool
+                           .getBundle())).toURI()).getPath()
                + Constant.BACKSLASH;
          ;
       }
       catch (URISyntaxException e) {
          filePath = new File(ClassLoader.getSystemResource(
                ResourceTool.getProperty(Constant.SETTINGS,
-                     Constant.SETTINGS_ATTRIBUTE_MAPPINGS, Geco.getGuiBundle()))
-               .getPath()).getPath()
+                     Constant.SETTINGS_ATTRIBUTE_MAPPINGS, GuiBundleTool
+                           .getBundle())).getPath()).getPath()
                + Constant.BACKSLASH;
          ;
       }

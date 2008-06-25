@@ -35,12 +35,12 @@ import javax.swing.JOptionPane;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainModel;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.userAction.CommandExecutor;
 import org.ximtec.igesture.geco.userAction.KeyboardSimulation;
+import org.ximtec.igesture.geco.util.Constant;
 import org.ximtec.igesture.util.XMLTool;
 
 

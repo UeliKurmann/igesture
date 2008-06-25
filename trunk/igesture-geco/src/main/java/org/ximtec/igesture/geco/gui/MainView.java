@@ -56,13 +56,13 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.sigtec.graphix.GuiTool;
-import org.sigtec.graphix.IconTool;
-import org.sigtec.util.Decorator;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.action.ActionHandler;
 import org.ximtec.igesture.geco.gui.action.MinimizeAction;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
+import org.ximtec.igesture.geco.util.Constant;
+import org.ximtec.igesture.geco.util.GuiBundleTool;
 import org.ximtec.igesture.graphics.ScrollableList;
 import org.ximtec.igesture.graphics.SwingTool;
 
@@ -135,9 +135,10 @@ public class MainView extends JFrame implements WindowListener {
       this.getContentPane().setLayout(gbl);
       setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
       setLocation(150, 100);
-      this.setTitle(Geco.getGuiBundle().getName(Geco.KEY));
-      Geco.getGuiBundle().getSmallIcon(Geco.KEY);
-      setIconImage(Geco.getGuiBundle().getSmallIcon(Geco.KEY).getImage());
+      this.setTitle(GuiBundleTool.getBundle().getName(GuiBundleTool.KEY));
+      GuiBundleTool.getBundle().getSmallIcon(GuiBundleTool.KEY);
+      setIconImage(GuiBundleTool.getBundle().getSmallIcon(GuiBundleTool.KEY)
+            .getImage());
 
       this.getContentPane().add(
             contentPanel,
@@ -153,7 +154,7 @@ public class MainView extends JFrame implements WindowListener {
     * Initialises the view for a project
     */
    public void initProjectView(String projectName) {
-      setTitle(Geco.getGuiBundle().getName(Geco.KEY)
+      setTitle(GuiBundleTool.getBundle().getName(GuiBundleTool.KEY)
             + org.sigtec.util.Constant.DASH_S + projectName);
 
       if (!initialized) {
@@ -300,7 +301,7 @@ public class MainView extends JFrame implements WindowListener {
 
 
    private JMenu createFileMenu() {
-      JMenu menu = GuiTool.createMenu(Constant.FILE_MENU, Geco.getGuiBundle());
+      JMenu menu = GuiTool.createMenu(Constant.FILE_MENU, GuiBundleTool.getBundle());
       menu.add(new JMenuItem(handler.getNewProjectAction()));
       menu.add(new JMenuItem(handler.getOpenProjectAction()));
       saveMenuItem = new JMenuItem(handler.getSaveProjectAction());
@@ -316,7 +317,7 @@ public class MainView extends JFrame implements WindowListener {
 
 
    private JMenu createInfoMenu() {
-      JMenu menu = GuiTool.createMenu(Constant.HELP_MENU, Geco.getGuiBundle());
+      JMenu menu = GuiTool.createMenu(Constant.HELP_MENU, GuiBundleTool.getBundle());
       menu.add(new JMenuItem(handler.getAboutAction()));
       return menu;
    } // createInfoMenu

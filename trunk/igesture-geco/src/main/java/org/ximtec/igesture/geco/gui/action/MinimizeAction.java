@@ -30,8 +30,8 @@ package org.ximtec.igesture.geco.gui.action;
 import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.MainView;
+import org.ximtec.igesture.geco.util.GuiBundleTool;
 
 
 /**
@@ -53,7 +53,7 @@ public class MinimizeAction extends BasicAction {
 
 
    public MinimizeAction(MainView mainView) {
-      super(KEY, Geco.getGuiBundle());
+      super(KEY, GuiBundleTool.getBundle());
       this.mainView = mainView;
    }
 

@@ -32,8 +32,6 @@ import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 
-import org.sigtec.graphix.GuiBundle;
-import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.SplashScreen;
 import org.sigtec.util.Constant;
 import org.sigtec.util.FileHandler;
@@ -53,19 +51,12 @@ import org.ximtec.igesture.util.XMLTool;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class Geco {
-
-   /**
-    * The key used to retrieve information from the resource bundle.
-    */
-   public static final String KEY = "Geco";
-
+   
    private static final Logger LOGGER = Logger.getLogger(Geco.class.getName());
 
    public static final String GECO_CONFIGURATION = "config/geco.xml";
 
    private static final String DEFAULT_PROJECT = "mappings/defaultMappings.xml";
-
-   private static final String GUI_BUNDLE_FILE = "geco";
 
    private static final String GECO_LOGO = "images/gecoLogo.png";
 
@@ -74,8 +65,6 @@ public class Geco {
    private static final String INITIALISED = "Initialised.";
 
    private static final String RUBINE_CONFIGURATION = "config/rubineconfiguration.xml";
-
-   public static final String LAST_PROJECT_FILE = "lastProject.txt";
 
    public static final String CONFIG = "config";
 
@@ -91,7 +80,6 @@ public class Geco {
             GECO_LOGO));
       SplashScreen splashScreen = new SplashScreen(logo, false, 4000);
       splashScreen.splash();
-      GuiTool.addBundle(KEY, GUI_BUNDLE_FILE);
       Logger.getAnonymousLogger().setLevel(Level.INFO);
       LOGGER.info(INITIALISING);
 
@@ -113,9 +101,7 @@ public class Geco {
    }
 
 
-   public static final GuiBundle getGuiBundle() {
-      return GuiTool.getBundle(KEY);
-   } // getGuiBundle
+
 
 
    /**
@@ -137,7 +123,7 @@ public class Geco {
    public void openMostRecentProject() {
       File file = null;
       String filename = view.getModel().getGestureConfiguration()
-            .getLastProject();
+            .getMostRecentProject();
 
       if ((filename == null) || (filename.equals(Constant.EMPTY_STRING))) {
          file = FileHandler.getResource(DEFAULT_PROJECT);

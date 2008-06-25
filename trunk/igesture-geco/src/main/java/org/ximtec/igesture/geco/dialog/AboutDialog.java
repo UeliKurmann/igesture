@@ -42,8 +42,8 @@ import javax.swing.plaf.basic.BasicHTML;
 import org.sigtec.graphix.GuiBundle;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicDialog;
-import org.ximtec.igesture.geco.Geco;
-import org.ximtec.igesture.geco.gui.Constant;
+import org.ximtec.igesture.geco.util.Constant;
+import org.ximtec.igesture.geco.util.GuiBundleTool;
 import org.ximtec.igesture.graphics.SwingTool;
 
 
@@ -119,8 +119,7 @@ public class AboutDialog extends BasicDialog {
          LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
 
-      JButton okButton = GuiTool.createButton(Constant.CLOSE_ABOUT_BUTTON, Geco
-            .getGuiBundle());
+      JButton okButton = GuiTool.createButton(Constant.CLOSE_ABOUT_BUTTON, GuiBundleTool.getBundle());
       okButton.addMouseListener(new MouseAdapter() {
 
          @Override

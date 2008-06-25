@@ -50,8 +50,9 @@ import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.ximtec.igesture.geco.Configuration;
 import org.ximtec.igesture.geco.Geco;
-import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
+import org.ximtec.igesture.geco.util.Constant;
+import org.ximtec.igesture.geco.util.GuiBundleTool;
 import org.ximtec.igesture.geco.xml.XMLGeco;
 
 
@@ -80,7 +81,7 @@ public class OptionsDialog extends BasicDialog {
 
 
    public OptionsDialog(MainView view) {
-      super(OPTIONS_DIALOG_KEY, Geco.getGuiBundle());
+      super(OPTIONS_DIALOG_KEY, GuiBundleTool.getBundle());
       this.view = view;
       setModal(true);
       init();
@@ -102,11 +103,11 @@ public class OptionsDialog extends BasicDialog {
             GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(30,
                   30, 30, 15), 0, 0));
 
-      JButton saveButton = GuiTool.createButton(Constant.SAVE, Geco
-            .getGuiBundle());
+      JButton saveButton = GuiTool.createButton(Constant.SAVE, GuiBundleTool
+            .getBundle());
       saveButton.addActionListener(new OkListener());
-      JButton cancelButton = GuiTool.createButton(Constant.CANCEL, Geco
-            .getGuiBundle());
+      JButton cancelButton = GuiTool.createButton(Constant.CANCEL, GuiBundleTool
+            .getBundle());
       cancelButton.addActionListener(new CancelListener());
 
       JPanel buttonPanel = new JPanel();

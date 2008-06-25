@@ -40,7 +40,6 @@ import java.awt.event.MouseListener;
 
 import org.sigtec.graphix.GuiTool;
 import org.ximtec.igesture.geco.Geco;
-import org.ximtec.igesture.geco.gui.Constant;
 import org.ximtec.igesture.geco.gui.MainView;
 
 
@@ -68,10 +67,11 @@ public class SystemTray {
    public void addIconToTray() {
       if (java.awt.SystemTray.isSupported()) {
          tray = java.awt.SystemTray.getSystemTray();
-         image = Geco.getGuiBundle().getSmallIcon(Geco.KEY).getImage();
+         image = GuiBundleTool.getBundle().getSmallIcon(GuiBundleTool.KEY)
+               .getImage();
          popup = new PopupMenu();
-         trayIcon = new TrayIcon(image, Geco.getGuiBundle().getShortDescription(
-               Geco.KEY), popup);
+         trayIcon = new TrayIcon(image, GuiBundleTool.getBundle()
+               .getShortDescription(GuiBundleTool.KEY), popup);
          MenuItem exitItem = new MenuItem(Constant.EXIT);
          exitItem.addActionListener(new ActionListener() {
 
@@ -83,7 +83,7 @@ public class SystemTray {
          exitItem.addActionListener(mainView.getActionHandler()
                .getExitApplicationAction());
          popup.add(exitItem);
-         MenuItem showItem = new MenuItem(Geco.getGuiBundle().getName(
+         MenuItem showItem = new MenuItem(GuiBundleTool.getBundle().getName(
                Constant.SHOW_APPLICATION_MENU_ITEM));
          showItem.addActionListener(new ActionListener() {
 

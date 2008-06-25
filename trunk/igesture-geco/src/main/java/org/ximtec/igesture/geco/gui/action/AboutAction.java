@@ -29,8 +29,8 @@ package org.ximtec.igesture.geco.gui.action;
 import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.dialog.AboutDialog;
+import org.ximtec.igesture.geco.util.GuiBundleTool;
 
 
 /**
@@ -51,8 +51,8 @@ public class AboutAction extends BasicAction {
 
 
    public AboutAction() {
-      super(KEY, Geco.getGuiBundle());
-      dialog = new AboutDialog(AboutDialog.KEY, Geco.getGuiBundle());
+      super(KEY, GuiBundleTool.getBundle());
+      dialog = new AboutDialog(AboutDialog.KEY, GuiBundleTool.getBundle());
    }
 
 
