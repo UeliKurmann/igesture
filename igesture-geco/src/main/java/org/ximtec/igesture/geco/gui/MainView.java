@@ -57,7 +57,6 @@ import javax.swing.event.ListSelectionListener;
 
 import org.sigtec.graphix.GuiTool;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.action.ActionHandler;
 import org.ximtec.igesture.geco.gui.action.MinimizeAction;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
@@ -307,7 +306,7 @@ public class MainView extends JFrame implements WindowListener {
       saveMenuItem = new JMenuItem(handler.getSaveProjectAction());
       saveMenuItem.setEnabled(false);
       menu.add(saveMenuItem);
-      menu.add(new JMenuItem(handler.getSaveAsAction()));
+      menu.add(new JMenuItem(handler.getSaveProjectAsAction()));
       menu.addSeparator();
       menu.add(new JMenuItem(handler.getOptionsAction()));
       menu.addSeparator();

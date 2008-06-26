@@ -29,7 +29,6 @@ package org.ximtec.igesture.geco.xml;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.sigtec.jdom.JdomDocument;
 import org.sigtec.util.FileHandler;
@@ -44,9 +43,6 @@ import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
  * @author Michele Croci, mcroci@gmail.com
  */
 public class XMLGeco {
-
-   private static final Logger LOGGER = Logger
-         .getLogger(XMLGeco.class.getName());
 
    public static final String ROOT_TAG = "gestureMappings";
 

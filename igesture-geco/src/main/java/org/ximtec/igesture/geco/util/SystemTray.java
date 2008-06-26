@@ -38,8 +38,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import org.sigtec.graphix.GuiTool;
-import org.ximtec.igesture.geco.Geco;
 import org.ximtec.igesture.geco.gui.MainView;
 
 

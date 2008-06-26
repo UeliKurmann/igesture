@@ -35,6 +35,12 @@ package org.ximtec.igesture.geco.util;
  */
 public class Constant extends org.sigtec.util.Constant {
 
+   public static final String INITIALISING = GuiBundleTool.getBundle()
+         .getString("StringInitialising");
+
+   public static final String INITIALISED = GuiBundleTool.getBundle().getString(
+         "StringInitialised");
+
    public static final String PROJECT_PROPERTIES_TEXT_FIELD = "ProjectPropertiesTextField";
 
    public static final String PROJECT_PROPERTIES_STRING = "ProjectPropertiesString";

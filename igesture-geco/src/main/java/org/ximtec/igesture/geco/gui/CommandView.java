@@ -48,14 +48,12 @@ import org.ximtec.igesture.geco.util.Constant;
  */
 public class CommandView extends JPanel {
 
-   // GUI elements
    private JTextPane textField;
 
 
    public CommandView() {
-      populateView();
-
-      initView();
+      populate();
+      init();
    }
 
 
@@ -77,12 +75,12 @@ public class CommandView extends JPanel {
    /**
     * Reset the view.
     */
-   public void initView() {
+   public void init() {
       textField.setText(Constant.EMPTY_STRING);
    }
 
 
-   private void populateView() {
+   private void populate() {
       this.setLayout(new GridBagLayout());
       JPanel aPanel = new JPanel();
       aPanel.setLayout(new GridLayout());
@@ -98,7 +96,6 @@ public class CommandView extends JPanel {
       this.add(aPanel, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(40,
                   20, 40, 20), 0, 0));
-
    }
 
 }

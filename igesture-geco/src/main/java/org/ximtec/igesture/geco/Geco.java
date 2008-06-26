@@ -33,12 +33,12 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 import org.sigtec.graphix.SplashScreen;
-import org.sigtec.util.Constant;
 import org.sigtec.util.FileHandler;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.geco.gui.MainModel;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.gui.action.OpenProjectAction;
+import org.ximtec.igesture.geco.util.Constant;
 import org.ximtec.igesture.geco.util.SystemTray;
 import org.ximtec.igesture.util.XMLTool;
 
@@ -51,7 +51,7 @@ import org.ximtec.igesture.util.XMLTool;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class Geco {
-   
+
    private static final Logger LOGGER = Logger.getLogger(Geco.class.getName());
 
    public static final String GECO_CONFIGURATION = "config/geco.xml";
@@ -59,10 +59,6 @@ public class Geco {
    private static final String DEFAULT_PROJECT = "mappings/defaultMappings.xml";
 
    private static final String GECO_LOGO = "images/gecoLogo.png";
-
-   private static final String INITIALISING = "Initialising...";
-
-   private static final String INITIALISED = "Initialised.";
 
    private static final String RUBINE_CONFIGURATION = "config/rubineconfiguration.xml";
 
@@ -81,7 +77,7 @@ public class Geco {
       SplashScreen splashScreen = new SplashScreen(logo, false, 4000);
       splashScreen.splash();
       Logger.getAnonymousLogger().setLevel(Level.INFO);
-      LOGGER.info(INITIALISING);
+      LOGGER.info(Constant.INITIALISING);
 
       if (args.length > 0) {
          gecoConfiguration = new Configuration(args[0]);
@@ -97,11 +93,8 @@ public class Geco {
       // open last opened Document
       openMostRecentProject();
       new SystemTray(view);
-      LOGGER.info(INITIALISED);
+      LOGGER.info(Constant.INITIALISED);
    }
-
-
-
 
 
    /**

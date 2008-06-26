@@ -72,8 +72,8 @@ public class OptionsDialog extends BasicDialog {
    private int INPUTDEVICE = 0;
    private int STARTUP = 0;
 
-   private Hashtable hashTable = new Hashtable();
-   private String selectedDeviceName;
+   private Hashtable<String, JRadioButton> buttons = new Hashtable<String, JRadioButton>();
+   private String selectedDevice;
    private ButtonGroup group = new ButtonGroup();
    private JCheckBox startupBox = new JCheckBox(Constant.MINIMIZE_STARTUP);
    // GUI elements
@@ -135,9 +135,8 @@ public class OptionsDialog extends BasicDialog {
     */
    public void reset() {
       configuration = view.getModel().getGestureConfiguration();
-      selectedDeviceName = configuration.getInputDeviceName();
-      JRadioButton button = (JRadioButton)hashTable.get(configuration
-            .getInputDeviceName());
+      selectedDevice = configuration.getInputDeviceName();
+      JRadioButton button = buttons.get(configuration.getInputDeviceName());
       button.setSelected(true);
       startupBox.setSelected(configuration.getMinimize());
    }// reset
@@ -165,7 +164,7 @@ public class OptionsDialog extends BasicDialog {
          radioButtonPanel.add(button, new GridBagConstraints(0, i, 1, 1, 1, 0,
                GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(
                      50, 0, 0, 50), 0, 0));
-         hashTable.put(devices.get(i), button);
+         buttons.put(devices.get(i), button);
 
       }
 
