@@ -214,7 +214,7 @@ public class HotKeyView extends JPanel {
          if (!text.equals(Constant.EMPTY_STRING))
             text = "+" + text;
 
-         text = e.getKeyText(e.getKeyCode()).toUpperCase() + text;
+         text = KeyEvent.getKeyText(e.getKeyCode()).toUpperCase() + text;
 
          if (!e.isAltDown() && !e.isShiftDown() && !e.isControlDown())
             notLastKey = false;

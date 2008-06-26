@@ -3,7 +3,7 @@
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
- * Purpose		:  Provides access to available actions. Each action is
+ * Purpose		:   Provides access to available actions. Each action is
  *                  instantiated only once.
  *
  * -----------------------------------------------------------------------
@@ -13,6 +13,7 @@
  * Date				Who			Reason
  *
  * Nov 22, 2007	    crocimi		Initial Release
+ * Jun 26, 2008     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -35,23 +36,24 @@ import org.ximtec.igesture.geco.gui.MainView;
  * Provides access to available actions. Each action is instantiated only once.
  * @version 0.9, Nov 22, 2007
  * @author Michele Croci, mcroci@gmail.com
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class ActionHandler {
 
    private MainView view;
 
-   private OpenProjectAction openGestureMapAction;
+   private AboutAction aboutAction;
+   private AddMappingAction addMappingAction;
+   private EditMappingAction editMappingAction;
    private ExitApplicationAction exitApplicationAction;
    private LoadGestureSetAction loadGestureSetAction;
-   private MapGestureAction showMappingDialogAction;
+   private MinimizeAction minimizeAction;
    private NewProjectAction newProjectAction;
-   private EditMappingAction editMappingAction;
+   private OpenProjectAction openGestureMapAction;
+   private OptionsAction optionsAction;
    private RemoveMappingAction removeMappingAction;
    private SaveProjectAction saveProjectAction;
-   private MinimizeAction minimizeAction;
-   private AboutAction aboutAction;
-   private OptionsAction optionsAction;
-   private SaveProjectAsAction saveAsAction;
+   private SaveProjectAsAction saveProjectAsAction;
 
 
    public ActionHandler(MainView view) {
@@ -59,13 +61,31 @@ public class ActionHandler {
    } // GecoActionHandler
 
 
-   public Action getOpenProjectAction() {
-      if (openGestureMapAction == null) {
-         openGestureMapAction = new OpenProjectAction(view);
+   public Action getAboutAction() {
+      if (aboutAction == null) {
+         aboutAction = new AboutAction();
       }
 
-      return openGestureMapAction;
-   } // getOpenProjectAction
+      return aboutAction;
+   } // getAboutAction
+
+
+   public Action getAddMappingAction() {
+      if (addMappingAction == null) {
+         addMappingAction = new AddMappingAction(view);
+      }
+
+      return addMappingAction;
+   } // getAddMappingAction
+
+
+   public Action getEditMappingAction() {
+      if (editMappingAction == null) {
+         editMappingAction = new EditMappingAction(view);
+      }
+
+      return editMappingAction;
+   } // getEditMappingAction
 
 
    public Action getExitApplicationAction() {
@@ -86,13 +106,13 @@ public class ActionHandler {
    } // getLoadGestureSetAction
 
 
-   public Action getAddMappingAction() {
-      if (showMappingDialogAction == null) {
-         showMappingDialogAction = new MapGestureAction(view);
+   public Action getMinimizeAction() {
+      if (minimizeAction == null) {
+         minimizeAction = new MinimizeAction(view);
       }
 
-      return showMappingDialogAction;
-   } // getMapGestureAction
+      return minimizeAction;
+   } // getMinimizeAction
 
 
    public Action getNewProjectAction() {
@@ -101,61 +121,16 @@ public class ActionHandler {
       }
 
       return newProjectAction;
-   } // getNewGestureMapAction
+   } // getNewProjectAction
 
 
-   public Action getEditMappingAction() {
-      if (editMappingAction == null) {
-         editMappingAction = new EditMappingAction(view);
+   public Action getOpenProjectAction() {
+      if (openGestureMapAction == null) {
+         openGestureMapAction = new OpenProjectAction(view);
       }
 
-      return editMappingAction;
-   } // getNewGestureMapAction
-
-
-   public Action getRemoveMappingAction() {
-      if (removeMappingAction == null) {
-         removeMappingAction = new RemoveMappingAction(view);
-      }
-
-      return removeMappingAction;
-   } // getNewGestureMapAction
-
-
-   public Action getSaveProjectAction() {
-      if (saveProjectAction == null) {
-         saveProjectAction = new SaveProjectAction(view);
-      }
-
-      return saveProjectAction;
-   } // getNewGestureMapAction
-
-
-   public Action getSaveAsAction() {
-      if (saveAsAction == null) {
-         saveAsAction = new SaveProjectAsAction(view);
-      }
-
-      return saveAsAction;
-   } // getNewGestureMapAction
-
-
-   public Action getMinimizeAction() {
-      if (minimizeAction == null) {
-         minimizeAction = new MinimizeAction(view);
-      }
-
-      return minimizeAction;
-   } // getNewGestureMapAction
-
-
-   public Action getAboutAction() {
-      if (aboutAction == null) {
-         aboutAction = new AboutAction();
-      }
-
-      return aboutAction;
-   } // getNewGestureMapAction
+      return openGestureMapAction;
+   } // getOpenProjectAction
 
 
    public Action getOptionsAction() {
@@ -164,6 +139,33 @@ public class ActionHandler {
       }
 
       return optionsAction;
-   } // getNewGestureMapAction
+   } // getOptionsAction
+
+
+   public Action getRemoveMappingAction() {
+      if (removeMappingAction == null) {
+         removeMappingAction = new RemoveMappingAction(view);
+      }
+
+      return removeMappingAction;
+   } // getRemoveMappingAction
+
+
+   public Action getSaveProjectAction() {
+      if (saveProjectAction == null) {
+         saveProjectAction = new SaveProjectAction(view);
+      }
+
+      return saveProjectAction;
+   } // getSaveProjectAction
+
+
+   public Action getSaveProjectAsAction() {
+      if (saveProjectAsAction == null) {
+         saveProjectAsAction = new SaveProjectAsAction(view);
+      }
+
+      return saveProjectAsAction;
+   } // getSaveProjectAsAction
 
 }

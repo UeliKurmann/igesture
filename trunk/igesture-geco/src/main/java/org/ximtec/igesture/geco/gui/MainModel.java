@@ -28,7 +28,6 @@ package org.ximtec.igesture.geco.gui;
 import java.io.File;
 import java.util.Comparator;
 import java.util.Hashtable;
-import java.util.List;
 
 import org.sigtec.ink.Note;
 import org.sigtec.input.InputDeviceEvent;
@@ -77,8 +76,6 @@ public class MainModel implements ButtonDeviceEventListener {
    private boolean toBeSaved;
 
    private StorageManager storageManager;
-
-   private List<GestureClass> gestureClasses;
 
    public static final String GESTURE_SET = "gestureSet/msApplicationGestures.xml";
 

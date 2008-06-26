@@ -142,23 +142,27 @@ public class NewProjectDialog extends BasicDialog {
             GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(10,
                   10, 10, 10), 0, 0));
 
-      fileTextField = new BasicTextField(Constant.PROJECT_FILE_TEXT_FIELD, GuiBundleTool.getBundle());
+      fileTextField = GuiTool.createTextField(Constant.PROJECT_FILE_TEXT_FIELD,
+            GuiBundleTool.getBundle());
       fileTextField.setEditable(false);
       fileTextField.setText(filePath);
       mainPanel.add(fileTextField, new GridBagConstraints(1, 1, 1, 1, 1, 1,
             GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
             new Insets(10, 10, 10, 10), 0, 0));
 
-      JButton browseButton = GuiTool.createButton(Constant.BROWSE, GuiBundleTool.getBundle());
+      JButton browseButton = GuiTool.createButton(Constant.BROWSE, GuiBundleTool
+            .getBundle());
       browseButton.addActionListener(new BrowseListener());
       mainPanel.add(browseButton, new GridBagConstraints(2, 1, 1, 1, 0, 0,
             GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(10,
                   10, 10, 10), 0, 0));
 
-      createButton = GuiTool.createButton(Constant.CREATE_PROJECT_BUTTON, GuiBundleTool.getBundle());
+      createButton = GuiTool.createButton(Constant.CREATE_PROJECT_BUTTON,
+            GuiBundleTool.getBundle());
       createButton.setEnabled(false);
       createButton.addActionListener(new CreateListener());
-      JButton cancelButton = GuiTool.createButton(Constant.CANCEL, GuiBundleTool.getBundle());
+      JButton cancelButton = GuiTool.createButton(Constant.CANCEL, GuiBundleTool
+            .getBundle());
       cancelButton.addActionListener(new CancelListener());
 
       JPanel buttonPanel = new JPanel();

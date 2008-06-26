@@ -30,7 +30,7 @@
  */
 
 
-package org.ximtec.igesture.geco.userAction;
+package org.ximtec.igesture.geco.action;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -26,7 +26,6 @@
 package org.ximtec.igesture.geco.xml;
 
 import java.io.File;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,11 +34,11 @@ import javax.swing.JOptionPane;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.geco.action.CommandExecutor;
+import org.ximtec.igesture.geco.action.KeyboardSimulation;
 import org.ximtec.igesture.geco.gui.MainModel;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
-import org.ximtec.igesture.geco.userAction.CommandExecutor;
-import org.ximtec.igesture.geco.userAction.KeyboardSimulation;
 import org.ximtec.igesture.geco.util.Constant;
 import org.ximtec.igesture.util.XMLTool;
 

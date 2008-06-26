@@ -26,7 +26,7 @@
 package org.ximtec.igesture.geco.xml;
 
 import org.jdom.Element;
-import org.ximtec.igesture.geco.userAction.KeyboardSimulation;
+import org.ximtec.igesture.geco.action.KeyboardSimulation;
 
 
 

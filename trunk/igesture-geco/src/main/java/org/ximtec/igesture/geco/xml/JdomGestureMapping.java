@@ -30,9 +30,9 @@ import org.jdom.Element;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.GestureAction;
+import org.ximtec.igesture.geco.action.CommandExecutor;
+import org.ximtec.igesture.geco.action.KeyboardSimulation;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
-import org.ximtec.igesture.geco.userAction.CommandExecutor;
-import org.ximtec.igesture.geco.userAction.KeyboardSimulation;
 
 
 

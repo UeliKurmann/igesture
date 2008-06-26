@@ -1,5 +1,5 @@
 /*
- * @(#)MapgestureAction.java	1.0   Nov 19, 2007
+ * @(#)AddMappingAction.java	1.0   Nov 19, 2007
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
@@ -41,7 +41,7 @@ import org.ximtec.igesture.geco.util.GuiBundleTool;
  * @author Michele Croci, mcroci@gmail.com
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class MapGestureAction extends BasicAction {
+public class AddMappingAction extends BasicAction {
 
    /**
     * The key used to retrieve action details from the resource bundle.
@@ -52,7 +52,7 @@ public class MapGestureAction extends BasicAction {
    private GestureClass currentGesture;
 
 
-   public MapGestureAction(MainView mainView) {
+   public AddMappingAction(MainView mainView) {
       super(KEY, GuiBundleTool.getBundle());
       this.mainView = mainView;
    }

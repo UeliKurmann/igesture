@@ -49,12 +49,12 @@ import javax.swing.border.TitledBorder;
 import org.sigtec.graphix.GuiTool;
 import org.sigtec.graphix.widget.BasicDialog;
 import org.ximtec.igesture.core.GestureClass;
+import org.ximtec.igesture.geco.action.CommandExecutor;
+import org.ximtec.igesture.geco.action.KeyboardSimulation;
 import org.ximtec.igesture.geco.gui.CommandView;
 import org.ximtec.igesture.geco.gui.HotKeyView;
 import org.ximtec.igesture.geco.gui.MainView;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
-import org.ximtec.igesture.geco.userAction.CommandExecutor;
-import org.ximtec.igesture.geco.userAction.KeyboardSimulation;
 import org.ximtec.igesture.geco.util.Constant;
 import org.ximtec.igesture.geco.util.GuiBundleTool;
 
@@ -135,7 +135,7 @@ public class MappingDialog extends BasicDialog {
       gestureLabel.setText(gestureClass.getName());
       if (gestureMapping == null) {
 
-         commandView.initView();
+         commandView.init();
          hotkeyView.initView();
          tabbedPane.setSelectedIndex(COMMAND);
          tabbedPane.setSelectedIndex(HOTKEY);
