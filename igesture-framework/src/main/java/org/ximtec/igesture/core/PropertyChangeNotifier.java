@@ -35,7 +35,7 @@ import java.beans.PropertyChangeListener;
  * @version 1.0 25.03.2008
  * @author Ueli Kurmann
  */
-public interface PropertyChangeOwner {
+public interface PropertyChangeNotifier {
    /**
     * Adds a property change listener
     * @param listener
