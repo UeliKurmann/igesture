@@ -27,7 +27,9 @@
 package org.ximtec.igesture.algorithm;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.GestureDispatcher;
@@ -42,15 +44,20 @@ import org.ximtec.igesture.event.GestureDispatcher;
  */
 public abstract class DefaultAlgorithm implements Algorithm {
 
-   GestureDispatcher eventManager;
+   Set<GestureDispatcher> eventManagers = new HashSet<GestureDispatcher>();
 
    protected static Map<String, String> DEFAULT_CONFIGURATION = new HashMap<String, String>();
 
 
    public void addEventHandler(GestureDispatcher eventManager) {
-      this.eventManager = eventManager;
+      eventManagers.add(eventManager);
    } // addEventManagerListener
 
+   
+   public void removeEventHandler(GestureDispatcher eventManager) {
+      eventManagers.remove(eventManager);
+   } // removeEventManagerListener
+   
 
    /**
     * Fires an event.
@@ -59,10 +66,10 @@ public abstract class DefaultAlgorithm implements Algorithm {
     *           event.
     */
    protected void fireEvent(ResultSet resultSet) {
-      if (eventManager != null) {
+      for (GestureDispatcher eventManager : eventManagers) {
          eventManager.dispatch(resultSet);
       }
-
+      
    } // fireEvent
 
 
