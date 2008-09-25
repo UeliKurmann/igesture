@@ -37,7 +37,7 @@ import java.beans.PropertyChangeSupport;
  * @version 1.0
  * @since igesture
  */
-public abstract class DefaultPropertyChangeOwner implements PropertyChangeOwner {
+public abstract class DefaultPropertyChangeOwner implements PropertyChangeNotifier {
 
    protected transient PropertyChangeSupport propertyChangeSupport;
 

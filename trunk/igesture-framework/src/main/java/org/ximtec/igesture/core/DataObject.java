@@ -37,7 +37,7 @@ import java.io.Serializable;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public interface DataObject extends Serializable, PropertyChangeOwner {
+public interface DataObject extends Serializable, PropertyChangeNotifier {
 
    /**
     * Returns the object's universally unique identifier (UUID).
