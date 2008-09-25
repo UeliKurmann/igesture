@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :	Front-end of the iGesture framework 
+ * Purpose      :	Main recogniser component.
  *
  * -----------------------------------------------------------------------
  *
@@ -47,7 +47,7 @@ import org.ximtec.igesture.util.XMLTool;
 
 
 /**
- * Front-end of the iGesture framework.
+ * Main recogniser component.
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
@@ -116,7 +116,7 @@ public class Recogniser {
    /**
     * Creates a new recogniser.
     * 
-    * @param config the input stream from where the XML configuration cab be
+    * @param config the input stream from where the XML configuration can be
     *            read.
     * @param set the input stream from where the gesture set in XML format can be
     *            read.
@@ -140,11 +140,11 @@ public class Recogniser {
     * 
     * @param note the note to be recognised.
     * @param recogniseAll true if the combination of all algorithms has to be
-    *            returned, false if the result of the first algorithm that
-    *            recognises the result has to be returned only.
+    *            returned, false if only the result of the first algorithm that
+    *            recognises the result has to be returned.
     * @return the result set containing the recognised gesture classes.
     */
-   public ResultSet recognise(Gesture<?> note, boolean recogniseAll) {
+   public ResultSet recognise(Gesture< ? > note, boolean recogniseAll) {
       final ResultSet result = new ResultSet();
 
       for (final Algorithm algorithm : algorithms) {
@@ -163,6 +163,7 @@ public class Recogniser {
          }
 
       }
+
       return result;
    } // recognise
 
@@ -174,34 +175,65 @@ public class Recogniser {
     * @param note the note to be recognised.
     * @return the result set containing the recognised gesture classes.
     */
-   public ResultSet recognise(Gesture<?> note) {
+   public ResultSet recognise(Gesture< ? > note) {
       return recognise(note, false);
    } // recognise
-   
-   public ResultSet recognise(Note note){
+
+
+   /**
+    * Recognises a gesture. The method uses all registered algorithms and stops
+    * as soon as the first algorithm returns a result.
+    * 
+    * @param note the note to be recognised.
+    * @return the result set containing the recognised gesture classes.
+    */
+   public ResultSet recognise(Note note) {
       return recognise(note, false);
-   }
-   
-   public ResultSet recognise(Note note, boolean recogniseAll){
+   } // recognise
+
+
+   /**
+    * Recognises a gesture. The method uses all algorithms and returns a
+    * combination of the results returned by the different algorithms if
+    * 'recogniseAll' is set to true or the result of the first algorithm that
+    * recognised the given note if 'recogniseAll' is set to false.
+    * 
+    * @param note the note to be recognised.
+    * @param recogniseAll true if the combination of all algorithms has to be
+    *            returned, false if only the result of the first algorithm that
+    *            recognises the result has to be returned.
+    * @return the result set containing the recognised gesture classes.
+    */
+   public ResultSet recognise(Note note, boolean recogniseAll) {
       return recognise(new GestureSample(Constant.EMPTY_STRING, note));
-   }
-   
-   public void addGestureDispatcher(GestureDispatcher eventManager){
-      for(Algorithm algorithm:algorithms){
+   } // recognise
+
+
+   public void addGestureDispatcher(GestureDispatcher eventManager) {
+      for (Algorithm algorithm : algorithms) {
          algorithm.addEventHandler(eventManager);
       }
-   }
-   
-   public void removeGestureDispatcher(GestureDispatcher eventManager){
-      for(Algorithm algorithm:algorithms){
-         algorithm.addEventHandler(eventManager);
+
+   } // addGestureDispatcher
+
+
+   public void removeGestureDispatcher(GestureDispatcher eventManager) {
+      for (Algorithm algorithm : algorithms) {
+         algorithm.removeEventHandler(eventManager);
       }
-   }
-   
-   public static Recogniser newRecogniser(String configFile, String gestureSetFile) throws AlgorithmException{
-      GestureSet gestureSet = XMLTool.importGestureSet(new File(gestureSetFile)).get(0);
-      Configuration configuration = XMLTool.importConfiguration(new File(configFile));
+
+   } // removeGestureDispatcher
+
+
+   // FIXME: remove?
+   public static Recogniser newRecogniser(String configFile,
+         String gestureSetFile) throws AlgorithmException {
+      GestureSet gestureSet = XMLTool.importGestureSet(new File(gestureSetFile))
+            .get(0);
+      Configuration configuration = XMLTool.importConfiguration(new File(
+            configFile));
       return new Recogniser(configuration, gestureSet);
-      
+
    }
+
 }

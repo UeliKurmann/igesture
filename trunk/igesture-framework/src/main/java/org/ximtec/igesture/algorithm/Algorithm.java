@@ -72,6 +72,14 @@ public interface Algorithm {
     */
    public void addEventHandler(GestureDispatcher eventManager);
 
+   
+   /**
+    * Removes an event manager.
+    * 
+    * @param eventManager the event manager to be removed.
+    */
+   public void removeEventHandler(GestureDispatcher eventManager);
+   
 
    /**
     * Returns an array of containing the configuration parameters.
