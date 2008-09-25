@@ -3,8 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Interface to be implemented by persistent-capable
- *                  objects.
+ * Purpose      : 	Interface to be implemented by any persistent-capable
+ *                  object.
  *
  * -----------------------------------------------------------------------
  *
@@ -24,12 +24,14 @@
  * 
  */
 
+
 package org.ximtec.igesture.core;
 
 import java.io.Serializable;
 
+
 /**
- * Interface to be implemented by persistent-capable objects.
+ * Interface to be implemented by any persistent-capable object.
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
@@ -37,26 +39,26 @@ import java.io.Serializable;
  */
 public interface DataObject extends Serializable, PropertyChangeOwner {
 
-	/**
-	 * Returns the object's universally unique identifier (UUID).
-	 * 
-	 * @return the object's UUID.
-	 */
-	public String getId();
+   /**
+    * Returns the object's universally unique identifier (UUID).
+    * 
+    * @return the object's UUID.
+    */
+   public String getId();
 
-	/**
-	 * Sets the object's universally unique identifier (UUID).
-	 * 
-	 * @param id
-	 *            the object's UUID.
-	 */
-	public void setId(String id);
 
-		
-	/**
-	 * Accepts a visitor
-	 * @param visitor
-	 */
-	public void accept(Visitor visitor);
+   /**
+    * Sets the object's universally unique identifier (UUID).
+    * 
+    * @param id the object's UUID.
+    */
+   public void setId(String id);
+
+
+   /**
+    * Accepts a visitor.
+    * @param visitor the visitor to ne used.
+    */
+   public void accept(Visitor visitor);
 
 }
