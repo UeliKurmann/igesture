@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Default data object implementation.
+ * Purpose      : 	Default implementation of the DataObject interface.
  *
  * -----------------------------------------------------------------------
  *
@@ -30,7 +30,7 @@ import org.ximtec.igesture.storage.StorageManager;
 
 
 /**
- * Default data object implementation.
+ * Default implementation of the DataObject interface.
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
@@ -81,6 +81,6 @@ public abstract class DefaultDataObject extends DefaultPropertyChangeOwner
     */
    public void accept(Visitor visitor) {
       visitor.visit(this);
-   }
+   } // accept
 
 }
