@@ -1,18 +1,20 @@
 /*
- * @(#)$Id: MainController.java 463 2008-03-23 23:05:09Z kurmannu $
+ * @(#)DefaultPropertyChangeNotifier.java   1.0   Mar 25, 2008
  *
- * Author   : Ueli Kurmann, igesture@uelikurmann.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
  *                                   
- * Purpose  : 
+ * Purpose      :   Default implementation of the PropertyChangeNotifier
+ *                  interface.
  *
  * -----------------------------------------------------------------------
  *
  * Revision Information:
  *
- * Date       Who     Reason
+ * Date             Who         Reason
  *
- * 25.03.2008 ukurmann  Initial Release
+ * 25.03.2008       ukurmann    Initial Release
+ * 25.09.2008       bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -31,32 +33,23 @@ import java.beans.PropertyChangeSupport;
 
 
 /**
- * Transient Data Object
+ * Default implementation of the PropertyChangeNotifier interface.
  * 
- * @author UeliKurmann
- * @version 1.0
- * @since igesture
+ * @version 1.0 25.03.2008
+ * @author Ueli Kurmann
+ * @author Beat Signer, signer@inf.ethz.ch
  */
-public abstract class DefaultPropertyChangeOwner implements PropertyChangeNotifier {
+public abstract class DefaultPropertyChangeNotifier implements
+      PropertyChangeNotifier {
 
    protected transient PropertyChangeSupport propertyChangeSupport;
 
 
    /**
-    * Constructs a new transient data object.
+    * Constructs a new default property change notifier.
     */
-   public DefaultPropertyChangeOwner() {
+   public DefaultPropertyChangeNotifier() {
       this.propertyChangeSupport = new PropertyChangeSupport(this);
-   }
-
-
-   /**
-    * This method is used to deserialize transient fields
-    * @return
-    */
-   private Object readResolve() {
-      this.propertyChangeSupport = new PropertyChangeSupport(this);
-      return this;
    }
 
 
@@ -65,13 +58,17 @@ public abstract class DefaultPropertyChangeOwner implements PropertyChangeNotifi
     */
    @Override
    public void addPropertyChangeListener(PropertyChangeListener listener) {
-      for(PropertyChangeListener registredListener:propertyChangeSupport.getPropertyChangeListeners()){
-         if(registredListener == listener){
+      for (PropertyChangeListener registredListener : propertyChangeSupport
+            .getPropertyChangeListeners()) {
+
+         if (registredListener == listener) {
             return;
          }
+
       }
+
       propertyChangeSupport.addPropertyChangeListener(listener);
-   }
+   } // addPropertyChangeListener
 
 
    /**
@@ -81,7 +78,7 @@ public abstract class DefaultPropertyChangeOwner implements PropertyChangeNotifi
    public void addPropertyChangeListener(String propertyName,
          PropertyChangeListener listener) {
       propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
-   }
+   } // addPropertyChangeListener
 
 
    /**
@@ -90,7 +87,7 @@ public abstract class DefaultPropertyChangeOwner implements PropertyChangeNotifi
    @Override
    public void removePropertyChangeListener(PropertyChangeListener listener) {
       propertyChangeSupport.removePropertyChangeListener(listener);
-   }
+   } // removePropertyChangeListener
 
 
    /**
@@ -100,6 +97,6 @@ public abstract class DefaultPropertyChangeOwner implements PropertyChangeNotifi
    public void removePropertyChangeListener(String propertyName,
          PropertyChangeListener listener) {
       propertyChangeSupport.removePropertyChangeListener(propertyName, listener);
-   }
+   } // removePropertyChangeListener
 
 }
