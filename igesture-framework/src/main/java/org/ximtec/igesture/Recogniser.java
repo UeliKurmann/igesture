@@ -42,7 +42,7 @@ import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.event.GestureDispatcher;
+import org.ximtec.igesture.event.GestureHandler;
 import org.ximtec.igesture.util.XMLTool;
 
 
@@ -79,7 +79,7 @@ public class Recogniser {
     * @param eventManager the event manager.
     * @throws AlgorithmException if the recogniser could not be created.
     */
-   public Recogniser(Configuration config, GestureDispatcher eventManager)
+   public Recogniser(Configuration config, GestureHandler eventManager)
          throws AlgorithmException {
       final Configuration clone = (Configuration)config.clone();
       clone.setEventManager(eventManager);
@@ -124,7 +124,7 @@ public class Recogniser {
     * @throws AlgorithmException if the recogniser could not be created.
     */
    public Recogniser(InputStream config, InputStream set,
-         GestureDispatcher eventManager) throws AlgorithmException {
+         GestureHandler eventManager) throws AlgorithmException {
       final Configuration configuration = XMLTool.importConfiguration(config);
       configuration.setEventManager(eventManager);
       configuration.addGestureSets(XMLTool.importGestureSet(set));
@@ -209,20 +209,29 @@ public class Recogniser {
    } // recognise
 
 
-   public void addGestureDispatcher(GestureDispatcher eventManager) {
+   /**
+    * Adds a gesture handler to the recogniser.
+    * @param gestureHandler the gesture handler that will process the recognised
+    *            gesture result sets.
+    */
+   public void addGestureHandler(GestureHandler gestureHandler) {
       for (Algorithm algorithm : algorithms) {
-         algorithm.addEventHandler(eventManager);
+         algorithm.addEventHandler(gestureHandler);
       }
 
-   } // addGestureDispatcher
+   } // addGestureHandler
 
 
-   public void removeGestureDispatcher(GestureDispatcher eventManager) {
+   /**
+    * removes a gesture handler from the recogniser.
+    * @param gestureHandler the gesture handler to be removed.
+    */
+   public void removeGestureHandler(GestureHandler gestureHandler) {
       for (Algorithm algorithm : algorithms) {
-         algorithm.removeEventHandler(eventManager);
+         algorithm.removeEventHandler(gestureHandler);
       }
 
-   } // removeGestureDispatcher
+   } // removeGestureHandler
 
 
    // FIXME: remove?
