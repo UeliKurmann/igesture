@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Holds a set of result objects.
+ * Purpose      : 	Class representing a set of result objects.
  *
  * -----------------------------------------------------------------------
  *
@@ -39,7 +39,7 @@ import org.sigtec.util.Constant;
 
 
 /**
- * Holds a set of result objects.
+ * Class representing a set of result objects.
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
@@ -53,7 +53,7 @@ public class ResultSet {
 
    private int maxSize;
 
-   private Note note;
+   private Note gesture;
 
 
    /**
@@ -78,6 +78,7 @@ public class ResultSet {
                         .getAccuracy());
                }
             }));
+
       this.maxSize = maxSize;
    }
 
@@ -94,14 +95,15 @@ public class ResultSet {
 
 
    /**
-    * Adds a collection of results
+    * Adds a collection of result objects.
     * 
-    * @param results
+    * @param results the result objects to be added.
     */
    public void addResults(Collection<Result> results) {
       for (Result result : results) {
          addResult(result);
       }
+      
    }// addResults
 
 
@@ -117,7 +119,7 @@ public class ResultSet {
 
 
    /**
-    * Returns the result for a given index.
+    * Returns the result for a given index position.
     * 
     * @param index the index of the result object to be returned.
     * @return the result object for the given index position.
@@ -142,7 +144,7 @@ public class ResultSet {
    /**
     * Returns true if the result set contains the given gesture class.
     * 
-    * @param gestureClass the gesture class to be tested.
+    * @param gestureClass the gesture class to be tested for.
     * @return true if the result set contains the specified gesture class.
     */
    public boolean contains(GestureClass gestureClass) {
@@ -179,23 +181,23 @@ public class ResultSet {
 
 
    /**
-    * Sets the note containing the gesture.
+    * Sets the gesture to be recognised.
     * 
-    * @param note the note containing the gesture.
+    * @param gesture the gesture to be recognised.
     */
-   public void setNote(Note note) {
-      this.note = note;
-   } // setNote
+   public void setGesture(Note gesture) {
+      this.gesture = gesture;
+   } // setGesture
 
 
    /**
-    * Returns the note containing the gesture to be recognised.
+    * Returns the gesture to be recognised.
     * 
-    * @return the note containing the gesture to be recognised.
+    * @return the gesture to be recognised.
     */
-   public Note getNote() {
-      return note;
-   } // getNote
+   public Note getGesture() {
+      return gesture;
+   } // getGesture
 
 
    @Override

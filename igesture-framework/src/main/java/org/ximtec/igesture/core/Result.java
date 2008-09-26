@@ -78,17 +78,17 @@ public class Result {
 
 
    /**
-    * Returns the Gesture Class of the Result
+    * Returns the result gesture class.
     * 
-    * @return the gesture class
+    * @return the result gesture class.
     */
    public GestureClass getGestureClass() {
       return gestureClass;
-   }
+   } // getGestureClass
 
 
    /**
-    * Sets a a user object. A user object enables an algorithm to return an
+    * Sets a user object. A user object enables an algorithm to return an
     * arbitrary object. However, the user is responsible for the correct handling
     * since no explicit type information is available.
     * 
@@ -121,10 +121,11 @@ public class Result {
       return (gestureClass != null & gestureClass.getName() != null)
             ? gestureClass.getName() : Constant.EMPTY_STRING;
    } // getGestureClassName
-   
+
+
    @Override
    public String toString() {
-      return getGestureClassName()+Constant.COLON_BLANK+getAccuracy();
+      return getGestureClassName() + Constant.COLON_BLANK + getAccuracy();
    }
 
 }

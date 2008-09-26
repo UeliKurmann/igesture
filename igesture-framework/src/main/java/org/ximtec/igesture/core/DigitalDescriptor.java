@@ -46,7 +46,7 @@ public abstract class DigitalDescriptor extends DefaultDescriptor {
 
 
    /**
-    * Renders a digital representation of the specifed note on a given graphics
+    * Renders a digital representation of the specified note on a given graphics
     * context.
     * 
     * @param graphics the graphics context on which the digital note

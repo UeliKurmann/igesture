@@ -3,8 +3,9 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Represents an example of a gesture as used by the
- *                  rubine algorithm. Gestures are represented as notes. 
+ * Purpose      : 	Represents a gesture sample as for example used by
+ *                  the Rubine algorithm. Single gestures are represented
+ *                  as notes. 
  *
  * -----------------------------------------------------------------------
  *
@@ -24,6 +25,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.core;
 
 import java.util.logging.Level;
@@ -32,104 +34,118 @@ import java.util.logging.Logger;
 import org.sigtec.ink.Note;
 import org.sigtec.util.Constant;
 
+
 /**
- * Represents an example of a gesture as used by the rubine algorithm. Gestures
- * are represented as notes.
+ * Represents a gesture sample as for example used by the Rubine algorithm.
+ * Single gestures are represented as notes.
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class GestureSample extends DefaultDataObject implements Cloneable, Gesture<Note> {
+public class GestureSample extends DefaultDataObject implements Cloneable,
+      Gesture<Note> {
 
-  public static final String PROPERTY_NAME = "name";
+   private static final Logger LOGGER = Logger.getLogger(GestureSample.class
+         .getName());
 
-  public static final String PROPERTY_NOTE = "note";
+   public static final String PROPERTY_NAME = "name";
 
-  private static final Logger LOGGER = Logger.getLogger(GestureSample.class
-      .getName());
+   public static final String PROPERTY_GESTURE = "gesture";
 
-  private Note note;
+   private Note gesture;
 
-  private String name;
+   private String name;
 
-  /**
-   * Constructs a new gesture sample.
-   * 
-   * @param name
-   *          the name of the sample.
-   * @param note
-   *          the note the sample note.
-   */
-  public GestureSample(String name, Note note) {
-    super();
-    setNote(note);
-    setName(name);
-  }
 
-  /**
-   * Sets the sample name.
-   * 
-   * @param name
-   *          the name to be set.
-   */
-  public void setName(String name) {
-    String oldValue = this.name;
-    this.name = name;
-    propertyChangeSupport.firePropertyChange(PROPERTY_NOTE, oldValue, name);
-  } // setName
+   /**
+    * Constructs a new gesture sample.
+    * 
+    * @param name the name of the gesture sample.
+    * @param note the note the sample note.
+    */
+   public GestureSample(String name, Note gesture) {
+      super();
+      setName(name);
+      setGesture(gesture);
+   }
 
-  /**
-   * Returns the name of the sample.
-   * 
-   * @return the sample's name.
-   */
-  public String getName() {
-    return name;
-  } // getName
 
-  /**
-   * Returns the note describing the sample.
-   * 
-   * @return the note describing the sample.
-   */
-  public Note getGesture() {
-    return note;
-  } // getNote
+   /**
+    * Sets the sample name.
+    * 
+    * @param name the name to be set.
+    */
+   public void setName(String name) {
+      String oldValue = this.name;
+      this.name = name;
+      propertyChangeSupport.firePropertyChange(PROPERTY_NAME, oldValue, name);
+   } // setName
 
-  public void setNote(Note note) {
-    Note oldValue = this.note;
-    this.note = note;
-    propertyChangeSupport.firePropertyChange(PROPERTY_NOTE, oldValue, note);
-  }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void accept(Visitor visitor) {
-    // TODO Auto-generated method stub
+   /**
+    * Returns the name of the gesture sample.
+    * 
+    * @return the gesture sample's name.
+    */
+   public String getName() {
+      return name;
+   } // getName
 
-  }
 
-  @Override
-  public Object clone() {
-    GestureSample clone = null;
+   /**
+    * Sets the sample gesture.
+    * 
+    * @param gesture the gesture to be set.
+    */
+   public void setGesture(Note gesture) {
+      Note oldValue = this.gesture;
+      this.gesture = gesture;
+      propertyChangeSupport.firePropertyChange(PROPERTY_GESTURE, oldValue,
+            gesture);
+   } // setGesture
 
-    try {
-      clone = (GestureSample) super.clone();
-      clone.name = name;
-      clone.note = (Note) note.clone();
-    } catch (final CloneNotSupportedException e) {
-      LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-    }
 
-    return clone;
-  } // clone
+   /**
+    * Returns the gesture sample.
+    * 
+    * @return the gesture sample.
+    */
+   public Note getGesture() {
+      return gesture;
+   } // getGesture
 
-  @Override
-  public String toString() {
-    return name;
-  } // toString
+
+   /**
+    * {@inheritDoc}
+    */
+   @Override
+   public void accept(Visitor visitor) {
+      // TODO Auto-generated method stub
+
+   }
+
+
+   @Override
+   public Object clone() {
+      GestureSample clone = null;
+
+      try {
+         clone = (GestureSample)super.clone();
+         clone.name = name;
+         clone.gesture = (Note)gesture.clone();
+      }
+      catch (final CloneNotSupportedException e) {
+         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+      }
+
+      return clone;
+   } // clone
+
+
+   @Override
+   public String toString() {
+      return name;
+   } // toString
 
 }

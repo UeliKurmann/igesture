@@ -129,7 +129,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
             throw new AlgorithmException(ExceptionType.Recognition);
          }
 
-         resultSet.setNote(note);
+         resultSet.setGesture(note);
 
          if (resultSet.getResult() != null) {
             LOGGER.info(RESULT
