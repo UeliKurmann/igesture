@@ -44,19 +44,19 @@ import org.ximtec.igesture.event.GestureHandler;
  */
 public abstract class DefaultAlgorithm implements Algorithm {
 
-   Set<GestureHandler> eventManagers = new HashSet<GestureHandler>();
+   Set<GestureHandler> gestureHandlers = new HashSet<GestureHandler>();
 
    protected static Map<String, String> DEFAULT_CONFIGURATION = new HashMap<String, String>();
 
 
-   public void addEventHandler(GestureHandler eventManager) {
-      eventManagers.add(eventManager);
-   } // addEventManagerListener
+   public void addGestureHandler(GestureHandler gestureHandler) {
+      gestureHandlers.add(gestureHandler);
+   } // addGestureHandler
 
    
-   public void removeEventHandler(GestureHandler eventManager) {
-      eventManagers.remove(eventManager);
-   } // removeEventManagerListener
+   public void removeGestureHandler(GestureHandler gestureHandler) {
+      gestureHandlers.remove(gestureHandler);
+   } // removeGestureHandler
    
 
    /**
@@ -66,8 +66,8 @@ public abstract class DefaultAlgorithm implements Algorithm {
     *           event.
     */
    protected void fireEvent(ResultSet resultSet) {
-      for (GestureHandler eventManager : eventManagers) {
-         eventManager.handle(resultSet);
+      for (GestureHandler gestureHandler : gestureHandlers) {
+         gestureHandler.handle(resultSet);
       }
       
    } // fireEvent

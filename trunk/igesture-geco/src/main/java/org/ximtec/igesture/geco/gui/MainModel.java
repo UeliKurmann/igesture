@@ -361,7 +361,7 @@ public class MainModel implements ButtonDeviceEventListener {
       if (recogniser == null) {
 
          try {
-            this.configuration.setEventManager(eventManager);
+            this.configuration.setGestureHandler(eventManager);
             configuration.addGestureSet(gestureSet);
             recogniser = new Recogniser(configuration);
             client.addButtonDeviceEventListener(this);
