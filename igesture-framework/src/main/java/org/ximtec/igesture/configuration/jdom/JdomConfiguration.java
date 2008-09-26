@@ -139,7 +139,7 @@ public class JdomConfiguration extends Element {
             configuration.setMinAccuracy(Double.parseDouble(tuple[1]));
          }
          else if (tuple[0].equals(PARAMETER_RESULT_SET_SIZE)) {
-            configuration.setMaxresultSetSize(Integer.parseInt(tuple[1]));
+            configuration.setMaxResultSetSize(Integer.parseInt(tuple[1]));
          }
 
       }

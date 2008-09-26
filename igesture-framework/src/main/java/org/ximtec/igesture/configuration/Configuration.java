@@ -3,7 +3,12 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Configuration object used by the algorithms.
+ * Purpose      : 	Configuration object used by the algorithms. The
+ *                  configuration object contains information about the
+ *                  used gesture set (1..*), the algorithm(s) to be used
+ *                  (1..*), the parameters for the algorithms, the
+ *                  minimal accuracy as well as the size of the result
+ *                  list in the result set.
  *
  * -----------------------------------------------------------------------
  *
@@ -42,10 +47,10 @@ import org.ximtec.igesture.util.GestureTool;
 
 
 /**
- * Configuration object used by the algorithms. The configuration objects
- * contains information about the used gesture set (1..*), the algorithm(s) to be
- * used (1..*), the parameters for the algorithms, the minimal accuracy as well
- * as the size of the result list in the result set.
+ * Configuration object used by the algorithms. The configuration object contains
+ * information about the used gesture set (1..*), the algorithm(s) to be used
+ * (1..*), the parameters for the algorithms, the minimal accuracy as well as the
+ * size of the result list in the result set.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
@@ -53,27 +58,27 @@ import org.ximtec.igesture.util.GestureTool;
  */
 public class Configuration extends DefaultDataObject implements Cloneable {
 
+   private static final Logger LOGGER = Logger.getLogger(Configuration.class
+         .getName());
+
    public static final String PROPERTY_NAME = "name";
 
    private static final String PROPERTY_MIN_ACCURACY = "minAccuracy";
 
    private static final String PROPERTY_MAX_RESULT_SET_SIZE = "maxResultSetSize";
 
-   private static final Logger LOGGER = Logger.getLogger(Configuration.class
-         .getName());
-
    /**
-    * The list of gesture sets which are selected for the recognition process
+    * The list of gesture sets which are selected for the recognition process.
     */
    private List<GestureSet> gestureSets;
 
    /**
-    * Name of the Configuration
+    * Name of the configuration.
     */
    private String name;
 
    /**
-    * A list of algorithms. The Input is sent to each algorithm
+    * A list of algorithms. The input is sent to each algorithm.
     */
    private List<String> algorithms;
 
@@ -84,23 +89,23 @@ public class Configuration extends DefaultDataObject implements Cloneable {
    private HashMap<String, HashMap<String, String>> algorithmParameters;
 
    /**
-    * The instance of the eventManager
+    * The instance of the gesture handler.
     */
-   private transient GestureHandler eventManager;
+   private transient GestureHandler gestureHandler;
 
    /**
-    * The maximal size of the result set
+    * The maximal size of the result set.
     */
    private int maxResultSetSize;
 
    /**
-    * The minimum Accuracy a result must have
+    * The minimum Accuracy a result must have.
     */
    private double minAccuracy;
 
 
    /**
-    * Constructs a new configuration and initalises the used containers.
+    * Constructs a new configuration and initialises the used containers.
     */
    public Configuration() {
       // FIXME resource file
@@ -129,13 +134,22 @@ public class Configuration extends DefaultDataObject implements Cloneable {
    } // addGestureSet
 
 
+   /**
+    * Adds a list of gesture sets to the configuration.
+    * 
+    * @param gestureSets the list of gesture sets to be added.
+    */
    public void addGestureSets(List<GestureSet> gestureSets) {
       this.gestureSets.addAll(gestureSets);
    } // addGestureSets
-   
-   public void removeAllGestureSets(){
+
+
+   /**
+    * Removes all gesture sets.
+    */
+   public void removeAllGestureSets() {
       this.gestureSets.clear();
-   }
+   } // removeAllGestureSets
 
 
    /**
@@ -151,7 +165,7 @@ public class Configuration extends DefaultDataObject implements Cloneable {
    /**
     * Returns the list of gesture sets.
     * 
-    * @return List<GestureSet> the list of gesture sets
+    * @return List<GestureSet> the list of gesture sets.
     */
    public List<GestureSet> getGestureSets() {
       return gestureSets;
@@ -159,7 +173,7 @@ public class Configuration extends DefaultDataObject implements Cloneable {
 
 
    /**
-    * Returns the combined gesture set
+    * Returns the combined gesture set.
     * 
     * @return the combined gesture set.
     */
@@ -246,23 +260,23 @@ public class Configuration extends DefaultDataObject implements Cloneable {
 
 
    /**
-    * Sets the event manager.
+    * Sets the gesture handler.
     * 
-    * @param eventManager the event manager to be set.
+    * @param gestureHandler the gesture handler to be set.
     */
-   public void setEventManager(GestureHandler eventManager) {
-      this.eventManager = eventManager;
-   } // setEventManager
+   public void setGestureHandler(GestureHandler gestureHandler) {
+      this.gestureHandler = gestureHandler;
+   } // setGestureHandler
 
 
    /**
-    * Returns the event manager.
+    * Returns the gesture handler.
     * 
-    * @return the event manager.
+    * @return the gesture handler.
     */
-   public GestureHandler getEventManager() {
-      return eventManager;
-   } // getEventManager
+   public GestureHandler getGestureHandler() {
+      return gestureHandler;
+   } // getGestureHandler
 
 
    /**
@@ -292,12 +306,12 @@ public class Configuration extends DefaultDataObject implements Cloneable {
       String oldValue = this.name;
       this.name = name;
       propertyChangeSupport.firePropertyChange(PROPERTY_NAME, oldValue, name);
-   }
+   } // setName
 
 
    public String getName() {
       return this.name;
-   }
+   } // getName
 
 
    /**
@@ -305,12 +319,12 @@ public class Configuration extends DefaultDataObject implements Cloneable {
     * 
     * @param maxResultSetSize the maximal result set size.
     */
-   public void setMaxresultSetSize(int maxResultSetSize) {
+   public void setMaxResultSetSize(int maxResultSetSize) {
       int oldValue = maxResultSetSize;
       this.maxResultSetSize = maxResultSetSize;
       propertyChangeSupport.firePropertyChange(PROPERTY_MAX_RESULT_SET_SIZE,
             oldValue, maxResultSetSize);
-   }
+   } // setMaxResultSetSize
 
 
    /**
@@ -356,8 +370,8 @@ public class Configuration extends DefaultDataObject implements Cloneable {
             clone.algorithms.add(s.toString());
          }
 
-         // References EventManager
-         clone.eventManager = eventManager;
+         // References GestureHandler
+         clone.gestureHandler = gestureHandler;
 
          // References GestureSets
          clone.gestureSets = new ArrayList<GestureSet>();
@@ -373,16 +387,17 @@ public class Configuration extends DefaultDataObject implements Cloneable {
    @Override
    public void accept(Visitor visitor) {
       visitor.visit(this);
+      
       for (GestureSet gestureSet : gestureSets) {
          gestureSet.accept(visitor);
       }
 
-   }
+   } // accept
 
 
    @Override
    public String toString() {
       return name;
-   }
+   } // toString
 
 }

@@ -46,9 +46,9 @@ public interface Algorithm {
     * Initialises the algorithm.
     * 
     * @param configuration the configuration to be used for the initialisation of
-    *           the algorithm.
+    *            the algorithm.
     * @throws AlgorithmException if there is a problem in the algorithm's
-    *            initialisation phase.
+    *             initialisation phase.
     */
    public void init(Configuration configuration) throws AlgorithmException;
 
@@ -59,41 +59,41 @@ public interface Algorithm {
     * @param note the note to be recognised.
     * @return the result set containing the recognised gesture classes.
     * @throws AlgorithmException if there was an exception while recognising the
-    *            note.
+    *             note.
     */
-   public ResultSet recognise(Gesture<?> note) throws AlgorithmException;
+   public ResultSet recognise(Gesture< ? > note) throws AlgorithmException;
 
 
    /**
-    * Registers an event manager to be informed about any results.
+    * Registers a gesture handler to be informed about any results.
     * 
-    * @param eventManager the event manager to be informed about results of the
-    *           recognition process.
+    * @param gestureHandler the gesture handler to be informed about results of
+    *            the recognition process.
     */
-   public void addEventHandler(GestureHandler eventManager);
+   public void addGestureHandler(GestureHandler gestureHandler);
 
-   
+
    /**
-    * Removes an event manager.
+    * Removes a gesture handler.
     * 
-    * @param eventManager the event manager to be removed.
+    * @param gestureHandler the gesture handler to be removed.
     */
-   public void removeEventHandler(GestureHandler eventManager);
-   
+   public void removeGestureHandler(GestureHandler gestureHandler);
+
 
    /**
     * Returns an array of containing the configuration parameters.
     * 
     * @return the configuration parameters.
     */
-   public Enum<?>[] getConfigParameters();
+   public Enum< ? >[] getConfigParameters();
 
 
    /**
     * Returns the default value for a given parameter.
     * 
     * @param parameterName the name of the parameter whose default value has to
-    *           be returned.
+    *            be returned.
     * @return the default value for the specified parameter.
     */
    public String getDefaultParameterValue(String parameterName);

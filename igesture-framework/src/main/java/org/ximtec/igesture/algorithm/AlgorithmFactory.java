@@ -80,7 +80,7 @@ public class AlgorithmFactory {
          try {
             final Algorithm algorithm = createAlgorithmInstance(algorithmName);
             algorithm.init(config);
-            algorithm.addEventHandler(config.getEventManager());
+            algorithm.addGestureHandler(config.getGestureHandler());
             algorithms.add(algorithm);
          }
          catch (final NullPointerException e) {

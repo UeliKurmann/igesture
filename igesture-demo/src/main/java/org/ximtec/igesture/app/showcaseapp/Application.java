@@ -119,7 +119,7 @@ public class Application implements ButtonDeviceEventListener {
       eventManager.registerEventHandler("Thin", styleEventHandler);
       eventManager.registerEventHandler("Fat", styleEventHandler);
       configuration.addGestureSet(gestureSet);
-      configuration.setEventManager(eventManager);
+      configuration.setGestureHandler(eventManager);
 
       try {
          recogniser = new Recogniser(configuration);

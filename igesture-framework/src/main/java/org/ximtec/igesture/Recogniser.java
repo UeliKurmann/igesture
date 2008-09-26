@@ -82,7 +82,7 @@ public class Recogniser {
    public Recogniser(Configuration config, GestureHandler gestureHandler)
          throws AlgorithmException {
       final Configuration clone = (Configuration)config.clone();
-      clone.setEventManager(gestureHandler);
+      clone.setGestureHandler(gestureHandler);
       algorithms = AlgorithmFactory.createAlgorithms(clone);
    }
 
@@ -126,7 +126,7 @@ public class Recogniser {
    public Recogniser(InputStream config, InputStream set,
          GestureHandler gestureHandler) throws AlgorithmException {
       final Configuration configuration = XMLTool.importConfiguration(config);
-      configuration.setEventManager(gestureHandler);
+      configuration.setGestureHandler(gestureHandler);
       configuration.addGestureSets(XMLTool.importGestureSet(set));
       algorithms = AlgorithmFactory.createAlgorithms(configuration);
    }
@@ -216,7 +216,7 @@ public class Recogniser {
     */
    public void addGestureHandler(GestureHandler gestureHandler) {
       for (Algorithm algorithm : algorithms) {
-         algorithm.addEventHandler(gestureHandler);
+         algorithm.addGestureHandler(gestureHandler);
       }
 
    } // addGestureHandler
@@ -228,7 +228,7 @@ public class Recogniser {
     */
    public void removeGestureHandler(GestureHandler gestureHandler) {
       for (Algorithm algorithm : algorithms) {
-         algorithm.removeEventHandler(gestureHandler);
+         algorithm.removeGestureHandler(gestureHandler);
       }
 
    } // removeGestureHandler
