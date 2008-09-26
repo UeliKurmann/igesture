@@ -1,5 +1,5 @@
 /**
- * Examples of events.
+ * Different iGesture events.
  */
 
 

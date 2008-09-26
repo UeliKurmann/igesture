@@ -3,8 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Describes the digital representation of a
- *                  gesture class.
+ * Purpose      : 	Digital descriptor of a gesture class.
  *
  * -----------------------------------------------------------------------
  *
@@ -33,7 +32,7 @@ import org.sigtec.ink.Note;
 
 
 /**
- * Describes the digital representation of a gesture class.
+ * Digital descriptor of a gesture class.
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
@@ -47,10 +46,12 @@ public abstract class DigitalDescriptor extends DefaultDescriptor {
 
 
    /**
-    * Draws the digital object.
+    * Renders a digital representation of the specifed note on a given graphics
+    * context.
     * 
-    * @param graphics the graphics context on which the drawing is done.
-    * @param note the note.
+    * @param graphics the graphics context on which the digital note
+    *            representation has to be rendered.
+    * @param note the note to be rendered.
     */
    public abstract void getDigitalObject(Graphics2D graphics, Note note);
 

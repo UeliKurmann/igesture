@@ -3,8 +3,9 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Interface for gesture class descriptor
- *                  implementations.
+ * Purpose      : 	Interface to be implemented by any gesture class
+ *                  descriptor.
+ *                  
  *
  * -----------------------------------------------------------------------
  *
@@ -28,7 +29,7 @@
 package org.ximtec.igesture.core;
 
 /**
- * Interface for gesture class descriptor implementations.
+ * Interface to be implemented by any gesture class descriptor.
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
