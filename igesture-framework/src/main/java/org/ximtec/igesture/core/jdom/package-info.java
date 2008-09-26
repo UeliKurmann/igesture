@@ -1,5 +1,5 @@
 /**
- * Import/export functionality for core iGesture classes.
+ * XML import and export functionality for core iGesture classes.
  */
 
 
