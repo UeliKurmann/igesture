@@ -4,7 +4,7 @@
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
  *
- * Purpose		: 
+ * Purpose		:   Handles and dispatches gesture result sets.
  *
  * -----------------------------------------------------------------------
  *
@@ -12,7 +12,8 @@
  *
  * Date				Who			Reason
  *
- * 18.06.2008			ukurmann	Initial Release
+ * 18.06.2008		ukurmann	Initial Release
+ * 26.09.2008       bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -29,18 +30,19 @@ package org.ximtec.igesture.event;
 import org.ximtec.igesture.core.ResultSet;
 
 
-
 /**
- * Comment
+ * Handles and dispatches gesture result sets.
+ * 
  * @version 1.0 18.06.2008
  * @author Ueli Kurmann
+ * @author Beat Signer, signer@inf.ethz.ch
  */
-public interface GestureDispatcher {
-   
+public interface GestureHandler {
+
    /**
-    * Dispatcher
-    * @param resultSet
+    * Handles and dispatches the given gesture result set.
+    * @param resultSet the gesture result set to be handled.
     */
-   public void dispatch(ResultSet resultSet);
-     
+   public void handle(ResultSet resultSet);
+
 }

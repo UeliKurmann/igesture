@@ -30,7 +30,7 @@ package org.ximtec.igesture.algorithm;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.event.GestureDispatcher;
+import org.ximtec.igesture.event.GestureHandler;
 
 
 /**
@@ -70,7 +70,7 @@ public interface Algorithm {
     * @param eventManager the event manager to be informed about results of the
     *           recognition process.
     */
-   public void addEventHandler(GestureDispatcher eventManager);
+   public void addEventHandler(GestureHandler eventManager);
 
    
    /**
@@ -78,7 +78,7 @@ public interface Algorithm {
     * 
     * @param eventManager the event manager to be removed.
     */
-   public void removeEventHandler(GestureDispatcher eventManager);
+   public void removeEventHandler(GestureHandler eventManager);
    
 
    /**

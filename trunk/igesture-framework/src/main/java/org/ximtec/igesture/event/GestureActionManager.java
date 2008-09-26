@@ -44,7 +44,7 @@ import org.ximtec.igesture.core.ResultSet;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class GestureActionManager implements GestureDispatcher {
+public class GestureActionManager implements GestureHandler {
 
    private BlockingQueue<ResultSet> gestureQueue;
 
@@ -109,7 +109,7 @@ public class GestureActionManager implements GestureDispatcher {
     * 
     * @param resultSet the result set to be added to the queue.
     */
-   public synchronized void dispatch(ResultSet resultSet) {
+   public synchronized void handle(ResultSet resultSet) {
       try {
          gestureQueue.put(resultSet);
       }
