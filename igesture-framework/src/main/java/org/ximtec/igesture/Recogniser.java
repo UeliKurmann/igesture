@@ -242,7 +242,6 @@ public class Recogniser {
       Configuration configuration = XMLTool.importConfiguration(new File(
             configFile));
       return new Recogniser(configuration, gestureSet);
-
    }
 
 }

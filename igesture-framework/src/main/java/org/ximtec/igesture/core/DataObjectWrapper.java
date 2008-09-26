@@ -4,7 +4,7 @@
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
  *
- * Purpose		: 
+ * Purpose		:   Interface for components that handle data objects.
  *
  * -----------------------------------------------------------------------
  *
@@ -13,6 +13,7 @@
  * Date				Who			Reason
  *
  * 26.03.2008		ukurmann	Initial Release
+ * 26.09.2008       bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -29,14 +30,18 @@ package org.ximtec.igesture.core;
 import java.util.List;
 
 
-
-
 /**
- * Comment
+ * Interface for components that handle data objects.
+ * 
  * @version 1.0 26.03.2008
  * @author Ueli Kurmann
+ * @author Beat Signer, signer@inf.ethz.ch
  */
-public interface DataObjectWrapper{
+public interface DataObjectWrapper {
 
+   /**
+    * Returns the list of data objects managed by this data object wrapper.
+    * @return list of data objects.
+    */
    List<DataObject> getDataObjects();
 }
