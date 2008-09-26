@@ -4,7 +4,8 @@
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
  *
- * Purpose		: 
+ * Purpose		:   Gesture interface to be implemented by any gesture
+ *                  handling components.
  *
  * -----------------------------------------------------------------------
  *
@@ -12,7 +13,7 @@
  *
  * Date				Who			Reason
  *
- * 11.04.2008			ukurmann	Initial Release
+ * 11.04.2008       ukurmann	Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -26,17 +27,21 @@
 
 package org.ximtec.igesture.core;
 
-
-
 /**
- * Comment
+ * Gesture interface to be implemented by any gesture handling components.
+ * 
  * @version 1.0 11.04.2008
  * @author Ueli Kurmann
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public interface Gesture<T> {
 
    T getGesture();
+
+
    String getName();
+
+
    void accept(Visitor visitor);
 
 }
