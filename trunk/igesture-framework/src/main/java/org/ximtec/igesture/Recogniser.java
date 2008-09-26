@@ -76,13 +76,13 @@ public class Recogniser {
     * Creates a new recogniser.
     * 
     * @param config the configuration object.
-    * @param eventManager the event manager.
+    * @param gestureHandler the gesture handler.
     * @throws AlgorithmException if the recogniser could not be created.
     */
-   public Recogniser(Configuration config, GestureHandler eventManager)
+   public Recogniser(Configuration config, GestureHandler gestureHandler)
          throws AlgorithmException {
       final Configuration clone = (Configuration)config.clone();
-      clone.setEventManager(eventManager);
+      clone.setEventManager(gestureHandler);
       algorithms = AlgorithmFactory.createAlgorithms(clone);
    }
 
@@ -120,13 +120,13 @@ public class Recogniser {
     *            read.
     * @param set the input stream from where the gesture set in XML format can be
     *            read.
-    * @param eventManager the event manager to be informed about results.
+    * @param gestureHandler the gesture handler to be informed about results.
     * @throws AlgorithmException if the recogniser could not be created.
     */
    public Recogniser(InputStream config, InputStream set,
-         GestureHandler eventManager) throws AlgorithmException {
+         GestureHandler gestureHandler) throws AlgorithmException {
       final Configuration configuration = XMLTool.importConfiguration(config);
-      configuration.setEventManager(eventManager);
+      configuration.setEventManager(gestureHandler);
       configuration.addGestureSets(XMLTool.importGestureSet(set));
       algorithms = AlgorithmFactory.createAlgorithms(configuration);
    }
