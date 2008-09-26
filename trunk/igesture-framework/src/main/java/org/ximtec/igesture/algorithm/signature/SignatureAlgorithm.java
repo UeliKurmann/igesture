@@ -149,7 +149,7 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
                rasterSize, gridSize);
          
          
-         resultSet.setNote(note);
+         resultSet.setGesture(note);
 
          final int numOfBits = input.getBitStringLength()
                * input.getNumberOfPoints();

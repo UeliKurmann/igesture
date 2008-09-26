@@ -55,6 +55,7 @@ public class GestureSet extends DefaultDataObject {
 		this(Constant.EMPTY_STRING);
 	}
 
+	
 	/**
 	 * Constructs a new gesture set with a given name.
 	 * 
@@ -67,6 +68,7 @@ public class GestureSet extends DefaultDataObject {
 		setName(name);
 	}
 
+	
 	/**
 	 * Constructs a new gesture set from a list of gesture classes.
 	 * 
@@ -77,12 +79,14 @@ public class GestureSet extends DefaultDataObject {
 		this.gestureClasses = gestureClasses;
 	}
 
+	
 	public void setName(String name) {
 		String oldValue = this.name;
 		this.name = name;
 		propertyChangeSupport.firePropertyChange(PROPERTY_NAME, oldValue, name);
-	}
+	} // setName
 
+	
 	/**
 	 * Returns the name of the gesture set.
 	 * 
@@ -92,6 +96,7 @@ public class GestureSet extends DefaultDataObject {
 		return name;
 	} // getName
 
+	
 	/**
 	 * Adds a gesture class to the set.
 	 * 
@@ -103,6 +108,7 @@ public class GestureSet extends DefaultDataObject {
 		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_CLASSES, gestureClasses.indexOf(gestureClass), null, gestureClass);
 	} // addGestureClass
 
+	
 	/**
 	 * Removes a gesture class from the gesture set.
 	 * 
@@ -115,6 +121,7 @@ public class GestureSet extends DefaultDataObject {
 		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_CLASSES, index, gestureClass, null);
 	} // removeGestureClass
 
+	
 	/**
 	 * Returns the gesture class at position index.
 	 * 
@@ -128,6 +135,7 @@ public class GestureSet extends DefaultDataObject {
 				.size()])[index];
 	} // getGestureClass
 
+	
 	/**
 	 * Returns the number of gesture classes the gesture set contains.
 	 * 
@@ -137,6 +145,7 @@ public class GestureSet extends DefaultDataObject {
 		return gestureClasses.size();
 	} // size
 
+	
 	/**
 	 * Returns the list of all gesture classes the gesture set contains.
 	 * 
@@ -146,6 +155,7 @@ public class GestureSet extends DefaultDataObject {
 		return gestureClasses;
 	} // getGestureClasses
 
+	
 	/**
 	 * Returns the gesture class with the specified name or null if a gesture
 	 * class with the specified name does not exist.
@@ -162,6 +172,7 @@ public class GestureSet extends DefaultDataObject {
 			}
 
 		}
+		
 		return null;
 	} // getGestureClass
 	
@@ -171,11 +182,14 @@ public class GestureSet extends DefaultDataObject {
 	@Override
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
+		
 		for(GestureClass gestureClass:gestureClasses){
 			gestureClass.accept(visitor);
 		}
-	}
+	
+	} // accept
 
+	
 	@Override
 	public String toString() {
 		return name;

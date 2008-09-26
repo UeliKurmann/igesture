@@ -50,7 +50,7 @@ public class DeleteEventHandler implements GestureAction {
 
 
    public void actionPerformed(ResultSet resultSet) {
-      Note note = resultSet.getNote();
+      Note note = resultSet.getGesture();
       graphic.setColor(Color.WHITE);
       graphic.fillRect((int)note.getBounds2D().getMinX(), (int)note
             .getBounds2D().getMinY(), (int)note.getBounds2D().getWidth(),

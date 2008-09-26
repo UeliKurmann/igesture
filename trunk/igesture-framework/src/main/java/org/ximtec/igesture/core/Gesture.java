@@ -5,7 +5,7 @@
  *                  
  *
  * Purpose		:   Gesture interface to be implemented by any gesture
- *                  handling components.
+ *                  handling component.
  *
  * -----------------------------------------------------------------------
  *
@@ -28,7 +28,7 @@
 package org.ximtec.igesture.core;
 
 /**
- * Gesture interface to be implemented by any gesture handling components.
+ * Gesture interface to be implemented by any gesture handling component.
  * 
  * @version 1.0 11.04.2008
  * @author Ueli Kurmann

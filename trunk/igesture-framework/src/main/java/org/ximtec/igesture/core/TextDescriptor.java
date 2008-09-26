@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Implementation of the text descriptor.
+ * Purpose      : 	Textual descriptor.
  *
  * -----------------------------------------------------------------------
  *
@@ -23,12 +23,14 @@
  * 
  */
 
+
 package org.ximtec.igesture.core;
 
 import org.sigtec.util.Constant;
 
+
 /**
- * Implementation of the text descriptor.
+ * Textual descriptor.
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
@@ -36,62 +38,65 @@ import org.sigtec.util.Constant;
  */
 public class TextDescriptor extends DefaultDescriptor {
 
-	public static final String PROPERTY_TEXT = "text";
+   public static final String PROPERTY_TEXT = "text";
 
-	private String text;
+   private String text;
 
-	/**
-	 * Constructs a new text descriptor.
-	 * 
-	 */
-	public TextDescriptor() {
-		this(Constant.EMPTY_STRING);
-	}
 
-	/**
-	 * Constructs a new text descriptor with a given text.
-	 * 
-	 * @param text
-	 *            the textual description.
-	 */
-	public TextDescriptor(String text) {
-		super();
-		setText(text);
-	}
+   /**
+    * Constructs a new text descriptor.
+    * 
+    */
+   public TextDescriptor() {
+      this(Constant.EMPTY_STRING);
+   }
 
-	/**
-	 * Sets the text description.
-	 * 
-	 * @param text
-	 *            the textual description to be added.
-	 */
-	public void setText(String text) {
-		String oldValue = this.text;
-		this.text = text;
-		propertyChangeSupport.firePropertyChange(PROPERTY_TEXT, oldValue, text);
 
-	} // setText
+   /**
+    * Constructs a new text descriptor with a given text.
+    * 
+    * @param text the textual description.
+    */
+   public TextDescriptor(String text) {
+      super();
+      setText(text);
+   }
 
-	/**
-	 * Returns the textual description.
-	 * 
-	 * @return the textual description.
-	 */
-	public String getText() {
-		return this.text;
-	} // getText
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
-	}
+   /**
+    * Sets the text description.
+    * 
+    * @param text the textual description to be added.
+    */
+   public void setText(String text) {
+      String oldValue = this.text;
+      this.text = text;
+      propertyChangeSupport.firePropertyChange(PROPERTY_TEXT, oldValue, text);
+   } // setText
 
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName();
-	} // toString
+
+   /**
+    * Returns the textual description.
+    * 
+    * @return the textual description.
+    */
+   public String getText() {
+      return text;
+   } // getText
+
+
+   /**
+    * {@inheritDoc}
+    */
+   @Override
+   public void accept(Visitor visitor) {
+      visitor.visit(this);
+   }
+
+
+   @Override
+   public String toString() {
+      return this.getClass().getSimpleName();
+   } // toString
 
 }

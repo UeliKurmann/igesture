@@ -89,7 +89,7 @@ public class SigerRecogniser extends DefaultAlgorithm {
 
          StrokeInfo si = new StrokeInfo(note);
          List<Result> resultList = new ArrayList<Result>();
-         result.setNote(note);
+         result.setGesture(note);
 
          for (final ClassMatcher regex : gestures.keySet()) {
             if (regex.isMatch(si)) {
