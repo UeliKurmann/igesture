@@ -36,7 +36,7 @@ import org.ximtec.igesture.storage.StorageManager;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public abstract class DefaultDataObject extends DefaultPropertyChangeOwner
+public abstract class DefaultDataObject extends DefaultPropertyChangeNotifier
       implements DataObject {
 
    public static final String PROPERTY_ID = "id";
