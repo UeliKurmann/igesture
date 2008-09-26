@@ -30,13 +30,13 @@ import java.util.List;
 
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.DataObjectWrapper;
-import org.ximtec.igesture.core.DefaultPropertyChangeOwner;
+import org.ximtec.igesture.core.DefaultPropertyChangeNotifier;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.view.MainModel;
 
 
-public class GestureSetList extends DefaultPropertyChangeOwner implements DataObjectWrapper{
+public class GestureSetList extends DefaultPropertyChangeNotifier implements DataObjectWrapper{
 
    public static final String PROPERTY_SETS = "sets";
    

@@ -35,10 +35,9 @@ import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.DataObjectWrapper;
-import org.ximtec.igesture.core.DefaultPropertyChangeOwner;
+import org.ximtec.igesture.core.DefaultPropertyChangeNotifier;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.view.MainModel;
-
 
 
 /**
@@ -46,70 +45,84 @@ import org.ximtec.igesture.tool.view.MainModel;
  * @version 1.0 23.03.2008
  * @author Ueli Kurmann
  */
-public class AlgorithmWrapper extends DefaultPropertyChangeOwner implements DataObjectWrapper{
-   
+public class AlgorithmWrapper extends DefaultPropertyChangeNotifier implements
+      DataObjectWrapper {
+
    private static final String PROPERTY_CONFIGURATIONS = "configurations";
 
-   Class<? extends Algorithm> algorithmClass;
-   
+   Class< ? extends Algorithm> algorithmClass;
+
    MainModel mainModel;
-   
+
    List<Configuration> configurations;
-   
-   public AlgorithmWrapper(Class<? extends Algorithm> algorithmClass){
+
+
+   public AlgorithmWrapper(Class< ? extends Algorithm> algorithmClass) {
       this.algorithmClass = algorithmClass;
-      mainModel = Locator.getDefault().getService(MainModel.IDENTIFIER, MainModel.class);
+      mainModel = Locator.getDefault().getService(MainModel.IDENTIFIER,
+            MainModel.class);
       updateReference();
    }
-   
-   public void addConfiguration(Configuration configuration){
+
+
+   public void addConfiguration(Configuration configuration) {
       mainModel.getStorageManager().store(configuration);
-      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_CONFIGURATIONS, 0, null, configuration);
+      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_CONFIGURATIONS,
+            0, null, configuration);
       updateReference();
    }
-   
-   public void removeConfiguration(Configuration configuration){
-      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_CONFIGURATIONS, 0, configuration, null);
+
+
+   public void removeConfiguration(Configuration configuration) {
+      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_CONFIGURATIONS,
+            0, configuration, null);
       updateReference();
    }
-   
-   public Class<? extends Algorithm> getAlgorithm(){
+
+
+   public Class< ? extends Algorithm> getAlgorithm() {
       return algorithmClass;
    }
-   
-   public String getName(){
+
+
+   public String getName() {
       return algorithmClass.getSimpleName();
    }
-   
+
+
    @Override
    public String toString() {
       return getName();
    }
 
+
    @Override
    public List<DataObject> getDataObjects() {
-     List<DataObject> result = new ArrayList<DataObject>();
-     result.addAll(configurations);
-     return result;
+      List<DataObject> result = new ArrayList<DataObject>();
+      result.addAll(configurations);
+      return result;
    }
-   
-   public List<PropertyChangeListener> getListeners(){
+
+
+   public List<PropertyChangeListener> getListeners() {
       return Arrays.asList(propertyChangeSupport.getPropertyChangeListeners());
    }
-   
-   private synchronized void updateReference(){
-      if(configurations == null){
+
+
+   private synchronized void updateReference() {
+      if (configurations == null) {
          configurations = new ArrayList<Configuration>();
       }
       configurations.clear();
-      for(Configuration configuration:mainModel.getConfigurations()){
-         if(configuration.getAlgorithms().contains(algorithmClass.getName())){
+      for (Configuration configuration : mainModel.getConfigurations()) {
+         if (configuration.getAlgorithms().contains(algorithmClass.getName())) {
             configurations.add(configuration);
          }
       }
-      
-      // FIXME find another solution to notify the main controller about the update.
-      propertyChangeSupport.firePropertyChange("nil", "not","yes");
+
+      // FIXME find another solution to notify the main controller about the
+      // update.
+      propertyChangeSupport.firePropertyChange("nil", "not", "yes");
    }
 
 }
