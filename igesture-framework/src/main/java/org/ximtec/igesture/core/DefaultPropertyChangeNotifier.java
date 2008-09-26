@@ -54,6 +54,16 @@ public abstract class DefaultPropertyChangeNotifier implements
 
 
    /**
+    * This method is used to deserialise transient fields.
+    * @return the deserialised object.
+    */
+   private Object readResolve() {
+      this.propertyChangeSupport = new PropertyChangeSupport(this);
+      return this;
+   } // readResolve
+
+
+   /**
     * {@inheritDoc}
     */
    @Override
