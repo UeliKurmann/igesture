@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   Rubine Feature F10. The sum of the absolute value of
+ * Purpose      :   Rubine feature F10. The sum of the absolute value of
  *                  the angle at each point.
  *
  * -----------------------------------------------------------------------
@@ -33,7 +33,7 @@ import org.sigtec.ink.Trace;
 
 
 /**
- * Rubine Feature F10. The sum of the absolute value of the angle at each point.
+ * Rubine feature F10. The sum of the absolute value of the angle at each point.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

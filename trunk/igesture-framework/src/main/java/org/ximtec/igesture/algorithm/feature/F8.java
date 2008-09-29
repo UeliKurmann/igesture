@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   Rubine Feature F8. The total gesture length.
+ * Purpose      :   Rubine feature F8. The total gesture length.
  *
  * -----------------------------------------------------------------------
  *
@@ -32,7 +32,7 @@ import org.sigtec.ink.Trace;
 
 
 /**
- * Rubine Feature F8. The total gesture length.
+ * Rubine feature F8. The total gesture length.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

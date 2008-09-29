@@ -42,11 +42,12 @@ public class AlgorithmException extends Exception {
    private ExceptionType exceptionType;
 
 
-   public AlgorithmException(ExceptionType exceptionType, Throwable throwable){
+   public AlgorithmException(ExceptionType exceptionType, Throwable throwable) {
       super(throwable);
       this.exceptionType = exceptionType;
    }
-   
+
+
    public AlgorithmException(ExceptionType exceptionType) {
       super();
       this.exceptionType = exceptionType;

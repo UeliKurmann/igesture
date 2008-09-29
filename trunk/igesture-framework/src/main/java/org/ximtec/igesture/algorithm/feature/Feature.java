@@ -3,8 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Interface to be implemented by features describing
- *                  gestures.
+ * Purpose      : 	Interface to be implemented by any feature that
+ *                  describes a gesture.
  *
  * -----------------------------------------------------------------------
  *
@@ -31,7 +31,7 @@ import org.sigtec.ink.Note;
 
 
 /**
- * Interface to be implemented by features describing gestures.
+ * Interface to be implemented by any feature that describes a gesture.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

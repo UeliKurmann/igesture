@@ -76,6 +76,7 @@ public class AlgorithmFactory {
    public static List<Algorithm> createAlgorithms(Configuration config)
          throws AlgorithmException {
       final List<Algorithm> algorithms = new ArrayList<Algorithm>();
+
       for (final String algorithmName : config.getAlgorithms()) {
          try {
             final Algorithm algorithm = createAlgorithmInstance(algorithmName);
@@ -89,6 +90,7 @@ public class AlgorithmFactory {
                   AlgorithmException.ExceptionType.Initialisation);
          }
       }
+
       return algorithms;
    } // createAlgorithms
 
@@ -96,8 +98,8 @@ public class AlgorithmFactory {
    /**
     * Instantiates an algorithm with a specific configuration object.
     * 
-    * @param configuration the input stream from the XML configuration can be
-    *            read from.
+    * @param configuration the input stream from which the XML configuration can
+    *            be read from.
     * @return the initialised algorithm.
     * @throws AlgorithmException if the algorithm could not be created.
     */
@@ -108,11 +110,11 @@ public class AlgorithmFactory {
 
 
    /**
-    * Creates a new Algorithm instance.
+    * Creates a new algorithm instance.
     * 
-    * @param config the input stream from where the XML configuration can be read
+    * @param config the input stream from which the XML configuration can be read
     *            from.
-    * @param set the input stream from where the XML gesture set can be read
+    * @param set the input stream from which the XML gesture set can be read
     *            from.
     * @return the initialised algorithm.
     * @throws AlgorithmException if the algorithm could not be created.
@@ -180,6 +182,7 @@ public class AlgorithmFactory {
       catch (final IllegalAccessException e) {
          LOGGER.log(Level.SEVERE, null, e);
       }
+      
       return algorithm;
    } // createAlgorithmInstance
 

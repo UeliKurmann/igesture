@@ -53,10 +53,10 @@ public class FeatureTool {
 
 
    /**
-    * Takes a note and returns one trace whicht contains all points.
+    * Takes a note and returns a single trace containing all points.
     * 
-    * @param note the note to extract the points.
-    * @return the trace with all points of the note.
+    * @param note the note whose points have to be extracted.
+    * @return the trace containing all points of the note.
     */
    public static Trace createTrace(Note note) {
       final Trace result = new Trace();
@@ -72,9 +72,9 @@ public class FeatureTool {
    /**
     * Returns the distance in respect to the X axis between point i and i+1.
     * 
-    * @param i the ith point
-    * @param points the array of points
-    * @return the distance in respect to the X axis between point i and i+1
+    * @param i the ith point.
+    * @param points the array of points.
+    * @return the distance in respect to the X axis between point i and i+1.
     */
    public static double getDeltaX(int i, Point[] points) {
       return points[i + 1].getX() - points[i].getX();
@@ -84,9 +84,9 @@ public class FeatureTool {
    /**
     * Returns the distance in respect to the Y axis between point i and i+1.
     * 
-    * @param i the ith point
-    * @param points the array of points
-    * @return the distance in respect to the Y axis between point i and i+1
+    * @param i the ith point.
+    * @param points the array of points.
+    * @return the distance in respect to the Y axis between point i and i+1.
     */
    public static double getDeltaY(int i, Point[] points) {
       return points[i + 1].getY() - points[i].getY();
@@ -96,9 +96,9 @@ public class FeatureTool {
    /**
     * Returns the difference of the timestamps in point i and i + 1.
     * 
-    * @param i the ith point
-    * @param points the array of points
-    * @return the time between two points
+    * @param i the ith point.
+    * @param points the array of points.
+    * @return the time between two points.
     */
    public static double getDeltaT(int i, Point[] points) {
       return points[i + 1].getTimestamp() - points[i].getTimestamp();
@@ -106,11 +106,11 @@ public class FeatureTool {
 
 
    /**
-    * Returns the differenc of the timestamps in point p1 and p2.
+    * Returns the difference of the timestamps in point p1 and p2.
     * 
-    * @param p1 the point p1
-    * @param p2 the point p2
-    * @return the time passes between the two given points
+    * @param p1 the point p1.
+    * @param p2 the point p2.
+    * @return the time passes between the two given points.
     */
    public static double getDeltaT(Point p1, Point p2) {
       return p2.getTimestamp() - p1.getTimestamp();
@@ -120,7 +120,7 @@ public class FeatureTool {
    /**
     * Computes the angle in respect to the x axis in point i and i-1.
     * 
-    * @param i th eindex of the point to be used in the computation.
+    * @param i the index of the point to be used in the computation.
     * @param points the set of points.
     * @return the angle relative to the x axis for point i and i-1.
     */
@@ -144,9 +144,9 @@ public class FeatureTool {
    /**
     * Computes the angle of the line p1-p2 in the unit circle.
     * 
-    * @param p1 start point of the line
-    * @param p2 end point of the line
-    * @return the angle
+    * @param p1 start point of the line.
+    * @param p2 end point of the line.
+    * @return the angle.
     */
    public static double getAngle(Point p1, Point p2) {
       final double r = p1.distance(p2);
@@ -165,9 +165,9 @@ public class FeatureTool {
    /**
     * Removes traces from the list with less than minNumOfPoints.
     * 
-    * @param traces the list of traces
-    * @param minNumOfPoints the minimmal number of points a trace must contain
-    * @return the filtered list of traces
+    * @param traces the list of traces.
+    * @param minNumOfPoints the minimal number of points a trace must contain.
+    * @return the filtered list of traces.
     */
    public static List<Trace> removeShortTraces(List<Trace> traces,
          int minNumOfPoints) {
@@ -185,11 +185,11 @@ public class FeatureTool {
 
 
    /**
-    * Creates a list of instantiates features out of a comma delimited list of
-    * full qualified classnames of features.
+    * Creates a list of instantiated features out of a comma delimited list of
+    * full qualified feature classnames.
     * 
-    * @param featureList a comma delimited list of full qualified class names
-    * @return list of feature instances
+    * @param featureList a comma delimited list of full qualified class names.
+    * @return list of feature instances.
     */
    public static List<Feature> createFeatureList(String featureList) {
       final ArrayList<Feature> result = new ArrayList<Feature>();
@@ -205,10 +205,10 @@ public class FeatureTool {
 
 
    /**
-    * Instantiates a festure of the given full qualified class name.
+    * Instantiates a feature of the given full qualified classname.
     * 
-    * @param classname the full qualified class name
-    * @return the instance of the feature
+    * @param classname the full qualified class name.
+    * @return the instance of the feature.
     */
    public static Feature createFeature(String classname) {
       try {
@@ -235,10 +235,10 @@ public class FeatureTool {
     * @param minDistance the minimal distance between two points.
     * @param featureList an array of features.
     * @return the feature vector.
-    * @throws FeatureException uf the feature vector cannot be computed.
+    * @throws FeatureException if the feature vector cannot be computed.
     */
    public static DoubleVector computeFeatureVector(Note note, int minDistance,
-         Feature[] featureList) throws FeatureException{
+         Feature[] featureList) throws FeatureException {
 
       // clone the note to avoid side effects
       final Note clone = (Note)note.clone();
@@ -255,39 +255,49 @@ public class FeatureTool {
 
       return featureVector;
    } // computeFeatureVector
-   
+
+
    /**
-    * Returns the minimal number of points a note must contain to be processed 
-    * @param list the list of features
-    * @return the minimal number of points a note must contain
+    * Returns the minimal number of points a note must contain to be processed.
+    * @param list the list of features.
+    * @return the minimal number of points a note must contain.
     */
-   public static int computeMinimalNumberOfRequiredPoints(Feature[] list){
-	   int result = 0;
-	   for(Feature feature:list){
-		  result = Math.max(result, feature.getMinimalNumberOfPoints());
-	   } 
-	   return result;
+   public static int computeMinimalNumberOfRequiredPoints(Feature[] list) {
+      int result = 0;
+      for (Feature feature : list) {
+         result = Math.max(result, feature.getMinimalNumberOfPoints());
+      }
+      return result;
    }
-   
-   public static double computeD1(Note note){
-	   Trace trace = createTrace(note);
-	   double a = Math.pow(trace.get(trace.size() / 2).getX()-trace.getStartPoint().getX(), 2);
-	   double b = Math.pow(trace.get(trace.size() / 2).getY()-trace.getStartPoint().getY(), 2);
-	   return Math.sqrt(a+b);
-   }
-   
-   public static double computeD2(Note note){
-	   Trace trace = createTrace(note);
-	   double a = Math.pow(trace.getEndPoint().getX()-trace.get(trace.size() / 2).getX(), 2);
-	   double b = Math.pow(trace.getEndPoint().getY()-trace.get(trace.size() / 2).getY(), 2);
-	   return Math.sqrt(a+b);
-   }
-   
-   public static double computeD3(Note note){
-	   Trace trace = createTrace(note);
-	   double a = Math.pow(trace.getEndPoint().getX()-trace.getStartPoint().getX(), 2);
-	   double b = Math.pow(trace.getEndPoint().getY()-trace.getStartPoint().getY(), 2);
-	   return Math.sqrt(a+b);
-   }
+
+
+   public static double computeD1(Note note) {
+      Trace trace = createTrace(note);
+      double a = Math.pow(trace.get(trace.size() / 2).getX()
+            - trace.getStartPoint().getX(), 2);
+      double b = Math.pow(trace.get(trace.size() / 2).getY()
+            - trace.getStartPoint().getY(), 2);
+      return Math.sqrt(a + b);
+   } // computeD1
+
+
+   public static double computeD2(Note note) {
+      Trace trace = createTrace(note);
+      double a = Math.pow(trace.getEndPoint().getX()
+            - trace.get(trace.size() / 2).getX(), 2);
+      double b = Math.pow(trace.getEndPoint().getY()
+            - trace.get(trace.size() / 2).getY(), 2);
+      return Math.sqrt(a + b);
+   } // computeD2
+
+
+   public static double computeD3(Note note) {
+      Trace trace = createTrace(note);
+      double a = Math.pow(trace.getEndPoint().getX()
+            - trace.getStartPoint().getX(), 2);
+      double b = Math.pow(trace.getEndPoint().getY()
+            - trace.getStartPoint().getY(), 2);
+      return Math.sqrt(a + b);
+   } // computeD3
 
 }

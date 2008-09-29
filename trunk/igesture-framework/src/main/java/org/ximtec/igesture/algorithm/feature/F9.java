@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   Rubine Feature F9. The total angle traversed.
+ * Purpose      :   Rubine feature F9. The total angle traversed.
  *
  * -----------------------------------------------------------------------
  *
@@ -32,7 +32,7 @@ import org.sigtec.ink.Trace;
 
 
 /**
- * Rubine Feature F9. The total angle traversed.
+ * Rubine feature F9. The total angle traversed.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

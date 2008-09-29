@@ -4,7 +4,7 @@
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
  * Purpose      : 	Interface to be implemented by any gesture recognition
- *                  algorithms.
+ *                  algorithm.
  *
  * -----------------------------------------------------------------------
  *
@@ -34,7 +34,7 @@ import org.ximtec.igesture.event.GestureHandler;
 
 
 /**
- * Interface to be implemented by any gesture recognition algorithms.
+ * Interface to be implemented by any gesture recognition algorithm.
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
@@ -54,14 +54,14 @@ public interface Algorithm {
 
 
    /**
-    * Runs the recogniser on a given set of strokes represented by a note.
+    * Runs the recogniser on a given set of strokes represented by a gesture.
     * 
-    * @param note the note to be recognised.
+    * @param gesture the gesture to be recognised.
     * @return the result set containing the recognised gesture classes.
     * @throws AlgorithmException if there was an exception while recognising the
     *             note.
     */
-   public ResultSet recognise(Gesture< ? > note) throws AlgorithmException;
+   public ResultSet recognise(Gesture< ? > gesture) throws AlgorithmException;
 
 
    /**

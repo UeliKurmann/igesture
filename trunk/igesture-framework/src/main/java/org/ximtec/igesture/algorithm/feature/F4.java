@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   Rubine Feature F4. The angle of the bounding box
+ * Purpose      :   Rubine feature F4. The angle of the bounding box
  *                  diagonal.
  *
  * -----------------------------------------------------------------------
@@ -32,7 +32,7 @@ import org.sigtec.ink.Trace;
 
 
 /**
- * Rubine Feature F4. The angle of the bounding box diagonal.
+ * Rubine feature F4. The angle of the bounding box diagonal.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

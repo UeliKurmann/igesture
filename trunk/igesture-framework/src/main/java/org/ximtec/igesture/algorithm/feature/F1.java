@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   Rubine Feature F1. Cosine of the initial angle of the
+ * Purpose      :   Rubine feature F1. Cosine of the initial angle of the
  *                  gesture.
  *
  * -----------------------------------------------------------------------
@@ -33,7 +33,7 @@ import org.sigtec.ink.Trace;
 
 
 /**
- * Rubine Feature F1. Cosine of the initial angle of the gesture.
+ * Rubine feature F1. Cosine of the initial angle of the gesture.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
