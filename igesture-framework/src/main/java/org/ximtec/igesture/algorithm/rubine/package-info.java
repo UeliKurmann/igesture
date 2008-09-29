@@ -1,5 +1,5 @@
 /**
- * The SiGeR gesture recognition algorithm.
+ * The Rubine gesture recognition algorithm.
  */
 
 
