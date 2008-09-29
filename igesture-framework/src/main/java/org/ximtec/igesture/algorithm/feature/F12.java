@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   Rubine Feature F12. The maximum speed (squared) of
+ * Purpose      :   Rubine feature F12. The maximum speed (squared) of
  *                  the gesture.
  *
  * -----------------------------------------------------------------------
@@ -33,7 +33,7 @@ import org.sigtec.ink.Trace;
 
 
 /**
- * Rubine Feature F12. The maximum speed (squared) of the gesture.
+ * Rubine feature F12. The maximum speed (squared) of the gesture.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

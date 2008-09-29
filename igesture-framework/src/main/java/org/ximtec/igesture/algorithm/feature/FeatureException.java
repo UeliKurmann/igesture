@@ -3,7 +3,8 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      : 	Feature Exception
+ * Purpose      : 	Feature exception that is thrown if there is a problem
+ *                  computing a feature.
  *
  * -----------------------------------------------------------------------
  *
@@ -24,10 +25,11 @@
  * 
  */
 
+
 package org.ximtec.igesture.algorithm.feature;
 
 /**
- * Feature Exception
+ * Feature exception that is thrown if there is a problem computing a feature.
  * 
  * @version 1.0 May 2007
  * @author Ueli Kurmann, kurmannu@ethz.ch
@@ -36,9 +38,10 @@ package org.ximtec.igesture.algorithm.feature;
 public class FeatureException extends Exception {
 
    public static final String NOT_ENOUGH_POINTS = "Not enough points";
- 
+
+
    public FeatureException(String message) {
       super(message);
    }
-   
+
 }

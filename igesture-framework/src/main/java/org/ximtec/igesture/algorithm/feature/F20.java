@@ -31,7 +31,7 @@ import org.sigtec.ink.Note;
 
 
 /**
- * Feature representing the number fo strokes.
+ * Feature representing the number of strokes.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

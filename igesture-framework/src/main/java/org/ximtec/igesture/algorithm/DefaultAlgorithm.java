@@ -3,7 +3,7 @@
  *
  * Author		:	Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose		: 	Default implementation of the Algorithm interface.
+ * Purpose		: 	Default implementation of the algorithm interface.
  *
  * -----------------------------------------------------------------------
  *
@@ -36,7 +36,7 @@ import org.ximtec.igesture.event.GestureHandler;
 
 
 /**
- * Default implementation of the Algorithm interface.
+ * Default implementation of the algorithm interface.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
@@ -53,23 +53,23 @@ public abstract class DefaultAlgorithm implements Algorithm {
       gestureHandlers.add(gestureHandler);
    } // addGestureHandler
 
-   
+
    public void removeGestureHandler(GestureHandler gestureHandler) {
       gestureHandlers.remove(gestureHandler);
    } // removeGestureHandler
-   
+
 
    /**
     * Fires an event.
     * 
     * @param resultSet the result set to be used as an argument for the fire
-    *           event.
+    *            event.
     */
    protected void fireEvent(ResultSet resultSet) {
       for (GestureHandler gestureHandler : gestureHandlers) {
          gestureHandler.handle(resultSet);
       }
-      
+
    } // fireEvent
 
 
@@ -77,7 +77,7 @@ public abstract class DefaultAlgorithm implements Algorithm {
     * Returns the value of the default parameter.
     * 
     * @param parameterName the name of the parameter whose default value has to
-    *           be returned.
+    *            be returned.
     * @return the value of a specific default parameter.
     */
    public String getDefaultParameterValue(String parameterName) {

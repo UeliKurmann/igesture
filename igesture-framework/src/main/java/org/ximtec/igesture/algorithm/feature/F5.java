@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   Rubine Feature F5. The distance betweend the first
+ * Purpose      :   Rubine feature F5. The distance between the first
  *                  and the last point.
  *
  * -----------------------------------------------------------------------
@@ -32,7 +32,7 @@ import org.sigtec.ink.Trace;
 
 
 /**
- * Rubine Feature F5. The distance between the first and the last point.
+ * Rubine feature F5. The distance between the first and the last point.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

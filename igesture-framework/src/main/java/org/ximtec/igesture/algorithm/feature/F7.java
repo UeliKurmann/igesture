@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   Rubine Feature F7. The sine of the angle between the
+ * Purpose      :   Rubine feature F7. The sine of the angle between the
  *                  first and last point.
  *
  * -----------------------------------------------------------------------
@@ -32,7 +32,7 @@ import org.sigtec.ink.Trace;
 
 
 /**
- * Rubine Feature F7. The sine of the angle between the first and last point.
+ * Rubine feature F7. The sine of the angle between the first and last point.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

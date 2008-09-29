@@ -53,15 +53,9 @@ public class AlgorithmTool {
     * @return the parameter value.
     */
    public static String getParameterValue(String parameter,
-         Map<String, String> parameters,
-         Map<String, String> defaultParameters) {
+         Map<String, String> parameters, Map<String, String> defaultParameters) {
       String result = parameters.get(parameter);
-
-      if (result == null) {
-         result = defaultParameters.get(parameter);
-      }
-
-      return result;
+      return (result != null) ? result : defaultParameters.get(parameter);
    } // getParameter
 
 
@@ -75,8 +69,7 @@ public class AlgorithmTool {
     * @return the parameter value.
     */
    public static double getDoubleParameterValue(String parameter,
-         Map<String, String> parameters,
-         Map<String, String> defaultParameters) {
+         Map<String, String> parameters, Map<String, String> defaultParameters) {
       return Double.parseDouble(getParameterValue(parameter, parameters,
             defaultParameters));
    } // getDoubleParameterValue
@@ -92,8 +85,7 @@ public class AlgorithmTool {
     * @return the parameter value.
     */
    public static int getIntParameterValue(String parameter,
-         Map<String, String> parameters,
-         Map<String, String> defaultParameters) {
+         Map<String, String> parameters, Map<String, String> defaultParameters) {
       return Integer.parseInt(getParameterValue(parameter, parameters,
             defaultParameters));
    } // getIntParameterValue
@@ -109,12 +101,16 @@ public class AlgorithmTool {
     * @return true if all gesture classes of the gesture set have the specified
     *         descriptor.
     */
-   public static boolean verifyDescriptor(GestureSet set, Class< ? extends Descriptor> descriptorType) {
+   public static boolean verifyDescriptor(GestureSet set,
+         Class< ? extends Descriptor> descriptorType) {
       for (final GestureClass gestureClass : set.getGestureClasses()) {
+
          if (gestureClass.hasDescriptor(descriptorType)) {
             return false;
          }
+
       }
+
       return true;
    } // verifyDescriptor
 

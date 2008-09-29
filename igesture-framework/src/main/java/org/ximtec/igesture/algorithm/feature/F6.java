@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   Rubine Feature F6. The cosine of the angle between
+ * Purpose      :   Rubine feature F6. The cosine of the angle between
  *                  the first and last point.
  *
  * -----------------------------------------------------------------------
@@ -32,7 +32,7 @@ import org.sigtec.ink.Trace;
 
 
 /**
- * Rubine Feature F6. The cosine of the angle between the first and last point.
+ * Rubine feature F6. The cosine of the angle between the first and last point.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

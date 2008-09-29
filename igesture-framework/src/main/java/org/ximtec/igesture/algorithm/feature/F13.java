@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   Rubine Feature F13. The duration of the gesture.
+ * Purpose      :   Rubine feature F13. The duration of the gesture.
  *
  * -----------------------------------------------------------------------
  *
@@ -31,7 +31,7 @@ import org.sigtec.ink.Trace;
 
 
 /**
- * Rubine Feature F13. The duration of the gesture.
+ * Rubine feature F13. The duration of the gesture.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch

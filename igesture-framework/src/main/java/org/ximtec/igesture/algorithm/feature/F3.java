@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
- * Purpose      :   Rubine Feature F3. Length of the bounding box
+ * Purpose      :   Rubine feature F3. Length of the bounding box
  *                  diagonal.
  *
  * -----------------------------------------------------------------------
@@ -32,7 +32,7 @@ import org.sigtec.ink.Trace;
 
 
 /**
- * Rubine Feature F3. Length of the bounding box diagonal.
+ * Rubine feature F3. Length of the bounding box diagonal.
  * 
  * @version 1.0 Dec 2006
  * @author Ueli Kurmann, kurmannu@ethz.ch
