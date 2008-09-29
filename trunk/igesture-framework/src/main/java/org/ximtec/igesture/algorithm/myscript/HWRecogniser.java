@@ -59,17 +59,17 @@ public class HWRecogniser extends DefaultAlgorithm {
    } // init
 
 
-   public ResultSet recognise(Gesture<?> gesture) {
+   public ResultSet recognise(Gesture< ? > gesture) {
       ResultSet resultSet = new ResultSet();
-      
-      if(gesture instanceof GestureSample){
+
+      if (gesture instanceof GestureSample) {
          Note note = ((GestureSample)gesture).getGesture();
          Note clone = (Note)note.clone();
          Result result = recogniser.recognise(clone);
-         resultSet.addResult(new org.ximtec.igesture.core.Result(new GestureClass(
-               result.getText()), result.getConfidence()));   
+         resultSet.addResult(new org.ximtec.igesture.core.Result(
+               new GestureClass(result.getText()), result.getConfidence()));
       }
-      
+
       fireEvent(resultSet);
       return resultSet;
    } // recognise

@@ -4,7 +4,7 @@
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
  *
- * Purpose		: 
+ * Purpose		:   
  *
  * -----------------------------------------------------------------------
  *

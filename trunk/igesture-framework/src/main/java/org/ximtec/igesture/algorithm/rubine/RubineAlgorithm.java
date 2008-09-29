@@ -110,9 +110,9 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
 
    public ResultSet recognise(Gesture< ? > gesture) throws AlgorithmException {
-
       ResultSet resultSet = new ResultSet();
       Note note = null;
+
       if (gesture instanceof GestureSample) {
          note = ((GestureSample)gesture).getGesture();
       }
@@ -154,7 +154,6 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
    private void preprocess(GestureSet gestureSet) throws AlgorithmException {
       this.gestureSet = gestureSet;
-
       CountDownLatch latch = new CountDownLatch(gestureSet.size());
 
       for (GestureClass gestureClass : gestureSet.getGestureClasses()) {
@@ -179,7 +178,6 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
                AlgorithmException.ExceptionType.Initialisation, e);
       }
 
-      // Computes weights
       computeWeights();
    } // preprocess
 
@@ -194,6 +192,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
       double[][] commonCovMatrix = new double[dim][dim];
 
       for (int i = 0; i < dim; i++) {
+
          for (int j = 0; j < dim; j++) {
             double dividend = 0;
 
@@ -225,10 +224,10 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
     * 
     */
    private void computeWeights() throws AlgorithmException {
-      // compute the weights per class
       for (GestureClassHelper helper : helpers.values()) {
          helper.computeWeights(inverse);
       }
+
    } // computeWeights
 
 
@@ -268,6 +267,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
       // probability
       double divisor = 0;
+
       for (GestureClass gestureClass : classifiers.keySet()) {
          divisor += Math.exp(classifiers.get(gestureClass)
                - classifiers.get(classifiedGesture));
@@ -285,9 +285,9 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
             && distance <= rubineConfig.getMahalanobisDistance()) {
          resultSet.addResult(new Result(classifiedGesture, 1));
       }
+
       LOGGER.info(DISTANCE + distance);
       LOGGER.info(PROBABILITY + probability);
-
       return resultSet;
    } // classify
 
@@ -312,6 +312,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
                   * (inputVector.get(j) - meanVector.get(j))
                   * (inputVector.get(k) - meanVector.get(k));
          }
+
       }
 
       return result;
@@ -324,13 +325,13 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
 
    /**
-    * Tests if the note can be recognized
-    * @param note
-    * @return
+    * Tests if the gesture can be recognised.
+    * @param gesture the gesture to be checked for.
+    * @return true if the gesture can be recognised, false otherwise.
     */
-   private boolean isApplicable(Note note) {
-      return note != null
-            && note.getPoints().size() >= rubineConfig
+   private boolean isApplicable(Note gesture) {
+      return gesture != null
+            && gesture.getPoints().size() >= rubineConfig
                   .getMinimalNumberOfPoints();
    }
 

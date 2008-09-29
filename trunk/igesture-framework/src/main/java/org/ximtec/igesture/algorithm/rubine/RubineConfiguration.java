@@ -4,7 +4,7 @@
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
  *
- * Purpose		: 
+ * Purpose		:   Configuration for the Rubine algorithm.
  *
  * -----------------------------------------------------------------------
  *
@@ -12,7 +12,8 @@
  *
  * Date				Who			Reason
  *
- * 11.06.2008			ukurmann	Initial Release
+ * 11.06.2008		ukurmann	Initial Release
+ * 29.09.2008       bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -48,29 +49,29 @@ import org.ximtec.igesture.algorithm.feature.FeatureTool;
 import org.ximtec.igesture.configuration.Configuration;
 
 
-
 /**
  * Comment
  * @version 1.0 11.06.2008
  * @author Ueli Kurmann
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class RubineConfiguration {
-   
-   private static final Logger LOGGER = Logger.getLogger(RubineConfiguration.class.getName());
-   
-   
+
+   private static final Logger LOGGER = Logger
+         .getLogger(RubineConfiguration.class.getName());
+
    private static final String DEFAULT_MAHALANOBIS_DISTANCE = "100000";
 
    private static final String DEFAULT_PROBABILITY = "0.95";
 
    private static final String DEFAULT_MIN_DISTANCE = "1";
-   
+
    protected static Map<String, String> DEFAULT_CONFIGURATION = new HashMap<String, String>();
 
    public enum Config {
       MIN_DISTANCE, FEATURE_LIST, MAHALANOBIS_DISTANCE, PROBABILITY
    }
-   
+
    /**
     * Set default parameter values
     */
@@ -90,12 +91,9 @@ public class RubineConfiguration {
             + F6.class.getName() + Constant.COMMA + F7.class.getName()
             + Constant.COMMA + F8.class.getName() + Constant.COMMA
             + F9.class.getName() + Constant.COMMA + F10.class.getName());
-      
       LOGGER.setLevel(Level.SEVERE);
-      
    }
-   
-     
+
    private Feature[] featureList;
 
    private double minDistance;
@@ -103,15 +101,18 @@ public class RubineConfiguration {
    private double mahalanobisDistance;
 
    private double probability;
-   
+
    private int minimalNumberOfPoints;
-   
-   public RubineConfiguration(Configuration config){
+
+
+   public RubineConfiguration(Configuration config) {
       init(config);
    }
-   
-   private void init(Configuration config){
-      Map<String, String> parameters = config.getParameters(RubineAlgorithm.class.getCanonicalName());
+
+
+   private void init(Configuration config) {
+      Map<String, String> parameters = config
+            .getParameters(RubineAlgorithm.class.getCanonicalName());
       minDistance = AlgorithmTool.getDoubleParameterValue(Config.MIN_DISTANCE
             .name(), parameters, DEFAULT_CONFIGURATION);
       LOGGER.info(Config.MIN_DISTANCE + Constant.COLON_BLANK + minDistance);
@@ -122,8 +123,8 @@ public class RubineConfiguration {
       LOGGER.info(Config.MAHALANOBIS_DISTANCE + Constant.COLON_BLANK
             + mahalanobisDistance);
 
-      String featureNames = AlgorithmTool.getParameterValue(
-            Config.FEATURE_LIST.name(), parameters, DEFAULT_CONFIGURATION);
+      String featureNames = AlgorithmTool.getParameterValue(Config.FEATURE_LIST
+            .name(), parameters, DEFAULT_CONFIGURATION);
       LOGGER.info(Config.FEATURE_LIST + Constant.COLON_BLANK + featureNames);
 
       featureList = FeatureTool.createFeatureList(featureNames).toArray(
@@ -136,38 +137,41 @@ public class RubineConfiguration {
       probability = AlgorithmTool.getDoubleParameterValue(Config.PROBABILITY
             .name(), parameters, DEFAULT_CONFIGURATION);
       LOGGER.info(Config.PROBABILITY + Constant.COLON_BLANK + probability);
-   }
+   } // init
 
-   
+
    public Feature[] getFeatureList() {
       return featureList;
-   }
+   } // getFeatureList
 
-   
+
    public double getMinDistance() {
       return minDistance;
-   }
+   } // getMinDistance
 
-   
+
    public double getMahalanobisDistance() {
       return mahalanobisDistance;
-   }
+   } // getMahalanobisDistance
 
-   
+
    public double getProbability() {
       return probability;
-   }
-   
-   public int getMinimalNumberOfPoints(){
+   } // getProbability
+
+
+   public int getMinimalNumberOfPoints() {
       return minimalNumberOfPoints;
-   }
-   
-   public int getNumberOfFeatures(){
+   } // getMinimalNumberOfPoints
+
+
+   public int getNumberOfFeatures() {
       return featureList.length;
-   }
-   
-   public static Map<String, String> getDefaultConfiguration(){
+   } // getNumberOfFeatures
+
+
+   public static Map<String, String> getDefaultConfiguration() {
       return DEFAULT_CONFIGURATION;
-   }
+   } // getDefaultConfiguration
 
 }
