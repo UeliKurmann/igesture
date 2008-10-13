@@ -31,6 +31,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -41,6 +42,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.ximtec.igesture.tool.view.action.SelectDatabaseAction;
 import org.ximtec.igesture.tool.view.databaseselector.BrowseAction;
 
 
@@ -58,6 +60,10 @@ public class DatabaseSelector extends JDialog{
       init();
    }
    
+   public File getDatabase(){
+    return null;  
+   }
+   
    private void init(){
       
       panel = new JPanel();
@@ -66,19 +72,18 @@ public class DatabaseSelector extends JDialog{
       panel.setBackground(Color.white);
       panel.setForeground(Color.white);
       panel.setOpaque(true);
-      
-      
-      setSize(new Dimension(500,300));
+      setSize(new Dimension(400,200));
       
       JLabel label = new JLabel();
       Image img = null;
+      
       try {
          img = ImageIO.read(DatabaseSelector.class.getClassLoader().getResourceAsStream("igesture.gif"));
       }
       catch (IOException e) {
-         // TODO Auto-generated catch block
          e.printStackTrace();
       }
+      
       ImageIcon icon = new ImageIcon(img);
       label.setIcon(icon);
       panel.add(label,BorderLayout.NORTH);
@@ -89,7 +94,6 @@ public class DatabaseSelector extends JDialog{
       add(panel);
       
       this.setVisible(true);
-      
    }
    
    private JPanel createSelectPanel(){
@@ -114,17 +118,12 @@ public class DatabaseSelector extends JDialog{
       panel.setBackground(Color.white);
       panel.setForeground(Color.white);
       panel.setOpaque(true);
-      
       panel.setLayout(new FlowLayout());
-     
-      panel.add(new JButton("OK"));
+      panel.add(new JButton(new SelectDatabaseAction()));
       return panel;
    }
-   
    
    public static void main(String[] args) {
       new DatabaseSelector();
    }
-   
-
 }

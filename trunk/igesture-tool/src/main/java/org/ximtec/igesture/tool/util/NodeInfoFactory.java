@@ -39,6 +39,7 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.SampleDescriptor;
+import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.core.TextDescriptor;
 import org.ximtec.igesture.tool.explorer.NodeInfoImpl;
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
@@ -67,6 +68,14 @@ import org.ximtec.igesture.tool.view.testbench.panel.AlgorithmWrapperPanel;
 import org.ximtec.igesture.tool.view.testbench.panel.ConfigurationPanel;
 import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmList;
 import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmWrapper;
+import org.ximtec.igesture.tool.view.testset.action.ConvertGestureSetAction;
+import org.ximtec.igesture.tool.view.testset.action.DeleteTestSetAction;
+import org.ximtec.igesture.tool.view.testset.action.ExportTestSetAction;
+import org.ximtec.igesture.tool.view.testset.action.ImportTestSetAction;
+import org.ximtec.igesture.tool.view.testset.action.NewTestSetAction;
+import org.ximtec.igesture.tool.view.testset.panel.TestSetPanel;
+import org.ximtec.igesture.tool.view.testset.panel.TestSetsPanel;
+import org.ximtec.igesture.tool.view.testset.wrapper.TestSetList;
 
 
 /**
@@ -145,6 +154,29 @@ public class NodeInfoFactory {
 
       return nodeInfos;
 
+   }
+   
+   public static List<NodeInfo> createTestSetNodeInfo() {
+      List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
+
+      List<Class< ? extends BasicAction>> rootActions = new ArrayList<Class< ? extends BasicAction>>();
+      rootActions.add(ImportTestSetAction.class);
+      rootActions.add(NewTestSetAction.class);
+      rootActions.add(ConvertGestureSetAction.class);
+
+      List<Class< ? extends BasicAction>> setActions = new ArrayList<Class< ? extends BasicAction>>();
+      setActions.add(DeleteTestSetAction.class);
+      setActions.add(ExportTestSetAction.class);
+      
+      Icon setIcon = IconTool.getIcon("mimetypes/package-x-generic", Decorator.SIZE_16);
+
+      nodeInfos = new ArrayList<NodeInfo>();
+      nodeInfos.add(new NodeInfoImpl(TestSetList.class, "name", TestSetList.PROPERTY_SETS, TestSetsPanel.class, rootActions, null));
+      nodeInfos.add(new NodeInfoImpl(TestSet.class, "name", null, TestSetPanel.class, setActions, setIcon));
+   
+      //nodeInfos.add(new NodeInfoImpl(GestureSample.class, "name", null, DefaultPanel.class, null, null));
+     
+      return nodeInfos;
    }
 
 }

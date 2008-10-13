@@ -80,9 +80,23 @@ public class GestureConstants {
    public static final String GESTURE_SETS_PANEL_TITLE = "GestureSetsPanelTitle";
    
    public static final String TESTBENCH_VIEW_NAME = "TestbenchViewName";
-   public static final String BATCH_VIEW_NAME = "BatchViewName";
    public static final String ADMIN_VIEW_NAME = "AdminViewName";
    
    public static final String MAIN_CONTROLLER_DIALOG_EXIT = "MainControllerDialogExit";
+   
+   public static final String TESTSET_VIEW_NAME = "TestSetTab";
+   public static final String TESTSET_ADD = "TestSetAdd";
+   public static final String TESTSET_IMPORT = "TestSetImport";
+   public static final String TESTSET_CONVERT_GESTURESET = "TestSetConvertGestureSet";
+   public static final String TESTSET_REMOVE = "TestSetRemove";
+   public static final String TESTSET_SAMPLE_ADD = "TestSetSampleAdd";
+   public static final String TESTSET_SAMPLE_REMOVE = "TestSetSampleRemove";
+   public static final String TESTSET_NEW = "TestSetNew";
+   public static final String TESTSET_EXPORT = "TestSetExport";
+   public static final String TESTSET_NAME = "TestSetName";
+ 
+   public static final String BATCH_VIEW_NAME = "BatchViewName";
+   public static final String BATCH_GESTURESET = "BatchGestureSet";
+   
    
 }

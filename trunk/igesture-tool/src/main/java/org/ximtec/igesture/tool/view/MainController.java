@@ -53,6 +53,7 @@ import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.view.admin.AdminController;
 import org.ximtec.igesture.tool.view.batch.BatchController;
 import org.ximtec.igesture.tool.view.testbench.TestbenchController;
+import org.ximtec.igesture.tool.view.testset.TestSetController;
 
 
 public class MainController extends DefaultController implements Service {
@@ -114,7 +115,7 @@ public class MainController extends DefaultController implements Service {
 
    /**
     * Initializes Views
-    * TODO: generalization
+    * TODO: use a dynamic initialization
     */
    private void initViews() {
       if(mainView == null){
@@ -134,10 +135,16 @@ public class MainController extends DefaultController implements Service {
       addController(testbenchController);
       mainView.addTab((TabbedView)testbenchController.getView());
       
-      // Batch Processing Tat
+      // Batch Processing Tab
       BatchController batchController = new BatchController();
       addController(batchController);
       mainView.addTab((TabbedView)batchController.getView());
+      
+      // Test Set Tab
+      TestSetController testSetController = new TestSetController();
+      addController(testSetController);
+      mainView.addTab((TabbedView)testSetController.getView());
+      
    }
    
    /*

@@ -81,6 +81,7 @@ public class NodeInfoImpl implements NodeInfo {
     * @param view the view belonging the node. The view MUST HAVE a constructor
     *            with the node instance as the only parameter.
     * @param popupActions a list of actions.
+    * @param icon the icon of the node
     */
    public NodeInfoImpl(Class< ? extends Object> type, String propertyName,
          String childList, Class< ? extends ExplorerTreeView> view,

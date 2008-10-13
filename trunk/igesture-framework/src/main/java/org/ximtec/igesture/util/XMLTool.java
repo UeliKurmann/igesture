@@ -88,6 +88,7 @@ public class XMLTool {
          .getLogger(XMLTool.class.getName());
 
    public static final String ROOT_TAG = "sets";
+   public static final String TEST_SETS_TAG = "testSets";
 
 
    /**
@@ -234,17 +235,34 @@ public class XMLTool {
     */
    @SuppressWarnings("unchecked")
    public static List<TestSet> importTestSet(File file) {
-      final List<TestSet> sets = new ArrayList<TestSet>();
-      final Document document = importDocument(file);
-      final List<Element> testSetElements = document.getRootElement()
-            .getChildren(JdomTestSet.ROOT_TAG);
+      try {
+         return importTestSet(new FileInputStream(file));
+      }
+      catch (FileNotFoundException e) {
+         LOGGER.log(Level.SEVERE, file.getName()+" not found. Could not import Testsets.", e);
+      }
+      
+      return null;
+   } // importTestSet
+   
+   /**
+    * Imports a list of test sets from an XML document.
+    * @param inputStream the input stream of the XML document
+    * @return a list of test sets
+    */
+   @SuppressWarnings("unchecked")
+   public static List<TestSet> importTestSet(InputStream inputStream){
+      List<TestSet> sets = new ArrayList<TestSet>();
+      Document document = importDocument(inputStream);
+      
+      List<Element> testSetElements = document.getRootElement().getChildren(JdomTestSet.ROOT_TAG);
 
       for (final Element setElement : testSetElements) {
          sets.add((TestSet)JdomTestSet.unmarshal(setElement));
       }
 
       return sets;
-   } // importTestSet
+   }// importTestSet
 
 
    /**
@@ -290,9 +308,27 @@ public class XMLTool {
       FileHandler.writeFile(file.getPath(), document.toXml());
    } // exportConfiguration
    
+   /**
+    * Exports a Configuration as XML Stream
+    * @param configuration
+    * @return a Configuration as XML InputStream
+    */
    public static InputStream exportConfigurationAsStream(Configuration configuration) {
       JdomDocument document = new JdomDocument(new JdomConfiguration(
             configuration));
+      return IOUtils.toInputStream(document.toXml());
+   } // exportConfiguration
+   
+   /**
+    * Exports a Test Set as XML Stream
+    * @param testSet
+    * @return a TestSet as XML InputStreamd
+    */
+   public static InputStream exportTestSetAsStream(TestSet testSet) {
+      JdomDocument document = new JdomDocument(TEST_SETS_TAG);
+      document.attach(new JdomTestSet(testSet));
+      
+      
       return IOUtils.toInputStream(document.toXml());
    } // exportConfiguration
 
@@ -349,6 +385,11 @@ public class XMLTool {
    } // importDocument
 
 
+   /**
+    * Imports an XML Document from a file.
+    * @param file
+    * @return
+    */
    public static Document importDocument(File file) {
       try {
          return importDocument(new FileInputStream(file));
@@ -387,6 +428,15 @@ public class XMLTool {
    } // importBatchProcessContainer
 
 
+   /**
+    * Transforms an XML Document using XSLT
+    * @param xmlDocument the XML Document
+    * @param xslFile the XSL Document
+    * @return a String containing the transformed document.
+    * @throws TransformerException
+    * @throws TransformerConfigurationException
+    * @throws TransformerFactoryConfigurationError
+    */
    public static String transform(String xmlDocument, String xslFile)
          throws TransformerException, TransformerConfigurationException,
          TransformerFactoryConfigurationError {

@@ -39,6 +39,7 @@ import java.util.zip.ZipEntry;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.util.XMLTool;
 import org.ximtec.igesture.util.ZipFS;
 
@@ -59,6 +60,7 @@ public class ZipStorageEngine extends DefaultStorageEngine {
 
    private final static String GESTURE_SET_PATH = "sets";
    private final static String CONFIGURATION_PATH = "configs";
+   private final static String TEST_SET_PATH = "testsets";
    private final static String XML_EXTENSION = ".xml";
 
    private String filename;
@@ -90,6 +92,9 @@ public class ZipStorageEngine extends DefaultStorageEngine {
 
       dataObjects.put(Configuration.class, new ArrayList<DataObject>());
       initConfig();
+      
+      dataObjects.put(TestSet.class, new ArrayList<DataObject>());
+      initTestSet();
    }
 
 
@@ -113,6 +118,22 @@ public class ZipStorageEngine extends DefaultStorageEngine {
    }
 
 
+   private void initTestSet() {
+      for (ZipEntry entry : zipFS.listFiles(TEST_SET_PATH)) {
+         if (entry.getName().toLowerCase().endsWith(XML_EXTENSION)) {
+            try { 
+               List<TestSet> testSets = XMLTool.importTestSet(zipFS.getInputStream(entry));
+               for(TestSet testSet:testSets){
+                  dataObjects.get(TestSet.class).add(testSet);   
+               }
+            }
+            catch (IOException e) {
+               LOGGER.log(Level.SEVERE, "Could not import Test sets.", e);
+            }
+         }
+      }
+   }
+
    private void initConfig() {
       for (ZipEntry entry : zipFS.listFiles(CONFIGURATION_PATH)) {
          if (entry.getName().toLowerCase().endsWith(XML_EXTENSION)) {
@@ -122,7 +143,7 @@ public class ZipStorageEngine extends DefaultStorageEngine {
                dataObjects.get(Configuration.class).add(config);
             }
             catch (IOException e) {
-               LOGGER.log(Level.SEVERE, "Could not import GestureSet.", e);
+               LOGGER.log(Level.SEVERE, "Could not import Configuration.", e);
             }
          }
       }
@@ -132,32 +153,14 @@ public class ZipStorageEngine extends DefaultStorageEngine {
    @Override
    public void commit() {
       if (changed || true) {
-         // persist gesture sets TODO: create methods.
-         for (DataObject dataObject : dataObjects.get(GestureSet.class)) {
-            try {
-               GestureSet set = (GestureSet)dataObject;
-               String name = GESTURE_SET_PATH + ZipFS.SEPERATOR + set.getId()
-                     + ZipFS.SEPERATOR + set.getName() + XML_EXTENSION;
-               zipFS.store(name, XMLTool.exportGestureSetAsStream(set));
-            }
-            catch (IOException e) {
-               e.printStackTrace();
-            }
+         // persist gesture sets 
+         persistGestureSets(dataObjects.get(GestureSet.class));
 
-         }
-
-         // persist configurations TODO: create methods
-         for (DataObject dataObject : dataObjects.get(Configuration.class)) {
-            try {
-               Configuration config = (Configuration)dataObject;
-               String name = CONFIGURATION_PATH + ZipFS.SEPERATOR
-                     + config.getId() + XML_EXTENSION;
-               zipFS.store(name, XMLTool.exportConfigurationAsStream(config));
-            }
-            catch (IOException e) {
-               e.printStackTrace();
-            }
-         }
+         // persist configurations 
+         persistConfiguration(dataObjects.get(Configuration.class));
+         
+         // persist test sets
+         persistTestSets(dataObjects.get(TestSet.class));
 
          try {
             zipFS.close();
@@ -169,6 +172,47 @@ public class ZipStorageEngine extends DefaultStorageEngine {
          initData();
 
          changed = false;
+      }
+   }
+   
+   private void persistGestureSets(List<DataObject> gestureSets){
+      for (DataObject dataObject : gestureSets) {
+         try {
+            GestureSet set = (GestureSet)dataObject;
+            String name = GESTURE_SET_PATH + ZipFS.SEPERATOR + set.getId()
+                  + ZipFS.SEPERATOR + set.getName() + XML_EXTENSION;
+            zipFS.store(name, XMLTool.exportGestureSetAsStream(set));
+         }
+         catch (IOException e) {
+            e.printStackTrace();
+         }
+      }
+   }
+   
+   private void persistConfiguration(List<DataObject> configurations){
+      for (DataObject dataObject : configurations) {
+         try {
+            Configuration config = (Configuration)dataObject;
+            String name = CONFIGURATION_PATH + ZipFS.SEPERATOR
+                  + config.getId() + XML_EXTENSION;
+            zipFS.store(name, XMLTool.exportConfigurationAsStream(config));
+         }
+         catch (IOException e) {
+            e.printStackTrace();
+         }
+      }
+   }
+   
+   private void persistTestSets(List<DataObject> testSets){
+      for (DataObject dataObject : testSets) {
+         try {
+            TestSet testSet = (TestSet)dataObject;
+            String name = TEST_SET_PATH + ZipFS.SEPERATOR + testSet.getId() + XML_EXTENSION;
+            zipFS.store(name, XMLTool.exportTestSetAsStream(testSet));
+         }
+         catch (IOException e) {
+            e.printStackTrace();
+         }
       }
    }
 
