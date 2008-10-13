@@ -98,7 +98,10 @@ public class ExplorerTreeModel implements TreeModel {
    @Override
    public boolean isLeaf(Object node) {
       NodeInfo nodeInfo = nodeInfos.get(node.getClass());
-      return nodeInfo.isLeaf(node);
+      if(nodeInfo != null){
+         return nodeInfo.isLeaf(node);
+      }
+      return true;
    }
 
 

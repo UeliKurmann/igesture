@@ -1,5 +1,5 @@
 /*
- * @(#)$Id$
+ * @(#)$Id: AdminController.java 507 2008-04-23 20:14:19Z kurmannu $
  *
  * Author   : Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
@@ -23,7 +23,7 @@
  * 
  */
 
-package org.ximtec.igesture.tool.view.admin;
+package org.ximtec.igesture.tool.view.testset;
 
 import java.beans.PropertyChangeEvent;
 import java.util.HashMap;
@@ -42,13 +42,13 @@ import org.ximtec.igesture.tool.util.NodeInfoFactory;
 import org.ximtec.igesture.tool.view.MainModel;
 
 
-public class AdminController extends DefaultController {
+public class TestSetController extends DefaultController {
 
-   private static final Logger LOG = Logger.getLogger(AdminController.class.getName());
+   private static final Logger LOG = Logger.getLogger(TestSetController.class.getName());
 
    private static List<NodeInfo> nodeInfos;
 
-   private AdminView adminView;
+   private TestSetView testSetView;
 
    private MainModel mainModel = Locator.getDefault().getService(
          MainModel.IDENTIFIER, MainModel.class);
@@ -56,18 +56,18 @@ public class AdminController extends DefaultController {
    private ExplorerTreeController explorerTreeController;
 
 
-   public AdminController() {
-            nodeInfos = NodeInfoFactory.createAdminNodeInfo();
-            initController(); 
+   public TestSetController() {
+            nodeInfos = NodeInfoFactory.createTestSetNodeInfo();
+            initController();
    }
 
 
    private void initController() {
-      adminView = new AdminView();
+      testSetView = new TestSetView();
 
       ExplorerTreeModel explorerModel = new ExplorerTreeModel(mainModel
-            .getGestureSetList(), getNodeInfoList());
-      explorerTreeController = new ExplorerTreeController(adminView,
+            .getTestSetList(), getNodeInfoList());
+      explorerTreeController = new ExplorerTreeController(testSetView,
             explorerModel, getNodeInfoList());
       
       
@@ -85,7 +85,7 @@ public class AdminController extends DefaultController {
 
    @Override
    public JComponent getView() {
-      return adminView;
+      return testSetView;
    }
 
 
@@ -95,6 +95,5 @@ public class AdminController extends DefaultController {
       explorerTreeController.propertyChange(evt);
       explorerTreeController.getExplorerTreeView().refresh();
       LOG.info("PropertyChange");
-
    }
 }

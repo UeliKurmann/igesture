@@ -66,7 +66,7 @@ public class TestSet extends DefaultDataObject {
     * 
     * @param sample the sample to be added.
     */
-   public void add(GestureSample sample) {
+   public void add(Gesture<?> sample) {
       samples.add(sample);
       propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SAMPLES, samples
             .indexOf(sample), null, sample);
@@ -94,9 +94,9 @@ public class TestSet extends DefaultDataObject {
     * 
     * @param sample the sample to be removed.
     */
-   public void remove(GestureSample sample) {
-      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SAMPLES, samples
-            .indexOf(sample), null, sample);
+   public void remove(Gesture<?> sample) {
+      samples.remove(sample);
+      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SAMPLES, samples.indexOf(sample), sample, null);
    } // remove
 
 
@@ -105,7 +105,7 @@ public class TestSet extends DefaultDataObject {
     * 
     * @return a list with all samples.
     */
-   public List<Gesture< ? >> getSamples() {
+   public List<Gesture<?>> getSamples() {
       return samples;
    } // getSamples
 
