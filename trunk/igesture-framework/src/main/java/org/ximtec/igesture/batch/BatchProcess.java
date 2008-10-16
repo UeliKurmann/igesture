@@ -30,6 +30,7 @@ package org.ximtec.igesture.batch;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -59,7 +60,7 @@ import org.ximtec.igesture.util.XMLTool;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class BatchProcess {
+public class BatchProcess implements Callable<BatchResultSet>{
 
    private static final Logger LOGGER = Logger.getLogger(AlgorithmFactory.class
          .getName());
@@ -80,8 +81,8 @@ public class BatchProcess {
     * 
     * @param file the XML file with the configuration.
     */
-   public BatchProcess(File file) {
-      this.batchProcessContainer = XMLTool.importBatchProcessContainer(file);
+   public BatchProcess(BatchProcessContainer container) {
+      this.batchProcessContainer = container;
       this.configurations = createConfigurations(batchProcessContainer
             .getAlgorithms());
 
@@ -379,5 +380,11 @@ public class BatchProcess {
       }
 
    } // processForLoopParameter
+
+
+   @Override
+   public BatchResultSet call() throws Exception {
+      return run();
+   }
 
 }

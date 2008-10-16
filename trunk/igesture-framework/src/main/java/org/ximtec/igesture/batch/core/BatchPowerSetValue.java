@@ -32,7 +32,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.jdom.Element;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.batch.BatchTools;
 
@@ -46,12 +45,7 @@ import org.ximtec.igesture.batch.BatchTools;
  */
 public class BatchPowerSetValue {
 
-   public static String ROOT_TAG = "powerset";
-
-   public static String ATTRIBUTE_MIN = "min";
-
-   public static String ATTRIBUTE_MAX = "max";
-
+  
    private List<String> values;
 
    private int min;
@@ -74,20 +68,6 @@ public class BatchPowerSetValue {
    } // getValues
 
 
-   public static BatchPowerSetValue unmarshal(Element parameter) {
-      final BatchPowerSetValue value = new BatchPowerSetValue();
-      value.setMax(Integer.parseInt(parameter.getAttributeValue(ATTRIBUTE_MAX)));
-      value.setMin(Integer.parseInt(parameter.getAttributeValue(ATTRIBUTE_MIN)));
-
-      for (final String s : createPowerSet(parameter.getText(), value.getMin(),
-            value.getMax())) {
-         value.addValue(s);
-      }
-
-      return value;
-   } // unmarshal
-
-
    /**
     * Creates the power set for the given list.
     * 
@@ -97,7 +77,7 @@ public class BatchPowerSetValue {
     * @return the list containing the power set of lists with the given
     *         constraint.
     */
-   private static List<String> createPowerSet(String list, int min, int max) {
+   public static List<String> createPowerSet(String list, int min, int max) {
       final List<String> result = new ArrayList<String>();
       final StringTokenizer tokenizer = new StringTokenizer(list.trim(),
             Constant.COMMA);

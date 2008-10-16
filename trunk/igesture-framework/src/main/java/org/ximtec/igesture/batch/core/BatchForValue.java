@@ -29,8 +29,6 @@ package org.ximtec.igesture.batch.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jdom.Element;
-
 
 /**
  * Represents the for loop of the batch process.
@@ -42,14 +40,6 @@ import org.jdom.Element;
 
 public class BatchForValue {
 
-   public static String ROOT_TAG = "for";
-
-   public static String ATTRIBUTE_START = "start";
-
-   public static String ATTRIBUTE_END = "end";
-
-   public static String ATTRIBUTE_STEP = "step";
-
    private double start;
 
    private double end;
@@ -59,18 +49,6 @@ public class BatchForValue {
 
    public BatchForValue() {
    }
-
-
-   public static BatchForValue unmarshal(Element parameter) {
-      final BatchForValue value = new BatchForValue();
-      value.setStart(Double.parseDouble(parameter
-            .getAttributeValue(ATTRIBUTE_START)));
-      value.setEnd(Double
-            .parseDouble(parameter.getAttributeValue(ATTRIBUTE_END)));
-      value.setStep(Double.parseDouble(parameter
-            .getAttributeValue(ATTRIBUTE_STEP)));
-      return value;
-   } // unmarshal
 
 
    /**

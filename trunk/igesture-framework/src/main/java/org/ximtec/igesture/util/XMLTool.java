@@ -62,7 +62,7 @@ import org.sigtec.util.Constant;
 import org.sigtec.util.FileHandler;
 import org.ximtec.igesture.batch.BatchProcessContainer;
 import org.ximtec.igesture.batch.BatchResultSet;
-import org.ximtec.igesture.batch.core.BatchAlgorithm;
+import org.ximtec.igesture.batch.core.jdom.JdomBatchAlgorithm;
 import org.ximtec.igesture.batch.jdom.JdomBatchResultSet;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.configuration.jdom.JdomConfiguration;
@@ -415,8 +415,8 @@ public class XMLTool {
       final Document document = importDocument(file);
 
       for (final Element elem : (List<Element>)document.getRootElement()
-            .getChildren(BatchAlgorithm.ROOT_TAG)) {
-         container.addAlgorithm(BatchAlgorithm.unmarshal(elem));
+            .getChildren(JdomBatchAlgorithm.ROOT_TAG)) {
+         container.addAlgorithm(JdomBatchAlgorithm.unmarshal(elem));
       }
 
       for (final Element set : (List<Element>)document.getRootElement()

@@ -67,7 +67,9 @@ public abstract class DefaultAlgorithm implements Algorithm {
     */
    protected void fireEvent(ResultSet resultSet) {
       for (GestureHandler gestureHandler : gestureHandlers) {
-         gestureHandler.handle(resultSet);
+         if(gestureHandler != null){
+            gestureHandler.handle(resultSet);
+         }
       }
 
    } // fireEvent

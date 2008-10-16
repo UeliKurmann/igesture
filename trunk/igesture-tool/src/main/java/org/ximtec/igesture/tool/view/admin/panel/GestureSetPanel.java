@@ -60,7 +60,7 @@ public class GestureSetPanel extends AbstractPanel {
 
       // FIXME
       StringBuilder sb = new StringBuilder();
-      for(int i = 0; i < gestureSet.size()*4; i++){
+      for(int i = 0; i < gestureSet.size()*4 || i < 4; i++){
          sb.append("pref, 4dlu,");
       }
       

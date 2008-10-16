@@ -45,6 +45,7 @@ import org.apache.commons.cli.ParseException;
 import org.sigtec.util.Constant;
 import org.sigtec.util.FileHandler;
 import org.ximtec.igesture.batch.BatchProcess;
+import org.ximtec.igesture.batch.BatchProcessContainer;
 import org.ximtec.igesture.batch.BatchResultSet;
 import org.ximtec.igesture.util.XMLTool;
 
@@ -108,8 +109,10 @@ public class BatchMain {
       }
       else if ((line.hasOption(CONFIG) && line.hasOption(GESTURESET) && line
             .hasOption(TESTSET))) {
-         final BatchProcess batchProcess = new BatchProcess(new File(line
+         BatchProcessContainer container = XMLTool.importBatchProcessContainer(new File(line
                .getOptionValue(CONFIG)));
+         
+         final BatchProcess batchProcess = new BatchProcess(container);
          batchProcess.addGestureSets(XMLTool.importGestureSet(new File(line
                .getOptionValue(GESTURESET))));
          batchProcess.setTestSet(XMLTool.importTestSet(
