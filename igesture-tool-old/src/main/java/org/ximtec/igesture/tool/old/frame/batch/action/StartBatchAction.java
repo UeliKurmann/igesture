@@ -40,6 +40,7 @@ import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.Constant;
 import org.sigtec.util.FileHandler;
 import org.ximtec.igesture.batch.BatchProcess;
+import org.ximtec.igesture.batch.BatchProcessContainer;
 import org.ximtec.igesture.batch.BatchResultSet;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.TestSet;
@@ -89,7 +90,8 @@ public class StartBatchAction extends BasicAction {
 
       if (configFile.exists() && resultFile != null && gestureSet != null
             && testSet != null) {
-         BatchProcess batchProcess = new BatchProcess(configFile);
+         BatchProcessContainer container = XMLTool.importBatchProcessContainer(configFile);
+         BatchProcess batchProcess = new BatchProcess(container);
          batchProcess.addGestureSet(gestureSet);
          batchProcess.setTestSet(testSet);
          BatchResultSet brs = batchProcess.run();

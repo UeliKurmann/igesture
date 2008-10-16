@@ -30,8 +30,6 @@ package org.ximtec.igesture.batch.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jdom.Element;
-
 
 /**
  * Datastructure to handle algorithms in batch process. This class aslo provides
@@ -42,10 +40,6 @@ import org.jdom.Element;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class BatchAlgorithm {
-
-   public static String ROOT_TAG = "algorithm";
-
-   public static String ATTRIBUTE_NAME = "name";
 
    private List<BatchParameter> parameters;
 
@@ -77,20 +71,6 @@ public class BatchAlgorithm {
    } // getParameters
 
 
-   @SuppressWarnings("unchecked")
-   public static BatchAlgorithm unmarshal(Element algorithm) {
-      final BatchAlgorithm batchAlgorithm = new BatchAlgorithm();
-      batchAlgorithm.setName(algorithm
-            .getAttributeValue(BatchAlgorithm.ATTRIBUTE_NAME));
-
-      final List<Element> parameterElements = algorithm
-            .getChildren(BatchParameter.ROOT_TAG);
-
-      for (final Element elem : parameterElements) {
-         batchAlgorithm.addParameter(BatchParameter.unmarshal(elem));
-      }
-
-      return batchAlgorithm;
-   } // unmarshal
+   
 
 }

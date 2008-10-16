@@ -61,6 +61,8 @@ public class MainController extends DefaultController implements Service {
    public static final String CMD_LOAD = "load";
    public static final String CMD_CLOSE = "close";
    public static final String CMD_SAVE = "save";
+   public static final String CMD_START_WAITING = "startWaiting";
+   public static final String CMD_STOP_WAITING = "stopWaiting";
    
    public enum Cmd{loadWorkspace, newWorkspace}
    
@@ -82,12 +84,11 @@ public class MainController extends DefaultController implements Service {
    // Main View
    private MainView mainView;
    
+   
    public MainController() {
-      
-      
-      
       initServices();
       initViews();
+   
    }
    
    private void initServices(){
@@ -161,6 +162,10 @@ public class MainController extends DefaultController implements Service {
             execCloseCommand();
          }else if(CMD_SAVE.equals(command.getCommand())){
             execSaveCommand();
+         }else if(CMD_START_WAITING.equals(command.getCommand())){
+            execStartWaiting();
+         }else if(CMD_STOP_WAITING.equals(command.getCommand())){
+            execStopWaiting();
          }else{
             LOG.warning("Command not supportet. "+command.getCommand());
          }
@@ -195,6 +200,16 @@ public class MainController extends DefaultController implements Service {
          Locator.getDefault().stopAll();
          System.exit(0);
       }
+   }
+   
+   private void execStartWaiting(){
+      LOG.info("Start Progress Panel.");
+      
+   }
+   
+   private void execStopWaiting(){
+      LOG.info("Stop Progress Panel.");
+
    }
  
    @Override

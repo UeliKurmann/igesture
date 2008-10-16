@@ -97,6 +97,11 @@ public class GestureConstants {
  
    public static final String BATCH_VIEW_NAME = "BatchViewName";
    public static final String BATCH_GESTURESET = "BatchGestureSet";
-   
+   public static final String BATCH_TESTSET = "BatchTestSet";
+   public static final String BATCH_BROWSE_CONFIG = "BatchBrowseConfig";
+   public static final String BATCH_CONFIG = "BatchConfig";
+   public static final String BATCH_OUTPUT_DIR = "BatchOutputDir";
+   public static final String BATCH_BROWSE_OUTPUT = "BatchBrowseOutput";
+   public static final String BATCH_RUN = "BatchRun";
    
 }

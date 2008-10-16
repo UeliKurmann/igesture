@@ -26,7 +26,6 @@
 
 package org.ximtec.igesture.batch.core;
 
-import org.jdom.Element;
 
 
 /**
@@ -38,10 +37,7 @@ import org.jdom.Element;
  */
 public class BatchParameter {
 
-   public static String ROOT_TAG = "parameter";
-
-   public static String ATTRIBUTE_NAME = "name";
-
+   
    private String name;
 
    private BatchForValue incrementalValue;
@@ -62,30 +58,6 @@ public class BatchParameter {
       return this.name;
    } // getName
 
-
-   public static BatchParameter unmarshal(Element parameter) {
-      final BatchParameter batchParameter = new BatchParameter();
-      batchParameter.setName(parameter.getAttributeValue(ATTRIBUTE_NAME));
-      final Element parameterValue = ((Element)parameter.getChildren().get(0));
-
-      if (parameterValue.getName().equals(BatchForValue.ROOT_TAG)) {
-         batchParameter.setIncrementalValue(BatchForValue
-               .unmarshal(parameterValue));
-      }
-      else if (parameterValue.getName().equals(BatchPowerSetValue.ROOT_TAG)) {
-         batchParameter.setPermutationValue(BatchPowerSetValue
-               .unmarshal(parameterValue));
-      }
-      else if (parameterValue.getName().equals(BatchSequenceValue.ROOT_TAG)) {
-         batchParameter.setSequenceValue(BatchSequenceValue
-               .unmarshal(parameterValue));
-      }
-      else if (parameterValue.getName().equals(BatchValue.ROOT_TAG)) {
-         batchParameter.setValue(BatchValue.unmarshal(parameterValue));
-      }
-
-      return batchParameter;
-   } // unmarshal
 
 
    public void setIncrementalValue(BatchForValue incrementalValue) {

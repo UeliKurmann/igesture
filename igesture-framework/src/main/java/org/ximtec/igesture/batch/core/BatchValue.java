@@ -27,7 +27,6 @@
 
 package org.ximtec.igesture.batch.core;
 
-import org.jdom.Element;
 
 
 /**
@@ -39,8 +38,7 @@ import org.jdom.Element;
  */
 public class BatchValue {
 
-   public static String ROOT_TAG = "value";
-
+   
    private String value;
 
 
@@ -64,16 +62,6 @@ public class BatchValue {
    } // getValue
 
 
-   /**
-    * Imports a simple value from an XML element.
-    * 
-    * @param parameterValue the XML element the value has to be imported form.
-    * @return the batch value imported from the XML element.
-    */
-   public static BatchValue unmarshal(Element parameterValue) {
-      final BatchValue value = new BatchValue();
-      value.setValue(parameterValue.getText());
-      return value;
-   } // unmarshal
+
    
 }

@@ -30,8 +30,6 @@ package org.ximtec.igesture.batch.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jdom.Element;
-
 
 /**
  * Represents the value of a sequence. Used by the BatchProcess.
@@ -42,10 +40,7 @@ import org.jdom.Element;
  */
 public class BatchSequenceValue extends BatchParameter {
 
-   public static String ROOT_TAG = "sequence";
-
-   public static String CHILD_TAG = "value";
-
+  
    List<String> values;
 
 
@@ -73,21 +68,5 @@ public class BatchSequenceValue extends BatchParameter {
    } // getValues
 
 
-   /**
-    * Imports a BatchSequenceValue from an XML element.
-    * @param parameterValue the XML element the value has to be imported from.
-    * @return the BatchSequenceValue imported from the XML element.
-    */
-   @SuppressWarnings("unchecked")
-   public static BatchSequenceValue unmarshal(Element parameterValue) {
-      final BatchSequenceValue value = new BatchSequenceValue();
-      final List<Element> children = parameterValue.getChildren(CHILD_TAG);
-
-      for (final Element element : children) {
-         value.addValue(element.getText());
-      }
-
-      return value;
-   } // unmarshal
-
+   
 }

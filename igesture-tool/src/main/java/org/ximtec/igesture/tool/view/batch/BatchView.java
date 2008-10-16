@@ -33,17 +33,23 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.MainModel;
+import org.ximtec.igesture.tool.view.batch.action.RunBatchAction;
+import org.ximtec.igesture.tool.view.batch.action.SelectConfigFileAction;
+import org.ximtec.igesture.tool.view.batch.action.SelectOutputDirAction;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -56,8 +62,23 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 public class BatchView extends AbstractPanel implements TabbedView {
 
-   public BatchView() {
+   private static final int NEXT_LINE = 2;
+   private GestureSet gestureSet;
+   private TestSet testSet;
+   private Controller controller;
+   
+   private JTextField configFileTextField;
+   private JTextField outDirTextField;
+
+
+   public BatchView(Controller controller) {
+      this.controller = controller;
       setTitle(TitleFactory.createStaticTitle(GestureConstants.BATCH_VIEW_NAME));
+      init();
+   }
+
+
+   private void init() {
       setCenter(createParameterPanel());
    }
 
@@ -90,50 +111,164 @@ public class BatchView extends AbstractPanel implements TabbedView {
       DefaultFormBuilder builder = new DefaultFormBuilder(layout);
       builder.setDefaultDialogBorder();
 
-      // configuration xml file
-      builder.append(ComponentFactory
-            .createLabel(GestureConstants.CONFIGURATION_PANEL_NAME));
-      JTextField textField = new JTextField();
-      builder.append(textField);
-      JButton configBrowseButton = new JButton();
-      builder.append(configBrowseButton);
-      builder.nextLine(2);
+      // select configuration
+      createConfigurationSelection(builder);
 
       // select gesture set
-      builder.append(ComponentFactory
-            .createLabel(GestureConstants.BATCH_GESTURESET));
+      createGestureSetSelection(builder);
 
-      final JComboBox gestureSetCombo = new JComboBox(Locator.getDefault().getService(
-            MainModel.IDENTIFIER, MainModel.class).getGestureSets().toArray());
+      // select test set
+      createTestSetSelection(builder);
 
-      gestureSetCombo.addActionListener(new ActionListener() {
-      
-         @Override
-         public void actionPerformed(ActionEvent arg0) {
-            GestureSet gestureSet = (GestureSet)gestureSetCombo.getSelectedItem();
-         }
-      });
-      builder.append(gestureSetCombo);
-      builder.nextLine(4);
-      
-   // select gesture set
-      builder.append(ComponentFactory
-            .createLabel(GestureConstants.BATCH_GESTURESET));
+      // select output dir
+      createOutputDirSelection(builder);
 
-      final JComboBox TestSetCombo = new JComboBox(Locator.getDefault().getService(
-            MainModel.IDENTIFIER, MainModel.class).getTestSets().toArray());
-
-      TestSetCombo.addActionListener(new ActionListener() {
-
-         @Override
-         public void actionPerformed(ActionEvent arg0) {
-            GestureSet gestureSet = (GestureSet)TestSetCombo.getSelectedItem();
-         }
-      });
-      builder.append(TestSetCombo);
-
+      createRunButton(builder);
 
       return builder.getPanel();
    }
 
+
+   private void createGestureSetSelection(DefaultFormBuilder builder) {
+      // select gesture set
+      builder.append(ComponentFactory
+            .createLabel(GestureConstants.BATCH_GESTURESET));
+
+      final JComboBox combo = new JComboBox(createArray(getModel()
+            .getGestureSets().toArray(), "Select Gesture Set"));
+
+      combo.addActionListener(new ActionListener() {
+
+         @Override
+         public void actionPerformed(ActionEvent arg0) {
+            Object obj = combo.getSelectedItem();
+            if (obj instanceof GestureSet) {
+               gestureSet = (GestureSet)obj;
+            }
+         }
+      });
+      builder.append(combo);
+      builder.nextLine(NEXT_LINE);
+   }
+
+
+   private void createConfigurationSelection(DefaultFormBuilder builder) {
+      // configuration xml file
+      JLabel label = ComponentFactory.createLabel(GestureConstants.BATCH_CONFIG);
+      builder.append(label);
+
+      configFileTextField = new JTextField();
+      builder.append(configFileTextField);
+
+      JButton browseButton = ComponentFactory.createButton(
+            GestureConstants.BATCH_BROWSE_CONFIG, new SelectConfigFileAction(this));
+      builder.append(browseButton);
+
+      builder.nextLine(NEXT_LINE);
+   }
+
+
+   private void createTestSetSelection(DefaultFormBuilder builder) {
+      builder.append(ComponentFactory
+            .createLabel(GestureConstants.BATCH_TESTSET));
+
+      final JComboBox combo = new JComboBox(createArray(getModel().getTestSets()
+            .toArray(), "Select Test Set"));
+
+      combo.addActionListener(new ActionListener() {
+
+         @Override
+         public void actionPerformed(ActionEvent arg0) {
+            Object obj = combo.getSelectedItem();
+            if (obj instanceof TestSet) {
+               testSet = (TestSet)obj;
+            }
+         }
+      });
+
+      builder.append(combo);
+      builder.nextLine(NEXT_LINE);
+   }
+
+
+   private void createOutputDirSelection(DefaultFormBuilder builder) {
+      builder.append(ComponentFactory
+            .createLabel(GestureConstants.BATCH_OUTPUT_DIR));
+      
+      outDirTextField = new JTextField();
+      
+      builder.append(outDirTextField);
+      builder.append(ComponentFactory.createButton(
+            GestureConstants.BATCH_BROWSE_OUTPUT, new SelectOutputDirAction(this)));
+      builder.nextLine(NEXT_LINE);
+   }
+
+
+   private void createRunButton(DefaultFormBuilder builder) {
+
+      builder.append(ComponentFactory.createButton(GestureConstants.BATCH_RUN,
+            new RunBatchAction(controller)));
+
+      builder.nextLine(NEXT_LINE);
+   }
+
+
+   /**
+    * Returns the main model
+    * @return
+    */
+   private MainModel getModel() {
+      return Locator.getDefault().getService(MainModel.IDENTIFIER,
+            MainModel.class);
+   }
+
+
+   private Object[] createArray(Object[] originalArray, String title) {
+      Object[] result = new Object[originalArray.length + 1];
+
+      for (int i = 1; i < result.length; i++) {
+         result[i] = originalArray[i - 1];
+      }
+      result[0] = title;
+
+      return result;
+   }
+
+
+   @Override
+   public void refresh() {
+      super.refresh();
+      // TODO: optimize refresh mechanism
+      init();
+   }
+
+
+   public TestSet getTestSet() {
+      return testSet;
+   }
+
+
+   public GestureSet getGestureSet() {
+      return gestureSet;
+   }
+
+
+   public String getConfigFile() {
+      return configFileTextField.getText();
+   }
+
+
+   public String getOutputDir() {
+      return outDirTextField.getText();
+   }
+
+
+   public void setConfigFile(String configFile) {
+      configFileTextField.setText(configFile);
+   }
+
+
+   public void setOutputDir(String outputDir) {
+      outDirTextField.setText(outputDir);
+   }
 }

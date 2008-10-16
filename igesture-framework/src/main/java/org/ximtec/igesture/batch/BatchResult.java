@@ -154,8 +154,16 @@ public class BatchResult {
     */
    public void incError(String className) {
       numberOfErrors++;
-      classStatistics.get(className).incError();
+      getClassStatistic(className).incError();
    } // incError
+   
+   private ClassStatistic getClassStatistic(String className){
+      ClassStatistic classStatistic = classStatistics.get(className);
+      if(classStatistic == null){
+         classStatistic = classStatistics.get(TestSet.NOISE);
+      }
+      return classStatistic;
+   }
 
 
    /**
@@ -165,7 +173,7 @@ public class BatchResult {
     */
    public void incCorrect(String className) {
       numberOfCorrects++;
-      classStatistics.get(className).incCorrect();
+      getClassStatistic(className).incCorrect();
    } // incCorrect
 
 
@@ -176,7 +184,7 @@ public class BatchResult {
     */
    public void incRejectCorrect(String className) {
       numberOfRejectCorrect++;
-      classStatistics.get(className).incRejectCorrect();
+      getClassStatistic(className).incRejectCorrect();
    } // incRejectCorrect
 
 
@@ -187,7 +195,7 @@ public class BatchResult {
     */
    public void incRejectError(String className) {
       numberOfRejectError++;
-      classStatistics.get(className).incRejectError();
+      getClassStatistic(className).incRejectError();
    } // incRejectError
 
 
