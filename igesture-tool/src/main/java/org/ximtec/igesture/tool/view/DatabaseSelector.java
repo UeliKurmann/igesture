@@ -89,7 +89,7 @@ public class DatabaseSelector extends JDialog{
       panel.add(label,BorderLayout.NORTH);
       
       panel.add(createSelectPanel(), BorderLayout.CENTER);
-      panel.add(createNavigationPanel(), BorderLayout.SOUTH);
+      //panel.add(createNavigationPanel(), BorderLayout.SOUTH);
       
       add(panel);
       
