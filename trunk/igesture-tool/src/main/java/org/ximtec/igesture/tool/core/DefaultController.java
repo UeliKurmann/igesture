@@ -71,7 +71,7 @@ public abstract class DefaultController implements Controller {
     * @see org.ximtec.igesture.tool.core.Controller#removeAllController()
     */
    @Override
-   public void removeAllController() {
+   public void removeAllControllers() {
       controllers.clear();
    }
 

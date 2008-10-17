@@ -27,7 +27,7 @@
 package org.ximtec.igesture.tool.locator;
 
 /**
- * Interface of a Service which can be located by the Locator.
+ * Interface of a service which can be located by the Locator.
  * 
  * @author UeliKurmann
  * @version 1.0
@@ -37,19 +37,19 @@ public interface Service {
 
    /**
     * Returns the identifier of the service.
-    * @return
+    * @return the service's identifier.
     */
    String getIdentifier();
 
 
    /**
-    * Starts the services.
+    * Starts the service.
     */
    void start();
 
 
    /**
-    * Shuts the service down.
+    * Stops the service.
     */
    void stop();
 

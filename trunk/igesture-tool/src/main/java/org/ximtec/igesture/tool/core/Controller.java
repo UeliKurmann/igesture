@@ -23,6 +23,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.core;
 
 import java.beans.PropertyChangeListener;
@@ -32,35 +33,40 @@ import javax.swing.JComponent;
 
 
 public interface Controller extends PropertyChangeListener {
-   
+
    /**
-    * Add a Controller
-    * @param controller
+    * Adds a controller.
+    * @param controller the controller to be added.
     */
    void addController(Controller controller);
-   
+
+
    /**
-    * Remove a Controller
-    * @param controller
+    * Removes a controller.
+    * @param controller the controller to be removed.
     */
    void removeController(Controller controller);
-   
+
+
    /**
-    * Remove all Controller
+    * Removes all controllers.
     */
-   void removeAllController();
-   
+   void removeAllControllers();
+
+
    /**
     * Returns a list of Controller
     */
    List<Controller> getControllers();
+
 
    /**
     * Returns the View component belonging to this Controller.
     * @return
     */
    JComponent getView();
-   
+
+
    void execute(Command command);
 
 }
