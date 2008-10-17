@@ -1,18 +1,18 @@
 /*
  * @(#)$Id$
  *
- * Author   : Ueli Kurmann, igesture@uelikurmann.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
  *                                   
- * Purpose    : 
+ * Purpose      :   The main class.
  *
  * -----------------------------------------------------------------------
  *
  * Revision Information:
  *
- * Date       Who     Reason
+ * Date             Who         Reason
  *
- * 23.03.2008   ukurmann  Initial Release
+ * 23.03.2008       ukurmann    Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -23,6 +23,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool;
 
 import javax.swing.UIManager;
@@ -30,18 +31,24 @@ import javax.swing.UIManager;
 import org.ximtec.igesture.tool.view.MainController;
 
 
+/**
+ * The main class.
+ * 
+ * @version 1.0, Mar 2008
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class Main {
 
-   public static void main(String[] args) {
-
+   public static void main(String[] args) {      
       try {
          UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
       }
       catch (Exception e) {
          e.printStackTrace();
       }
+      
       new MainController();
-
    }
 
 }
