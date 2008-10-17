@@ -43,6 +43,7 @@ import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.view.action.ExitAction;
 import org.ximtec.igesture.tool.view.action.LoadWorkspaceAction;
+import org.ximtec.igesture.tool.view.action.ShowAboutAction;
 import org.ximtec.igesture.tool.view.action.StoreWorkspaceAction;
 
 
@@ -77,8 +78,8 @@ public class MainView extends JFrame {
       JMenu fileMenu = new BasicMenu(GestureConstants.MENUBAR_FILE, Locator.getDefault().getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
       menuBar.add(fileMenu);
       
-      JMenu aboutMenu = new BasicMenu(GestureConstants.MENUBAR_ABOUT, Locator.getDefault().getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
-      menuBar.add(aboutMenu);
+      JMenu helpMenu = new BasicMenu(GestureConstants.MENUBAR_HELP, Locator.getDefault().getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
+      menuBar.add(helpMenu);
       
       BasicMenuItem openItem = new BasicMenuItem();
       openItem.setAction(new LoadWorkspaceAction(null));
@@ -88,7 +89,14 @@ public class MainView extends JFrame {
       fileMenu.add(storeItem);
       BasicMenuItem exitItem = new BasicMenuItem();
       exitItem.setAction(new ExitAction());
+      fileMenu.addSeparator();
       fileMenu.add(exitItem);
+      
+      BasicMenuItem aboutItem = new BasicMenuItem();
+      aboutItem.setAction(new ShowAboutAction());
+      helpMenu.add(aboutItem);
+      
+      
    }
 
 

@@ -61,6 +61,7 @@ public class GestureConstants {
    public static final String APPLICATION_BROWSE = "ApplicationBrowse";
    public static final String MENUBAR_FILE = "MenuBarFile";
    public static final String MENUBAR_ABOUT = "MenuBarAbout";
+   public static final String MENUBAR_HELP = "MenuBarHelp";
    
    public static final String CONFIGURATION_PANEL_NAME = "ConfigurationPanelName";
    public static final String CONFIGURATION_PANEL_PARAMETERS = "ConfigurationPanelParameters";

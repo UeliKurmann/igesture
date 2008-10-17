@@ -66,6 +66,7 @@ public class MainController extends DefaultController implements Service {
    public static final String CMD_SAVE = "save";
    public static final String CMD_START_WAITING = "startWaiting";
    public static final String CMD_STOP_WAITING = "stopWaiting";
+   public static final String CMD_SHOW_ABOUT_DIALOG = "showAboutDialog";
 
    public static final int BUFFER_SIZE = 32000;
 
@@ -98,8 +99,10 @@ public class MainController extends DefaultController implements Service {
 
    private void initServices() {
       guiBundle = new GuiBundleService(RESOURCE_BUNDLE);
+
       mainModel = new MainModel(StorageManager
             .createStorageEngine(getDatabase()), this);
+
       deviceClient = new InputDeviceClientService(new SwingMouseReader(),
             new BufferedInputDeviceEventListener(new MouseReaderEventListener(),
                   BUFFER_SIZE));
@@ -173,6 +176,9 @@ public class MainController extends DefaultController implements Service {
          else if (CMD_STOP_WAITING.equals(command.getCommand())) {
             execStopWaiting();
          }
+         else if (CMD_SHOW_ABOUT_DIALOG.equals(command.getCommand())) {
+            execShowAboutDialog();
+         }
          else {
             LOGGER.warning("Command not supportet. " + command.getCommand());
          }
@@ -185,13 +191,16 @@ public class MainController extends DefaultController implements Service {
 
    private void execLoadCommand() {
       LOGGER.info("Command Load");
-      mainView.removeAllTabs();
-      mainModel.stop();
-      mainModel.setStorageEngine(StorageManager
-            .createStorageEngine(getDatabase()));
-      mainModel.start();
+      File dataBase = getDatabase();
+      if (dataBase != null) {
+         mainView.removeAllTabs();
+         mainModel.stop();
+         mainModel
+               .setStorageEngine(StorageManager.createStorageEngine(dataBase));
+         mainModel.start();
 
-      initViews();
+         initViews();
+      }
    }
 
 
@@ -227,6 +236,15 @@ public class MainController extends DefaultController implements Service {
    private void execStopWaiting() {
       LOGGER.info("Stop Progress Panel.");
 
+   }
+
+
+   private void execShowAboutDialog() {
+      LOGGER.info("Show About Dialog.");
+      AboutDialog dialog = new AboutDialog(GestureConstants.MENUBAR_ABOUT,
+            Locator.getDefault().getService(GuiBundleService.IDENTIFIER,
+                  GuiBundleService.class));
+      dialog.setVisible(true);
    }
 
 
