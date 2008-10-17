@@ -55,14 +55,14 @@ public interface Controller extends PropertyChangeListener {
 
 
    /**
-    * Returns a list of Controller
+    * Returns a list of all controllers.
     */
    List<Controller> getControllers();
 
 
    /**
-    * Returns the View component belonging to this Controller.
-    * @return
+    * Returns the view component for this specific controller.
+    * @return the view component for this specific controller.
     */
    JComponent getView();
 

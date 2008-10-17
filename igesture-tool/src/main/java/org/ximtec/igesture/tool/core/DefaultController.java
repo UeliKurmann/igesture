@@ -31,19 +31,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 /**
  * Comment
  * @version 1.0 09.04.2008
  * @author Ueli Kurmann
  */
 public abstract class DefaultController implements Controller {
-   
+
    private List<Controller> controllers;
 
-   public DefaultController(){
+
+   public DefaultController() {
       controllers = new ArrayList<Controller>();
    }
+
 
    /*
     * (non-Javadoc)
@@ -62,7 +63,6 @@ public abstract class DefaultController implements Controller {
    @Override
    public List<Controller> getControllers() {
       return controllers;
-
    }
 
 
@@ -79,22 +79,24 @@ public abstract class DefaultController implements Controller {
    @Override
    public void removeController(Controller controller) {
       controllers.remove(controller);
-
    }
-   
+
+
    @Override
    public void execute(Command command) {
-       for(Controller controller:controllers){
-          controller.execute(command);
-       }
+      for (Controller controller : controllers) {
+         controller.execute(command);
+      }
+
    }
 
 
    @Override
    public void propertyChange(PropertyChangeEvent event) {
-      for(Controller controller:getControllers()){
+      for (Controller controller : getControllers()) {
          controller.propertyChange(event);
       }
+
    }
 
 }
