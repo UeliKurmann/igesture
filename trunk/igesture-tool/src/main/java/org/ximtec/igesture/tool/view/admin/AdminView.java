@@ -23,6 +23,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.view.admin;
 
 import java.awt.Color;
@@ -48,7 +49,6 @@ public class AdminView extends JSplitPane implements TabbedView,
 
    public AdminView() {
       super(JSplitPane.HORIZONTAL_SPLIT);
-      
       setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
       scrollPaneLeft = new JScrollPane();
       scrollPaneLeft.setOpaque(true);
@@ -66,7 +66,8 @@ public class AdminView extends JSplitPane implements TabbedView,
 
    @Override
    public String getName() {
-      return ComponentFactory.getGuiBundle().getName(GestureConstants.ADMIN_VIEW_NAME);
+      return ComponentFactory.getGuiBundle().getName(
+            GestureConstants.ADMIN_VIEW_NAME);
    }
 
 

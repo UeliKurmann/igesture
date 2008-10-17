@@ -58,24 +58,28 @@ import org.ximtec.igesture.tool.view.testset.TestSetController;
 
 public class MainController extends DefaultController implements Service {
 
+   private static final Logger LOGGER = Logger.getLogger(MainController.class
+         .getName());
+
    public static final String CMD_LOAD = "load";
    public static final String CMD_CLOSE = "close";
    public static final String CMD_SAVE = "save";
    public static final String CMD_START_WAITING = "startWaiting";
    public static final String CMD_STOP_WAITING = "stopWaiting";
-   
-   public enum Cmd{loadWorkspace, newWorkspace}
-   
-   public static final String IDENTIFIER = "mainController";
-   
-   private static final String RESOURCE_BUNDLE = "igestureMenu";
 
-   private static final Logger LOG = Logger.getLogger(MainController.class
-         .getName());
+   public static final int BUFFER_SIZE = 32000;
+
+   public enum Cmd {
+      loadWorkspace, newWorkspace
+   }
+
+   public static final String IDENTIFIER = "mainController";
+
+   private static final String RESOURCE_BUNDLE = "igestureMenu";
 
    // Service Locator
    private Locator locator;
-   
+
    // Services
    private MainModel mainModel;
    private GuiBundleService guiBundle;
@@ -83,24 +87,22 @@ public class MainController extends DefaultController implements Service {
 
    // Main View
    private MainView mainView;
-   
-   
+
+
    public MainController() {
       initServices();
       initViews();
-   
-   }
-   
-   private void initServices(){
-      guiBundle = new GuiBundleService(RESOURCE_BUNDLE);
 
+   }
+
+
+   private void initServices() {
+      guiBundle = new GuiBundleService(RESOURCE_BUNDLE);
       mainModel = new MainModel(StorageManager
             .createStorageEngine(getDatabase()), this);
-
-      
       deviceClient = new InputDeviceClientService(new SwingMouseReader(),
             new BufferedInputDeviceEventListener(new MouseReaderEventListener(),
-                  32000));
+                  BUFFER_SIZE));
 
       /**
        * Register services
@@ -115,17 +117,16 @@ public class MainController extends DefaultController implements Service {
 
 
    /**
-    * Initializes Views
-    * TODO: use a dynamic initialization
+    * Initializes Views TODO: use a dynamic initialization
     */
    private void initViews() {
-      if(mainView == null){
+      if (mainView == null) {
          mainView = new MainView();
          mainView.addWindowListener(new MainWindowAdapter(this));
       }
-      
+
       // TODO: avoid casts
-      
+
       // Init Admin Tab
       AdminController adminController = new AdminController();
       addController(adminController);
@@ -135,19 +136,20 @@ public class MainController extends DefaultController implements Service {
       TestbenchController testbenchController = new TestbenchController();
       addController(testbenchController);
       mainView.addTab((TabbedView)testbenchController.getView());
-      
+
       // Batch Processing Tab
       BatchController batchController = new BatchController();
       addController(batchController);
       mainView.addTab((TabbedView)batchController.getView());
-      
+
       // Test Set Tab
       TestSetController testSetController = new TestSetController();
       addController(testSetController);
       mainView.addTab((TabbedView)testSetController.getView());
-      
+
    }
-   
+
+
    /*
     * (non-Javadoc)
     * @see org.ximtec.igesture.tool.core.DefaultController#execute(org.ximtec.igesture.tool.core.ControllerCommand)
@@ -155,68 +157,84 @@ public class MainController extends DefaultController implements Service {
    @Override
    public void execute(Command command) {
       // command dispatcher
-      if(command != null && command.getCommand() != null){
-         if(CMD_LOAD.equals(command.getCommand())){
+      if (command != null && command.getCommand() != null) {
+         if (CMD_LOAD.equals(command.getCommand())) {
             execLoadCommand();
-         }else if(CMD_CLOSE.equals(command.getCommand())){
-            execCloseCommand();
-         }else if(CMD_SAVE.equals(command.getCommand())){
-            execSaveCommand();
-         }else if(CMD_START_WAITING.equals(command.getCommand())){
-            execStartWaiting();
-         }else if(CMD_STOP_WAITING.equals(command.getCommand())){
-            execStopWaiting();
-         }else{
-            LOG.warning("Command not supportet. "+command.getCommand());
          }
-      }else{
-         LOG.warning("Command not set.");
+         else if (CMD_CLOSE.equals(command.getCommand())) {
+            execCloseCommand();
+         }
+         else if (CMD_SAVE.equals(command.getCommand())) {
+            execSaveCommand();
+         }
+         else if (CMD_START_WAITING.equals(command.getCommand())) {
+            execStartWaiting();
+         }
+         else if (CMD_STOP_WAITING.equals(command.getCommand())) {
+            execStopWaiting();
+         }
+         else {
+            LOGGER.warning("Command not supportet. " + command.getCommand());
+         }
+      }
+      else {
+         LOGGER.warning("Command not set.");
       }
    }
-   
-   private void execLoadCommand(){
-      LOG.info("Command Load");
+
+
+   private void execLoadCommand() {
+      LOGGER.info("Command Load");
       mainView.removeAllTabs();
       mainModel.stop();
-      mainModel.setStorageEngine(StorageManager.createStorageEngine(getDatabase()));
+      mainModel.setStorageEngine(StorageManager
+            .createStorageEngine(getDatabase()));
       mainModel.start();
-      
+
       initViews();
    }
-   
-   private void execSaveCommand(){
-      LOG.info("Command Save");
+
+
+   private void execSaveCommand() {
+      LOGGER.info("Command Save");
       mainModel.getStorageManager().commit();
    }
-   
-   private void execCloseCommand(){
-      LOG.info("Command Close");
-      
-      String title = ComponentFactory.getGuiBundle().getName(GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT);
-      String text = ComponentFactory.getGuiBundle().getShortDescription(GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT);
-      
-      if(JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, text, title, JOptionPane.YES_NO_OPTION)){
+
+
+   private void execCloseCommand() {
+      LOGGER.info("Command Close");
+
+      String title = ComponentFactory.getGuiBundle().getName(
+            GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT);
+      String text = ComponentFactory.getGuiBundle().getShortDescription(
+            GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT);
+
+      if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, text,
+            title, JOptionPane.YES_NO_OPTION)) {
          mainModel.getStorageManager().commit();
          Locator.getDefault().stopAll();
          System.exit(0);
       }
    }
-   
-   private void execStartWaiting(){
-      LOG.info("Start Progress Panel.");
-      
-   }
-   
-   private void execStopWaiting(){
-      LOG.info("Stop Progress Panel.");
+
+
+   private void execStartWaiting() {
+      LOGGER.info("Start Progress Panel.");
 
    }
- 
+
+
+   private void execStopWaiting() {
+      LOGGER.info("Stop Progress Panel.");
+
+   }
+
+
    @Override
    public void propertyChange(PropertyChangeEvent event) {
-      LOG.info("PropertyChange");
+      LOGGER.info("PropertyChange");
       super.propertyChange(event);
-     
+
       // Dispatch DataObjects
       if (event.getSource() instanceof DataObject) {
          if (event instanceof IndexedPropertyChangeEvent) {
@@ -225,45 +243,61 @@ public class MainController extends DefaultController implements Service {
          else {
             persist((PropertyChangeEvent)event);
          }
-      }else if(event.getSource() instanceof DataObjectWrapper){
-         LOG.info("DataObjectWrapper");
-         if(event.getOldValue() instanceof DataObject && event.getNewValue() == null){
-            mainModel.getStorageManager().remove((DataObject)event.getOldValue());
-         }else if(event.getNewValue() instanceof DataObject && event.getOldValue() == null){
+      }
+      else if (event.getSource() instanceof DataObjectWrapper) {
+         LOGGER.info("DataObjectWrapper");
+         if (event.getOldValue() instanceof DataObject
+               && event.getNewValue() == null) {
+            mainModel.getStorageManager()
+                  .remove((DataObject)event.getOldValue());
+         }
+         else if (event.getNewValue() instanceof DataObject
+               && event.getOldValue() == null) {
             mainModel.getStorageManager().store((DataObject)event.getNewValue());
-         }else if(event.getNewValue() instanceof DataObject && event.getOldValue() != null){
-            mainModel.getStorageManager().update((DataObject)event.getNewValue());
+         }
+         else if (event.getNewValue() instanceof DataObject
+               && event.getOldValue() != null) {
+            mainModel.getStorageManager()
+                  .update((DataObject)event.getNewValue());
          }
       }
    }
-   
-   private void persist(PropertyChangeEvent event){
-      LOG.info("Update: property " + event.getSource());
+
+
+   private void persist(PropertyChangeEvent event) {
+      LOGGER.info("Update: property " + event.getSource());
       mainModel.getStorageManager().update((DataObject)event.getSource());
    }
-   
-   private void persist(IndexedPropertyChangeEvent event){
-      LOG.info("Store, Delete, Update: indexed property " + event.getSource());
+
+
+   private void persist(IndexedPropertyChangeEvent event) {
+      LOGGER
+            .info("Store, Delete, Update: indexed property " + event.getSource());
       if (event.getOldValue() == null) {
          mainModel.getStorageManager().store((DataObject)event.getNewValue());
-      }else if(event.getNewValue() == null && event.getOldValue() instanceof DataObject){
+      }
+      else if (event.getNewValue() == null
+            && event.getOldValue() instanceof DataObject) {
          mainModel.getStorageManager().remove((DataObject)event.getOldValue());
       }
-      mainModel.getStorageManager().update((DataObject)event.getSource()); 
+      mainModel.getStorageManager().update((DataObject)event.getSource());
    }
-   
+
+
    @Override
    public JComponent getView() {
       return null;
    }
 
+
    /**
-    * TODO select database file (ms access like application). show recent used files. 
+    * TODO select database file (ms access like application). show recent used
+    * files.
     * @return
     */
    private File getDatabase() {
       File file = null;
-      while(file == null){
+      while (file == null) {
          JFileChooser chooser = new JFileChooser();
          chooser.showOpenDialog(null);
          file = chooser.getSelectedFile();
@@ -271,24 +305,28 @@ public class MainController extends DefaultController implements Service {
       return file;
    }
 
+
    @Override
    public String getIdentifier() {
       return IDENTIFIER;
    }
 
+
    @Override
    public void reset() {
-      LOG.warning("method not implemented.");
+      LOGGER.warning("method not implemented.");
    }
+
 
    @Override
    public void start() {
-      LOG.warning("method not implemented.");      
+      LOGGER.warning("method not implemented.");
    }
+
 
    @Override
    public void stop() {
-      LOG.warning("method not implemented.");
+      LOGGER.warning("method not implemented.");
    }
 
 }

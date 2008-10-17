@@ -34,7 +34,7 @@ import java.util.Map;
 
 /**
  * Implements the locator pattern. Services can be located, started and stopped.
- * A default Locator is available through a singleton.
+ * A default locator is available through a singleton.
  * 
  * @author UeliKurmann
  * @version 1.0
@@ -82,6 +82,7 @@ public class Locator {
       for (Service service : getServices()) {
          service.start();
       }
+      
    }
 
 
@@ -89,6 +90,7 @@ public class Locator {
       for (Service service : getServices()) {
          service.stop();
       }
+      
    }
 
 
@@ -96,6 +98,7 @@ public class Locator {
       if (defaultLocator == null) {
          defaultLocator = new Locator();
       }
+      
       return defaultLocator;
    }
 

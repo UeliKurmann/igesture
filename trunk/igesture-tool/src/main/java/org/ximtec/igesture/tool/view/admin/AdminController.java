@@ -23,6 +23,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.view.admin;
 
 import java.beans.PropertyChangeEvent;
@@ -44,7 +45,8 @@ import org.ximtec.igesture.tool.view.MainModel;
 
 public class AdminController extends DefaultController {
 
-   private static final Logger LOG = Logger.getLogger(AdminController.class.getName());
+   private static final Logger LOG = Logger.getLogger(AdminController.class
+         .getName());
 
    private static List<NodeInfo> nodeInfos;
 
@@ -57,8 +59,8 @@ public class AdminController extends DefaultController {
 
 
    public AdminController() {
-            nodeInfos = NodeInfoFactory.createAdminNodeInfo();
-            initController(); 
+      nodeInfos = NodeInfoFactory.createAdminNodeInfo();
+      initController();
    }
 
 
@@ -69,8 +71,7 @@ public class AdminController extends DefaultController {
             .getGestureSetList(), getNodeInfoList());
       explorerTreeController = new ExplorerTreeController(adminView,
             explorerModel, getNodeInfoList());
-      
-      
+
    }
 
 
