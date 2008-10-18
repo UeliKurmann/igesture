@@ -29,7 +29,6 @@ package org.ximtec.igesture.tool.view.batch;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
 import java.util.concurrent.CompletionService;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.Executors;
@@ -45,8 +44,6 @@ import org.ximtec.igesture.tool.core.Command;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.view.MainController;
 import org.ximtec.igesture.util.XMLTool;
-
-import com.sun.corba.se.spi.activation.Locator;
 
 
 /**

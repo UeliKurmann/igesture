@@ -31,7 +31,7 @@ import java.util.List;
 
 import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.rubine.RubineAlgorithm;
-import org.ximtec.igesture.algorithm.siger.SigerRecogniser;
+import org.ximtec.igesture.algorithm.siger.SigerAlgorithm;
 import org.ximtec.igesture.algorithm.signature.SignatureAlgorithm;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
@@ -96,7 +96,7 @@ public class MainModel implements Service {
    public List<Class< ? extends Algorithm>> getAlgorithms() {
       List<Class< ? extends Algorithm>> algorithms = new ArrayList<Class< ? extends Algorithm>>();
       algorithms.add(RubineAlgorithm.class);
-      algorithms.add(SigerRecogniser.class);
+      algorithms.add(SigerAlgorithm.class);
       algorithms.add(SignatureAlgorithm.class);
       return algorithms;
    }

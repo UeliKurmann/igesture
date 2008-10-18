@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -46,7 +46,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import org.sigtec.graphix.widget.BasicButton;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
@@ -57,6 +56,7 @@ import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
 import org.ximtec.igesture.tool.util.ComponentFactory;
+import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.MainModel;
@@ -64,6 +64,8 @@ import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
 import org.ximtec.igesture.tool.view.testbench.action.RecogniseAction;
 import org.ximtex.igesture.tool.binding.BindingFactory;
 import org.ximtex.igesture.tool.binding.MapTextFieldBinding;
+
+import sun.awt.VerticalBagLayout;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -81,8 +83,9 @@ public class ConfigurationPanel extends AbstractPanel {
    private SwingMouseReader note;
    private JScrollPane resultList;
    private Controller controller;
-   
+
    private RecogniseAction recogniseAction;
+
 
    public ConfigurationPanel(Controller controller, Configuration configuration) {
       this.controller = controller;
@@ -90,10 +93,12 @@ public class ConfigurationPanel extends AbstractPanel {
       init();
 
    }
-   
+
+
    private void init() {
-      setTitle(TitleFactory.createDynamicTitle(configuration, Configuration.PROPERTY_NAME));
-     
+      setTitle(TitleFactory.createDynamicTitle(configuration,
+            Configuration.PROPERTY_NAME));
+
       JPanel basePanel = new JPanel();
       basePanel.setBackground(Color.WHITE);
       basePanel.setOpaque(true);
@@ -105,69 +110,83 @@ public class ConfigurationPanel extends AbstractPanel {
    }
 
 
-   private JPanel createWorkspace(){
+   private JPanel createWorkspace() {
       JPanel basePanel = new JPanel();
-      
+
       recogniseAction = new RecogniseAction(controller, configuration);
       recogniseAction.setEnabled(false);
 
       // input area
       basePanel.setLayout(new FlowLayout());
 
-      
-      InputDeviceClient client = Locator.getDefault().getService(InputDeviceClientService.IDENTIFIER, InputDeviceClient.class);
+      InputDeviceClient client = Locator.getDefault().getService(
+            InputDeviceClientService.IDENTIFIER, InputDeviceClient.class);
       note = ((SwingMouseReader)client.getInputDevice());
-      basePanel.add(note.getPanel(new Dimension(200,200)));
+      basePanel.add(note.getPanel(new Dimension(200, 200)));
 
       // buttons
       JPanel buttonPanel = new JPanel();
-      buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS)); 
+      VerticalBagLayout boxLayout = new VerticalBagLayout();
       
-     final JComboBox comboBox = new JComboBox(Locator.getDefault().getService(MainModel.IDENTIFIER, MainModel.class).getGestureSets().toArray());
-      
-     comboBox.addActionListener(new ActionListener(){
+      buttonPanel.setLayout(boxLayout);
 
-      @Override
-      public void actionPerformed(ActionEvent arg0) {
-         configuration.removeAllGestureSets();
-         GestureSet gestureSet = (GestureSet)comboBox.getSelectedItem();
-         configuration.addGestureSet(gestureSet);
-         recogniseAction.setEnabled(true);
-      }});
-     
-     comboBox.addMouseListener(new MouseAdapter(){
-        
-        @Override
-      public void mouseClicked(MouseEvent e) {
-           configuration.removeAllGestureSets();
-           GestureSet gestureSet = (GestureSet)comboBox.getSelectedItem();
-           configuration.addGestureSet(gestureSet);
-           recogniseAction.setEnabled(true);
-      }
-        
-     });
+      final JComboBox comboBox = new JComboBox(Locator.getDefault().getService(
+            MainModel.IDENTIFIER, MainModel.class).getGestureSets().toArray());
+
+      comboBox.addActionListener(new ActionListener() {
+
+         @Override
+         public void actionPerformed(ActionEvent arg0) {
+            configuration.removeAllGestureSets();
+            GestureSet gestureSet = (GestureSet)comboBox.getSelectedItem();
+            configuration.addGestureSet(gestureSet);
+            recogniseAction.setEnabled(true);
+         }
+      });
+
+      comboBox.addMouseListener(new MouseAdapter() {
+
+         @Override
+         public void mouseClicked(MouseEvent e) {
+            configuration.removeAllGestureSets();
+            GestureSet gestureSet = (GestureSet)comboBox.getSelectedItem();
+            configuration.addGestureSet(gestureSet);
+            recogniseAction.setEnabled(true);
+         }
+
+      });
+
+      JButton clearGestureButton = ComponentFactory.createButton(
+            GestureConstants.GESTURE_SAMPLE_CLEAR, new ClearGestureSampleAction(
+                  note));
+      Formatter.formatButton(clearGestureButton);
       
       
-      buttonPanel.add(new BasicButton(new ClearGestureSampleAction(note)));
-      buttonPanel.add(new BasicButton(recogniseAction));
-      buttonPanel.add(comboBox);     
+      JButton recogniseButton = ComponentFactory.createButton(GestureConstants.RECONGISE,
+            recogniseAction);
+      Formatter.formatButton(recogniseButton);
       
+      buttonPanel.add(clearGestureButton);
+      buttonPanel.add(recogniseButton);
+      buttonPanel.add(comboBox);
+
       basePanel.add(buttonPanel);
 
       // Result List
       resultList = new JScrollPane(new JList());
-      resultList.setPreferredSize(new Dimension(200,200));
-      
+      resultList.setPreferredSize(new Dimension(200, 200));
+
       basePanel.add(resultList);
-      
+
       return basePanel;
    }
-   
+
 
    @Override
    public void refresh() {
       note.clear();
    }
+
 
    private JPanel createParameterPanel() {
 
@@ -180,28 +199,33 @@ public class ConfigurationPanel extends AbstractPanel {
 
       String algorithmName = configuration.getAlgorithms().get(0);
 
-      builder.append(ComponentFactory.createLabel(GestureConstants.CONFIGURATION_PANEL_PARAMETERS));
+      builder.append(ComponentFactory
+            .createLabel(GestureConstants.CONFIGURATION_PANEL_PARAMETERS));
       builder.nextLine(2);
 
-      builder.append(ComponentFactory.createLabel(GestureConstants.CONFIGURATION_PANEL_NAME));
+      builder.append(ComponentFactory
+            .createLabel(GestureConstants.CONFIGURATION_PANEL_NAME));
       JTextField textField = new JTextField();
-      BindingFactory.createInstance(textField, configuration, Configuration.PROPERTY_NAME);
+      BindingFactory.createInstance(textField, configuration,
+            Configuration.PROPERTY_NAME);
       builder.append(textField);
       builder.nextLine(2);
-      
+
       Map<String, String> parameter = configuration.getParameters(algorithmName);
       for (String parameterName : parameter.keySet()) {
          builder.append(new JLabel(parameterName));
          JTextField paramTextField = new JTextField();
-         new MapTextFieldBinding(paramTextField,configuration, parameterName, algorithmName);
+         new MapTextFieldBinding(paramTextField, configuration, parameterName,
+               algorithmName);
          builder.append(paramTextField);
          builder.nextLine(2);
       }
 
       return builder.getPanel();
    }
-   
-   public void setResultList(List<Result> classes){
+
+
+   public void setResultList(List<Result> classes) {
       resultList.setViewportView(new JList(new Vector<Result>(classes)));
    }
 }

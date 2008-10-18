@@ -50,7 +50,7 @@ import org.ximtec.igesture.core.TextDescriptor;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class SigerRecogniser extends DefaultAlgorithm {
+public class SigerAlgorithm extends DefaultAlgorithm {
 
    private HashMap<ClassMatcher, GestureClass> gestures;
 
@@ -59,7 +59,7 @@ public class SigerRecogniser extends DefaultAlgorithm {
    }
 
 
-   public SigerRecogniser() {
+   public SigerAlgorithm() {
    }
 
 

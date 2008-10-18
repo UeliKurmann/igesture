@@ -32,28 +32,32 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
-import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.SwingMouseReader;
+import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
+import org.ximtec.igesture.tool.util.ComponentFactory;
+import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.action.RemoveGestureSampleAction;
 import org.ximtec.igesture.util.GestureTool;
+
+import sun.awt.VerticalBagLayout;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -160,10 +164,15 @@ public class SampleDescriptorPanel extends AbstractPanel {
 
       // buttons
       JPanel buttonPanel = new JPanel();
-      buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS)); 
-      buttonPanel.add(new BasicButton(new AddGestureSampleAction(descriptor)));
+      buttonPanel.setLayout(new VerticalBagLayout()); 
+      
+      JButton addSampleButton = ComponentFactory.createButton(GestureConstants.GESTURE_SAMPLE_ADD, new AddGestureSampleAction(descriptor));
+      Formatter.formatButton(addSampleButton);
+      buttonPanel.add(addSampleButton);
 
-      buttonPanel.add(new BasicButton(new ClearGestureSampleAction(note)));
+      JButton clearSampleButton = ComponentFactory.createButton(GestureConstants.GESTURE_SAMPLE_CLEAR, new ClearGestureSampleAction(note));
+      Formatter.formatButton(clearSampleButton);
+      buttonPanel.add(clearSampleButton);
 
       basePanel.add(buttonPanel);
 

@@ -35,7 +35,7 @@ import org.sigtec.input.InputDeviceEvent;
 import org.sigtec.input.InputDeviceEventListener;
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.AlgorithmException;
-import org.ximtec.igesture.algorithm.siger.SigerRecogniser;
+import org.ximtec.igesture.algorithm.siger.SigerAlgorithm;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
@@ -78,7 +78,7 @@ public class HelloWorld implements ButtonDeviceEventListener {
       gestureSet.addGestureClass(downRight);
       Configuration configuration = new Configuration();
       configuration.addGestureSet(gestureSet);
-      configuration.addAlgorithm(SigerRecogniser.class.getName());
+      configuration.addAlgorithm(SigerAlgorithm.class.getName());
       recogniser = new Recogniser(configuration);
       InputDevice device = new MouseReader();
       InputDeviceEventListener listener = new BufferedInputDeviceEventListener(

@@ -1,0 +1,26 @@
+<html>
+<img src="../image/igesture.gif" alt="iGesture">
+<p>
+The SiGeR (Simple Gesture Recogniser) algorithm was developed by Scott Swigart for the
+Microsoft Developer Network to illustrate the implementation of custom gesture recognisers
+for the Microsoft Tablet PC platform. The algorithm classifies gestures on the basis of regular
+expressions.
+<p>
+Gestures are described with the eight cardinal points (N, NE, E, SE, S, SW, W and
+NW) and some statistical information. Out of this description a regular expression is created.
+These regular expressions are applied to input gestures and if a class description matches the
+input string, the gesture class is recognised as result. Therefore the classification is binary
+and it is not possible to rate different results.
+<p>
+For example the gesture shown in Figure 4.1, starting at the red dot, can be described with
+the following character string: E, N, W, S. Out of these characters the regular expression
+(E)+(N)+(W)+(S)+ can be created. Because hand drawn lines may not be always
+straight, the author proposed a more general form of the regular expression which also accepts
+neighbouring distances. So the extended regular expression for this example gesture
+would be (NE|E|SE)+(NW|N|NE)+(SW|W|NW)+(SE|S|SW)+.
+
+<p>
+
+file: resources/html/SigerAlgorithm.html
+
+</html>

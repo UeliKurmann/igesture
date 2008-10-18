@@ -26,8 +26,13 @@
 
 package org.ximtec.igesture.tool.view.testbench.panel;
 
+import java.awt.Dimension;
+import java.net.URL;
+
 import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.util.HtmlPanel;
 import org.ximtec.igesture.tool.util.TitleFactory;
+import org.ximtec.igesture.tool.view.AboutDialog;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmWrapper;
 
@@ -43,5 +48,12 @@ public class AlgorithmWrapperPanel extends AbstractPanel {
    public AlgorithmWrapperPanel(Controller controller, AlgorithmWrapper algorithm){
       // FIXME Implement View
       setTitle(TitleFactory.createStaticTitle(algorithm.getAlgorithm().getSimpleName()));
+      
+      URL path = AboutDialog.class.getClassLoader().getResource("html/"+algorithm.getAlgorithm().getSimpleName()+".html");
+
+      HtmlPanel htmlPanel = new HtmlPanel(path, new Dimension(400,400));
+      
+      setCenter(htmlPanel);     
+      
    }
 }

@@ -63,7 +63,6 @@ public class AboutDialog extends BasicDialog {
     * The key used to retrieve dialog details from the resource bundle.
     */
    public static final String KEY = "AboutDialog";
-
    public static final String RESOURCE = "Resource";
 
 
