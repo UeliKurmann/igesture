@@ -41,8 +41,6 @@ import org.ximtec.igesture.tool.service.InputDeviceClientService;
 public class AddGestureSampleAction extends BasicAction {
 
    SampleDescriptor descriptor;
-   
-
 
    public AddGestureSampleAction(SampleDescriptor descriptor) {
       super(GestureConstants.GESTURE_SAMPLE_ADD, Locator.getDefault()

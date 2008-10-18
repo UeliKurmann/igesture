@@ -56,6 +56,9 @@ public class TestbenchView extends JSplitPane implements TabbedView,
       scrollPaneLeft.setBackground(Color.blue);
       scrollPaneLeft.setForeground(Color.blue);
       setLeftComponent(scrollPaneLeft);
+
+      
+      
    }
 
 

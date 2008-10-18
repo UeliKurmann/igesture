@@ -26,22 +26,19 @@
 
 package org.ximtec.igesture.tool.view;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.net.URL;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
-import javax.swing.JScrollPane;
-import javax.swing.plaf.basic.BasicHTML;
+import javax.swing.JPanel;
 
 import org.sigtec.graphix.GuiBundle;
 import org.sigtec.graphix.widget.BasicDialog;
-import org.ximtec.igesture.graphics.SwingTool;
+import org.ximtec.igesture.tool.util.HtmlPanel;
 
 
 /**
@@ -75,8 +72,8 @@ public class AboutDialog extends BasicDialog {
 
    /**
     * Constructs a new AboutDialog.
-    * @param key the key to be used for the lookup of information in
-    *            the GUI bundle.
+    * @param key the key to be used for the lookup of information in the GUI
+    *            bundle.
     * @param guiBundle the GUI bundle to be used to create the about dialog.
     */
    public AboutDialog(String key, GuiBundle guiBundle) {
@@ -94,31 +91,20 @@ public class AboutDialog extends BasicDialog {
       super.init(key, guiBundle);
       int width = guiBundle.getWidth(key);
       int height = guiBundle.getHeight(key);
-      JEditorPane aboutField;
 
-      try {
-         String resource = guiBundle.getProperty(key, RESOURCE);
-         URL path = AboutDialog.class.getClassLoader().getResource(resource);
+      setLayout(new BorderLayout());
 
-         aboutField = new JEditorPane(path);
-         aboutField.setEditable(false);
-         aboutField.setContentType("text/html");
-         aboutField.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES,
-               Boolean.TRUE);
-         aboutField.putClientProperty(BasicHTML.documentBaseKey,
-               AboutDialog.class.getResource("/"));
-         aboutField.setPreferredSize(new Dimension(width - 10, height - 50));
-         JScrollPane scrollPane = new JScrollPane(aboutField);
-         scrollPane.setPreferredSize(new Dimension(width - 10, height - 50));
-         scrollPane.setAutoscrolls(true);
-         addComponent(scrollPane, SwingTool.createGridBagConstraint(0, 0));
-      }
-      catch (IOException e) {
-         LOGGER.log(Level.SEVERE, "", e);
-      }
+      String resource = guiBundle.getProperty(key, RESOURCE);
+      URL path = AboutDialog.class.getClassLoader().getResource(resource);
 
-      JButton okButton = new JButton("Close");
-      okButton.addMouseListener(new MouseAdapter() {
+      Dimension dimension = new Dimension(width - 10, height - 50);
+      HtmlPanel htmlPanel = new HtmlPanel(path, dimension);
+
+      add(htmlPanel, BorderLayout.CENTER);
+
+      //FIXME i18!
+      JButton closeButton = new JButton("Close");
+      closeButton.addMouseListener(new MouseAdapter() {
 
          @Override
          public void mouseClicked(MouseEvent arg0) {
@@ -126,8 +112,9 @@ public class AboutDialog extends BasicDialog {
             closeDialog();
          }
       });
-
-      addComponent(okButton, SwingTool.createGridBagConstraint(0, 1));
+      JPanel panel = new JPanel();
+      panel.add(closeButton);
+      add(panel, BorderLayout.SOUTH);
       pack();
    } // init
 

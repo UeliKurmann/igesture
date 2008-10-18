@@ -44,6 +44,7 @@ import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.util.ComponentFactory;
+import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.MainModel;
@@ -105,7 +106,7 @@ public class BatchView extends AbstractPanel implements TabbedView {
    private JPanel createParameterPanel() {
 
       FormLayout layout = new FormLayout(
-            "100dlu, 4dlu, 100dlu, 4dlu, 40dlu",
+            "80dlu, 4dlu, 140dlu, 4dlu, 80dlu",
             "pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref");
 
       DefaultFormBuilder builder = new DefaultFormBuilder(layout);
@@ -162,6 +163,8 @@ public class BatchView extends AbstractPanel implements TabbedView {
 
       JButton browseButton = ComponentFactory.createButton(
             GestureConstants.BATCH_BROWSE_CONFIG, new SelectConfigFileAction(this));
+      
+      Formatter.formatButton(browseButton);
       builder.append(browseButton);
 
       builder.nextLine(NEXT_LINE);
@@ -198,16 +201,21 @@ public class BatchView extends AbstractPanel implements TabbedView {
       outDirTextField = new JTextField();
       
       builder.append(outDirTextField);
-      builder.append(ComponentFactory.createButton(
-            GestureConstants.BATCH_BROWSE_OUTPUT, new SelectOutputDirAction(this)));
+      JButton browseButton = ComponentFactory.createButton(
+            GestureConstants.BATCH_BROWSE_OUTPUT, new SelectOutputDirAction(this));
+      Formatter.formatButton(browseButton);
+      builder.append(browseButton);
       builder.nextLine(NEXT_LINE);
    }
 
 
    private void createRunButton(DefaultFormBuilder builder) {
-
-      builder.append(ComponentFactory.createButton(GestureConstants.BATCH_RUN,
-            new RunBatchAction(controller)));
+      JButton runButton = ComponentFactory.createButton(GestureConstants.BATCH_RUN,
+            new RunBatchAction(controller));
+      
+      Formatter.formatButton(runButton);
+      
+      builder.append(runButton);
 
       builder.nextLine(NEXT_LINE);
    }
