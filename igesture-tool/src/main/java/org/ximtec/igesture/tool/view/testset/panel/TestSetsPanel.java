@@ -32,7 +32,6 @@ import java.net.URL;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.util.HtmlPanel;
 import org.ximtec.igesture.tool.util.TitleFactory;
-import org.ximtec.igesture.tool.view.AboutDialog;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.testset.wrapper.TestSetList;
 
@@ -44,6 +43,9 @@ import org.ximtec.igesture.tool.view.testset.wrapper.TestSetList;
  */
 public class TestSetsPanel extends AbstractPanel {
 
+   private static final String HTML_FILE = "html/testSetTab.html";
+
+
    public TestSetsPanel(Controller controller, TestSetList testSetList) {
       init();
    }
@@ -53,7 +55,7 @@ public class TestSetsPanel extends AbstractPanel {
       // TODO strings aus property file
       setTitle(TitleFactory.createStaticTitle("Test Set Management"));
 
-      URL path = AboutDialog.class.getClassLoader().getResource("html/testSetTab.html");
+      URL path = this.getClass().getClassLoader().getResource(HTML_FILE);
 
       HtmlPanel htmlPanel = new HtmlPanel(path, new Dimension(400,400));
       

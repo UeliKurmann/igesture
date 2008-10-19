@@ -31,6 +31,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JButton;
@@ -88,6 +89,7 @@ public class AboutDialog extends BasicDialog {
     * @param guiBundle the GUI bundle to be used to create the dialogue.
     */
    protected void init(String key, GuiBundle guiBundle) {
+      LOGGER.log(Level.FINER, "Init About Dialog");
       super.init(key, guiBundle);
       int width = guiBundle.getWidth(key);
       int height = guiBundle.getHeight(key);

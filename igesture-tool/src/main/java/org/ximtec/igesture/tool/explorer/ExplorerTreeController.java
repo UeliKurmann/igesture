@@ -31,6 +31,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.swing.JComponent;
+import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreeCellRenderer;
@@ -110,10 +111,15 @@ public class ExplorerTreeController extends DefaultController implements TreeSel
     */
    @Override
    public void valueChanged(TreeSelectionEvent e) {
-      Object node = e.getPath().getLastPathComponent();
+      final Object node = e.getPath().getLastPathComponent();
       if (nodeInfos.get(node.getClass()) != null) {
-         selectedExplorerTreeView = nodeInfos.get(node.getClass()).getView(this, node);
-         container.setView(selectedExplorerTreeView);
+         SwingUtilities.invokeLater(new Runnable(){   
+            @Override
+            public void run() {
+               selectedExplorerTreeView = nodeInfos.get(node.getClass()).getView(ExplorerTreeController.this, node);
+               container.setView(selectedExplorerTreeView);  
+            }
+         }); 
       }
    }
 

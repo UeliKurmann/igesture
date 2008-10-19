@@ -51,6 +51,7 @@ public class NodeInfoImplJdom extends Element {
    }
 
 
+   @SuppressWarnings("unchecked")
    public static NodeInfoImpl unmarshall(Element element) {
 
       String propertyName = element.getChildText("propertyName");

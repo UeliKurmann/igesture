@@ -157,7 +157,7 @@ public class InputDeviceFactory {
     */
    private static String getParameter(XMLConfiguration configuration,
          String deviceIdentifier, String parameterName) {
-      List list = configuration.getList(getParameterXPathString(
+      List<?> list = configuration.getList(getParameterXPathString(
             deviceIdentifier, parameterName));
 
       if (!list.isEmpty()) {
