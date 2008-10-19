@@ -35,9 +35,8 @@ import java.util.logging.Logger;
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicHTML;
-
-import org.ximtec.igesture.tool.view.AboutDialog;
 
 
 /**
@@ -48,7 +47,7 @@ import org.ximtec.igesture.tool.view.AboutDialog;
 public class HtmlPanel extends JPanel {
 
    private static Logger LOGGER = Logger.getLogger(HtmlPanel.class.getName());
-   
+
    private static final String SLASH = "/";
    private static final String MIME_HTML = "text/html";
 
@@ -64,25 +63,39 @@ public class HtmlPanel extends JPanel {
 
 
    private void init(URL url, Dimension dimension) {
-      setLayout(new BorderLayout());
-      setPreferredSize(dimension);
-      try {
-         JEditorPane htmlArea = new JEditorPane(url);
-         htmlArea.setEditable(false);
-         htmlArea.setContentType(MIME_HTML);
-         htmlArea.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES,
-               Boolean.TRUE);
-         htmlArea.putClientProperty(BasicHTML.documentBaseKey, AboutDialog.class
-               .getResource(SLASH));
-         htmlArea.setPreferredSize(dimension);
-         JScrollPane scrollPane = new JScrollPane(htmlArea);
-         scrollPane.setPreferredSize(dimension);
-         scrollPane.setAutoscrolls(true);
-         add(scrollPane, BorderLayout.CENTER);
-      }
-      catch (Exception e) {
-        LOGGER.log(Level.SEVERE, "", e);
-      }
+
+      final URL finalUrl = url;
+      final Dimension finalDimension = dimension;
+
+      SwingUtilities.invokeLater(new Runnable() {
+
+         @Override
+         public void run() {
+            setLayout(new BorderLayout());
+            setPreferredSize(finalDimension);
+            try {
+               JEditorPane htmlArea = new JEditorPane(finalUrl);
+               htmlArea.setEditable(false);
+               htmlArea.setContentType(MIME_HTML);
+               
+               htmlArea.putClientProperty(BasicHTML.documentBaseKey,
+                     HtmlPanel.class.getResource(SLASH));
+      
+               // htmlArea.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
+               
+               htmlArea.setPreferredSize(finalDimension);
+               JScrollPane scrollPane = new JScrollPane(htmlArea);
+               scrollPane.setPreferredSize(finalDimension);
+               scrollPane.setAutoscrolls(true);
+               add(scrollPane, BorderLayout.CENTER);
+            }
+            catch (Exception e) {
+               LOGGER.log(Level.SEVERE, "", e);
+            }
+
+         }
+
+      });
 
    }
 

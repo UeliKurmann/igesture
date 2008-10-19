@@ -29,11 +29,14 @@ package org.ximtec.igesture.tool.view;
 import java.beans.IndexedPropertyChangeEvent;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
+import java.util.concurrent.CyclicBarrier;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import org.sigtec.input.BufferedInputDeviceEventListener;
 import org.ximtec.igesture.core.DataObject;
@@ -54,6 +57,7 @@ import org.ximtec.igesture.tool.view.admin.AdminController;
 import org.ximtec.igesture.tool.view.batch.BatchController;
 import org.ximtec.igesture.tool.view.testbench.TestbenchController;
 import org.ximtec.igesture.tool.view.testset.TestSetController;
+import org.ximtec.igesture.tool.view.welcome.WelcomeController;
 
 
 public class MainController extends DefaultController implements Service {
@@ -127,29 +131,57 @@ public class MainController extends DefaultController implements Service {
          mainView = new MainView();
          mainView.addWindowListener(new MainWindowAdapter(this));
       }
+      
+      final CyclicBarrier barrier = new CyclicBarrier(2);
+      
+      SwingUtilities.invokeLater(new Runnable(){
+         @Override
+         public void run() {
+            // TODO: avoid casts
+            // Init Welcome Tab
+            WelcomeController welcomeController = new WelcomeController();
+            addController(welcomeController);
+            mainView.addTab((TabbedView)welcomeController.getView());
+            
+            // Init Admin Tab
+            AdminController adminController = new AdminController();
+            addController(adminController);
+            mainView.addTab((TabbedView)adminController.getView());
 
-      // TODO: avoid casts
+            // Init TestBench Tab
+            TestbenchController testbenchController = new TestbenchController();
+            addController(testbenchController);
+            mainView.addTab((TabbedView)testbenchController.getView());
 
-      // Init Admin Tab
-      AdminController adminController = new AdminController();
-      addController(adminController);
-      mainView.addTab((TabbedView)adminController.getView());
+            // Batch Processing Tab
+            BatchController batchController = new BatchController();
+            addController(batchController);
+            mainView.addTab((TabbedView)batchController.getView());
 
-      // Init TestBench Tab
-      TestbenchController testbenchController = new TestbenchController();
-      addController(testbenchController);
-      mainView.addTab((TabbedView)testbenchController.getView());
-
-      // Batch Processing Tab
-      BatchController batchController = new BatchController();
-      addController(batchController);
-      mainView.addTab((TabbedView)batchController.getView());
-
-      // Test Set Tab
-      TestSetController testSetController = new TestSetController();
-      addController(testSetController);
-      mainView.addTab((TabbedView)testSetController.getView());
-
+            // Test Set Tab
+            TestSetController testSetController = new TestSetController();
+            addController(testSetController);
+            mainView.addTab((TabbedView)testSetController.getView());
+            
+            try {
+               barrier.await();
+            }
+            catch (Exception e) {
+               LOGGER.log(Level.SEVERE, "View Initialization failed.");
+            }
+            
+         }
+      });
+      
+      try {
+         barrier.await();
+      }
+      catch (Exception e) {
+         LOGGER.log(Level.SEVERE, "View Initialization failed.");
+      }
+      
+      
+     
    }
 
 

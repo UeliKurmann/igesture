@@ -1,14 +1,10 @@
 package org.ximtec.igesture.framework.storage;
 
 import java.io.File;
-import java.util.List;
-
-import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.storage.StorageManager;
 import org.ximtec.igesture.storage.ZipStorageEngine;

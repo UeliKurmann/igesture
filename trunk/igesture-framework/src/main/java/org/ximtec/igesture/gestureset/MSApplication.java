@@ -115,9 +115,5 @@ public class MSApplication {
    
    public static final String EXCLAMATION = "Exclamation";
    
-   // FIXME: not yet in the gesture set?
-   // public static final String TAP = "Tap";
-   
-   // public static final String DOUBLE_TAP = "Double-tap";
    
 }
