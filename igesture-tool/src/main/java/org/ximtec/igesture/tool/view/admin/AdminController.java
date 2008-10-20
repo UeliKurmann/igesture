@@ -27,9 +27,6 @@
 package org.ximtec.igesture.tool.view.admin;
 
 import java.beans.PropertyChangeEvent;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.swing.JComponent;
@@ -37,7 +34,6 @@ import javax.swing.JComponent;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeModel;
-import org.ximtec.igesture.tool.explorer.core.NodeInfo;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.util.NodeInfoFactory;
 import org.ximtec.igesture.tool.view.MainModel;
@@ -45,42 +41,43 @@ import org.ximtec.igesture.tool.view.MainModel;
 
 public class AdminController extends DefaultController {
 
-   private static final Logger LOG = Logger.getLogger(AdminController.class
+   private static final Logger LOGGER = Logger.getLogger(AdminController.class
          .getName());
 
-   private static List<NodeInfo> nodeInfos;
-
+   /**
+    * the view of this controller
+    */
    private AdminView adminView;
 
+   /**
+    * Reference to the main model.
+    */
    private MainModel mainModel = Locator.getDefault().getService(
          MainModel.IDENTIFIER, MainModel.class);
 
+   /**
+    * Explorer Tree Controller
+    */
    private ExplorerTreeController explorerTreeController;
 
 
    public AdminController() {
-      nodeInfos = NodeInfoFactory.createAdminNodeInfo();
       initController();
    }
 
 
+   /**
+    * Initializes the controller.
+    */
    private void initController() {
       adminView = new AdminView();
 
       ExplorerTreeModel explorerModel = new ExplorerTreeModel(mainModel
-            .getGestureSetList(), getNodeInfoList());
+            .getGestureSetList(), NodeInfoFactory.createAdminNodeInfo());
       explorerTreeController = new ExplorerTreeController(adminView,
-            explorerModel, getNodeInfoList());
+            explorerModel);
 
-   }
-
-
-   public Map<Class< ? >, NodeInfo> getNodeInfoList() {
-      Map<Class< ? >, NodeInfo> map = new HashMap<Class< ? >, NodeInfo>();
-      for (NodeInfo nodeInfo : nodeInfos) {
-         map.put(nodeInfo.getType(), nodeInfo);
-      }
-      return map;
+      addController(explorerTreeController);
    }
 
 
@@ -92,10 +89,9 @@ public class AdminController extends DefaultController {
 
    @Override
    public void propertyChange(PropertyChangeEvent evt) {
-      // FIXME use a list of controller.
-      explorerTreeController.propertyChange(evt);
-      explorerTreeController.getExplorerTreeView().refresh();
-      LOG.info("PropertyChange");
+      LOGGER.info("PropertyChange");
 
+      super.propertyChange(evt);
+      explorerTreeController.getExplorerTreeView().refresh();
    }
 }

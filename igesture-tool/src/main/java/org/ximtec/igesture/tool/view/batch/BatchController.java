@@ -36,7 +36,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JProgressBar;
 
+import org.apache.commons.io.FileUtils;
 import org.ximtec.igesture.batch.BatchProcess;
 import org.ximtec.igesture.batch.BatchProcessContainer;
 import org.ximtec.igesture.batch.BatchResultSet;
@@ -53,6 +56,9 @@ import org.ximtec.igesture.util.XMLTool;
  */
 public class BatchController extends DefaultController {
 
+   private static final String XSL_HTML = "xml/batch.xsl";
+   private static final String OUT_FILE_HTML = "result.html";
+   private static final String OUT_FILE_XML = "result.xml";
    public static final String CMD_RUN_BATCH = "runBatch";
    private static final Logger LOGGER = Logger.getLogger(BatchController.class
          .getName());
@@ -93,26 +99,48 @@ public class BatchController extends DefaultController {
 
 
    private void executeBatchRun() {
+
+      JDialog progressbar = new JDialog();
+
+      JProgressBar progressBar = new JProgressBar();
+      progressBar.setIndeterminate(true);
+      progressbar.add(progressBar);
+      progressbar.pack();
+      progressbar.setVisible(true);
+
       File configFile = new File(view.getConfigFile());
-      
-      MainController mc = org.ximtec.igesture.tool.locator.Locator.getDefault().getService(MainController.IDENTIFIER, MainController.class);
+
+      MainController mc = org.ximtec.igesture.tool.locator.Locator.getDefault()
+            .getService(MainController.IDENTIFIER, MainController.class);
       mc.execute(new Command(MainController.CMD_START_WAITING));
-      if (configFile.exists() && view.getTestSet() != null && view.getGestureSet() != null) {
-         BatchProcessContainer container = XMLTool.importBatchProcessContainer(configFile);
+      if (configFile.exists() && view.getTestSet() != null
+            && view.getGestureSet() != null) {
+         BatchProcessContainer container = XMLTool
+               .importBatchProcessContainer(configFile);
          BatchProcess batchProcess = new BatchProcess(container);
          batchProcess.setTestSet(view.getTestSet());
          batchProcess.addGestureSet(view.getGestureSet());
          completionService.submit(batchProcess);
 
          try {
+            // FIXME code not tested!
             BatchResultSet resultSet = completionService.take().get();
-            XMLTool.exportBatchResultSet(resultSet, new File(new File(view.getOutputDir()), "result.xml"));
+            XMLTool.exportBatchResultSet(resultSet, new File(new File(view
+                  .getOutputDir()), OUT_FILE_XML));
+            String html = XMLTool.transform(null, BatchController.class
+                  .getResourceAsStream(XSL_HTML));
+            FileUtils.writeStringToFile(new File(new File(view.getOutputDir()),
+                  OUT_FILE_HTML), html);
+
          }
          catch (Exception e) {
             e.printStackTrace();
          }
       }
-      mc.execute(new Command(MainController.CMD_STOP_WAITING));
+      
+      progressbar.setVisible(false);
+      progressbar.dispose();
+
    }
 
 

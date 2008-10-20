@@ -62,7 +62,10 @@ public class SwingMouseReaderPanel extends JPanel {
 
 
    public void clear() {
-      getGraphics().clearRect(0, 0, getWidth(), getHeight());
+      if (getGraphics() != null) {
+         getGraphics().clearRect(0, 0, getWidth(), getHeight());
+      }
+
       repaint();
    }
 

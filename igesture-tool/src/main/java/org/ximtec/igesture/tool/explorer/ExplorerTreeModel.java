@@ -26,6 +26,8 @@
 
 package org.ximtec.igesture.tool.explorer;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.event.TreeModelListener;
@@ -59,12 +61,36 @@ public class ExplorerTreeModel implements TreeModel {
    /**
     * Explorer Tree Model Model
     * @param rootElement the root node
-    * @param nodeInfos node Info
+    * @param nodeInfos a map of NodeInfo instances defining the tree layout. 
     */
    public ExplorerTreeModel(Object rootElement,
          Map<Class< ? >, NodeInfo> nodeInfos) {
       this.rootElement = rootElement;
       this.nodeInfos = nodeInfos;
+   }
+   
+   /**
+    * Explorer Tree Model
+    * @param rootElement the Root Element of the Explorer Tree
+    * @param nodeInfos a list of NodeInfo instances defining the tree layout. 
+    */
+   public ExplorerTreeModel(Object rootElement, List<NodeInfo> nodeInfos){
+      this(rootElement, createNodeInfoMap(nodeInfos));
+   }
+   
+   /**
+    * Transforms a list of NodeInfo instances into a map.
+    * Left side: the class
+    * Right side: corresponding NodeInfo instance
+    * @param nodeInfos
+    * @return a map of NodeInfo instances
+    */
+   private static Map<Class<?>, NodeInfo> createNodeInfoMap(List<NodeInfo> nodeInfos){
+      Map<Class<?>, NodeInfo> nodeInfoMap = new HashMap<Class<?>, NodeInfo>();
+      for(NodeInfo nodeInfo:nodeInfos){
+         nodeInfoMap.put(nodeInfo.getType(), nodeInfo);
+      }
+      return nodeInfoMap;
    }
 
 
@@ -120,6 +146,10 @@ public class ExplorerTreeModel implements TreeModel {
    @Override
    public void valueForPathChanged(TreePath arg0, Object arg1) {
 
+   }
+   
+   public Map<Class<?>, NodeInfo> getNodeInfos(){
+      return nodeInfos;
    }
 
 }
