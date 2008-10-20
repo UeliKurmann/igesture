@@ -78,10 +78,10 @@ public class ExplorerTreeController extends DefaultController implements TreeSel
    
    private ExplorerTreeView selectedExplorerTreeView;
 
-   public ExplorerTreeController(ExplorerTreeContainer container, ExplorerTreeModel model, Map<Class< ? >, NodeInfo> nodeInfos, TreeCellRenderer renderer){
+   public ExplorerTreeController(ExplorerTreeContainer container, ExplorerTreeModel model, TreeCellRenderer renderer){
       this.container = container;
       this.model = model;
-      this.nodeInfos = nodeInfos;
+      this.nodeInfos = model.getNodeInfos();
       
       tree = new ExplorerTree(this.model, renderer);
       tree.addTreeSelectionListener(this);
@@ -100,8 +100,8 @@ public class ExplorerTreeController extends DefaultController implements TreeSel
     * @param nodeInfos a map of NodeInfos
     */
    public ExplorerTreeController(ExplorerTreeContainer container,
-         ExplorerTreeModel model, Map<Class< ? >, NodeInfo> nodeInfos) {
-      this(container, model, nodeInfos, new NodeRenderer(nodeInfos));
+         ExplorerTreeModel model) {
+      this(container, model, new NodeRenderer(model.getNodeInfos()));
    }
 
 
@@ -134,8 +134,6 @@ public class ExplorerTreeController extends DefaultController implements TreeSel
    }
    
    public void selectNode(Object obj){
-      // FIXME how to implement this?
-      
       TreePath path = new TreePath(obj);
       tree.setSelectionPath(path);
       tree.setExpandsSelectedPaths(true);
