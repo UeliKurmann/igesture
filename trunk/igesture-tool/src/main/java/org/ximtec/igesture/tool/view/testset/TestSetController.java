@@ -23,12 +23,10 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.view.testset;
 
 import java.beans.PropertyChangeEvent;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.swing.JComponent;
@@ -36,7 +34,6 @@ import javax.swing.JComponent;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeModel;
-import org.ximtec.igesture.tool.explorer.core.NodeInfo;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.util.NodeInfoFactory;
 import org.ximtec.igesture.tool.view.MainModel;
@@ -44,9 +41,8 @@ import org.ximtec.igesture.tool.view.MainModel;
 
 public class TestSetController extends DefaultController {
 
-   private static final Logger LOG = Logger.getLogger(TestSetController.class.getName());
-
-   private static List<NodeInfo> nodeInfos;
+   private static final Logger LOGGER = Logger.getLogger(TestSetController.class
+         .getName());
 
    private TestSetView testSetView;
 
@@ -57,8 +53,7 @@ public class TestSetController extends DefaultController {
 
 
    public TestSetController() {
-            nodeInfos = NodeInfoFactory.createTestSetNodeInfo();
-            initController();
+      initController();
    }
 
 
@@ -66,20 +61,11 @@ public class TestSetController extends DefaultController {
       testSetView = new TestSetView();
 
       ExplorerTreeModel explorerModel = new ExplorerTreeModel(mainModel
-            .getTestSetList(), getNodeInfoList());
+            .getTestSetList(), NodeInfoFactory.createTestSetNodeInfo());
       explorerTreeController = new ExplorerTreeController(testSetView,
-            explorerModel, getNodeInfoList());
+            explorerModel);
       
-      
-   }
-
-
-   public Map<Class< ? >, NodeInfo> getNodeInfoList() {
-      Map<Class< ? >, NodeInfo> map = new HashMap<Class< ? >, NodeInfo>();
-      for (NodeInfo nodeInfo : nodeInfos) {
-         map.put(nodeInfo.getType(), nodeInfo);
-      }
-      return map;
+      addController(explorerTreeController);
    }
 
 
@@ -91,9 +77,9 @@ public class TestSetController extends DefaultController {
 
    @Override
    public void propertyChange(PropertyChangeEvent evt) {
-      // FIXME use a list of controller.
-      explorerTreeController.propertyChange(evt);
+      LOGGER.info("PropertyChange");
+      super.propertyChange(evt);
+      
       explorerTreeController.getExplorerTreeView().refresh();
-      LOG.info("PropertyChange");
    }
 }
