@@ -26,6 +26,7 @@
 
 package org.ximtec.igesture.tool.view;
 
+import java.awt.Point;
 import java.beans.IndexedPropertyChangeEvent;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
@@ -276,6 +277,9 @@ public class MainController extends DefaultController implements Service {
       AboutDialog dialog = new AboutDialog(GestureConstants.MENUBAR_ABOUT,
             Locator.getDefault().getService(GuiBundleService.IDENTIFIER,
                   GuiBundleService.class));
+      Point point = mainView.getLocation();
+      point.translate(100, 60);
+      dialog.setLocation(point);
       dialog.setVisible(true);
    }
 
