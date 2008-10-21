@@ -119,7 +119,7 @@ public class BatchProcess implements Callable<BatchResultSet>{
       this.sets.addAll(sets);
    } // addGestureSets
 
-
+  
    /**
     * Runs the batch process.
     * 

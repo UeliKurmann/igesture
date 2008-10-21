@@ -98,23 +98,21 @@ public class XMLTool {
     * @return a list of gesture sets.
     */
    @SuppressWarnings("unchecked")
-   public static List<GestureSet> importGestureSet(InputStream inputStream) {
-      List<GestureSet> sets = new ArrayList<GestureSet>();
+   public static GestureSet importGestureSet(InputStream inputStream) {
+      GestureSet set = null;
       Document document = importDocument(inputStream);
-      List<Element> algorithmElements = document.getRootElement().getChildren(
+      Element setElement = document.getRootElement().getChild(
             JdomGestureSet.ROOT_TAG);
-      
-     
 
-      for (Element setElement : algorithmElements) {
-         sets.add((GestureSet)JdomGestureSet.unmarshal(setElement));
+      if (setElement != null) {
+         return JdomGestureSet.unmarshal(setElement);
       }
 
-      return sets;
+      return set;
    } // importGestureSet
 
 
-   public static List<GestureSet> importGestureSet(File file) {
+   public static GestureSet importGestureSet(File file) {
       try {
          return importGestureSet(new FileInputStream(file));
       }
@@ -138,22 +136,24 @@ public class XMLTool {
       exportGestureSet(list, file);
    } // exportGestureSet
 
+
    /**
     * Exports a Gesture Set as Input Stream
     * @param set
     * @return
     */
-   public static InputStream exportGestureSetAsStream(GestureSet set){
+   public static InputStream exportGestureSetAsStream(GestureSet set) {
       List<GestureSet> list = new ArrayList<GestureSet>();
       list.add(set);
       return exportGestureSetsAsStream(list);
    }
 
-  /**
-   * Exports a list of Gesture Sets as InputStream
-   * @param sets
-   * @return
-   */
+
+   /**
+    * Exports a list of Gesture Sets as InputStream
+    * @param sets
+    * @return
+    */
    public static InputStream exportGestureSetsAsStream(List<GestureSet> sets) {
       JdomDocument igestureDocument = new JdomDocument(ROOT_TAG);
       Set<GestureClass> hashSet = new HashSet<GestureClass>();
@@ -189,11 +189,12 @@ public class XMLTool {
          outputStream.close();
       }
       catch (FileNotFoundException e) {
-         LOGGER.log(Level.SEVERE, "Could not export Gesture Sets. Export File not found.", e);
+         LOGGER.log(Level.SEVERE,
+               "Could not export Gesture Sets. Export File not found.", e);
       }
       catch (IOException e) {
          LOGGER.log(Level.SEVERE, "Could not export Gesture Sets.", e);
-      } 
+      }
    } // exportGestureSet
 
 
@@ -239,23 +240,26 @@ public class XMLTool {
          return importTestSet(new FileInputStream(file));
       }
       catch (FileNotFoundException e) {
-         LOGGER.log(Level.SEVERE, file.getName()+" not found. Could not import Testsets.", e);
+         LOGGER.log(Level.SEVERE, file.getName()
+               + " not found. Could not import Testsets.", e);
       }
-      
+
       return null;
    } // importTestSet
-   
+
+
    /**
     * Imports a list of test sets from an XML document.
     * @param inputStream the input stream of the XML document
     * @return a list of test sets
     */
    @SuppressWarnings("unchecked")
-   public static List<TestSet> importTestSet(InputStream inputStream){
+   public static List<TestSet> importTestSet(InputStream inputStream) {
       List<TestSet> sets = new ArrayList<TestSet>();
       Document document = importDocument(inputStream);
-      
-      List<Element> testSetElements = document.getRootElement().getChildren(JdomTestSet.ROOT_TAG);
+
+      List<Element> testSetElements = document.getRootElement().getChildren(
+            JdomTestSet.ROOT_TAG);
 
       for (final Element setElement : testSetElements) {
          sets.add((TestSet)JdomTestSet.unmarshal(setElement));
@@ -307,18 +311,21 @@ public class XMLTool {
             configuration));
       FileHandler.writeFile(file.getPath(), document.toXml());
    } // exportConfiguration
-   
+
+
    /**
     * Exports a Configuration as XML Stream
     * @param configuration
     * @return a Configuration as XML InputStream
     */
-   public static InputStream exportConfigurationAsStream(Configuration configuration) {
+   public static InputStream exportConfigurationAsStream(
+         Configuration configuration) {
       JdomDocument document = new JdomDocument(new JdomConfiguration(
             configuration));
       return IOUtils.toInputStream(document.toXml());
    } // exportConfiguration
-   
+
+
    /**
     * Exports a Test Set as XML Stream
     * @param testSet
@@ -327,8 +334,7 @@ public class XMLTool {
    public static InputStream exportTestSetAsStream(TestSet testSet) {
       JdomDocument document = new JdomDocument(TEST_SETS_TAG);
       document.attach(new JdomTestSet(testSet));
-      
-      
+
       return IOUtils.toInputStream(document.toXml());
    } // exportConfiguration
 
@@ -454,9 +460,10 @@ public class XMLTool {
       }
 
       final TransformerFactory tFactory = TransformerFactory.newInstance();
-      final Transformer transformer = tFactory.newTransformer(new StreamSource(xslSR));
+      final Transformer transformer = tFactory.newTransformer(new StreamSource(
+            xslSR));
       transformer.transform(xmlIn, xmlOut);
-      
+
       return xmlSW.toString();
    } // transform
 
