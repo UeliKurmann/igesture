@@ -52,18 +52,14 @@ public class SetTools {
 
    public static void createGraffitiLetters() {
       List<GestureSet> list = new ArrayList<GestureSet>();
-      list.add(XMLTool.importGestureSet(
-            ClassLoader.getSystemResourceAsStream(PATH
-                  + "graffiti_numbers_bea.xml")).get(0));
-      list.add(XMLTool.importGestureSet(
-            ClassLoader.getSystemResourceAsStream(PATH
-                  + "graffiti_numbers_juerg.xml")).get(0));
-      list.add(XMLTool.importGestureSet(
-            ClassLoader.getSystemResourceAsStream(PATH
-                  + "graffiti_numbers_stefan.xml")).get(0));
-      list.add(XMLTool.importGestureSet(
-            ClassLoader.getSystemResourceAsStream(PATH
-                  + "graffiti_numbers_ueli_.xml")).get(0));
+      list.add(XMLTool.importGestureSet(ClassLoader
+            .getSystemResourceAsStream(PATH + "graffiti_numbers_bea.xml")));
+      list.add(XMLTool.importGestureSet(ClassLoader
+            .getSystemResourceAsStream(PATH + "graffiti_numbers_juerg.xml")));
+      list.add(XMLTool.importGestureSet(ClassLoader
+            .getSystemResourceAsStream(PATH + "graffiti_numbers_stefan.xml")));
+      list.add(XMLTool.importGestureSet(ClassLoader
+            .getSystemResourceAsStream(PATH + "graffiti_numbers_ueli_.xml")));
       GestureSet set = GestureTool.combineSampleData(list);
       XMLTool.exportGestureSet(set, new File(PATH + "graffiti_numbers.xml"));
    } // createGraffitiLetters
@@ -71,12 +67,10 @@ public class SetTools {
 
    public static void createMS() {
       List<GestureSet> list = new ArrayList<GestureSet>();
-      list.add(XMLTool.importGestureSet(
-            ClassLoader.getSystemResourceAsStream(PATH + "msgestures_ueli.xml"))
-            .get(0));
-      list.add(XMLTool.importGestureSet(
-            ClassLoader.getSystemResourceAsStream(PATH + "msgestures5.xml"))
-            .get(0));
+      list.add(XMLTool.importGestureSet(ClassLoader
+            .getSystemResourceAsStream(PATH + "msgestures_ueli.xml")));
+      list.add(XMLTool.importGestureSet(ClassLoader
+            .getSystemResourceAsStream(PATH + "msgestures5.xml")));
       GestureSet set = GestureTool.combineSampleData(list);
       XMLTool.exportGestureSet(set, new File(PATH
             + "ms_application_gestures.xml"));

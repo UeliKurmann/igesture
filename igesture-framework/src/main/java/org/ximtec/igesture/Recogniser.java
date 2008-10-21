@@ -127,7 +127,7 @@ public class Recogniser {
          GestureHandler gestureHandler) throws AlgorithmException {
       final Configuration configuration = XMLTool.importConfiguration(config);
       configuration.setGestureHandler(gestureHandler);
-      configuration.addGestureSets(XMLTool.importGestureSet(set));
+      configuration.addGestureSet(XMLTool.importGestureSet(set));
       algorithms = AlgorithmFactory.createAlgorithms(configuration);
    }
 
@@ -237,8 +237,7 @@ public class Recogniser {
    // FIXME: remove?
    public static Recogniser newRecogniser(String configFile,
          String gestureSetFile) throws AlgorithmException {
-      GestureSet gestureSet = XMLTool.importGestureSet(new File(gestureSetFile))
-            .get(0);
+      GestureSet gestureSet = XMLTool.importGestureSet(new File(gestureSetFile));
       Configuration configuration = XMLTool.importConfiguration(new File(
             configFile));
       return new Recogniser(configuration, gestureSet);

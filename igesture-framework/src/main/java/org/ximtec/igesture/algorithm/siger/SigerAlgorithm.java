@@ -103,7 +103,6 @@ public class SigerAlgorithm extends DefaultAlgorithm {
          }
       }
 
-      fireEvent(result);
       return result;
    } // recognise
 

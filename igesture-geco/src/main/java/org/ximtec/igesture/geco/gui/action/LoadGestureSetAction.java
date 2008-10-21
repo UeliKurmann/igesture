@@ -117,7 +117,7 @@ public class LoadGestureSetAction extends BasicAction {
     * @param file the file containing the gesture set to be loaded.
     */
    public GestureSet loadGestureSet(File file) {
-      return XMLTool.importGestureSet(file).get(0);
+      return XMLTool.importGestureSet(file);
    } // loadGestureSet
 
 }

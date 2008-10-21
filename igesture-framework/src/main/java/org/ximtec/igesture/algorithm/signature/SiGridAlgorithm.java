@@ -1,5 +1,5 @@
 /*
- * @(#)SignatureAlgoirthm.java   1.0   Dec 26, 2006
+ * @(#)$Id$
  *
  * Author       :   Ueli Kurmann, kurmannu@ethz.ch
  *
@@ -53,10 +53,10 @@ import org.ximtec.igesture.util.GestureTool;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class SignatureAlgorithm extends SampleBasedAlgorithm {
+public class SiGridAlgorithm extends SampleBasedAlgorithm {
 
    private static final Logger LOGGER = Logger
-         .getLogger(SignatureAlgorithm.class.getName());
+         .getLogger(SiGridAlgorithm.class.getName());
 
    private List<GestureSignature> signatures;
 
@@ -91,7 +91,7 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
    }
 
 
-   public SignatureAlgorithm() {
+   public SiGridAlgorithm() {
    }
 
 
@@ -183,7 +183,7 @@ public class SignatureAlgorithm extends SampleBasedAlgorithm {
          }
          resultSet.addResults(tmpResults.values());
       }
-      fireEvent(resultSet);
+
       return resultSet;
    } // recognise
 
