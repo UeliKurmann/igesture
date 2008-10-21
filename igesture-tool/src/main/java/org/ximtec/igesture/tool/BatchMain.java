@@ -113,7 +113,7 @@ public class BatchMain {
                .getOptionValue(CONFIG)));
          
          final BatchProcess batchProcess = new BatchProcess(container);
-         batchProcess.addGestureSets(XMLTool.importGestureSet(new File(line
+         batchProcess.addGestureSet(XMLTool.importGestureSet(new File(line
                .getOptionValue(GESTURESET))));
          batchProcess.setTestSet(XMLTool.importTestSet(
                new File(line.getOptionValue(TESTSET))).get(0));

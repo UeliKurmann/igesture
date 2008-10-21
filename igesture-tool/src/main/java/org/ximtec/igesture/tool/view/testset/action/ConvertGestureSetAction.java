@@ -71,8 +71,7 @@ public class ConvertGestureSetAction extends BasicAction {
       File selectedFile = fileChooser.getSelectedFile();
 
       if (selectedFile != null) {
-         List<GestureSet> gestureSets = XMLTool.importGestureSet(selectedFile);
-         GestureSet gestureSet = GestureTool.combine(gestureSets);
+         GestureSet gestureSet = XMLTool.importGestureSet(selectedFile);
          TestSet testSet = GestureTool.createTestSet(gestureSet);
          testSetList.addTestSet(testSet);
       }

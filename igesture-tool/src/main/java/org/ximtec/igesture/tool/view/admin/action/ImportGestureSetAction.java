@@ -23,6 +23,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.view.admin.action;
 
 import java.awt.event.ActionEvent;
@@ -66,12 +67,12 @@ public class ImportGestureSetAction extends BasicAction {
       final File selectedFile = fileChooser.getSelectedFile();
 
       if (selectedFile != null) {
-         for (final GestureSet gestureSet : XMLTool
-               .importGestureSet(selectedFile)) {
+         GestureSet gestureSet = XMLTool.importGestureSet(selectedFile);
+
+         if (gestureSet != null) {
             rootSet.addGestureSet(gestureSet);
          }
       }
       LOG.info("Gesture Set imported...");
    } // actionPerformed
-
 }
