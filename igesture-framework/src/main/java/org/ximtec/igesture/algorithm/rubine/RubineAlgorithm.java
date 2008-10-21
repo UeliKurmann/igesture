@@ -146,7 +146,6 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
 
    public void init(Configuration config) throws AlgorithmException {
       this.rubineConfig = new RubineConfiguration(config);
-      addGestureHandler(config.getGestureHandler());
       preprocess(GestureTool.combine(config.getGestureSets()));
    } // init
 

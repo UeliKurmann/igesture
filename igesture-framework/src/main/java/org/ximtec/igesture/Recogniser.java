@@ -28,7 +28,11 @@ package org.ximtec.igesture;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
 import org.sigtec.ink.Note;
@@ -55,10 +59,49 @@ import org.ximtec.igesture.util.XMLTool;
  */
 public class Recogniser {
 
-   private List<Algorithm> algorithms;
-
    private static final Logger LOGGER = Logger.getLogger(Recogniser.class
          .getName());
+
+   private List<Algorithm> algorithms;
+
+   Set<GestureHandler> gestureHandlers = new HashSet<GestureHandler>();
+
+
+   public void addGestureHandler(GestureHandler gestureHandler) {
+      gestureHandlers.add(gestureHandler);
+   } // addGestureHandler
+
+
+   public void removeGestureHandler(GestureHandler gestureHandler) {
+      gestureHandlers.remove(gestureHandler);
+   } // removeGestureHandler
+
+
+   /**
+    * Fires an event.
+    * 
+    * @param resultSet the result set to be used as an argument for the fire
+    *            event.
+    */
+   protected void fireEvent(final ResultSet resultSet) {
+      Executor executor = Executors.newFixedThreadPool(6);
+      for (final GestureHandler gestureHandler : gestureHandlers) {
+
+         if (gestureHandler != null) {
+            executor.execute(new Runnable() {
+
+               @Override
+               public void run() {
+                  gestureHandler.handle(resultSet);
+
+               }
+            });
+
+         }
+
+      }
+
+   } // fireEvent
 
 
    /**
@@ -82,6 +125,7 @@ public class Recogniser {
    public Recogniser(Configuration config, GestureHandler gestureHandler)
          throws AlgorithmException {
       final Configuration clone = (Configuration)config.clone();
+      addGestureHandler(config.getGestureHandler());
       clone.setGestureHandler(gestureHandler);
       algorithms = AlgorithmFactory.createAlgorithms(clone);
    }
@@ -97,6 +141,7 @@ public class Recogniser {
    public Recogniser(Configuration config, GestureSet gestureSet)
          throws AlgorithmException {
       config.addGestureSet(gestureSet);
+      addGestureHandler(config.getGestureHandler());
       algorithms = AlgorithmFactory.createAlgorithms(config);
    }
 
@@ -128,6 +173,7 @@ public class Recogniser {
       final Configuration configuration = XMLTool.importConfiguration(config);
       configuration.setGestureHandler(gestureHandler);
       configuration.addGestureSet(XMLTool.importGestureSet(set));
+      addGestureHandler(configuration.getGestureHandler());
       algorithms = AlgorithmFactory.createAlgorithms(configuration);
    }
 
@@ -164,6 +210,7 @@ public class Recogniser {
 
       }
 
+      fireEvent(result);
       return result;
    } // recognise
 
@@ -207,31 +254,6 @@ public class Recogniser {
    public ResultSet recognise(Note note, boolean recogniseAll) {
       return recognise(new GestureSample(Constant.EMPTY_STRING, note));
    } // recognise
-
-
-   /**
-    * Adds a gesture handler to the recogniser.
-    * @param gestureHandler the gesture handler that will process the recognised
-    *            gesture result sets.
-    */
-   public void addGestureHandler(GestureHandler gestureHandler) {
-      for (Algorithm algorithm : algorithms) {
-         algorithm.addGestureHandler(gestureHandler);
-      }
-
-   } // addGestureHandler
-
-
-   /**
-    * removes a gesture handler from the recogniser.
-    * @param gestureHandler the gesture handler to be removed.
-    */
-   public void removeGestureHandler(GestureHandler gestureHandler) {
-      for (Algorithm algorithm : algorithms) {
-         algorithm.removeGestureHandler(gestureHandler);
-      }
-
-   } // removeGestureHandler
 
 
    // FIXME: remove?

@@ -65,23 +65,6 @@ public interface Algorithm {
 
 
    /**
-    * Registers a gesture handler to be informed about any results.
-    * 
-    * @param gestureHandler the gesture handler to be informed about results of
-    *            the recognition process.
-    */
-   public void addGestureHandler(GestureHandler gestureHandler);
-
-
-   /**
-    * Removes a gesture handler.
-    * 
-    * @param gestureHandler the gesture handler to be removed.
-    */
-   public void removeGestureHandler(GestureHandler gestureHandler);
-
-
-   /**
     * Returns an array of containing the configuration parameters.
     * 
     * @return the configuration parameters.
