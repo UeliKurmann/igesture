@@ -1,18 +1,18 @@
 /*
  * @(#)$Id$
  *
- * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *                  
  *
- * Purpose		: 
+ * Purpose      : 
  *
  * -----------------------------------------------------------------------
  *
  * Revision Information:
  *
- * Date				Who			Reason
+ * Date             Who         Reason
  *
- * 23.03.2008		ukurmann	Initial Release
+ * 23.03.2008       ukurmann    Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -46,6 +46,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import org.sigtec.graphix.widget.BasicButton;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
@@ -126,9 +127,7 @@ public class ConfigurationPanel extends AbstractPanel {
 
       // buttons
       JPanel buttonPanel = new JPanel();
-      VerticalBagLayout boxLayout = new VerticalBagLayout();
-      
-      buttonPanel.setLayout(boxLayout);
+      buttonPanel.setLayout(new VerticalBagLayout());
 
       final JComboBox comboBox = new JComboBox(Locator.getDefault().getService(
             MainModel.IDENTIFIER, MainModel.class).getGestureSets().toArray());
@@ -156,19 +155,15 @@ public class ConfigurationPanel extends AbstractPanel {
 
       });
 
-      JButton clearGestureButton = ComponentFactory.createButton(
-            GestureConstants.GESTURE_SAMPLE_CLEAR, new ClearGestureSampleAction(
-                  note));
-      Formatter.formatButton(clearGestureButton);
-      
-      
-      JButton recogniseButton = ComponentFactory.createButton(GestureConstants.RECONGISE,
-            recogniseAction);
-      Formatter.formatButton(recogniseButton);
-      
-      buttonPanel.add(clearGestureButton);
+
+      JButton clearButton = new BasicButton(new ClearGestureSampleAction(note));
+      JButton recogniseButton = new BasicButton(recogniseAction);
+
+      buttonPanel.add(clearButton);
+      Formatter.formatButton(clearButton);
       buttonPanel.add(recogniseButton);
       buttonPanel.add(comboBox);
+      Formatter.formatButton(recogniseButton);
 
       basePanel.add(buttonPanel);
 
