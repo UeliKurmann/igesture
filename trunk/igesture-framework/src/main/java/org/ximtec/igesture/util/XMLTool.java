@@ -99,16 +99,10 @@ public class XMLTool {
     */
    @SuppressWarnings("unchecked")
    public static GestureSet importGestureSet(InputStream inputStream) {
-      GestureSet set = null;
       Document document = importDocument(inputStream);
       Element setElement = document.getRootElement().getChild(
             JdomGestureSet.ROOT_TAG);
-
-      if (setElement != null) {
-         return JdomGestureSet.unmarshal(setElement);
-      }
-
-      return set;
+      return (setElement != null) ? JdomGestureSet.unmarshal(setElement) : null;
    } // importGestureSet
 
 
@@ -235,7 +229,7 @@ public class XMLTool {
     * @return a list of GestureSets
     */
    @SuppressWarnings("unchecked")
-   public static List<TestSet> importTestSet(File file) {
+   public static TestSet importTestSet(File file) {
       try {
          return importTestSet(new FileInputStream(file));
       }
@@ -254,18 +248,11 @@ public class XMLTool {
     * @return a list of test sets
     */
    @SuppressWarnings("unchecked")
-   public static List<TestSet> importTestSet(InputStream inputStream) {
-      List<TestSet> sets = new ArrayList<TestSet>();
+   public static TestSet importTestSet(InputStream inputStream) {
       Document document = importDocument(inputStream);
-
-      List<Element> testSetElements = document.getRootElement().getChildren(
+      Element testSetElement = document.getRootElement().getChild(
             JdomTestSet.ROOT_TAG);
-
-      for (final Element setElement : testSetElements) {
-         sets.add((TestSet)JdomTestSet.unmarshal(setElement));
-      }
-
-      return sets;
+      return (testSetElement != null) ? JdomTestSet.unmarshal(testSetElement) : null;
    }// importTestSet
 
 

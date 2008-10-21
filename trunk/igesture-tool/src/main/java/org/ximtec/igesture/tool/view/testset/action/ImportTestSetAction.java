@@ -69,11 +69,12 @@ public class ImportTestSetAction extends BasicAction {
       File selectedFile = fileChooser.getSelectedFile();
 
       if (selectedFile != null) {
-         List<TestSet> testSets = XMLTool.importTestSet(selectedFile);
+         TestSet testSet = XMLTool.importTestSet(selectedFile);
 
-         for (TestSet testSet : testSets) {
+         if (testSet != null) {
             testSetList.addTestSet(testSet);
          }
+
       }
    }
 

@@ -77,8 +77,8 @@ public class ZipStorageEngine extends DefaultStorageEngine {
 
    private void initData() {
       try {
-        File file = new File(filename); 
-        zipFS = new ZipFS(file);
+         File file = new File(filename);
+         zipFS = new ZipFS(file);
       }
       catch (IOException e) {
          LOGGER.log(Level.SEVERE, "Could not initialise ZIP Storage Engine.", e);
@@ -92,7 +92,7 @@ public class ZipStorageEngine extends DefaultStorageEngine {
 
       dataObjects.put(Configuration.class, new ArrayList<DataObject>());
       initConfig();
-      
+
       dataObjects.put(TestSet.class, new ArrayList<DataObject>());
       initTestSet();
    }
@@ -104,8 +104,8 @@ public class ZipStorageEngine extends DefaultStorageEngine {
             for (ZipEntry entrySet : zipFS.listFiles(entry.getName())) {
                if (entrySet.getName().toLowerCase().endsWith(XML_EXTENSION)) {
                   try {
-                     GestureSet gestureSet = XMLTool.importGestureSet(
-                           zipFS.getInputStream(entrySet)).get(0);
+                     GestureSet gestureSet = XMLTool.importGestureSet(zipFS
+                           .getInputStream(entrySet));
                      dataObjects.get(GestureSet.class).add(gestureSet);
                   }
                   catch (IOException e) {
@@ -121,11 +121,14 @@ public class ZipStorageEngine extends DefaultStorageEngine {
    private void initTestSet() {
       for (ZipEntry entry : zipFS.listFiles(TEST_SET_PATH)) {
          if (entry.getName().toLowerCase().endsWith(XML_EXTENSION)) {
-            try { 
-               List<TestSet> testSets = XMLTool.importTestSet(zipFS.getInputStream(entry));
-               for(TestSet testSet:testSets){
-                  dataObjects.get(TestSet.class).add(testSet);   
+            try {
+               TestSet testSet = XMLTool.importTestSet(zipFS
+                     .getInputStream(entry));
+               
+               if (testSet != null) {
+                  dataObjects.get(TestSet.class).add(testSet);
                }
+            
             }
             catch (IOException e) {
                LOGGER.log(Level.SEVERE, "Could not import Test sets.", e);
@@ -133,6 +136,7 @@ public class ZipStorageEngine extends DefaultStorageEngine {
          }
       }
    }
+
 
    private void initConfig() {
       for (ZipEntry entry : zipFS.listFiles(CONFIGURATION_PATH)) {
@@ -153,12 +157,12 @@ public class ZipStorageEngine extends DefaultStorageEngine {
    @Override
    public void commit() {
       if (changed || true) {
-         // persist gesture sets 
+         // persist gesture sets
          persistGestureSets(dataObjects.get(GestureSet.class));
 
-         // persist configurations 
+         // persist configurations
          persistConfiguration(dataObjects.get(Configuration.class));
-         
+
          // persist test sets
          persistTestSets(dataObjects.get(TestSet.class));
 
@@ -174,8 +178,9 @@ public class ZipStorageEngine extends DefaultStorageEngine {
          changed = false;
       }
    }
-   
-   private void persistGestureSets(List<DataObject> gestureSets){
+
+
+   private void persistGestureSets(List<DataObject> gestureSets) {
       for (DataObject dataObject : gestureSets) {
          try {
             GestureSet set = (GestureSet)dataObject;
@@ -188,13 +193,14 @@ public class ZipStorageEngine extends DefaultStorageEngine {
          }
       }
    }
-   
-   private void persistConfiguration(List<DataObject> configurations){
+
+
+   private void persistConfiguration(List<DataObject> configurations) {
       for (DataObject dataObject : configurations) {
          try {
             Configuration config = (Configuration)dataObject;
-            String name = CONFIGURATION_PATH + ZipFS.SEPERATOR
-                  + config.getId() + XML_EXTENSION;
+            String name = CONFIGURATION_PATH + ZipFS.SEPERATOR + config.getId()
+                  + XML_EXTENSION;
             zipFS.store(name, XMLTool.exportConfigurationAsStream(config));
          }
          catch (IOException e) {
@@ -202,12 +208,14 @@ public class ZipStorageEngine extends DefaultStorageEngine {
          }
       }
    }
-   
-   private void persistTestSets(List<DataObject> testSets){
+
+
+   private void persistTestSets(List<DataObject> testSets) {
       for (DataObject dataObject : testSets) {
          try {
             TestSet testSet = (TestSet)dataObject;
-            String name = TEST_SET_PATH + ZipFS.SEPERATOR + testSet.getId() + XML_EXTENSION;
+            String name = TEST_SET_PATH + ZipFS.SEPERATOR + testSet.getId()
+                  + XML_EXTENSION;
             zipFS.store(name, XMLTool.exportTestSetAsStream(testSet));
          }
          catch (IOException e) {

@@ -86,14 +86,13 @@ public class XMLImportGeco {
          gestureSetFileName = f.getAbsolutePath();
 
          if (f.exists()) {
-            newGestureSet = XMLTool.importGestureSet(f).get(0);
+            newGestureSet = XMLTool.importGestureSet(f);
          }
 
       }
       else { // load from classpath
-         newGestureSet = XMLTool.importGestureSet(
-               ClassLoader.getSystemResourceAsStream(MainModel.GESTURE_SET))
-               .get(0);
+         newGestureSet = XMLTool.importGestureSet(ClassLoader
+               .getSystemResourceAsStream(MainModel.GESTURE_SET));
       }
 
       if (newGestureSet != null) {

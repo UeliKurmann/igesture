@@ -121,9 +121,13 @@ public class AlgorithmFactory {
     */
    public static Algorithm createAlgorithm(InputStream config, InputStream set)
          throws AlgorithmException {
-      final Configuration configuration = XMLTool.importConfiguration(config);
-      final List<GestureSet> sets = XMLTool.importGestureSet(set);
-      configuration.addGestureSets(sets);
+      Configuration configuration = XMLTool.importConfiguration(config);
+      GestureSet gset = XMLTool.importGestureSet(set);
+
+      if (gset != null) {
+         configuration.addGestureSet(gset);
+      }
+
       return createAlgorithm(configuration);
    } // createAlgorithm
 
@@ -182,7 +186,7 @@ public class AlgorithmFactory {
       catch (final IllegalAccessException e) {
          LOGGER.log(Level.SEVERE, null, e);
       }
-      
+
       return algorithm;
    } // createAlgorithmInstance
 

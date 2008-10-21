@@ -116,7 +116,7 @@ public class BatchMain {
          batchProcess.addGestureSet(XMLTool.importGestureSet(new File(line
                .getOptionValue(GESTURESET))));
          batchProcess.setTestSet(XMLTool.importTestSet(
-               new File(line.getOptionValue(TESTSET))).get(0));
+               new File(line.getOptionValue(TESTSET))));
          final BatchResultSet resultSet = batchProcess.run();
          final String xmlDocument = XMLTool.exportBatchResultSet(resultSet);
 

@@ -67,7 +67,7 @@ public class JdomTestSet extends Element {
 
 
    @SuppressWarnings("unchecked")
-   public static Object unmarshal(Element setElement) {
+   public static TestSet unmarshal(Element setElement) {
       final String name = setElement.getAttributeValue(NAME_ATTRIBUTE);
       final String uuid = setElement.getAttributeValue(UUID_ATTRIBUTE);
       final TestSet testSet = new TestSet(name);

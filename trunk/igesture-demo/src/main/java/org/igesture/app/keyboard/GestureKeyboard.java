@@ -95,7 +95,7 @@ public class GestureKeyboard implements ButtonDeviceEventListener {
       Configuration configuration = XMLTool.importConfiguration(ClassLoader
             .getSystemResourceAsStream(RUBINE_CONFIGURATION));
       GestureSet gestureSet = XMLTool.importGestureSet(
-            ClassLoader.getSystemResourceAsStream(GESTURE_SET)).get(0);
+            ClassLoader.getSystemResourceAsStream(GESTURE_SET));
       configuration.addGestureSet(gestureSet);
       configuration.setGestureHandler(eventManager);
       recogniser = new Recogniser(configuration);

@@ -140,7 +140,6 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
          }
       }
 
-      fireEvent(resultSet);
       return resultSet;
    } // recognise
 

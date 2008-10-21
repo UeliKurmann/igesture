@@ -347,9 +347,8 @@ public class NewProjectDialog extends BasicDialog {
             // close dialog
             NewProjectDialog.this.dispose();
 
-            GestureSet gestureSet = XMLTool.importGestureSet(
-                  ClassLoader.getSystemResourceAsStream(MainModel.GESTURE_SET))
-                  .get(0);
+            GestureSet gestureSet = XMLTool.importGestureSet(ClassLoader
+                  .getSystemResourceAsStream(MainModel.GESTURE_SET));
 
             view.getModel().clearData();
             view.getModel().initRecogniser(gestureSet);
