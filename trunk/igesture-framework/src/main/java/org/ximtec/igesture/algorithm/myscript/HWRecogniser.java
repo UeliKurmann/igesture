@@ -70,7 +70,6 @@ public class HWRecogniser extends DefaultAlgorithm {
                new GestureClass(result.getText()), result.getConfidence()));
       }
 
-      fireEvent(resultSet);
       return resultSet;
    } // recognise
 
