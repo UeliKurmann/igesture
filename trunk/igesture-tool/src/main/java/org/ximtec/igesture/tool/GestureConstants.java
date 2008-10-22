@@ -59,7 +59,7 @@ public class GestureConstants {
    public static final String APPLICATION_TITLE = "ApplicationTitle";
    
    public static final String APPLICATION_BROWSE = "ApplicationBrowse";
-   public static final String MENUBAR_FILE = "MenuBarFile";
+   public static final String FILE_MENU = "FileMenu";
    public static final String MENUBAR_ABOUT = "MenuBarAbout";
    public static final String MENUBAR_HELP = "MenuBarHelp";
    

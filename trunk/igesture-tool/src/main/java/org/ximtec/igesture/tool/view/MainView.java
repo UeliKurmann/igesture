@@ -4,15 +4,15 @@
  * Author   : Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
  *                                   
- * Purpose  : 
+ * Purpose  : The main view of the iGesture tool.
  *
  * -----------------------------------------------------------------------
  *
  * Revision Information:
  *
- * Date       Who     Reason
+ * Date             Who         Reason
  *
- * 23.03.2008 ukurmann  Initial Release
+ * 23.03.2008       ukurmann    Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -22,6 +22,7 @@
  * Use is subject to license terms.
  * 
  */
+
 
 package org.ximtec.igesture.tool.view;
 
@@ -47,15 +48,22 @@ import org.ximtec.igesture.tool.view.action.ShowAboutAction;
 import org.ximtec.igesture.tool.view.action.StoreWorkspaceAction;
 
 
+/**
+ * The main view of the iGesture tool.
+ * @version 1.0 Mar 23, 2008
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 @SuppressWarnings("serial")
 public class MainView extends JFrame {
 
    JTabbedPane tabbedPane;
    JMenuBar menuBar;
 
+
    public MainView() {
       initMenu();
-      initView(); 
+      initView();
    }
 
 
@@ -66,21 +74,26 @@ public class MainView extends JFrame {
       setVisible(true);
       tabbedPane = new JTabbedPane();
       this.add(tabbedPane);
-      setTitle(ComponentFactory.getGuiBundle().getName(GestureConstants.APPLICATION_TITLE));
-      
+      setTitle(ComponentFactory.getGuiBundle().getName(
+            GestureConstants.APPLICATION_TITLE));
+
    }
 
 
    private void initMenu() {
       menuBar = new JMenuBar();
       setJMenuBar(menuBar);
-      
-      JMenu fileMenu = new BasicMenu(GestureConstants.MENUBAR_FILE, Locator.getDefault().getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
+
+      JMenu fileMenu = new BasicMenu(GestureConstants.FILE_MENU, Locator
+            .getDefault().getService(GuiBundleService.IDENTIFIER,
+                  GuiBundleService.class));
       menuBar.add(fileMenu);
-      
-      JMenu helpMenu = new BasicMenu(GestureConstants.MENUBAR_HELP, Locator.getDefault().getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
+
+      JMenu helpMenu = new BasicMenu(GestureConstants.MENUBAR_HELP, Locator
+            .getDefault().getService(GuiBundleService.IDENTIFIER,
+                  GuiBundleService.class));
       menuBar.add(helpMenu);
-      
+
       BasicMenuItem openItem = new BasicMenuItem();
       openItem.setAction(new LoadWorkspaceAction(null));
       fileMenu.add(openItem);
@@ -91,20 +104,20 @@ public class MainView extends JFrame {
       exitItem.setAction(new ExitAction());
       fileMenu.addSeparator();
       fileMenu.add(exitItem);
-      
+
       BasicMenuItem aboutItem = new BasicMenuItem();
       aboutItem.setAction(new ShowAboutAction());
       helpMenu.add(aboutItem);
-      
-      
    }
 
 
    public void addTab(TabbedView view) {
       tabbedPane.add(view.getName(), view.getPane());
-   }
-   
-   public void removeAllTabs(){
+   } // addTab
+
+
+   public void removeAllTabs() {
       tabbedPane.removeAll();
-   }
+   } // removeAllTabs
+
 }
