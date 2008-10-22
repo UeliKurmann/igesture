@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id: Controller.java 566 2008-10-17 15:39:41Z bsigner $
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -12,7 +12,7 @@
  *
  * Date				Who			Reason
  *
- * 18.10.2008			ukurmann	Initial Release
+ * 18.10.2008		ukurmann	Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -38,6 +38,9 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicHTML;
 
+import org.sigtec.util.Constant;
+import org.sigtec.util.MIME;
+
 
 /**
  * Comment
@@ -47,9 +50,6 @@ import javax.swing.plaf.basic.BasicHTML;
 public class HtmlPanel extends JPanel {
 
    private static Logger LOGGER = Logger.getLogger(HtmlPanel.class.getName());
-
-   private static final String SLASH = "/";
-   private static final String MIME_HTML = "text/html";
 
 
    /**
@@ -76,13 +76,13 @@ public class HtmlPanel extends JPanel {
             try {
                JEditorPane htmlArea = new JEditorPane(finalUrl);
                htmlArea.setEditable(false);
-               htmlArea.setContentType(MIME_HTML);
-               
+               htmlArea.setContentType(MIME.toString(MIME.HTML));
                htmlArea.putClientProperty(BasicHTML.documentBaseKey,
-                     HtmlPanel.class.getResource(SLASH));
-      
-               // htmlArea.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
-               
+                     HtmlPanel.class.getResource(Constant.SLASH));
+
+               // htmlArea.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES,
+               // Boolean.TRUE);
+
                htmlArea.setPreferredSize(finalDimension);
                JScrollPane scrollPane = new JScrollPane(htmlArea);
                scrollPane.setPreferredSize(finalDimension);
@@ -90,7 +90,7 @@ public class HtmlPanel extends JPanel {
                add(scrollPane, BorderLayout.CENTER);
             }
             catch (Exception e) {
-               LOGGER.log(Level.SEVERE, "", e);
+               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
             }
 
          }
