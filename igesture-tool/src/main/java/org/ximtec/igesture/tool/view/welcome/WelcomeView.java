@@ -47,21 +47,16 @@ public class WelcomeView extends AbstractPanel implements TabbedView {
 
    private static final String HTML_FILE = "html/welcomeTab.html";
 
-
    public WelcomeView() {
-
       init();
    }
 
 
    private void init() {
-
       setTitle(TitleFactory.createStaticTitle("Welcome to iGesture Tool 1.2"));
-
       URL path = WelcomeView.class.getClassLoader().getResource(HTML_FILE);
       HtmlPanel htmlPanel = new HtmlPanel(path, new Dimension(400, 400));
       setCenter(htmlPanel);
-
    }
 
 

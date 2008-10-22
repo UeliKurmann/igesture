@@ -41,7 +41,6 @@ public abstract class AbstractPanel extends DefaultExplorerTreeView {
 
    public AbstractPanel() {
       setLayout(new BorderLayout());
-
       centerPane = new JScrollPane();
       centerPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
       setBackground(Color.LIGHT_GRAY);
@@ -50,8 +49,7 @@ public abstract class AbstractPanel extends DefaultExplorerTreeView {
    }
 
 
-   public void setTitle(JComponent component) {
-      
+   public void setTitle(JComponent component) { 
       this.add(component, BorderLayout.NORTH);
    }
 

@@ -56,42 +56,44 @@ public class MainModel implements Service {
 
    private MainController mainController;
 
+
    /**
-    * Constructs a new Main Model. 
+    * Constructs a new main model.
     * @param engine the storage engine to be used.
     * @param mainController the main controller of the application.
     */
    public MainModel(StorageEngine engine, MainController mainController) {
-
       this.mainController = mainController;
- 
+
       // StorageManager is wrapped with a Dynamic Proxy to register a
       // PropertyChangeListener
       setStorageEngine(engine);
    }
 
+
    /**
-    * Returns a list of Gesture Sets
-    * @return a list of Gesture Sets
+    * Returns a list of gesture sets.
+    * @return a list of gesture sets.
     */
    public List<GestureSet> getGestureSets() {
       return storageManager.load(GestureSet.class);
-   }
-   
+   } // getGestureSets
+
+
    /**
-    * Returns a list of Test Sets
-    * @return a list of Test Sets
+    * Returns a list of test sets.
+    * @return a list of test sets.
     */
    public List<TestSet> getTestSets() {
       return storageManager.load(TestSet.class);
-   }
+   } // getTestSets
 
 
    /**
-    * Returns a list of all available algorithms. 
+    * Returns a list of all available algorithms.
     * 
-    * TODO: The list of algorithm should be configurable in a property file. 
-    * @return a list of all available algorithms. 
+    * TODO: The list of algorithm should be configurable in a property file.
+    * @return a list of all available algorithms.
     */
    public List<Class< ? extends Algorithm>> getAlgorithms() {
       List<Class< ? extends Algorithm>> algorithms = new ArrayList<Class< ? extends Algorithm>>();
@@ -99,55 +101,59 @@ public class MainModel implements Service {
       algorithms.add(SigerAlgorithm.class);
       algorithms.add(SiGridAlgorithm.class);
       return algorithms;
-   }
+   } // getAlgorithms
+
 
    /**
-    * Returns a list of configurations
-    * @return a list of configurations
+    * Returns a list of configurations.
+    * @return a list of configurations.
     */
    public List<Configuration> getConfigurations() {
       return storageManager.load(Configuration.class);
-   }
+   } // getConfigurations
 
 
    /**
-    * Returns a GestureSetList (all Gesture Sets are wrapped into a GestureSetList)
-    * @return a GestureSetList
+    * Returns a gesture set list (all gesture sets are wrapped into a
+    * GestureSetList)
+    * @return a gesture set list.
     */
    public GestureSetList getGestureSetList() {
       GestureSetList rootSet = new GestureSetList();
       rootSet.addPropertyChangeListener(mainController);
-      
       return rootSet;
-   }
-   
-   public TestSetList getTestSetList(){
+   } // getGestureSetList
+
+
+   public TestSetList getTestSetList() {
       TestSetList testSetList = new TestSetList();
       testSetList.addPropertyChangeListener(mainController);
       return testSetList;
-   }
-   
+   } // getTestSetList
+
+
    /**
-    * Returns a GestureSetList (all Algorithm are wrapped into a AlgorithmList)
-    * @return a GestureSetList (all Algorithm are wrapped into a AlgorithmList)
+    * Returns a algorithm list (all algorithms are wrapped into an AlgorithmList)
+    * @return a AlgorithmList (all algorithms are wrapped into an AlgorithmList)
     */
    public AlgorithmList getAlgorithmList() {
       AlgorithmList algorithmList = new AlgorithmList();
-      for (Class< ? extends Algorithm> algorithmClass : getAlgorithms() ) {
+
+      for (Class< ? extends Algorithm> algorithmClass : getAlgorithms()) {
          AlgorithmWrapper algorithmWrapper = new AlgorithmWrapper(algorithmClass);
          algorithmWrapper.addPropertyChangeListener(mainController);
          algorithmList.addAlgorithm(algorithmWrapper);
       }
-      algorithmList.addPropertyChangeListener(mainController);
 
+      algorithmList.addPropertyChangeListener(mainController);
       return algorithmList;
-   }
+   } // getAlgorithmList
 
 
    @Override
    public String getIdentifier() {
       return IDENTIFIER;
-   }
+   } // getIdentifier
 
 
    @Override
@@ -170,25 +176,27 @@ public class MainModel implements Service {
 
 
    /**
-    * Returns the Storage Manager
-    * TODO: Investigate design! Should be encapsulated. (UK) 
+    * Returns the Storage Manager TODO: Investigate design! Should be
+    * encapsulated. (UK)
     * @return
     */
    public IStorageManager getStorageManager() {
       return storageManager;
    }
-   
+
+
    /**
-    * Sets the StorageManager. This method is used to change the data source
-    * of the Main Model. 
+    * Sets the StorageManager. This method is used to change the data source of
+    * the Main Model.
     * 
-    * A proxy is used to handle wrapper objects. 
+    * A proxy is used to handle wrapper objects.
     * 
     * @param storageEngine
     */
-   public void setStorageEngine(StorageEngine storageEngine){
+   public void setStorageEngine(StorageEngine storageEngine) {
       PropertyChangeVisitor visitor = new PropertyChangeVisitor(mainController);
-      this.storageManager = StorageManagerProxy.newInstance(new StorageManager(storageEngine), visitor);
+      this.storageManager = StorageManagerProxy.newInstance(new StorageManager(
+            storageEngine), visitor);
    }
 
 }
