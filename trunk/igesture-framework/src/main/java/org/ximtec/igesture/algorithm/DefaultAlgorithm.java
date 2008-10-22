@@ -27,12 +27,7 @@
 package org.ximtec.igesture.algorithm;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
-
-import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.event.GestureHandler;
 
 
 /**

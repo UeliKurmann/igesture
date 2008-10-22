@@ -23,31 +23,40 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.core;
 
 import javax.swing.Icon;
 import javax.swing.JComponent;
 
 
+/**
+ * Tabbed view interface to be implemented by the different tab views.
+ * @version 1.0 23.03.2008
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public interface TabbedView {
 
    /**
-    * Returns the name of the Tab. This name is used as the tab name.
-    * @return
+    * Returns the name of the tab. This name is used as the tab name.
+    * @return the name of the tab. This name is used as the tab name.
     */
    String getName();
 
 
    /**
-    * Returns the icon of the Tab. This icon is used in the tab browser.
-    * @return
+    * Returns the icon of the tab. This icon is used in the tab browser.
+    * @return the icon of the tab. This icon is used in the tab browser.
     */
    Icon getIcon();
 
 
    /**
-    * Returns the pane of the Tab. This JComponent represents the content of the pane.
-    * @return
+    * Returns the pane of the tab. This JComponent represents the content of the
+    * pane.
+    * @return the pane of the tab. This JComponent represents the content of the
+    *         pane.
     */
    JComponent getPane();
 }

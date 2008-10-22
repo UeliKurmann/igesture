@@ -1,18 +1,19 @@
 /*
  * @(#)$Id$
  *
- * Author   : Ueli Kurmann, igesture@uelikurmann.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
  *                                   
- * Purpose    : 
+ * Purpose      :   The controller interface to be implemented by any
+ *                  controller component. 
  *
  * -----------------------------------------------------------------------
  *
  * Revision Information:
  *
- * Date       Who     Reason
+ * Date             Who         Reason
  *
- * 23.03.2008   ukurmann  Initial Release
+ * 23.03.2008       ukurmann    Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -32,17 +33,23 @@ import java.util.List;
 import javax.swing.JComponent;
 
 
+/**
+ * The controller interface to be implemented by any controller component.
+ * @version 1.0 23.03.2008
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public interface Controller extends PropertyChangeListener {
 
    /**
-    * Adds a controller.
+    * Adds a controller to this controller.
     * @param controller the controller to be added.
     */
    void addController(Controller controller);
 
 
    /**
-    * Removes a controller.
+    * Removes a controller from this controller.
     * @param controller the controller to be removed.
     */
    void removeController(Controller controller);
@@ -67,6 +74,10 @@ public interface Controller extends PropertyChangeListener {
    JComponent getView();
 
 
+   /**
+    * Executes a given command.
+    * @param command the command to be executed.
+    */
    void execute(Command command);
 
 }

@@ -23,12 +23,14 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.view.admin.action;
 
 import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.ink.Note;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.io.InputDeviceClient;
@@ -41,6 +43,7 @@ import org.ximtec.igesture.tool.service.InputDeviceClientService;
 public class AddGestureSampleAction extends BasicAction {
 
    SampleDescriptor descriptor;
+
 
    public AddGestureSampleAction(SampleDescriptor descriptor) {
       super(GestureConstants.GESTURE_SAMPLE_ADD, Locator.getDefault()
@@ -55,9 +58,9 @@ public class AddGestureSampleAction extends BasicAction {
             InputDeviceClientService.IDENTIFIER, InputDeviceClient.class);
       Note note = client.createNote();
       client.clearBuffer();
-      GestureSample sample = new GestureSample("", note);
+      GestureSample sample = new GestureSample(Constant.EMPTY_STRING, note);
       descriptor.addSample(sample);
-      
+
    }
 
 }

@@ -69,7 +69,6 @@ public class WelcomeController extends DefaultController {
    @Override
    public void execute(Command command) {
       super.execute(command);
-
    }
 
 

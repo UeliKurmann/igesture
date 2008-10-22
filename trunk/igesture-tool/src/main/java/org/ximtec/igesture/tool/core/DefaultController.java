@@ -4,7 +4,7 @@
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
  *
- * Purpose		: 
+ * Purpose		:   Default implementation of the controller interface.
  *
  * -----------------------------------------------------------------------
  *
@@ -12,7 +12,7 @@
  *
  * Date				Who			Reason
  *
- * 09.04.2008			ukurmann	Initial Release
+ * 09.04.2008       ukurmann	Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -32,9 +32,10 @@ import java.util.List;
 
 
 /**
- * Comment
+ * Default implementation of the controller interface.
  * @version 1.0 09.04.2008
- * @author Ueli Kurmann
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public abstract class DefaultController implements Controller {
 

@@ -30,7 +30,6 @@ package org.ximtec.igesture.algorithm;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.event.GestureHandler;
 
 
 /**

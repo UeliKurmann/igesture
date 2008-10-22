@@ -60,6 +60,7 @@ public class SwingMouseReader extends AbstractInputDevice {
    private List<Point> buffer;
    private String identifier;
 
+
    public SwingMouseReader() {
       buffer = new ArrayList<Point>();
 
@@ -75,6 +76,7 @@ public class SwingMouseReader extends AbstractInputDevice {
       return buffer;
    }
 
+
    public JPanel getPanel(Dimension dimension) {
       final SwingMouseReaderPanel panel = new SwingMouseReaderPanel(this);
       panel.setSize(dimension);
@@ -87,6 +89,7 @@ public class SwingMouseReader extends AbstractInputDevice {
 
          SwingMouseReaderPanel owner = panel;
 
+
          @Override
          public void mousePressed(MouseEvent e) {
             super.mousePressed(e);
@@ -96,7 +99,7 @@ public class SwingMouseReader extends AbstractInputDevice {
             translation = new Point((int)(p1.getX() - p2.getX()), (int)(p1
                   .getY() - p2.getY()));
             mouseClicked = true;
-            
+
          }
 
 
@@ -134,8 +137,8 @@ public class SwingMouseReader extends AbstractInputDevice {
                         .getX()),
                         (int)(currentPoint.getY() + translation.getY()));
 
-                  Location location = new Location("", 0, currentPoint,
-                        identifier);
+                  Location location = new Location(Constant.EMPTY_STRING, 0,
+                        currentPoint, identifier);
                   fireInputDeviceEvent(new MouseReaderEvent(
                         new TimestampedLocation(location, System
                               .currentTimeMillis())));

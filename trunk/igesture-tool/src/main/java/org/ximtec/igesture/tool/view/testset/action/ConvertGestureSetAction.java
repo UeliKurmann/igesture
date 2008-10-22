@@ -28,7 +28,6 @@ package org.ximtec.igesture.tool.view.testset.action;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.tree.TreePath;

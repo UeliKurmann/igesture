@@ -1,18 +1,18 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id: Controller.java 566 2008-10-17 15:39:41Z bsigner $
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
  *
- * Purpose		: 
+ * Purpose		:   Command to be executed by the responsible controller.
  *
  * -----------------------------------------------------------------------
  *
  * Revision Information:
  *
- * Date				Who			Reason
+ * Date             Who         Reason
  *
- * 09.04.2008			ukurmann	Initial Release
+ * 09.04.2008		ukurmann	Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -26,34 +26,44 @@
 
 package org.ximtec.igesture.tool.core;
 
-
-
 /**
- * Comment
+ * Command to be executed by the responsible controller.
  * @version 1.0 09.04.2008
- * @author Ueli Kurmann
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class Command {
-   
+
    private String command;
    private Object sender;
-   
-   public Command(String command){
+
+
+   public Command(String command) {
       this(command, null);
    }
-   
-   public Command(String command, Object sender){
+
+
+   public Command(String command, Object sender) {
       this.command = command;
       this.sender = sender;
    }
-   
-   
-   public String getCommand(){
+
+
+   /**
+    * Returns the command.
+    * @return the command.
+    */
+   public String getCommand() {
       return command;
-   }
-   
-   public Object getSender(){
+   } // getCommand
+
+
+   /**
+    * Returns the sender.
+    * @return the sender.
+    */
+   public Object getSender() {
       return sender;
-   }
+   } // getSender
 
 }
