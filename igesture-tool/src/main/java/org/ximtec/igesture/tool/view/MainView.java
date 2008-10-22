@@ -70,13 +70,13 @@ public class MainView extends JFrame {
    private void initView() {
       setBounds(100, 100, 900, 650);
       setDefaultCloseOperation(Frame.NORMAL);
-      setIconImage(IconTool.getIcon("igesture", Decorator.SIZE_16).getImage());
+      setTitle(ComponentFactory.getGuiBundle().getName(
+            GestureConstants.APPLICATION_ROOT));      
+      setIconImage(ComponentFactory.getGuiBundle().getSmallIcon(
+            GestureConstants.APPLICATION_ROOT).getImage());
       setVisible(true);
       tabbedPane = new JTabbedPane();
       this.add(tabbedPane);
-      setTitle(ComponentFactory.getGuiBundle().getName(
-            GestureConstants.APPLICATION_TITLE));
-
    }
 
 

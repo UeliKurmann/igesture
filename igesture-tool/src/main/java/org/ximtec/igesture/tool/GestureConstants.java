@@ -56,7 +56,7 @@ public class GestureConstants {
    public static final String RECONGISE = "RecogniseAction";
    public static final String APPLICATION_EXIT = "ApplicationExit";
    public static final String APPLICATION_SAVE = "ApplicationSave";
-   public static final String APPLICATION_TITLE = "ApplicationTitle";
+   public static final String APPLICATION_ROOT = "ApplicationRoot";
    
    public static final String APPLICATION_BROWSE = "ApplicationBrowse";
    public static final String FILE_MENU = "FileMenu";
