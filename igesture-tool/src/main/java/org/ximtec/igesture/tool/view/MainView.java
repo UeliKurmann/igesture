@@ -33,10 +33,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JTabbedPane;
 
-import org.sigtec.graphix.IconTool;
 import org.sigtec.graphix.widget.BasicMenu;
 import org.sigtec.graphix.widget.BasicMenuItem;
-import org.sigtec.util.Decorator;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.locator.Locator;
