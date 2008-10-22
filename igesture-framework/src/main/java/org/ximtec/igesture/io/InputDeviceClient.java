@@ -40,9 +40,10 @@ import org.sigtec.input.InputDevice;
 import org.sigtec.input.InputDeviceEvent;
 import org.sigtec.input.InputDeviceEventListener;
 import org.sigtec.input.InputHandler;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
- 
+
 
 /**
  * Bundles input devices. Used to capture notes.
@@ -53,7 +54,7 @@ import org.ximtec.igesture.core.GestureSample;
  */
 public class InputDeviceClient implements ButtonDeviceEventListener,
       InputDeviceEventListener, InputHandler, ButtonDevice {
- 
+
    private InputDeviceEventListener listener = null;
 
    private InputDevice inputDevice = null;
@@ -63,9 +64,10 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
    private HashSet<ButtonDeviceEventListener> buttonDeviceListeners;
 
    private HashSet<InputHandler> inputHandlerListeners;
- 
 
-   public InputDeviceClient(InputDevice inputDevice, InputDeviceEventListener listener) {
+
+   public InputDeviceClient(InputDevice inputDevice,
+         InputDeviceEventListener listener) {
       this.inputDevice = inputDevice;
       this.listener = listener;
       inputDeviceListeners = new HashSet<InputDeviceEventListener>();
@@ -92,13 +94,14 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
       }
 
    } // init
-   
-   public InputDevice getInputDevice(){
+
+
+   public InputDevice getInputDevice() {
       clearBuffer();
       return inputDevice;
    }
-   
-   
+
+
    /**
     * Reset the input device client.
     */
@@ -114,14 +117,12 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
       if (inputDevice instanceof InputDeviceEventListener) {
          ((InputDeviceEventListener)inputDevice).removeInputHandler(this);
       }
-      
 
       if (inputDevice instanceof AbstractInputDevice) {
          ((ExtendedInputDevice)inputDevice).stopLoop();
       }
 
    } // init
-
 
 
    /**
@@ -133,7 +134,6 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
    } // clearBuffer
 
 
-   
    /**
     * Creates a note from the points in the buffer.
     * 
@@ -143,28 +143,32 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
     * @return the note created from the device buffer.
     */
    public Note createNote() {
-      List<List<TimestampedInputEvent>> strokes = ((BufferedInputDeviceEventListener)listener).getStrokes();
+      List<List<TimestampedInputEvent>> strokes = ((BufferedInputDeviceEventListener)listener)
+            .getStrokes();
       Note note = new Note();
-      for(List<TimestampedInputEvent> stroke:strokes){
+      for (List<TimestampedInputEvent> stroke : strokes) {
          Trace trace = new Trace();
-         for(TimestampedInputEvent event:stroke){
-            if(event instanceof TimestampedLocation){
+         for (TimestampedInputEvent event : stroke) {
+            if (event instanceof TimestampedLocation) {
                TimestampedLocation location = (TimestampedLocation)event;
-               Point point = new Point(location.getPosition().getX(), location.getPosition().getY(), location.getTimestamp());
+               Point point = new Point(location.getPosition().getX(), location
+                     .getPosition().getY(), location.getTimestamp());
                trace.add(point);
             }
          }
-         if(trace.size() > 0){
+         if (trace.size() > 0) {
             note.add(trace);
          }
       }
-     
+
       clearBuffer();
       return note;
    } // createNote
-   
-   public synchronized Gesture<Note> getGesture(){
-      Gesture<Note> gesture = new GestureSample("", createNote());
+
+
+   public synchronized Gesture<Note> getGesture() {
+      Gesture<Note> gesture = new GestureSample(Constant.EMPTY_STRING,
+            createNote());
       return gesture;
    }
 
@@ -205,9 +209,9 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
          for (final InputHandler listener : inputHandlerListeners) {
             listener.handle(invoker, location);
          }
-         
+
       }
-      
+
    } // handle
 
 

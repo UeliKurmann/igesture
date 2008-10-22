@@ -31,6 +31,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import org.sigtec.ink.Note;
 import org.sigtec.input.InputDeviceEvent;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 
@@ -59,7 +60,7 @@ public class BlockingDeviceClient implements ButtonDeviceEventListener {
          return gestureQueue.take();
       }
       catch (InterruptedException e) {
-         return new GestureSample("", new Note());
+         return new GestureSample(Constant.EMPTY_STRING, new Note());
       }
    }
 

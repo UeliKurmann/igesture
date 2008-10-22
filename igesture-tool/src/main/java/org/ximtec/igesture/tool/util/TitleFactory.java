@@ -45,7 +45,6 @@ public class TitleFactory {
       JLabel title = new JLabel(s);
       title.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
       title.setFont(FontFactory.getArialBold(24));
-      
       return title;
    }
 

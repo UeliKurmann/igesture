@@ -33,6 +33,7 @@ import javax.swing.Icon;
 
 import org.sigtec.graphix.IconTool;
 import org.sigtec.graphix.widget.BasicAction;
+import org.sigtec.util.Constant;
 import org.sigtec.util.Decorator;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureClass;
@@ -122,15 +123,15 @@ public class NodeInfoFactory {
             TextDescriptorPanel.class, descriptorActions, null));
       nodeInfos.add(new NodeInfoImpl(GestureSample.class, "name", null,
             DefaultPanel.class, null, null));
-      nodeInfos.add(new NodeInfoImpl(String.class, "", null, DefaultPanel.class,
-            null, null));
+      nodeInfos.add(new NodeInfoImpl(String.class, Constant.EMPTY_STRING, null,
+            DefaultPanel.class, null, null));
 
       return nodeInfos;
    }
 
 
    public static List<NodeInfo> createTestBenchNodeInfo() {
-      
+
       List<Class< ? extends BasicAction>> algorithmListActions = new ArrayList<Class< ? extends BasicAction>>();
       List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
 
@@ -155,7 +156,8 @@ public class NodeInfoFactory {
       return nodeInfos;
 
    }
-   
+
+
    public static List<NodeInfo> createTestSetNodeInfo() {
       List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
 
@@ -167,15 +169,19 @@ public class NodeInfoFactory {
       List<Class< ? extends BasicAction>> setActions = new ArrayList<Class< ? extends BasicAction>>();
       setActions.add(DeleteTestSetAction.class);
       setActions.add(ExportTestSetAction.class);
-      
-      Icon setIcon = IconTool.getIcon("mimetypes/package-x-generic", Decorator.SIZE_16);
+
+      Icon setIcon = IconTool.getIcon("mimetypes/package-x-generic",
+            Decorator.SIZE_16);
 
       nodeInfos = new ArrayList<NodeInfo>();
-      nodeInfos.add(new NodeInfoImpl(TestSetList.class, "name", TestSetList.PROPERTY_SETS, TestSetsPanel.class, rootActions, null));
-      nodeInfos.add(new NodeInfoImpl(TestSet.class, "name", null, TestSetPanel.class, setActions, setIcon));
-   
-      //nodeInfos.add(new NodeInfoImpl(GestureSample.class, "name", null, DefaultPanel.class, null, null));
-     
+      nodeInfos.add(new NodeInfoImpl(TestSetList.class, "name",
+            TestSetList.PROPERTY_SETS, TestSetsPanel.class, rootActions, null));
+      nodeInfos.add(new NodeInfoImpl(TestSet.class, "name", null,
+            TestSetPanel.class, setActions, setIcon));
+
+      // nodeInfos.add(new NodeInfoImpl(GestureSample.class, "name", null,
+      // DefaultPanel.class, null, null));
+
       return nodeInfos;
    }
 

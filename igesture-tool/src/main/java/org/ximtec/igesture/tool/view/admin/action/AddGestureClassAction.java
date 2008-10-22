@@ -30,6 +30,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.tree.TreePath;
 
 import org.sigtec.graphix.widget.BasicAction;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureConstants;
@@ -52,7 +53,7 @@ public class AddGestureClassAction extends BasicAction {
    @Override
    public void actionPerformed(ActionEvent arg0) {
       GestureSet gestureSet = (GestureSet)treePath.getLastPathComponent();
-      GestureClass gestureClass = new GestureClass("");
+      GestureClass gestureClass = new GestureClass(Constant.EMPTY_STRING);
       gestureSet.addGestureClass(gestureClass);
    }
 
