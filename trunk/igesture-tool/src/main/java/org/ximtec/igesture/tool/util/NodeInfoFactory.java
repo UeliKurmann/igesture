@@ -26,6 +26,8 @@
 
 package org.ximtec.igesture.tool.util;
 
+import hacks.IconLoader;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,7 +109,7 @@ public class NodeInfoFactory {
       List<Class< ? extends BasicAction>> descriptorActions = new ArrayList<Class< ? extends BasicAction>>();
       descriptorActions.add(RemoveDescriptorAction.class);
 
-      Icon setIcon = IconTool.getIcon("mimetypes/package-x-generic",
+      Icon setIcon = IconTool.getIcon(IconLoader.PACKAGE,
             Decorator.SIZE_16);
 
       nodeInfos = new ArrayList<NodeInfo>();
