@@ -51,8 +51,11 @@ import org.ximtec.igesture.util.ZipFS;
  */
 public class ZipStorageEngine extends DefaultStorageEngine {
 
+   
    private static final Logger LOGGER = Logger.getLogger(XMLStorageEngine.class
          .getName());
+
+   private static final String GESTURE_SET = "GestureSet";
 
    private Map<Class< ? extends DataObject>, List<DataObject>> dataObjects;
 
@@ -107,6 +110,10 @@ public class ZipStorageEngine extends DefaultStorageEngine {
                      GestureSet gestureSet = XMLTool.importGestureSet(zipFS
                            .getInputStream(entrySet));
                      dataObjects.get(GestureSet.class).add(gestureSet);
+                     
+                     // TODO load images
+                     
+                     
                   }
                   catch (IOException e) {
                      LOGGER.log(Level.SEVERE, "Could not import GestureSet.", e);
@@ -185,7 +192,7 @@ public class ZipStorageEngine extends DefaultStorageEngine {
          try {
             GestureSet set = (GestureSet)dataObject;
             String name = GESTURE_SET_PATH + ZipFS.SEPERATOR + set.getId()
-                  + ZipFS.SEPERATOR + set.getName() + XML_EXTENSION;
+                  + ZipFS.SEPERATOR + GESTURE_SET + XML_EXTENSION;
             zipFS.store(name, XMLTool.exportGestureSetAsStream(set));
          }
          catch (IOException e) {
@@ -231,8 +238,11 @@ public class ZipStorageEngine extends DefaultStorageEngine {
 
    }
 
-
-   @SuppressWarnings("unchecked")
+   /*
+    * (non-Javadoc)
+    * @see org.ximtec.igesture.storage.StorageEngine#load(java.lang.Class, java.lang.String)
+    */
+   @Override
    public <T extends DataObject> T load(final Class<T> clazz, final String id) {
       T dataObject = null;
 
@@ -241,7 +251,7 @@ public class ZipStorageEngine extends DefaultStorageEngine {
          for (final DataObject tmp : dataObjects.get(clazz)) {
 
             if (tmp.getId().equals(id)) {
-               dataObject = (T)tmp;
+               dataObject = clazz.cast(tmp);
                break;
             }
 
@@ -253,7 +263,12 @@ public class ZipStorageEngine extends DefaultStorageEngine {
    } // load
 
 
+   /*
+    * (non-Javadoc)
+    * @see org.ximtec.igesture.storage.StorageEngine#load(java.lang.Class)
+    */
    @SuppressWarnings("unchecked")
+   @Override
    public <T extends DataObject> List<T> load(Class<T> clazz) {
       if (dataObjects.get(clazz) != null) {
          return (List<T>)dataObjects.get(clazz);
@@ -263,18 +278,33 @@ public class ZipStorageEngine extends DefaultStorageEngine {
    } // load
 
 
+   /*
+    * (non-Javadoc)
+    * @see org.ximtec.igesture.storage.StorageEngine#store(org.ximtec.igesture.core.DataObject)
+    */
+   @Override
    public void store(DataObject dataObject) {
       addDataObject(dataObject);
       changed = true;
    } // store
 
 
+   /*
+    * (non-Javadoc)
+    * @see org.ximtec.igesture.storage.StorageEngine#update(org.ximtec.igesture.core.DataObject)
+    */
+   @Override
    public void update(DataObject dataObject) {
       addDataObject(dataObject);
       changed = true;
    } // update
 
 
+   /*
+    * (non-Javadoc)
+    * @see org.ximtec.igesture.storage.StorageEngine#remove(org.ximtec.igesture.core.DataObject)
+    */
+   @Override
    public void remove(DataObject dataObject) {
       removeDataObject(dataObject);
       if (dataObject instanceof Configuration) {
