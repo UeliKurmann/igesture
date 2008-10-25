@@ -1,5 +1,5 @@
 /*
- * @(#)$Id: StoreWorkspaceAction.java 465 2008-03-23 23:14:59Z kurmannu $
+ * @(#)$Id$
  *
  * Author   : Ueli Kurmann, igesture@uelikurmann.ch
  *                                   

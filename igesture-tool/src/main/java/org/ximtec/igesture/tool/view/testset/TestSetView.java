@@ -1,5 +1,5 @@
 /*
- * @(#)$Id: TestSetView.java 529 2008-05-06 20:04:13Z kurmannu $
+ * @(#)$Id$
  *
  * Author   : Ueli Kurmann, igesture@uelikurmann.ch
  *                                   

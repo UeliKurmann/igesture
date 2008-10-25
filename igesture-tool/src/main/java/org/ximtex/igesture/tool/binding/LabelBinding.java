@@ -1,5 +1,5 @@
 /*
- * @(#)$Id: TextFieldBinding.java 456 2008-03-23 17:16:31Z kurmannu $
+ * @(#)$Id$
  *
  * Author   : Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
