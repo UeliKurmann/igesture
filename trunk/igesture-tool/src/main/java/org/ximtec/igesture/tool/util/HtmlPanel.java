@@ -1,5 +1,5 @@
 /*
- * @(#)$Id: Controller.java 566 2008-10-17 15:39:41Z bsigner $
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  

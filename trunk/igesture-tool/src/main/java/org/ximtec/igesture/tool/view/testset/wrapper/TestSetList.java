@@ -1,5 +1,5 @@
 /*
- * @(#)$Id: GestureSetList.java 552 2008-09-26 08:41:41Z bsigner $
+ * @(#)$Id$
  *
  * Author   : Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
