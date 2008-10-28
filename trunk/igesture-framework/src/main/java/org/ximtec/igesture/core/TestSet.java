@@ -27,7 +27,11 @@
 package org.ximtec.igesture.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.sigtec.ink.Note;
 
 
 /**
@@ -40,11 +44,11 @@ import java.util.List;
 public class TestSet extends DefaultDataObject {
 
    public static final String PROPERTY_NAME = "name";
-   public static final String PROPERTY_SAMPLES = "samples";
-
-   private List<Gesture< ? >> samples;
+   public static final String PROPERTY_TEST_CLASSES = "testClasses";
 
    public static final String NOISE = "None";
+
+   private Map<String, TestClass> testClasses;
 
    private String name;
 
@@ -56,7 +60,7 @@ public class TestSet extends DefaultDataObject {
     */
    public TestSet(String name) {
       super();
-      samples = new ArrayList<Gesture< ? >>();
+      testClasses = new HashMap<String, TestClass>();
       setName(name);
    }
 
@@ -66,11 +70,37 @@ public class TestSet extends DefaultDataObject {
     * 
     * @param sample the sample to be added.
     */
-   public void add(Gesture<?> sample) {
-      samples.add(sample);
-      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SAMPLES, samples
-            .indexOf(sample), null, sample);
+   public void add(Gesture<Note> sample) {
+      if (sample == null) {
+         return;
+      }
+
+      TestClass testClass = testClasses.get(sample.getName());
+      if (testClass == null) {
+         testClass = new TestClass(sample.getName());
+         testClasses.put(testClass.getName(), testClass);
+         propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_TEST_CLASSES, 0,
+               null, sample);
+      }
+      testClass.add(sample);
    } // add
+
+
+   public void addTestClass(TestClass testClass) {
+      if (testClass != null) {
+         addAll(testClass.getGestures());
+      }
+   }
+
+
+   public void addTestClasses(List<TestClass> testClasses) {
+      if (testClasses == null) {
+         return;
+      }
+      for (TestClass testClass : testClasses) {
+         addTestClass(testClass);
+      }
+   }
 
 
    /**
@@ -78,11 +108,13 @@ public class TestSet extends DefaultDataObject {
     * 
     * @param samples the samples to be added.
     */
-   public void addAll(List<Gesture< ? >> samples) {
-      this.samples.addAll(samples);
+   public void addAll(List<Gesture<Note>> samples) {
+      for (Gesture<Note> sample : samples) {
+         add(sample);
+      }
 
       for (Gesture< ? > sample : samples) {
-         propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SAMPLES,
+         propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_TEST_CLASSES,
                samples.indexOf(sample), null, sample);
       }
 
@@ -94,9 +126,10 @@ public class TestSet extends DefaultDataObject {
     * 
     * @param sample the sample to be removed.
     */
-   public void remove(Gesture<?> sample) {
-      samples.remove(sample);
-      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SAMPLES, samples.indexOf(sample), sample, null);
+   public void remove(Gesture<Note> sample) {
+      testClasses.remove(sample);
+      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_TEST_CLASSES, 0,
+            sample, null);
    } // remove
 
 
@@ -105,8 +138,8 @@ public class TestSet extends DefaultDataObject {
     * 
     * @return a list with all samples.
     */
-   public List<Gesture<?>> getSamples() {
-      return samples;
+   public List<TestClass> getTestClasses() {
+      return new ArrayList<TestClass>(testClasses.values());
    } // getSamples
 
 
@@ -116,15 +149,10 @@ public class TestSet extends DefaultDataObject {
     * @return the number of "noise" entries in the test set.
     */
    public int getNoiseSize() {
-      int i = 0;
 
-      for (final Gesture< ? > sample : getSamples()) {
-         if (sample.getName().equals(NOISE)) {
-            i++;
-         }
-      }
+      TestClass testClass = testClasses.get(TestSet.NOISE);
+      return testClass == null ? 0 : testClass.size();
 
-      return i;
    } // getNoiseSize
 
 
@@ -155,13 +183,29 @@ public class TestSet extends DefaultDataObject {
 
 
    /**
-    * Returns the size of the test set.
+    * Returns the size of the test set. (Number of test classes)
     * 
     * @return the size of the test set.
     */
-   public int size() {
-      return samples.size();
+   public int getNumberOfTestClasses() {
+      return testClasses.size();
    } // size
+
+
+   /**
+    * Returns the number of samples in the test set. This is the sum of all
+    * samples in all test classes.
+    * @return the number of samples
+    */
+   public int getNumberOfSamples() {
+      int result = 0;
+
+      for (TestClass testClass : testClasses.values()) {
+         result += testClass.size();
+      }
+
+      return result;
+   }
 
 
    /**
@@ -170,7 +214,7 @@ public class TestSet extends DefaultDataObject {
     * @return true if the test set is empty.
     */
    public boolean isEmpty() {
-      return samples.isEmpty();
+      return testClasses.isEmpty();
    } // isEmpty
 
 
@@ -180,11 +224,11 @@ public class TestSet extends DefaultDataObject {
    @Override
    public void accept(Visitor visitor) {
       visitor.visit(this);
-      
-      for (Gesture< ? > sample : samples) {
-         sample.accept(visitor);
+
+      for (TestClass testClass : testClasses.values()) {
+         testClass.accept(visitor);
       }
-   
+
    } // accept
 
 

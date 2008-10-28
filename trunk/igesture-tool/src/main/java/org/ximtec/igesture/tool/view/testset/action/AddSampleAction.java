@@ -32,7 +32,7 @@ import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.ink.Note;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureSample;
-import org.ximtec.igesture.core.TestSet;
+import org.ximtec.igesture.core.TestClass;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
@@ -42,10 +42,10 @@ import org.ximtec.igesture.tool.service.InputDeviceClientService;
 
 public class AddSampleAction extends BasicAction {
 
-   TestSet descriptor;
+   TestClass descriptor;
 
 
-   public AddSampleAction(TestSet descriptor) {
+   public AddSampleAction(TestClass descriptor) {
       super(GestureConstants.GESTURE_SAMPLE_ADD, Locator.getDefault()
             .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
       this.descriptor = descriptor;

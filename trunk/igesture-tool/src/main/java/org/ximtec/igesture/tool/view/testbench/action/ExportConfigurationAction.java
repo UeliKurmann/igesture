@@ -37,6 +37,7 @@ import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.util.FileFilterFactory;
 import org.ximtec.igesture.util.XMLTool;
 
 
@@ -63,6 +64,7 @@ public class ExportConfigurationAction extends BasicAction {
       Configuration configuration = (Configuration)treePath.getLastPathComponent();
       
       JFileChooser fileChooser = new JFileChooser();
+      fileChooser.setFileFilter(FileFilterFactory.getRecogniserConfig());
       fileChooser.showSaveDialog(null);
       final File file = fileChooser.getSelectedFile();
 

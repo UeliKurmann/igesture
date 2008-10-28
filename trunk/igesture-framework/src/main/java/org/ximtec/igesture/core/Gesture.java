@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -36,12 +36,24 @@ package org.ximtec.igesture.core;
  */
 public interface Gesture<T> {
 
+   /**
+    * Returns the gesture
+    * @return the gesture
+    */
    T getGesture();
 
 
+   /**
+    * Returns the name of the gesture
+    * @return the name of the gesture
+    */
    String getName();
 
 
+   /**
+    * Visitor implementation
+    * @param visitor
+    */
    void accept(Visitor visitor);
 
 }

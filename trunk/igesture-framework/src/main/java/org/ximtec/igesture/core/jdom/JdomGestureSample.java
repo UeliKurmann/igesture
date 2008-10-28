@@ -60,7 +60,7 @@ public class JdomGestureSample extends Element {
    }
 
 
-   public static Object unmarshal(Element sample) {
+   public static Gesture<Note> unmarshal(Element sample) {
       Note note = null;
 
       if (sample.getChild(JdomNote.ROOT_TAG) != null) {

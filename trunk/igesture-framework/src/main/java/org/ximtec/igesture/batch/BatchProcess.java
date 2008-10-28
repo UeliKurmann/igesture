@@ -48,6 +48,7 @@ import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.ResultSet;
+import org.ximtec.igesture.core.TestClass;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.util.XMLTool;
 
@@ -60,7 +61,7 @@ import org.ximtec.igesture.util.XMLTool;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class BatchProcess implements Callable<BatchResultSet>{
+public class BatchProcess implements Callable<BatchResultSet> {
 
    private static final Logger LOGGER = Logger.getLogger(AlgorithmFactory.class
          .getName());
@@ -119,7 +120,7 @@ public class BatchProcess implements Callable<BatchResultSet>{
       this.sets.addAll(sets);
    } // addGestureSets
 
-  
+
    /**
     * Runs the batch process.
     * 
@@ -139,31 +140,33 @@ public class BatchProcess implements Callable<BatchResultSet>{
             Algorithm algorithm;
             algorithm = AlgorithmFactory.createAlgorithm(config);
 
-            for (Gesture<?> sample : testSet.getSamples()) {
-               ResultSet resultSet = algorithm.recognise(sample);
+            for (TestClass testClass : testSet.getTestClasses()) {
+               for (Gesture<?> sample : testClass.getGestures()) {
+                  ResultSet resultSet = algorithm.recognise(sample);
 
-               if (resultSet.isEmpty()) {
+                  if (resultSet.isEmpty()) {
 
-                  if (sample.getName().equals(TestSet.NOISE)) {
-                     batchResult.incRejectCorrect(sample.getName());
+                     if (sample.getName().equals(TestSet.NOISE)) {
+                        batchResult.incRejectCorrect(sample.getName());
+                     }
+                     else {
+                        batchResult.incRejectError(sample.getName());
+                     }
+
                   }
                   else {
-                     batchResult.incRejectError(sample.getName());
+
+                     if (resultSet.getResult().getGestureClassName().equals(
+                           sample.getName())) {
+                        batchResult.incCorrect(sample.getName());
+                     }
+                     else {
+                        batchResult.incError(sample.getName());
+                     }
+
                   }
 
                }
-               else {
-
-                  if (resultSet.getResult().getGestureClassName().equals(
-                        sample.getName())) {
-                     batchResult.incCorrect(sample.getName());
-                  }
-                  else {
-                     batchResult.incError(sample.getName());
-                  }
-
-               }
-
             }
 
             batchResult.setEndTime();
@@ -282,9 +285,7 @@ public class BatchProcess implements Callable<BatchResultSet>{
       if (param.getValue() != null) {
          final BatchValue value = param.getValue();
          final Configuration conf = (Configuration)configuration.clone();
-         conf
-               .addParameter(algorithm, param.getName(), value
-                     .getValue());
+         conf.addParameter(algorithm, param.getName(), value.getValue());
          permuteParameters(algorithm, parameters, index + 1, conf,
                configurations);
       }
