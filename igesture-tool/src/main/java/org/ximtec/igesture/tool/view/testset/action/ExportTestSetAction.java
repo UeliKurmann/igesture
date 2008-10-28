@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -37,6 +37,7 @@ import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.util.FileFilterFactory;
 import org.ximtec.igesture.util.XMLTool;
 
 
@@ -61,6 +62,7 @@ public class ExportTestSetAction extends BasicAction {
       TestSet testSet = (TestSet)treePath.getLastPathComponent();
       
       JFileChooser fileChooser = new JFileChooser();
+      fileChooser.setFileFilter(FileFilterFactory.getTestSet());
       fileChooser.showSaveDialog(null); 
       
       File selectedFile = fileChooser.getSelectedFile();

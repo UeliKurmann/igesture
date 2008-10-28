@@ -42,6 +42,7 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.util.FileFilterFactory;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -67,18 +68,19 @@ public class ExportPDFGestureSetAction extends BasicAction {
       GestureSet gestureSet = (GestureSet)treePath.getLastPathComponent();
 
       Document.compress = false;
-      final JFileChooser fileChooser = new JFileChooser();
+      JFileChooser fileChooser = new JFileChooser();
+      fileChooser.setFileFilter(FileFilterFactory.getPdf());
       fileChooser.showSaveDialog((JMenuItem)event.getSource());
-      final File selectedFile = fileChooser.getSelectedFile();
+      File selectedFile = fileChooser.getSelectedFile();
 
       if (selectedFile != null) {
-         final Document document = PDFTool.createDocument(selectedFile);
+         Document document = PDFTool.createDocument(selectedFile);
          document.open();
 
          try {
             document.add(PDFTool.createGestureSetTable(gestureSet));
          }
-         catch (final DocumentException e) {
+         catch (DocumentException e) {
             LOG.log(Level.SEVERE, Constant.EMPTY_STRING, e);
          }
 

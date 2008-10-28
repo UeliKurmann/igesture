@@ -289,7 +289,7 @@ public class GestureTool {
       TestSet result = new TestSet(DEFAULT_NAME);
 
       for (TestSet set : testSets) {
-         result.addAll(set.getSamples());
+         result.addTestClasses(set.getTestClasses());
       }
 
       return result;

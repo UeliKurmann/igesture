@@ -72,7 +72,7 @@ public class BatchResult {
       this.numberOfRejectCorrect = 0;
       this.numberOfErrors = 0;
       this.numberOfNoise = testSet.getNoiseSize();
-      this.numberOfSamples = testSet.getSamples().size();
+      this.numberOfSamples = testSet.getNumberOfSamples();
       this.configuration = configuration;
       this.classStatistics = new HashMap<String, ClassStatistic>();
 

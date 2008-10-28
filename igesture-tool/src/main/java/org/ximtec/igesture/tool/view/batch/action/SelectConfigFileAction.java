@@ -35,6 +35,7 @@ import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.util.FileFilterFactory;
 import org.ximtec.igesture.tool.view.batch.BatchView;
 
 
@@ -54,6 +55,7 @@ public class SelectConfigFileAction extends BasicAction {
    @Override
    public void actionPerformed(ActionEvent action) {
       JFileChooser chooser = new JFileChooser();
+      chooser.setFileFilter(FileFilterFactory.getBatchConfig());
       chooser.showOpenDialog(null);
       File file = chooser.getSelectedFile();
       view.setConfigFile(file.getAbsolutePath());

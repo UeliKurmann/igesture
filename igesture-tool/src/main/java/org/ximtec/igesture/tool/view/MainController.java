@@ -54,6 +54,7 @@ import org.ximtec.igesture.tool.locator.Service;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
 import org.ximtec.igesture.tool.util.ComponentFactory;
+import org.ximtec.igesture.tool.util.FileFilterFactory;
 import org.ximtec.igesture.tool.view.admin.AdminController;
 import org.ximtec.igesture.tool.view.batch.BatchController;
 import org.ximtec.igesture.tool.view.testbench.TestbenchController;
@@ -132,10 +133,11 @@ public class MainController extends DefaultController implements Service {
          mainView = new MainView();
          mainView.addWindowListener(new MainWindowAdapter(this));
       }
-      
+
       final CyclicBarrier barrier = new CyclicBarrier(2);
-      
-      SwingUtilities.invokeLater(new Runnable(){
+
+      SwingUtilities.invokeLater(new Runnable() {
+
          @Override
          public void run() {
             // TODO: avoid casts
@@ -143,7 +145,7 @@ public class MainController extends DefaultController implements Service {
             WelcomeController welcomeController = new WelcomeController();
             addController(welcomeController);
             mainView.addTab((TabbedView)welcomeController.getView());
-            
+
             // Init Admin Tab
             AdminController adminController = new AdminController();
             addController(adminController);
@@ -163,26 +165,24 @@ public class MainController extends DefaultController implements Service {
             TestSetController testSetController = new TestSetController();
             addController(testSetController);
             mainView.addTab((TabbedView)testSetController.getView());
-            
+
             try {
                barrier.await();
             }
             catch (Exception e) {
                LOGGER.log(Level.SEVERE, "View Initialization failed.");
             }
-            
+
          }
       });
-      
+
       try {
          barrier.await();
       }
       catch (Exception e) {
          LOGGER.log(Level.SEVERE, "View Initialization failed.");
       }
-      
-      
-     
+
    }
 
 
@@ -353,6 +353,9 @@ public class MainController extends DefaultController implements Service {
       File file = null;
       while (file == null) {
          JFileChooser chooser = new JFileChooser();
+         chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceDb4o());
+         chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceXStream());        
+         chooser.setFileFilter(FileFilterFactory.getWorkspaceCompressed());
          chooser.showOpenDialog(null);
          file = chooser.getSelectedFile();
       }

@@ -39,6 +39,7 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.util.FileFilterFactory;
 import org.ximtec.igesture.tool.view.admin.wrapper.GestureSetList;
 import org.ximtec.igesture.util.XMLTool;
 
@@ -62,9 +63,10 @@ public class ImportGestureSetAction extends BasicAction {
       LOG.info("Import Gesture Set...");
       GestureSetList rootSet = (GestureSetList)treePath.getLastPathComponent();
 
-      final JFileChooser fileChooser = new JFileChooser();
+      JFileChooser fileChooser = new JFileChooser();
+      fileChooser.setFileFilter(FileFilterFactory.getGestureSet());
       fileChooser.showOpenDialog((JMenuItem)event.getSource());
-      final File selectedFile = fileChooser.getSelectedFile();
+      File selectedFile = fileChooser.getSelectedFile();
 
       if (selectedFile != null) {
          GestureSet gestureSet = XMLTool.importGestureSet(selectedFile);

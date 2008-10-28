@@ -29,9 +29,9 @@ package org.ximtec.igesture.core.jdom;
 import java.util.List;
 
 import org.jdom.Element;
-import org.ximtec.igesture.core.GestureSample;
+import org.sigtec.ink.Note;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.TestClass;
-import org.ximtec.igesture.core.TestSet;
 
 
 /**
@@ -41,9 +41,9 @@ import org.ximtec.igesture.core.TestSet;
  * @author Ueli Kurmann, kurmannu@ethz.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class JdomTestSet extends Element {
+public class JdomTestClass extends Element {
 
-   public static final String ROOT_TAG = "testSet";
+   public static final String ROOT_TAG = "testClass";
 
    public static final String NAME_ATTRIBUTE = "name";
 
@@ -52,31 +52,33 @@ public class JdomTestSet extends Element {
    public static final String REFID_ATTRIBUTE = "idref";
 
 
-   public JdomTestSet(TestSet testSet) {
+   /**
+    * Creates a Test Class Jdom Element
+    * @param testClass a Test Class instance
+    */
+   public JdomTestClass(TestClass testClass) {
       super(ROOT_TAG);
-      setAttribute(NAME_ATTRIBUTE, testSet.getName());
-      setAttribute(UUID_ATTRIBUTE, testSet.getId());
+      setAttribute(NAME_ATTRIBUTE, testClass.getName());
+      setAttribute(UUID_ATTRIBUTE, testClass.getId());
 
-      for (TestClass testClass : testSet.getTestClasses()) {
-         addContent(new JdomTestClass(testClass));
+      for (final Gesture<Note> sample : testClass.getGestures()) {
+         addContent(new JdomGestureSample(sample));
       }
-
    }
 
 
    @SuppressWarnings("unchecked")
-   public static TestSet unmarshal(Element setElement) {
+   public static TestClass unmarshal(Element setElement) {
       final String name = setElement.getAttributeValue(NAME_ATTRIBUTE);
       final String uuid = setElement.getAttributeValue(UUID_ATTRIBUTE);
-      final TestSet testSet = new TestSet(name);
-      testSet.setId(uuid);
+      final TestClass testClass = new TestClass(name);
+      testClass.setId(uuid);
 
-      for (final Element sampleElement : (List<Element>)setElement
-            .getChildren(JdomGestureSample.ROOT_TAG)) {
-         testSet.add((GestureSample)JdomGestureSample.unmarshal(sampleElement));
+      for (Element sampleElement : (List<Element>)setElement.getChildren(JdomGestureSample.ROOT_TAG)) {
+         testClass.add(JdomGestureSample.unmarshal(sampleElement));
       }
 
-      return testSet;
+      return testClass;
    } // unmarshal
 
 }

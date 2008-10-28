@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -42,6 +42,7 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.SampleDescriptor;
+import org.ximtec.igesture.core.TestClass;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.core.TextDescriptor;
 import org.ximtec.igesture.tool.explorer.NodeInfoImpl;
@@ -76,6 +77,7 @@ import org.ximtec.igesture.tool.view.testset.action.DeleteTestSetAction;
 import org.ximtec.igesture.tool.view.testset.action.ExportTestSetAction;
 import org.ximtec.igesture.tool.view.testset.action.ImportTestSetAction;
 import org.ximtec.igesture.tool.view.testset.action.NewTestSetAction;
+import org.ximtec.igesture.tool.view.testset.panel.TestClassPanel;
 import org.ximtec.igesture.tool.view.testset.panel.TestSetPanel;
 import org.ximtec.igesture.tool.view.testset.panel.TestSetsPanel;
 import org.ximtec.igesture.tool.view.testset.wrapper.TestSetList;
@@ -176,10 +178,14 @@ public class NodeInfoFactory {
             Decorator.SIZE_16);
 
       nodeInfos = new ArrayList<NodeInfo>();
+      
       nodeInfos.add(new NodeInfoImpl(TestSetList.class, "name",
             TestSetList.PROPERTY_SETS, TestSetsPanel.class, rootActions, null));
-      nodeInfos.add(new NodeInfoImpl(TestSet.class, "name", null,
+      
+      nodeInfos.add(new NodeInfoImpl(TestSet.class, "name", "testClasses",
             TestSetPanel.class, setActions, setIcon));
+      
+      nodeInfos.add(new NodeInfoImpl(TestClass.class, "name", null, TestClassPanel.class, null, null));
 
       // nodeInfos.add(new NodeInfoImpl(GestureSample.class, "name", null,
       // DefaultPanel.class, null, null));
