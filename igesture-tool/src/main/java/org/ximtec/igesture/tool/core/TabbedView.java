@@ -33,7 +33,7 @@ import javax.swing.JComponent;
 /**
  * Tabbed view interface to be implemented by the different tab views.
  * @version 1.0 23.03.2008
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public interface TabbedView {

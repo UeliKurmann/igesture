@@ -64,8 +64,7 @@ public class MainModel implements RunnableService {
     */
    public MainModel(StorageEngine engine, MainController mainController) {
       this.mainController = mainController;
-
-      // StorageManager is wrapped with a Dynamic Proxy to register a
+      // StorageManager is wrapped with a dynamic proxy to register a
       // PropertyChangeListener
       setStorageEngine(engine);
    }

@@ -1,7 +1,7 @@
 /*
  * @(#)IconLoader.java	1.0   Feb 01, 2007
  *
- * Author		:	Ueli Kurmann, kurmannu@ethz.ch
+ * Author		:	Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose		:   Icon loader.
  *
@@ -42,7 +42,7 @@ import org.sigtec.util.Constant;
  * Icon loader.
  * 
  * @version 1.0 Feb 2007
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class IconLoader {

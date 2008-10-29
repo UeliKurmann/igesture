@@ -1,7 +1,7 @@
 /*
  * @(#)GestureKeyboard.java   1.0   Nov 15, 2006
  *
- * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ * Author       :   Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose      :   
  *
@@ -49,7 +49,7 @@ import org.ximtec.igesture.io.MouseReaderEventListener;
 
 /**
  * @version 1.0 Nov 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class HelloWorld implements ButtonDeviceEventListener {

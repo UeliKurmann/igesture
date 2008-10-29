@@ -1,7 +1,7 @@
 /*
  * @(#)F14.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ * Author       :   Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose      :   Feature representing the number of stop points.
  *
@@ -38,7 +38,7 @@ import org.sigtec.ink.Trace;
  * Feature representing the number of stop points.
  * 
  * @version 1.0 Dec 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class F14 implements Feature {

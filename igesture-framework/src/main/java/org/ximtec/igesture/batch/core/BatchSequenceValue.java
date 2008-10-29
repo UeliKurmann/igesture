@@ -1,7 +1,7 @@
 /*
  * @(#)BatchSequenceValue.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ * Author       :   Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose      : 	Represents the value of a sequence. Used by the
  *                  BatchProcess.
@@ -35,7 +35,7 @@ import java.util.List;
  * Represents the value of a sequence. Used by the BatchProcess.
  * 
  * @version 1.0 Dec 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class BatchSequenceValue extends BatchParameter {

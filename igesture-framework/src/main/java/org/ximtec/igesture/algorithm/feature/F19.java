@@ -1,7 +1,7 @@
 /*
  * @(#)F19.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ * Author       :   Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose      :   Feature representing the proportion start/end-point
  *                  to the diagonal of the bounding box.
@@ -36,7 +36,7 @@ import org.sigtec.ink.Note;
  * bounding box.
  * 
  * @version 1.0 Dec 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class F19 implements Feature {

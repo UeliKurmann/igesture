@@ -1,7 +1,7 @@
 /*
  * @(#)Statistics.java	1.0   Dec 6, 2006
  *
- * Author		:	Ueli Kurmann, kurmannu@ethz.ch
+ * Author		:	Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose		: 	Computes statistics of a textual gesture class
  *                  description.
@@ -37,7 +37,7 @@ import org.sigtec.util.Constant;
  * Computes statistics of a textual gesture class description.
  * 
  * @version 1.0 Dec 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class Statistics {

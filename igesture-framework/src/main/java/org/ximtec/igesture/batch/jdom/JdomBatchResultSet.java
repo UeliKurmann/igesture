@@ -1,7 +1,7 @@
 /*
  * @(#)JdomBatchResultSet.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ * Author       :   Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose      : 	XML support for the BatchResultSet class.
  *
@@ -35,7 +35,7 @@ import org.ximtec.igesture.batch.BatchResultSet;
  * XML support for the BatchResultSet class.
  * 
  * @version 1.0 Dec 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class JdomBatchResultSet extends Element {

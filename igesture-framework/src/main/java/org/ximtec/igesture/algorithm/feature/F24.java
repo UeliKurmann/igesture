@@ -1,7 +1,7 @@
 /*
  * @(#)F24.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ * Author       :   Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose      :   Feature representing the proportion of the stroke
  *                  lengths (first/last point) to each other.
@@ -38,7 +38,7 @@ import org.sigtec.ink.Trace;
  * to each other.
  * 
  * @version 1.0 Dec 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class F24 implements Feature {
