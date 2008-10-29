@@ -84,9 +84,8 @@ public class Locator {
     *            casted to.
     * @return service for a given identifier.
     */
-   @SuppressWarnings("unchecked")
    public <T> T getService(String identifier, Class<T> type) {
-      return (T)services.get(identifier);
+      return type.cast(services.get(identifier));
    } // getService
 
 
