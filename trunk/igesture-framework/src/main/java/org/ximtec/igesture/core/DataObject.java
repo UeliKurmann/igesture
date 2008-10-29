@@ -1,5 +1,5 @@
 /*
- * @(#)DataObject.java   1.0   Dec 26, 2006
+ * @(#)$Id$
  *
  * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *
@@ -57,7 +57,7 @@ public interface DataObject extends Serializable, PropertyChangeNotifier {
 
    /**
     * Accepts a visitor.
-    * @param visitor the visitor to ne used.
+    * @param visitor the visitor to be used.
     */
    public void accept(Visitor visitor);
 
