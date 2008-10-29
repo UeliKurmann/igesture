@@ -104,16 +104,14 @@ public class MainController extends DefaultController implements Service {
 
    private void initServices() {
       guiBundle = new GuiBundleService(RESOURCE_BUNDLE);
-
       mainModel = new MainModel(StorageManager
             .createStorageEngine(getDatabase()), this);
-
       deviceClient = new InputDeviceClientService(new SwingMouseReader(),
             new BufferedInputDeviceEventListener(new MouseReaderEventListener(),
                   BUFFER_SIZE));
 
       /**
-       * Register services
+       * Register the services
        */
       locator = Locator.getDefault();
       locator.addService(mainModel);
@@ -125,7 +123,7 @@ public class MainController extends DefaultController implements Service {
 
 
    /**
-    * Initializes Views TODO: use a dynamic initialization
+    * Initialises the views TODO: use a dynamic initialization
     */
    private void initViews() {
       if (mainView == null) {
@@ -134,7 +132,6 @@ public class MainController extends DefaultController implements Service {
       }
 
       final CyclicBarrier barrier = new CyclicBarrier(2);
-
       SwingUtilities.invokeLater(new Runnable() {
 
          @Override
@@ -193,6 +190,7 @@ public class MainController extends DefaultController implements Service {
    public void execute(Command command) {
       // command dispatcher
       if (command != null && command.getCommand() != null) {
+
          if (CMD_LOAD.equals(command.getCommand())) {
             execLoadCommand();
          }
@@ -212,39 +210,40 @@ public class MainController extends DefaultController implements Service {
             execShowAboutDialog();
          }
          else {
-            LOGGER.warning("Command not supportet. " + command.getCommand());
+            LOGGER.warning("Command not supported. " + command.getCommand());
          }
       }
       else {
          LOGGER.warning("Command not set.");
       }
-   }
+
+   } // execute
 
 
    private void execLoadCommand() {
       LOGGER.info("Command Load");
       File dataBase = getDatabase();
+
       if (dataBase != null) {
          mainView.removeAllTabs();
          mainModel.stop();
          mainModel
                .setStorageEngine(StorageManager.createStorageEngine(dataBase));
          mainModel.start();
-
          initViews();
       }
-   }
+
+   } // execLoadCommand
 
 
    private void execSaveCommand() {
       LOGGER.info("Command Save");
       mainModel.getStorageManager().commit();
-   }
+   } // execSaveCommand
 
 
    private void execCloseCommand() {
       LOGGER.info("Command Close");
-
       String title = ComponentFactory.getGuiBundle().getName(
             GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT);
       String text = ComponentFactory.getGuiBundle().getShortDescription(
@@ -256,19 +255,18 @@ public class MainController extends DefaultController implements Service {
          Locator.getDefault().stopAll();
          System.exit(0);
       }
-   }
+
+   } // execCloseCommand
 
 
    private void execStartWaiting() {
       LOGGER.info("Start Progress Panel.");
-
-   }
+   } // execStartWaiting
 
 
    private void execStopWaiting() {
       LOGGER.info("Stop Progress Panel.");
-
-   }
+   } // execStopWaiting
 
 
    private void execShowAboutDialog() {
@@ -280,7 +278,7 @@ public class MainController extends DefaultController implements Service {
       point.translate(100, 60);
       dialog.setLocation(point);
       dialog.setVisible(true);
-   }
+   } // execShowAboutDialog
 
 
    @Override
@@ -290,15 +288,18 @@ public class MainController extends DefaultController implements Service {
 
       // Dispatch DataObjects
       if (event.getSource() instanceof DataObject) {
+
          if (event instanceof IndexedPropertyChangeEvent) {
             persist((IndexedPropertyChangeEvent)event);
          }
          else {
             persist((PropertyChangeEvent)event);
          }
+
       }
       else if (event.getSource() instanceof DataObjectWrapper) {
          LOGGER.info("DataObjectWrapper");
+
          if (event.getOldValue() instanceof DataObject
                && event.getNewValue() == null) {
             mainModel.getStorageManager()
@@ -313,19 +314,22 @@ public class MainController extends DefaultController implements Service {
             mainModel.getStorageManager()
                   .update((DataObject)event.getNewValue());
          }
+
       }
-   }
+
+   } // propertyChange
 
 
    private void persist(PropertyChangeEvent event) {
       LOGGER.info("Update: property " + event.getSource());
       mainModel.getStorageManager().update((DataObject)event.getSource());
-   }
+   } // persist
 
 
    private void persist(IndexedPropertyChangeEvent event) {
       LOGGER
             .info("Store, Delete, Update: indexed property " + event.getSource());
+
       if (event.getOldValue() == null) {
          mainModel.getStorageManager().store((DataObject)event.getNewValue());
       }
@@ -333,14 +337,15 @@ public class MainController extends DefaultController implements Service {
             && event.getOldValue() instanceof DataObject) {
          mainModel.getStorageManager().remove((DataObject)event.getOldValue());
       }
+
       mainModel.getStorageManager().update((DataObject)event.getSource());
-   }
+   } // persist
 
 
    @Override
    public JComponent getView() {
       return null;
-   }
+   } // getView
 
 
    /**
@@ -350,39 +355,41 @@ public class MainController extends DefaultController implements Service {
     */
    private File getDatabase() {
       File file = null;
+      
       while (file == null) {
          JFileChooser chooser = new JFileChooser();
          chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceDb4o());
-         chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceXStream());        
+         chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceXStream());
          chooser.setFileFilter(FileFilterFactory.getWorkspaceCompressed());
          chooser.showOpenDialog(null);
          file = chooser.getSelectedFile();
       }
+      
       return file;
-   }
+   } // getDatabase
 
 
    @Override
    public String getIdentifier() {
       return IDENTIFIER;
-   }
+   } // getIdentifier
 
 
    @Override
    public void reset() {
       LOGGER.warning("method not implemented.");
-   }
+   } // reset
 
 
    @Override
    public void start() {
       LOGGER.warning("method not implemented.");
-   }
+   } // start
 
 
    @Override
    public void stop() {
       LOGGER.warning("method not implemented.");
-   }
+   } // stop
 
 }
