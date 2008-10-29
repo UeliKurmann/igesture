@@ -1,7 +1,7 @@
 /*
  * @(#)StorageManager.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ * Author       :   Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose      : 	The front-end of the storage system. The storage
  *                  manager uses a storage engine which provides access
@@ -41,7 +41,7 @@ import org.ximtec.igesture.core.DataObject;
  * which provides access functionality to data sources.
  * 
  * @version 1.0, Dec 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class StorageManager implements IStorageManager{

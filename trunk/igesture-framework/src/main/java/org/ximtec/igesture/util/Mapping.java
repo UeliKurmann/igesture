@@ -1,7 +1,7 @@
 /*
  * @(#)Mapping.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ * Author       :   Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose      :   Name value mapping.
  *
@@ -49,7 +49,7 @@ import org.xml.sax.InputSource;
  * Name value mapping.
  * 
  * @version 1.0, Dec 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class Mapping {

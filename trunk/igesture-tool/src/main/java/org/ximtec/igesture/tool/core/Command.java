@@ -30,7 +30,7 @@ package org.ximtec.igesture.tool.core;
 /**
  * Command to be executed by the responsible controller.
  * @version 1.0 09.04.2008
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class Command {

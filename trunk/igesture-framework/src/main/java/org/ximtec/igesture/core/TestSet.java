@@ -1,7 +1,7 @@
 /*
  * @(#)TestSet.java	1.0   Nov 20, 2006
  *
- * Author		:	Ueli Kurmann, kurmannu@ethz.ch
+ * Author		:	Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose		: 	Set of gesture samples used to evaluate algorithms.
  *
@@ -38,7 +38,7 @@ import org.sigtec.ink.Note;
  * Set of gesture samples used to evaluate algorithms.
  * 
  * @version 1.0, Nov 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class TestSet extends DefaultDataObject {

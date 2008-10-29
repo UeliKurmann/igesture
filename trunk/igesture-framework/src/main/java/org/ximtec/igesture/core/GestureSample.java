@@ -1,7 +1,7 @@
 /*
  * @(#)GestureSample.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ * Author       :   Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose      : 	Represents a gesture sample as for example used by
  *                  the Rubine algorithm. Single gestures are represented
@@ -40,7 +40,7 @@ import org.sigtec.util.Constant;
  * Single gestures are represented as notes.
  * 
  * @version 1.0, Dec 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class GestureSample extends DefaultDataObject implements Cloneable,

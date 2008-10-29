@@ -1,7 +1,7 @@
 /*
  * @(#)ApplicationException.java	1.0   Nov 23, 2006
  *
- * Author		:	Ueli Kurmann, kurmannu@ethz.ch
+ * Author		:	Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose		: 	Exception thrown by algorithms.
  *
@@ -30,7 +30,7 @@ package org.ximtec.igesture.algorithm;
  * Exception thrown by algorithms.
  * 
  * @version 1.0 Nov 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class AlgorithmException extends Exception {

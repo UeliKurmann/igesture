@@ -1,7 +1,7 @@
 /*
  * @(#)Constants.java	1.0   Dec 6, 2006
  *
- * Author		:	Ueli Kurmann, kurmannu@ethz.ch
+ * Author		:	Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose		: 	Constants used by the Siger algorithm.
  *
@@ -33,7 +33,7 @@ import org.sigtec.util.Constant;
  * Constants used by the Siger algorithm.
  * 
  * @version 1.0 Dec 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class Constants {

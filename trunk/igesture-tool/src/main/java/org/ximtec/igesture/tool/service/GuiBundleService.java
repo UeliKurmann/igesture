@@ -1,18 +1,18 @@
 /*
  * @(#)$Id$
  *
- * Author   : Ueli Kurmann, igesture@uelikurmann.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
  *                                   
- * Purpose  : 
+ * Purpose      :   Service wrapper for a GuiBundle.          
  *
  * -----------------------------------------------------------------------
  *
  * Revision Information:
  *
- * Date       Who     Reason
+ * Date         Who             Reason
  *
- * 23.03.2008 ukurmann  Initial Release
+ * 23.03.2008   ukurmann        Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -31,7 +31,7 @@ import org.ximtec.igesture.tool.locator.Service;
 
 
 /**
- * Services Wrapper for GuiBundle.
+ * Service wrapper for a GuiBundle.
  * 
  * @author UeliKurmann
  * @version 1.0

@@ -1,7 +1,7 @@
 /*
  * @(#)JAboutDialog.java    1.0   Feb 01, 2007
  *
- * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ * Author       :   Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose      :   About dialog.
  *
@@ -46,7 +46,7 @@ import org.ximtec.igesture.tool.util.HtmlPanel;
  * About dialog.
  * 
  * @version 1.0 Feb 2007
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class AboutDialog extends BasicDialog {

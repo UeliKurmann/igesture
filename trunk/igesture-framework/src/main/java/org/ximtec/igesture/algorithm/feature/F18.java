@@ -1,7 +1,7 @@
 /*
  * @(#)F167.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ * Author       :   Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose      :   Feature representing the cosine of the angle between
  *                  the first and second part of the stroke.
@@ -35,7 +35,7 @@ import org.sigtec.ink.Note;
  * of the stroke.
  * 
  * @version 1.0 Dec 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class F18 implements Feature {

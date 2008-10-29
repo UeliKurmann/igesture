@@ -1,7 +1,7 @@
 /*
  * @(#)CloseApplication.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ * Author       :   Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose      :   Example implementation of an event handler. It will
  *                  close the application.
@@ -38,7 +38,7 @@ import org.ximtec.igesture.event.GestureAction;
  * Example implementation of an event handler. It will close the application.
  * 
  * @version 1.0, Dec 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class CloseApplication implements GestureAction {

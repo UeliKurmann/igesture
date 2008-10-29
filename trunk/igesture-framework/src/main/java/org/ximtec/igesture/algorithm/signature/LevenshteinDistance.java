@@ -1,7 +1,7 @@
 /*
  * @(#)LevenshteinDistance.java	1.0   Dec 11, 2006
  *
- * Author		:	Ueli Kurmann, kurmannu@ethz.ch
+ * Author		:	Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose		:   Computes the Levenshtein distance. The algorithm is
  *                  based on the implementation presented at
@@ -32,7 +32,7 @@ package org.ximtec.igesture.algorithm.signature;
  * Computes the Levenshtein distance.
  * 
  * @version 1.0 Dec 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class LevenshteinDistance implements DistanceFunction {

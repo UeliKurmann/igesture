@@ -1,7 +1,7 @@
 /*
  * @(#)JdomConfiguration.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ * Author       :   Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose      : 	XML support for the Configuration class.
  *
@@ -39,7 +39,7 @@ import org.ximtec.igesture.core.jdom.JdomGestureSet;
  * XML support for the Configuration class.
  * 
  * @version 1.0 Dec 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class JdomConfiguration extends Element {

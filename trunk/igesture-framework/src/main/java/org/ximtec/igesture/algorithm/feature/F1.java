@@ -1,7 +1,7 @@
 /*
  * @(#)F1.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ * Author       :   Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose      :   Rubine feature F1. Cosine of the initial angle of the
  *                  gesture.
@@ -36,7 +36,7 @@ import org.sigtec.ink.Trace;
  * Rubine feature F1. Cosine of the initial angle of the gesture.
  * 
  * @version 1.0 Dec 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class F1 implements Feature {

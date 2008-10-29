@@ -35,7 +35,7 @@ import org.ximtec.igesture.tool.view.MainController;
  * The main class.
  * 
  * @version 1.0, Mar 2008
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class Main {

@@ -1,7 +1,7 @@
 /*
  * @(#)F17.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ * Author       :   Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose      :   Feature representing the cosine of the angle between
  *                  the centre point and the end point with respect to
@@ -38,7 +38,7 @@ import org.sigtec.ink.Trace;
  * end point with respect to the x axis.
  * 
  * @version 1.0 Dec 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class F17 implements Feature {

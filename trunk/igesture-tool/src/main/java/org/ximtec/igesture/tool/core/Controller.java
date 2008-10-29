@@ -36,7 +36,7 @@ import javax.swing.JComponent;
 /**
  * The controller interface to be implemented by any controller component.
  * @version 1.0 23.03.2008
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public interface Controller extends PropertyChangeListener {

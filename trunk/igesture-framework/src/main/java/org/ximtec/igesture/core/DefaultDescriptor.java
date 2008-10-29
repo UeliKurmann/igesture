@@ -1,7 +1,7 @@
 /*
  * @(#)DefaultDescriptor.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ * Author       :   Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose      : 	Default implementation of a descriptor. It implements
  *                  the necessary methods and extends the default
@@ -37,7 +37,7 @@ package org.ximtec.igesture.core;
  * to avoid code duplication.
  * 
  * @version 1.0, Dec 2006
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public abstract class DefaultDescriptor extends DefaultDataObject implements

@@ -1,7 +1,7 @@
 /*
  * @(#)JdomTextDescriptor.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, kurmannu@ethz.ch
+ * Author       :   Ueli Kurmann, ueli@smartness.ch
  *
  * Purpose      :   XML support for the TextDescriptor class.
  *
@@ -35,7 +35,7 @@ import org.ximtec.igesture.core.IconDescriptor;
  * XML support for the IconDescriptor class.
  * 
  * @version 1.0, 22. October 2008
- * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Ueli Kurmann, ueli@smartness.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class JdomIconDescriptor extends Element {
