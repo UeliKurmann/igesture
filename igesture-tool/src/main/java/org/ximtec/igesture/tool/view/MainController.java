@@ -40,6 +40,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import org.sigtec.input.BufferedInputDeviceEventListener;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.DataObjectWrapper;
 import org.ximtec.igesture.io.MouseReaderEventListener;
@@ -210,8 +211,10 @@ public class MainController extends DefaultController implements Service {
             execShowAboutDialog();
          }
          else {
-            LOGGER.warning("Command not supported. " + command.getCommand());
+            LOGGER.warning("Command not supported: '" + command.getCommand()
+                  + Constant.SINGLE_QUOTE);
          }
+
       }
       else {
          LOGGER.warning("Command not set.");
@@ -355,7 +358,7 @@ public class MainController extends DefaultController implements Service {
     */
    private File getDatabase() {
       File file = null;
-      
+
       while (file == null) {
          JFileChooser chooser = new JFileChooser();
          chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceDb4o());
@@ -364,7 +367,7 @@ public class MainController extends DefaultController implements Service {
          chooser.showOpenDialog(null);
          file = chooser.getSelectedFile();
       }
-      
+
       return file;
    } // getDatabase
 
@@ -373,23 +376,5 @@ public class MainController extends DefaultController implements Service {
    public String getIdentifier() {
       return IDENTIFIER;
    } // getIdentifier
-
-
-   @Override
-   public void reset() {
-      LOGGER.warning("method not implemented.");
-   } // reset
-
-
-   @Override
-   public void start() {
-      LOGGER.warning("method not implemented.");
-   } // start
-
-
-   @Override
-   public void stop() {
-      LOGGER.warning("method not implemented.");
-   } // stop
 
 }

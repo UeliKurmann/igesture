@@ -23,22 +23,24 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.service;
 
 import org.sigtec.input.InputDevice;
 import org.sigtec.input.InputDeviceEventListener;
 import org.ximtec.igesture.io.InputDeviceClient;
-import org.ximtec.igesture.tool.locator.Service;
+import org.ximtec.igesture.tool.locator.RunnableService;
+
 
 /**
  * Service Wrapper for InputDeviceClient
- *
- * @author  UeliKurmann
+ * 
+ * @author UeliKurmann
  * @version 1.0
- * @since   igesture
+ * @since igesture
  */
 public class InputDeviceClientService extends InputDeviceClient implements
-      Service {
+      RunnableService {
 
    public static final String IDENTIFIER = "inputDeviceClientService";
 

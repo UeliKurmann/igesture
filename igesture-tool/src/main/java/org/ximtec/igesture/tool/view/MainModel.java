@@ -39,7 +39,7 @@ import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.storage.IStorageManager;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.storage.StorageManager;
-import org.ximtec.igesture.tool.locator.Service;
+import org.ximtec.igesture.tool.locator.RunnableService;
 import org.ximtec.igesture.tool.util.PropertyChangeVisitor;
 import org.ximtec.igesture.tool.util.StorageManagerProxy;
 import org.ximtec.igesture.tool.view.admin.wrapper.GestureSetList;
@@ -48,7 +48,7 @@ import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmWrapper;
 import org.ximtec.igesture.tool.view.testset.wrapper.TestSetList;
 
 
-public class MainModel implements Service {
+public class MainModel implements RunnableService {
 
    public static final String IDENTIFIER = "MainModel";
 
