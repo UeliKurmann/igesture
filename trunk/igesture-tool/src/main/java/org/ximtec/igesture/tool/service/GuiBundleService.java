@@ -13,6 +13,7 @@
  * Date         Who             Reason
  *
  * 23.03.2008   ukurmann        Initial Release
+ * 29.10.2008   bsigner         Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -33,9 +34,9 @@ import org.ximtec.igesture.tool.locator.Service;
 /**
  * Service wrapper for a GuiBundle.
  * 
- * @author UeliKurmann
- * @version 1.0
- * @since igesture
+ * @version 1.0, Mar 2008
+ * @author Ueli Kurmann, igesture@uelikurmann.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class GuiBundleService extends GuiBundle implements Service {
 
@@ -50,6 +51,6 @@ public class GuiBundleService extends GuiBundle implements Service {
    @Override
    public String getIdentifier() {
       return IDENTIFIER;
-   }
+   } // getIdentifier
 
 }

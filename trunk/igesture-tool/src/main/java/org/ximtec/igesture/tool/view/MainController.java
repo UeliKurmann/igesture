@@ -4,7 +4,7 @@
  * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
  *                                   
- * Purpose      : 
+ * Purpose      :   The main controller
  *
  * -----------------------------------------------------------------------
  *
@@ -13,6 +13,7 @@
  * Date             Who         Reason
  *
  * 23.03.2008       ukurmann    Initial Release
+ * 29.10.2008       bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -63,6 +64,13 @@ import org.ximtec.igesture.tool.view.testset.TestSetController;
 import org.ximtec.igesture.tool.view.welcome.WelcomeController;
 
 
+/**
+ * The main controller class.
+ * 
+ * @version 1.0, Mar 2008
+ * @author Ueli Kurmann, igesture@uelikurmann.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class MainController extends DefaultController implements Service {
 
    private static final Logger LOGGER = Logger.getLogger(MainController.class
@@ -352,10 +360,11 @@ public class MainController extends DefaultController implements Service {
 
 
    /**
-    * TODO select database file (ms access like application). show recent used
-    * files.
-    * @return
+    * Returns a file handle to the database to be opened.
+    * @return file handle to the database to be opened.
     */
+   // TODO select database file (ms access like application). show recent used
+   // files.
    private File getDatabase() {
       File file = null;
 
