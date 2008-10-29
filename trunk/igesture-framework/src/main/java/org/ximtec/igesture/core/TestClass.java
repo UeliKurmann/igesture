@@ -57,6 +57,14 @@ public class TestClass extends DefaultDataObject {
    public String getName() {
       return this.name;
    }
+   
+   public void setName(String name){
+      this.name = name;
+      
+      for(Gesture<Note> gesture:gestures){
+         gesture.setName(name);
+      }
+   }
 
 
    /**

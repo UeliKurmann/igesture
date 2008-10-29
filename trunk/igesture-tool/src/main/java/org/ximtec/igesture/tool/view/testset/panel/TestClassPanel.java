@@ -174,7 +174,7 @@ public class TestClassPanel extends AbstractPanel {
    /**
     * Input Area to capture a new sample
     */
-   private void initInputSection(TestClass descriptor) {
+   private void initInputSection(TestClass testClass) {
       JPanel basePanel = new JPanel();
 
       // input area
@@ -194,7 +194,7 @@ public class TestClassPanel extends AbstractPanel {
 
       JButton addSampleButton = ComponentFactory
             .createButton(GestureConstants.GESTURE_SAMPLE_ADD,
-                  new AddSampleAction(descriptor));
+                  new AddSampleAction(testClass));
       Formatter.formatButton(addSampleButton);
       buttonPanel.add(addSampleButton);
 

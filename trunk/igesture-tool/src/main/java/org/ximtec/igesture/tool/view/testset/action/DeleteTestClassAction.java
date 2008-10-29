@@ -1,5 +1,5 @@
 /*
- * @(#)$Id$
+ * @(#)$Id: DeleteTestSetAction.java 588 2008-10-25 13:09:33Z kurmannu $
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -31,11 +31,11 @@ import java.awt.event.ActionEvent;
 import javax.swing.tree.TreePath;
 
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.core.TestClass;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
-import org.ximtec.igesture.tool.view.testset.wrapper.TestSetList;
 
 
 /**
@@ -43,11 +43,11 @@ import org.ximtec.igesture.tool.view.testset.wrapper.TestSetList;
  * @version 1.0 08.10.2008
  * @author Ueli Kurmann
  */
-public class DeleteTestSetAction extends BasicAction {
+public class DeleteTestClassAction extends BasicAction {
 
    private TreePath treePath;
 
-   public DeleteTestSetAction(TreePath treePath) {
+   public DeleteTestClassAction(TreePath treePath) {
       super(GestureConstants.TESTSET_REMOVE, Locator.getDefault().getService(
             GuiBundleService.IDENTIFIER, GuiBundleService.class));
       this.treePath = treePath;
@@ -55,8 +55,8 @@ public class DeleteTestSetAction extends BasicAction {
 
    @Override
    public void actionPerformed(ActionEvent evt) {
-      TestSet testSet = (TestSet)treePath.getLastPathComponent();
-      TestSetList testSetList = (TestSetList)treePath.getParentPath().getLastPathComponent();
-      testSetList.removeTestSet(testSet);
+      TestClass testClass = (TestClass)treePath.getLastPathComponent();
+      TestSet testSet = (TestSet)treePath.getParentPath().getLastPathComponent();
+      testSet.remove(testClass);
    }
 }

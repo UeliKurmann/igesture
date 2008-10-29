@@ -62,6 +62,7 @@ public class TestSet extends DefaultDataObject {
       super();
       testClasses = new HashMap<String, TestClass>();
       setName(name);
+      addTestClass(new TestClass(NOISE));
    }
 
 
@@ -88,7 +89,11 @@ public class TestSet extends DefaultDataObject {
 
    public void addTestClass(TestClass testClass) {
       if (testClass != null) {
-         addAll(testClass.getGestures());
+         if(!testClasses.containsKey(testClass.getName())){
+            testClasses.put(testClass.getName(), testClass);
+         }else{
+            addAll(testClass.getGestures());
+         }
       }
    }
 
@@ -126,10 +131,9 @@ public class TestSet extends DefaultDataObject {
     * 
     * @param sample the sample to be removed.
     */
-   public void remove(Gesture<Note> sample) {
-      testClasses.remove(sample);
-      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_TEST_CLASSES, 0,
-            sample, null);
+   public void remove(TestClass testClass) {
+      testClasses.remove(testClass.getName());
+      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_TEST_CLASSES, 0, testClass, null);
    } // remove
 
 
