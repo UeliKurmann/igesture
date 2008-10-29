@@ -23,17 +23,19 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.service;
 
 import org.sigtec.graphix.GuiBundle;
 import org.ximtec.igesture.tool.locator.Service;
 
+
 /**
  * Services Wrapper for GuiBundle.
- *
- * @author  UeliKurmann
+ * 
+ * @author UeliKurmann
  * @version 1.0
- * @since   igesture
+ * @since igesture
  */
 public class GuiBundleService extends GuiBundle implements Service {
 
@@ -42,24 +44,6 @@ public class GuiBundleService extends GuiBundle implements Service {
 
    public GuiBundleService(String resourceBundleName) {
       super(resourceBundleName);
-   }
-
-
-   @Override
-   public void reset() {
-      // TODO Auto-generated method stub
-   }
-
-
-   @Override
-   public void start() {
-      // TODO Auto-generated method stub
-   }
-
-
-   @Override
-   public void stop() {
-      // TODO Auto-generated method stub
    }
 
 

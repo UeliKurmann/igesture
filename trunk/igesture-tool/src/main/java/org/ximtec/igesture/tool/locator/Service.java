@@ -42,22 +42,4 @@ public interface Service {
     */
    String getIdentifier();
 
-
-   /**
-    * Starts the service.
-    */
-   void start();
-
-
-   /**
-    * Stops the service.
-    */
-   void stop();
-
-
-   /**
-    * Resets the service.
-    */
-   void reset();
-
 }

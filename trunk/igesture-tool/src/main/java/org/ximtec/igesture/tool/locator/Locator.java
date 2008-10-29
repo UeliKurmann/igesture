@@ -16,7 +16,7 @@
  * Date             Who         Reason
  *
  * 23.03.2008       ukurmann    Initial Release
- * 29.10.2008       bsigner     Cleanup
+ * 29.10.2008       bsigner     Adapted to new RunnableService
  *
  * -----------------------------------------------------------------------
  *
@@ -113,7 +113,11 @@ public class Locator {
     */
    public void startAll() {
       for (Service service : getServices()) {
-         service.start();
+
+         if (service instanceof RunnableService) {
+            ((RunnableService)service).start();
+         }
+
       }
 
    } // startAll
@@ -124,7 +128,11 @@ public class Locator {
     */
    public void stopAll() {
       for (Service service : getServices()) {
-         service.stop();
+
+         if (service instanceof RunnableService) {
+            ((RunnableService)service).stop();
+         }
+
       }
 
    } // stopAll
