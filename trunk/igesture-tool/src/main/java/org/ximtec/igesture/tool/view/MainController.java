@@ -99,7 +99,6 @@ public class MainController extends DefaultController implements Service {
    public MainController() {
       initServices();
       initViews();
-
    }
 
 
