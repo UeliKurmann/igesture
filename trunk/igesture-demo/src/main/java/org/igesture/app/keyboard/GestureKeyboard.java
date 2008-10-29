@@ -1,7 +1,7 @@
 /*
  * @(#)GestureKeyboard.java   1.0   March 09, 2007
  *
- * Author       :   Ueli Kurmann, ueli@smartness.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *
  * Purpose      : 	
  *
@@ -48,7 +48,7 @@ import org.ximtec.igesture.util.XMLTool;
 
 /**
  * @version 1.0 Mar 2007
- * @author Ueli Kurmann, ueli@smartness.ch
+ * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class GestureKeyboard implements ButtonDeviceEventListener {

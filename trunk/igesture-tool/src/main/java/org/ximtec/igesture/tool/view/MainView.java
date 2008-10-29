@@ -49,7 +49,7 @@ import org.ximtec.igesture.tool.view.action.StoreWorkspaceAction;
 /**
  * The main view of the iGesture tool.
  * @version 1.0 Mar 23, 2008
- * @author Ueli Kurmann, ueli@smartness.ch
+ * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 @SuppressWarnings("serial")

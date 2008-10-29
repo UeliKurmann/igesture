@@ -1,7 +1,7 @@
 /*
  * @(#)JNote.java	1.0   Nov 15, 2006
  *
- * Author		:	Ueli Kurmann, ueli@smartness.ch
+ * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *
  * Purpose		:   Visualises a sigtec note.
  *
@@ -57,7 +57,7 @@ import org.sigtec.util.Constant;
  * Visualises a sigtec note.
  * 
  * @version 1.0 Nov 2006
- * @author Ueli Kurmann, ueli@smartness.ch
+ * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class JNote extends JLabel implements InputHandler {

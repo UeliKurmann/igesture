@@ -1,7 +1,7 @@
 /*
  * @(#)EventManager.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, ueli@smartness.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *
  * Purpose      : 	The event manager holds a set of event handlers which
  * 					are executed after an event has been fired. The event
@@ -41,7 +41,7 @@ import org.ximtec.igesture.core.ResultSet;
  * event has been fired. The event manager is registered by algorithms.
  * 
  * @version 1.0, Dec 2006
- * @author Ueli Kurmann, ueli@smartness.ch
+ * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class GestureActionManager implements GestureHandler {

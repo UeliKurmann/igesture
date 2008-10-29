@@ -1,7 +1,7 @@
 /*
  * @(#)F6.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, ueli@smartness.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *
  * Purpose      :   Rubine feature F6. The cosine of the angle between
  *                  the first and last point.
@@ -35,7 +35,7 @@ import org.sigtec.ink.Trace;
  * Rubine feature F6. The cosine of the angle between the first and last point.
  * 
  * @version 1.0 Dec 2006
- * @author Ueli Kurmann, ueli@smartness.ch
+ * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class F6 implements Feature {

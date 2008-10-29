@@ -1,7 +1,7 @@
 /*
  * $Id$
  *
- * Author       :   Ueli Kurmann, ueli@smartness.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *
  * Purpose      : 	Feature exception that is thrown if there is a problem
  *                  computing a feature.
@@ -32,7 +32,7 @@ package org.ximtec.igesture.algorithm.feature;
  * Feature exception that is thrown if there is a problem computing a feature.
  * 
  * @version 1.0 May 2007
- * @author Ueli Kurmann, ueli@smartness.ch
+ * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class FeatureException extends Exception {

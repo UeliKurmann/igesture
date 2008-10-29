@@ -1,7 +1,7 @@
 /*
  * @(#)AlgoirthmFactory.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, ueli@smartness.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *
  * Purpose      :	The factory used to create algorithms.
  *
@@ -41,7 +41,7 @@ import org.ximtec.igesture.util.XMLTool;
  * The factory used to create algorithms.
  * 
  * @version 1.0 Dec 2006
- * @author Ueli Kurmann, ueli@smartness.ch
+ * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class AlgorithmFactory {
