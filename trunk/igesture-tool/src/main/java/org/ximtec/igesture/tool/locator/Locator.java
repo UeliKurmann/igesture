@@ -1,18 +1,22 @@
 /*
  * @(#)$Id$
  *
- * Author   : Ueli Kurmann, igesture@uelikurmann.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
  *                                   
- * Purpose  : 
+ * Purpose      :   Implementation of the locator pattern. A locator
+ *                  provides access to services which can be started and
+ *                  stopped. A default locator is available trough a
+ *                  singleton.
  *
  * -----------------------------------------------------------------------
  *
  * Revision Information:
  *
- * Date       Who     Reason
+ * Date             Who         Reason
  *
- * 23.03.2008 ukurmann  Initial Release
+ * 23.03.2008       ukurmann    Initial Release
+ * 29.10.2008       bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -33,12 +37,13 @@ import java.util.Map;
 
 
 /**
- * Implements the locator pattern. Services can be located, started and stopped.
- * A default locator is available through a singleton.
+ * Implementation of the locator pattern. A locator provides access to services
+ * which can be started and stopped. A default locator is available trough a
+ * singleton.
  * 
- * @author UeliKurmann
- * @version 1.0
- * @since igesture
+ * @version 1.0, Mar 2008
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class Locator {
 
@@ -52,54 +57,89 @@ public class Locator {
    }
 
 
+   /**
+    * Registers a new service. The service's name can later be used to retrieve a
+    * specific service.
+    * @param service the service to be registered.
+    */
    public void addService(Service service) {
       services.put(service.getIdentifier(), service);
-   }
+   } // addService
 
 
-   public void removeService(Service service) {
-      services.remove(service.getIdentifier());
-   }
+   /**
+    * Retrieves a specific service.
+    * @param identifier the identifier of the service to be retrieved.
+    * @return service for a given specifier.
+    */
+   public Service getService(String identifier) {
+      return services.get(identifier);
+   } // getService
 
 
-   public Service getService(String name) {
-      return services.get(name);
-   }
-
-
+   /**
+    * Retrieves a specific service a casts it to the provided class type.
+    * @param identifier the identifier of the service to be retrieved.
+    * @param type the class type the returned service should be automatically
+    *            casted to.
+    * @return service for a given identifier.
+    */
    @SuppressWarnings("unchecked")
-   public <T> T getService(String name, Class<T> type) {
-      return (T)services.get(name);
-   }
+   public <T> T getService(String identifier, Class<T> type) {
+      return (T)services.get(identifier);
+   } // getService
 
 
+   /**
+    * Returns all registered services.
+    * @return all registered services.
+    */
    public List<Service> getServices() {
       return new ArrayList<Service>(services.values());
-   }
+   } // getServices
 
 
+   /**
+    * Removes a service based on its unique identifier.
+    * @param service the service to be removed.
+    */
+   public void removeService(Service service) {
+      services.remove(service.getIdentifier());
+   } // removeService
+
+
+   /**
+    * Starts all registered services.
+    */
    public void startAll() {
       for (Service service : getServices()) {
          service.start();
       }
-      
-   }
+
+   } // startAll
 
 
+   /**
+    * Stops all registered services.
+    */
    public void stopAll() {
       for (Service service : getServices()) {
          service.stop();
       }
-      
-   }
+
+   } // stopAll
 
 
+   /**
+    * Returns a default locator (singleton).
+    * @return the default locator.
+    */
    public static Locator getDefault() {
       if (defaultLocator == null) {
          defaultLocator = new Locator();
       }
-      
+
       return defaultLocator;
-   }
+   } // getDefault
 
 }
