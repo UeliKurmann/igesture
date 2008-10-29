@@ -1,11 +1,11 @@
 /*
- * @(#)StorageManager.java   1.0   Dec 26, 2006
+ * @(#)$Id$
  *
  * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *
  * Purpose      : 	The front-end of the storage system. The storage
- *                  manager uses a storage engine which provides access
- *                  functionality to data sources. 
+ *                  manager uses a storage engine which provides
+ *                  functionality to access different data sources. 
  *
  * -----------------------------------------------------------------------
  *
@@ -38,13 +38,13 @@ import org.ximtec.igesture.core.DataObject;
 
 /**
  * The front-end of the storage system. The storage manager uses a storage engine
- * which provides access functionality to data sources.
+ * which provides functionality to access different data sources. 
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class StorageManager implements IStorageManager{
+public class StorageManager implements IStorageManager {
 
    private static final Logger LOGGER = Logger.getLogger(StorageManager.class
          .getName());
@@ -177,7 +177,7 @@ public class StorageManager implements IStorageManager{
    public static StorageEngine createStorageEngine(File file) {
       LOGGER.info(LOADING_DB + file + Constant.SINGLE_QUOTE);
       StorageEngine engine = null;
-      
+
       switch (getFileType(file)) {
          case db:
             engine = new Db4oStorageEngine(file.getPath());
@@ -220,6 +220,6 @@ public class StorageManager implements IStorageManager{
    @Override
    public void commit() {
       storageEngine.commit();
-      
+
    }
 }
