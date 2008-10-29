@@ -1,18 +1,19 @@
 /*
  * @(#)$Id$
  *
- * Author   : Ueli Kurmann, igesture@uelikurmann.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
  *                                   
- * Purpose  : 
+ * Purpose      :   Interface to be implemented which should be located by
+ *                  the Locator class.
  *
  * -----------------------------------------------------------------------
  *
  * Revision Information:
  *
- * Date       Who     Reason
+ * Date             Who         Reason
  *
- * 23.03.2008 ukurmann  Initial Release
+ * 23.03.2008       ukurmann    Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -27,11 +28,11 @@
 package org.ximtec.igesture.tool.locator;
 
 /**
- * Interface of a service which can be located by the Locator.
+ * Interface to be implemented which should be located by the Locator class.
  * 
- * @author UeliKurmann
- * @version 1.0
- * @since igesture
+ * @version 1.0, Mar 2008
+ * @author Ueli Kurmann, kurmannu@ethz.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public interface Service {
 
