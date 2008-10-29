@@ -1,18 +1,19 @@
 /*
  * @(#)$Id$
  *
- * Author   : Ueli Kurmann, igesture@uelikurmann.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
  *                                   
- * Purpose  : 
+ * Purpose      :   The main model.
  *
  * -----------------------------------------------------------------------
  *
  * Revision Information:
  *
- * Date       Who     Reason
+ * Date             Who         Reason
  *
- * 23.03.2008 ukurmann  Initial Release
+ * 23.03.2008       ukurmann    Initial Release
+ * 29.10.2008       bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -48,6 +49,13 @@ import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmWrapper;
 import org.ximtec.igesture.tool.view.testset.wrapper.TestSetList;
 
 
+/**
+ * The main model.
+ * 
+ * @version 1.0, Mar 2008
+ * @author Ueli Kurmann, igesture@uelikurmann.ch
+ * @author Beat Signer, signer@inf.ethz.ch
+ */
 public class MainModel implements RunnableService {
 
    public static final String IDENTIFIER = "MainModel";
@@ -64,15 +72,13 @@ public class MainModel implements RunnableService {
     */
    public MainModel(StorageEngine engine, MainController mainController) {
       this.mainController = mainController;
-      // StorageManager is wrapped with a dynamic proxy to register a
-      // PropertyChangeListener
       setStorageEngine(engine);
    }
 
 
    /**
-    * Returns a list of gesture sets.
-    * @return a list of gesture sets.
+    * Returns a list with all gesture sets.
+    * @return a list with all gesture sets.
     */
    public List<GestureSet> getGestureSets() {
       return storageManager.load(GestureSet.class);
@@ -80,8 +86,8 @@ public class MainModel implements RunnableService {
 
 
    /**
-    * Returns a list of test sets.
-    * @return a list of test sets.
+    * Returns a list with all test sets.
+    * @return a list with all test sets.
     */
    public List<TestSet> getTestSets() {
       return storageManager.load(TestSet.class);
@@ -113,7 +119,7 @@ public class MainModel implements RunnableService {
 
 
    /**
-    * Returns a gesture set list (all gesture sets are wrapped into a
+    * Returns a gesture set list (all gesture sets are wrapped in a
     * GestureSetList)
     * @return a gesture set list.
     */
@@ -132,8 +138,8 @@ public class MainModel implements RunnableService {
 
 
    /**
-    * Returns a algorithm list (all algorithms are wrapped into an AlgorithmList)
-    * @return a AlgorithmList (all algorithms are wrapped into an AlgorithmList)
+    * Returns an algorithm list (all algorithms are wrapped in an AlgorithmList)
+    * @return an algorithm list (all algorithms are wrapped in an AlgorithmList)
     */
    public AlgorithmList getAlgorithmList() {
       AlgorithmList algorithmList = new AlgorithmList();
@@ -164,7 +170,6 @@ public class MainModel implements RunnableService {
    @Override
    public void start() {
       // TODO Auto-generated method stub
-
    }
 
 
@@ -185,10 +190,9 @@ public class MainModel implements RunnableService {
 
 
    /**
-    * Sets the StorageManager. This method is used to change the data source of
-    * the Main Model.
-    * 
-    * A proxy is used to handle wrapper objects.
+    * Sets the storage manager. This method is used to change the main model's
+    * data source (the storage manager is wrapped in a dynamic proxy to register
+    * a PropertyChangeListener).
     * 
     * @param storageEngine
     */
@@ -196,6 +200,6 @@ public class MainModel implements RunnableService {
       PropertyChangeVisitor visitor = new PropertyChangeVisitor(mainController);
       this.storageManager = StorageManagerProxy.newInstance(new StorageManager(
             storageEngine), visitor);
-   }
+   } // setStorageEngine
 
 }
