@@ -73,6 +73,7 @@ import org.ximtec.igesture.tool.view.testbench.panel.ConfigurationPanel;
 import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmList;
 import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmWrapper;
 import org.ximtec.igesture.tool.view.testset.action.ConvertGestureSetAction;
+import org.ximtec.igesture.tool.view.testset.action.DeleteTestClassAction;
 import org.ximtec.igesture.tool.view.testset.action.DeleteTestSetAction;
 import org.ximtec.igesture.tool.view.testset.action.ExportTestSetAction;
 import org.ximtec.igesture.tool.view.testset.action.ImportTestSetAction;
@@ -174,6 +175,10 @@ public class NodeInfoFactory {
       setActions.add(DeleteTestSetAction.class);
       setActions.add(ExportTestSetAction.class);
 
+      List<Class< ? extends BasicAction>> classActions = new ArrayList<Class< ? extends BasicAction>>();
+      classActions.add(DeleteTestClassAction.class);
+      
+      
       Icon setIcon = IconTool.getIcon("mimetypes/package-x-generic",
             Decorator.SIZE_16);
 
@@ -185,7 +190,7 @@ public class NodeInfoFactory {
       nodeInfos.add(new NodeInfoImpl(TestSet.class, "name", "testClasses",
             TestSetPanel.class, setActions, setIcon));
       
-      nodeInfos.add(new NodeInfoImpl(TestClass.class, "name", null, TestClassPanel.class, null, null));
+      nodeInfos.add(new NodeInfoImpl(TestClass.class, "name", null, TestClassPanel.class, classActions, null));
 
       // nodeInfos.add(new NodeInfoImpl(GestureSample.class, "name", null,
       // DefaultPanel.class, null, null));

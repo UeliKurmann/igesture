@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -51,7 +51,6 @@ import org.ximtec.igesture.util.ZipFS;
  */
 public class ZipStorageEngine extends DefaultStorageEngine {
 
-   
    private static final Logger LOGGER = Logger.getLogger(XMLStorageEngine.class
          .getName());
 
@@ -110,10 +109,9 @@ public class ZipStorageEngine extends DefaultStorageEngine {
                      GestureSet gestureSet = XMLTool.importGestureSet(zipFS
                            .getInputStream(entrySet));
                      dataObjects.get(GestureSet.class).add(gestureSet);
-                     
+
                      // TODO load images
-                     
-                     
+
                   }
                   catch (IOException e) {
                      LOGGER.log(Level.SEVERE, "Could not import GestureSet.", e);
@@ -131,11 +129,11 @@ public class ZipStorageEngine extends DefaultStorageEngine {
             try {
                TestSet testSet = XMLTool.importTestSet(zipFS
                      .getInputStream(entry));
-               
+
                if (testSet != null) {
                   dataObjects.get(TestSet.class).add(testSet);
                }
-            
+
             }
             catch (IOException e) {
                LOGGER.log(Level.SEVERE, "Could not import Test sets.", e);
@@ -163,6 +161,7 @@ public class ZipStorageEngine extends DefaultStorageEngine {
 
    @Override
    public void commit() {
+      // FIXME why always true? 
       if (changed || true) {
          // persist gesture sets
          persistGestureSets(dataObjects.get(GestureSet.class));
@@ -173,6 +172,7 @@ public class ZipStorageEngine extends DefaultStorageEngine {
          // persist test sets
          persistTestSets(dataObjects.get(TestSet.class));
 
+         // FIXME why close zipFS?
          try {
             zipFS.close();
          }
@@ -191,8 +191,7 @@ public class ZipStorageEngine extends DefaultStorageEngine {
       for (DataObject dataObject : gestureSets) {
          try {
             GestureSet set = (GestureSet)dataObject;
-            String name = GESTURE_SET_PATH + ZipFS.SEPERATOR + set.getId()
-                  + ZipFS.SEPERATOR + GESTURE_SET + XML_EXTENSION;
+            String name = getGestureSetPath(set.getId());
             zipFS.store(name, XMLTool.exportGestureSetAsStream(set));
          }
          catch (IOException e) {
@@ -202,12 +201,17 @@ public class ZipStorageEngine extends DefaultStorageEngine {
    }
 
 
+   private String getGestureSetPath(String id) {
+      return GESTURE_SET_PATH + ZipFS.SEPERATOR + id + ZipFS.SEPERATOR
+            + GESTURE_SET + XML_EXTENSION;
+   }
+
+
    private void persistConfiguration(List<DataObject> configurations) {
       for (DataObject dataObject : configurations) {
          try {
             Configuration config = (Configuration)dataObject;
-            String name = CONFIGURATION_PATH + ZipFS.SEPERATOR + config.getId()
-                  + XML_EXTENSION;
+            String name = getConfigurationPath(config.getId());
             zipFS.store(name, XMLTool.exportConfigurationAsStream(config));
          }
          catch (IOException e) {
@@ -217,12 +221,16 @@ public class ZipStorageEngine extends DefaultStorageEngine {
    }
 
 
+   private String getConfigurationPath(String id) {
+      return CONFIGURATION_PATH + ZipFS.SEPERATOR + id + XML_EXTENSION;
+   }
+
+
    private void persistTestSets(List<DataObject> testSets) {
       for (DataObject dataObject : testSets) {
          try {
             TestSet testSet = (TestSet)dataObject;
-            String name = TEST_SET_PATH + ZipFS.SEPERATOR + testSet.getId()
-                  + XML_EXTENSION;
+            String name = getTestSetPath(testSet.getId());
             zipFS.store(name, XMLTool.exportTestSetAsStream(testSet));
          }
          catch (IOException e) {
@@ -232,15 +240,22 @@ public class ZipStorageEngine extends DefaultStorageEngine {
    }
 
 
+   private String getTestSetPath(String id) {
+      return TEST_SET_PATH + ZipFS.SEPERATOR + id + XML_EXTENSION;
+   }
+
+
    @Override
    public void dispose() {
       commit();
 
    }
 
+
    /*
     * (non-Javadoc)
-    * @see org.ximtec.igesture.storage.StorageEngine#load(java.lang.Class, java.lang.String)
+    * @see org.ximtec.igesture.storage.StorageEngine#load(java.lang.Class,
+    *      java.lang.String)
     */
    @Override
    public <T extends DataObject> T load(final Class<T> clazz, final String id) {
@@ -300,23 +315,31 @@ public class ZipStorageEngine extends DefaultStorageEngine {
    } // update
 
 
+   
    /*
+    * Attention: Only Configuration, TestSet, GestureSet are processed!
+    * TODO: OOP implementation
     * (non-Javadoc)
     * @see org.ximtec.igesture.storage.StorageEngine#remove(org.ximtec.igesture.core.DataObject)
     */
    @Override
    public void remove(DataObject dataObject) {
       removeDataObject(dataObject);
+      String path = null;
       if (dataObject instanceof Configuration) {
-         zipFS.delete(CONFIGURATION_PATH + ZipFS.SEPERATOR + dataObject.getId()
-               + XML_EXTENSION);
+         path = getConfigurationPath(dataObject.getId());
       }
       else if (dataObject instanceof GestureSet) {
-         zipFS.delete(GESTURE_SET_PATH + ZipFS.SEPERATOR + dataObject.getId()
-               + ZipFS.SEPERATOR + ((GestureSet)dataObject).getName()
-               + XML_EXTENSION);
+         path = getGestureSetPath(dataObject.getId());
       }
-      changed = true;
+      else if (dataObject instanceof TestSet) {
+         path = getTestSetPath(dataObject.getId());
+      }
+      
+      if(path != null){
+         zipFS.delete(path);
+         changed = true;
+      }
    } // remove
 
 

@@ -48,6 +48,12 @@ public interface Gesture<T> {
     * @return the name of the gesture
     */
    String getName();
+   
+   /**
+    * Sets the name of the gesture
+    * @param name the name of the gesture
+    */
+   void setName(String name);
 
 
    /**
