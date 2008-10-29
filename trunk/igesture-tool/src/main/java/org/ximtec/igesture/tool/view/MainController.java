@@ -128,11 +128,11 @@ public class MainController extends DefaultController implements Service {
       locator.addService(deviceClient);
       locator.addService(this);
       locator.startAll();
-   }
+   } // initServices
 
 
    /**
-    * Initialises the views TODO: use a dynamic initialization
+    * Initialises the views TODO: use a dynamic initialisation
     */
    private void initViews() {
       if (mainView == null) {
