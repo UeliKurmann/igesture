@@ -1,7 +1,7 @@
 /*
  * @(#)SigerRecogniser.java	1.0   Dec 6, 2006
  *
- * Author		:	Ueli Kurmann, ueli@smartness.ch
+ * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *
  * Purpose		: 	Implementation of the Siger algortithm.
  *
@@ -47,7 +47,7 @@ import org.ximtec.igesture.core.TextDescriptor;
  * Implementation of the Siger algorithm.
  * 
  * @version 1.0 Dec 2006
- * @author Ueli Kurmann, ueli@smartness.ch
+ * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class SigerAlgorithm extends DefaultAlgorithm {

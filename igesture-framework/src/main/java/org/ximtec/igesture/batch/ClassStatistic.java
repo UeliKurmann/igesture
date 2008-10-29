@@ -1,7 +1,7 @@
 /*
  * @(#)ClassStatistic.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, ueli@smartness.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *
  * Purpose      : 	Holds static information about a gesture class. Used
  * 					by the BatchProcess.
@@ -31,7 +31,7 @@ package org.ximtec.igesture.batch;
  * Holds static information about a gesture class. Used by the BatchProcess.
  * 
  * @version 1.0 Dec 2006
- * @author Ueli Kurmann, ueli@smartness.ch
+ * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class ClassStatistic {

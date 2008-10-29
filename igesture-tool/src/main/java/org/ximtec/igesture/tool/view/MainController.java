@@ -1,18 +1,18 @@
 /*
  * @(#)$Id$
  *
- * Author   : Ueli Kurmann, igesture@uelikurmann.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
  *                                   
- * Purpose  : 
+ * Purpose      : 
  *
  * -----------------------------------------------------------------------
  *
  * Revision Information:
  *
- * Date       Who     Reason
+ * Date             Who         Reason
  *
- * 23.03.2008 ukurmann  Initial Release
+ * 23.03.2008       ukurmann    Initial Release
  *
  * -----------------------------------------------------------------------
  *

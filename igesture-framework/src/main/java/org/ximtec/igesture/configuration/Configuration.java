@@ -1,7 +1,7 @@
 /*
  * @(#)Configuration.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, ueli@smartness.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *
  * Purpose      : 	Configuration object used by the algorithms. The
  *                  configuration object contains information about the
@@ -53,7 +53,7 @@ import org.ximtec.igesture.util.GestureTool;
  * size of the result list in the result set.
  * 
  * @version 1.0 Dec 2006
- * @author Ueli Kurmann, ueli@smartness.ch
+ * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class Configuration extends DefaultDataObject implements Cloneable {

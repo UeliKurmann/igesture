@@ -1,7 +1,7 @@
 /*
  * @(#)Grid.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, ueli@smartness.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *
  * Purpose      : 	Implementation of the grid that is used to create the
  *                  signature.
@@ -37,7 +37,7 @@ import org.sigtec.util.Constant;
  * Implementation of the grid that is used to create the signature.
  * 
  * @version 1.0 Dec 11, 2006
- * @author Ueli Kurmann, ueli@smartness.ch
+ * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class Grid {

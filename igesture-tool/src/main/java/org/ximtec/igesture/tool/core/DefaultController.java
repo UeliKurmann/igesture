@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * Default implementation of the controller interface.
  * @version 1.0 09.04.2008
- * @author Ueli Kurmann, ueli@smartness.ch
+ * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public abstract class DefaultController implements Controller {

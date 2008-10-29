@@ -1,7 +1,7 @@
 /*
  * @(#)XMLImport.java   1.0   March 09, 2007
  *
- * Author       :   Ueli Kurmann, ueli@smartness.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *
  * Purpose      :   
  *

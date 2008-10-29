@@ -1,7 +1,7 @@
 /*
  * @(#)DrawEventHandler.java 1.0   Nov 24, 2006
  *
- * Author       :   Ueli Kurmann, ueli@smartness.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *
  * Purpose      : 
  *
@@ -40,7 +40,7 @@ import org.ximtec.igesture.event.GestureAction;
 
 /**
  * @version 1.0 Nov 2006
- * @author Ueli Kurmann, ueli@smartness.ch
+ * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class DrawEventHandler implements GestureAction {

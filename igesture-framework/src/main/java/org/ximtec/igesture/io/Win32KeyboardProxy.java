@@ -1,7 +1,7 @@
 /*
  * @(#)Win32KeyboardProxy.java   1.0   March 09, 2007
  *
- * Author       :   Ueli Kurmann, ueli@smartness.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *
  * Purpose      : 	A keyboard simulator.
  *
@@ -36,7 +36,7 @@ import org.ximtec.igesture.io.keyboard.KeyboardUtils;
  * A keyboard simulator.
  * 
  * @version 1.0, Dec 2006
- * @author Ueli Kurmann, ueli@smartness.ch
+ * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class Win32KeyboardProxy {

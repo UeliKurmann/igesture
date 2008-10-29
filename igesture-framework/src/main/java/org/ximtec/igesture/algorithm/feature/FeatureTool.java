@@ -1,7 +1,7 @@
 /*
  * @(#)FeatureTool.java   1.0   Dec 26, 2006
  *
- * Author       :   Ueli Kurmann, ueli@smartness.ch
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *
  * Purpose      :   Some feature tools.
  *
@@ -43,7 +43,7 @@ import org.ximtec.igesture.util.DoubleVector;
  * Some feature tools.
  * 
  * @version 1.0 Dec 2006
- * @author Ueli Kurmann, ueli@smartness.ch
+ * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class FeatureTool {
