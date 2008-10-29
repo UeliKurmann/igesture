@@ -38,7 +38,7 @@ import org.ximtec.igesture.core.DataObject;
 
 /**
  * The front-end of the storage system. The storage manager uses a storage engine
- * which provides functionality to access different data sources. 
+ * which provides functionality to access different data sources.
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, igesture@uelikurmann.ch
@@ -71,7 +71,6 @@ public class StorageManager implements IStorageManager {
    /**
     * Loads the data object of the given type with the given id.
     * 
-    * @param <T>
     * @param clazz the type of the data object to be retrieved.
     * @param id the id of the data object.
     * @return the data object with the given id.
@@ -86,7 +85,6 @@ public class StorageManager implements IStorageManager {
     * Returns a typed list of data objects. All objects available in the
     * collection with the given type are returned.
     * 
-    * @param <T>
     * @param clazz the type of the data objects.
     * @return a list of data objects of the given type.
     */
@@ -100,15 +98,15 @@ public class StorageManager implements IStorageManager {
     * Removes the given data object from the storage.
     */
    @Override
-   public void remove(DataObject obj) {
-      storageEngine.remove(obj);
+   public void remove(DataObject dataObject) {
+      storageEngine.remove(dataObject);
    } // remove
 
 
    /**
     * Stores a data object.
     * 
-    * @param dataObject the data object to be stored.
+    * @param object the data object to be stored.
     */
    @Override
    public void store(DataObject dataObject) {
@@ -119,7 +117,6 @@ public class StorageManager implements IStorageManager {
    /**
     * Stores a list of data objects.
     * 
-    * @param <T>
     * @param dataObjects the data objects to be stored.
     */
    @Override
@@ -152,6 +149,7 @@ public class StorageManager implements IStorageManager {
       for (final DataObject obj : dataObjects) {
          update(obj);
       }
+
    } // update
 
 
@@ -190,6 +188,7 @@ public class StorageManager implements IStorageManager {
             break;
          default:
       }
+
       return engine;
    } // createStorageEngine
 
@@ -214,12 +213,12 @@ public class StorageManager implements IStorageManager {
    public <T extends DataObject> List<T> load(Class<T> clazz, String fieldName,
          Object value) {
       return storageEngine.load(clazz, fieldName, value);
-   }
+   } // load
 
 
    @Override
    public void commit() {
       storageEngine.commit();
+   } // commit
 
-   }
 }
