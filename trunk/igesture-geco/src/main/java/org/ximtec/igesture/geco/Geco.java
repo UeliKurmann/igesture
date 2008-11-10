@@ -90,7 +90,6 @@ public class Geco {
             .getSystemResourceAsStream(RUBINE_CONFIGURATION));
       MainModel model = new MainModel(configuration, gecoConfiguration);
       view = new MainView(model);
-      // open last opened Document
       openMostRecentProject();
       new SystemTray(view);
       LOGGER.info(Constant.INITIALISED);
@@ -113,7 +112,7 @@ public class Geco {
    }
 
 
-   public void openMostRecentProject() {
+   private void openMostRecentProject() {
       File file = null;
       String filename = view.getModel().getGestureConfiguration()
             .getMostRecentProject();

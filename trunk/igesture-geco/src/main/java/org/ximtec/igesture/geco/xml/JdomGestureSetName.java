@@ -22,12 +22,9 @@
  * 
  */
 
-
 package org.ximtec.igesture.geco.xml;
 
 import org.jdom.Element;
-
-
 
 /**
  * XML support for the <gestureSet> element.
@@ -37,25 +34,16 @@ import org.jdom.Element;
  */
 public class JdomGestureSetName extends Element {
 
+	public static final String ROOT_TAG = "gestureSet";
 
-      public static final String ROOT_TAG = "gestureSet";
+	public JdomGestureSetName(String gestureSetFileName) {
+		super(ROOT_TAG);
+		if (gestureSetFileName != null)
+			this.addContent(gestureSetFileName);
+	}
 
+	public static Object unmarshal(Element gestureSetElement) {
+		return gestureSetElement.getValue();
+	} // unmarshal
 
-
-      public JdomGestureSetName(String gestureSetFileName) {
-         super(ROOT_TAG);
-         if(gestureSetFileName!=null)
-            this.addContent(gestureSetFileName);
-      }
-
-
-      @SuppressWarnings("unchecked")
-      public static Object unmarshal(Element gestureSetElement) {
-
-         return gestureSetElement.getValue();
-      } // unmarshal
-
-   }
-   
-
-
+}
