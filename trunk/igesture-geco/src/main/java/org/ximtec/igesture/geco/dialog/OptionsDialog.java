@@ -1,5 +1,5 @@
 /*
- * @(#)OptionsDialog.java    1.0   Jan 10, 2008
+ * @(#)$Id$
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *

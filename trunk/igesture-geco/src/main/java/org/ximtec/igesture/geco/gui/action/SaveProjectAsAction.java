@@ -1,5 +1,5 @@
 /*
- * @(#)SaveAsAction.java   1.0   Jan 16, 2008
+ * @(#)$Id$
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *

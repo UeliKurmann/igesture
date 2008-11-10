@@ -1,5 +1,5 @@
 /*
- * @(#)MappingDialog.java   1.0   Nov 26, 2007
+ * @(#)$Id$
  *
  * Author       :   Michele Croci, mcroci@gmail.com  
  *

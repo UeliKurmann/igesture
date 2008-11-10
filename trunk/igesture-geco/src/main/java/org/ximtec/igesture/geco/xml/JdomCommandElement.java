@@ -1,5 +1,5 @@
 /*
- * @(#)JdomCommandElement.java  1.0   Dec 06, 2007
+ * @(#)$Id$
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *
