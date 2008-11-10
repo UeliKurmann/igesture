@@ -1,5 +1,5 @@
 /*
- * @(#)JdomMinimizeElement.java  1.0   Jan 15, 2008
+ * @(#)$Id$
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *

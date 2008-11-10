@@ -1,5 +1,5 @@
 /*
- * @(#)AboutAction.java   1.0   Dec 18, 2007
+ * @(#)$Id$
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *

@@ -1,5 +1,5 @@
 /*
- * @(#)GuiBundleTool.java	1.0   25.06.2008
+ * @(#)$Id$
  *
  * Author		:	Beat Signer, signer@inf.ethz.ch
  *
