@@ -37,28 +37,29 @@ package org.ximtec.igesture.core;
 public interface Gesture<T> {
 
    /**
-    * Returns the gesture
-    * @return the gesture
+    * Returns the gesture.
+    * @return the gesture.
     */
    T getGesture();
 
 
    /**
-    * Returns the name of the gesture
-    * @return the name of the gesture
-    */
-   String getName();
-   
-   /**
-    * Sets the name of the gesture
-    * @param name the name of the gesture
+    * Sets the name of the gesture.
+    * @param name the name of the gesture.
     */
    void setName(String name);
 
 
    /**
-    * Visitor implementation
-    * @param visitor
+    * Returns the name of the gesture.
+    * @return the name of the gesture.
+    */
+   String getName();
+
+
+   /**
+    * Visitor implementation.
+    * @param visitor the visitor.
     */
    void accept(Visitor visitor);
 
