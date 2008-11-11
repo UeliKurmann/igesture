@@ -1,5 +1,5 @@
 /*
- * @(#)$Id: Service.java 590 2008-10-29 14:58:31Z bsigner $
+ * @(#)$Id: WorkspaceTool.java 456 2008-11-11 09:54:06Z D\signerb $
  *
  * Author		:	Beat Signer, signer@inf.ethz.ch
  *

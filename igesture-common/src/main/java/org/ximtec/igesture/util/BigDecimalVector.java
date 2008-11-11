@@ -1,5 +1,5 @@
 /*
- * @(#)BigDecimalVector.java   1.0   Oct 01, 2008
+ * @(#)$Id$
  *
  * Author       :   Ueli Kurmann, ueli.kurmann@bbv.ch
  *

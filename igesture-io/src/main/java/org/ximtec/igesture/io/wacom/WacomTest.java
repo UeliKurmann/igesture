@@ -1,5 +1,5 @@
 /*
- * @(#)WacomTest.java   1.0   Jan 22, 2008
+ * @(#)$Id$
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *

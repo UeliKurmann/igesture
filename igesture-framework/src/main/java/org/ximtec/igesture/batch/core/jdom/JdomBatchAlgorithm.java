@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -12,7 +12,7 @@
  *
  * Date				Who			Reason
  *
- * 15.10.2008			ukurmann	Initial Release
+ * 15.10.2008		ukurmann	Initial Release
  *
  * -----------------------------------------------------------------------
  *

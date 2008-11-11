@@ -1,5 +1,5 @@
 /*
- * @(#)ApplicationException.java	1.0   Nov 23, 2006
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *

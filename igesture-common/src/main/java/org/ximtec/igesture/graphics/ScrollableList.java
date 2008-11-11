@@ -1,5 +1,5 @@
 /*
- * @(#)ScrollableList.java	1.0   Nov 15, 2006
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *

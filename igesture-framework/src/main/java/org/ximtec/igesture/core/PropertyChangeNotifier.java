@@ -1,5 +1,5 @@
 /*
- * @(#)PropertyChangeNotifier.java   1.0   Mar 25, 2008
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  

@@ -1,5 +1,5 @@
 /*
- * @(#)F8.java   1.0   Dec 26, 2006
+ * @(#)$Id$
  *
  * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *

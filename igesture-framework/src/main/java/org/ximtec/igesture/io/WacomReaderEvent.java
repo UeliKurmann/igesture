@@ -1,7 +1,7 @@
 /*
- * @(#)TabletReaderEvent.java   1.0   Nov 15, 2007
+ * @(#)$Id$
  *
- * Author       :  Michele Croci, mcroci@gmail.com
+ * Author       :   Michele Croci, mcroci@gmail.com
  *
  * Purpose      : 	Tablet reader event.
  *

@@ -1,5 +1,5 @@
 /*
- * @(#)TestSet.java	1.0   Nov 20, 2006
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *

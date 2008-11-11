@@ -1,5 +1,5 @@
 /*
- * $Id$
+ * @(#)$Id$
  *
  * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *

@@ -1,5 +1,5 @@
 /*
- * @(#)Win32TabletProxy.java   1.0   Oct 22, 2007
+ * @(#)$Id$
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *

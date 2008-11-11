@@ -1,5 +1,5 @@
 /*
- * @(#)SigerRecogniser.java	1.0   Dec 6, 2006
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *
