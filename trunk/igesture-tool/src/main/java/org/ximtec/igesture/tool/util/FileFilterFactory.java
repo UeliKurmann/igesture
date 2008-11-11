@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id: WorkspaceTool.java 456 2008-11-11 09:54:06Z D\signerb $
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  

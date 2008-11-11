@@ -1,5 +1,5 @@
 /*
- * @(#)WacomCallback.java	1.0   Jan 8, 2008
+ * @(#)$Id$
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *

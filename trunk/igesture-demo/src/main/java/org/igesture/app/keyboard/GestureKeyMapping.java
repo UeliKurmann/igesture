@@ -1,5 +1,5 @@
 /*
- * @(#)GestureKeyMapping.java   1.0   March 09, 2007
+ * @(#)$Id$
  *
  * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *

@@ -1,5 +1,5 @@
 /*
- * @(#)GraffitiLetter.java	1.0   May 1, 2007
+ * @(#)$Id$
  *
  * Author		:	Beat Signer, signer@inf.ethz.ch
  *

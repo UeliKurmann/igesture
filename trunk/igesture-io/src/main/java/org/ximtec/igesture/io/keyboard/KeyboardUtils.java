@@ -1,5 +1,5 @@
 /*
- * @(#)KeyboardUtils.java 1.0   Nov 14, 2007
+ * @(#)$Id$
  *
  * Author       :   Croci Michele, mcroci@gmail.com,
  *                  based on a first version of Abdullah Jibaly

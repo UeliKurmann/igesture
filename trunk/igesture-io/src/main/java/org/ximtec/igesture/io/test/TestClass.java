@@ -1,5 +1,5 @@
 /*
- * @(#)WacomTestClass.java	1.0   Nov 14, 2007
+ * @(#)$Id$
  *
  * Author		:	
  *

@@ -1,5 +1,5 @@
 /*
- * @(#)IconLoader.java	1.0   Feb 01, 2007
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *

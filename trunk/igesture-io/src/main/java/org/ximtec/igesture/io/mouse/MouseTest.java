@@ -1,5 +1,5 @@
 /*
- * @(#)MouseTest.java	1.0   Jan 18, 2008
+ * @(#)$Id$
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *

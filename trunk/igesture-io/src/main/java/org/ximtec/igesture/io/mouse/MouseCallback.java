@@ -1,5 +1,5 @@
 /*
- * @(#)MouseCallback.java   1.0   Jan 17, 2008
+ * @(#)$Id$
  *
  * Author       :   Michele Croci, mcroci@gmail.com
  *

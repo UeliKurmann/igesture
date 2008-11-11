@@ -1,5 +1,5 @@
 /*
- * @(#)JdomTestSet.java   1.0   Dec 26, 2006
+ * @(#)$Id: WorkspaceTool.java 456 2008-11-11 09:54:06Z D\signerb $
  *
  * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *

@@ -1,5 +1,5 @@
 /*
- * @(#)DrawEventHandler.java 1.0   Nov 24, 2006
+ * @(#)$Id$
  *
  * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *
