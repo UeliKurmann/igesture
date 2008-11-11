@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *
- * Purpose      :	Main recogniser component.
+ * Purpose      :	The main recogniser component.
  *
  * -----------------------------------------------------------------------
  *
@@ -22,6 +22,7 @@
  * Use is subject to license terms.
  * 
  */
+
 
 package org.ximtec.igesture;
 
@@ -48,8 +49,9 @@ import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.GestureHandler;
 import org.ximtec.igesture.util.XMLTool;
 
+
 /**
- * Main recogniser component.
+ * The main recogniser component.
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, igesture@uelikurmann.ch
@@ -57,215 +59,222 @@ import org.ximtec.igesture.util.XMLTool;
  */
 public class Recogniser {
 
-	private static final Logger LOGGER = Logger.getLogger(Recogniser.class
-			.getName());
+   private static final Logger LOGGER = Logger.getLogger(Recogniser.class
+         .getName());
 
-	private List<Algorithm> algorithms;
+   private List<Algorithm> algorithms;
 
-	Set<GestureHandler> gestureHandlers = new HashSet<GestureHandler>();
+   Set<GestureHandler> gestureHandlers = new HashSet<GestureHandler>();
 
-	public void addGestureHandler(GestureHandler gestureHandler) {
-		gestureHandlers.add(gestureHandler);
-	} // addGestureHandler
 
-	public void removeGestureHandler(GestureHandler gestureHandler) {
-		gestureHandlers.remove(gestureHandler);
-	} // removeGestureHandler
+   /**
+    * Creates a new recogniser.
+    * 
+    * @param config the configuration object.
+    * @throws AlgorithmException if the recogniser could not be created.
+    */
+   public Recogniser(Configuration config) throws AlgorithmException {
+      algorithms = AlgorithmFactory.createAlgorithms(config);
+   }
 
-	/**
-	 * Fires an event.
-	 * 
-	 * @param resultSet
-	 *            the result set to be used as an argument for the fire event.
-	 */
-	protected void fireEvent(final ResultSet resultSet) {
-		Executor executor = Executors.newFixedThreadPool(6);
-		for (final GestureHandler gestureHandler : gestureHandlers) {
 
-			if (gestureHandler != null) {
-				executor.execute(new Runnable() {
+   /**
+    * Creates a new recogniser.
+    * 
+    * @param config the configuration object.
+    * @param gestureHandler the gesture handler to be added.
+    * @throws AlgorithmException if the recogniser could not be created.
+    */
+   public Recogniser(Configuration config, GestureHandler gestureHandler)
+         throws AlgorithmException {
+      final Configuration clone = (Configuration)config.clone();
+      addGestureHandler(config.getGestureHandler());
+      clone.setGestureHandler(gestureHandler);
+      algorithms = AlgorithmFactory.createAlgorithms(clone);
+   }
 
-					@Override
-					public void run() {
-						gestureHandler.handle(resultSet);
 
-					}
-				});
+   /**
+    * Creates a new recogniser.
+    * 
+    * @param config the configuration object.
+    * @param gestureSet the gesture set to be used.
+    * @throws AlgorithmException if the recogniser could not be created.
+    */
+   public Recogniser(Configuration config, GestureSet gestureSet)
+         throws AlgorithmException {
+      config.addGestureSet(gestureSet);
+      addGestureHandler(config.getGestureHandler());
+      algorithms = AlgorithmFactory.createAlgorithms(config);
+   }
 
-			}
 
-		}
+   /**
+    * Creates a new recogniser.
+    * 
+    * @param config the input stream from which the XML configuration can be
+    *            read.
+    * @throws AlgorithmException if the recogniser could not be created.
+    */
+   public Recogniser(InputStream config) throws AlgorithmException {
+      this(XMLTool.importConfiguration(config));
+   }
 
-	} // fireEvent
 
-	/**
-	 * Creates a new recogniser.
-	 * 
-	 * @param config
-	 *            the configuration object.
-	 * @throws AlgorithmException
-	 *             if the recogniser could not be created.
-	 */
-	public Recogniser(Configuration config) throws AlgorithmException {
-		algorithms = AlgorithmFactory.createAlgorithms(config);
-	}
+   /**
+    * Creates a new recogniser.
+    * 
+    * @param config the input stream from where the XML configuration can be
+    *            read.
+    * @param set the input stream from where the gesture set in XML format can be
+    *            read.
+    * @param gestureHandler the gesture handler to be informed about results.
+    * @throws AlgorithmException if the recogniser could not be created.
+    */
+   public Recogniser(InputStream config, InputStream set,
+         GestureHandler gestureHandler) throws AlgorithmException {
+      final Configuration configuration = XMLTool.importConfiguration(config);
+      configuration.setGestureHandler(gestureHandler);
+      configuration.addGestureSet(XMLTool.importGestureSet(set));
+      addGestureHandler(configuration.getGestureHandler());
+      algorithms = AlgorithmFactory.createAlgorithms(configuration);
+   }
 
-	/**
-	 * Creates a new recogniser.
-	 * 
-	 * @param config
-	 *            the configuration object.
-	 * @param gestureHandler
-	 *            the gesture handler.
-	 * @throws AlgorithmException
-	 *             if the recogniser could not be created.
-	 */
-	public Recogniser(Configuration config, GestureHandler gestureHandler)
-			throws AlgorithmException {
-		final Configuration clone = (Configuration) config.clone();
-		addGestureHandler(config.getGestureHandler());
-		clone.setGestureHandler(gestureHandler);
-		algorithms = AlgorithmFactory.createAlgorithms(clone);
-	}
 
-	/**
-	 * Creates a new recogniser.
-	 * 
-	 * @param config
-	 *            the configuration object.
-	 * @param gestureSet
-	 *            the gesture set to be used.
-	 * @throws AlgorithmException
-	 *             if the recogniser could not be created.
-	 */
-	public Recogniser(Configuration config, GestureSet gestureSet)
-			throws AlgorithmException {
-		config.addGestureSet(gestureSet);
-		addGestureHandler(config.getGestureHandler());
-		algorithms = AlgorithmFactory.createAlgorithms(config);
-	}
+   /**
+    * Adds a gesture handler to the recogniser. The gesture handler's handle()
+    * method will be invoked every time a new ResultSet has been created (as part
+    * of a recognition process).
+    * @param gestureHandler the gesture handler to be added.
+    */
+   public void addGestureHandler(GestureHandler gestureHandler) {
+      gestureHandlers.add(gestureHandler);
+   } // addGestureHandler
 
-	/**
-	 * Creates a new recogniser.
-	 * 
-	 * @param config
-	 *            the input stream from which the XML configuration can be read.
-	 * @throws AlgorithmException
-	 *             if the recogniser could not be created.
-	 */
-	public Recogniser(InputStream config) throws AlgorithmException {
-		this(XMLTool.importConfiguration(config));
-	}
 
-	/**
-	 * Creates a new recogniser.
-	 * 
-	 * @param config
-	 *            the input stream from where the XML configuration can be read.
-	 * @param set
-	 *            the input stream from where the gesture set in XML format can
-	 *            be read.
-	 * @param gestureHandler
-	 *            the gesture handler to be informed about results.
-	 * @throws AlgorithmException
-	 *             if the recogniser could not be created.
-	 */
-	public Recogniser(InputStream config, InputStream set,
-			GestureHandler gestureHandler) throws AlgorithmException {
-		final Configuration configuration = XMLTool.importConfiguration(config);
-		configuration.setGestureHandler(gestureHandler);
-		configuration.addGestureSet(XMLTool.importGestureSet(set));
-		addGestureHandler(configuration.getGestureHandler());
-		algorithms = AlgorithmFactory.createAlgorithms(configuration);
-	}
+   /**
+    * Removes a gesture handler from the recogniser.
+    * @param gestureHandler the gesture handler to be removed.
+    */
+   public void removeGestureHandler(GestureHandler gestureHandler) {
+      gestureHandlers.remove(gestureHandler);
+   } // removeGestureHandler
 
-	/**
-	 * Recognises a gesture. The method uses all algorithms and returns a
-	 * combination of the results returned by the different algorithms if
-	 * 'recogniseAll' is set to true or the result of the first algorithm that
-	 * recognised the given note if 'recogniseAll' is set to false.
-	 * 
-	 * @param note
-	 *            the note to be recognised.
-	 * @param recogniseAll
-	 *            true if the combination of all algorithms has to be returned,
-	 *            false if only the result of the first algorithm that
-	 *            recognises the result has to be returned.
-	 * @return the result set containing the recognised gesture classes.
-	 */
-	public ResultSet recognise(Gesture<?> note, boolean recogniseAll) {
-		final ResultSet result = new ResultSet();
 
-		for (final Algorithm algorithm : algorithms) {
+   /**
+    * Fires an event and informs all registered gesture handlers.
+    * 
+    * @param resultSet the result set to be used as an argument for the fired
+    *            event.
+    */
+   protected void fireEvent(final ResultSet resultSet) {
+      Executor executor = Executors.newFixedThreadPool(6);
 
-			try {
-				for (final Result r : algorithm.recognise(note).getResults()) {
-					result.addResult(r);
-				}
-			} catch (AlgorithmException e) {
-				LOGGER.info(e.getMessage());
-			}
+      for (final GestureHandler gestureHandler : gestureHandlers) {
 
-			if (!result.isEmpty() && !recogniseAll) {
-				break;
-			}
+         if (gestureHandler != null) {
+            executor.execute(new Runnable() {
 
-		}
+               @Override
+               public void run() {
+                  gestureHandler.handle(resultSet);
 
-		fireEvent(result);
-		return result;
-	} // recognise
+               }
 
-	/**
-	 * Recognises a gesture. The method uses all registered algorithms and stops
-	 * as soon as the first algorithm returns a result.
-	 * 
-	 * @param note
-	 *            the note to be recognised.
-	 * @return the result set containing the recognised gesture classes.
-	 */
-	public ResultSet recognise(Gesture<?> note) {
-		return recognise(note, false);
-	} // recognise
+            });
 
-	/**
-	 * Recognises a gesture. The method uses all registered algorithms and stops
-	 * as soon as the first algorithm returns a result.
-	 * 
-	 * @param note
-	 *            the note to be recognised.
-	 * @return the result set containing the recognised gesture classes.
-	 */
-	public ResultSet recognise(Note note) {
-		return recognise(note, false);
-	} // recognise
+         }
 
-	/**
-	 * Recognises a gesture. The method uses all algorithms and returns a
-	 * combination of the results returned by the different algorithms if
-	 * 'recogniseAll' is set to true or the result of the first algorithm that
-	 * recognised the given note if 'recogniseAll' is set to false.
-	 * 
-	 * @param note
-	 *            the note to be recognised.
-	 * @param recogniseAll
-	 *            true if the combination of all algorithms has to be returned,
-	 *            false if only the result of the first algorithm that
-	 *            recognises the result has to be returned.
-	 * @return the result set containing the recognised gesture classes.
-	 */
-	public ResultSet recognise(Note note, boolean recogniseAll) {
-		return recognise(new GestureSample(Constant.EMPTY_STRING, note));
-	} // recognise
+      }
 
-	// FIXME: remove?
-	public static Recogniser newRecogniser(String configFile,
-			String gestureSetFile) throws AlgorithmException {
-		GestureSet gestureSet = XMLTool.importGestureSet(new File(
-				gestureSetFile));
-		Configuration configuration = XMLTool.importConfiguration(new File(
-				configFile));
-		return new Recogniser(configuration, gestureSet);
-	}
+   } // fireEvent
+
+
+   /**
+    * Recognises a gesture. The method uses all algorithms and returns a
+    * combination of the results returned by the different algorithms if
+    * 'recogniseAll' is set to true or the result of the first algorithm that
+    * recognised the given note if 'recogniseAll' is set to false.
+    * 
+    * @param note the note to be recognised.
+    * @param recogniseAll true if the combination of all algorithms has to be
+    *            returned, false if only the result of the first algorithm that
+    *            recognises the result has to be returned.
+    * @return the result set containing the recognised gesture classes.
+    */
+   public ResultSet recognise(Gesture< ? > note, boolean recogniseAll) {
+      final ResultSet result = new ResultSet();
+
+      for (final Algorithm algorithm : algorithms) {
+
+         try {
+            for (final Result r : algorithm.recognise(note).getResults()) {
+               result.addResult(r);
+            }
+         }
+         catch (AlgorithmException e) {
+            LOGGER.info(e.getMessage());
+         }
+
+         if (!result.isEmpty() && !recogniseAll) {
+            break;
+         }
+
+      }
+
+      fireEvent(result);
+      return result;
+   } // recognise
+
+
+   /**
+    * Recognises a gesture. The method uses all registered algorithms and stops
+    * as soon as the first algorithm returns a result.
+    * 
+    * @param note the note to be recognised.
+    * @return the result set containing the recognised gesture classes.
+    */
+   public ResultSet recognise(Gesture< ? > note) {
+      return recognise(note, false);
+   } // recognise
+
+
+   /**
+    * Recognises a gesture. The method uses all registered algorithms and stops
+    * as soon as the first algorithm returns a result.
+    * 
+    * @param note the note to be recognised.
+    * @return the result set containing the recognised gesture classes.
+    */
+   public ResultSet recognise(Note note) {
+      return recognise(note, false);
+   } // recognise
+
+
+   /**
+    * Recognises a gesture. The method uses all algorithms and returns a
+    * combination of the results returned by the different algorithms if
+    * 'recogniseAll' is set to true or the result of the first algorithm that
+    * recognised the given note if 'recogniseAll' is set to false.
+    * 
+    * @param note the note to be recognised.
+    * @param recogniseAll true if the combination of all algorithms has to be
+    *            returned, false if only the result of the first algorithm that
+    *            recognises the result has to be returned.
+    * @return the result set containing the recognised gesture classes.
+    */
+   public ResultSet recognise(Note note, boolean recogniseAll) {
+      return recognise(new GestureSample(Constant.EMPTY_STRING, note));
+   } // recognise
+
+
+   // FIXME: remove?
+   public static Recogniser newRecogniser(String configFile,
+         String gestureSetFile) throws AlgorithmException {
+      GestureSet gestureSet = XMLTool.importGestureSet(new File(gestureSetFile));
+      Configuration configuration = XMLTool.importConfiguration(new File(
+            configFile));
+      return new Recogniser(configuration, gestureSet);
+   }
 
 }
