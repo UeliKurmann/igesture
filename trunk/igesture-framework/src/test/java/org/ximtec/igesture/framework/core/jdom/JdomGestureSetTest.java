@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -26,6 +26,9 @@
 
 package org.ximtec.igesture.framework.core.jdom;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 
 
 /**
@@ -35,4 +38,9 @@ package org.ximtec.igesture.framework.core.jdom;
  */
 public class JdomGestureSetTest {
 
+   
+   @Test
+   public void test(){
+      Assert.assertEquals(true, true);
+   }
 }
