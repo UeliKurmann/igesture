@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -46,6 +46,15 @@ import org.ximtec.igesture.tool.explorer.core.ExplorerTreeView;
  */
 public class NodeInfoImplJdom extends Element {
 
+   private static final String ACTION = "action";
+   private static final String ACTIONS = "actions";
+   private static final String TYPE = "type";
+   private static final String VIEW = "view";
+   private static final String ICON = "icon";
+   private static final String CHILD = "child";
+   private static final String PROPERTY_NAME = "propertyName";
+
+
    public NodeInfoImplJdom(NodeInfoImpl nodeInfo) {
 
    }
@@ -54,26 +63,26 @@ public class NodeInfoImplJdom extends Element {
    @SuppressWarnings("unchecked")
    public static NodeInfoImpl unmarshall(Element element) {
 
-      String propertyName = element.getChildText("propertyName");
+      String propertyName = element.getChildText(PROPERTY_NAME);
 
       StringBuilder childrenList = new StringBuilder();
-      for (Element childElement : ((List<Element>)element.getChildren("child"))) {
+      for (Element childElement : ((List<Element>)element.getChildren(CHILD))) {
          childrenList.append(childElement.getText());
          childrenList.append(NodeInfoImpl.CHILD_DELIMITER);
       }
 
-      String icon = element.getChildText("icon");
-      String view = element.getChildText("view");
-      String type = element.getChildText("type");
+      String icon = element.getChildText(ICON);
+      String view = element.getChildText(VIEW);
+      String type = element.getChildText(TYPE);
 
       try {
          Class< ? extends ExplorerTreeView> viewClass = (Class< ? extends ExplorerTreeView>)Class.forName(view);
          Class< ? > typeClass = Class.forName(type);
          Icon nodeIcon = IconLoader.getIcon(icon);
          
-         Element actions = element.getChild("actions");
+         Element actions = element.getChild(ACTIONS);
          List<Class< ? extends BasicAction>> actionList = new ArrayList<Class< ? extends BasicAction>>();
-         for(Element actionElement: ((List<Element>)actions.getChildren("action"))){
+         for(Element actionElement: ((List<Element>)actions.getChildren(ACTION))){
             actionList.add((Class< ? extends BasicAction>)Class.forName(actionElement.getText()));
          }
          

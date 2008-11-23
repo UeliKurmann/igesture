@@ -133,9 +133,8 @@ public class TestbenchController extends DefaultController {
 
    @Override
    public void propertyChange(PropertyChangeEvent evt) {
-      super.propertyChange(evt);
-
       LOGGER.info("PropertyChange");
-
+      
+      super.propertyChange(evt);
    }
 }

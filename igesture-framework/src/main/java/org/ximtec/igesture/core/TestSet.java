@@ -145,6 +145,10 @@ public class TestSet extends DefaultDataObject {
    public List<TestClass> getTestClasses() {
       return new ArrayList<TestClass>(testClasses.values());
    } // getSamples
+   
+   public TestClass getTestClass(String name){
+      return testClasses.get(name);
+   }
 
 
    /**
@@ -191,7 +195,7 @@ public class TestSet extends DefaultDataObject {
     * 
     * @return the size of the test set.
     */
-   public int getNumberOfTestClasses() {
+   public int size() {
       return testClasses.size();
    } // size
 

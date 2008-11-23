@@ -23,25 +23,28 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.explorer;
 
 import javax.swing.JTree;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreeModel;
 
+
 /**
  * Extends JTree and supports additional functionality and default properties.
- *
- * @author  UeliKurmann
+ * 
+ * @author UeliKurmann
  * @version 1.0
- * @since   igesture
+ * @since igesture
  */
 public class ExplorerTree extends JTree {
 
    public ExplorerTree(TreeModel treeModel, TreeCellRenderer renderer) {
       super(treeModel);
       setCellRenderer(renderer);
-
    }
-
+   
+   
+   
 }

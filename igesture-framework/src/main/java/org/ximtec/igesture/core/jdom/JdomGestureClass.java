@@ -71,7 +71,7 @@ public class JdomGestureClass extends Element {
 
 
    @SuppressWarnings("unchecked")
-   public static Object unmarshal(Element gestureClassElement) {
+   public static GestureClass unmarshal(Element gestureClassElement) {
       final String name = gestureClassElement.getAttributeValue(NAME_ATTRIBUTE);
       final String uuid = gestureClassElement.getAttributeValue(UUID_ATTRIBUTE);
       final GestureClass gestureClass = new GestureClass(name);

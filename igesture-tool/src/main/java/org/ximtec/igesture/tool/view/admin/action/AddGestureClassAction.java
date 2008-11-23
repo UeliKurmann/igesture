@@ -30,7 +30,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.tree.TreePath;
 
 import org.sigtec.graphix.widget.BasicAction;
-import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureConstants;
@@ -40,6 +39,7 @@ import org.ximtec.igesture.tool.service.GuiBundleService;
 
 public class AddGestureClassAction extends BasicAction {
 
+   private static final String NEW_GESTURE_CLASS = "New Gesture Class";
    private TreePath treePath;
 
 
@@ -53,8 +53,19 @@ public class AddGestureClassAction extends BasicAction {
    @Override
    public void actionPerformed(ActionEvent arg0) {
       GestureSet gestureSet = (GestureSet)treePath.getLastPathComponent();
-      GestureClass gestureClass = new GestureClass(Constant.EMPTY_STRING);
+      
+      // find a unique name for the new gesture class
+      String gestureClassName = NEW_GESTURE_CLASS;
+      int counter = 2;
+      while(gestureSet.getGestureClass(gestureClassName) != null){
+         gestureClassName = NEW_GESTURE_CLASS+counter;
+         counter++;
+      }
+      
+      // create the gesture class and add it to the gesture set
+      GestureClass gestureClass = new GestureClass(gestureClassName);
       gestureSet.addGestureClass(gestureClass);
+      
    }
 
 }

@@ -90,8 +90,8 @@ public class AdminController extends DefaultController {
    @Override
    public void propertyChange(PropertyChangeEvent evt) {
       LOGGER.info("PropertyChange");
-
       super.propertyChange(evt);
+ 
       explorerTreeController.getExplorerTreeView().refresh();
    }
 }

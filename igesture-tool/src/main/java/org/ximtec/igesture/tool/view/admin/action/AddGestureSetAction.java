@@ -39,6 +39,7 @@ import org.ximtec.igesture.tool.view.admin.wrapper.GestureSetList;
 
 public class AddGestureSetAction extends BasicAction {
 
+   private static final String NEW_GESTURE_SET = "New Gesture Set";
    private TreePath treePath;
 
 
@@ -53,6 +54,7 @@ public class AddGestureSetAction extends BasicAction {
    public void actionPerformed(ActionEvent event) {
       GestureSetList gestureSets = (GestureSetList)treePath.getLastPathComponent();
       GestureSet gestureSet = new GestureSet();
+      gestureSet.setName(NEW_GESTURE_SET);
       gestureSets.addGestureSet(gestureSet);
    }
 
