@@ -40,13 +40,14 @@ import org.ximtec.igesture.tool.view.batch.BatchView;
 
 
 public class SelectConfigFileAction extends BasicAction {
-   
+
    private BatchView view;
+
 
    public SelectConfigFileAction(BatchView view) {
       super(GestureConstants.BATCH_BROWSE_CONFIG, Locator.getDefault()
             .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
-      
+
       this.view = view;
 
    }
@@ -58,7 +59,9 @@ public class SelectConfigFileAction extends BasicAction {
       chooser.setFileFilter(FileFilterFactory.getBatchConfig());
       chooser.showOpenDialog(null);
       File file = chooser.getSelectedFile();
-      view.setConfigFile(file.getAbsolutePath());
+      if (file != null) {
+         view.setConfigFile(file.getAbsolutePath());
+      }
    }
 
 }

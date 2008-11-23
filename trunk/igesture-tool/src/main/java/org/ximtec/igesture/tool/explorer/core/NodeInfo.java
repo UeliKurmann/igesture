@@ -42,27 +42,65 @@ import org.ximtec.igesture.tool.core.Controller;
  */
 public interface NodeInfo {
 
+   /**
+    * Rerturns the type of the node
+    * @return
+    */
    Class< ? > getType();
 
 
+   /**
+    * Returns the name of the node
+    * @param object
+    * @return
+    */
    String getName(Object object);
 
 
+   /**
+    * Returns the tool tip of the node
+    * @return
+    */
    String getTooltip();
 
 
+   /**
+    * Returns the icon of the node
+    * @return
+    */
    Icon getIcon();
 
 
+   /**
+    * Returns a list of children
+    * @param node
+    * @return
+    */
    List<Object> getChildren(Object node);
 
 
+   /**
+    * Returns true if the current node is a leaf
+    * @param node the node
+    * @return true if the current node is a leaf. 
+    */
    boolean isLeaf(Object node);
 
 
+   /**
+    * Returns the view of the node
+    * @param controller
+    * @param node
+    * @return
+    */
    ExplorerTreeView getView(Controller controller, Object node);
 
 
+   /**
+    * Returns the context menu of a node. 
+    * @param node
+    * @return
+    */
    JPopupMenu getPopupMenu(TreePath node);
 
 }
