@@ -30,6 +30,7 @@ package org.ximtec.igesture.batch;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureClass;
@@ -61,7 +62,7 @@ public class BatchResult {
 
    private long endTime;
 
-   private HashMap<String, ClassStatistic> classStatistics;
+   private Map<String, Statistic> classStatistics;
 
    private Configuration configuration;
 
@@ -74,15 +75,15 @@ public class BatchResult {
       this.numberOfNoise = testSet.getNoiseSize();
       this.numberOfSamples = testSet.getNumberOfSamples();
       this.configuration = configuration;
-      this.classStatistics = new HashMap<String, ClassStatistic>();
+      
+      this.classStatistics = new HashMap<String, Statistic>();
 
-      for (final GestureClass gestureClass : configuration.getGestureSet()
+      for (GestureClass gestureClass : configuration.getGestureSet()
             .getGestureClasses()) {
-         this.classStatistics.put(gestureClass.getName(), new ClassStatistic(
-               gestureClass.getName()));
+         this.classStatistics.put(gestureClass.getName(), new Statistic(gestureClass));
       }
 
-      this.classStatistics.put(TestSet.NOISE, new ClassStatistic(TestSet.NOISE));
+      this.classStatistics.put(TestSet.NOISE, new Statistic(new GestureClass(TestSet.NOISE)));
    }
 
 
@@ -150,16 +151,17 @@ public class BatchResult {
     * Increases the number of errors.
     * 
     * @param className the name of the gesture class for which the number of
-    *           errors has to be increased.
+    *            errors has to be increased.
     */
    public void incError(String className) {
       numberOfErrors++;
       getClassStatistic(className).incError();
    } // incError
-   
-   private ClassStatistic getClassStatistic(String className){
-      ClassStatistic classStatistic = classStatistics.get(className);
-      if(classStatistic == null){
+
+
+   private Statistic getClassStatistic(String className) {
+      Statistic classStatistic = classStatistics.get(className);
+      if (classStatistic == null) {
          classStatistic = classStatistics.get(TestSet.NOISE);
       }
       return classStatistic;
@@ -262,8 +264,8 @@ public class BatchResult {
     * 
     * @return the list of statistics.
     */
-   public List<ClassStatistic> getStatistics() {
-      return new ArrayList<ClassStatistic>(classStatistics.values());
+   public List<Statistic> getStatistics() {
+      return new ArrayList<Statistic>(classStatistics.values());
    }
 
 }

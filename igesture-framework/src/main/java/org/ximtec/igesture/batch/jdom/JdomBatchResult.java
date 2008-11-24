@@ -30,7 +30,7 @@ import org.jdom.Element;
 import org.sigtec.jdom.element.JdomDoubleElement;
 import org.sigtec.jdom.element.JdomIntegerElement;
 import org.ximtec.igesture.batch.BatchResult;
-import org.ximtec.igesture.batch.ClassStatistic;
+import org.ximtec.igesture.batch.Statistic;
 import org.ximtec.igesture.configuration.jdom.JdomConfiguration;
 
 
@@ -88,7 +88,7 @@ public class JdomBatchResult extends Element {
             .getRunningTime()));
       this.addContent(new JdomConfiguration(result.getConfiguration()));
 
-      for (final ClassStatistic statistic : result.getStatistics()) {
+      for (final Statistic statistic : result.getStatistics()) {
          this.addContent(new JdomClassStatistic(statistic));
       }
 

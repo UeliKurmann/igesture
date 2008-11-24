@@ -27,6 +27,8 @@
 
 package org.ximtec.igesture.batch;
 
+import org.ximtec.igesture.core.GestureClass;
+
 /**
  * Holds static information about a gesture class. Used by the BatchProcess.
  * 
@@ -34,7 +36,7 @@ package org.ximtec.igesture.batch;
  * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class ClassStatistic {
+public class Statistic {
 
    private int correct;
 
@@ -44,7 +46,7 @@ public class ClassStatistic {
 
    private int rejectError;
 
-   private String className;
+   private GestureClass gestureClass;
 
 
    /**
@@ -52,8 +54,8 @@ public class ClassStatistic {
     * 
     * @param className the name of the gesture class
     */
-   public ClassStatistic(String className) {
-      this.className = className;
+   public Statistic(GestureClass gestureClass) {
+      this.gestureClass = gestureClass;
       this.correct = 0;
       this.error = 0;
       this.rejectError = 0;
@@ -138,7 +140,7 @@ public class ClassStatistic {
     * @return the gesture class name.
     */
    public String getClassName() {
-      return className;
+      return gestureClass.getName();
    } // getClassName
 
 }

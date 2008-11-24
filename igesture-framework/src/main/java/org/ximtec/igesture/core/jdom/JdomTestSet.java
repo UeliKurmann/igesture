@@ -70,10 +70,17 @@ public class JdomTestSet extends Element {
       final TestSet testSet = new TestSet(name);
       testSet.setId(uuid);
 
-      for (final Element sampleElement : (List<Element>)setElement
+      for (final Element testClassElement : (List<Element>)setElement
             .getChildren(JdomTestClass.ROOT_TAG)) {
-         testSet.addTestClass(JdomTestClass.unmarshal(sampleElement));
+         testSet.addTestClass(JdomTestClass.unmarshal(testClassElement));
       }
+      
+      // support legacy format
+      for (Element sampleElement : (List<Element>)setElement.getChildren(JdomGestureSample.ROOT_TAG)) {
+         testSet.add(JdomGestureSample.unmarshal(sampleElement));
+      }
+
+      
 
       return testSet;
    } // unmarshal

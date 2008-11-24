@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -117,6 +117,7 @@ public class BatchController extends DefaultController {
             && view.getGestureSet() != null) {
          BatchProcessContainer container = XMLTool
                .importBatchProcessContainer(configFile);
+         
          BatchProcess batchProcess = new BatchProcess(container);
          batchProcess.setTestSet(view.getTestSet());
          batchProcess.addGestureSet(view.getGestureSet());
@@ -127,8 +128,11 @@ public class BatchController extends DefaultController {
             BatchResultSet resultSet = completionService.take().get();
             XMLTool.exportBatchResultSet(resultSet, new File(new File(view
                   .getOutputDir()), OUT_FILE_XML));
-            String html = XMLTool.transform(null, BatchController.class
-                  .getResourceAsStream(XSL_HTML));
+            
+            
+            
+            String html = XMLTool.transform(XMLTool.exportBatchResultSet(resultSet), BatchController.class
+                  .getClassLoader().getResourceAsStream(XSL_HTML));
             FileUtils.writeStringToFile(new File(new File(view.getOutputDir()),
                   OUT_FILE_HTML), html);
 
