@@ -29,6 +29,7 @@ package org.ximtec.igesture.tool.view.batch;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -73,6 +74,9 @@ public class BatchView extends AbstractPanel implements TabbedView {
    private JTextField configFileTextField;
    private JTextField outDirTextField;
    private JProgressBar progressBar;
+   
+   private Action runBatchAction;
+   private Action cancelBatchAction;
 
 
    public BatchView(Controller controller) {
@@ -214,11 +218,15 @@ public class BatchView extends AbstractPanel implements TabbedView {
 
 
    private void createRunButton(DefaultFormBuilder builder) {
+      runBatchAction = new RunBatchAction(controller);
+      cancelBatchAction = new CancelBatchAction(controller);
+      cancelBatchAction.setEnabled(false);
+      
       JButton runButton = ComponentFactory.createButton(GestureConstants.BATCH_RUN,
-            new RunBatchAction(controller));
+            runBatchAction);
       
       JButton cancelButton = ComponentFactory.createButton(GestureConstants.BATCH_CANCEL,
-            new CancelBatchAction(controller));
+           cancelBatchAction);
       
       Formatter.formatButton(runButton);
       
@@ -240,6 +248,18 @@ public class BatchView extends AbstractPanel implements TabbedView {
    
    public void hideProgressBar(){
       progressBar.setVisible(false);
+   }
+   
+   public void setRunActionState(boolean isEnabled){
+      if(runBatchAction != null){
+         runBatchAction.setEnabled(isEnabled);
+      }
+   }
+   
+   public void setCancelActionState(boolean isEnabled){
+      if(cancelBatchAction != null){
+         cancelBatchAction.setEnabled(isEnabled);
+      }
    }
 
 
