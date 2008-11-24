@@ -26,7 +26,12 @@
 
 package org.ximtec.igesture.batch;
 
+import java.io.File;
 import java.util.HashSet;
+
+import org.apache.commons.io.FileUtils;
+import org.ximtec.igesture.tool.view.batch.BatchController;
+import org.ximtec.igesture.util.XMLTool;
 
 
 /**
@@ -37,6 +42,11 @@ import java.util.HashSet;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class BatchTools {
+
+   private static final String XSL_HTML = "xml/batch.xsl";
+   private static final String OUT_FILE_HTML = "result.html";
+   private static final String OUT_FILE_XML = "result.xml";
+
 
    /**
     * Filters a set of sets. The condition are the number of elements in the set.
@@ -97,5 +107,26 @@ public class BatchTools {
       }
 
    } // createPowerSet
+
+
+   public static void writeResulteOnDisk(File outputDirectory,
+         BatchResultSet resultSet) {
+
+      try {
+
+         XMLTool.exportBatchResultSet(resultSet, new File(outputDirectory,
+               OUT_FILE_XML));
+
+         String html = XMLTool.transform(
+               XMLTool.exportBatchResultSet(resultSet), BatchController.class
+                     .getClassLoader().getResourceAsStream(XSL_HTML));
+         FileUtils.writeStringToFile(new File(outputDirectory, OUT_FILE_HTML),
+               html);
+
+      }
+      catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
 
 }

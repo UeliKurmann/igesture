@@ -104,5 +104,6 @@ public class GestureConstants {
    public static final String BATCH_OUTPUT_DIR = "BatchOutputDir";
    public static final String BATCH_BROWSE_OUTPUT = "BatchBrowseOutput";
    public static final String BATCH_RUN = "BatchRun";
+   public static final String BATCH_CANCEL = "BatchCancel";
    
 }

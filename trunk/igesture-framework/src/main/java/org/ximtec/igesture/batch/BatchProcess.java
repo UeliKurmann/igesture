@@ -141,9 +141,14 @@ public class BatchProcess implements Callable<BatchResultSet> {
             algorithm = AlgorithmFactory.createAlgorithm(config);
 
             for (TestClass testClass : testSet.getTestClasses()) {
+                
                for (Gesture<?> sample : testClass.getGestures()) {
                   ResultSet resultSet = algorithm.recognise(sample);
 
+                  if(Thread.currentThread().isInterrupted()){
+                     return null;
+                  }
+                  
                   if (resultSet.isEmpty()) {
 
                      if (sample.getName().equals(TestSet.NOISE)) {

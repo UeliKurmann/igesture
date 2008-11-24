@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -35,6 +35,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 
 import org.ximtec.igesture.core.GestureSet;
@@ -48,6 +49,7 @@ import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.MainModel;
+import org.ximtec.igesture.tool.view.batch.action.CancelBatchAction;
 import org.ximtec.igesture.tool.view.batch.action.RunBatchAction;
 import org.ximtec.igesture.tool.view.batch.action.SelectConfigFileAction;
 import org.ximtec.igesture.tool.view.batch.action.SelectOutputDirAction;
@@ -70,6 +72,7 @@ public class BatchView extends AbstractPanel implements TabbedView {
    
    private JTextField configFileTextField;
    private JTextField outDirTextField;
+   private JProgressBar progressBar;
 
 
    public BatchView(Controller controller) {
@@ -125,6 +128,7 @@ public class BatchView extends AbstractPanel implements TabbedView {
       createOutputDirSelection(builder);
 
       createRunButton(builder);
+      
 
       return builder.getPanel();
    }
@@ -213,11 +217,29 @@ public class BatchView extends AbstractPanel implements TabbedView {
       JButton runButton = ComponentFactory.createButton(GestureConstants.BATCH_RUN,
             new RunBatchAction(controller));
       
+      JButton cancelButton = ComponentFactory.createButton(GestureConstants.BATCH_CANCEL,
+            new CancelBatchAction(controller));
+      
       Formatter.formatButton(runButton);
       
       builder.append(runButton);
-
+      builder.append(cancelButton);
       builder.nextLine(NEXT_LINE);
+      
+      progressBar = new JProgressBar();
+      progressBar.setIndeterminate(true);
+      progressBar.setVisible(false);
+      
+      builder.append(progressBar);
+      builder.nextLine(NEXT_LINE);
+   }
+   
+   public void showProgressBar(){
+      progressBar.setVisible(true);
+   }
+   
+   public void hideProgressBar(){
+      progressBar.setVisible(false);
    }
 
 
