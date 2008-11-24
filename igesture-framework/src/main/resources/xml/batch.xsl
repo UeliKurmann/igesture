@@ -81,7 +81,7 @@
 			</tr>
 		</table>
 		<xsl:apply-templates select="configuration/algorithm" />
-		<p/>
+		<br/><br/>
 		<table border="1">
 			<tr>
 				<td>GestureClass</td>

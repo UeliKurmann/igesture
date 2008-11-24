@@ -28,12 +28,14 @@ package org.ximtec.igesture.tool.view.batch;
 
 import java.beans.PropertyChangeEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JComponent;
 import javax.swing.SwingWorker;
 
+import org.apache.commons.io.FileUtils;
 import org.ximtec.igesture.batch.BatchProcess;
 import org.ximtec.igesture.batch.BatchProcessContainer;
 import org.ximtec.igesture.batch.BatchResultSet;
@@ -119,12 +121,13 @@ public class BatchController extends DefaultController {
 
    private class BatchSwingWorker extends SwingWorker<BatchResultSet, Void> {
 
+      File configFile = new File(view.getConfigFile());
+      File outputDir = new File(view.getOutputDir());
+
+      
       @Override
       protected BatchResultSet doInBackground() throws Exception {
          
-         File configFile = new File(view.getConfigFile());
-         File outputDir = new File(view.getOutputDir());
-
          BatchResultSet resultSet = null;
 
          if (configFile.exists() && view.getTestSet() != null
@@ -139,7 +142,7 @@ public class BatchController extends DefaultController {
 
             resultSet = batchProcess.run();
 
-            BatchTools.writeResulteOnDisk(outputDir, resultSet);
+            BatchTools.writeResultsOnDisk(outputDir, resultSet);
 
          }
 
@@ -153,8 +156,17 @@ public class BatchController extends DefaultController {
          view.hideProgressBar();
          view.setRunActionState(true);
          view.setCancelActionState(false);
+         
+         // display html code
+         try {
+            String htmlCode = FileUtils.readFileToString(new File(outputDir, "result.html"));
+            view.setResult(htmlCode);
+         }
+         catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Could not set result as html page.");
+         }
+         
       }
-
    }
 
 }

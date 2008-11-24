@@ -95,6 +95,7 @@ public class GestureConstants {
    public static final String TESTSET_NEW = "TestSetNew";
    public static final String TESTSET_EXPORT = "TestSetExport";
    public static final String TESTSET_NAME = "TestSetName";
+   public static final String TESTSET_ADD_CLASS = "TestClassAdd";
  
    public static final String BATCH_VIEW_NAME = "BatchViewName";
    public static final String BATCH_GESTURESET = "BatchGestureSet";

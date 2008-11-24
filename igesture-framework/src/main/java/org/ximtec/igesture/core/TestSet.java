@@ -27,9 +27,7 @@
 package org.ximtec.igesture.core;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.sigtec.ink.Note;
 
@@ -48,7 +46,7 @@ public class TestSet extends DefaultDataObject {
 
    public static final String NOISE = "None";
 
-   private Map<String, TestClass> testClasses;
+   private List<TestClass> testClasses;
 
    private String name;
 
@@ -60,7 +58,7 @@ public class TestSet extends DefaultDataObject {
     */
    public TestSet(String name) {
       super();
-      testClasses = new HashMap<String, TestClass>();
+      testClasses = new ArrayList<TestClass>();
       setName(name);
       addTestClass(new TestClass(NOISE));
    }
@@ -76,22 +74,34 @@ public class TestSet extends DefaultDataObject {
          return;
       }
 
-      TestClass testClass = testClasses.get(sample.getName());
+      TestClass testClass = getTestClass(sample.getName());
       if (testClass == null) {
          testClass = new TestClass(sample.getName());
-         testClasses.put(testClass.getName(), testClass);
-         propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_TEST_CLASSES, 0,
-               null, sample);
+         addTestClass(testClass);
+
       }
       testClass.add(sample);
    } // add
 
+   
+   public TestClass getTestClass(String name){
+      for(TestClass testClass:testClasses){
+         if(testClass.getName().equals(name)){
+            return testClass;
+         }
+      }
+      return null;
+   }
 
    public void addTestClass(TestClass testClass) {
       if (testClass != null) {
-         if(!testClasses.containsKey(testClass.getName())){
-            testClasses.put(testClass.getName(), testClass);
-         }else{
+         if (getTestClass(testClass.getName()) == null) {
+            testClasses.add(testClass);
+
+            propertyChangeSupport.fireIndexedPropertyChange(
+                  PROPERTY_TEST_CLASSES, 0, null, testClass);
+         }
+         else {
             addAll(testClass.getGestures());
          }
       }
@@ -132,8 +142,9 @@ public class TestSet extends DefaultDataObject {
     * @param sample the sample to be removed.
     */
    public void remove(TestClass testClass) {
-      testClasses.remove(testClass.getName());
-      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_TEST_CLASSES, 0, testClass, null);
+      testClasses.remove(testClass);
+      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_TEST_CLASSES, 0,
+            testClass, null);
    } // remove
 
 
@@ -143,12 +154,9 @@ public class TestSet extends DefaultDataObject {
     * @return a list with all samples.
     */
    public List<TestClass> getTestClasses() {
-      return new ArrayList<TestClass>(testClasses.values());
+      return new ArrayList<TestClass>(testClasses);
    } // getSamples
-   
-   public TestClass getTestClass(String name){
-      return testClasses.get(name);
-   }
+
 
 
    /**
@@ -158,7 +166,7 @@ public class TestSet extends DefaultDataObject {
     */
    public int getNoiseSize() {
 
-      TestClass testClass = testClasses.get(TestSet.NOISE);
+      TestClass testClass = getTestClass(TestSet.NOISE);
       return testClass == null ? 0 : testClass.size();
 
    } // getNoiseSize
@@ -208,7 +216,7 @@ public class TestSet extends DefaultDataObject {
    public int getNumberOfSamples() {
       int result = 0;
 
-      for (TestClass testClass : testClasses.values()) {
+      for (TestClass testClass : testClasses) {
          result += testClass.size();
       }
 
@@ -233,7 +241,7 @@ public class TestSet extends DefaultDataObject {
    public void accept(Visitor visitor) {
       visitor.visit(this);
 
-      for (TestClass testClass : testClasses.values()) {
+      for (TestClass testClass : testClasses) {
          testClass.accept(visitor);
       }
 

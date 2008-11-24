@@ -72,6 +72,7 @@ import org.ximtec.igesture.tool.view.testbench.panel.AlgorithmWrapperPanel;
 import org.ximtec.igesture.tool.view.testbench.panel.ConfigurationPanel;
 import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmList;
 import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmWrapper;
+import org.ximtec.igesture.tool.view.testset.action.AddTestClassAction;
 import org.ximtec.igesture.tool.view.testset.action.ConvertGestureSetAction;
 import org.ximtec.igesture.tool.view.testset.action.DeleteTestClassAction;
 import org.ximtec.igesture.tool.view.testset.action.DeleteTestSetAction;
@@ -174,7 +175,9 @@ public class NodeInfoFactory {
       List<Class< ? extends BasicAction>> setActions = new ArrayList<Class< ? extends BasicAction>>();
       setActions.add(DeleteTestSetAction.class);
       setActions.add(ExportTestSetAction.class);
-
+      setActions.add(AddTestClassAction.class);
+      
+      
       List<Class< ? extends BasicAction>> classActions = new ArrayList<Class< ? extends BasicAction>>();
       classActions.add(DeleteTestClassAction.class);
       
