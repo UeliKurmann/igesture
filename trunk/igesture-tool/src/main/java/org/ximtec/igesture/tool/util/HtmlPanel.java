@@ -51,6 +51,8 @@ public class HtmlPanel extends JPanel {
 
    private static Logger LOGGER = Logger.getLogger(HtmlPanel.class.getName());
 
+   private JEditorPane htmlArea;
+
 
    /**
     * 
@@ -62,9 +64,8 @@ public class HtmlPanel extends JPanel {
    }
 
 
-   private void init(URL url, Dimension dimension) {
+   private void init(final URL url, Dimension dimension) {
 
-      final URL finalUrl = url;
       final Dimension finalDimension = dimension;
 
       SwingUtilities.invokeLater(new Runnable() {
@@ -74,7 +75,13 @@ public class HtmlPanel extends JPanel {
             setLayout(new BorderLayout());
             setPreferredSize(finalDimension);
             try {
-               JEditorPane htmlArea = new JEditorPane(finalUrl);
+
+               if (url == null) {
+                  htmlArea = new JEditorPane();
+               }
+               else {
+                  htmlArea = new JEditorPane(url);
+               }
                htmlArea.setEditable(false);
                htmlArea.setContentType(MIME.toString(MIME.HTML));
                htmlArea.putClientProperty(BasicHTML.documentBaseKey,
@@ -97,6 +104,11 @@ public class HtmlPanel extends JPanel {
 
       });
 
+   }
+
+
+   public void setHtmlContent(String htmlCode) {
+      htmlArea.setText(htmlCode);
    }
 
 }

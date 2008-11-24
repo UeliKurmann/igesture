@@ -109,7 +109,7 @@ public class BatchTools {
    } // createPowerSet
 
 
-   public static void writeResulteOnDisk(File outputDirectory,
+   public static void writeResultsOnDisk(File outputDirectory,
          BatchResultSet resultSet) {
 
       try {

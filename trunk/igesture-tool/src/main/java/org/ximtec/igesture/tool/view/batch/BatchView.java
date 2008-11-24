@@ -26,6 +26,7 @@
 
 package org.ximtec.igesture.tool.view.batch;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -47,6 +48,7 @@ import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.Formatter;
+import org.ximtec.igesture.tool.util.HtmlPanel;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.MainModel;
@@ -74,9 +76,12 @@ public class BatchView extends AbstractPanel implements TabbedView {
    private JTextField configFileTextField;
    private JTextField outDirTextField;
    private JProgressBar progressBar;
+   private HtmlPanel resultPanel;
    
    private Action runBatchAction;
    private Action cancelBatchAction;
+   
+   
 
 
    public BatchView(Controller controller) {
@@ -132,6 +137,9 @@ public class BatchView extends AbstractPanel implements TabbedView {
       createOutputDirSelection(builder);
 
       createRunButton(builder);
+      
+      // create result panel
+      createResultPanel(builder);
       
 
       return builder.getPanel();
@@ -242,8 +250,17 @@ public class BatchView extends AbstractPanel implements TabbedView {
       builder.nextLine(NEXT_LINE);
    }
    
+   private void createResultPanel(DefaultFormBuilder builder){
+      resultPanel = new HtmlPanel(null, new Dimension(500,400));
+      builder.append(resultPanel, 5);
+   }
+   
    public void showProgressBar(){
       progressBar.setVisible(true);
+   }
+   
+   public void setResult(String htmlCode){
+      resultPanel.setHtmlContent(htmlCode);
    }
    
    public void hideProgressBar(){
