@@ -92,6 +92,8 @@ public class BatchController extends DefaultController {
 
 
    private void executeBatchRun() {
+      view.setRunActionState(false);
+      view.setCancelActionState(true);
       view.showProgressBar();
       batchSwingWorker = new BatchSwingWorker();
       batchSwingWorker.execute();
@@ -103,7 +105,9 @@ public class BatchController extends DefaultController {
          System.out.println(batchSwingWorker.getState());
       }
       
-      view.hideProgressBar();   
+      view.hideProgressBar();  
+      view.setRunActionState(true);
+      view.setCancelActionState(false);
    }
 
 
@@ -147,6 +151,8 @@ public class BatchController extends DefaultController {
       protected void done() {
          super.done();
          view.hideProgressBar();
+         view.setRunActionState(true);
+         view.setCancelActionState(false);
       }
 
    }
