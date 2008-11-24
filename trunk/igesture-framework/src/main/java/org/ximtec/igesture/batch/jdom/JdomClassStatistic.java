@@ -28,7 +28,7 @@ package org.ximtec.igesture.batch.jdom;
 
 import org.jdom.Element;
 import org.sigtec.jdom.element.JdomIntegerElement;
-import org.ximtec.igesture.batch.ClassStatistic;
+import org.ximtec.igesture.batch.Statistic;
 
 
 /**
@@ -53,7 +53,7 @@ public class JdomClassStatistic extends Element {
    public static final String NUMBER_OF_CORRECTS = "numberOfCorrects";
 
 
-   public JdomClassStatistic(ClassStatistic statistic) {
+   public JdomClassStatistic(Statistic statistic) {
       super(ROOT_TAG);
       this.setAttribute(NAME_ATTRIBUTE, statistic.getClassName());
       this.addContent(new JdomIntegerElement(NUMBER_OF_CORRECTS, statistic

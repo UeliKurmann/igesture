@@ -469,8 +469,10 @@ public class XMLTool {
          TransformerFactoryConfigurationError {
       final StringReader xmlSR = new StringReader(xmlDocument);
       final StreamSource xmlIn = new StreamSource(xmlSR);
+      
       final StringWriter xmlSW = new StringWriter();
       final StreamResult xmlOut = new StreamResult(xmlSW);
+      
       StreamSource xslSR = new StreamSource(xsl);
       final TransformerFactory tFactory = TransformerFactory.newInstance();
       final Transformer transformer = tFactory.newTransformer(xslSR);
