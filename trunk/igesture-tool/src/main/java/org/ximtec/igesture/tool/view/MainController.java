@@ -219,8 +219,9 @@ public class MainController extends DefaultController implements Service {
             execShowAboutDialog();
          }
          else {
-            LOGGER.warning("Command not supported: '" + command.getCommand()
+            LOGGER.warning("Command not handled by MainController: '" + command.getCommand()
                   + Constant.SINGLE_QUOTE);
+            super.execute(command);
          }
 
       }

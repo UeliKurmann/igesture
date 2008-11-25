@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -29,6 +29,8 @@ package org.ximtec.igesture.tool.util;
 import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -70,6 +72,14 @@ public class ComponentFactory {
    public static GuiBundle getGuiBundle() {
       return Locator.getDefault().getService(GuiBundleService.IDENTIFIER,
             GuiBundleService.class);
+   }
+   
+   public static JPopupMenu createPopupMenu(Action action){
+      JPopupMenu menu = new JPopupMenu();
+      JMenuItem item = new JMenuItem();
+      item.setAction(action);
+      menu.add(item);
+      return menu;
    }
 
 }
