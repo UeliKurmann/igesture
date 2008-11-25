@@ -36,9 +36,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 
 import org.sigtec.ink.Note;
@@ -82,7 +80,7 @@ public class TestClassPanel extends AbstractPanel {
       this.testClass = testClass;
       init(this.testClass);
 
-      setTitle(TitleFactory.createStaticTitle("Test Set Panel"));
+      setTitle(TitleFactory.createStaticTitle("Test Class Panel"));
 
    }
 
@@ -112,8 +110,8 @@ public class TestClassPanel extends AbstractPanel {
    private void initSampleSection(TestClass testSet) {
 
       FormLayout layout = new FormLayout(
-            "pref, 4dlu, pref, 4dlu, pref, 4dlu, pref,4dlu, pref",
-            "pref, pref, pref, pref, pref, pref,  pref,  pref,  pref,  pref,  pref,  pref");
+            "100px, 4dlu, 100px, 4dlu, 100px, 4dlu, 100px,4dlu, 100px",
+            "pref, 4dlu, pref, 4dlu, pref, 4dlu,  pref,  pref,  pref,  pref,  pref,  pref");
 
       DefaultFormBuilder builder = new DefaultFormBuilder(layout);
       builder.setDefaultDialogBorder();
@@ -121,53 +119,53 @@ public class TestClassPanel extends AbstractPanel {
       builder
             .append(ComponentFactory.createLabel(GestureConstants.TESTSET_NAME));
       JTextField textField = new JTextField();
-
       BindingFactory.createInstance(textField, testSet, TestSet.PROPERTY_NAME);
       builder.append(textField, 3);
 
-      builder.nextLine(4);
+      builder.nextLine(2);
 
       builder.append(
             new JLabel("Test Class has " + testSet.size() + " samples."), 3);
-      builder.nextLine(4);
+      builder.nextLine(2);
 
       for (final Gesture<Note> sample : testSet.getGestures()) {
-         // TODO: Remove unsafe cast!
-         final JLabel label = new JLabel(new ImageIcon(GestureTool
-               .createNoteImage((Note)sample.getGesture(), 100, 100)));
-         label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-         label.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mouseClicked(MouseEvent arg0) {
-               popUp(arg0);
-            }
-
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-               popUp(e);
-            }
-
-
-            private void popUp(MouseEvent e) {
-               if (e.isPopupTrigger()) {
-                  JPopupMenu menu = new JPopupMenu();
-                  JMenuItem item = new JMenuItem();
-                  item.setAction(new RemoveSampleAction(
-                        TestClassPanel.this.testClass, sample));
-                  menu.add(item);
-                  menu.show(label, e.getX(), e.getY());
-               }
-            }
-         });
-         builder.append(label);
+         builder.append(createGesture(sample));
       }
 
       JPanel panel = builder.getPanel();
       panel.setOpaque(true);
       panel.setAutoscrolls(true);
       setCenter(panel);
+   }
+   
+   private JLabel createGesture(final Gesture<Note> gesture){
+      final JLabel label = new JLabel(new ImageIcon(GestureTool
+            .createNoteImage(gesture.getGesture(), 100, 100)));
+      label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+      label.addMouseListener(new MouseAdapter() {
+
+         RemoveSampleAction action = new RemoveSampleAction(
+               TestClassPanel.this.testClass, gesture);
+         
+         @Override
+         public void mouseClicked(MouseEvent arg0) {
+            popUp(arg0);
+         }
+
+
+         @Override
+         public void mouseReleased(MouseEvent e) {
+            popUp(e);
+         }
+
+
+         private void popUp(MouseEvent e) {
+            if (e.isPopupTrigger()) {
+               ComponentFactory.createPopupMenu(action).show(label, e.getX(), e.getY());
+            }
+         }
+      });
+      return label;
    }
 
 

@@ -60,6 +60,7 @@ import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
+import org.ximtec.igesture.tool.view.MainController;
 import org.ximtec.igesture.tool.view.MainModel;
 import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
 import org.ximtec.igesture.tool.view.testbench.action.RecogniseAction;
@@ -113,8 +114,10 @@ public class ConfigurationPanel extends AbstractPanel {
 
    private JPanel createWorkspace() {
       JPanel basePanel = new JPanel();
-
-      recogniseAction = new RecogniseAction(controller, configuration);
+      
+      Controller mainController = Locator.getDefault().getService(MainController.IDENTIFIER, Controller.class);
+      
+      recogniseAction = new RecogniseAction(mainController, configuration);
       recogniseAction.setEnabled(false);
 
       // input area
