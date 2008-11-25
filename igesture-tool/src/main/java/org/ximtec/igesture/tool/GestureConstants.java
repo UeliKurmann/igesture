@@ -42,6 +42,7 @@ public class GestureConstants {
    public static final String GESTURE_CLASS_DEL = "RemoveGestureClassAction";
    public static final String GESTURE_SET_DEL = "RemoveGestureSetAction";
    public static final String GESTURE_SET_PDF = "ExportPDFGestureSetAction";
+   public static final String GESTURE_SET_TEST_SET = "CreateTestSet";
    public static final String GESTURE_SET_FORM = "ExportIPaperFormAction";
    public static final String DESCRIPTOR_DEL = "DeleteDescriptorAction";
    public static final String GESTURE_SET_IMPORT = "ImportGestureSetAction";

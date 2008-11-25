@@ -51,6 +51,7 @@ import org.ximtec.igesture.tool.view.admin.action.AddGestureClassAction;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureSetAction;
 import org.ximtec.igesture.tool.view.admin.action.AddSampleDescriptorAction;
 import org.ximtec.igesture.tool.view.admin.action.AddTextDescriptorAction;
+import org.ximtec.igesture.tool.view.admin.action.CreateTestSetStructureAction;
 import org.ximtec.igesture.tool.view.admin.action.ExportGestureSetAction;
 import org.ximtec.igesture.tool.view.admin.action.ExportPDFGestureSetAction;
 import org.ximtec.igesture.tool.view.admin.action.ImportGestureSetAction;
@@ -104,6 +105,7 @@ public class NodeInfoFactory {
       setActions.add(RemoveGestureSetAction.class);
       setActions.add(ExportGestureSetAction.class);
       setActions.add(ExportPDFGestureSetAction.class);
+      setActions.add(CreateTestSetStructureAction.class);
 
       List<Class< ? extends BasicAction>> classActions = new ArrayList<Class< ? extends BasicAction>>();
       classActions.add(RemoveGestureClassAction.class);
