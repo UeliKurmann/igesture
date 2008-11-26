@@ -30,7 +30,6 @@ import java.io.File;
 import java.util.HashSet;
 
 import org.apache.commons.io.FileUtils;
-import org.ximtec.igesture.tool.view.batch.BatchController;
 import org.ximtec.igesture.util.XMLTool;
 
 
@@ -118,7 +117,7 @@ public class BatchTools {
                OUT_FILE_XML));
 
          String html = XMLTool.transform(
-               XMLTool.exportBatchResultSet(resultSet), BatchController.class
+               XMLTool.exportBatchResultSet(resultSet), BatchTools.class
                      .getClassLoader().getResourceAsStream(XSL_HTML));
          FileUtils.writeStringToFile(new File(outputDirectory, OUT_FILE_HTML),
                html);
