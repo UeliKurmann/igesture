@@ -30,7 +30,6 @@
 
 package org.ximtec.igesture.core;
 
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -186,18 +185,6 @@ public class GestureClass extends DefaultDataObject {
       }
    
    } // accept
-
-
-   public Image getImage(Object size) {
-      // TODO Implement...
-      return null;
-   } // getImage
-
-
-   public Image getImage(Object size, boolean fallback) {
-      // TODO Implement...
-      return null;
-   } // getImage
 
 
    @Override

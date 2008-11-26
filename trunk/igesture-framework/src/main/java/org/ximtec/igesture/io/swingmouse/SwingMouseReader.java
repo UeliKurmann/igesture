@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -24,7 +24,7 @@
  */
 
 
-package org.ximtec.igesture.io;
+package org.ximtec.igesture.io.swingmouse;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -35,6 +35,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -44,6 +45,7 @@ import org.sigtec.ink.input.PenUpEvent;
 import org.sigtec.ink.input.TimestampedLocation;
 import org.sigtec.input.AbstractInputDevice;
 import org.sigtec.util.Constant;
+import org.ximtec.igesture.io.MouseReaderEvent;
 
 
 /**
@@ -52,6 +54,8 @@ import org.sigtec.util.Constant;
  * @author Ueli Kurmann
  */
 public class SwingMouseReader extends AbstractInputDevice {
+
+   private static int FREQUENCY = 50;
 
    private Boolean mouseClicked;
    private Point translation;
@@ -63,12 +67,12 @@ public class SwingMouseReader extends AbstractInputDevice {
 
    public SwingMouseReader() {
       buffer = new ArrayList<Point>();
-
       mouseClicked = false;
+
       identifier = SwingMouseReader.class.getName() + Constant.UNDERSCORE
             + System.currentTimeMillis();
 
-      new Thread(worker, identifier).start();
+      Executors.newCachedThreadPool().execute(new Worker());
    }
 
 
@@ -78,40 +82,15 @@ public class SwingMouseReader extends AbstractInputDevice {
 
 
    public JPanel getPanel(Dimension dimension) {
-      final SwingMouseReaderPanel panel = new SwingMouseReaderPanel(this);
+      SwingMouseReaderPanel panel = new SwingMouseReaderPanel(this);
       panel.setSize(dimension);
       panel.setPreferredSize(dimension);
       panel.setOpaque(true);
       panel.setBackground(Color.WHITE);
       panel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 
-      panel.addMouseListener(new MouseAdapter() {
+      panel.addMouseListener(new SwingMouseListener(panel));
 
-         SwingMouseReaderPanel owner = panel;
-
-
-         @Override
-         public void mousePressed(MouseEvent e) {
-            super.mousePressed(e);
-            currentPanel = owner;
-            Point p1 = e.getPoint();
-            Point p2 = MouseInfo.getPointerInfo().getLocation();
-            translation = new Point((int)(p1.getX() - p2.getX()), (int)(p1
-                  .getY() - p2.getY()));
-            mouseClicked = true;
-
-         }
-
-
-         @Override
-         public void mouseReleased(MouseEvent e) {
-            super.mouseReleased(e);
-            mouseClicked = false;
-            fireInputDeviceEvent(new MouseReaderEvent(new PenUpEvent(System
-                  .currentTimeMillis(), identifier)));
-            lastPoint = null;
-         }
-      });
       return panel;
    }
 
@@ -123,39 +102,75 @@ public class SwingMouseReader extends AbstractInputDevice {
       }
    }
 
-   private Runnable worker = new Runnable() {
+   private class SwingMouseListener extends MouseAdapter {
+
+      SwingMouseReaderPanel owner;
+
+
+      private SwingMouseListener(SwingMouseReaderPanel panel) {
+         this.owner = panel;
+      }
+
+
+      @Override
+      public void mousePressed(MouseEvent e) {
+         super.mousePressed(e);
+         currentPanel = owner;
+         Point p1 = e.getPoint();
+         Point p2 = MouseInfo.getPointerInfo().getLocation();
+         translation = new Point((int)(p1.getX() - p2.getX()),
+               (int)(p1.getY() - p2.getY()));
+         mouseClicked = true;
+      }
+
+
+      @Override
+      public void mouseReleased(MouseEvent e) {
+         super.mouseReleased(e);
+         mouseClicked = false;
+         fireInputDeviceEvent(new MouseReaderEvent(new PenUpEvent(System
+               .currentTimeMillis(), identifier)));
+         lastPoint = null;
+      }
+   }
+
+   private class Worker implements Runnable {
 
       @Override
       public void run() {
          while (true) {
-            try {
-               Thread.sleep(20);
-               if (mouseClicked) {
-                  PointerInfo info = MouseInfo.getPointerInfo();
-                  Point currentPoint = info.getLocation();
-                  currentPoint.move((int)(currentPoint.getX() + translation
-                        .getX()),
-                        (int)(currentPoint.getY() + translation.getY()));
+            if (mouseClicked) {
+               PointerInfo info = MouseInfo.getPointerInfo();
+               Point currentPoint = info.getLocation();
 
-                  Location location = new Location(Constant.EMPTY_STRING, 0,
-                        currentPoint, identifier);
-                  fireInputDeviceEvent(new MouseReaderEvent(
-                        new TimestampedLocation(location, System
-                              .currentTimeMillis())));
+               currentPoint.move(
+                     (int)(currentPoint.getX() + translation.getX()),
+                     (int)(currentPoint.getY() + translation.getY()));
 
-                  buffer.add(currentPoint);
+               Location location = new Location(Constant.EMPTY_STRING, 0,
+                     currentPoint, identifier);
 
-                  if (currentPanel != null) {
-                     currentPanel.drawLine(lastPoint, currentPoint);
-                  }
+               fireInputDeviceEvent(new MouseReaderEvent(
+                     new TimestampedLocation(location, System
+                           .currentTimeMillis())));
 
-                  lastPoint = currentPoint;
+               buffer.add(currentPoint);
+
+               if (currentPanel != null) {
+                  currentPanel.drawLine(lastPoint, currentPoint);
                }
+
+               lastPoint = currentPoint;
+            }
+
+            try {
+               Thread.sleep(1000 / FREQUENCY);
             }
             catch (InterruptedException e) {
                e.printStackTrace();
             }
          }
       }
-   };
+   }
+
 }

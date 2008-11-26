@@ -51,7 +51,7 @@ import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.io.InputDeviceClient;
-import org.ximtec.igesture.io.SwingMouseReader;
+import org.ximtec.igesture.io.swingmouse.SwingMouseReader;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.locator.Locator;
