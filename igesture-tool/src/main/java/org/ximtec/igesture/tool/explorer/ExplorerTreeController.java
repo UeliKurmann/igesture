@@ -168,7 +168,7 @@ public class ExplorerTreeController extends DefaultController implements
          if (paths != null) {
             for (TreePath treePath : paths) {
 
-               if (treePath.getLastPathComponent() == evt.getSource()) {
+               if (treePath.getLastPathComponent() == evt.getSource() && !nodeInfos.get(treePath.getLastPathComponent().getClass()).isLeaf(treePath.getLastPathComponent())) {
                   tree.setSelectionPath(treePath.pathByAddingChild(evt
                         .getNewValue()));
                }

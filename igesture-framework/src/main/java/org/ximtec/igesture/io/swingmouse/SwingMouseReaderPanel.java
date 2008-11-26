@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -24,7 +24,7 @@
  */
 
 
-package org.ximtec.igesture.io;
+package org.ximtec.igesture.io.swingmouse;
 
 import java.awt.Cursor;
 import java.awt.Graphics;
@@ -65,7 +65,7 @@ public class SwingMouseReaderPanel extends JPanel {
       if (getGraphics() != null) {
          getGraphics().clearRect(0, 0, getWidth(), getHeight());
       }
-
+      
       repaint();
    }
 
@@ -73,18 +73,17 @@ public class SwingMouseReaderPanel extends JPanel {
    @Override
    public void paint(Graphics g) {
       super.paint(g);
-      if (reader != null) {
-         List<Point> buffer = reader.getBuffer();
-         for (int i = 0; i < buffer.size() - 1; i++) {
-            drawLine(buffer.get(i), buffer.get(i + 1));
-         }
-      }
+      redrawGesture();
    }
 
 
    @Override
    public void repaint() {
       super.repaint();
+      redrawGesture();
+   }
+   
+   private void redrawGesture(){
       if (reader != null) {
          List<Point> buffer = reader.getBuffer();
          for (int i = 0; i < buffer.size() - 1; i++) {

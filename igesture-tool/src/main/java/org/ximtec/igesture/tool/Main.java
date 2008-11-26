@@ -42,11 +42,15 @@ public class Main {
 
    public static void main(String[] args) {      
       try {
-         //UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+         UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
       }
       catch (Exception e) {
-         e.printStackTrace();
+         try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+         }
+         catch (Exception e1) {
+            e1.printStackTrace();
+         }
       }
       
       new MainController();

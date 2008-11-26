@@ -94,6 +94,7 @@ public class GestureSetPanel extends AbstractPanel {
                sample = gestureClass.getDescriptor(SampleDescriptor.class).getSample(0);
             }
             if(sample != null){
+               
                JLabel label = new JLabel(new ImageIcon(GestureTool
                      .createNoteImage(sample.getGesture(), 100, 100)));
                label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));

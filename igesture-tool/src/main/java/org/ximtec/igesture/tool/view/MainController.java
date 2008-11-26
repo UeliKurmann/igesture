@@ -45,7 +45,7 @@ import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.DataObjectWrapper;
 import org.ximtec.igesture.io.MouseReaderEventListener;
-import org.ximtec.igesture.io.SwingMouseReader;
+import org.ximtec.igesture.io.swingmouse.SwingMouseReader;
 import org.ximtec.igesture.storage.StorageManager;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Command;

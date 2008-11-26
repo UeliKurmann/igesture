@@ -43,7 +43,7 @@ import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.io.InputDeviceClient;
-import org.ximtec.igesture.io.SwingMouseReader;
+import org.ximtec.igesture.io.swingmouse.SwingMouseReader;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.locator.Locator;
