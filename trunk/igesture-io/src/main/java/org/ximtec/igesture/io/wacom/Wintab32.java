@@ -33,7 +33,6 @@ package org.ximtec.igesture.io.wacom;
 
 import org.ximtec.igesture.io.win32.W32API;
 
-import com.sun.jna.Native;
 import com.sun.jna.Structure;
 
 
@@ -44,10 +43,7 @@ import com.sun.jna.Structure;
 
 public interface Wintab32 extends W32API {
 
-		
-
-	    public Wintab32 INSTANCE = (Wintab32)
-	    Native.loadLibrary("wintab32", Wintab32.class, DEFAULT_OPTIONS);
+	  
 	    
 	    static int HWND_BROADCAST = 0xffff;
     	static int WTI_DEFCONTEXT = 3; //first parameter for WTInfo (not move cursor)
