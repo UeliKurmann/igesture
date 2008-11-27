@@ -113,8 +113,15 @@ public class MainController extends DefaultController implements Service {
 
    private void initServices() {
       guiBundle = new GuiBundleService(RESOURCE_BUNDLE);
+      
+      
+      File database = null;
+      while(database == null){
+         database = getDatabase();
+      }
+      
       mainModel = new MainModel(StorageManager
-            .createStorageEngine(getDatabase()), this);
+            .createStorageEngine(database), this);
       deviceClient = new InputDeviceClientService(new SwingMouseReader(),
             new BufferedInputDeviceEventListener(new MouseReaderEventListener(),
                   BUFFER_SIZE));
@@ -219,8 +226,8 @@ public class MainController extends DefaultController implements Service {
             execShowAboutDialog();
          }
          else {
-            LOGGER.warning("Command not handled by MainController: '" + command.getCommand()
-                  + Constant.SINGLE_QUOTE);
+            LOGGER.warning("Command not handled by MainController: '"
+                  + command.getCommand() + Constant.SINGLE_QUOTE);
             super.execute(command);
          }
 
@@ -369,14 +376,12 @@ public class MainController extends DefaultController implements Service {
    private File getDatabase() {
       File file = null;
 
-      while (file == null) {
-         JFileChooser chooser = new JFileChooser();
-         chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceDb4o());
-         chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceXStream());
-         chooser.setFileFilter(FileFilterFactory.getWorkspaceCompressed());
-         chooser.showOpenDialog(null);
-         file = chooser.getSelectedFile();
-      }
+      JFileChooser chooser = new JFileChooser();
+      chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceDb4o());
+      chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceXStream());
+      chooser.setFileFilter(FileFilterFactory.getWorkspaceCompressed());
+      chooser.showOpenDialog(null);
+      file = chooser.getSelectedFile();
 
       return file;
    } // getDatabase
