@@ -29,17 +29,19 @@ package org.ximtec.igesture.io;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
-import java.util.logging.Level;
+import java.util.Set;
+import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
 import org.sigtec.ink.input.Location;
 import org.sigtec.ink.input.TimestampedLocation;
 import org.sigtec.input.InputDeviceEvent;
-import org.sigtec.util.Constant;
-import org.ximtec.igesture.io.mouse.MouseCallback;
+import org.ximtec.igesture.io.mouse.MouseEventListener;
 import org.ximtec.igesture.io.mouse.MouseUtils;
+import org.ximtec.igesture.io.mouse.MouseUtils.MouseButton;
 
 
 /**
@@ -49,93 +51,57 @@ import org.ximtec.igesture.io.mouse.MouseUtils;
  * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class MouseReader extends ExtendedInputDevice implements
-      ButtonDevice, MouseCallback {
+public class MouseReader extends ExtendedInputDevice implements ButtonDevice,
+      MouseEventListener {
 
    private static final Logger LOGGER = Logger.getLogger(MouseReader.class
          .getName());
 
-   private static final int FREQUENCE = 20;
-
    private boolean lastKeyState = false;
 
+   private Set<ButtonDeviceEventListener> buttonUpEvents;
 
-   private HashSet<ButtonDeviceEventListener> buttonUpEvents;
-   
-   final MouseReader mouseReader = this;
-   
    private MouseUtils mouseUtils;
-   
-   
+
+
    public MouseReader() {
-     // init();
-      initCallback();
       buttonUpEvents = new HashSet<ButtonDeviceEventListener>();
+
+      mouseUtils = new MouseUtils(this);
+      Executors.newSingleThreadExecutor().execute(mouseUtils);
    }
 
 
-   /**
-    * Initialises the mouse reader and starts a new thread polling the mouse.
-    * 
+   /*
+    * (non-Javadoc)
+    * @see org.ximtec.igesture.io.mouse.MouseCallback#callbackFunction(int, int,
+    *      boolean)
     */
-   public void init() {
+   @Override
+   public void mouseEvent(int x, int y, EnumSet<MouseButton> buttons) {
 
-      final Thread t = new Thread() {
+      LOGGER.info("Mouse Event...");
 
-         @Override
-         public void run() {
-            while (!stop) {
+      if (buttons.contains(MouseButton.MIDDLE)) {
+         Location location = new Location("screen", 1, new Point(x, y));
+         TimestampedLocation tsl = new TimestampedLocation(location, System
+               .currentTimeMillis());
+         this.fireInputDeviceEvent(new MouseReaderEvent(tsl));
+         lastKeyState = true;
+      }
+      else {
 
-               if (Win32MouseProxy.isMiddleButtonPressed()) {
-                  Location location = new Location("screen", 1, Win32MouseProxy
-                        .getCursorLocation());
-                  TimestampedLocation tsl = new TimestampedLocation(location,
-                        System.currentTimeMillis());
-                  mouseReader.fireInputDeviceEvent(new MouseReaderEvent(tsl));
-                  lastKeyState = true;
+         if (lastKeyState) {
+            this.fireMouseButtonEvent(new InputDeviceEvent() {
+
+               public long getTimestamp() {
+                  return System.currentTimeMillis();
                }
-               else {
-
-                  if (lastKeyState) {
-                     mouseReader.fireMouseButtonEvent(new InputDeviceEvent() {
-
-                        public long getTimestamp() {
-                           return System.currentTimeMillis();
-                        }
-                     });
-                     lastKeyState = false;
-                  }
-               }
-               try {
-                  Thread.sleep(1000 / FREQUENCE);
-               }
-               catch (InterruptedException e) {
-                  LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-               }
-
-            }
-
+            });
+            lastKeyState = false;
          }
-
-      };
-
-      t.start();
-   } // init
-   
-   
-   
-
-   /**
-    * Initialises the callback.
-    * 
-    */
-   public void initCallback() {
-
-      mouseUtils = new MouseUtils(this);
-      mouseUtils.start();
-   } // init
-  
-
+      }
+   }
 
 
    /**
@@ -150,55 +116,49 @@ public class MouseReader extends ExtendedInputDevice implements
    } // createMouse
 
 
+   /*
+    * (non-Javadoc)
+    * @see org.ximtec.igesture.io.ButtonDevice#addButtonDeviceEventListener(org.ximtec.igesture.io.ButtonDeviceEventListener)
+    */
+   @Override
    public void addButtonDeviceEventListener(ButtonDeviceEventListener listener) {
       buttonUpEvents.add(listener);
    } // addButtonDeviceEventListener
 
 
+   /*
+    * (non-Javadoc)
+    * @see org.ximtec.igesture.io.ButtonDevice#removeButtonDeviceEventListener(org.ximtec.igesture.io.ButtonDeviceEventListener)
+    */
+   @Override
    public void removeButtonDeviceEventListener(ButtonDeviceEventListener listener) {
       buttonUpEvents.remove(listener);
    } // removeButtonDeviceEventListener
 
 
+   /**
+    * Fires a mouse button event
+    * @param event
+    */
    private void fireMouseButtonEvent(InputDeviceEvent event) {
       for (final ButtonDeviceEventListener listener : buttonUpEvents) {
          listener.handleButtonPressedEvent(event);
       }
 
    } // fireMouseButtonEvent
-   
 
 
-   public void callbackFunction(int x, int y, boolean buttonPressed){
-     // System.out.println("callback: "+x+" - "+y);
-      if (buttonPressed) {
-         Location location = new Location("screen", 1, new Point(x,y));
-         TimestampedLocation tsl = new TimestampedLocation(location,
-               System.currentTimeMillis());
-         mouseReader.fireInputDeviceEvent(new MouseReaderEvent(tsl));
-         lastKeyState = true;
-      }
-      else {
+   @Override
+   public void mouseButtonPressed(EnumSet<MouseButton> buttons) {
+      // TODO Auto-generated method stub
 
-         if (lastKeyState) {
-            mouseReader.fireMouseButtonEvent(new InputDeviceEvent() {
-
-               public long getTimestamp() {
-                  return System.currentTimeMillis();
-               }
-            });
-            lastKeyState = false;
-         }
-      }
-      
    }
-   
-   public int getMouseButton(){
-      int MIDDLE= 0x04;
-      return MIDDLE;
+
+
+   @Override
+   public void mouseMoved(int x, int y) {
+      // TODO Auto-generated method stub
+
    }
-   
-   public boolean hasToBeStopped(){
-      return stop;
-   }
+
 }

@@ -10,11 +10,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.  
  */
+
+
 package org.ximtec.igesture.io.win32;
 
 public interface W32Errors {
-    int NO_ERROR = 0;
-    int ERROR_INVALID_FUNCTION = 1;
-    int ERROR_FILE_NOT_FOUND = 2;
-    int ERROR_PATH_NOT_FOUND = 3;
+
+   int NO_ERROR = 0;
+   int ERROR_INVALID_FUNCTION = 1;
+   int ERROR_FILE_NOT_FOUND = 2;
+   int ERROR_PATH_NOT_FOUND = 3;
 }

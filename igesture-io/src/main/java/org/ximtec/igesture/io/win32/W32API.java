@@ -13,15 +13,10 @@
 
 package org.ximtec.igesture.io.win32;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.sun.jna.IntegerType;
 import com.sun.jna.Pointer;
 import com.sun.jna.PointerType;
 import com.sun.jna.win32.StdCallLibrary;
-import com.sun.jna.win32.W32APIFunctionMapper;
-import com.sun.jna.win32.W32APITypeMapper;
 
 /** Base type for most W32 API libraries.  Provides standard options
  * for unicode/ASCII mappings.  Set the system property <code>w32.ascii</code>
@@ -29,21 +24,6 @@ import com.sun.jna.win32.W32APITypeMapper;
  */
 public interface W32API extends StdCallLibrary, W32Errors {
     
-    /** Standard options to use the unicode version of a w32 API. */
-    Map<String, Object> UNICODE_OPTIONS = new HashMap<String, Object>() {
-        {
-            put(OPTION_TYPE_MAPPER, W32APITypeMapper.UNICODE);
-            put(OPTION_FUNCTION_MAPPER, W32APIFunctionMapper.UNICODE);
-        }
-    };
-    /** Standard options to use the ASCII/MBCS version of a w32 API. */
-    Map<String, Object> ASCII_OPTIONS = new HashMap<String, Object>() {
-        {
-            put(OPTION_TYPE_MAPPER, W32APITypeMapper.ASCII);
-            put(OPTION_FUNCTION_MAPPER, W32APIFunctionMapper.ASCII);
-        }
-    };
-    Map<String, Object> DEFAULT_OPTIONS = Boolean.getBoolean("w32.ascii") ? ASCII_OPTIONS : UNICODE_OPTIONS;
     
     public static class HANDLE extends PointerType { 
         public HANDLE() { }
@@ -82,6 +62,7 @@ public interface W32API extends StdCallLibrary, W32Errors {
     	public LRESULT() { this(0); }
     	public LRESULT(long value) { super(value); }
     } 
+    
     public static class ULONG_PTR extends IntegerType {
     	public ULONG_PTR() { super(Pointer.SIZE); }
     	public ULONG_PTR(long value) { super(Pointer.SIZE, value); }

@@ -31,7 +31,6 @@ package org.ximtec.igesture.io.wacom;
 import java.awt.Point;
 import java.util.logging.Logger;
 
-import org.ximtec.igesture.io.wacom.WacomUtils;
 import org.ximtec.igesture.io.wacom.Wintab32.ORIENTATION;
 import org.ximtec.igesture.io.wacom.Wintab32.PACKET;
 import org.ximtec.igesture.io.wacom.Wintab32.ROTATION;

@@ -25,10 +25,10 @@
 
 package org.ximtec.igesture.io.wacom;
 
-import org.ximtec.igesture.io.keyboard.KeyboardUtils.Kernel32;
 import org.ximtec.igesture.io.wacom.Wintab32.LOGCONTEXTW;
 import org.ximtec.igesture.io.wacom.Wintab32.PACKET;
 import org.ximtec.igesture.io.win32.User32;
+import org.ximtec.igesture.io.win32.Win32;
 import org.ximtec.igesture.io.win32.User32.MSG;
 import org.ximtec.igesture.io.win32.W32API.HANDLE;
 import org.ximtec.igesture.io.win32.W32API.HDC;
@@ -48,7 +48,7 @@ public class WacomUtils extends Thread{
 	 * @author Michele Croci
 	 */
 	
-	Wintab32 lib = Wintab32.INSTANCE;
+	Wintab32 lib = Win32.WINTAB32_INSTANCE;
 	HDC hdc = new HDC();
 	TabletProc tabletListener;
 	HANDLE handle;
@@ -65,7 +65,7 @@ public class WacomUtils extends Thread{
 	
 	   
 	   private void init(){
-          hinst = Kernel32.INSTANCE.GetModuleHandle(null);
+          hinst = Win32.KERNEL32_INSTANCE.GetModuleHandle(null);
 
           tabletListener = new TabletProc() {
 
@@ -79,10 +79,10 @@ public class WacomUtils extends Thread{
                 PACKET[] arr = new PACKET[2];
                 getPackets(2, arr);
                
-                return User32.INSTANCE.CallNextHookEx(handle, code, wParam, lParam);
+                return Win32.USER32_INSTANCE.CallNextHookEx(handle, code, wParam, lParam);
              }
           };
-           handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_MOUSE_LL, tabletListener, hinst,0);
+           handle = Win32.USER32_INSTANCE.SetWindowsHookExW(User32.WH_MOUSE_LL, tabletListener, hinst,0);
 	   }
 	   
 	   private void fireEvent(PACKET p){
@@ -117,7 +117,7 @@ public class WacomUtils extends Thread{
 	     * Close session with wacom Tablet PC
 	     */
 	    public void close() {
-	    	boolean ret = lib.WTClose(hdc);
+	    	lib.WTClose(hdc);
 	    	lib.WacomDoSpecialContextHandling(false);
 	    }
 	    
@@ -185,7 +185,7 @@ public class WacomUtils extends Thread{
          * Register callback function
          */
 	    private void registerHook(){
-	       handle = User32.INSTANCE.SetWindowsHookExW(User32.WH_KEYBOARD_LL, tabletListener, hinst, 0); 
+	       handle = Win32.USER32_INSTANCE.SetWindowsHookExW(User32.WH_KEYBOARD_LL, tabletListener, hinst, 0); 
 	    }
 	    
 	    
@@ -199,7 +199,7 @@ public class WacomUtils extends Thread{
 	          registerHook();
 	          open();
 	           MSG msg = new MSG();
-	           while(User32.INSTANCE.GetMessageW(msg,null,0,0)!=0){
+	           while(Win32.USER32_INSTANCE.GetMessageW(msg,null,0,0)!=0){
 	               //User32.INSTANCE.DispatchMessage(msg);
 	           }
 	       close();
