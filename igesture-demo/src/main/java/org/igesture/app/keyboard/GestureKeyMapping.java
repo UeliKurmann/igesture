@@ -26,11 +26,8 @@
 
 package org.igesture.app.keyboard;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.sigtec.util.Constant;
-import org.ximtec.igesture.io.Win32KeyboardProxy;
+import org.ximtec.igesture.io.keyboard.Key;
 
 
 /**
@@ -42,14 +39,12 @@ import org.ximtec.igesture.io.Win32KeyboardProxy;
  */
 public class GestureKeyMapping {
 
-   private static final String REGEX = "\\+";
-   private static final String KEY_NOT_RECOGNISED = "Key not recognised!";
 
-   private Integer[] keys;
+   private Key[] keys;
    private String gestureName;
 
 
-   public GestureKeyMapping(String gesture, String keys) {
+   public GestureKeyMapping(String gesture, Key... keys) {
       super();
       setKeys(keys);
       this.gestureName = gesture;
@@ -66,32 +61,12 @@ public class GestureKeyMapping {
    } // getGestureName
 
 
-   public void setKeys(Integer[] keys) {
+   public void setKeys(Key[] keys) {
       this.keys = keys;
    } // setKeys
 
 
-   public void setKeys(String keys) {
-      List<Integer> codes = new ArrayList<Integer>();
-
-      for (String key : keys.split(REGEX)) {
-         key = key.trim();
-         int code = Win32KeyboardProxy.getKey(key);
-
-         if (code > 0) {
-            codes.add(code);
-         }
-         else {
-            throw new IllegalStateException(KEY_NOT_RECOGNISED);
-         }
-
-      }
-
-      this.keys = codes.toArray(new Integer[0]);
-   } // setKeys
-
-
-   public Integer[] getKeys() {
+   public Key[] getKeys() {
       return keys;
    } // getKeys
 
@@ -101,7 +76,7 @@ public class GestureKeyMapping {
       StringBuilder sb = new StringBuilder();
       sb.append(Constant.OPEN_ANGULAR_BRACKET);
 
-      for (int key : keys) {
+      for (Key key : keys) {
          sb.append(key + Constant.PLUS);
       }
 

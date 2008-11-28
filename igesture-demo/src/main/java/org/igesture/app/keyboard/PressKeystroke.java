@@ -29,6 +29,7 @@ package org.igesture.app.keyboard;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.GestureAction;
 import org.ximtec.igesture.io.Win32KeyboardProxy;
+import org.ximtec.igesture.io.keyboard.Key;
 
 
 /**
@@ -38,10 +39,10 @@ import org.ximtec.igesture.io.Win32KeyboardProxy;
  */
 public class PressKeystroke implements GestureAction {
 
-   private Integer[] keys;
+   private Key[] keys;
 
 
-   public PressKeystroke(Integer[] keys) {
+   public PressKeystroke(Key... keys) {
       this.keys = keys;
    }
 

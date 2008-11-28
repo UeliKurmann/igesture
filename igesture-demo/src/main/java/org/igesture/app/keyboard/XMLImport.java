@@ -32,6 +32,7 @@ import java.util.List;
 
 import org.jdom.Document;
 import org.jdom.Element;
+import org.ximtec.igesture.io.keyboard.Key;
 import org.ximtec.igesture.util.XMLTool;
 
 
@@ -42,15 +43,20 @@ public class XMLImport {
    private static String ROOT_TAG = "gestureMapping";
 
 
+   @SuppressWarnings("unchecked")
    public static List<GestureKeyMapping> importKeyMappings(File file) {
       final List<GestureKeyMapping> mappings = new ArrayList<GestureKeyMapping>();
       final Document document = XMLTool.importDocument(file);
       final List<Element> mappingElements = document.getRootElement().getChildren(ROOT_TAG);
 
       for (final Element mappingElement : mappingElements) {
-         String key = mappingElement.getChildText(KEY);
+         String keyList = mappingElement.getChildText(KEY);
          String gesture = mappingElement.getChildText(GESTURE);
-         mappings.add(new GestureKeyMapping(gesture, key));
+         try{
+            mappings.add(new GestureKeyMapping(gesture, Key.parseKeyList(keyList)));
+         }catch(Exception e){
+            e.printStackTrace();
+         }
       }
 
       return mappings;

@@ -144,7 +144,7 @@ public class MappingDialog extends BasicDialog {
          if (gestureMapping.getAction() instanceof KeyboardSimulation) {
             KeyboardSimulation ks = (KeyboardSimulation)gestureMapping
                   .getAction();
-            hotkeyView.updateView(ks.getAllKeys());
+            hotkeyView.updateView(ks.toString());
 
          }
          else if (gestureMapping.getAction() instanceof CommandExecutor) {

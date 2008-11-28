@@ -361,9 +361,10 @@ public class MainModel implements ButtonDeviceEventListener {
       if (recogniser == null) {
 
          try {
-            this.configuration.setGestureHandler(eventManager);
+            
             configuration.addGestureSet(gestureSet);
             recogniser = new Recogniser(configuration);
+            recogniser.addGestureHandler(eventManager);
             client.addButtonDeviceEventListener(this);
          }
          catch (Exception e) {
@@ -386,6 +387,7 @@ public class MainModel implements ButtonDeviceEventListener {
          recogniser.recognise(note);
       }
    } // handleButtonPressedEvent
+   
 
 
    /**

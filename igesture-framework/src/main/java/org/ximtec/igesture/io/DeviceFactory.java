@@ -40,7 +40,7 @@ public class DeviceFactory {
      
 
    public static InputDeviceClient newMouseDevice(){
-      InputDevice device = new MouseReader();
+      InputDevice device = new MouseReader(); 
       InputDeviceEventListener listener = new BufferedInputDeviceEventListener(
             new MouseReaderEventListener(), 10000);
       InputDeviceClient client = new InputDeviceClient(device, listener);

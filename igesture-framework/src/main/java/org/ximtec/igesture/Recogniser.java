@@ -59,6 +59,8 @@ import org.ximtec.igesture.util.XMLTool;
  */
 public class Recogniser {
 
+   private static final int NUMBER_OF_THREADS = 6;
+
    private static final Logger LOGGER = Logger.getLogger(Recogniser.class
          .getName());
 
@@ -168,23 +170,19 @@ public class Recogniser {
     *            event.
     */
    protected void fireEvent(final ResultSet resultSet) {
-      Executor executor = Executors.newFixedThreadPool(6);
-
+      Executor executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
       for (final GestureHandler gestureHandler : gestureHandlers) {
-
+         LOGGER.info("Handler: "+gestureHandler.getClass());
          if (gestureHandler != null) {
             executor.execute(new Runnable() {
 
                @Override
                public void run() {
                   gestureHandler.handle(resultSet);
-
                }
-
+               
             });
-
          }
-
       }
 
    } // fireEvent
@@ -221,7 +219,7 @@ public class Recogniser {
          }
 
       }
-
+      LOGGER.info(result.toString());
       fireEvent(result);
       return result;
    } // recognise

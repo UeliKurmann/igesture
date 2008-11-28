@@ -40,9 +40,8 @@ public interface GDI32 extends W32API {
    }
 
    int RDH_RECTANGLES = 1;
-
+   
    public static class RGNDATAHEADER extends Structure {
-
       public int dwSize = size();
       public int iType = RDH_RECTANGLES; // required
       public int nCount;

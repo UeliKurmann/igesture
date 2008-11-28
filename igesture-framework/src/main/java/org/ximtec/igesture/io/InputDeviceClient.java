@@ -28,6 +28,7 @@ package org.ximtec.igesture.io;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Point;
@@ -59,11 +60,11 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
 
    private InputDevice inputDevice = null;
 
-   private HashSet<InputDeviceEventListener> inputDeviceListeners;
+   private Set<InputDeviceEventListener> inputDeviceListeners;
 
-   private HashSet<ButtonDeviceEventListener> buttonDeviceListeners;
+   private Set<ButtonDeviceEventListener> buttonDeviceListeners;
 
-   private HashSet<InputHandler> inputHandlerListeners;
+   private Set<InputHandler> inputHandlerListeners;
 
 
    public InputDeviceClient(InputDevice inputDevice,
@@ -119,7 +120,7 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
       }
 
       if (inputDevice instanceof AbstractInputDevice) {
-         ((ExtendedInputDevice)inputDevice).stopLoop();
+         //((ExtendedInputDevice)inputDevice).stopLoop();
       }
 
    } // init

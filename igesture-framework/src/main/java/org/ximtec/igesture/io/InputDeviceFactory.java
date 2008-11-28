@@ -26,8 +26,6 @@
 
 package org.ximtec.igesture.io;
 
-import java.util.List;
-
 import org.apache.commons.configuration.XMLConfiguration;
 import org.sigtec.exception.NotImplementedException;
 import org.sigtec.input.BufferedInputDeviceEventListener;
@@ -50,7 +48,7 @@ public class InputDeviceFactory {
    
    public static final String TABLET_PC = "TabletPC";
 
-   private static final String MAPPING_FILE = "mappingFile";
+   //private static final String MAPPING_FILE = "mappingFile";
 
    public static final int DEFAULT_BUFFER_SIZE = 10000;
 
@@ -143,18 +141,18 @@ public class InputDeviceFactory {
     * Returns an XPath expression.
     * 
     * @return the XPath expression.
-    */
+
    private static String getParameterXPathString(String deviceIdentifier,
          String parameterName) {
       return "inputdevices/device[@name='" + deviceIdentifier
             + "']/parameters/parameter[@name='" + parameterName + "']";
    } // getParameterXPathString
-
+    */
 
    /**
     * Returns the parameter value as string.
     * @return the parameter value as string.
-    */
+    
    private static String getParameter(XMLConfiguration configuration,
          String deviceIdentifier, String parameterName) {
       List<?> list = configuration.getList(getParameterXPathString(
@@ -166,7 +164,7 @@ public class InputDeviceFactory {
 
       return null;
    } // getParameter
-
+*/
 
    /**
     * Returns a buffered MagicommPenEventListener.
@@ -175,9 +173,9 @@ public class InputDeviceFactory {
     */
    private static BufferedInputDeviceEventListener getMagicommListener(
          XMLConfiguration configuration) {
-      String mappingFile = getParameter(configuration, MAGICOM_PEN_SOCKET,
-            MAPPING_FILE);
+    
       /**
+       * String mappingFile = getParameter(configuration, MAGICOM_PEN_SOCKET, MAPPING_FILE);
        * return new BufferedInputDeviceEventListener( new
        * MagicommPenEventListener(new AnotoTransformer(
        * getAnotoMappings(mappingFile))), DEFAULT_BUFFER_SIZE);
