@@ -70,6 +70,7 @@ public class XMLImportGeco {
     * 
     * @param file the XML file in which the project is saved.
     */
+   @SuppressWarnings("unchecked")
    public void importProject(File file) {
       GestureSet newGestureSet = null;
       mappings = new ArrayList<GestureToActionMapping>();

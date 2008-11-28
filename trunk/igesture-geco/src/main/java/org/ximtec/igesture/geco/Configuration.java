@@ -220,6 +220,7 @@ public class Configuration {
    } // getInputDeviceEventListener
 
 
+   @SuppressWarnings("unchecked")
    private synchronized void selectDevice() {
       int i = 1;
 

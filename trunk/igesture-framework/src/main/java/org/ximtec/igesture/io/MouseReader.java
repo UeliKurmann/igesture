@@ -34,10 +34,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.sigtec.ink.input.Location;
 import org.sigtec.ink.input.TimestampedLocation;
+import org.sigtec.input.AbstractInputDevice;
 import org.sigtec.input.InputDeviceEvent;
 import org.ximtec.igesture.io.mouse.MouseEventListener;
 import org.ximtec.igesture.io.mouse.MouseUtils;
@@ -51,7 +53,7 @@ import org.ximtec.igesture.io.mouse.MouseUtils.MouseButton;
  * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class MouseReader extends ExtendedInputDevice implements ButtonDevice,
+public class MouseReader extends AbstractInputDevice implements ButtonDevice,
       MouseEventListener {
 
    private static final Logger LOGGER = Logger.getLogger(MouseReader.class
@@ -80,9 +82,10 @@ public class MouseReader extends ExtendedInputDevice implements ButtonDevice,
    @Override
    public void mouseEvent(int x, int y, EnumSet<MouseButton> buttons) {
 
-      LOGGER.info("Mouse Event...");
+      
 
       if (buttons.contains(MouseButton.MIDDLE)) {
+         LOGGER.log(Level.FINEST, "Mouse Event...");
          Location location = new Location("screen", 1, new Point(x, y));
          TimestampedLocation tsl = new TimestampedLocation(location, System
                .currentTimeMillis());

@@ -13,6 +13,7 @@
  * Date				Who			Reason
  *
  * Nov 27, 2007		crocimi		Initial Release
+ * Nov 27, 2008     kurmannu    Cleanup, Refactoring
  *
  * -----------------------------------------------------------------------
  *
@@ -23,35 +24,25 @@
  * 
  */
 
-/**
- * Comment
- * @version 0.9, Nov 27, 2007
- * @author Michele Croci, mcroci@gmail.com
- */
-
 
 package org.ximtec.igesture.geco.action;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.GestureAction;
 import org.ximtec.igesture.io.Win32KeyboardProxy;
+import org.ximtec.igesture.io.keyboard.Key;
 
 
 /**
  * @version 0.9, Mar 2007
  * @author Michele Croci, mcroci@gmail.com
+ * @author Ueli Kurmann, ueli.kurmann@bbv.ch
  */
 public class KeyboardSimulation implements GestureAction {
 
-   private Integer[] keys;
-   private String stringKeys;
+   private Key[] keys;
 
-   private static final String REGEX = "\\+";
-   private static final String KEY_NOT_RECOGNISED = "Key not recognised!";
 
    /**
     * Constructor.
@@ -59,7 +50,7 @@ public class KeyboardSimulation implements GestureAction {
     * @param keys the keys corresponding to the action
     */
    public KeyboardSimulation(String keys) {
-      setKeys(keys);
+      setKeys(Key.parseKeyList(keys));
    }// KeyboardSimulationAction
 
 
@@ -73,46 +64,18 @@ public class KeyboardSimulation implements GestureAction {
     * 
     * @param keys the keys corresponding to the action
     */
-   public void setKeys(Integer[] keys) {
+   public void setKeys(Key[] keys) {
       this.keys = keys;
    } // setKeys
 
 
    /**
-    * Set the keys to be pressed.
-    * 
-    * @param keys the keys corresponding to the action
-    */
-   public void setKeys(String keys) {
-      this.stringKeys = keys;
-      List<Integer> codes = new ArrayList<Integer>();
-      // int length= keys.split(REGEX).length;
-      for (String key : keys.split(REGEX)) {
-         key = key.trim();
-         key = key.replaceAll(Constant.BLANK, Constant.UNDERSCORE);
-         int code = Win32KeyboardProxy.getKey(key);
-
-         if (code > 0) {
-            codes.add(code);
-         }
-         else {
-            throw new IllegalStateException(KEY_NOT_RECOGNISED);
-
-         }
-      }
-
-      this.keys = codes.toArray(new Integer[0]);
-   } // setKeys
-
-
- 
-   /**
     * Returns the selected keys
     * 
     * @return the keys to be pressed
     */
-   public String getAllKeys() {
-      return stringKeys;
+   public Key[] getAllKeys() {
+      return keys;
    }// toString
 
 
@@ -122,7 +85,15 @@ public class KeyboardSimulation implements GestureAction {
     * @return the keys to be pressed
     */
    public String toString() {
-      return stringKeys;
+
+      StringBuilder sb = new StringBuilder();
+      for (Key key : keys) {
+         sb.append(key.toString());
+         sb.append(Constant.PLUS);
+      }
+
+      return sb.length() > 0 ? sb.deleteCharAt(sb.length() - 1).toString() : sb
+            .toString();
    }// toString
 
 }

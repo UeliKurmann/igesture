@@ -38,6 +38,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -72,8 +73,8 @@ public class OptionsDialog extends BasicDialog {
    private int INPUTDEVICE = 0;
    private int STARTUP = 0;
 
-   private Hashtable<String, JRadioButton> buttons = new Hashtable<String, JRadioButton>();
-   private String selectedDevice;
+   private Map<String, JRadioButton> buttons = new Hashtable<String, JRadioButton>();
+ 
    private ButtonGroup group = new ButtonGroup();
    private JCheckBox startupBox = new JCheckBox(Constant.MINIMIZE_STARTUP);
    // GUI elements
@@ -135,7 +136,6 @@ public class OptionsDialog extends BasicDialog {
     */
    public void reset() {
       configuration = view.getModel().getGestureConfiguration();
-      selectedDevice = configuration.getInputDeviceName();
       JRadioButton button = buttons.get(configuration.getInputDeviceName());
       button.setSelected(true);
       startupBox.setSelected(configuration.getMinimize());

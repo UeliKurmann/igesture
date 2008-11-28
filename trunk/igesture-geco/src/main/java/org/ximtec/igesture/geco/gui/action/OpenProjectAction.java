@@ -101,7 +101,7 @@ public class OpenProjectAction extends BasicAction {
                      Constant.SETTINGS_ATTRIBUTE_MAPPINGS, GuiBundleTool
                            .getBundle())).toURI()).getPath()
                + Constant.BACKSLASH;
-         ;
+         
       }
       catch (URISyntaxException e) {
          filePath = new File(ClassLoader.getSystemResource(
@@ -109,7 +109,7 @@ public class OpenProjectAction extends BasicAction {
                      Constant.SETTINGS_ATTRIBUTE_MAPPINGS, GuiBundleTool
                            .getBundle())).getPath()).getPath()
                + Constant.BACKSLASH;
-         ;
+         
       }
 
       JFileChooser fileChooser = new JFileChooser();

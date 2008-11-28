@@ -103,7 +103,7 @@ public class NewProjectDialog extends BasicDialog {
                      Constant.SETTINGS_ATTRIBUTE_MAPPINGS, GuiBundleTool
                            .getBundle())).toURI()).getPath()
                + Constant.BACKSLASH;
-         ;
+         
       }
       catch (URISyntaxException e) {
          filePath = new File(ClassLoader.getSystemResource(
@@ -111,7 +111,7 @@ public class NewProjectDialog extends BasicDialog {
                      Constant.SETTINGS_ATTRIBUTE_MAPPINGS, GuiBundleTool
                            .getBundle())).getPath()).getPath()
                + Constant.BACKSLASH;
-         ;
+         
       }
 
       JPanel mainPanel = new JPanel();

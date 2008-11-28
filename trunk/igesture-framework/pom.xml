@@ -12,7 +12,9 @@
 	<packaging>jar</packaging>
 	<version>1.2-SNAPSHOT</version>
 	<inceptionYear>2007</inceptionYear>
-	<description> iGesture: a general gesture recognition framework. </description>
+	<description>
+		iGesture: a general gesture recognition framework.
+	</description>
 
 	<name>iGesture Framework</name>
 	<url>http://www.igesture.org</url>
@@ -31,14 +33,24 @@
 				<version>2.2-beta-1</version>
 				<configuration>
 					<descriptors>
-						<descriptor> src/main/assembly/assembly-bin.xml </descriptor>
-						<descriptor> src/main/assembly/assembly-src.xml </descriptor>
-						<descriptor> src/main/assembly/assembly-lib.xml </descriptor>
-						<descriptor> src/main/assembly/assembly-data.xml </descriptor>
+						<descriptor>
+							src/main/assembly/assembly-bin.xml
+						</descriptor>
+						<descriptor>
+							src/main/assembly/assembly-src.xml
+						</descriptor>
+						<descriptor>
+							src/main/assembly/assembly-lib.xml
+						</descriptor>
+						<descriptor>
+							src/main/assembly/assembly-data.xml
+						</descriptor>
 					</descriptors>
 					<archive>
 						<manifest>
-							<mainClass> org.ximtec.igesture.tool.GestureToolMain </mainClass>
+							<mainClass>
+								org.ximtec.igesture.tool.GestureToolMain
+							</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -141,13 +153,13 @@
 			<groupId>org.safehaus.jug</groupId>
 			<artifactId>jug-asl</artifactId>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>org.ximtec.igesture</groupId>
 			<artifactId>igesture-io</artifactId>
 			<version>1.2-SNAPSHOT</version>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>org.sigtec</groupId>
 			<artifactId>sigtec-ink</artifactId>
@@ -221,20 +233,35 @@
 			<groupId>xstream</groupId>
 			<artifactId>xstream</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.4</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 
 	<distributionManagement>
 		<site>
 			<id>ftp-repository</id>
-			<url> ftp://www.igesture.org/httpdocs/igesture-framework </url>
+			<url>
+				ftp://www.igesture.org/httpdocs/igesture-framework
+			</url>
 		</site>
 	</distributionManagement>
-	
-    <scm>
-        <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-framework</connection>
-        <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-framework</developerConnection>
-        <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-framework</url>
-    </scm>
-	
+
+	<scm>
+		<connection>
+			scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-framework
+		</connection>
+		<developerConnection>
+			scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-framework
+		</developerConnection>
+		<url>
+			http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-framework
+		</url>
+	</scm>
+
 </project>

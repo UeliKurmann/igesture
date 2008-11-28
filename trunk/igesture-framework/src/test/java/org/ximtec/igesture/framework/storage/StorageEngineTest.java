@@ -93,7 +93,7 @@ public abstract class StorageEngineTest {
    public void testGestureSet() {
       StorageManager manager = getStorageManager();
       List<GestureSet> gestureSets = manager.load(GestureSet.class);
-      Assert.assertEquals(gestureSets.size(), 1);
+      Assert.assertEquals(1, gestureSets.size());
       manager.dispose();
    }
 
@@ -103,7 +103,7 @@ public abstract class StorageEngineTest {
       StorageManager manager = getStorageManager();
       List<TestSet> testSets = manager.load(TestSet.class);
       
-      Assert.assertEquals(testSets.size(), 1);
+      Assert.assertEquals(1, testSets.size());
       
       TestSet testSet = testSets.get(0);
       
@@ -119,7 +119,7 @@ public abstract class StorageEngineTest {
    public void testGestureSetName() {
       StorageManager manager = getStorageManager();
       List<GestureSet> gestureSets = manager.load(GestureSet.class);
-      Assert.assertEquals(gestureSets.get(0).getName(), GESTURE_SET_NAME);
+      Assert.assertEquals(GESTURE_SET_NAME, gestureSets.get(0).getName());
       manager.dispose();
    }
 
@@ -128,11 +128,11 @@ public abstract class StorageEngineTest {
    public void testGestureClasses() {
       StorageManager manager = getStorageManager();
       List<GestureSet> gestureSets = manager.load(GestureSet.class);
-      Assert.assertEquals(gestureSets.get(0).getGestureClasses().size(), 2);
+      Assert.assertEquals(2, gestureSets.get(0).getGestureClasses().size());
       GestureClass gc1 = gestureSets.get(0).getGestureClass(GESTURE1_CLASS_NAME);
-      Assert.assertEquals(gc1.getName(), GESTURE1_CLASS_NAME);
+      Assert.assertEquals(GESTURE1_CLASS_NAME, gc1.getName());
       GestureClass gc2 = gestureSets.get(0).getGestureClass(GESTURE2_CLASS_NAME);
-      Assert.assertEquals(gc2.getName(), GESTURE2_CLASS_NAME);
+      Assert.assertEquals(GESTURE2_CLASS_NAME, gc2.getName());
 
       manager.dispose();
    }
@@ -143,7 +143,7 @@ public abstract class StorageEngineTest {
       StorageManager manager = getStorageManager();
       List<GestureClass> gestureClasses = manager.load(GestureClass.class,
             "name", GESTURE1_CLASS_NAME);
-      Assert.assertEquals(gestureClasses.get(0).getName(), GESTURE1_CLASS_NAME);
+      Assert.assertEquals(GESTURE1_CLASS_NAME, gestureClasses.get(0).getName());
       manager.dispose();
    }
 

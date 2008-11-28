@@ -214,6 +214,6 @@ public class ResultSet {
 
       sb.append(Constant.CLOSE_ANGULAR_BRACKET);
       return sb.toString();
-   } // toString
+   } // toString 
 
 }

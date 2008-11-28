@@ -46,6 +46,7 @@ public class MouseExample {
 
       MouseUtils mouseUtils = new MouseUtils(new MouseEventListener() {
 
+         
          @Override
          public void mouseButtonPressed(EnumSet<MouseButton> buttons) {
             // TODO Auto-generated method stub

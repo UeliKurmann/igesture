@@ -29,14 +29,6 @@ package org.ximtec.igesture.io.keyboard;
 
 import org.ximtec.igesture.io.win32.User32;
 import org.ximtec.igesture.io.win32.Win32;
-import org.ximtec.igesture.io.win32.User32.MSG;
-import org.ximtec.igesture.io.win32.W32API.HANDLE;
-import org.ximtec.igesture.io.win32.W32API.HINSTANCE;
-import org.ximtec.igesture.io.win32.W32API.LPARAM;
-import org.ximtec.igesture.io.win32.W32API.LRESULT;
-import org.ximtec.igesture.io.win32.W32API.WPARAM;
-
-import com.sun.jna.win32.StdCallLibrary.StdCallCallback;
 
 
 /**
@@ -48,59 +40,15 @@ import com.sun.jna.win32.StdCallLibrary.StdCallCallback;
 
 public class KeyboardUtils {
 
-   
-   HINSTANCE hinst;
-   KeyboardProc kbListener;
-   HANDLE handle;
-   User32 lib = Win32.USER32_INSTANCE;
-   
+   private final static User32 user32 = Win32.USER32_INSTANCE;
 
    /**
-    * 
-    * Register Hook function
-    * 
+    * Simulates a keyboard input 
+    * @param key the key
+    * @param status the status (UP, DOWN)
     */
-
-   public void registerHook() {
-      handle = lib.SetWindowsHookExW(User32.WH_KEYBOARD_LL, kbListener,hinst, 0);
-      start_loop();
+   public void keyEvent(Key key, Key status) {
+      user32.keybd_event(key.getKeyId(), 0, status.getKeyId(), 0);
    }
 
-
-
-   public static void main(String[] args) {
-      KeyboardUtils k = new KeyboardUtils();
-      k.registerHook();
-
-   }
-
-
-   void start_loop() {
-
-
-      MSG msg = new MSG();
-      while (lib.GetMessageW(msg, null, 0, 0) != 0) {
-
-      }
-   }
-   
-   public void keyEvent(int key, int status){
-      lib.keybd_event(key, 0 , status, 0);
-   }
-
-   public interface KeyboardProc extends StdCallCallback {
-      LRESULT callback(int code, WPARAM wParam, LPARAM lParam);
-   }
-   
-   
-   /**
-    * 
-    * Unregister Hook function
-    * 
-    */
-   @Override
-   protected void finalize() throws Throwable {
-      lib.UnhookWindowsHookExW(handle);
-      super.finalize();
-   }
 }

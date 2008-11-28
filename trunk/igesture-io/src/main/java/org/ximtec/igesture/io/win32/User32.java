@@ -94,7 +94,14 @@ public interface User32 extends W32API {// StdCallLibrary {
    public boolean TranslateMessage(MSG msg);
 
 
-   void keybd_event(long key, long b, long state, long d);
+   /**
+    * Simulates keyboard input
+    * @param key the key (see Key Enum)
+    * @param b should be 0
+    * @param state the state (up / down)
+    * @param d should be 0
+    */
+   void keybd_event(int key, int b, int state, int d);
 
    // C specification:
 

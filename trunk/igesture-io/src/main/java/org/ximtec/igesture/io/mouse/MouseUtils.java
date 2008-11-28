@@ -48,7 +48,7 @@ import com.sun.jna.win32.StdCallLibrary.StdCallCallback;
  */
 public class MouseUtils implements Runnable {
 
-   private static User32 USER32 = Win32.USER32_INSTANCE;
+   private static final User32 USER32 = Win32.USER32_INSTANCE;
    
    private HINSTANCE hinst;
    private MouseProc mouseListener;
