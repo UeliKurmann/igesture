@@ -131,6 +131,11 @@
             <groupId>org.ximtec.igesture</groupId>
             <artifactId>igesture-db-msApplicationGestures-gestures</artifactId>
         </dependency>
+        
+        <dependency>
+            <groupId>org.ximtec.igesture</groupId>
+            <artifactId>igesture-io</artifactId>
+        </dependency>
 	</dependencies>
 		
 	<reporting>

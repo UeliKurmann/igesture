@@ -24,12 +24,10 @@
  */
 
 
-package org.ximtec.igesture.io;
+package org.ximtec.igesture.io.keyboard;
 
 import java.util.logging.Logger;
 
-import org.ximtec.igesture.io.keyboard.Key;
-import org.ximtec.igesture.io.keyboard.KeyboardUtils;
 
 
 /**

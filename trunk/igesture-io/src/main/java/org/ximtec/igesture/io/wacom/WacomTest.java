@@ -60,6 +60,7 @@ public class WacomTest {
             long timeStamp, ORIENTATION orientation, ROTATION rotation,
             int button) {
             System.out.println("x: "+x+" y: "+y+" z: "+z+""+" status: "+pkstatus+" button: "+button);
+            System.out.println("Orientation: "+orientation.orTwist);
            
          
       }

@@ -76,7 +76,6 @@ public class Win32 {
    public static final Kernel32 KERNEL32_INSTANCE = (Kernel32)Native.loadLibrary("kernel32", Kernel32.class,
          DEFAULT_OPTIONS);
    
-   public static final Wintab32 WINTAB32_INSTANCE = null;// = (Wintab32)
-   //Native.loadLibrary("wintab32", Wintab32.class, DEFAULT_OPTIONS);
+   public static final Wintab32 WINTAB32_INSTANCE = (Wintab32)Native.loadLibrary("wintab32", Wintab32.class, DEFAULT_OPTIONS);
 
 }

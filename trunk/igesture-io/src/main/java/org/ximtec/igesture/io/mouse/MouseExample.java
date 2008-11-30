@@ -45,26 +45,11 @@ public class MouseExample {
    public static void main(String[] args) throws Exception {
 
       MouseUtils mouseUtils = new MouseUtils(new MouseEventListener() {
-
-         
-         @Override
-         public void mouseButtonPressed(EnumSet<MouseButton> buttons) {
-            // TODO Auto-generated method stub
-
-         }
-
-
+       
          @Override
          public void mouseEvent(int x, int y, EnumSet<MouseButton> buttons) {
             System.out.println("x: " + x + " - y: " + y);
             System.out.println(buttons);
-
-         }
-
-
-         @Override
-         public void mouseMoved(int x, int y) {
-            
 
          }
 

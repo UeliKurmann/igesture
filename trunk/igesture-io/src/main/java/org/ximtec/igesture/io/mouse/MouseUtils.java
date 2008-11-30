@@ -97,8 +97,6 @@ public class MouseUtils implements Runnable {
                }
             }
             
-            mouseCallback.mouseMoved(p.x, p.y);
-            mouseCallback.mouseButtonPressed(buttons);
             mouseCallback.mouseEvent(p.x, p.y, buttons);
 
             return USER32.CallNextHookEx(handle, code, wParam, lParam);
