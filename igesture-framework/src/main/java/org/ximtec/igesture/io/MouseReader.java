@@ -74,15 +74,13 @@ public class MouseReader extends AbstractInputDevice implements ButtonDevice,
    }
 
 
+
    /*
     * (non-Javadoc)
-    * @see org.ximtec.igesture.io.mouse.MouseCallback#callbackFunction(int, int,
-    *      boolean)
+    * @see org.ximtec.igesture.io.mouse.MouseEventListener#mouseEvent(int, int, java.util.EnumSet)
     */
    @Override
    public void mouseEvent(int x, int y, EnumSet<MouseButton> buttons) {
-
-      
 
       if (buttons.contains(MouseButton.MIDDLE)) {
          LOGGER.log(Level.FINEST, "Mouse Event...");
@@ -149,19 +147,5 @@ public class MouseReader extends AbstractInputDevice implements ButtonDevice,
       }
 
    } // fireMouseButtonEvent
-
-
-   @Override
-   public void mouseButtonPressed(EnumSet<MouseButton> buttons) {
-      // TODO Auto-generated method stub
-
-   }
-
-
-   @Override
-   public void mouseMoved(int x, int y) {
-      // TODO Auto-generated method stub
-
-   }
 
 }

@@ -37,19 +37,7 @@ import org.ximtec.igesture.io.mouse.MouseUtils.MouseButton;
  * @author Ueli Kurmann, ueli.kurmann@bbv.ch
  */
 public interface MouseEventListener {
-   
-   /**
-    * Receives mouse location events
-    * @param x the x position of the mouse
-    * @param y the y position of the mouse
-    */
-   public void mouseMoved(int x, int y);
-   
-   /**
-    * Receives mouse button events
-    * @param buttons
-    */
-   public void mouseButtonPressed(EnumSet<MouseButton> buttons);
+
    
    /**
     * Receives mouse events
@@ -58,6 +46,5 @@ public interface MouseEventListener {
     * @param buttons
     */
    public void mouseEvent(int x, int y, EnumSet<MouseButton> buttons);
-   
-   
+      
 }

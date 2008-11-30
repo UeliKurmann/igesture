@@ -30,8 +30,8 @@ package org.ximtec.igesture.geco.action;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.GestureAction;
-import org.ximtec.igesture.io.Win32KeyboardProxy;
 import org.ximtec.igesture.io.keyboard.Key;
+import org.ximtec.igesture.io.keyboard.Win32KeyboardProxy;
 
 
 /**

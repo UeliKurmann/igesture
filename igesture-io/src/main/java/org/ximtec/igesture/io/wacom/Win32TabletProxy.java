@@ -57,7 +57,8 @@ public class Win32TabletProxy {
    private PACKET lastPacket = null;
 
    public Win32TabletProxy(){
-	   tabletUtils.open();
+	  LOGGER.info("Init..."); 
+      tabletUtils.open();
    }
    
    public boolean isExtraDataSupported(){

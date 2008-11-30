@@ -54,8 +54,7 @@ import org.ximtec.igesture.io.wacom.Wintab32.ROTATION;
 public class WacomReader extends AbstractInputDevice implements ButtonDevice,
       WacomCallback {
 
-   private static final Logger LOGGER = Logger.getLogger(WacomReader.class
-         .getName());
+   private static final Logger LOGGER = Logger.getLogger(WacomReader.class.getName());
 
    private boolean lastKeyState = false;
    private WacomUtils wacomUtils;
