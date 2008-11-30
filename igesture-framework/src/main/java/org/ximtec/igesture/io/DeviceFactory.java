@@ -29,6 +29,8 @@ package org.ximtec.igesture.io;
 import org.sigtec.input.BufferedInputDeviceEventListener;
 import org.sigtec.input.InputDevice;
 import org.sigtec.input.InputDeviceEventListener;
+import org.ximtec.igesture.io.mouseclient.MouseReader;
+import org.ximtec.igesture.io.mouseclient.MouseReaderEventListener;
  
 
 /**

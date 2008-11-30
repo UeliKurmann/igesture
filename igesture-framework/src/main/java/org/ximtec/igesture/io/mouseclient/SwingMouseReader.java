@@ -45,7 +45,6 @@ import org.sigtec.ink.input.PenUpEvent;
 import org.sigtec.ink.input.TimestampedLocation;
 import org.sigtec.input.AbstractInputDevice;
 import org.sigtec.util.Constant;
-import org.ximtec.igesture.io.MouseReaderEvent;
 
 
 /**

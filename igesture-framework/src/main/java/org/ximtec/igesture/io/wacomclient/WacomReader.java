@@ -24,7 +24,7 @@
  */
 
 
-package org.ximtec.igesture.io;
+package org.ximtec.igesture.io.wacomclient;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -38,6 +38,8 @@ import org.sigtec.ink.input.Location;
 import org.sigtec.input.AbstractInputDevice;
 import org.sigtec.input.InputDeviceEvent;
 import org.sigtec.util.Constant;
+import org.ximtec.igesture.io.ButtonDevice;
+import org.ximtec.igesture.io.ButtonDeviceEventListener;
 import org.ximtec.igesture.io.wacom.WacomCallback;
 import org.ximtec.igesture.io.wacom.WacomUtils;
 import org.ximtec.igesture.io.wacom.Wintab32.ORIENTATION;

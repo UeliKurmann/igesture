@@ -25,7 +25,7 @@
  */
 
 
-package org.ximtec.igesture.io;
+package org.ximtec.igesture.io.mouseclient;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -41,6 +41,8 @@ import org.sigtec.ink.input.Location;
 import org.sigtec.ink.input.TimestampedLocation;
 import org.sigtec.input.AbstractInputDevice;
 import org.sigtec.input.InputDeviceEvent;
+import org.ximtec.igesture.io.ButtonDevice;
+import org.ximtec.igesture.io.ButtonDeviceEventListener;
 import org.ximtec.igesture.io.mouse.MouseEventListener;
 import org.ximtec.igesture.io.mouse.MouseUtils;
 import org.ximtec.igesture.io.mouse.MouseUtils.MouseButton;

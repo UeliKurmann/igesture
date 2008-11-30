@@ -24,7 +24,7 @@
  */
 
 
-package org.ximtec.igesture.io;
+package org.ximtec.igesture.io.mouseclient;
 
 import org.sigtec.ink.input.TimestampedInputEvent;
 import org.sigtec.input.InputDeviceEvent;
