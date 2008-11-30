@@ -24,7 +24,7 @@
  */
 
 
-package org.ximtec.igesture.io.swingmouse;
+package org.ximtec.igesture.io.mouseclient;
 
 import java.awt.Cursor;
 import java.awt.Graphics;
