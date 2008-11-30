@@ -39,8 +39,8 @@ import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.io.ButtonDeviceEventListener;
 import org.ximtec.igesture.io.InputDeviceClient;
-import org.ximtec.igesture.io.MouseReader;
-import org.ximtec.igesture.io.MouseReaderEventListener;
+import org.ximtec.igesture.io.mouseclient.MouseReader;
+import org.ximtec.igesture.io.mouseclient.MouseReaderEventListener;
 import org.ximtec.igesture.util.XMLTool;
 
 

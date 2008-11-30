@@ -1,9 +1,9 @@
 /*
  * @(#)$Id$
  *
- * Author       :   Michele Croci, mcroci@gmail.com
+ * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *
- * Purpose      : 	Tablet reader event listener.
+ * Purpose      : 	Mouse reader event listener.
  *
  * -----------------------------------------------------------------------
  *
@@ -11,8 +11,8 @@
  *
  * Date             Who         Reason
  *
- * Nov 15, 2007     crocimi	    Initial Release
- *      
+ * Dec 26, 2006     ukurmann    Initial Release
+ * Mar 22, 2007     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -24,7 +24,7 @@
  */
 
 
-package org.ximtec.igesture.io;
+package org.ximtec.igesture.io.mouseclient;
 
 import org.sigtec.input.AbstractInputDeviceEventListener;
 import org.sigtec.input.InputDevice;
@@ -33,20 +33,20 @@ import org.sigtec.input.InputDeviceEventListener;
 
 
 /**
- * Tablet reader event listener.
+ * Mouse reader event listener.
  * 
- * @version 1.0, Nov 2007
- * @author Michele Croci, mcroci@gmail.com
+ * @version 1.0, Dec 2006
+ * @author Ueli Kurmann, igesture@uelikurmann.ch
+ * @author Beat Signer, signer@inf.ethz.ch
  */
-
-public class WacomReaderEventListener extends AbstractInputDeviceEventListener
+public class MouseReaderEventListener extends AbstractInputDeviceEventListener
       implements InputDeviceEventListener {
 
    public void inputDeviceEvent(InputDevice arg0, InputDeviceEvent event) {
-      final WacomReaderEvent tabletEvent = (WacomReaderEvent)event;
+      MouseReaderEvent mouseEvent = (MouseReaderEvent)event;
 
-      if (tabletEvent.getTimestampedLocation() != null) {
-         fireLocationEvent(tabletEvent.getTimestampedLocation());
+      if (mouseEvent.getTimestampedEvent() != null) {
+         fireInputEvent(mouseEvent.getTimestampedEvent());
       }
 
    }

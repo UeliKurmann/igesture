@@ -24,7 +24,7 @@
  */
 
 
-package org.ximtec.igesture.io;
+package org.ximtec.igesture.io.wacomclient;
 
 import org.sigtec.ink.input.TimestampedLocation;
 import org.sigtec.input.InputDeviceEvent;
