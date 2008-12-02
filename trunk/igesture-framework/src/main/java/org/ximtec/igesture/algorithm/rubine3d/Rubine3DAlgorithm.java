@@ -1,4 +1,4 @@
-package org.ximtec.igesture.util;
+package org.ximtec.igesture.algorithm.rubine3d;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,7 @@ import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.ResultSet;
+import org.ximtec.igesture.util.RecordedGesture3D;
 
 
 
