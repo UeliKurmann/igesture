@@ -1,3 +1,28 @@
+/*
+ * @(#)$Id: Sample.java 2008-12-02 arthurvogels $
+ *
+ * Author       :   Arthur Vogels, arthur.vogels@gmail.com
+ *
+ * Purpose      :	Contains a timestamped sample of Wii Remote accelerations.
+ * 					WiiAccelerations contains a list of these.
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Revision Information:
+ *
+ * Date             Who         	Reason
+ *
+ * Dec 02, 2008     arthurvogels    Initial Release
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Copyright 1999-2008 ETH Zurich. All Rights Reserved.
+ *
+ * This software is the proprietary information of ETH Zurich.
+ * Use is subject to license terms.
+ * 
+ */
+
 package org.ximtec.igesture.util;
 
 /** Contains a sample of x- y- and z- acceleration
