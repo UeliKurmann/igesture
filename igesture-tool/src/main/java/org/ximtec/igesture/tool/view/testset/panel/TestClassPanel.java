@@ -43,7 +43,6 @@ import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.TestClass;
 import org.ximtec.igesture.core.TestSet;
-import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
@@ -111,7 +110,7 @@ public class TestClassPanel extends AbstractPanel {
 
       FormLayout layout = new FormLayout(
             "100px, 4dlu, 100px, 4dlu, 100px, 4dlu, 100px,4dlu, 100px",
-            "pref, 4dlu, pref, 4dlu, pref, 4dlu,  pref,  pref,  pref,  pref,  pref,  pref");
+            "pref, 4dlu, pref, pref, pref, pref,  pref,  pref,  pref,  pref,  pref,  pref");
 
       DefaultFormBuilder builder = new DefaultFormBuilder(layout);
       builder.setDefaultDialogBorder();
@@ -179,10 +178,10 @@ public class TestClassPanel extends AbstractPanel {
       basePanel.setLayout(new FlowLayout());
 
       // FIXME save implementation! (Avoid Casts and dependences of subtypes!)
-      InputDeviceClient client = Locator.getDefault().getService(
-            InputDeviceClientService.IDENTIFIER, InputDeviceClient.class);
+      SwingMouseReader gestureDevice = Locator.getDefault().getService(
+            InputDeviceClientService.IDENTIFIER, SwingMouseReader.class);
 
-      note = (SwingMouseReader)client.getInputDevice();
+      note = (SwingMouseReader)gestureDevice;
 
       basePanel.add(note.getPanel(new Dimension(200, 200)));
 

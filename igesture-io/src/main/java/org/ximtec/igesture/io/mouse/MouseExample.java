@@ -44,10 +44,10 @@ public class MouseExample {
     */
    public static void main(String[] args) throws Exception {
 
-      MouseUtils mouseUtils = new MouseUtils(new MouseEventListener() {
+      MouseUtils mouseUtils = new MouseUtils(new MouseHandler() {
        
          @Override
-         public void mouseEvent(int x, int y, EnumSet<MouseButton> buttons) {
+         public void handleMouseEvent(int x, int y, EnumSet<MouseButton> buttons) {
             System.out.println("x: " + x + " - y: " + y);
             System.out.println(buttons);
 

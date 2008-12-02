@@ -1,5 +1,5 @@
 /*
- * @(#)$Id$
+ * @(#)$Id:$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -12,7 +12,7 @@
  *
  * Date				Who			Reason
  *
- * 19.06.2008			ukurmann	Initial Release
+ * 02.12.2008			ukurmann	Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -26,16 +26,21 @@
 
 package org.ximtec.igesture.io;
 
- 
+import java.util.List;
+
+import org.ximtec.igesture.core.Gesture;
+
+
 
 /**
  * Comment
- * @version 1.0 19.06.2008
+ * @version 1.0 02.12.2008
  * @author Ueli Kurmann
  */
-public class DeviceFactory {
-     
+public interface GestureEventListener {
 
-   // todo implementation
-
+   void handleGesture(Gesture<?> gesture);
+   
+   void handleChunks(List<?> chunks);
+   
 }

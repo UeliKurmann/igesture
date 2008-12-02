@@ -33,18 +33,19 @@ import java.awt.Point;
 import java.awt.PointerInfo;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
+import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import org.sigtec.ink.input.Location;
-import org.sigtec.ink.input.PenUpEvent;
-import org.sigtec.ink.input.TimestampedLocation;
-import org.sigtec.input.AbstractInputDevice;
+import org.sigtec.ink.Note;
+import org.sigtec.ink.Trace;
 import org.sigtec.util.Constant;
+import org.ximtec.igesture.core.Gesture;
+import org.ximtec.igesture.core.GestureSample;
+import org.ximtec.igesture.io.AbstractGestureDevice;
 
 
 /**
@@ -52,31 +53,23 @@ import org.sigtec.util.Constant;
  * @version 1.0 03.05.2008
  * @author Ueli Kurmann
  */
-public class SwingMouseReader extends AbstractInputDevice {
+public class SwingMouseReader extends AbstractGestureDevice<Note, Point> {
 
-   private static int FREQUENCY = 50;
+   private static final Logger LOGGER = Logger.getLogger(SwingMouseReader.class
+         .getName());
 
-   private Boolean mouseClicked;
-   private Point translation;
-   private Point lastPoint;
+   private org.sigtec.ink.Point translation;
    private SwingMouseReaderPanel currentPanel;
-   private List<Point> buffer;
-   private String identifier;
+
+   private Note note;
+   private Trace trace;
+   private boolean lastKeyState = false;
+   
+   private Point lastPoint;
 
 
    public SwingMouseReader() {
-      buffer = new ArrayList<Point>();
-      mouseClicked = false;
 
-      identifier = SwingMouseReader.class.getName() + Constant.UNDERSCORE
-            + System.currentTimeMillis();
-
-      Executors.newCachedThreadPool().execute(new Worker());
-   }
-
-
-   public List<Point> getBuffer() {
-      return buffer;
    }
 
 
@@ -95,7 +88,8 @@ public class SwingMouseReader extends AbstractInputDevice {
 
 
    public void clear() {
-      buffer.clear();
+      note = new Note();
+      trace = new Trace();
       if (currentPanel != null) {
          currentPanel.clear();
       }
@@ -114,31 +108,72 @@ public class SwingMouseReader extends AbstractInputDevice {
       @Override
       public void mousePressed(MouseEvent e) {
          super.mousePressed(e);
+         LOGGER.info("Mouse pressed...");
          currentPanel = owner;
          Point p1 = e.getPoint();
          Point p2 = MouseInfo.getPointerInfo().getLocation();
-         translation = new Point((int)(p1.getX() - p2.getX()),
-               (int)(p1.getY() - p2.getY()));
-         mouseClicked = true;
+         long timestamp = System.currentTimeMillis();
+         translation = new org.sigtec.ink.Point((int)(p1.getX() - p2.getX()),
+               (int)(p1.getY() - p2.getY()), timestamp);
+
+         
+         lastKeyState = true;
+
       }
 
 
       @Override
       public void mouseReleased(MouseEvent e) {
          super.mouseReleased(e);
-         mouseClicked = false;
-         fireInputDeviceEvent(new MouseReaderEvent(new PenUpEvent(System
-               .currentTimeMillis(), identifier)));
-         lastPoint = null;
+         if (lastKeyState) {
+            note.add(trace);
+            trace = new Trace();
+
+            lastKeyState = false;
+            lastPoint = null;
+            fireGestureEvent(getGesture());
+         }
       }
+   }
+
+
+   @Override
+   public void dispose() {
+      removeAllListener();
+      clear();
+
+   }
+
+
+   @Override
+   public List<Point> getChunks() {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+
+   @Override
+   public Gesture<Note> getGesture() {
+      return new GestureSample(Constant.EMPTY_STRING, note);
+   }
+
+
+   @Override
+   public void init() {
+      note = new Note();
+      trace = new Trace();
+
+      Executors.newCachedThreadPool().execute(new Worker());
    }
 
    private class Worker implements Runnable {
 
+     
+      
       @Override
       public void run() {
          while (true) {
-            if (mouseClicked) {
+            if (lastKeyState) {
                PointerInfo info = MouseInfo.getPointerInfo();
                Point currentPoint = info.getLocation();
 
@@ -146,24 +181,17 @@ public class SwingMouseReader extends AbstractInputDevice {
                      (int)(currentPoint.getX() + translation.getX()),
                      (int)(currentPoint.getY() + translation.getY()));
 
-               Location location = new Location(Constant.EMPTY_STRING, 0,
-                     currentPoint, identifier);
-
-               fireInputDeviceEvent(new MouseReaderEvent(
-                     new TimestampedLocation(location, System
-                           .currentTimeMillis())));
-
-               buffer.add(currentPoint);
-
-               if (currentPanel != null) {
+               trace.add(new org.sigtec.ink.Point(currentPoint.getX(), currentPoint.getY(), System.currentTimeMillis()));
+               if (currentPanel != null && lastPoint != null) {
                   currentPanel.drawLine(lastPoint, currentPoint);
+                
                }
 
                lastPoint = currentPoint;
             }
 
             try {
-               Thread.sleep(1000 / FREQUENCY);
+               Thread.sleep(1000 / 20);
             }
             catch (InterruptedException e) {
                e.printStackTrace();

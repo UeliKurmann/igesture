@@ -39,7 +39,7 @@ import org.ximtec.igesture.algorithm.AlgorithmFactory;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.io.InputDeviceClient;
+import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
 import org.ximtec.igesture.tool.core.Command;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
@@ -107,20 +107,24 @@ public class TestbenchController extends DefaultController {
       try {
          Algorithm algorithm = AlgorithmFactory
                .createAlgorithm((Configuration)command.getSender());
-         Note note = Locator.getDefault().getService(
-               InputDeviceClientService.IDENTIFIER, InputDeviceClient.class)
-               .createNote();
 
-         int MIN_POINTS = 5;
-         if (note.getPoints().size() >= MIN_POINTS) {
+         SwingMouseReader gestureDevice = Locator.getDefault().getService(
+               InputDeviceClientService.IDENTIFIER, SwingMouseReader.class);
 
-            ResultSet resultSet = algorithm.recognise(new GestureSample(
-                  Constant.EMPTY_STRING, note));
+         if (gestureDevice.getGesture() != null && gestureDevice.getGesture().getGesture() instanceof Note) {
 
-            if (explorerTreeController.getExplorerTreeView() instanceof ConfigurationPanel) {
-               ConfigurationPanel panel = (ConfigurationPanel)explorerTreeController
-                     .getExplorerTreeView();
-               panel.setResultList(resultSet.getResults());
+            Note note = (Note)gestureDevice.getGesture().getGesture();
+            int MIN_POINTS = 5;
+            if (note.getPoints().size() >= MIN_POINTS) {
+
+               ResultSet resultSet = algorithm.recognise(new GestureSample(
+                     Constant.EMPTY_STRING, note));
+
+               if (explorerTreeController.getExplorerTreeView() instanceof ConfigurationPanel) {
+                  ConfigurationPanel panel = (ConfigurationPanel)explorerTreeController
+                        .getExplorerTreeView();
+                  panel.setResultList(resultSet.getResults());
+               }
             }
          }
       }
@@ -134,7 +138,7 @@ public class TestbenchController extends DefaultController {
    @Override
    public void propertyChange(PropertyChangeEvent evt) {
       LOGGER.info("PropertyChange");
-      
+
       super.propertyChange(evt);
    }
 }

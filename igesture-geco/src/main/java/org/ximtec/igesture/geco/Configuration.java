@@ -33,11 +33,8 @@ import java.util.logging.Logger;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.commons.configuration.tree.xpath.XPathExpressionEngine;
-import org.sigtec.input.InputDevice;
-import org.sigtec.input.InputDeviceEventListener;
 import org.sigtec.util.Constant;
 import org.sigtec.util.FileHandler;
-import org.ximtec.igesture.io.InputDeviceFactory;
 
 
 /**
@@ -116,23 +113,7 @@ public class Configuration {
    } // getTabs
 
 
-   /**
-    * Returns the input device.
-    * 
-    * @return the input device.
-    * 
-    */
-   @SuppressWarnings("unchecked")
-   public InputDevice getInputDevice() {
-      List<String> list = configuration.getList(SELECTED_INPUT_DEVICE);
-      if (!list.isEmpty()) {
-         String deviceName = list.get(0);
-         return InputDeviceFactory.createInputDevice(deviceName, configuration);
-      }
-
-      return null;
-   } // getInputDevice
-
+   
 
    /**
     * Returns the selected input device name.
@@ -200,24 +181,7 @@ public class Configuration {
    } // getInputDevices
 
 
-   /**
-    * Returns the input device.
-    * 
-    * @return the input device.
-    * 
-    */
-   @SuppressWarnings("unchecked")
-   public InputDeviceEventListener getInputDeviceEventListener() {
-      List<String> list = configuration.getList(SELECTED_INPUT_DEVICE);
-
-      if (!list.isEmpty()) {
-         String deviceName = list.get(0);
-         return InputDeviceFactory.createInputDeviceEventListener(deviceName,
-               configuration);
-      }
-
-      return null;
-   } // getInputDeviceEventListener
+   
 
 
    @SuppressWarnings("unchecked")

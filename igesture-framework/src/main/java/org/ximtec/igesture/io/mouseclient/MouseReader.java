@@ -27,23 +27,20 @@
 
 package org.ximtec.igesture.io.mouseclient;
 
-import java.awt.Point;
-import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.sigtec.ink.input.Location;
-import org.sigtec.ink.input.TimestampedLocation;
-import org.sigtec.input.AbstractInputDevice;
-import org.sigtec.input.InputDeviceEvent;
-import org.ximtec.igesture.io.ButtonDeviceEventListener;
-import org.ximtec.igesture.io.ButtonDeviceHandler;
-import org.ximtec.igesture.io.mouse.MouseEventListener;
+import org.sigtec.ink.Note;
+import org.sigtec.ink.Point;
+import org.sigtec.ink.Trace;
+import org.sigtec.util.Constant;
+import org.ximtec.igesture.core.Gesture;
+import org.ximtec.igesture.core.GestureSample;
+import org.ximtec.igesture.io.AbstractGestureDevice;
+import org.ximtec.igesture.io.mouse.MouseHandler;
 import org.ximtec.igesture.io.mouse.MouseUtils;
 import org.ximtec.igesture.io.mouse.MouseUtils.MouseButton;
 
@@ -55,99 +52,105 @@ import org.ximtec.igesture.io.mouse.MouseUtils.MouseButton;
  * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class MouseReader extends AbstractInputDevice implements ButtonDeviceEventListener,
-      MouseEventListener {
+public class MouseReader extends AbstractGestureDevice<Note, Point> implements MouseHandler{
 
-   private static final Logger LOGGER = Logger.getLogger(MouseReader.class
-         .getName());
-
-   private boolean lastKeyState = false;
-
-   private Set<ButtonDeviceHandler> buttonUpEvents;
-
+   private static final Logger LOGGER = Logger.getLogger(MouseReader.class.getName());
+   
    private MouseUtils mouseUtils;
+
+   private Note note;
+   private Trace trace;
+   private boolean lastKeyState = false;
 
 
    public MouseReader() {
-      buttonUpEvents = new HashSet<ButtonDeviceHandler>();
-
-      mouseUtils = new MouseUtils(this);
-      Executors.newSingleThreadExecutor().execute(mouseUtils);
+     super();
    }
-
 
 
    /*
     * (non-Javadoc)
-    * @see org.ximtec.igesture.io.mouse.MouseEventListener#mouseEvent(int, int, java.util.EnumSet)
+    * @see org.ximtec.igesture.io.mouse.MouseHandler#handleMouseEvent(int, int, java.util.EnumSet)
     */
    @Override
-   public void mouseEvent(int x, int y, EnumSet<MouseButton> buttons) {
+   public synchronized void handleMouseEvent(int x, int y,
+         EnumSet<MouseButton> buttons) {
 
       if (buttons.contains(MouseButton.MIDDLE)) {
          LOGGER.log(Level.FINEST, "Mouse Event...");
-         Location location = new Location("screen", 1, new Point(x, y));
-         TimestampedLocation tsl = new TimestampedLocation(location, System
-               .currentTimeMillis());
-         this.fireInputDeviceEvent(new MouseReaderEvent(tsl));
+
+         long timestamp = System.currentTimeMillis();
+         Point point = new Point(x, y, timestamp);
+         trace.add(point);
+
          lastKeyState = true;
       }
       else {
 
          if (lastKeyState) {
-            this.fireMouseButtonEvent(new InputDeviceEvent() {
+            note.add(trace);
+            trace = new Trace();
 
-               public long getTimestamp() {
-                  return System.currentTimeMillis();
-               }
-            });
             lastKeyState = false;
+            fireGestureEvent(getGesture());
+            clear();
          }
       }
    }
 
 
-   /**
-    * Creates a list of mouse readers. Only one mouse reader is created.
-    * 
-    * @return a list of mouse readers.
+   /*
+    * (non-Javadoc)
+    * @see org.ximtec.igesture.io.GestureDevice#getChunks()
     */
-   public static List<MouseReader> createMouse() {
-      final List<MouseReader> list = new ArrayList<MouseReader>();
-      list.add(new MouseReader());
-      return list;
-   } // createMouse
+   @Override
+   public List<Point> getChunks() {
+      return trace.getPoints();
+   }
 
 
    /*
     * (non-Javadoc)
-    * @see org.ximtec.igesture.io.ButtonDevice#addButtonDeviceEventListener(org.ximtec.igesture.io.ButtonDeviceEventListener)
+    * @see org.ximtec.igesture.io.GestureDevice#getGesture()
     */
    @Override
-   public void addButtonDeviceEventListener(ButtonDeviceHandler listener) {
-      buttonUpEvents.add(listener);
-   } // addButtonDeviceEventListener
+   public Gesture<Note> getGesture() {
+
+      return new GestureSample(Constant.EMPTY_STRING, note);
+   }
 
 
    /*
     * (non-Javadoc)
-    * @see org.ximtec.igesture.io.ButtonDevice#removeButtonDeviceEventListener(org.ximtec.igesture.io.ButtonDeviceEventListener)
+    * @see org.ximtec.igesture.io.GestureDevice#init()
     */
    @Override
-   public void removeButtonDeviceEventListener(ButtonDeviceHandler listener) {
-      buttonUpEvents.remove(listener);
-   } // removeButtonDeviceEventListener
+   public void init() {
+      mouseUtils = new MouseUtils(this);
+      Executors.newSingleThreadExecutor().execute(mouseUtils);
+      note = new Note();
+      trace = new Trace();
+   }
 
 
-   /**
-    * Fires a mouse button event
-    * @param event
+   /*
+    * (non-Javadoc)
+    * @see org.ximtec.igesture.io.GestureDevice#dispose()
     */
-   private void fireMouseButtonEvent(InputDeviceEvent event) {
-      for (final ButtonDeviceHandler listener : buttonUpEvents) {
-         listener.handleButtonPressedEvent(event);
-      }
+   @Override
+   public void dispose() {
+      removeAllListener();
+      clear();
+   }
 
-   } // fireMouseButtonEvent
+   /*
+    * (non-Javadoc)
+    * @see org.ximtec.igesture.io.GestureDevice#clear()
+    */
+   @Override
+   public void clear() {
+      note = new Note();
+      trace = new Trace();
+   }
 
 }

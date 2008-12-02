@@ -28,7 +28,6 @@ package org.ximtec.igesture.tool.view.admin.action;
 import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.widget.BasicAction;
-import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
@@ -51,8 +50,9 @@ public class ClearGestureSampleAction extends BasicAction {
    @Override
    public void actionPerformed(ActionEvent arg0) {
       note.clear();
-      InputDeviceClient client = Locator.getDefault().getService(InputDeviceClientService.IDENTIFIER, InputDeviceClient.class);
-      client.clearBuffer();
+      SwingMouseReader gestureDevice = Locator.getDefault().getService(
+            InputDeviceClientService.IDENTIFIER, SwingMouseReader.class);
+      gestureDevice.clear();
    }
 
 }

@@ -26,9 +26,7 @@
 
 package org.ximtec.igesture.tool.service;
 
-import org.sigtec.input.InputDevice;
-import org.sigtec.input.InputDeviceEventListener;
-import org.ximtec.igesture.io.InputDeviceClient;
+import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
 import org.ximtec.igesture.tool.locator.RunnableService;
 
 
@@ -39,15 +37,14 @@ import org.ximtec.igesture.tool.locator.RunnableService;
  * @version 1.0
  * @since igesture
  */
-public class InputDeviceClientService extends InputDeviceClient implements
+public class InputDeviceClientService extends SwingMouseReader implements
       RunnableService {
 
    public static final String IDENTIFIER = "inputDeviceClientService";
 
 
-   public InputDeviceClientService(InputDevice inputDevice,
-         InputDeviceEventListener listener) {
-      super(inputDevice, listener);
+   public InputDeviceClientService() {
+      super();
    }
 
 
@@ -65,6 +62,14 @@ public class InputDeviceClientService extends InputDeviceClient implements
 
    @Override
    public void stop() {
+      dispose();
+   }
+
+
+   @Override
+   public void reset() {
+      // TODO Auto-generated method stub
+      
    }
 
 }

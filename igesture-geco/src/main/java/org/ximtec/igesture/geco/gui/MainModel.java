@@ -28,18 +28,21 @@ package org.ximtec.igesture.geco.gui;
 import java.io.File;
 import java.util.Comparator;
 import java.util.Hashtable;
+import java.util.List;
 
 import org.sigtec.ink.Note;
-import org.sigtec.input.InputDeviceEvent;
+import org.sigtec.ink.Point;
 import org.ximtec.igesture.Recogniser;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.GestureActionManager;
 import org.ximtec.igesture.geco.Configuration;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.util.SortedListModel;
-import org.ximtec.igesture.io.ButtonDeviceHandler;
-import org.ximtec.igesture.io.InputDeviceClient;
+import org.ximtec.igesture.io.GestureDevice;
+import org.ximtec.igesture.io.GestureEventListener;
+import org.ximtec.igesture.io.mouseclient.MouseReader;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.storage.StorageManager;
 
@@ -49,7 +52,7 @@ import org.ximtec.igesture.storage.StorageManager;
  * @version 0.9, Nov 20, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public class MainModel implements ButtonDeviceHandler {
+public class MainModel implements GestureEventListener {
 
    private GestureSet gestureSet;
 
@@ -81,7 +84,7 @@ public class MainModel implements ButtonDeviceHandler {
 
    private Recogniser recogniser;
 
-   private InputDeviceClient client;
+   private GestureDevice<Note, Point> client;
 
    private boolean minimize;
 
@@ -361,11 +364,11 @@ public class MainModel implements ButtonDeviceHandler {
       if (recogniser == null) {
 
          try {
-            
+
             configuration.addGestureSet(gestureSet);
             recogniser = new Recogniser(configuration);
             recogniser.addGestureHandler(eventManager);
-            client.addButtonDeviceEventListener(this);
+            client.addGestureHandler(this);
          }
          catch (Exception e) {
             e.printStackTrace();
@@ -377,35 +380,25 @@ public class MainModel implements ButtonDeviceHandler {
 
 
    /**
-    * Handle events coming from the input device
-    * 
-    * @param event the event
-    */
-   public void handleButtonPressedEvent(InputDeviceEvent event) {
-      Note note = client.createNote();
-      if (note.getPoints().size() > 5) {
-         recogniser.recognise(note);
-      }
-   } // handleButtonPressedEvent
-   
-
-
-   /**
     * Configure Input Client
     */
    public void resetInputDevice() {
       if (client != null) {
-         client.reset();
+         client.clear();
       }
    }
 
 
    public void configureInputDevice() {
-      client = new InputDeviceClient(gestureConfiguration.getInputDevice(),
-            gestureConfiguration.getInputDeviceEventListener());
+      
+      client = new MouseReader();
+      client.init();
+      // client = new InputDeviceClient(gestureConfiguration.getInputDevice(),
+      // gestureConfiguration.getInputDeviceEventListener());
       // client.addButtonDeviceEventListener(this);
       if (recogniser != null) {
-         client.addButtonDeviceEventListener(this);
+         client.addGestureHandler(this);
+         
       }
    }
 
@@ -433,4 +426,24 @@ public class MainModel implements ButtonDeviceHandler {
       return minimize;
    }
 
+
+   @Override
+   public void handleChunks(List< ? > chunks) {
+      // TODO Auto-generated method stub
+
+   }
+
+
+   @Override
+   public void handleGesture(Gesture< ? > gesture) {
+
+      if (client.getGesture() != null
+            && client.getGesture().getGesture() instanceof Note) {
+         Note note = client.getGesture().getGesture();
+         if (note.getPoints().size() > 5) {
+            recogniser.recognise(note);
+         }
+      }
+
+   }
 }

@@ -50,7 +50,6 @@ import org.sigtec.graphix.widget.BasicButton;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
-import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
@@ -123,9 +122,13 @@ public class ConfigurationPanel extends AbstractPanel {
       // input area
       basePanel.setLayout(new FlowLayout());
 
-      InputDeviceClient client = Locator.getDefault().getService(
-            InputDeviceClientService.IDENTIFIER, InputDeviceClient.class);
-      note = ((SwingMouseReader)client.getInputDevice());
+   
+      // FIXME
+      SwingMouseReader gestureDevice = Locator.getDefault().getService(
+            InputDeviceClientService.IDENTIFIER, SwingMouseReader.class);
+      
+      
+      note = (SwingMouseReader)gestureDevice;
       basePanel.add(note.getPanel(new Dimension(200, 200)));
 
       // buttons
