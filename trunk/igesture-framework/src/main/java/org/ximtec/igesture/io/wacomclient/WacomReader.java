@@ -38,8 +38,8 @@ import org.sigtec.ink.input.Location;
 import org.sigtec.input.AbstractInputDevice;
 import org.sigtec.input.InputDeviceEvent;
 import org.sigtec.util.Constant;
-import org.ximtec.igesture.io.ButtonDevice;
 import org.ximtec.igesture.io.ButtonDeviceEventListener;
+import org.ximtec.igesture.io.ButtonDeviceHandler;
 import org.ximtec.igesture.io.wacom.WacomCallback;
 import org.ximtec.igesture.io.wacom.WacomUtils;
 import org.ximtec.igesture.io.wacom.Wintab32.ORIENTATION;
@@ -53,7 +53,7 @@ import org.ximtec.igesture.io.wacom.Wintab32.ROTATION;
  * @author Michele Croci, mcroci@gmail.com
  */
 
-public class WacomReader extends AbstractInputDevice implements ButtonDevice,
+public class WacomReader extends AbstractInputDevice implements ButtonDeviceEventListener,
       WacomCallback {
 
    private static final Logger LOGGER = Logger.getLogger(WacomReader.class.getName());
@@ -64,12 +64,12 @@ public class WacomReader extends AbstractInputDevice implements ButtonDevice,
    private int BUTTON_0 = 0;
    private int BUTTON_5 = 5;
 
-   private HashSet<ButtonDeviceEventListener> buttonUpEvents;
+   private HashSet<ButtonDeviceHandler> buttonUpEvents;
 
 
    public WacomReader() {
       init();
-      buttonUpEvents = new HashSet<ButtonDeviceEventListener>();
+      buttonUpEvents = new HashSet<ButtonDeviceHandler>();
    }
 
 
@@ -133,18 +133,18 @@ public class WacomReader extends AbstractInputDevice implements ButtonDevice,
    } // createtablet
 
 
-   public void addButtonDeviceEventListener(ButtonDeviceEventListener listener) {
+   public void addButtonDeviceEventListener(ButtonDeviceHandler listener) {
       buttonUpEvents.add(listener);
    } // addButtonDeviceEventListener
 
 
-   public void removeButtonDeviceEventListener(ButtonDeviceEventListener listener) {
+   public void removeButtonDeviceEventListener(ButtonDeviceHandler listener) {
       buttonUpEvents.remove(listener);
    } // removeButtonDeviceEventListener
 
 
    private void fireTabletButtonEvent(InputDeviceEvent event) {
-      for (final ButtonDeviceEventListener listener : buttonUpEvents) {
+      for (final ButtonDeviceHandler listener : buttonUpEvents) {
          listener.handleButtonPressedEvent(event);
       }
 
