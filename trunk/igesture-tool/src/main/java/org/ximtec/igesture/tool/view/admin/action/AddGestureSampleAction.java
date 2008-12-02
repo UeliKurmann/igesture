@@ -33,7 +33,7 @@ import org.sigtec.ink.Note;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.SampleDescriptor;
-import org.ximtec.igesture.io.InputDeviceClient;
+import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
@@ -54,13 +54,16 @@ public class AddGestureSampleAction extends BasicAction {
 
    @Override
    public void actionPerformed(ActionEvent action) {
-      InputDeviceClient client = Locator.getDefault().getService(
-            InputDeviceClientService.IDENTIFIER, InputDeviceClient.class);
-      Note note = client.createNote();
-      client.clearBuffer();
-      GestureSample sample = new GestureSample(Constant.EMPTY_STRING, note);
-      descriptor.addSample(sample);
-
+      SwingMouseReader gestureDevice = Locator.getDefault().getService(
+            InputDeviceClientService.IDENTIFIER, SwingMouseReader.class);
+      if(gestureDevice.getGesture() != null && gestureDevice.getGesture().getGesture() instanceof Note){
+         Note note = (Note)gestureDevice.getGesture().getGesture();
+         gestureDevice.clear();
+         GestureSample sample = new GestureSample(Constant.EMPTY_STRING, note);
+         descriptor.addSample(sample);
+      }
+      
+      
    }
 
 }

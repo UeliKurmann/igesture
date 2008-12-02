@@ -29,6 +29,7 @@ package org.ximtec.igesture.app.showcaseapp;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,10 +38,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import org.sigtec.ink.Note;
-import org.sigtec.input.BufferedInputDeviceEventListener;
-import org.sigtec.input.InputDevice;
-import org.sigtec.input.InputDeviceEvent;
-import org.sigtec.input.InputDeviceEventListener;
+import org.sigtec.ink.Point;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.AlgorithmException;
@@ -54,12 +52,12 @@ import org.ximtec.igesture.app.showcaseapp.eventhandler.RejectEventHandler;
 import org.ximtec.igesture.app.showcaseapp.eventhandler.StyleEventHandler;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.DigitalDescriptor;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.GestureActionManager;
-import org.ximtec.igesture.io.ButtonDeviceHandler;
-import org.ximtec.igesture.io.InputDeviceClient;
+import org.ximtec.igesture.io.GestureDevice;
+import org.ximtec.igesture.io.GestureEventListener;
 import org.ximtec.igesture.io.mouseclient.MouseReader;
-import org.ximtec.igesture.io.mouseclient.MouseReaderEventListener;
 import org.ximtec.igesture.util.XMLTool;
 
 
@@ -68,14 +66,14 @@ import org.ximtec.igesture.util.XMLTool;
  * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class Application implements ButtonDeviceHandler {
+public class Application implements GestureEventListener {
 
    private static final Logger LOGGER = Logger.getLogger(Application.class
          .getName());
 
    private Recogniser recogniser;
 
-   private InputDeviceClient client;
+   private GestureDevice<Note, Point> client;
 
    private JFrame frame;
 
@@ -91,8 +89,8 @@ public class Application implements ButtonDeviceHandler {
    private void initGestures() {
       Configuration configuration = XMLTool.importConfiguration(ClassLoader
             .getSystemResourceAsStream("rubineconfiguration.xml"));
-      GestureSet gestureSet = XMLTool.importGestureSet(
-            ClassLoader.getSystemResourceAsStream("demogestures.xml"));
+      GestureSet gestureSet = XMLTool.importGestureSet(ClassLoader
+            .getSystemResourceAsStream("demogestures.xml"));
       GestureActionManager eventManager = new GestureActionManager();
       eventManager.registerRejectEvent(new RejectEventHandler());
       Style style = new Style();
@@ -119,20 +117,20 @@ public class Application implements ButtonDeviceHandler {
       eventManager.registerEventHandler("Thin", styleEventHandler);
       eventManager.registerEventHandler("Fat", styleEventHandler);
       configuration.addGestureSet(gestureSet);
-      configuration.setGestureHandler(eventManager);
+      
 
       try {
          recogniser = new Recogniser(configuration);
+         recogniser.addGestureHandler(eventManager);
       }
       catch (AlgorithmException e) {
          LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
 
-      InputDevice device = new MouseReader();
-      InputDeviceEventListener listener = new BufferedInputDeviceEventListener(
-            new MouseReaderEventListener(), 10000);
-      client = new InputDeviceClient(device, listener);
-      client.addButtonDeviceEventListener(this);
+      client = new MouseReader();
+      client.init();
+      client.addGestureHandler(this);
+
    } // initGestures
 
 
@@ -152,17 +150,31 @@ public class Application implements ButtonDeviceHandler {
    } // initialiseGUI
 
 
-   public void handleButtonPressedEvent(InputDeviceEvent event) {
-      Note note = client.createNote();
-      Note clone = (Note)note.clone();
-      clone.scale(2);
-      recogniser.recognise(clone);
-      frame.repaint();
-   } // handleButtonPressedEvent
 
 
    public static void main(String[] args) {
       new Application();
+   }
+
+
+   @Override
+   public void handleChunks(List< ? > chunks) {
+      // TODO Auto-generated method stub
+
+   }
+
+
+   @Override
+   public void handleGesture(Gesture< ? > gesture) {
+
+      if (gesture.getGesture() instanceof Note) {
+         Note note = (Note)gesture.getGesture();
+         Note clone = (Note)note.clone();
+         clone.scale(2);
+
+         recogniser.recognise(clone);
+         frame.repaint();
+      }
    }
 
 }

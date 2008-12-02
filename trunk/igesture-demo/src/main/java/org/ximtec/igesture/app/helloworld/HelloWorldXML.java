@@ -26,21 +26,20 @@
 
 package org.ximtec.igesture.app.helloworld;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.sigtec.input.BufferedInputDeviceEventListener;
-import org.sigtec.input.InputDevice;
-import org.sigtec.input.InputDeviceEvent;
-import org.sigtec.input.InputDeviceEventListener;
+import org.sigtec.ink.Note;
+import org.sigtec.ink.Point;
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.configuration.Configuration;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.io.ButtonDeviceHandler;
-import org.ximtec.igesture.io.InputDeviceClient;
+import org.ximtec.igesture.io.GestureDevice;
+import org.ximtec.igesture.io.GestureEventListener;
 import org.ximtec.igesture.io.mouseclient.MouseReader;
-import org.ximtec.igesture.io.mouseclient.MouseReaderEventListener;
 import org.ximtec.igesture.util.XMLTool;
 
 
@@ -49,7 +48,7 @@ import org.ximtec.igesture.util.XMLTool;
  * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class HelloWorldXML implements ButtonDeviceHandler {
+public class HelloWorldXML implements GestureEventListener {
 
    private static final Logger LOGGER = Logger.getLogger(HelloWorldXML.class
          .getName());
@@ -60,38 +59,46 @@ public class HelloWorldXML implements ButtonDeviceHandler {
 
    private Recogniser recogniser;
 
-   private InputDeviceClient client;
+   private GestureDevice<Note, Point> client;
 
 
    public HelloWorldXML() throws AlgorithmException {
       Configuration configuration = XMLTool.importConfiguration(ClassLoader
             .getSystemResourceAsStream("configuration.xml"));
       recogniser = new Recogniser(configuration);
-      InputDevice device = new MouseReader();
-      InputDeviceEventListener listener = new BufferedInputDeviceEventListener(
-            new MouseReaderEventListener(), 10000);
-      client = new InputDeviceClient(device, listener);
-      client.addButtonDeviceEventListener(this);
+
+      client = new MouseReader();
+      client.init();
+      client.addGestureHandler(this);
+
       LOGGER.log(Level.INFO, INITIALISED);
    }
-
 
    public static void main(String[] args) throws AlgorithmException {
       new HelloWorldXML();
    }
 
 
-   public void handleButtonPressedEvent(InputDeviceEvent event) {
-      ResultSet result = recogniser.recognise(client.createNote());
-      client.clearBuffer();
+   @Override
+   public void handleChunks(List< ? > chunks) {
+      // TODO Auto-generated method stub
 
-      if (result.isEmpty()) {
-         LOGGER.log(Level.INFO, NOT_RECOGNISED);
-      }
-      else {
-         LOGGER.log(Level.INFO, result.getResult().getGestureClassName());
-      }
+   }
 
-   } // handleButtonPressedEvent
+
+   @Override
+   public void handleGesture(Gesture< ? > gesture) {
+      if (gesture.getGesture() instanceof Note) {
+         Note note = (Note)gesture.getGesture();
+         ResultSet result = recogniser.recognise(note);
+
+         if (result.isEmpty()) {
+            LOGGER.log(Level.INFO, NOT_RECOGNISED);
+         }
+         else {
+            LOGGER.log(Level.INFO, result.getResult().getGestureClassName());
+         }
+      }
+   }
 
 }

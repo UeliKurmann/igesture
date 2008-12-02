@@ -42,7 +42,6 @@ import javax.swing.JPopupMenu;
 import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.SampleDescriptor;
-import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
@@ -155,10 +154,10 @@ public class SampleDescriptorPanel extends AbstractPanel {
 
       
       //FIXME save implementation! (Avoid Casts and dependences of subtypes!)
-      InputDeviceClient client = Locator.getDefault().getService(InputDeviceClientService.IDENTIFIER,
-            InputDeviceClient.class);
+      SwingMouseReader client = Locator.getDefault().getService(
+            InputDeviceClientService.IDENTIFIER, SwingMouseReader.class);
       
-      note = (SwingMouseReader)client.getInputDevice();
+      note = (SwingMouseReader)client;
 
       basePanel.add(note.getPanel(new Dimension(200,200)));
 

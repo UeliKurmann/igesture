@@ -24,7 +24,7 @@
  */
 
 
-package org.ximtec.igesture.io;
+package org.ximtec.igesture.io.button;
 
 import org.sigtec.input.InputDeviceEvent;
 

@@ -40,12 +40,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import org.sigtec.input.BufferedInputDeviceEventListener;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.DataObjectWrapper;
-import org.ximtec.igesture.io.mouseclient.MouseReaderEventListener;
-import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
 import org.ximtec.igesture.storage.StorageManager;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Command;
@@ -122,9 +119,7 @@ public class MainController extends DefaultController implements Service {
       
       mainModel = new MainModel(StorageManager
             .createStorageEngine(database), this);
-      deviceClient = new InputDeviceClientService(new SwingMouseReader(),
-            new BufferedInputDeviceEventListener(new MouseReaderEventListener(),
-                  BUFFER_SIZE));
+      deviceClient = new InputDeviceClientService();
 
       /**
        * Register the services

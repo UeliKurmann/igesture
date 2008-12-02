@@ -39,9 +39,9 @@ public class KeyTest {
    @org.junit.Test
    public void testParseKeyList1() {
 
-      String keyList = "CTRL + a + B +C +TAB+   VK_1";
+      String keyList = "CONTROL + a + B +C +TAB+   VK_1";
       Key[] keys = Key.parseKeyList(keyList);
-      Assert.assertEquals(Key.CTRL, keys[0]);
+      Assert.assertEquals(Key.CONTROL, keys[0]);
       Assert.assertEquals(Key.A, keys[1]);
       Assert.assertEquals(Key.B, keys[2]);
       Assert.assertEquals(Key.C, keys[3]);

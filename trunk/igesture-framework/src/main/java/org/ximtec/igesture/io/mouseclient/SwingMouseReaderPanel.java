@@ -29,9 +29,13 @@ package org.ximtec.igesture.io.mouseclient;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
+
+import org.sigtec.ink.Note;
+import org.sigtec.ink.Trace;
 
 
 /**
@@ -65,7 +69,7 @@ public class SwingMouseReaderPanel extends JPanel {
       if (getGraphics() != null) {
          getGraphics().clearRect(0, 0, getWidth(), getHeight());
       }
-      
+
       repaint();
    }
 
@@ -82,12 +86,23 @@ public class SwingMouseReaderPanel extends JPanel {
       super.repaint();
       redrawGesture();
    }
-   
-   private void redrawGesture(){
+
+
+   private void redrawGesture() {
       if (reader != null) {
-         List<Point> buffer = reader.getBuffer();
-         for (int i = 0; i < buffer.size() - 1; i++) {
-            drawLine(buffer.get(i), buffer.get(i + 1));
+
+         Note note = reader.getGesture().getGesture();
+         if (note != null) {
+            List<Point> buffer = new ArrayList<Point>();
+            for (Trace trace : note.getTraces()) {
+               for (org.sigtec.ink.Point point : trace.getPoints()) {
+                  buffer.add(new Point((int)point.getX(), (int)point.getY()));
+               }
+            }
+
+            for (int i = 0; i < buffer.size() - 1; i++) {
+               drawLine(buffer.get(i), buffer.get(i + 1));
+            }
          }
       }
    }

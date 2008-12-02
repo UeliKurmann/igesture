@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<algorithm name="org.ximtec.igesture.algorithm.siger.SigerRecogniser" />
+	<algorithm name="org.ximtec.igesture.algorithm.siger.SigerAlgorithm" />
 	
 	<set name="gestureSet1" id="1">
 		<class name="LeftRight" id="2"><textDescriptor><text>E</text></textDescriptor></class>

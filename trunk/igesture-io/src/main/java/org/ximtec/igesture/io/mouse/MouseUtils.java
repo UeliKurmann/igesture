@@ -54,7 +54,7 @@ public class MouseUtils implements Runnable {
    private MouseProc mouseListener;
    private HANDLE handle;
 
-   private final MouseEventListener mouseCallback;
+   private final MouseHandler mouseCallback;
 
    public enum MouseButton {
       LEFT(0x01), RIGHT(0X02), MIDDLE(0X04);
@@ -73,7 +73,7 @@ public class MouseUtils implements Runnable {
    }
 
 
-   public MouseUtils(MouseEventListener mouseCallback) {
+   public MouseUtils(MouseHandler mouseCallback) {
       this.mouseCallback = mouseCallback;     
    }
 
@@ -97,7 +97,7 @@ public class MouseUtils implements Runnable {
                }
             }
             
-            mouseCallback.mouseEvent(p.x, p.y, buttons);
+            mouseCallback.handleMouseEvent(p.x, p.y, buttons);
 
             return USER32.CallNextHookEx(handle, code, wParam, lParam);
          }

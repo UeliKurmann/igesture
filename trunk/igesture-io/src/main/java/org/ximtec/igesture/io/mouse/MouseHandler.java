@@ -36,7 +36,7 @@ import org.ximtec.igesture.io.mouse.MouseUtils.MouseButton;
  * @author Michele Croci, mcroci@gmail.com
  * @author Ueli Kurmann, ueli.kurmann@bbv.ch
  */
-public interface MouseEventListener {
+public interface MouseHandler {
 
    
    /**
@@ -45,6 +45,6 @@ public interface MouseEventListener {
     * @param y
     * @param buttons
     */
-   public void mouseEvent(int x, int y, EnumSet<MouseButton> buttons);
+   public void handleMouseEvent(int x, int y, EnumSet<MouseButton> buttons);
       
 }
