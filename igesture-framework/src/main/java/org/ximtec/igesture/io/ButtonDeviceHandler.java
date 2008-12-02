@@ -3,7 +3,7 @@
  *
  * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *
- * Purpose      :  	Interface for devices with a button.
+ * Purpose      : 	Event listener for button devices.
  *
  * -----------------------------------------------------------------------
  *
@@ -26,28 +26,23 @@
 
 package org.ximtec.igesture.io;
 
+import org.sigtec.input.InputDeviceEvent;
+
+
 /**
- * Interface for devices with a button.
+ * Event listener for button devices.
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public interface ButtonDevice {
+public interface ButtonDeviceHandler {
 
    /**
-    * Adds a listener to the button device.
+    * Handles the button pressed event.
     * 
-    * @param listener the listener to be added.
+    * @param event the event to be handled.
     */
-   void addButtonDeviceEventListener(ButtonDeviceEventListener listener);
-
-
-   /**
-    * Removes a listener from the button device.
-    * 
-    * @param listener the listener to be removed.
-    */
-   void removeButtonDeviceEventListener(ButtonDeviceEventListener listener);
+   public void handleButtonPressedEvent(InputDeviceEvent event);
 
 }

@@ -41,7 +41,7 @@ import org.ximtec.igesture.core.GestureSample;
  * @version 1.0 20.06.2008
  * @author Ueli Kurmann
  */
-public class BlockingDeviceClient implements ButtonDeviceEventListener {
+public class BlockingDeviceClient implements ButtonDeviceHandler {
 
    private InputDeviceClient client;
 

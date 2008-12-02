@@ -37,7 +37,7 @@ import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.io.ButtonDeviceEventListener;
+import org.ximtec.igesture.io.ButtonDeviceHandler;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.mouseclient.MouseReader;
 import org.ximtec.igesture.io.mouseclient.MouseReaderEventListener;
@@ -49,7 +49,7 @@ import org.ximtec.igesture.util.XMLTool;
  * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class HelloWorldXML implements ButtonDeviceEventListener {
+public class HelloWorldXML implements ButtonDeviceHandler {
 
    private static final Logger LOGGER = Logger.getLogger(HelloWorldXML.class
          .getName());

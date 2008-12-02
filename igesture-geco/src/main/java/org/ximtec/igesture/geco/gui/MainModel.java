@@ -38,7 +38,7 @@ import org.ximtec.igesture.event.GestureActionManager;
 import org.ximtec.igesture.geco.Configuration;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.util.SortedListModel;
-import org.ximtec.igesture.io.ButtonDeviceEventListener;
+import org.ximtec.igesture.io.ButtonDeviceHandler;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.storage.StorageManager;
@@ -49,7 +49,7 @@ import org.ximtec.igesture.storage.StorageManager;
  * @version 0.9, Nov 20, 2007
  * @author Michele Croci, mcroci@gmail.com
  */
-public class MainModel implements ButtonDeviceEventListener {
+public class MainModel implements ButtonDeviceHandler {
 
    private GestureSet gestureSet;
 

@@ -41,8 +41,8 @@ import org.sigtec.ink.input.Location;
 import org.sigtec.ink.input.TimestampedLocation;
 import org.sigtec.input.AbstractInputDevice;
 import org.sigtec.input.InputDeviceEvent;
-import org.ximtec.igesture.io.ButtonDevice;
 import org.ximtec.igesture.io.ButtonDeviceEventListener;
+import org.ximtec.igesture.io.ButtonDeviceHandler;
 import org.ximtec.igesture.io.mouse.MouseEventListener;
 import org.ximtec.igesture.io.mouse.MouseUtils;
 import org.ximtec.igesture.io.mouse.MouseUtils.MouseButton;
@@ -55,7 +55,7 @@ import org.ximtec.igesture.io.mouse.MouseUtils.MouseButton;
  * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class MouseReader extends AbstractInputDevice implements ButtonDevice,
+public class MouseReader extends AbstractInputDevice implements ButtonDeviceEventListener,
       MouseEventListener {
 
    private static final Logger LOGGER = Logger.getLogger(MouseReader.class
@@ -63,13 +63,13 @@ public class MouseReader extends AbstractInputDevice implements ButtonDevice,
 
    private boolean lastKeyState = false;
 
-   private Set<ButtonDeviceEventListener> buttonUpEvents;
+   private Set<ButtonDeviceHandler> buttonUpEvents;
 
    private MouseUtils mouseUtils;
 
 
    public MouseReader() {
-      buttonUpEvents = new HashSet<ButtonDeviceEventListener>();
+      buttonUpEvents = new HashSet<ButtonDeviceHandler>();
 
       mouseUtils = new MouseUtils(this);
       Executors.newSingleThreadExecutor().execute(mouseUtils);
@@ -124,7 +124,7 @@ public class MouseReader extends AbstractInputDevice implements ButtonDevice,
     * @see org.ximtec.igesture.io.ButtonDevice#addButtonDeviceEventListener(org.ximtec.igesture.io.ButtonDeviceEventListener)
     */
    @Override
-   public void addButtonDeviceEventListener(ButtonDeviceEventListener listener) {
+   public void addButtonDeviceEventListener(ButtonDeviceHandler listener) {
       buttonUpEvents.add(listener);
    } // addButtonDeviceEventListener
 
@@ -134,7 +134,7 @@ public class MouseReader extends AbstractInputDevice implements ButtonDevice,
     * @see org.ximtec.igesture.io.ButtonDevice#removeButtonDeviceEventListener(org.ximtec.igesture.io.ButtonDeviceEventListener)
     */
    @Override
-   public void removeButtonDeviceEventListener(ButtonDeviceEventListener listener) {
+   public void removeButtonDeviceEventListener(ButtonDeviceHandler listener) {
       buttonUpEvents.remove(listener);
    } // removeButtonDeviceEventListener
 
@@ -144,7 +144,7 @@ public class MouseReader extends AbstractInputDevice implements ButtonDevice,
     * @param event
     */
    private void fireMouseButtonEvent(InputDeviceEvent event) {
-      for (final ButtonDeviceEventListener listener : buttonUpEvents) {
+      for (final ButtonDeviceHandler listener : buttonUpEvents) {
          listener.handleButtonPressedEvent(event);
       }
 

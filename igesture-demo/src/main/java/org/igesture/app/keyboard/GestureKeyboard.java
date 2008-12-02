@@ -39,7 +39,7 @@ import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.event.GestureActionManager;
-import org.ximtec.igesture.io.ButtonDeviceEventListener;
+import org.ximtec.igesture.io.ButtonDeviceHandler;
 import org.ximtec.igesture.io.InputDeviceClient;
 import org.ximtec.igesture.io.mouseclient.MouseReader;
 import org.ximtec.igesture.io.mouseclient.MouseReaderEventListener;
@@ -51,7 +51,7 @@ import org.ximtec.igesture.util.XMLTool;
  * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class GestureKeyboard implements ButtonDeviceEventListener {
+public class GestureKeyboard implements ButtonDeviceHandler {
 
    private static final Logger LOGGER = Logger.getLogger(GestureKeyboard.class
          .getName());

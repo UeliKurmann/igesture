@@ -52,8 +52,8 @@ import org.ximtec.igesture.core.GestureSample;
  * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class InputDeviceClient implements ButtonDeviceEventListener,
-      InputDeviceEventListener, InputHandler, ButtonDevice {
+public class InputDeviceClient implements ButtonDeviceHandler,
+      InputDeviceEventListener, InputHandler, ButtonDeviceEventListener {
 
    private InputDeviceEventListener listener = null;
 
@@ -61,7 +61,7 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
 
    private Set<InputDeviceEventListener> inputDeviceListeners;
 
-   private Set<ButtonDeviceEventListener> buttonDeviceListeners;
+   private Set<ButtonDeviceHandler> buttonDeviceListeners;
 
    private Set<InputHandler> inputHandlerListeners;
 
@@ -71,7 +71,7 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
       this.inputDevice = inputDevice;
       this.listener = listener;
       inputDeviceListeners = new HashSet<InputDeviceEventListener>();
-      buttonDeviceListeners = new HashSet<ButtonDeviceEventListener>();
+      buttonDeviceListeners = new HashSet<ButtonDeviceHandler>();
       inputHandlerListeners = new HashSet<InputHandler>();
       init();
    }
@@ -85,8 +85,8 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
       inputDevice.addInputDeviceEventListener(listener);
       inputDevice.addInputDeviceEventListener(this);
 
-      if (inputDevice instanceof ButtonDevice) {
-         ((ButtonDevice)inputDevice).addButtonDeviceEventListener(this);
+      if (inputDevice instanceof ButtonDeviceEventListener) {
+         ((ButtonDeviceEventListener)inputDevice).addButtonDeviceEventListener(this);
       }
 
       if (inputDevice instanceof InputDeviceEventListener) {
@@ -110,8 +110,8 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
       inputDevice.removeInputDeviceEventListener(listener);
       inputDevice.removeInputDeviceEventListener(this);
 
-      if (inputDevice instanceof ButtonDevice) {
-         ((ButtonDevice)inputDevice).removeButtonDeviceEventListener(this);
+      if (inputDevice instanceof ButtonDeviceEventListener) {
+         ((ButtonDeviceEventListener)inputDevice).removeButtonDeviceEventListener(this);
       }
 
       if (inputDevice instanceof InputDeviceEventListener) {
@@ -170,7 +170,7 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
 
 
    public void handleButtonPressedEvent(InputDeviceEvent event) {
-      for (final ButtonDeviceEventListener listener : buttonDeviceListeners) {
+      for (final ButtonDeviceHandler listener : buttonDeviceListeners) {
          listener.handleButtonPressedEvent(event);
       }
 
@@ -187,12 +187,12 @@ public class InputDeviceClient implements ButtonDeviceEventListener,
    } // removeInputDeviceEventListener
 
 
-   public void addButtonDeviceEventListener(ButtonDeviceEventListener listener) {
+   public void addButtonDeviceEventListener(ButtonDeviceHandler listener) {
       buttonDeviceListeners.add(listener);
    } // addButtonDeviceEventListener
 
 
-   public void removeButtonDeviceEventListener(ButtonDeviceEventListener listener) {
+   public void removeButtonDeviceEventListener(ButtonDeviceHandler listener) {
       buttonDeviceListeners.remove(listener);
    } // removeButtonDeviceEventListener
 
