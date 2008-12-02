@@ -194,19 +194,19 @@ public class Recogniser {
     * 'recogniseAll' is set to true or the result of the first algorithm that
     * recognised the given note if 'recogniseAll' is set to false.
     * 
-    * @param note the note to be recognised.
+    * @param gesture the gesture to be recognised.
     * @param recogniseAll true if the combination of all algorithms has to be
     *            returned, false if only the result of the first algorithm that
     *            recognises the result has to be returned.
     * @return the result set containing the recognised gesture classes.
     */
-   public ResultSet recognise(Gesture< ? > note, boolean recogniseAll) {
+   public ResultSet recognise(Gesture< ? > gesture, boolean recogniseAll) {
       final ResultSet result = new ResultSet();
 
       for (final Algorithm algorithm : algorithms) {
 
          try {
-            for (final Result r : algorithm.recognise(note).getResults()) {
+            for (final Result r : algorithm.recognise(gesture).getResults()) {
                result.addResult(r);
             }
          }
@@ -229,11 +229,11 @@ public class Recogniser {
     * Recognises a gesture. The method uses all registered algorithms and stops
     * as soon as the first algorithm returns a result.
     * 
-    * @param note the note to be recognised.
+    * @param gesture the gesture to be recognised.
     * @return the result set containing the recognised gesture classes.
     */
-   public ResultSet recognise(Gesture< ? > note) {
-      return recognise(note, false);
+   public ResultSet recognise(Gesture< ? > gesture) {
+      return recognise(gesture, false);
    } // recognise
 
 
