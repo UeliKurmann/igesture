@@ -192,7 +192,7 @@ public class Recogniser {
     * Recognises a gesture. The method uses all algorithms and returns a
     * combination of the results returned by the different algorithms if
     * 'recogniseAll' is set to true or the result of the first algorithm that
-    * recognised the given note if 'recogniseAll' is set to false.
+    * recognised the given gesture if 'recogniseAll' is set to false.
     * 
     * @param gesture the gesture to be recognised.
     * @param recogniseAll true if the combination of all algorithms has to be

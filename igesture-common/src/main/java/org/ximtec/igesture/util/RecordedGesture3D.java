@@ -1,3 +1,28 @@
+/*
+ * @(#)$Id: RecordedGesture3D.java 2008-12-02 arthurvogels $
+ *
+ * Author       :   Arthur Vogels, arthur.vogels@gmail.com
+ *
+ * Purpose      :	Temporarily stores a gesture that has been recorded,
+ * 					serving as input for the recognizer.
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Revision Information:
+ *
+ * Date             Who         	Reason
+ *
+ * Dec 02, 2008     arthurvogels    Initial Release
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Copyright 1999-2008 ETH Zurich. All Rights Reserved.
+ *
+ * This software is the proprietary information of ETH Zurich.
+ * Use is subject to license terms.
+ * 
+ */
+
 package org.ximtec.igesture.util;
 
 import static org.sigtec.util.Constant.LF_STRING;
