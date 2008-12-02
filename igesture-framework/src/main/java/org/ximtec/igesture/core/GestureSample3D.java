@@ -1,9 +1,8 @@
-package org.ximtec.igesture.util;
+package org.ximtec.igesture.core;
 
 //import java.util.logging.Logger;
 
-import org.ximtec.igesture.core.DefaultDataObject;
-import org.ximtec.igesture.core.Gesture;
+import org.ximtec.igesture.util.RecordedGesture3D;
 
 public class GestureSample3D extends DefaultDataObject implements Cloneable,
 Gesture<RecordedGesture3D> {
