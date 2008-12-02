@@ -10,6 +10,7 @@ import org.ximtec.igesture.algorithm.AlgorithmException.ExceptionType;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
+import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.ResultSet;
 
 
