@@ -25,29 +25,17 @@
 
 package org.ximtec.igesture.util;
 
-import static org.sigtec.util.Constant.LF_STRING;
-
-//import java.awt.Graphics;
-//import java.awt.geom.Point2D;
-//import javax.vecmath.*;
-
-//import java.awt.geom.Rectangle2D;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.sigtec.util.InstanceInfo;
 
 public class RecordedGesture3D implements Cloneable {
 	   private static final Logger LOGGER = Logger.getLogger(RecordedGesture3D.class.getName());
 
 	   private List<Point3D> points;
-
-	   private static final String ATTRIBUTE_SIZE = "size";
-	   private static final String POINT = "POINT = ";
-
 
 	   /** Constructor
 	    * 
@@ -205,8 +193,6 @@ public class RecordedGesture3D implements Cloneable {
 	    * Clones a recordedgesture3d.
 	    * @return the cloned trace.
 	    */
-	   @Override
-	   @SuppressWarnings("unchecked")
 	   public Object clone() {
 	      RecordedGesture3D clone = null;
 
@@ -226,23 +212,5 @@ public class RecordedGesture3D implements Cloneable {
 
 	      return clone;
 	   } 
-
-
-	   /**
-	    * Returns a string representation of the trace.
-	    * @return String representation of the trace.
-	    */
-	   @Override
-	   public String toString() {
-	      InstanceInfo info = new InstanceInfo(this);
-	      info.addAttribute(ATTRIBUTE_SIZE, size());
-	      StringBuffer answer = new StringBuffer(info.toString() + LF_STRING);
-
-	      for (Point3D point : points) {
-	         answer.append(POINT + point + LF_STRING);
-	      }
-
-	      return answer.toString();
-	   }
 
 }
