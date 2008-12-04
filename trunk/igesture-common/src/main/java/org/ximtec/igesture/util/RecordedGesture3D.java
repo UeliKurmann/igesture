@@ -32,6 +32,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+
+
+
 public class RecordedGesture3D implements Cloneable {
 	   private static final Logger LOGGER = Logger.getLogger(RecordedGesture3D.class.getName());
 
@@ -193,7 +196,7 @@ public class RecordedGesture3D implements Cloneable {
 	    * Clones a recordedgesture3d.
 	    * @return the cloned trace.
 	    */
-	   public Object clone() {
+	   /*public Object clone() {
 	      RecordedGesture3D clone = null;
 
 	      try {
@@ -212,5 +215,6 @@ public class RecordedGesture3D implements Cloneable {
 
 	      return clone;
 	   } 
+	*/   
 
 }
