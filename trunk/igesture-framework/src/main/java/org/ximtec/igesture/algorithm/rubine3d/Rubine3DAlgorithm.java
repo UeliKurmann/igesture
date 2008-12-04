@@ -17,8 +17,6 @@ import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.util.Point3D;
-import org.ximtec.igesture.util.RecordedGesture3D;
-
 
 
 public class Rubine3DAlgorithm implements Algorithm {
