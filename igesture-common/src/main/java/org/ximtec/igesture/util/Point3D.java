@@ -23,67 +23,103 @@
  * 
  */
 
-
 package org.ximtec.igesture.util;
 
-import javax.vecmath.*;
+public class Point3D {
 
+	private long timeStamp = 0;
+	private double x;
+	private double y;
+	private double z;
 
-public class Point3D extends Point3d {
+	/**
+	 * Constructor
+	 * 
+	 */
+	public Point3D() {
+		super();
+	}
 
-   private long timeStamp = 0;
+	/**
+	 * Constructor
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @param timeStamp
+	 */
+	public Point3D(double x, double y, double z, long timeStamp) {
+		this.setX(x);
+		this.setY(y);
+		this.setZ(z);
+		this.timeStamp = timeStamp;
+	}
 
+	/**
+	 * returns the time stamp for this point
+	 * 
+	 * @return
+	 */
+	public long getTimeStamp() {
+		return timeStamp;
+	}
+	
+	
+	/**
+	 * Set x, y and z
+	 * 
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
+	public void set(double x, double y, double z){
+		this.setX(x);
+		this.setY(y);
+		this.setZ(z);
+	}
+	
 
-   /**
-    * Constructor
-    * 
-    */
-   public Point3D() {
-      super();
-   }
+	/**
+	 * sets the timestamp for this point
+	 * 
+	 * @param timeStamp
+	 */
+	public void setTimeStamp(long timeStamp) {
+		this.timeStamp = timeStamp;
+	}
 
+	/**
+	 * Returns true if the point has a timestamp, otherwise false
+	 * 
+	 * @return
+	 */
+	public boolean hasTimeStamp() {
+		return (timeStamp != 0);
+	}
 
-   /**
-    * Constructor
-    * 
-    * @param x
-    * @param y
-    * @param z
-    * @param timeStamp
-    */
-   public Point3D(double x, double y, double z, long timeStamp) {
-      super(x, y, z);
-      this.timeStamp = timeStamp;
-   }
+	
+	public double getX() {
+		return x;
+	}
 
+	public void setX(double x) {
+		this.x = x;
+	}
 
-   /**
-    * returns the time stamp for this point
-    * 
-    * @return
-    */
-   public long getTimeStamp() {
-      return timeStamp;
-   }
+	public double getY() {
+		return y;
+	}
 
+	public void setY(double y) {
+		this.y = y;
+	}
 
-   /**
-    * sets the timestamp for this point
-    * 
-    * @param timeStamp
-    */
-   public void setTimeStamp(long timeStamp) {
-      this.timeStamp = timeStamp;
-   }
+	public double getZ() {
+		return z;
+	}
 
-
-   /**
-    * Returns true if the point has a timestamp, otherwise false
-    * 
-    * @return
-    */
-   public boolean hasTimeStamp() {
-      return (timeStamp != 0);
-   }
+	public void setZ(double z) {
+		this.z = z;
+	}
 
 }
