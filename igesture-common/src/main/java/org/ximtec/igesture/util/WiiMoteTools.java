@@ -42,7 +42,8 @@ public class WiiMoteTools {
 		double xPosition = 0; 									//assume initial x position is zero
 		double yPosition = 0; 									//assume initial y position is zero
 		double zPosition = 0; 									//assume initial z position is zero
-		double t = 1 / acc.getSampleFrequency(); 				//Time between samples in seconds
+		long tOld = 0; 												//Timestamp of old sample
+		long tNew = 0;												//Timestamp of new sample
 		double a; 												//Acceleration
 		Point3D point = new Point3D();							//Point in 3d Space
 		
@@ -50,22 +51,34 @@ public class WiiMoteTools {
 		for(int i = 0; i<acc.numberOfSamples(); i++){
 			Sample sample = acc.getSample(i);							//Get current sample
 			
-			a = sample.getXAcceleration(); 								//Get X acceleration for current sample
-			xVelocity = xVelocity + (a * t); 							//Compute new X velocity
-			xPosition = ((a * t * t) / 2) + xVelocity * t + xPosition; 	//Compute new X position
+			tNew = sample.getTimeStamp(); 								//Get timestamp from sample
+			if (i==0) { //For the first sample we do not know tOld, therefore we make tOld = tNew
+				tOld = tNew;
+			}
+			double t = (tNew - tOld) * 0.001;							//Time in seconds since last sample
+			tOld = tNew;												//Old time of next sample = new time of this sample
+			//System.out.println("Time between samples: " + t + " seconds.");
 			
-			a = sample.getYAcceleration(); 								//Get Y acceleration for current sample
+			a = sample.getXAcceleration() * 10; //1G = 10m/s2			//Get X acceleration for current sample
+			xVelocity = xVelocity + (a * t); 							//Compute new X velocity
+			xPosition = ((a * t * t) * 0.5) + (xVelocity * t) + xPosition; 	//Compute new X position
+			//System.err.println("X Velocity: " + xVelocity);
+			System.err.println("X Position: " + xPosition);
+			
+			a = sample.getYAcceleration() * 10; //1G = 10m/s2			//Get Y acceleration for current sample
 			yVelocity = yVelocity + (a * t); 							//Compute new Y velocity
 			yPosition = ((a * t * t) / 2) + yVelocity * t + yPosition; 	//Compute new Y position
 			
-			a = sample.getZAcceleration(); 								//Get Z acceleration for current sample
+			a = sample.getZAcceleration() * 10; //1G = 10m/s2			//Get Z acceleration for current sample
 			zVelocity = zVelocity + (a * t); 							//Compute new Z velocity
 			zPosition = ((a * t * t) / 2) + zVelocity * t + zPosition; 	//Compute new Z position
 
 			point.set(xPosition, yPosition, zPosition);					//Put x, y and z positions into point
 			point.setTimeStamp(sample.getTimeStamp());					//Add timestamp to point
 			
-			gesture.add(point);											//Add new point to gesture			
+			gesture.add(point);											//Add new point to gesture
+			//System.err.println("x: " + point.getX());// + ", y: " + point.getY() + ", z: " + point.getZ());
+			//System.err.println("xAcc: " + sample.getXAcceleration() + ", yAcc: " + sample.getYAcceleration() + ", zAcc: " + sample.getZAcceleration());
 		}
 		return gesture;
 	}

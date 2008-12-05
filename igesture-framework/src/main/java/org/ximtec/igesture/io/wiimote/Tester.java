@@ -8,7 +8,7 @@ public class Tester {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		WiiRemote mote = new WiiRemote();
-		System.out.println("godverdomme");
+		System.out.println("End of test main.");
 	}
 
 }
