@@ -32,9 +32,9 @@ package org.ximtec.igesture.util;
  */
 public class Sample {
 	
-	private float xAcceleration;
-	private float yAcceleration;
-	private float zAcceleration;
+	private double xAcceleration;
+	private double yAcceleration;
+	private double zAcceleration;
 	private long timeStamp;
 	
 	/** Constructor
@@ -45,14 +45,14 @@ public class Sample {
 	
 	/** Constructor with assignment of accelerations
 	 * 
-	 * @param xAcceleration
-	 * @param yAcceleration
-	 * @param zAcceleration
+	 * @param xAcc
+	 * @param yAcc
+	 * @param zAcc
 	 */
-	public Sample(float xAcceleration, float yAcceleration, float zAcceleration){
-		this.xAcceleration = xAcceleration;
-		this.yAcceleration = yAcceleration;
-		this.zAcceleration = zAcceleration;		
+	public Sample(double xAcc, double yAcc, double zAcc){
+		this.xAcceleration = xAcc;
+		this.yAcceleration = yAcc;
+		this.zAcceleration = zAcc;		
 	}
 	
 	/** Constructor with assignment of accelerations and timestamp
@@ -62,7 +62,7 @@ public class Sample {
 	 * @param zAcceleration
 	 * @param timeStamp
 	 */
-	public Sample(float xAcceleration, float yAcceleration, float zAcceleration, long timeStamp){
+	public Sample(double xAcceleration, double yAcceleration, double zAcceleration, long timeStamp){
 		this.xAcceleration = xAcceleration;
 		this.yAcceleration = yAcceleration;
 		this.zAcceleration = zAcceleration;
@@ -74,7 +74,7 @@ public class Sample {
 	 * 
 	 * @return
 	 */
-	public float getXAcceleration() {
+	public double getXAcceleration() {
 		return xAcceleration;
 	}
 	
@@ -82,7 +82,7 @@ public class Sample {
 	 * 
 	 * @param acceleration
 	 */
-	public void setXAcceleration(float acceleration) {
+	public void setXAcceleration(double acceleration) {
 		xAcceleration = acceleration;
 	}
 	
@@ -90,7 +90,7 @@ public class Sample {
 	 * 
 	 * @return
 	 */
-	public float getYAcceleration() {
+	public double getYAcceleration() {
 		return yAcceleration;
 	}
 	
@@ -98,14 +98,14 @@ public class Sample {
 	 * 
 	 * @param acceleration
 	 */
-	public void setYAcceleration(float acceleration) {
+	public void setYAcceleration(double acceleration) {
 		yAcceleration = acceleration;
 	}
 	
 	/** returns the z acceleration in this sample
 	 * 
 	 */
-	public float getZAcceleration() {
+	public double getZAcceleration() {
 		return zAcceleration;
 	}
 	
@@ -113,7 +113,7 @@ public class Sample {
 	 * 
 	 * @param acceleration
 	 */
-	public void setZAcceleration(float acceleration) {
+	public void setZAcceleration(double acceleration) {
 		zAcceleration = acceleration;
 	}	
 	

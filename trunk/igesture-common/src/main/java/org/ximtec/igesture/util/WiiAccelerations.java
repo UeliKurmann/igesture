@@ -34,7 +34,11 @@ public class WiiAccelerations {
 	
 
 	public WiiAccelerations(int sampleFrequency){
+		this();
 		this.sampleFrequency = sampleFrequency;
+	}
+
+	public WiiAccelerations() {
 		samples = new ArrayList<Sample>();
 	}
 
@@ -86,6 +90,13 @@ public class WiiAccelerations {
 	 */
 	public void setSampleFrequency(int sampleFrequency) {
 		this.sampleFrequency = sampleFrequency;
+	}
+
+	/**
+	 * Clears the accelerations list
+	 */
+	public void clear() {
+		this.samples.clear();		
 	}
 
 

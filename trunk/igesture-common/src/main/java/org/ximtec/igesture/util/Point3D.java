@@ -63,8 +63,7 @@ public class Point3D {
 	public long getTimeStamp() {
 		return timeStamp;
 	}
-	
-	
+
 	/**
 	 * Set x, y and z
 	 * 
@@ -72,12 +71,11 @@ public class Point3D {
 	 * @param y
 	 * @param z
 	 */
-	public void set(double x, double y, double z){
+	public void set(double x, double y, double z) {
 		this.setX(x);
 		this.setY(y);
 		this.setZ(z);
 	}
-	
 
 	/**
 	 * sets the timestamp for this point
@@ -97,7 +95,6 @@ public class Point3D {
 		return (timeStamp != 0);
 	}
 
-	
 	public double getX() {
 		return x;
 	}
