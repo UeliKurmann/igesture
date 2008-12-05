@@ -27,7 +27,8 @@ package org.ximtec.igesture.util;
 public class WiiMoteTools {
 
 
-	/** Converts the acceleration data from the WiiMote into timestamped 3D positions in a RecordedGesture3D object
+	/** 
+	 * Converts the acceleration data from the WiiMote into timestamped 3D positions in a RecordedGesture3D object
 	 * 
 	 * @param acc the acceleration data coming from the WiiMote controller
 	 * @return
@@ -68,8 +69,6 @@ public class WiiMoteTools {
 		}
 		return gesture;
 	}
-	
-	
 	
 	
 	/** Main for test purposes
