@@ -21,8 +21,8 @@ import event.WiimoteMotionStopEvent;
 public class WiiListener implements WiimoteListener {
 
 	private Wiimote wiimote; 						// The WiiMote this listener is listening to
-	private RecordedGesture3D recordedGesture;
-	private GestureSample3D gesture;
+	private RecordedGesture3D recordedGesture;		// The RecordedGesture3D that will contain the position data
+	private GestureSample3D gesture;				// The GestureSample3D that will contain recordedGesture
 	private WiiAccelerations accelerations;			// List of recorded accelerations from the wiimote
 	private boolean recording;						// Indicates if accelerations recording is in progress
 	private int recordButton = WiimoteButtonPressedEvent.BUTTON_B; //Button that is used to start and stop recording
@@ -71,7 +71,7 @@ public class WiiListener implements WiimoteListener {
 				recording = false;
 				//Vibration to confirm gesture recording
 				try {
-					wiimote.vibrateForTime(100);
+					wiimote.vibrateForTime(200);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
