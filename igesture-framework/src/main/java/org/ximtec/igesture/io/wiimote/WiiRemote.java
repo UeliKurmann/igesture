@@ -14,8 +14,7 @@ public class WiiRemote {
 		try {
 			wiigee = Wiigee.getInstance();							//Get WiiGee singleton instance
 			Wiimote[] wiimotes = wiigee.getWiimotes();				//Retrieve array of WiiMotes in range
-			WiimoteListener listener = new WiiListener(wiimotes[0]);//Create new listener for the first WiiMote
-			wiigee.addWiimoteListener(listener);					//Add the listener to WiiGee
+			wiigee.addWiimoteListener(new WiiListener(wiimotes[0]));//Add new listener to WiiGee
 			System.out.println("WiiListener added to wiigee.");
 			
 		} catch (IOException e) {
