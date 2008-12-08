@@ -219,6 +219,11 @@
 			<artifactId>igesture-common</artifactId>
 		</dependency>
 
+        <dependency>
+            <groupId>wiigee</groupId>
+            <artifactId>wiigee</artifactId>
+        </dependency>
+
 		<dependency>
 			<groupId>xalan</groupId>
 			<artifactId>xalan</artifactId>
