@@ -32,7 +32,6 @@
 			<excludes>
 				<exclude>*.properties</exclude>
 			</excludes>
-
 		</fileSet>
 		<fileSet>
 			<directory>src/main/data</directory>
