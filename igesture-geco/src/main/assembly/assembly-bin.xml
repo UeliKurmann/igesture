@@ -26,9 +26,10 @@
 		<fileSet>
 			<directory>src/main/resources</directory> 
 			<outputDirectory>/</outputDirectory>
-			<includes>
+			<excludes>
 				<exclude>*.properties</exclude> 
-			</includes>
+			</excludes>
+			
 		</fileSet>
     <fileSet>
       <directory>src/main/data</directory>
