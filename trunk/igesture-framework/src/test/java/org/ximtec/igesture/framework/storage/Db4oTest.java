@@ -17,6 +17,7 @@ public class Db4oTest extends StorageEngineTest {
 	@Before
 	public void setUp() {
 		File file = new File(System.getProperty(USER_DIR) + DB_FILE);
+		file.deleteOnExit();
 		if(file.exists()){
 			file.delete();
 		}

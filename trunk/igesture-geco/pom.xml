@@ -1,36 +1,46 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
 	<parent>
-		<groupId>org.ximtec.igesture</groupId>
 		<artifactId>igesture</artifactId>
+		<groupId>org.ximtec.igesture</groupId>
 		<version>1.2-SNAPSHOT</version>
 	</parent>
-
+	<modelVersion>4.0.0</modelVersion>
 	<artifactId>igesture-geco</artifactId>
-	<packaging>jar</packaging>
-	<version>1.2-SNAPSHOT</version>
-	<inceptionYear>2007</inceptionYear>
-	<description>
-		Gesture Controller application.
-	</description>
-
 	<name>iGesture Geco</name>
+	<version>1.2-SNAPSHOT</version>
+	<description>Gesture Controller application.</description>
 	<url>http://www.igesture.org</url>
-
+	<inceptionYear>2007</inceptionYear>
+	<scm>
+		<connection>
+			scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-geco
+		</connection>
+		<developerConnection>
+			scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-geco
+		</developerConnection>
+		<url>
+			http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-geco
+		</url>
+	</scm>
 	<build>
 		<resources>
 			<resource>
-				<filtering>false</filtering>
 				<directory>src/main/resources</directory>
 			</resource>
 		</resources>
-
 		<plugins>
-		
-		<plugin>
+			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>assembly</goal>
+						</goals>
+					</execution>
+				</executions>
 				<configuration>
 					<descriptors>
 						<descriptor>
@@ -42,65 +52,21 @@
 							<mainClass>
 								org.ximtec.igesture.geco.Geco
 							</mainClass>
-							<packageName>org.ximtec.igesture.geco</packageName>
+							<packageName>
+								org.ximtec.igesture.geco
+							</packageName>
 						</manifest>
 					</archive>
 				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id>
-						<!-- this is used for inheritance merges -->
-						<phase>package</phase>
-						<!-- append to the packaging phase. -->
-						<goals>
-							<goal>assembly</goal>
-							<!-- goals == mojos -->
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
-		<!--
-  				<plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                      <archive>
-			          <manifest>
-			            <mainClass>org.ximtec.igesture.geco.GecoMain</mainClass>
-			            <packageName>org.ximtec.igesture.geco</packageName>
-			          </manifest>
-
-			          <manifestEntries>
-			            <mode>development</mode>
-			            <url>${pom.url}</url>
-			          </manifestEntries>
-
-			        </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>attached</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin> 
-		-->            
 		</plugins>
 	</build>
-
 	<repositories>
 		<repository>
 			<releases>
-				<enabled>true</enabled>
 				<updatePolicy>daily</updatePolicy>
 			</releases>
 			<snapshots>
-				<enabled>true</enabled>
 				<updatePolicy>daily</updatePolicy>
 			</snapshots>
 			<id>globis</id>
@@ -108,39 +74,44 @@
 			<url>http://maven.globis.ethz.ch/repository/</url>
 		</repository>
 	</repositories>
-
-
-	<dependencies>		
+	<dependencies>
 		<dependency>
 			<groupId>org.ximtec.igesture</groupId>
 			<artifactId>igesture-framework</artifactId>
 		</dependency>
-				
 		<dependency>
 			<groupId>org.sigtec</groupId>
 			<artifactId>sigtec-graphix</artifactId>
-		</dependency>	
-				
+		</dependency>
 		<dependency>
 			<groupId>org.ximtec.igesture</groupId>
 			<artifactId>igesture-common</artifactId>
 		</dependency>
-		
-        <dependency>
-            <groupId>org.ximtec.igesture</groupId>
-            <artifactId>igesture-db-msApplicationGestures-gestures</artifactId>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.ximtec.igesture</groupId>
-            <artifactId>igesture-io</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.ximtec.igesture</groupId>
+			<artifactId>
+				igesture-db-msApplicationGestures-gestures
+			</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ximtec.igesture</groupId>
+			<artifactId>igesture-io</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+			<version>1.4</version>
+			<exclusions>
+				<exclusion>
+					<groupId>xerces</groupId>
+					<artifactId>xerces</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 	</dependencies>
-		
 	<reporting>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<configuration>
 					<author>true</author>
@@ -161,18 +132,10 @@
 			</plugin>
 		</plugins>
 	</reporting>
-	
 	<distributionManagement>
 		<site>
 			<id>ftp-repository</id>
 			<url>ftp://www.igesture.org/httpdocs/igesture-geco</url>
 		</site>
 	</distributionManagement>
-	
-    <scm>
-        <connection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-geco</connection>
-        <developerConnection>scm:svn:http://igesture.svn.sourceforge.net/svnroot/igesture/trunk/igesture-geco</developerConnection>
-        <url>http://igesture.svn.sourceforge.net/viewvc/igesture/trunk/igesture-geco</url>
-    </scm>
-	
 </project>
