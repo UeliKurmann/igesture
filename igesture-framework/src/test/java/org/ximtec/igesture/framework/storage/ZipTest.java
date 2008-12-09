@@ -4,7 +4,6 @@ import java.io.File;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.storage.StorageManager;
 import org.ximtec.igesture.storage.ZipStorageEngine;
@@ -35,10 +34,6 @@ public class ZipTest extends StorageEngineTest {
 		return new StorageManager(engine);
 	}
 	
-	@Test
-    public void testParamLoad() {
-        
-    }
 	
 	@After
 	public void cleanUp(){

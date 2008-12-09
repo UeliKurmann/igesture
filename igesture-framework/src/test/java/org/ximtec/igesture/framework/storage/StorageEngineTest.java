@@ -138,13 +138,4 @@ public abstract class StorageEngineTest {
    }
 
 
-   // @Test
-   public void testParamLoad() {
-      StorageManager manager = getStorageManager();
-      List<GestureClass> gestureClasses = manager.load(GestureClass.class,
-            "name", GESTURE1_CLASS_NAME);
-      Assert.assertEquals(GESTURE1_CLASS_NAME, gestureClasses.get(0).getName());
-      manager.dispose();
-   }
-
 }
