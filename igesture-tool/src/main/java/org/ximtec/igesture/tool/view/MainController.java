@@ -31,6 +31,10 @@ import java.awt.Point;
 import java.beans.IndexedPropertyChangeEvent;
 import java.beans.PropertyChangeEvent;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.Date;
+import java.util.Properties;
 import java.util.concurrent.CyclicBarrier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,6 +74,8 @@ import org.ximtec.igesture.tool.view.welcome.WelcomeController;
  */
 public class MainController extends DefaultController implements Service {
 
+   private static final String PROPERTIES = "properties.xml";
+
    private static final Logger LOGGER = Logger.getLogger(MainController.class
          .getName());
 
@@ -100,6 +106,8 @@ public class MainController extends DefaultController implements Service {
 
    // Main View
    private MainView mainView;
+   
+   private Properties properties;
 
 
    public MainController() {
@@ -110,15 +118,23 @@ public class MainController extends DefaultController implements Service {
 
    private void initServices() {
       guiBundle = new GuiBundleService(RESOURCE_BUNDLE);
-      
-      
+
+      properties = new Properties();
+
+      try {
+         properties.loadFromXML(new FileInputStream(PROPERTIES));
+      }
+      catch (Exception e) {
+         LOGGER.log(Level.WARNING, "Failed to load properties.", e);
+      }
+
       File database = null;
-      while(database == null){
+      while (database == null) {
          database = getDatabase();
       }
-      
-      mainModel = new MainModel(StorageManager
-            .createStorageEngine(database), this);
+
+      mainModel = new MainModel(StorageManager.createStorageEngine(database),
+            this, properties);
       deviceClient = new InputDeviceClientService();
 
       /**
@@ -267,6 +283,14 @@ public class MainController extends DefaultController implements Service {
             title, JOptionPane.YES_NO_OPTION)) {
          mainModel.getStorageManager().commit();
          Locator.getDefault().stopAll();
+
+         try {
+            mainModel.getProperties().storeToXML(new FileOutputStream(PROPERTIES),
+                  "iGesture: " + new Date());
+         }
+         catch (Exception e) {
+            LOGGER.log(Level.WARNING, "Failed to store properties.",e);
+         }
          System.exit(0);
       }
 
@@ -377,7 +401,11 @@ public class MainController extends DefaultController implements Service {
       chooser.setFileFilter(FileFilterFactory.getWorkspaceCompressed());
       chooser.showOpenDialog(null);
       file = chooser.getSelectedFile();
-
+      
+      if(file != null){
+         properties.setProperty(Property.WORKING_DIRECTORY, file.getParent());
+      }
+      
       return file;
    } // getDatabase
 

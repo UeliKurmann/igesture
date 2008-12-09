@@ -44,7 +44,7 @@ public interface MouseHandler {
     * @param x
     * @param y
     * @param buttons
-    */
+    */ 
    public void handleMouseEvent(int x, int y, EnumSet<MouseButton> buttons);
       
 }

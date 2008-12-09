@@ -29,6 +29,7 @@ package org.ximtec.igesture.tool.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.rubine.RubineAlgorithm;
@@ -64,16 +65,21 @@ public class MainModel implements RunnableService {
 
    private MainController mainController;
 
+   private Properties properties;
+
 
    /**
     * Constructs a new main model.
     * @param engine the storage engine to be used.
     * @param mainController the main controller of the application.
+    * @param proeprties the properties
     */
-   public MainModel(StorageEngine engine, MainController mainController) {
+   public MainModel(StorageEngine engine, MainController mainController, Properties properties) {
       this.mainController = mainController;
+      this.properties = properties;
       setStorageEngine(engine);
    }
+   
 
 
    /**
@@ -201,5 +207,39 @@ public class MainModel implements RunnableService {
       this.storageManager = StorageManagerProxy.newInstance(new StorageManager(
             storageEngine), visitor);
    } // setStorageEngine
+
+
+   /**
+    * Add / Set a property. Properties are key/value pairs and made persistent
+    * after shutting down the application.
+    * @param key
+    * @param value
+    */
+   public void setProperty(String key, String value) {
+      properties.setProperty(key, value);
+   }
+
+
+   /**
+    * Returns the property value of the given key.
+    * @param key the key of the property.
+    * @return the value of the property.
+    */
+   public String getProperty(String key) {
+      return properties.getProperty(key);
+   }
+
+
+   /**
+    * Removes a property.
+    * @param key
+    */
+   public void removeProperty(String key) {
+      properties.remove(key);
+   }
+   
+   public Properties getProperties(){
+      return properties;
+   }
 
 }
