@@ -6,7 +6,7 @@
  * Purpose      : 	Event listener for button devices.
  *
  * -----------------------------------------------------------------------
- *
+ * 
  * Revision Information:
  *
  * Date             Who         Reason
