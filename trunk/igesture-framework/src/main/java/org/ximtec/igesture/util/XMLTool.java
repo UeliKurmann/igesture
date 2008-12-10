@@ -97,7 +97,6 @@ public class XMLTool {
     * @param file the XML file.
     * @return a list of gesture sets.
     */
-   @SuppressWarnings("unchecked")
    public static GestureSet importGestureSet(InputStream inputStream) {
       Document document = importDocument(inputStream);
       Element setElement = document.getRootElement().getChild(
@@ -228,7 +227,6 @@ public class XMLTool {
     * @param file the XML File
     * @return a list of GestureSets
     */
-   @SuppressWarnings("unchecked")
    public static TestSet importTestSet(File file) {
       try {
          return importTestSet(new FileInputStream(file));
@@ -247,7 +245,6 @@ public class XMLTool {
     * @param inputStream the input stream of the XML document
     * @return a list of test sets
     */
-   @SuppressWarnings("unchecked")
    public static TestSet importTestSet(InputStream inputStream) {
       Document document = importDocument(inputStream);
       Element testSetElement = document.getRootElement().getChild(

@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -26,6 +26,7 @@
 
 package org.ximtec.igesture.tool.util;
 
+import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JButton;
@@ -43,6 +44,8 @@ public class Formatter {
    public static void formatButton(JButton button){    
       button.setPreferredSize(new Dimension(160, 25));
       button.setHorizontalAlignment(SwingConstants.LEFT);
+      button.setAlignmentX(Component.LEFT_ALIGNMENT);
+      
       
    }
 }
