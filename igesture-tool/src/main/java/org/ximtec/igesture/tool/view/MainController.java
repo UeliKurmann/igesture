@@ -399,6 +399,7 @@ public class MainController extends DefaultController implements Service {
       chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceDb4o());
       chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceXStream());
       chooser.setFileFilter(FileFilterFactory.getWorkspaceCompressed());
+      chooser.setCurrentDirectory(new File(properties.getProperty(Property.WORKING_DIRECTORY)));
       chooser.showOpenDialog(null);
       file = chooser.getSelectedFile();
       

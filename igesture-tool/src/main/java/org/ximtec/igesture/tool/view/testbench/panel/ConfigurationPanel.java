@@ -28,6 +28,7 @@ package org.ximtec.igesture.tool.view.testbench.panel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -38,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -65,8 +67,6 @@ import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
 import org.ximtec.igesture.tool.view.testbench.action.RecogniseAction;
 import org.ximtex.igesture.tool.binding.BindingFactory;
 import org.ximtex.igesture.tool.binding.MapTextFieldBinding;
-
-import sun.awt.VerticalBagLayout;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -133,7 +133,8 @@ public class ConfigurationPanel extends AbstractPanel {
 
       // buttons
       JPanel buttonPanel = new JPanel();
-      buttonPanel.setLayout(new VerticalBagLayout());
+      buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+      
 
       final JComboBox comboBox = new JComboBox(Locator.getDefault().getService(
             MainModel.IDENTIFIER, MainModel.class).getGestureSets().toArray());

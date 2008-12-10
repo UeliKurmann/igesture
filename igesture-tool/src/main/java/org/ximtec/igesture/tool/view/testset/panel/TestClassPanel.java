@@ -33,6 +33,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -57,8 +58,6 @@ import org.ximtec.igesture.tool.view.testset.action.AddSampleAction;
 import org.ximtec.igesture.tool.view.testset.action.RemoveSampleAction;
 import org.ximtec.igesture.util.GestureTool;
 import org.ximtex.igesture.tool.binding.BindingFactory;
-
-import sun.awt.VerticalBagLayout;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -187,7 +186,7 @@ public class TestClassPanel extends AbstractPanel {
 
       // buttons
       JPanel buttonPanel = new JPanel();
-      buttonPanel.setLayout(new VerticalBagLayout());
+      buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
       JButton addSampleButton = ComponentFactory
             .createButton(GestureConstants.GESTURE_SAMPLE_ADD,
