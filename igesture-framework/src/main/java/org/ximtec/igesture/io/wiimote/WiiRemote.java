@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import control.Wiigee;
 import device.Wiimote;
-import event.WiimoteListener;
 
 public class WiiRemote {
 
@@ -20,6 +19,13 @@ public class WiiRemote {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * 
+	 */
+	public void addWiiListener(WiiListener listener){
+		//wiigee.addWiimoteListener(listener)
 	}
 	
 }

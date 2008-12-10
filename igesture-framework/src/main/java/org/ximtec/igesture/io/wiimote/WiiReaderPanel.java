@@ -1,5 +1,6 @@
 package org.ximtec.igesture.io.wiimote;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -10,6 +11,7 @@ import javax.swing.JPanel;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Trace;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample3D;
 
 public class WiiReaderPanel extends JPanel {
@@ -33,6 +35,8 @@ public class WiiReaderPanel extends JPanel {
 	 * @param currentPoint
 	 */
 	public void drawLine(Point lastPoint, Point currentPoint) {
+		Graphics g = this.getGraphics();
+		System.err.println("Graphics: " + g);
 		if (getGraphics() != null && currentPoint != null && lastPoint != null
 				&& lastPoint.distance(currentPoint) < 1000000) {
 			getGraphics().drawLine((int) lastPoint.getX(),
@@ -66,12 +70,18 @@ public class WiiReaderPanel extends JPanel {
 
 	private void redrawGesture() {
 		if (reader != null) {
-
-			//Get the XY plane from the gesture
-			Note noteXY = (Note)((GestureSample3D)reader.getGesture()).splitToPlanes().get(0); 
+			//Get gesture to draw
+			GestureSample3D gs = (GestureSample3D)reader.getGesture();
+			//Split the gesture to three planes
+			List<Gesture<Note>> notes = gs.splitToPlanes();
+			//Get the XY plane gesture
+			Gesture<Note> gestXY = notes.get(2);
+			Note noteXY = gestXY.getGesture();
+			//Note noteXY = (Note)((GestureSample3D)reader.getGesture()).splitToPlanes().get(0).getGesture(); 
 			
 			//For this moment we only draw the XY plane
 			if (noteXY != null) {
+				
 				List<Point> buffer = new ArrayList<Point>();
 				for (Trace trace : noteXY.getTraces()) {
 					for (org.sigtec.ink.Point point : trace.getPoints()) {
