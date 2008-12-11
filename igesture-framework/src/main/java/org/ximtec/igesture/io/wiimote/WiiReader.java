@@ -2,6 +2,7 @@ package org.ximtec.igesture.io.wiimote;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.io.IOException;
 import java.util.List;
 
@@ -59,19 +60,23 @@ public class WiiReader extends
 
 	
 	/**
-	 * Returns the panel
+	 * Returns the singleton panel
 	 * 
 	 * @param dimension
 	 * @return
 	 */
 	public WiiReaderPanel getPanel(Dimension dimension) {
+		if(currentPanel == null){
 			WiiReaderPanel panel = new WiiReaderPanel(this);
 			panel.setSize(dimension);
 			panel.setPreferredSize(dimension);
 			panel.setOpaque(true);
 			panel.setBackground(Color.WHITE);
 			panel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-			return panel;
+			currentPanel = panel;
+		}
+		return currentPanel;
+			
 	}
 
 	/**
@@ -158,7 +163,9 @@ public class WiiReader extends
 			else{ //If already recording, stop recording
 				gesture.setGesture(WiiMoteTools.accelerationsToTraces(this.accelerations)); //Convert accelerations list to a gesture
 				
-				this.currentPanel.repaint();
+				//this.currentPanel.redrawGesture();
+				//this.currentPanel.drawLine(new Point(10,10), new Point(33,60)); //test
+				this.currentPanel.paintComponent(currentPanel.getGraphics());
 				
 				accelerations.clear(); // Clear accelerations list
 				recording = false;
