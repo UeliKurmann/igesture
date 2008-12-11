@@ -55,7 +55,12 @@ public class SwingMouseReaderPanel extends JPanel {
 
 
    public void drawLine(Point lastPoint, Point currentPoint) {
-      if (getGraphics() != null && currentPoint != null && lastPoint != null
+		
+	   Graphics g = this.getGraphics();		
+	   
+	   System.err.println("Graphics: " + g); //TEST
+	   
+		if (getGraphics() != null && currentPoint != null && lastPoint != null
             && lastPoint.distance(currentPoint) < 1000000) {
 
          getGraphics().drawLine((int)lastPoint.getX(), (int)lastPoint.getY(),

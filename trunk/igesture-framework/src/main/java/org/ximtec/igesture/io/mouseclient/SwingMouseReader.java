@@ -173,7 +173,7 @@ public class SwingMouseReader extends AbstractGestureDevice<Note, Point> {
       @Override
       public void run() {
          while (true) {
-            if (lastKeyState) {
+             if (lastKeyState) {
                PointerInfo info = MouseInfo.getPointerInfo();
                Point currentPoint = info.getLocation();
 

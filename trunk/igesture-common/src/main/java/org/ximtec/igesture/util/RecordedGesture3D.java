@@ -68,8 +68,8 @@ public class RecordedGesture3D implements Cloneable, InputHandler {
 	 * @param point
 	 * @return
 	 */
-	public boolean add(Point3D point) {
-		return points.add(point);
+	public void add(Point3D point) {
+		points.add(point);
 	}
 
 	/**

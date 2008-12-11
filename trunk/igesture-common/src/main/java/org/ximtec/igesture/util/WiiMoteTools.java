@@ -63,13 +63,13 @@ public class WiiMoteTools {
 			xVelocity = xVelocity + (a * t); 							//Compute new X velocity
 			xPosition = ((a * t * t) * 0.5) + (xVelocity * t) + xPosition; 	//Compute new X position
 			//System.err.println("X Velocity: " + xVelocity);
-			System.err.println("X Position: " + xPosition);
+			//System.err.println("X Position: " + xPosition);
 			
 			a = sample.getYAcceleration() * 10; //1G = 10m/s2			//Get Y acceleration for current sample
 			yVelocity = yVelocity + (a * t); 							//Compute new Y velocity
 			yPosition = ((a * t * t) / 2) + yVelocity * t + yPosition; 	//Compute new Y position
 			
-			a = sample.getZAcceleration() * 10; //1G = 10m/s2			//Get Z acceleration for current sample
+			a = (sample.getZAcceleration() - 1) * 10; //1G = 10m/s2		//Get Z acceleration for current sample
 			zVelocity = zVelocity + (a * t); 							//Compute new Z velocity
 			zPosition = ((a * t * t) / 2) + zVelocity * t + zPosition; 	//Compute new Z position
 
@@ -77,9 +77,16 @@ public class WiiMoteTools {
 			point.setTimeStamp(sample.getTimeStamp());					//Add timestamp to point
 			
 			gesture.add(point);											//Add new point to gesture
+			point = new Point3D();
+			sample = new Sample();
 			//System.err.println("x: " + point.getX());// + ", y: " + point.getY() + ", z: " + point.getZ());
 			//System.err.println("xAcc: " + sample.getXAcceleration() + ", yAcc: " + sample.getYAcceleration() + ", zAcc: " + sample.getZAcceleration());
 		}
+		
+		for(int i = 0; i<gesture.size(); i++){
+			System.err.println("X: " + gesture.get(i).getX());
+		}
+		
 		return gesture;
 	}
 	
