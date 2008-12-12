@@ -25,8 +25,11 @@
 
 package org.ximtec.igesture.util;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
+
+import org.sigtec.ink.Note;
 
 public class WiiAccelerations {
 	private List<Sample> samples;
@@ -99,6 +102,203 @@ public class WiiAccelerations {
 		this.samples.clear();		
 	}
 
+	/**
+	 * Returns the first sample in the list
+	 * 
+	 * @return
+	 */
+	public Sample getFirstSample() {
+		return samples.get(0);
+	}
 
+	/**
+	 * Returns the last sample in the list
+	 * 
+	 * @return
+	 */
+	public Sample getLastSample() {
+		return samples.get(samples.size()-1);
+	}
+	
+	/**
+	 * Returns the maximum x acceleration value
+	 * 
+	 * @return
+	 */
+	public double getMaxXValue(){
+		double value = 0;
+		boolean found = false;
+		Iterator<Sample> i = samples.iterator();
+		while(i.hasNext()){
+			if(!found){
+				value = i.next().getXAcceleration();
+				found = true;
+			}
+			else {
+				if(i.next().getXAcceleration() > value)
+				value = i.next().getXAcceleration();
+			}
+		}
+		return value;
+	}
+	
+	/**
+	 * Returns the maximum y acceleration value
+	 * 
+	 * @return
+	 */
+	public double getMaxYValue(){
+		double value = 0;
+		boolean found = false;
+		Iterator<Sample> i = samples.iterator();
+		while(i.hasNext()){
+			if(!found){
+				value = i.next().getYAcceleration();
+				found = true;
+			}
+			else {
+				if(i.next().getYAcceleration() > value)
+				value = i.next().getYAcceleration();
+			}
+		}
+		return value;
+	}
+
+	/**
+	 * Returns the maximum z acceleration value
+	 * 
+	 * @return
+	 */
+	public double getMaxZValue(){
+		double value = 0;
+		boolean found = false;
+		Iterator<Sample> i = samples.iterator();
+		while(i.hasNext()){
+			if(!found){
+				value = i.next().getZAcceleration();
+				found = true;
+			}
+			else {
+				if(i.next().getZAcceleration() > value)
+				value = i.next().getZAcceleration();
+			}
+		}
+		return value;
+	}
+	
+	/**
+	 * Returns the minimum x acceleration value
+	 * 
+	 * @return
+	 */
+	public double getMinXValue(){
+		double value = 0;
+		boolean found = false;
+		Iterator<Sample> i = samples.iterator();
+		while(i.hasNext()){
+			if(!found){
+				value = i.next().getXAcceleration();
+				found = true;
+			}
+			else {
+				if(i.next().getXAcceleration() < value)
+				value = i.next().getXAcceleration();
+			}
+		}
+		return value;
+	}
+	
+	/**
+	 * Returns the minimum y acceleration value
+	 * 
+	 * @return
+	 */
+	public double getMinYValue(){
+		double value = 0;
+		boolean found = false;
+		Iterator<Sample> i = samples.iterator();
+		while(i.hasNext()){
+			if(!found){
+				value = i.next().getYAcceleration();
+				found = true;
+			}
+			else {
+				if(i.next().getYAcceleration() < value)
+				value = i.next().getYAcceleration();
+			}
+		}
+		return value;
+	}
+	
+	/**
+	 * Returns the minimum z acceleration value
+	 * 
+	 * @return
+	 */
+	public double getMinZValue(){
+		double value = 0;
+		boolean found = false;
+		Iterator<Sample> i = samples.iterator();
+		while(i.hasNext()){
+			if(!found){
+				value = i.next().getZAcceleration();
+				found = true;
+			}
+			else {
+				if(i.next().getZAcceleration() < value)
+				value = i.next().getZAcceleration();
+			}
+		}
+		return value;
+	}
+	
+	/**
+	 * Returns the maximum overall acceleration value
+	 * 
+	 * @return
+	 */
+	public double getMaxOverallValue(){
+		double value = getMaxXValue();
+		if(getMaxYValue() > value)
+			value = getMaxYValue();
+		if(getMaxZValue() > value)
+			value = getMaxZValue();		
+		return value;
+	}
+	
+	/**
+	 * Returns the minimum overall acceleration value
+	 * 
+	 * @return
+	 */
+	public Double getMinOverallValue(){
+		double value = getMaxXValue();
+		if(getMaxYValue() < value)
+			value = getMaxYValue();
+		if(getMaxZValue() < value)
+			value = getMaxZValue();		
+		return value;
+	}
+
+	/**
+	 * Returns the maximum absolute value for overall accelerations
+	 * 
+	 * @return
+	 */
+	public double getMaxAbsoluteAccelerationValue() {
+		double value = getMaxOverallValue();
+		if(Math.abs(getMinOverallValue()) > value)
+			value = Math.abs(getMinOverallValue());
+		return value;
+	}
+
+	/**
+	 * Returns the samples list
+	 * 
+	 * @return
+	 */
+	public List<Sample> getSamples() {
+		return samples;
+	}	
 	
 }

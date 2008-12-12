@@ -39,6 +39,7 @@ public class RecordedGesture3D implements Cloneable, InputHandler {
 			.getLogger(RecordedGesture3D.class.getName());
 
 	private List<Point3D> points;
+	private WiiAccelerations accelerations;
 
 	/**
 	 * Constructor
@@ -180,6 +181,14 @@ public class RecordedGesture3D implements Cloneable, InputHandler {
 	public synchronized void handle(Object invoker, TimestampedInputEvent timestampedEvent) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public WiiAccelerations getAccelerations() {
+		return accelerations;
+	}
+
+	public void setAccelerations(WiiAccelerations accelerations) {
+		this.accelerations = accelerations;
 	}
 
 	/**
