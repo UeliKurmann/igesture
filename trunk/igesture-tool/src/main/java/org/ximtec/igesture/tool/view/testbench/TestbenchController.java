@@ -42,6 +42,7 @@ import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
 import org.ximtec.igesture.tool.core.Command;
 import org.ximtec.igesture.tool.core.DefaultController;
+import org.ximtec.igesture.tool.core.ExecCmd;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeModel;
 import org.ximtec.igesture.tool.locator.Locator;
@@ -88,22 +89,8 @@ public class TestbenchController extends DefaultController {
       return testbenchView;
    }
 
-
-   @Override
-   public void execute(Command command) {
-      LOGGER.info(command.getCommand());
-      if (command != null) {
-         if (CMD_RECOGNIZE.equals(command.getCommand())) {
-            executeRecognize(command);
-         }
-      }
-      else {
-         super.execute(command);
-      }
-   }
-
-
-   private void executeRecognize(Command command) {
+   @ExecCmd(name=CMD_RECOGNIZE)
+   protected void executeRecognize(Command command) {
       try {
          Algorithm algorithm = AlgorithmFactory
                .createAlgorithm((Configuration)command.getSender());
