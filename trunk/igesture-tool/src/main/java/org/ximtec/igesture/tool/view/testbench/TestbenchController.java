@@ -29,8 +29,6 @@ package org.ximtec.igesture.tool.view.testbench;
 import java.beans.PropertyChangeEvent;
 import java.util.logging.Logger;
 
-import javax.swing.JComponent;
-
 import org.sigtec.ink.Note;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.algorithm.Algorithm;
@@ -43,6 +41,7 @@ import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
 import org.ximtec.igesture.tool.core.Command;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.ExecCmd;
+import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeModel;
 import org.ximtec.igesture.tool.locator.Locator;
@@ -85,7 +84,7 @@ public class TestbenchController extends DefaultController {
 
 
    @Override
-   public JComponent getView() {
+   public TabbedView getView() {
       return testbenchView;
    }
 

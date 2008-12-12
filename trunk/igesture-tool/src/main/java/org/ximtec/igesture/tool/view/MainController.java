@@ -39,7 +39,6 @@ import java.util.concurrent.CyclicBarrier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -48,6 +47,7 @@ import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.DataObjectWrapper;
 import org.ximtec.igesture.storage.StorageManager;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.ExecCmd;
 import org.ximtec.igesture.tool.core.TabbedView;
@@ -73,20 +73,22 @@ import org.ximtec.igesture.tool.view.welcome.WelcomeController;
  */
 public class MainController extends DefaultController implements Service {
 
-   private static final Logger LOGGER = Logger.getLogger(MainController.class.getName());
+   private static final Logger LOGGER = Logger.getLogger(MainController.class
+         .getName());
 
    private static final String PROPERTIES = "properties.xml";
- 
+
    public static final String CMD_LOAD = "load";
    public static final String CMD_CLOSE = "close";
    public static final String CMD_SAVE = "save";
    public static final String CMD_START_WAITING = "startWaiting";
    public static final String CMD_STOP_WAITING = "stopWaiting";
    public static final String CMD_SHOW_ABOUT_DIALOG = "showAboutDialog";
-
-   public enum Cmd {
-      loadWorkspace, newWorkspace
-   }
+   
+   private static Class< ? >[] controllers = new Class< ? >[] {
+         WelcomeController.class, AdminController.class,
+         TestbenchController.class, BatchController.class,
+         TestSetController.class };
 
    public static final String IDENTIFIER = "mainController";
 
@@ -146,7 +148,7 @@ public class MainController extends DefaultController implements Service {
 
 
    /**
-    * Initialises the views TODO: use a dynamic initialisation
+    * Initialises the views 
     */
    private void initViews() {
       if (mainView == null) {
@@ -160,33 +162,18 @@ public class MainController extends DefaultController implements Service {
 
          @Override
          public void run() {
-
-            // TODO: avoid casts
-            // Init Welcome Tab
-            WelcomeController welcomeController = new WelcomeController();
-            addController(welcomeController);
-            mainView.addTab((TabbedView)welcomeController.getView());
-
-            // Init Admin Tab
-            AdminController adminController = new AdminController();
-            addController(adminController);
-            mainView.addTab((TabbedView)adminController.getView());
-
-            // Init TestBench Tab
-            TestbenchController testbenchController = new TestbenchController();
-            addController(testbenchController);
-            mainView.addTab((TabbedView)testbenchController.getView());
-
-            // Batch Processing Tab
-            BatchController batchController = new BatchController();
-            addController(batchController);
-            mainView.addTab((TabbedView)batchController.getView());
-
-            // Test Set Tab
-            TestSetController testSetController = new TestSetController();
-            addController(testSetController);
-            mainView.addTab((TabbedView)testSetController.getView());
-
+            
+            for(Class<?> clazz : controllers){
+               try {
+                  Controller controller = (Controller)clazz.newInstance();
+                  addController(controller);
+                  mainView.addTab(controller.getView());
+               }
+               catch (Exception e) {  
+                  LOGGER.log(Level.SEVERE, "Could not initialize view. "+clazz.getName());
+               }   
+            }
+            
             try {
                barrier.await();
             }
@@ -234,10 +221,10 @@ public class MainController extends DefaultController implements Service {
    @ExecCmd(name = CMD_CLOSE)
    protected void execCloseCommand() {
       LOGGER.info("Command Close");
-      
+
       String title = ComponentFactory.getGuiBundle().getName(
             GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT);
-      
+
       String text = ComponentFactory.getGuiBundle().getShortDescription(
             GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT);
 
@@ -344,7 +331,7 @@ public class MainController extends DefaultController implements Service {
 
 
    @Override
-   public JComponent getView() {
+   public TabbedView getView() {
       return null;
    } // getView
 

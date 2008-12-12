@@ -30,8 +30,6 @@ package org.ximtec.igesture.tool.core;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-import javax.swing.JComponent;
-
 
 /**
  * The controller interface to be implemented by any controller component.
@@ -71,7 +69,7 @@ public interface Controller extends PropertyChangeListener {
     * Returns the view component for this specific controller.
     * @return the view component for this specific controller.
     */
-   JComponent getView();
+   TabbedView getView();
 
 
    /**

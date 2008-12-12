@@ -32,7 +32,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JComponent;
 import javax.swing.SwingWorker;
 
 import org.apache.commons.io.FileUtils;
@@ -42,6 +41,7 @@ import org.ximtec.igesture.batch.BatchResultSet;
 import org.ximtec.igesture.batch.BatchTools;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.ExecCmd;
+import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.util.XMLTool;
 
 
@@ -73,7 +73,7 @@ public class BatchController extends DefaultController {
 
 
    @Override
-   public JComponent getView() {
+   public TabbedView getView() {
       return view;
    }
 

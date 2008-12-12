@@ -30,6 +30,7 @@ import java.beans.PropertyChangeEvent;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
@@ -38,6 +39,7 @@ import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 
 import org.ximtec.igesture.tool.core.DefaultController;
+import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeContainer;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeView;
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
@@ -136,8 +138,25 @@ public class ExplorerTreeController extends DefaultController implements
     * @see org.ximtec.igesture.tool.core.Controller#getView()
     */
    @Override
-   public JComponent getView() {
-      return tree;
+   public TabbedView getView() {
+      return new TabbedView(){
+
+         @Override
+         public Icon getIcon() {
+            return null;
+         }
+
+         @Override
+         public String getName() {
+            return tree.getName();
+         }
+
+         @Override
+         public JComponent getPane() {
+            return tree;
+         }
+         
+      };
    }
 
 
