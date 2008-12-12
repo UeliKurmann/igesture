@@ -27,8 +27,12 @@
 package org.ximtec.igesture.tool.core;
 
 import java.beans.PropertyChangeEvent;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+
+import org.sigtec.util.Constant;
 
 
 /**
@@ -38,6 +42,9 @@ import java.util.List;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public abstract class DefaultController implements Controller {
+   
+   private static final Logger LOGGER = Logger.getLogger(DefaultController.class
+         .getName());
 
    private List<Controller> controllers;
 
@@ -49,7 +56,10 @@ public abstract class DefaultController implements Controller {
 
    /*
     * (non-Javadoc)
-    * @see org.ximtec.igesture.tool.core.Controller#addController(org.ximtec.igesture.tool.core.Controller)
+    * 
+    * @see
+    * org.ximtec.igesture.tool.core.Controller#addController(org.ximtec.igesture
+    * .tool.core.Controller)
     */
    @Override
    public void addController(Controller controller) {
@@ -59,6 +69,7 @@ public abstract class DefaultController implements Controller {
 
    /*
     * (non-Javadoc)
+    * 
     * @see org.ximtec.igesture.tool.core.Controller#getControllers()
     */
    @Override
@@ -69,6 +80,7 @@ public abstract class DefaultController implements Controller {
 
    /*
     * (non-Javadoc)
+    * 
     * @see org.ximtec.igesture.tool.core.Controller#removeAllController()
     */
    @Override
@@ -85,10 +97,21 @@ public abstract class DefaultController implements Controller {
 
    @Override
    public void execute(Command command) {
-      for (Controller controller : controllers) {
-         controller.execute(command);
-      }
+      
+      if (command != null && command.getCommand() != null) {
 
+         if (!invokeCommand(command.getCommand())) {
+            LOGGER.warning("Command not handled. '"
+                  + command.getCommand() + Constant.SINGLE_QUOTE);
+      
+            for (Controller controller : controllers) {
+               controller.execute(command);
+            }
+         }
+      }
+      else {
+         LOGGER.warning("Command not set.");
+      }
    }
 
 
@@ -98,6 +121,34 @@ public abstract class DefaultController implements Controller {
          controller.propertyChange(event);
       }
 
+   }
+
+   /**
+    * Invokes a command
+    * @param object
+    * @param cmd
+    * @return
+    */
+   protected boolean invokeCommand(String cmd) {
+      LOGGER.info("Invoke "+cmd);
+      for (Method method : this.getClass().getDeclaredMethods()) {
+         if (method.isAnnotationPresent(ExecCmd.class)
+               && ((ExecCmd)method.getAnnotation(ExecCmd.class)).name().equals(
+                     cmd)) {
+            try {
+               if(!method.isAccessible()){
+                  method.setAccessible(true);
+               }
+               method.invoke(this);
+               return true;
+            }
+            catch (Exception e) {
+               LOGGER.warning("Could not execute "+cmd);
+            }
+         }
+      }
+
+      return false;
    }
 
 }

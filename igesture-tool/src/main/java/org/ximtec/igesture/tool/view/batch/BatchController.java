@@ -40,8 +40,8 @@ import org.ximtec.igesture.batch.BatchProcess;
 import org.ximtec.igesture.batch.BatchProcessContainer;
 import org.ximtec.igesture.batch.BatchResultSet;
 import org.ximtec.igesture.batch.BatchTools;
-import org.ximtec.igesture.tool.core.Command;
 import org.ximtec.igesture.tool.core.DefaultController;
+import org.ximtec.igesture.tool.core.ExecCmd;
 import org.ximtec.igesture.util.XMLTool;
 
 
@@ -77,23 +77,8 @@ public class BatchController extends DefaultController {
       return view;
    }
 
-
-   @Override
-   public void execute(Command command) {
-      super.execute(command);
-
-      if (CMD_RUN_BATCH.equals(command.getCommand())) {
-         LOGGER.log(Level.INFO, "Run Batch Process");
-         executeBatchRun();
-      }else if (CMD_CANCEL_BATCH.equals(command.getCommand())) {
-         LOGGER.log(Level.INFO, "Run Batch Process");
-         executeBatchCancel();
-      }
-
-   }
-
-
-   private void executeBatchRun() {
+   @ExecCmd(name=CMD_RUN_BATCH)
+   protected void executeBatchRun() {
       view.setRunActionState(false);
       view.setCancelActionState(true);
       view.showProgressBar();
@@ -101,7 +86,8 @@ public class BatchController extends DefaultController {
       batchSwingWorker.execute();
    }
    
-   private void executeBatchCancel() {
+   @ExecCmd(name=CMD_CANCEL_BATCH)
+   protected void executeBatchCancel() {
       if(batchSwingWorker != null && !batchSwingWorker.isDone()){
          System.out.println(batchSwingWorker.cancel(true));
          System.out.println(batchSwingWorker.getState());

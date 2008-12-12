@@ -44,13 +44,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.DataObjectWrapper;
 import org.ximtec.igesture.storage.StorageManager;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.core.Command;
 import org.ximtec.igesture.tool.core.DefaultController;
+import org.ximtec.igesture.tool.core.ExecCmd;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.locator.Service;
@@ -74,19 +73,16 @@ import org.ximtec.igesture.tool.view.welcome.WelcomeController;
  */
 public class MainController extends DefaultController implements Service {
 
+   private static final Logger LOGGER = Logger.getLogger(MainController.class.getName());
+
    private static final String PROPERTIES = "properties.xml";
-
-   private static final Logger LOGGER = Logger.getLogger(MainController.class
-         .getName());
-
+ 
    public static final String CMD_LOAD = "load";
    public static final String CMD_CLOSE = "close";
    public static final String CMD_SAVE = "save";
    public static final String CMD_START_WAITING = "startWaiting";
    public static final String CMD_STOP_WAITING = "stopWaiting";
    public static final String CMD_SHOW_ABOUT_DIALOG = "showAboutDialog";
-
-   public static final int BUFFER_SIZE = 32000;
 
    public enum Cmd {
       loadWorkspace, newWorkspace
@@ -106,7 +102,7 @@ public class MainController extends DefaultController implements Service {
 
    // Main View
    private MainView mainView;
-   
+
    private Properties properties;
 
 
@@ -159,10 +155,12 @@ public class MainController extends DefaultController implements Service {
       }
 
       final CyclicBarrier barrier = new CyclicBarrier(2);
+
       SwingUtilities.invokeLater(new Runnable() {
 
          @Override
          public void run() {
+
             // TODO: avoid casts
             // Init Welcome Tab
             WelcomeController welcomeController = new WelcomeController();
@@ -209,48 +207,8 @@ public class MainController extends DefaultController implements Service {
    }
 
 
-   /*
-    * (non-Javadoc)
-    * @see org.ximtec.igesture.tool.core.DefaultController#execute(org.ximtec.igesture.tool.core.ControllerCommand)
-    */
-   @Override
-   public void execute(Command command) {
-      // command dispatcher
-      if (command != null && command.getCommand() != null) {
-
-         if (CMD_LOAD.equals(command.getCommand())) {
-            execLoadCommand();
-         }
-         else if (CMD_CLOSE.equals(command.getCommand())) {
-            execCloseCommand();
-         }
-         else if (CMD_SAVE.equals(command.getCommand())) {
-            execSaveCommand();
-         }
-         else if (CMD_START_WAITING.equals(command.getCommand())) {
-            execStartWaiting();
-         }
-         else if (CMD_STOP_WAITING.equals(command.getCommand())) {
-            execStopWaiting();
-         }
-         else if (CMD_SHOW_ABOUT_DIALOG.equals(command.getCommand())) {
-            execShowAboutDialog();
-         }
-         else {
-            LOGGER.warning("Command not handled by MainController: '"
-                  + command.getCommand() + Constant.SINGLE_QUOTE);
-            super.execute(command);
-         }
-
-      }
-      else {
-         LOGGER.warning("Command not set.");
-      }
-
-   } // execute
-
-
-   private void execLoadCommand() {
+   @ExecCmd(name = CMD_LOAD)
+   protected void execLoadCommand() {
       LOGGER.info("Command Load");
       File dataBase = getDatabase();
 
@@ -266,16 +224,20 @@ public class MainController extends DefaultController implements Service {
    } // execLoadCommand
 
 
-   private void execSaveCommand() {
+   @ExecCmd(name = CMD_SAVE)
+   protected void execSaveCommand() {
       LOGGER.info("Command Save");
       mainModel.getStorageManager().commit();
    } // execSaveCommand
 
 
-   private void execCloseCommand() {
+   @ExecCmd(name = CMD_CLOSE)
+   protected void execCloseCommand() {
       LOGGER.info("Command Close");
+      
       String title = ComponentFactory.getGuiBundle().getName(
             GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT);
+      
       String text = ComponentFactory.getGuiBundle().getShortDescription(
             GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT);
 
@@ -285,11 +247,11 @@ public class MainController extends DefaultController implements Service {
          Locator.getDefault().stopAll();
 
          try {
-            mainModel.getProperties().storeToXML(new FileOutputStream(PROPERTIES),
-                  "iGesture: " + new Date());
+            mainModel.getProperties().storeToXML(
+                  new FileOutputStream(PROPERTIES), "iGesture: " + new Date());
          }
          catch (Exception e) {
-            LOGGER.log(Level.WARNING, "Failed to store properties.",e);
+            LOGGER.log(Level.WARNING, "Failed to store properties.", e);
          }
          System.exit(0);
       }
@@ -297,17 +259,18 @@ public class MainController extends DefaultController implements Service {
    } // execCloseCommand
 
 
-   private void execStartWaiting() {
+   protected void execStartWaiting() {
       LOGGER.info("Start Progress Panel.");
    } // execStartWaiting
 
 
-   private void execStopWaiting() {
+   protected void execStopWaiting() {
       LOGGER.info("Stop Progress Panel.");
    } // execStopWaiting
 
 
-   private void execShowAboutDialog() {
+   @ExecCmd(name = CMD_SHOW_ABOUT_DIALOG)
+   protected void execShowAboutDialog() {
       LOGGER.info("Show About Dialog.");
       AboutDialog dialog = new AboutDialog(GestureConstants.MENUBAR_ABOUT,
             Locator.getDefault().getService(GuiBundleService.IDENTIFIER,
@@ -399,14 +362,15 @@ public class MainController extends DefaultController implements Service {
       chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceDb4o());
       chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceXStream());
       chooser.setFileFilter(FileFilterFactory.getWorkspaceCompressed());
-      chooser.setCurrentDirectory(new File(properties.getProperty(Property.WORKING_DIRECTORY)));
+      chooser.setCurrentDirectory(new File(properties
+            .getProperty(Property.WORKING_DIRECTORY)));
       chooser.showOpenDialog(null);
       file = chooser.getSelectedFile();
-      
-      if(file != null){
+
+      if (file != null) {
          properties.setProperty(Property.WORKING_DIRECTORY, file.getParent());
       }
-      
+
       return file;
    } // getDatabase
 
