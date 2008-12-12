@@ -29,7 +29,9 @@ package org.ximtec.igesture.tool.core;
 import java.beans.PropertyChangeEvent;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.sigtec.util.Constant;
@@ -42,15 +44,25 @@ import org.sigtec.util.Constant;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public abstract class DefaultController implements Controller {
-   
+
    private static final Logger LOGGER = Logger.getLogger(DefaultController.class
          .getName());
+
+   private Map<String, Method> commandMethods;
 
    private List<Controller> controllers;
 
 
    public DefaultController() {
       controllers = new ArrayList<Controller>();
+
+      commandMethods = new HashMap<String, Method>();
+      for (Method method : this.getClass().getDeclaredMethods()) {
+         if (method.isAnnotationPresent(ExecCmd.class)) {
+            commandMethods.put(method.getAnnotation(ExecCmd.class).name(),
+                  method);
+         }
+      }
    }
 
 
@@ -97,13 +109,13 @@ public abstract class DefaultController implements Controller {
 
    @Override
    public void execute(Command command) {
-      
+
       if (command != null && command.getCommand() != null) {
 
          if (!invokeCommand(command.getCommand())) {
-            LOGGER.warning("Command not handled. '"
-                  + command.getCommand() + Constant.SINGLE_QUOTE);
-      
+            LOGGER.warning("Command not handled. '" + command.getCommand()
+                  + Constant.SINGLE_QUOTE);
+
             for (Controller controller : controllers) {
                controller.execute(command);
             }
@@ -123,6 +135,7 @@ public abstract class DefaultController implements Controller {
 
    }
 
+
    /**
     * Invokes a command
     * @param object
@@ -130,22 +143,22 @@ public abstract class DefaultController implements Controller {
     * @return
     */
    protected boolean invokeCommand(String cmd) {
-      LOGGER.info("Invoke "+cmd);
-      for (Method method : this.getClass().getDeclaredMethods()) {
-         if (method.isAnnotationPresent(ExecCmd.class)
-               && ((ExecCmd)method.getAnnotation(ExecCmd.class)).name().equals(
-                     cmd)) {
-            try {
-               if(!method.isAccessible()){
-                  method.setAccessible(true);
-               }
-               method.invoke(this);
-               return true;
+      LOGGER.info("Invoke " + cmd);
+      Method method = commandMethods.get(cmd);
+      if (method != null) {
+         try {
+            if (!method.isAccessible()) {
+               method.setAccessible(true);
             }
-            catch (Exception e) {
-               LOGGER.warning("Could not execute "+cmd);
-            }
+            method.invoke(this);
+            LOGGER.info("Command invoked. " + cmd);
+            return true;
          }
+         catch (Exception e) {
+            LOGGER.warning("Could not execute command. " + cmd);
+         }
+      }else{
+         LOGGER.warning("Command not defined. " + cmd);
       }
 
       return false;
