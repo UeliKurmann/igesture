@@ -29,9 +29,8 @@ package org.ximtec.igesture.tool.view.testset;
 import java.beans.PropertyChangeEvent;
 import java.util.logging.Logger;
 
-import javax.swing.JComponent;
-
 import org.ximtec.igesture.tool.core.DefaultController;
+import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeModel;
 import org.ximtec.igesture.tool.locator.Locator;
@@ -70,7 +69,7 @@ public class TestSetController extends DefaultController {
 
 
    @Override
-   public JComponent getView() {
+   public TabbedView getView() {
       return testSetView;
    }
 
