@@ -158,16 +158,14 @@ public class WiiReader extends
 	public void buttonPressReceived(WiimoteButtonPressedEvent event) {
 		if(event.getButton() == recordButton){	//If recording button is pressed	
 			if (!recording) { //If not already recording, start recording
+				accelerations.clear(); // Clear accelerations list
 				recording = true;
 			}		
 			else{ //If already recording, stop recording
 				gesture.setGesture(WiiMoteTools.accelerationsToTraces(this.accelerations)); //Convert accelerations list to a gesture
-				
-				//this.currentPanel.redrawGesture();
-				//this.currentPanel.drawLine(new Point(10,10), new Point(33,60)); //test
+				//Paint the gesture on the panel
 				this.currentPanel.paintComponent(currentPanel.getGraphics());
-				
-				accelerations.clear(); // Clear accelerations list
+				//Indicate recording stop
 				recording = false;
 				//Vibration to confirm gesture recording
 				try {

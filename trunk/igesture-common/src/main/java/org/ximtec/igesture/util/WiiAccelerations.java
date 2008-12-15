@@ -103,21 +103,27 @@ public class WiiAccelerations {
 	}
 
 	/**
-	 * Returns the first sample in the list
+	 * Returns the timestamp of the first sample in the list
 	 * 
 	 * @return
 	 */
-	public Sample getFirstSample() {
-		return samples.get(0);
+	public long getFirstSampleTime() {
+		if(samples.size() > 0)
+			return samples.get(0).getTimeStamp();
+		else
+			return 0;
 	}
 
 	/**
-	 * Returns the last sample in the list
+	 * Returns the timestamp of the last sample in the list
 	 * 
 	 * @return
 	 */
-	public Sample getLastSample() {
-		return samples.get(samples.size()-1);
+	public long getLastSampleTime() {
+		if(samples.size() > 0)
+			return samples.get(samples.size()-1).getTimeStamp();
+		else
+			return 0;
 	}
 	
 	/**
@@ -130,13 +136,14 @@ public class WiiAccelerations {
 		boolean found = false;
 		Iterator<Sample> i = samples.iterator();
 		while(i.hasNext()){
+			Sample s = i.next();
 			if(!found){
-				value = i.next().getXAcceleration();
+				value = s.getXAcceleration();
 				found = true;
 			}
 			else {
-				if(i.next().getXAcceleration() > value)
-				value = i.next().getXAcceleration();
+				if(s.getXAcceleration() > value)
+				value = s.getXAcceleration();
 			}
 		}
 		return value;
@@ -152,13 +159,14 @@ public class WiiAccelerations {
 		boolean found = false;
 		Iterator<Sample> i = samples.iterator();
 		while(i.hasNext()){
+			Sample s = i.next();
 			if(!found){
-				value = i.next().getYAcceleration();
+				value = s.getYAcceleration();
 				found = true;
 			}
 			else {
-				if(i.next().getYAcceleration() > value)
-				value = i.next().getYAcceleration();
+				if(s.getYAcceleration() > value)
+				value = s.getYAcceleration();
 			}
 		}
 		return value;
@@ -174,13 +182,14 @@ public class WiiAccelerations {
 		boolean found = false;
 		Iterator<Sample> i = samples.iterator();
 		while(i.hasNext()){
+			Sample s = i.next();
 			if(!found){
-				value = i.next().getZAcceleration();
+				value = s.getZAcceleration();
 				found = true;
 			}
 			else {
-				if(i.next().getZAcceleration() > value)
-				value = i.next().getZAcceleration();
+				if(s.getZAcceleration() > value)
+				value = s.getZAcceleration();
 			}
 		}
 		return value;
@@ -196,13 +205,14 @@ public class WiiAccelerations {
 		boolean found = false;
 		Iterator<Sample> i = samples.iterator();
 		while(i.hasNext()){
+			Sample s = i.next();
 			if(!found){
-				value = i.next().getXAcceleration();
+				value = s.getXAcceleration();
 				found = true;
 			}
 			else {
-				if(i.next().getXAcceleration() < value)
-				value = i.next().getXAcceleration();
+				if(s.getXAcceleration() < value)
+				value = s.getXAcceleration();
 			}
 		}
 		return value;
@@ -218,13 +228,14 @@ public class WiiAccelerations {
 		boolean found = false;
 		Iterator<Sample> i = samples.iterator();
 		while(i.hasNext()){
+			Sample s = i.next();
 			if(!found){
-				value = i.next().getYAcceleration();
+				value = s.getYAcceleration();
 				found = true;
 			}
 			else {
-				if(i.next().getYAcceleration() < value)
-				value = i.next().getYAcceleration();
+				if(s.getYAcceleration() < value)
+				value = s.getYAcceleration();
 			}
 		}
 		return value;
@@ -240,13 +251,14 @@ public class WiiAccelerations {
 		boolean found = false;
 		Iterator<Sample> i = samples.iterator();
 		while(i.hasNext()){
+			Sample s = i.next();
 			if(!found){
-				value = i.next().getZAcceleration();
+				value = s.getZAcceleration();
 				found = true;
 			}
 			else {
-				if(i.next().getZAcceleration() < value)
-				value = i.next().getZAcceleration();
+				if(s.getZAcceleration() < value)
+				value = s.getZAcceleration();
 			}
 		}
 		return value;
@@ -272,11 +284,11 @@ public class WiiAccelerations {
 	 * @return
 	 */
 	public Double getMinOverallValue(){
-		double value = getMaxXValue();
-		if(getMaxYValue() < value)
-			value = getMaxYValue();
-		if(getMaxZValue() < value)
-			value = getMaxZValue();		
+		double value = getMinXValue();
+		if(getMinYValue() < value)
+			value = getMinYValue();
+		if(getMinZValue() < value)
+			value = getMinZValue();		
 		return value;
 	}
 
@@ -287,8 +299,12 @@ public class WiiAccelerations {
 	 */
 	public double getMaxAbsoluteAccelerationValue() {
 		double value = getMaxOverallValue();
-		if(Math.abs(getMinOverallValue()) > value)
+		//System.err.println("MAX: " + getMaxOverallValue());
+		//System.err.println("MIN: " + getMinOverallValue());
+		if(Math.abs(getMinOverallValue()) > value){
 			value = Math.abs(getMinOverallValue());
+			//System.err.println("MIN taken");
+		}
 		return value;
 	}
 
@@ -300,5 +316,4 @@ public class WiiAccelerations {
 	public List<Sample> getSamples() {
 		return samples;
 	}	
-	
 }
