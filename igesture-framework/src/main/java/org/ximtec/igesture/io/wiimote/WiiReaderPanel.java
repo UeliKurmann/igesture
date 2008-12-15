@@ -2,6 +2,7 @@ package org.ximtec.igesture.io.wiimote;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -62,6 +63,8 @@ public class WiiReaderPanel extends JPanel {
 			Rectangle graphField = fields.get(3);
 			// Get gesture to draw
 			GestureSample3D gs = (GestureSample3D) reader.getGesture();
+			WiiAccelerations acc = gs.getGesture().getAccelerations();
+			
 			// Split the gesture to three planes of type Gesture<Note>
 			List<Gesture<Note>> notes = gs.splitToPlanes();
 
@@ -91,7 +94,7 @@ public class WiiReaderPanel extends JPanel {
 			drawPlane(noteXY, XYfield, "XY-Plane", g);
 			drawPlane(noteYZ, YZfield, "YZ-Plane", g);
 			drawPlane(noteZX, ZXfield, "ZX-Plane", g);
-			drawAccelerationsGraph(gs.getGesture().getAccelerations(), graphField, "Accelerations", g);
+			drawAccelerationsGraph(acc, graphField, 0.02, "Accelerations", g);
 		}
 	}
 
@@ -102,7 +105,7 @@ public class WiiReaderPanel extends JPanel {
 	 * @param title
 	 * @param g
 	 */
-	private void drawAccelerationsGraph(WiiAccelerations acc, Rectangle field, String title, Graphics g) {
+	private void drawAccelerationsGraph(WiiAccelerations acc, Rectangle field, double spacePercentage, String title, Graphics g) {
 		// Draw a rectangle around the field
 		g.drawRect((int) field.getX(), (int) field.getY(), (int) field
 				.getWidth(), (int) field.getHeight());
@@ -112,45 +115,80 @@ public class WiiReaderPanel extends JPanel {
 		g.setColor(Color.BLACK);
 		
 		if(acc != null){
-			//Retrieve timestamp of first and last sample
-			long timeFirst = acc.getFirstSample().getTimeStamp();
-			long timeLast = acc.getLastSample().getTimeStamp();
-			//Retrieve maximum absolute acceleration value
-			double maxAbsAcc = acc.getMaxAbsoluteAccelerationValue();
-			//Find out how high and wide a graph can be
-			double graphWidth = field.getWidth();
-			double graphHeight = (field.getHeight() - 2)/3;
-			//Calculate the vertical scaling factor
-			double verticalScalingFactor = graphHeight/maxAbsAcc;
-			//Calculate the horzizontal scaling factor
-			long gestureLength = timeLast - timeFirst;
-			double horizontalScalingFactor = graphWidth/gestureLength;
-			//Calculate the positions to draw
-			List<Point> buffer = new Vector();
-			Iterator<Sample> i = acc.getSamples().iterator();
-			while(i.hasNext()){
-				System.err.println("#");
-				Point point = new Point();
-				double xPos = getX() + horizontalScalingFactor*(i.next().getTimeStamp()-timeFirst);
-				double yPos = getY() + (graphHeight/2) - (verticalScalingFactor*(i.next().getXAcceleration()));
-				point.setLocation(xPos, yPos);
-				buffer.add(point);
-			}
-			//Draw the X graph in orange
-			g.setColor(Color.ORANGE);
-			Point lastPoint = new Point();
-			lastPoint.setLocation(getX(), getY() + (graphHeight/2));
-			Iterator<Point> it = buffer.iterator();
-			while(it.hasNext()){				
-				g.drawLine((int)lastPoint.getX(), (int)lastPoint.getY(), (int)it.next().getX(), (int)it.next().getY());
-				lastPoint = it.next();
-			}
+
+			//Calculate margin in pixels from spacePercentage
+			int margin = (int)(spacePercentage * field.getWidth());
 			
-			// TODO
+			//Define fields for X, Y and Z acceleration graphs
+			Rectangle fieldX = new Rectangle((int)field.getX() + margin, (int)field.getY()+ margin, (int)field.getWidth() - (2 * margin), (int)(field.getHeight()/3) - (2 * margin));
+			Rectangle fieldY = new Rectangle((int)field.getX() + margin, (int)(field.getY() + field.getHeight()/3) + margin, (int)field.getWidth() - (2 * margin), (int)(field.getHeight()/3) - (2 * margin));
+			Rectangle fieldZ = new Rectangle((int)field.getX() + margin, (int)(field.getY() + field.getHeight()* 0.67) + margin, (int)field.getWidth() - (2 * margin), (int)(field.getHeight()/3) - (2 * margin));
+			
+			//Create buffers of points to draw for X, Y and Z acceleration
+			List<List<Point>> buffers = scaleAccelerations(acc, fieldX);			
+			
+			//Draw the graphs
+			drawGraph(buffers.get(0), fieldX, Color.GRAY, Color.RED, "X-Axis", g);
+			drawGraph(buffers.get(1), fieldY, Color.GRAY, Color.GREEN, "Y-Axis", g);
+			drawGraph(buffers.get(2), fieldZ, Color.GRAY, Color.BLUE, "Z-Axis", g);
+			
 			
 		}
 		else 
-			g.drawString("Not available", (int)(field.getX() + 5) , (int)((field.getY() + (0.5 * field.getHeight()))));
+			;//g.drawString("Not available", (int)(field.getX() + 5) , (int)((field.getY() + (0.5 * field.getHeight()))));
+	}
+
+	
+	/**
+	 * Scales acceleration data from acc to fit into a rectangle of the size of fieldSize in order to be drawn. Returns a lists of 3 lists of points.
+	 * 
+	 * @param acc
+	 * @param fieldSize
+	 * @return
+	 */
+	private List<List<Point>> scaleAccelerations(WiiAccelerations acc, Rectangle fieldSize) {
+		//Retrieve timestamp of first and last sample
+		long timeFirst = acc.getFirstSampleTime();
+		long timeLast = acc.getLastSampleTime();
+		//Retrieve maximum absolute acceleration value
+		double maxAbsAcc = acc.getMaxAbsoluteAccelerationValue();
+		//Find out how high and wide a graph can be
+		double graphWidth = fieldSize.getWidth();
+		double graphHeight = fieldSize.getHeight();
+		//Calculate the vertical scaling factor
+		double verticalScalingFactor = (0.5 * graphHeight)/maxAbsAcc;
+		//Calculate the horizontal scaling factor
+		long gestureLength = timeLast - timeFirst;
+		double horizontalScalingFactor = graphWidth/gestureLength;
+		//Calculate the positions to draw
+		List<Point> bufferX = new Vector();
+		List<Point> bufferY = new Vector();
+		List<Point> bufferZ = new Vector();
+		Iterator<Sample> i = acc.getSamples().iterator();
+		while(i.hasNext()){
+			Sample s = i.next();
+			Point point = new Point();
+			//X position
+			double xPos = getX() + horizontalScalingFactor*(s.getTimeStamp()-timeFirst);
+			double yPos = getY() + (graphHeight/2) - (verticalScalingFactor*(s.getXAcceleration()));
+			point.setLocation(xPos, yPos);
+			bufferX.add(point);
+			//Y position
+			point = new Point();
+			yPos = getY() + (graphHeight/2) - (verticalScalingFactor*(s.getYAcceleration()));
+			point.setLocation(xPos, yPos);
+			bufferY.add(point);
+			//Z position
+			point = new Point();
+			yPos = getY() + (graphHeight/2) - (verticalScalingFactor*(s.getZAcceleration()));
+			point.setLocation(xPos, yPos);
+			bufferZ.add(point);
+		}
+		List buffers = new Vector();
+		buffers.add(bufferX);
+		buffers.add(bufferY);
+		buffers.add(bufferZ);
+		return buffers;
 	}
 
 	/**
@@ -360,4 +398,46 @@ public class WiiReaderPanel extends JPanel {
 		return fields;
 	}
 
+	/**
+	 * Draws a graph in color from data into rectangle on g
+	 * 
+	 * @param data
+	 * @param field
+	 * @param g
+	 */
+	private void drawGraph(List<Point> data, Rectangle field, Color axisColor, Color dataColor, String title, Graphics g){
+		//Save original color
+		Color originalColor = g.getColor();
+		//Draw axes		
+		g.setColor(axisColor);
+		g.drawLine((int)field.getX(), (int)(field.getY() + (0.5 * field.getHeight())), (int)(field.getX() + field.getWidth()),(int)(field.getY() + (0.5 * field.getHeight())));
+		g.drawLine((int)field.getX(), (int) field.getY(), (int) field.getX(), (int)(field.getY() + field.getHeight()));
+		//g.drawRect((int)field.getX(), (int)field.getY(), (int)field.getWidth(), (int)field.getHeight());
+		//Set data color
+		g.setColor(dataColor);
+		//Draw title
+		Font originalFont = g.getFont();
+		Font font = new Font("Arial", Font.PLAIN, 10);
+		g.setFont(font);
+		g.drawString(title, (int)(field.getX()+ (0.5 * field.getWidth())), (int)(field.getY() + 15));
+		g.setFont(originalFont);
+		//Draw data
+		Point lastPoint = new Point();
+		if(data.size() > 0)
+			lastPoint.setLocation((int)data.get(0).getX(),(int)data.get(0).getY()); //Startpoint
+		Iterator<Point> it = data.iterator();
+		while(it.hasNext()){				
+			Point p = it.next();
+			int oldX = (int)(field.getX() + lastPoint.getX());
+			int oldY = (int)(field.getY() + lastPoint.getY());
+			int newX = (int)(field.getX() + p.getX());
+			int newY = (int)(field.getY() + p.getY());
+			g.drawLine(oldX, oldY, newX, newY);
+			lastPoint = p;
+		}
+		//Set color back to original
+		g.setColor(originalColor);
+	}
+	
+	
 }
