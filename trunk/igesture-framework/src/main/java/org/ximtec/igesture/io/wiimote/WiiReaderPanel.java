@@ -1,3 +1,29 @@
+/*
+ * @(#)$Id: WiiReaderPanel.java 2008-12-16 arthurvogels $
+ *
+ * Author       :   Arthur Vogels, arthur.vogels@gmail.com
+ *
+ * Purpose      :	Draws the data recorded by the WiiReader into
+ * 					planes and graphs.
+ *
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Revision Information:
+ *
+ * Date             Who         	Reason
+ *
+ * Dec 16, 2008     arthurvogels    Initial Release
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Copyright 1999-2008 ETH Zurich. All Rights Reserved.
+ *
+ * This software is the proprietary information of ETH Zurich.
+ * Use is subject to license terms.
+ * 
+ */
+
 package org.ximtec.igesture.io.wiimote;
 
 import java.awt.Color;
@@ -29,6 +55,7 @@ public class WiiReaderPanel extends JPanel {
 	 * Constructor
 	 * 
 	 * @param reader
+	 *            The WiiReader this WiiReaderPanel belongs to
 	 */
 	public WiiReaderPanel(WiiReader reader) {
 		this.reader = reader;
@@ -36,19 +63,8 @@ public class WiiReaderPanel extends JPanel {
 	}
 
 	/**
-	 * Clears the panel
-	 */
-	public void clear() {
-		if (getGraphics() != null) {
-			getGraphics().clearRect(0, 0, getWidth(), getHeight());
-		}
-		repaint();
-	}
-
-	/**
 	 * Override of the JPanel paintComponent method. Paints the gesture from
 	 * reader in 3 planes onto the Graphics object
-	 * 
 	 */
 	@Override
 	public void paintComponent(Graphics g) {
@@ -64,12 +80,12 @@ public class WiiReaderPanel extends JPanel {
 			// Get gesture to draw
 			GestureSample3D gs = (GestureSample3D) reader.getGesture();
 			WiiAccelerations acc = gs.getGesture().getAccelerations();
-			
+
 			// Split the gesture to three planes of type Gesture<Note>
 			List<Gesture<Note>> notes = gs.splitToPlanes();
 
 			// Get traces out of the note
-			List<Trace> traces = new Vector();
+			List<Trace> traces = new Vector<Trace>();
 			for (int i = 0; i < notes.size(); i++) {
 				traces.add(notes.get(i).getGesture().get(0));
 			}
@@ -94,6 +110,7 @@ public class WiiReaderPanel extends JPanel {
 			drawPlane(noteXY, XYfield, "XY-Plane", g);
 			drawPlane(noteYZ, YZfield, "YZ-Plane", g);
 			drawPlane(noteZX, ZXfield, "ZX-Plane", g);
+			// Draw acceleration graphs
 			drawAccelerationsGraph(acc, graphField, 0.02, "Accelerations", g);
 		}
 	}
@@ -102,89 +119,124 @@ public class WiiReaderPanel extends JPanel {
 	 * Draws a graph with wiimote accelerations on g
 	 * 
 	 * @param acc
+	 *            The WiiAccelerations object containing the data for the graphs
+	 * @param field
+	 *            The rectangle in which the graph should be drawn
+	 * @param spacePercentage
+	 *            The space marging percentage at the sides
 	 * @param title
+	 *            The title of the graph
 	 * @param g
+	 *            The Graphics object on which the graph should be drawn
 	 */
-	private void drawAccelerationsGraph(WiiAccelerations acc, Rectangle field, double spacePercentage, String title, Graphics g) {
+	private void drawAccelerationsGraph(WiiAccelerations acc, Rectangle field,
+			double spacePercentage, String title, Graphics g) {
 		// Draw a rectangle around the field
 		g.drawRect((int) field.getX(), (int) field.getY(), (int) field
 				.getWidth(), (int) field.getHeight());
-		//Draw title
+		// Draw title
 		g.setColor(Color.RED);
-		g.drawString(title, (int)(field.getX() + 10), (int) (field.getY() + 15));
+		g.drawString(title, (int) (field.getX() + 10),
+				(int) (field.getY() + 15));
 		g.setColor(Color.BLACK);
-		
-		if(acc != null){
 
-			//Calculate margin in pixels from spacePercentage
-			int margin = (int)(spacePercentage * field.getWidth());
-			
-			//Define fields for X, Y and Z acceleration graphs
-			Rectangle fieldX = new Rectangle((int)field.getX() + margin, (int)field.getY()+ margin, (int)field.getWidth() - (2 * margin), (int)(field.getHeight()/3) - (2 * margin));
-			Rectangle fieldY = new Rectangle((int)field.getX() + margin, (int)(field.getY() + field.getHeight()/3) + margin, (int)field.getWidth() - (2 * margin), (int)(field.getHeight()/3) - (2 * margin));
-			Rectangle fieldZ = new Rectangle((int)field.getX() + margin, (int)(field.getY() + field.getHeight()* 0.67) + margin, (int)field.getWidth() - (2 * margin), (int)(field.getHeight()/3) - (2 * margin));
-			
-			//Create buffers of points to draw for X, Y and Z acceleration
-			List<List<Point>> buffers = scaleAccelerations(acc, fieldX);			
-			
-			//Draw the graphs
-			drawGraph(buffers.get(0), fieldX, Color.GRAY, Color.RED, "X-Axis", g);
-			drawGraph(buffers.get(1), fieldY, Color.GRAY, Color.GREEN, "Y-Axis", g);
-			drawGraph(buffers.get(2), fieldZ, Color.GRAY, Color.BLUE, "Z-Axis", g);
-			
-			
+		if (acc != null) {
+
+			// Calculate margin in pixels from spacePercentage
+			int margin = (int) (spacePercentage * field.getWidth());
+
+			// Define fields for X, Y and Z acceleration graphs
+			Rectangle fieldX = new Rectangle((int) field.getX() + margin,
+					(int) field.getY() + margin, (int) field.getWidth()
+							- (2 * margin), (int) (field.getHeight() / 3)
+							- (2 * margin));
+			Rectangle fieldY = new Rectangle((int) field.getX() + margin,
+					(int) (field.getY() + field.getHeight() / 3) + margin,
+					(int) field.getWidth() - (2 * margin), (int) (field
+							.getHeight() / 3)
+							- (2 * margin));
+			Rectangle fieldZ = new Rectangle((int) field.getX() + margin,
+					(int) (field.getY() + field.getHeight() * 0.67) + margin,
+					(int) field.getWidth() - (2 * margin), (int) (field
+							.getHeight() / 3)
+							- (2 * margin));
+
+			// Create buffers of points to draw for X, Y and Z acceleration
+			List<List<Point>> buffers = scaleAccelerations(acc, fieldX);
+
+			// Draw the graphs
+			drawGraph(buffers.get(0), fieldX, Color.GRAY, Color.RED, "X-Axis",
+					g);
+			drawGraph(buffers.get(1), fieldY, Color.GRAY, Color.GREEN,
+					"Y-Axis", g);
+			drawGraph(buffers.get(2), fieldZ, Color.GRAY, Color.BLUE, "Z-Axis",
+					g);
+
+		} else {
+			Font originalFont = g.getFont();
+			Font font = new Font("Arial", Font.PLAIN, 10);
+			g.setFont(font);
+			g.drawString("No acceleration data available",
+					(int) (field.getX() + 5),
+					(int) ((field.getY() + (0.5 * field.getHeight()))));
+			g.setFont(originalFont);
 		}
-		else 
-			;//g.drawString("Not available", (int)(field.getX() + 5) , (int)((field.getY() + (0.5 * field.getHeight()))));
 	}
 
-	
 	/**
-	 * Scales acceleration data from acc to fit into a rectangle of the size of fieldSize in order to be drawn. Returns a lists of 3 lists of points.
+	 * Scales acceleration data from acc to fit into a rectangle of the size of
+	 * fieldSize in order to be drawn. Returns a lists of 3 lists of points.
 	 * 
 	 * @param acc
+	 *            the WiiAccelerations object containing the input data
 	 * @param fieldSize
-	 * @return
+	 *            A rectangle from which the size is used to scale into
+	 * @return A List of Lists of Points, cotaining the scaled data
 	 */
-	private List<List<Point>> scaleAccelerations(WiiAccelerations acc, Rectangle fieldSize) {
-		//Retrieve timestamp of first and last sample
+	private List<List<Point>> scaleAccelerations(WiiAccelerations acc,
+			Rectangle fieldSize) {
+		// Retrieve timestamp of first and last sample
 		long timeFirst = acc.getFirstSampleTime();
 		long timeLast = acc.getLastSampleTime();
-		//Retrieve maximum absolute acceleration value
+		// Retrieve maximum absolute acceleration value
 		double maxAbsAcc = acc.getMaxAbsoluteAccelerationValue();
-		//Find out how high and wide a graph can be
+		// Find out how high and wide a graph can be
 		double graphWidth = fieldSize.getWidth();
 		double graphHeight = fieldSize.getHeight();
-		//Calculate the vertical scaling factor
-		double verticalScalingFactor = (0.5 * graphHeight)/maxAbsAcc;
-		//Calculate the horizontal scaling factor
+		// Calculate the vertical scaling factor
+		double verticalScalingFactor = (0.5 * graphHeight) / maxAbsAcc;
+		// Calculate the horizontal scaling factor
 		long gestureLength = timeLast - timeFirst;
-		double horizontalScalingFactor = graphWidth/gestureLength;
-		//Calculate the positions to draw
-		List<Point> bufferX = new Vector();
-		List<Point> bufferY = new Vector();
-		List<Point> bufferZ = new Vector();
+		double horizontalScalingFactor = graphWidth / gestureLength;
+		// Calculate the positions to draw
+		List<Point> bufferX = new Vector<Point>();
+		List<Point> bufferY = new Vector<Point>();
+		List<Point> bufferZ = new Vector<Point>();
 		Iterator<Sample> i = acc.getSamples().iterator();
-		while(i.hasNext()){
+		while (i.hasNext()) {
 			Sample s = i.next();
 			Point point = new Point();
-			//X position
-			double xPos = getX() + horizontalScalingFactor*(s.getTimeStamp()-timeFirst);
-			double yPos = getY() + (graphHeight/2) - (verticalScalingFactor*(s.getXAcceleration()));
+			// X position
+			double xPos = getX() + horizontalScalingFactor
+					* (s.getTimeStamp() - timeFirst);
+			double yPos = getY() + (graphHeight / 2)
+					- (verticalScalingFactor * (s.getXAcceleration()));
 			point.setLocation(xPos, yPos);
 			bufferX.add(point);
-			//Y position
+			// Y position
 			point = new Point();
-			yPos = getY() + (graphHeight/2) - (verticalScalingFactor*(s.getYAcceleration()));
+			yPos = getY() + (graphHeight / 2)
+					- (verticalScalingFactor * (s.getYAcceleration()));
 			point.setLocation(xPos, yPos);
 			bufferY.add(point);
-			//Z position
+			// Z position
 			point = new Point();
-			yPos = getY() + (graphHeight/2) - (verticalScalingFactor*(s.getZAcceleration()));
+			yPos = getY() + (graphHeight / 2)
+					- (verticalScalingFactor * (s.getZAcceleration()));
 			point.setLocation(xPos, yPos);
 			bufferZ.add(point);
 		}
-		List buffers = new Vector();
+		List<List<Point>> buffers = new Vector<List<Point>>();
 		buffers.add(bufferX);
 		buffers.add(bufferY);
 		buffers.add(bufferZ);
@@ -195,9 +247,13 @@ public class WiiReaderPanel extends JPanel {
 	 * Draws Note plane in Rectangle field on Graphics g
 	 * 
 	 * @param plane
+	 *            the Note that should be drawn
 	 * @param field
-	 * @param text
+	 *            The rectangle in which the Note should be drawn
+	 * @param title
+	 *            The title of the plane
 	 * @param g
+	 *            The Graphics object onto which the Note should be drawn
 	 */
 	private void drawPlane(Note plane, Rectangle field, String title, Graphics g) {
 		if (plane != null) {
@@ -221,9 +277,13 @@ public class WiiReaderPanel extends JPanel {
 	 * margin from the sides of the rectangle
 	 * 
 	 * @param trace
+	 *            The Trace that should be drawn
 	 * @param margin
+	 *            The margin to the sides of the field in pixels
 	 * @param field
+	 *            The Rectangle into which the trace should be drawn
 	 * @param g
+	 *            The Graphics object onto which the Trace should be drawn
 	 */
 	private void drawTrace(Trace trace, int margin, Rectangle field, Graphics g) {
 		// Scale trace to match the field size, taking margin at the sides into
@@ -247,16 +307,20 @@ public class WiiReaderPanel extends JPanel {
 	}
 
 	/**
-	 * Scales Traces to fit into the given Rectangles (This must be the ugliest
-	 * thing I ever created)
+	 * Scales Traces to fit into the given Rectangles
 	 * 
-	 * @param trace
+	 * @param traces
+	 *            List of traces that should be scaled
+	 * @param margin
+	 *            The margin to the sides of the fields in pixels
+	 * @param fields
+	 *            List of Rectangles into which the traces should be scaled
+	 * @return A list of scaled traces
 	 */
 	private List<Trace> scaleTraces(List<Trace> traces, int margin,
 			List<Rectangle> fields) {
-		List<Trace> tracesNew = new Vector();
+		List<Trace> tracesNew = new Vector<Trace>();
 		double scalingFactor = 0;
-		boolean scalingFactorFound = false;
 		// find the scaling factor to use for all traces
 		double maxXUsed = 0;
 		double maxYUsed = 0;
@@ -311,7 +375,6 @@ public class WiiReaderPanel extends JPanel {
 		for (int i = 0; i < traces.size(); i++) {
 			// Take trace and corresponding rectangle from lists
 			Trace trace = traces.get(i);
-			Rectangle field = fields.get(i);
 
 			// Find extremes
 			double maxFoundX = 0;
@@ -331,7 +394,6 @@ public class WiiReaderPanel extends JPanel {
 			}
 
 			// Move every point inside the playing field
-			List<org.sigtec.ink.Point> pointsNew = new Vector();
 			Trace traceNew = new Trace();
 			for (int k = 0; k < trace.getPoints().size(); k++) {
 				double xNew = scalingFactor
@@ -351,17 +413,21 @@ public class WiiReaderPanel extends JPanel {
 	 * Calculates scaling factor
 	 * 
 	 * @param xSizeAvailable
+	 *            Available size in x direction in pixels
 	 * @param xSizeUsed
+	 *            Used size in x direction in source data
 	 * @param ySizeAvailable
+	 *            Available size in y direction in pixels
 	 * @param ySizeUsed
-	 * @return
+	 *            Used size in y direction in source data
+	 * @return The scaling factor
 	 */
 	private double findScalingFactor(double xSizeAvailable, double xSizeUsed,
 			double ySizeAvailable, double ySizeUsed) {
 		double scalingFactor = xSizeAvailable / xSizeUsed;
 		if ((ySizeAvailable / ySizeUsed) < scalingFactor) // take the smallest
-															// factor so it will
-															// definately fit
+			// factor so it will
+			// definately fit
 			scalingFactor = ySizeAvailable / ySizeUsed;
 		return scalingFactor;
 	}
@@ -370,7 +436,10 @@ public class WiiReaderPanel extends JPanel {
 	 * Calculates the sizes and positions of the four fields on this panel,
 	 * using the size of the panel
 	 * 
-	 * @return
+	 * @param spacePercentage
+	 *            The margin percentage for the fields from the sides of the
+	 *            panel
+	 * @return A list of 4 Rectangles, the fields for this panel
 	 */
 	private List<Rectangle> calculateFieldSizes(double spacePercentage) {
 		// Keep a distance from the sides of the panel
@@ -389,7 +458,7 @@ public class WiiReaderPanel extends JPanel {
 		Rectangle field4 = new Rectangle((spacerHorizontal * 3) + fieldWidth,
 				(spacerVertical * 3) + fieldHeight, fieldWidth, fieldHeight);
 		// Add fields to return variable
-		Vector<Rectangle> fields = new Vector();
+		List<Rectangle> fields = new Vector<Rectangle>();
 		fields.add(field1);
 		fields.add(field2);
 		fields.add(field3);
@@ -402,42 +471,57 @@ public class WiiReaderPanel extends JPanel {
 	 * Draws a graph in color from data into rectangle on g
 	 * 
 	 * @param data
+	 *            The source data for the graph
 	 * @param field
+	 *            The Rectangle into which the graph should be drawn
+	 * @param axisColor
+	 *            The color of the axis
+	 * @param dataColor
+	 *            The color of the data series in the graph
+	 * @param title
+	 *            The title of the graph
 	 * @param g
+	 *            The Graphics object onto which the graph should be drawn
 	 */
-	private void drawGraph(List<Point> data, Rectangle field, Color axisColor, Color dataColor, String title, Graphics g){
-		//Save original color
+	private void drawGraph(List<Point> data, Rectangle field, Color axisColor,
+			Color dataColor, String title, Graphics g) {
+		// Save original color
 		Color originalColor = g.getColor();
-		//Draw axes		
+		// Draw axes
 		g.setColor(axisColor);
-		g.drawLine((int)field.getX(), (int)(field.getY() + (0.5 * field.getHeight())), (int)(field.getX() + field.getWidth()),(int)(field.getY() + (0.5 * field.getHeight())));
-		g.drawLine((int)field.getX(), (int) field.getY(), (int) field.getX(), (int)(field.getY() + field.getHeight()));
-		//g.drawRect((int)field.getX(), (int)field.getY(), (int)field.getWidth(), (int)field.getHeight());
-		//Set data color
+		g.drawLine((int) field.getX(), (int) (field.getY() + (0.5 * field
+				.getHeight())), (int) (field.getX() + field.getWidth()),
+				(int) (field.getY() + (0.5 * field.getHeight())));
+		g.drawLine((int) field.getX(), (int) field.getY(), (int) field.getX(),
+				(int) (field.getY() + field.getHeight()));
+		// g.drawRect((int)field.getX(), (int)field.getY(),
+		// (int)field.getWidth(), (int)field.getHeight());
+		// Set data color
 		g.setColor(dataColor);
-		//Draw title
+		// Draw title
 		Font originalFont = g.getFont();
 		Font font = new Font("Arial", Font.PLAIN, 10);
 		g.setFont(font);
-		g.drawString(title, (int)(field.getX()+ (0.5 * field.getWidth())), (int)(field.getY() + 15));
+		g.drawString(title, (int) (field.getX() + (0.5 * field.getWidth())),
+				(int) (field.getY() + 15));
 		g.setFont(originalFont);
-		//Draw data
+		// Draw data
 		Point lastPoint = new Point();
-		if(data.size() > 0)
-			lastPoint.setLocation((int)data.get(0).getX(),(int)data.get(0).getY()); //Startpoint
+		if (data.size() > 0)
+			lastPoint.setLocation((int) data.get(0).getX(), (int) data.get(0)
+					.getY()); // Startpoint
 		Iterator<Point> it = data.iterator();
-		while(it.hasNext()){				
+		while (it.hasNext()) {
 			Point p = it.next();
-			int oldX = (int)(field.getX() + lastPoint.getX());
-			int oldY = (int)(field.getY() + lastPoint.getY());
-			int newX = (int)(field.getX() + p.getX());
-			int newY = (int)(field.getY() + p.getY());
+			int oldX = (int) (field.getX() + lastPoint.getX());
+			int oldY = (int) (field.getY() + lastPoint.getY());
+			int newX = (int) (field.getX() + p.getX());
+			int newY = (int) (field.getY() + p.getY());
 			g.drawLine(oldX, oldY, newX, newY);
 			lastPoint = p;
 		}
-		//Set color back to original
+		// Set color back to original
 		g.setColor(originalColor);
 	}
-	
-	
+
 }
