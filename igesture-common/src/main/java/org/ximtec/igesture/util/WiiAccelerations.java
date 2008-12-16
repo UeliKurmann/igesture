@@ -29,144 +29,125 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.sigtec.ink.Note;
-
 public class WiiAccelerations {
 	private List<Sample> samples;
-	private int sampleFrequency;
-	
-
-	public WiiAccelerations(int sampleFrequency){
-		this();
-		this.sampleFrequency = sampleFrequency;
-	}
 
 	public WiiAccelerations() {
 		samples = new ArrayList<Sample>();
 	}
 
-	/** Returns the number of acceleration samples
+	/**
+	 * Returns the number of acceleration samples
 	 * 
-	 * @return
+	 * @return The number of samples in this WiiAccelerations object
 	 */
-	public int numberOfSamples(){
+	public int numberOfSamples() {
 		return samples.size();
 	}
-	
-	/** Adds a sample to the acceleration samples list
+
+	/**
+	 * Adds a sample to the acceleration samples list
 	 * 
 	 * @param sample
+	 *            The Sample to be added
 	 */
-	public void addSample(Sample sample){
+	public void addSample(Sample sample) {
 		samples.add(sample);
 	}
 
-	/** Returns the sample at position number
+	/**
+	 * Returns the sample at position number
 	 * 
 	 * @param number
-	 * @return
+	 *            The number of the sample to be returned
+	 * @return The Sample with the given number
 	 */
-	public Sample getSample(int number){
+	public Sample getSample(int number) {
 		return samples.get(number);
 	}
-		
-	/** Removes the sample at position number
+
+	/**
+	 * Removes the sample at position number
 	 * 
 	 * @param number
+	 *            The number of the Sample to be removed
 	 */
-	public void removeSample(int number){
-		samples.remove(number);		
-		return;
-	}	
-	
-	/** Returns the sample frequency at which the list of samples was taken
-	 * 
-	 * @return
-	 */
-	public int getSampleFrequency() {
-		return sampleFrequency;
-	}
-
-	/** Sets the sample frequency for the list of samples
-	 * 
-	 * @param sampleFrequency
-	 */
-	public void setSampleFrequency(int sampleFrequency) {
-		this.sampleFrequency = sampleFrequency;
+	public void removeSample(int number) {
+		samples.remove(number);
 	}
 
 	/**
 	 * Clears the accelerations list
 	 */
 	public void clear() {
-		this.samples.clear();		
+		this.samples.clear();
 	}
 
 	/**
-	 * Returns the timestamp of the first sample in the list
+	 * Returns the timestamp of the first sample in the list. If no samples are
+	 * available 0 is returned.
 	 * 
-	 * @return
+	 * @return The timestamp of the first Sample in this WiiAccelerations object
 	 */
 	public long getFirstSampleTime() {
-		if(samples.size() > 0)
+		if (samples.size() > 0)
 			return samples.get(0).getTimeStamp();
 		else
 			return 0;
 	}
 
 	/**
-	 * Returns the timestamp of the last sample in the list
+	 * Returns the timestamp of the last sample in the list. If no samples are
+	 * available 0 is returned.
 	 * 
-	 * @return
+	 * @return The timestamp of the last Sample in this WiiAccelerations object
 	 */
 	public long getLastSampleTime() {
-		if(samples.size() > 0)
-			return samples.get(samples.size()-1).getTimeStamp();
+		if (samples.size() > 0)
+			return samples.get(samples.size() - 1).getTimeStamp();
 		else
 			return 0;
 	}
-	
+
 	/**
 	 * Returns the maximum x acceleration value
 	 * 
-	 * @return
+	 * @return The maximum x acceleration value
 	 */
-	public double getMaxXValue(){
+	public double getMaxXValue() {
 		double value = 0;
 		boolean found = false;
 		Iterator<Sample> i = samples.iterator();
-		while(i.hasNext()){
+		while (i.hasNext()) {
 			Sample s = i.next();
-			if(!found){
+			if (!found) {
 				value = s.getXAcceleration();
 				found = true;
-			}
-			else {
-				if(s.getXAcceleration() > value)
-				value = s.getXAcceleration();
+			} else {
+				if (s.getXAcceleration() > value)
+					value = s.getXAcceleration();
 			}
 		}
 		return value;
 	}
-	
+
 	/**
 	 * Returns the maximum y acceleration value
 	 * 
-	 * @return
+	 * @return The maximum y acceleration value
 	 */
-	public double getMaxYValue(){
+	public double getMaxYValue() {
 		double value = 0;
 		boolean found = false;
 		Iterator<Sample> i = samples.iterator();
-		while(i.hasNext()){
+		while (i.hasNext()) {
 			Sample s = i.next();
-			if(!found){
+			if (!found) {
 				value = s.getYAcceleration();
 				found = true;
-			}
-			else {
-				if(s.getYAcceleration() > value)
-				value = s.getYAcceleration();
+			} else {
+				if (s.getYAcceleration() > value)
+					value = s.getYAcceleration();
 			}
 		}
 		return value;
@@ -175,135 +156,131 @@ public class WiiAccelerations {
 	/**
 	 * Returns the maximum z acceleration value
 	 * 
-	 * @return
+	 * @return The maximum z acceleration value
 	 */
-	public double getMaxZValue(){
+	public double getMaxZValue() {
 		double value = 0;
 		boolean found = false;
 		Iterator<Sample> i = samples.iterator();
-		while(i.hasNext()){
+		while (i.hasNext()) {
 			Sample s = i.next();
-			if(!found){
+			if (!found) {
 				value = s.getZAcceleration();
 				found = true;
-			}
-			else {
-				if(s.getZAcceleration() > value)
-				value = s.getZAcceleration();
+			} else {
+				if (s.getZAcceleration() > value)
+					value = s.getZAcceleration();
 			}
 		}
 		return value;
 	}
-	
+
 	/**
 	 * Returns the minimum x acceleration value
 	 * 
-	 * @return
+	 * @return The minimum x acceleration value
 	 */
-	public double getMinXValue(){
+	public double getMinXValue() {
 		double value = 0;
 		boolean found = false;
 		Iterator<Sample> i = samples.iterator();
-		while(i.hasNext()){
+		while (i.hasNext()) {
 			Sample s = i.next();
-			if(!found){
+			if (!found) {
 				value = s.getXAcceleration();
 				found = true;
-			}
-			else {
-				if(s.getXAcceleration() < value)
-				value = s.getXAcceleration();
+			} else {
+				if (s.getXAcceleration() < value)
+					value = s.getXAcceleration();
 			}
 		}
 		return value;
 	}
-	
+
 	/**
 	 * Returns the minimum y acceleration value
 	 * 
-	 * @return
+	 * @return The minimum y acceleration value
 	 */
-	public double getMinYValue(){
+	public double getMinYValue() {
 		double value = 0;
 		boolean found = false;
 		Iterator<Sample> i = samples.iterator();
-		while(i.hasNext()){
+		while (i.hasNext()) {
 			Sample s = i.next();
-			if(!found){
+			if (!found) {
 				value = s.getYAcceleration();
 				found = true;
-			}
-			else {
-				if(s.getYAcceleration() < value)
-				value = s.getYAcceleration();
+			} else {
+				if (s.getYAcceleration() < value)
+					value = s.getYAcceleration();
 			}
 		}
 		return value;
 	}
-	
+
 	/**
 	 * Returns the minimum z acceleration value
 	 * 
-	 * @return
+	 * @return The minimum z acceleration value
 	 */
-	public double getMinZValue(){
+	public double getMinZValue() {
 		double value = 0;
 		boolean found = false;
 		Iterator<Sample> i = samples.iterator();
-		while(i.hasNext()){
+		while (i.hasNext()) {
 			Sample s = i.next();
-			if(!found){
+			if (!found) {
 				value = s.getZAcceleration();
 				found = true;
-			}
-			else {
-				if(s.getZAcceleration() < value)
-				value = s.getZAcceleration();
+			} else {
+				if (s.getZAcceleration() < value)
+					value = s.getZAcceleration();
 			}
 		}
 		return value;
 	}
-	
+
 	/**
 	 * Returns the maximum overall acceleration value
 	 * 
-	 * @return
+	 * @return The maximum overall acceleration value
 	 */
-	public double getMaxOverallValue(){
+	public double getMaxOverallValue() {
 		double value = getMaxXValue();
-		if(getMaxYValue() > value)
+		if (getMaxYValue() > value)
 			value = getMaxYValue();
-		if(getMaxZValue() > value)
-			value = getMaxZValue();		
+		if (getMaxZValue() > value)
+			value = getMaxZValue();
 		return value;
 	}
-	
+
 	/**
 	 * Returns the minimum overall acceleration value
 	 * 
-	 * @return
+	 * @return The minimum overall acceleration value
 	 */
-	public Double getMinOverallValue(){
+	public Double getMinOverallValue() {
 		double value = getMinXValue();
-		if(getMinYValue() < value)
+		if (getMinYValue() < value)
 			value = getMinYValue();
-		if(getMinZValue() < value)
-			value = getMinZValue();		
+		if (getMinZValue() < value)
+			value = getMinZValue();
 		return value;
 	}
 
 	/**
 	 * Returns the maximum absolute value for overall accelerations
 	 * 
-	 * @return
+	 * @return The maximum absolute value for overall accelerations
 	 */
 	public double getMaxAbsoluteAccelerationValue() {
 		double value = getMaxOverallValue();
-		//System.err.println("MAX: " + getMaxOverallValue());
-		//System.err.println("MIN: " + getMinOverallValue());
-		if(Math.abs(getMinOverallValue()) > value){
+		// System.err.println("MAX: " + getMaxOverallValue());
+		// System.err.println("MIN: " + getMinOverallValue());
+		if (Math.abs(getMinOverallValue()) > value) {
 			value = Math.abs(getMinOverallValue());
-			//System.err.println("MIN taken");
+			// System.err.println("MIN taken");
 		}
 		return value;
 	}
@@ -311,9 +288,9 @@ public class WiiAccelerations {
 	/**
 	 * Returns the samples list
 	 * 
-	 * @return
+	 * @return The list of samples in this WiiAccelerations object
 	 */
 	public List<Sample> getSamples() {
 		return samples;
-	}	
+	}
 }

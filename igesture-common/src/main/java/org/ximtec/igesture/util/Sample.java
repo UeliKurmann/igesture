@@ -25,109 +25,133 @@
 
 package org.ximtec.igesture.util;
 
-/** Contains a sample of x- y- and z- acceleration
+/**
+ * Contains a sample of x- y- and z- acceleration
  * 
  * @author vogelsar
- *
+ * 
  */
 public class Sample {
-	
+
 	private double xAcceleration;
 	private double yAcceleration;
 	private double zAcceleration;
 	private long timeStamp;
-	
-	/** Constructor
+
+	/**
+	 * Constructor
 	 * 
 	 */
-	public Sample(){
+	public Sample() {
 	}
-	
-	/** Constructor with assignment of accelerations
+
+	/**
+	 * Constructor with assignment of accelerations
 	 * 
 	 * @param xAcc
+	 *            The x acceleration to be set
 	 * @param yAcc
+	 *            The y acceleration to be set
 	 * @param zAcc
+	 *            The z acceleration to be set
 	 */
-	public Sample(double xAcc, double yAcc, double zAcc){
+	public Sample(double xAcc, double yAcc, double zAcc) {
 		this.xAcceleration = xAcc;
 		this.yAcceleration = yAcc;
-		this.zAcceleration = zAcc;		
+		this.zAcceleration = zAcc;
 	}
-	
-	/** Constructor with assignment of accelerations and timestamp
+
+	/**
+	 * Constructor with assignment of accelerations and timestamp
 	 * 
 	 * @param xAcceleration
+	 *            The x acceleration to be set
 	 * @param yAcceleration
+	 *            The y acceleration to be set
 	 * @param zAcceleration
+	 *            The z acceleration to be set
 	 * @param timeStamp
+	 *            The system time at the moment the sample was recorded
 	 */
-	public Sample(double xAcceleration, double yAcceleration, double zAcceleration, long timeStamp){
+	public Sample(double xAcceleration, double yAcceleration,
+			double zAcceleration, long timeStamp) {
 		this.xAcceleration = xAcceleration;
 		this.yAcceleration = yAcceleration;
 		this.zAcceleration = zAcceleration;
 		this.timeStamp = timeStamp;
 	}
-	
-		
-	/** returns the x acceleration in this sample
+
+	/**
+	 * returns the x acceleration in this sample
 	 * 
-	 * @return
+	 * @return The x acceleration in this sample
 	 */
 	public double getXAcceleration() {
 		return xAcceleration;
 	}
-	
-	/** sets the x acceleration in this sample
+
+	/**
+	 * sets the x acceleration in this sample
 	 * 
 	 * @param acceleration
+	 *            The x acceleration to be set
 	 */
 	public void setXAcceleration(double acceleration) {
 		xAcceleration = acceleration;
 	}
-	
-	/** returns the y acceleration in this sample
+
+	/**
+	 * returns the y acceleration in this sample
 	 * 
-	 * @return
+	 * @return The y acceleration in this sample
 	 */
 	public double getYAcceleration() {
 		return yAcceleration;
 	}
-	
-	/** sets the y acceleration in this sample
+
+	/**
+	 * sets the y acceleration in this sample
 	 * 
 	 * @param acceleration
+	 *            The y acceleration to be set
 	 */
 	public void setYAcceleration(double acceleration) {
 		yAcceleration = acceleration;
 	}
-	
-	/** returns the z acceleration in this sample
+
+	/**
+	 * returns The z acceleration in this sample
 	 * 
+	 * @return The z acceleration in this sample
 	 */
 	public double getZAcceleration() {
 		return zAcceleration;
 	}
-	
-	/** sets the z acceleration in this sample
+
+	/**
+	 * sets the z acceleration in this sample
 	 * 
 	 * @param acceleration
+	 *            The z acceleration to be set
 	 */
 	public void setZAcceleration(double acceleration) {
 		zAcceleration = acceleration;
-	}	
-	
-	/** returns the time stamp for this sample
+	}
+
+	/**
+	 * returns the time stamp for this sample
 	 * 
-	 * @return
+	 * @return The time stamp in this sample
 	 */
 	public long getTimeStamp() {
 		return timeStamp;
 	}
 
-	/** Sets the time stamp for this sample
+	/**
+	 * Sets the time stamp for this sample
 	 * 
 	 * @param timeStamp
+	 *            The timestamp that should be set for this sample
 	 */
 	public void setTimeStamp(long timeStamp) {
 		this.timeStamp = timeStamp;

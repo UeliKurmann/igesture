@@ -28,46 +28,44 @@ package org.ximtec.igesture.util;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.sigtec.ink.input.TimestampedInputEvent;
-import org.sigtec.input.InputHandler;;
+import org.sigtec.input.InputHandler;
+
+;
 
 public class RecordedGesture3D implements Cloneable, InputHandler {
-	private static final Logger LOGGER = Logger
-			.getLogger(RecordedGesture3D.class.getName());
+	private List<Point3D> points; // List of position data
+	private WiiAccelerations accelerations; // Accelerations list that comes
 
-	private List<Point3D> points;
-	private WiiAccelerations accelerations;
+	// from the input device
 
 	/**
 	 * Constructor
-	 * 
 	 */
 	public RecordedGesture3D() {
 		points = new Vector<Point3D>();
-	} // Trace
+	}
 
 	/**
 	 * Constructor
 	 * 
 	 * @param points
+	 *            A list of Point3D to be set as the position data of this
+	 *            RecordedGesture3D
 	 */
 	public RecordedGesture3D(List<Point3D> points) {
 		this();
-
 		if (points != null) {
 			this.points = points;
 		}
-
 	}
 
 	/**
 	 * Adds a point to the gesture
 	 * 
 	 * @param point
-	 * @return
+	 *            The Point3D to be added to the gesture
 	 */
 	public void add(Point3D point) {
 		points.add(point);
@@ -77,26 +75,26 @@ public class RecordedGesture3D implements Cloneable, InputHandler {
 	 * Adds a list of points to the gesture
 	 * 
 	 * @param points
-	 * @return
+	 *            The list of points to be added to the gesture
 	 */
-	public boolean addAll(List<Point3D> points) {
-		return this.points.addAll(points);
+	public void addAll(List<Point3D> points) {
+		this.points.addAll(points);
 	}
 
 	/**
 	 * Removes a point from the gesture
 	 * 
 	 * @param point
-	 * @return
+	 *            The point to be removed from the gesture
 	 */
-	public boolean remove(Point3D point) {
-		return points.remove(point);
+	public void remove(Point3D point) {
+		points.remove(point);
 	}
 
 	/**
-	 * returns an iterator on points
+	 * Returns an Iterator on points
 	 * 
-	 * @return
+	 * @return The Iterator on the points list
 	 */
 	public Iterator<Point3D> iterator() {
 		return points.iterator();
@@ -106,16 +104,17 @@ public class RecordedGesture3D implements Cloneable, InputHandler {
 	 * Returns point by index
 	 * 
 	 * @param index
-	 * @return
+	 *            The index of the point to be returned
+	 * @return The Point3D with the given index
 	 */
 	public Point3D get(int index) {
 		return points.get(index);
 	}
 
 	/**
-	 * Returns a list of points
+	 * Returns the list of points
 	 * 
-	 * @return
+	 * @return The list of Point3D from this gesture
 	 */
 	public List<Point3D> getPoints() {
 		return points;
@@ -124,7 +123,7 @@ public class RecordedGesture3D implements Cloneable, InputHandler {
 	/**
 	 * Returns the size of the points list
 	 * 
-	 * @return
+	 * @return The size of the points list
 	 */
 	public int size() {
 		return points.size();
@@ -133,7 +132,7 @@ public class RecordedGesture3D implements Cloneable, InputHandler {
 	/**
 	 * Returns the start point of the gesture
 	 * 
-	 * @return
+	 * @return The start Point3D of the gesture
 	 */
 	public Point3D getStartPoint() {
 		return (!points.isEmpty()) ? (Point3D) points.get(0) : null;
@@ -142,7 +141,7 @@ public class RecordedGesture3D implements Cloneable, InputHandler {
 	/**
 	 * Returns the end point of the gesture
 	 * 
-	 * @return
+	 * @return The end Point3D of the gesture
 	 */
 	public Point3D getEndPoint() {
 		return (!points.isEmpty()) ? (Point3D) points.get(points.size() - 1)
@@ -152,7 +151,7 @@ public class RecordedGesture3D implements Cloneable, InputHandler {
 	/**
 	 * Returns the duration of the gesture
 	 * 
-	 * @return
+	 * @return The duration of the gesture in milliseconds
 	 */
 	public long getDuration() {
 		Point3D startPoint = getStartPoint();
@@ -176,60 +175,29 @@ public class RecordedGesture3D implements Cloneable, InputHandler {
 		return getStartPoint().hasTimeStamp();
 	}
 
-
 	@Override
-	public synchronized void handle(Object invoker, TimestampedInputEvent timestampedEvent) {
+	public synchronized void handle(Object invoker,
+			TimestampedInputEvent timestampedEvent) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
+	/**
+	 * Returns the list of acceleration data from this gesture
+	 * 
+	 * @return The WiiAccelerations from this gesture
+	 */
 	public WiiAccelerations getAccelerations() {
 		return accelerations;
 	}
 
+	/**
+	 * Sets an accelerations list for this gesture
+	 * 
+	 * @param accelerations
+	 *            The accelerations list WiiAccelerations object
+	 */
 	public void setAccelerations(WiiAccelerations accelerations) {
 		this.accelerations = accelerations;
 	}
-
-	/**
-	 * Renders the gesture.
-	 * 
-	 * @param g
-	 *            the graphics context
-	 */
-	/*
-	 * public void paint(Graphics g) { if (points.size() == 1) { Point point =
-	 * points.get(0); g.drawLine((int)point.x, (int)point.y, (int)point.x,
-	 * (int)point.y); } else if (points.size() >= 1) { Iterator<Point> spline =
-	 * points.iterator(); Point last = spline.next();
-	 * 
-	 * while (spline.hasNext()) { Point current = spline.next();
-	 * g.drawLine((int)last.x, (int)last.y, (int)current.x, (int)current.y);
-	 * last = current; }
-	 * 
-	 * }
-	 * 
-	 * }
-	 */
-
-	/**
-	 * Clones a recordedgesture3d.
-	 * 
-	 * @return the cloned trace.
-	 */
-	/*
-	 * public Object clone() { RecordedGesture3D clone = null;
-	 * 
-	 * try { clone = (RecordedGesture3D)super.clone(); List<Point3D>
-	 * clonedPoints = new Vector<Point3D>();
-	 * 
-	 * for (Point3D point : points) { clonedPoints.add((Point3D)point.clone());
-	 * }
-	 * 
-	 * clone.points = clonedPoints; } catch (CloneNotSupportedException e) {
-	 * LOGGER.log(Level.SEVERE, e.toString()); }
-	 * 
-	 * return clone; }
-	 */
-
 }
