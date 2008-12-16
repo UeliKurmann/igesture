@@ -105,7 +105,7 @@ public class ConfigurationPanel extends AbstractPanel {
       basePanel.setLayout(new BorderLayout());
       basePanel.add(createParameterPanel(), BorderLayout.NORTH);
       basePanel.add(createWorkspace(), BorderLayout.CENTER);
-
+      
       setCenter(basePanel);
    }
 

@@ -29,11 +29,11 @@ package org.ximtec.igesture.tool.view.admin.action;
 import java.awt.event.ActionEvent;
 
 import org.sigtec.graphix.widget.BasicAction;
-import org.sigtec.ink.Note;
 import org.sigtec.util.Constant;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.SampleDescriptor;
-import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
+import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
@@ -54,16 +54,20 @@ public class AddGestureSampleAction extends BasicAction {
 
    @Override
    public void actionPerformed(ActionEvent action) {
-      SwingMouseReader gestureDevice = Locator.getDefault().getService(
-            InputDeviceClientService.IDENTIFIER, SwingMouseReader.class);
-      if(gestureDevice.getGesture() != null && gestureDevice.getGesture().getGesture() instanceof Note){
-         Note note = (Note)gestureDevice.getGesture().getGesture();
+      GestureDevice<?,?> gestureDevice = Locator.getDefault().getService(
+            InputDeviceClientService.IDENTIFIER, GestureDevice.class);
+      
+      // FIXME generic implementation
+      if(gestureDevice.getGesture() != null){
+         Gesture<?> note = gestureDevice.getGesture();
          gestureDevice.clear();
-         GestureSample sample = new GestureSample(Constant.EMPTY_STRING, note);
-         descriptor.addSample(sample);
+         note.setName(Constant.EMPTY_STRING);
+         if(note instanceof GestureSample){
+            descriptor.addSample((GestureSample)note);
+         }else{
+            throw new IllegalStateException();
+         }
       }
-      
-      
    }
 
 }

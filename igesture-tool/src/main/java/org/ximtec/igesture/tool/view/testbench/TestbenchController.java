@@ -29,15 +29,13 @@ package org.ximtec.igesture.tool.view.testbench;
 import java.beans.PropertyChangeEvent;
 import java.util.logging.Logger;
 
-import org.sigtec.ink.Note;
-import org.sigtec.util.Constant;
 import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.AlgorithmFactory;
 import org.ximtec.igesture.configuration.Configuration;
-import org.ximtec.igesture.core.GestureSample;
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
+import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.tool.core.Command;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.ExecCmd;
@@ -88,31 +86,33 @@ public class TestbenchController extends DefaultController {
       return testbenchView;
    }
 
-   @ExecCmd(name=CMD_RECOGNIZE)
+
+   @ExecCmd(name = CMD_RECOGNIZE)
    protected void executeRecognize(Command command) {
       try {
          Algorithm algorithm = AlgorithmFactory
                .createAlgorithm((Configuration)command.getSender());
 
-         SwingMouseReader gestureDevice = Locator.getDefault().getService(
-               InputDeviceClientService.IDENTIFIER, SwingMouseReader.class);
+         // FIXME General Implementation. Add logic to getGesture. Get gesture
+         // should ensure that only valid gestures (SampleGesture.numberOfPoints
+         // > 5)
+         // are provided.
 
-         if (gestureDevice.getGesture() != null && gestureDevice.getGesture().getGesture() instanceof Note) {
+         GestureDevice< ? , ? > gestureDevice = Locator.getDefault().getService(
+               InputDeviceClientService.IDENTIFIER, GestureDevice.class);
 
-            Note note = (Note)gestureDevice.getGesture().getGesture();
-            int MIN_POINTS = 5;
-            if (note.getPoints().size() >= MIN_POINTS) {
+         if (gestureDevice.getGesture() != null) {
 
-               ResultSet resultSet = algorithm.recognise(new GestureSample(
-                     Constant.EMPTY_STRING, note));
+            Gesture< ? > gesture = gestureDevice.getGesture();
+            ResultSet resultSet = algorithm.recognise(gesture);
 
-               if (explorerTreeController.getExplorerTreeView() instanceof ConfigurationPanel) {
-                  ConfigurationPanel panel = (ConfigurationPanel)explorerTreeController
-                        .getExplorerTreeView();
-                  panel.setResultList(resultSet.getResults());
-               }
+            if (explorerTreeController.getExplorerTreeView() instanceof ConfigurationPanel) {
+               ConfigurationPanel panel = (ConfigurationPanel)explorerTreeController
+                     .getExplorerTreeView();
+               panel.setResultList(resultSet.getResults());
             }
          }
+
       }
       catch (AlgorithmException e) {
          e.printStackTrace();

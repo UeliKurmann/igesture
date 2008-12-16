@@ -29,8 +29,6 @@ package org.ximtec.igesture.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.sigtec.ink.Note;
-
 
 /**
  * Comment
@@ -40,13 +38,13 @@ import org.sigtec.ink.Note;
 public class TestClass extends DefaultDataObject {
 
    public static final String PROPERTY_GESTURES = "gestures";
-   private ArrayList<Gesture<Note>> gestures;
+   private ArrayList<Gesture<?>> gestures;
    private String name;
 
 
    public TestClass(String name) {
       this.name = name;
-      this.gestures = new ArrayList<Gesture<Note>>();
+      this.gestures = new ArrayList<Gesture<?>>();
    }
 
 
@@ -61,7 +59,7 @@ public class TestClass extends DefaultDataObject {
    public void setName(String name){
       this.name = name;
       
-      for(Gesture<Note> gesture:gestures){
+      for(Gesture<?> gesture:gestures){
          gesture.setName(name);
       }
    }
@@ -72,8 +70,8 @@ public class TestClass extends DefaultDataObject {
     * @return a shallow copy of the gesture instances.
     */
    @SuppressWarnings("unchecked")
-   public List<Gesture<Note>> getGestures() {
-      return (List<Gesture<Note>>)gestures.clone();
+   public List<Gesture<?>> getGestures() {
+      return (List<Gesture<?>>)gestures.clone();
    }
 
 
@@ -81,7 +79,7 @@ public class TestClass extends DefaultDataObject {
     * Add a gesture to the test class
     * @param gesture
     */
-   public void add(Gesture<Note> gesture) {
+   public void add(Gesture<?> gesture) {
       gestures.add(gesture);
       propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, 0,
             null, gesture);
@@ -92,7 +90,7 @@ public class TestClass extends DefaultDataObject {
     * Remove a gesture from the test class
     * @param gesture
     */
-   public void remove(Gesture<Note> gesture) {
+   public void remove(Gesture<?> gesture) {
       gestures.remove(gesture);
       propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, 0,
             gesture, null);
@@ -134,7 +132,7 @@ public class TestClass extends DefaultDataObject {
    public void accept(Visitor visitor) {
       visitor.visit(this);
 
-      for (Gesture<Note> gesture : gestures) {
+      for (Gesture<?> gesture : gestures) {
          gesture.accept(visitor);
       }
 
