@@ -29,8 +29,6 @@ package org.ximtec.igesture.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.sigtec.ink.Note;
-
 
 /**
  * Set of gesture samples used to evaluate algorithms.
@@ -69,7 +67,7 @@ public class TestSet extends DefaultDataObject {
     * 
     * @param sample the sample to be added.
     */
-   public void add(Gesture<Note> sample) {
+   public void add(Gesture<?> sample) {
       if (sample == null) {
          return;
       }
@@ -123,8 +121,8 @@ public class TestSet extends DefaultDataObject {
     * 
     * @param samples the samples to be added.
     */
-   public void addAll(List<Gesture<Note>> samples) {
-      for (Gesture<Note> sample : samples) {
+   public void addAll(List<Gesture<?>> samples) {
+      for (Gesture<?> sample : samples) {
          add(sample);
       }
 

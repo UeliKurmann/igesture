@@ -29,8 +29,9 @@ package org.ximtec.igesture.core.jdom;
 import java.util.List;
 
 import org.jdom.Element;
-import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.Gesture;
+import org.ximtec.igesture.core.GestureSample;
+import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.TestClass;
 
 
@@ -61,8 +62,14 @@ public class JdomTestClass extends Element {
       setAttribute(NAME_ATTRIBUTE, testClass.getName());
       setAttribute(UUID_ATTRIBUTE, testClass.getId());
 
-      for (final Gesture<Note> sample : testClass.getGestures()) {
-         addContent(new JdomGestureSample(sample));
+      for (final Gesture< ? > sample : testClass.getGestures()) {
+
+         if (sample instanceof GestureSample) {
+            addContent(new JdomGestureSample((GestureSample)sample));
+         }else if(sample instanceof GestureSample3D){
+            // FIXME implement
+            //addContent(new JdomGestureSample3D((GestureSample3D)sample));
+         }
       }
    }
 
@@ -74,7 +81,8 @@ public class JdomTestClass extends Element {
       final TestClass testClass = new TestClass(name);
       testClass.setId(uuid);
 
-      for (Element sampleElement : (List<Element>)setElement.getChildren(JdomGestureSample.ROOT_TAG)) {
+      for (Element sampleElement : (List<Element>)setElement
+            .getChildren(JdomGestureSample.ROOT_TAG)) {
          testClass.add(JdomGestureSample.unmarshal(sampleElement));
       }
 

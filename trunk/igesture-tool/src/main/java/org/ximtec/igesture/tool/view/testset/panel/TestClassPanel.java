@@ -34,19 +34,19 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.TestClass;
 import org.ximtec.igesture.core.TestSet;
+import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.gesturevisualisation.GesturePanelFactory;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.InputDeviceClientService;
 import org.ximtec.igesture.tool.util.ComponentFactory;
@@ -56,7 +56,6 @@ import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
 import org.ximtec.igesture.tool.view.testset.action.AddSampleAction;
 import org.ximtec.igesture.tool.view.testset.action.RemoveSampleAction;
-import org.ximtec.igesture.util.GestureTool;
 import org.ximtex.igesture.tool.binding.BindingFactory;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -71,7 +70,7 @@ import com.jgoodies.forms.layout.FormLayout;
 public class TestClassPanel extends AbstractPanel {
 
    private TestClass testClass;
-   private SwingMouseReader note;
+   private GestureDevice<?, ?> gestureDevice;
 
 
    public TestClassPanel(Controller controller, TestClass testClass) {
@@ -126,7 +125,7 @@ public class TestClassPanel extends AbstractPanel {
             new JLabel("Test Class has " + testSet.size() + " samples."), 3);
       builder.nextLine(2);
 
-      for (final Gesture<Note> sample : testSet.getGestures()) {
+      for (final Gesture< ? > sample : testSet.getGestures()) {
          builder.append(createGesture(sample));
       }
 
@@ -135,16 +134,18 @@ public class TestClassPanel extends AbstractPanel {
       panel.setAutoscrolls(true);
       setCenter(panel);
    }
-   
-   private JLabel createGesture(final Gesture<Note> gesture){
-      final JLabel label = new JLabel(new ImageIcon(GestureTool
-            .createNoteImage(gesture.getGesture(), 100, 100)));
-      label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-      label.addMouseListener(new MouseAdapter() {
+
+
+   private JPanel createGesture(final Gesture< ? > gesture) {
+
+      final JPanel panel = GesturePanelFactory.createGesturePanel(gesture.getClass(), gesture).getPanel();
+      panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+      panel.addMouseListener(new MouseAdapter() {
 
          RemoveSampleAction action = new RemoveSampleAction(
                TestClassPanel.this.testClass, gesture);
-         
+
+
          @Override
          public void mouseClicked(MouseEvent arg0) {
             popUp(arg0);
@@ -159,11 +160,15 @@ public class TestClassPanel extends AbstractPanel {
 
          private void popUp(MouseEvent e) {
             if (e.isPopupTrigger()) {
-               ComponentFactory.createPopupMenu(action).show(label, e.getX(), e.getY());
+               ComponentFactory.createPopupMenu(action).show(panel, e.getX(),
+                     e.getY());
             }
          }
       });
-      return label;
+      
+      return panel;
+
+
    }
 
 
@@ -176,26 +181,25 @@ public class TestClassPanel extends AbstractPanel {
       // input area
       basePanel.setLayout(new FlowLayout());
 
-      // FIXME save implementation! (Avoid Casts and dependences of subtypes!)
-      SwingMouseReader gestureDevice = Locator.getDefault().getService(
-            InputDeviceClientService.IDENTIFIER, SwingMouseReader.class);
+      gestureDevice = Locator.getDefault().getService(
+            InputDeviceClientService.IDENTIFIER, GestureDevice.class);
 
-      note = (SwingMouseReader)gestureDevice;
-
-      basePanel.add(note.getPanel(new Dimension(200, 200)));
-
+      
+      if(gestureDevice instanceof SwingMouseReader){
+         basePanel.add(((SwingMouseReader)gestureDevice).getPanel(new Dimension(200, 200)));
+      }
+      
       // buttons
       JPanel buttonPanel = new JPanel();
       buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
-      JButton addSampleButton = ComponentFactory
-            .createButton(GestureConstants.GESTURE_SAMPLE_ADD,
-                  new AddSampleAction(testClass));
+      JButton addSampleButton = ComponentFactory.createButton(
+            GestureConstants.GESTURE_SAMPLE_ADD, new AddSampleAction(testClass));
       Formatter.formatButton(addSampleButton);
       buttonPanel.add(addSampleButton);
 
       JButton clearSampleButton = ComponentFactory.createButton(null,
-            new ClearGestureSampleAction(note));
+            new ClearGestureSampleAction(gestureDevice));
       Formatter.formatButton(clearSampleButton);
       buttonPanel.add(clearSampleButton);
 
@@ -207,7 +211,7 @@ public class TestClassPanel extends AbstractPanel {
 
    @Override
    public void refresh() {
-      note.clear();
+      gestureDevice.clear();
       initSampleSection(testClass);
    }
 }
