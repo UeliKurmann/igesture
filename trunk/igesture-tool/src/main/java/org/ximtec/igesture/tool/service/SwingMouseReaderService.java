@@ -1,5 +1,5 @@
 /*
- * @(#)$Id$
+ * @(#)$Id: InputDeviceClientService.java 634 2008-12-02 23:08:18Z kurmannu $
  *
  * Author   : Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
@@ -37,13 +37,13 @@ import org.ximtec.igesture.tool.locator.RunnableService;
  * @version 1.0
  * @since igesture
  */
-public class InputDeviceClientService extends SwingMouseReader implements
+public class SwingMouseReaderService extends SwingMouseReader implements
       RunnableService {
 
    public static final String IDENTIFIER = "inputDeviceClientService";
 
 
-   public InputDeviceClientService() {
+   public SwingMouseReaderService() {
       super();
    }
 
@@ -68,8 +68,7 @@ public class InputDeviceClientService extends SwingMouseReader implements
 
    @Override
    public void reset() {
-      // TODO Auto-generated method stub
-      
+      clear();
    }
 
 }

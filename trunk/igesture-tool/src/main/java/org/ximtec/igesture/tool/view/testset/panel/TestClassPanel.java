@@ -43,12 +43,13 @@ import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.TestClass;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.io.GestureDevice;
-import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
-import org.ximtec.igesture.tool.gesturevisualisation.GesturePanelFactory;
+import org.ximtec.igesture.tool.gesturevisualisation.GesturePanel;
+import org.ximtec.igesture.tool.gesturevisualisation.InputPanel;
+import org.ximtec.igesture.tool.gesturevisualisation.PanelFactory;
 import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.InputDeviceClientService;
+import org.ximtec.igesture.tool.service.SwingMouseReaderService;
 import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.util.TitleFactory;
@@ -138,8 +139,10 @@ public class TestClassPanel extends AbstractPanel {
 
    private JPanel createGesture(final Gesture< ? > gesture) {
 
-      final JPanel panel = GesturePanelFactory.createGesturePanel(gesture.getClass(), gesture).getPanel();
+      GesturePanel gesturePanel = PanelFactory.createGesturePanel(gesture);
+      final JPanel panel = gesturePanel.getPanel(new Dimension(100,100));
       panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+      
       panel.addMouseListener(new MouseAdapter() {
 
          RemoveSampleAction action = new RemoveSampleAction(
@@ -182,12 +185,10 @@ public class TestClassPanel extends AbstractPanel {
       basePanel.setLayout(new FlowLayout());
 
       gestureDevice = Locator.getDefault().getService(
-            InputDeviceClientService.IDENTIFIER, GestureDevice.class);
+            SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
 
-      
-      if(gestureDevice instanceof SwingMouseReader){
-         basePanel.add(((SwingMouseReader)gestureDevice).getPanel(new Dimension(200, 200)));
-      }
+      InputPanel inputPanel = PanelFactory.createInputPanel(gestureDevice);
+      basePanel.add(inputPanel.getPanel(new Dimension(200, 200)));
       
       // buttons
       JPanel buttonPanel = new JPanel();

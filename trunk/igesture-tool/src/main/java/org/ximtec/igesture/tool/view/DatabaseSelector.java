@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -42,6 +42,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.ximtec.igesture.tool.locator.Locator;
+import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.view.action.SelectDatabaseAction;
 import org.ximtec.igesture.tool.view.databaseselector.BrowseAction;
 
@@ -78,7 +80,7 @@ public class DatabaseSelector extends JDialog{
       Image img = null;
       
       try {
-         img = ImageIO.read(DatabaseSelector.class.getClassLoader().getResourceAsStream("igesture.gif"));
+         img = ImageIO.read(DatabaseSelector.class.getClassLoader().getResourceAsStream("image/igesture.gif"));
       }
       catch (IOException e) {
          e.printStackTrace();
@@ -89,7 +91,7 @@ public class DatabaseSelector extends JDialog{
       panel.add(label,BorderLayout.NORTH);
       
       panel.add(createSelectPanel(), BorderLayout.CENTER);
-      //panel.add(createNavigationPanel(), BorderLayout.SOUTH);
+      panel.add(createNavigationPanel(), BorderLayout.SOUTH);
       
       add(panel);
       
@@ -124,6 +126,9 @@ public class DatabaseSelector extends JDialog{
    }
    
    public static void main(String[] args) {
+      Locator locator = Locator.getDefault();
+      locator.addService(new GuiBundleService("igestureMenu"));
+      
       new DatabaseSelector();
    }
 }

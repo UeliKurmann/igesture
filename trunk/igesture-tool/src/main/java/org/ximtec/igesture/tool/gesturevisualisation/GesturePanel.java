@@ -26,20 +26,36 @@
 
 package org.ximtec.igesture.tool.gesturevisualisation;
 
+import java.awt.Dimension;
+
 import javax.swing.JPanel;
 
 import org.ximtec.igesture.core.Gesture;
-
 
 
 /**
  * Comment
  * @version 1.0 16.12.2008
  * @author Ueli Kurmann
+ * 
+ *         This is a wrapper interface used to visualize gestures.
+ *         Implementations need a public default constructor.
+ * 
  */
 public interface GesturePanel {
-   
-   void init(Gesture<?> gesture);
-   JPanel getPanel();
+
+   /**
+    * Initializes the gesture panel.
+    * @param gesture
+    */
+   void init(Gesture< ? > gesture);
+
+
+   /**
+    * Returns a new panel visualizing the gesture. 
+    * @param dimension
+    * @return
+    */
+   JPanel getPanel(Dimension dimension);
 
 }

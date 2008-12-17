@@ -54,7 +54,7 @@ import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.locator.Service;
 import org.ximtec.igesture.tool.service.GuiBundleService;
-import org.ximtec.igesture.tool.service.InputDeviceClientService;
+import org.ximtec.igesture.tool.service.SwingMouseReaderService;
 import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.FileFilterFactory;
 import org.ximtec.igesture.tool.view.admin.AdminController;
@@ -100,7 +100,7 @@ public class MainController extends DefaultController implements Service {
    // Services
    private MainModel mainModel;
    private GuiBundleService guiBundle;
-   private InputDeviceClientService deviceClient;
+   private SwingMouseReaderService deviceClient;
 
    // Main View
    private MainView mainView;
@@ -133,7 +133,7 @@ public class MainController extends DefaultController implements Service {
 
       mainModel = new MainModel(StorageManager.createStorageEngine(database),
             this, properties);
-      deviceClient = new InputDeviceClientService();
+      deviceClient = new SwingMouseReaderService();
 
       /**
        * Register the services

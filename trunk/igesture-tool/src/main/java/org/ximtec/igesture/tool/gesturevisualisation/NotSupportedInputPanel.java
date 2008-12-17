@@ -31,7 +31,7 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.ximtec.igesture.core.Gesture;
+import org.ximtec.igesture.io.GestureDevice;
 
 
 
@@ -40,18 +40,18 @@ import org.ximtec.igesture.core.Gesture;
  * @version 1.0 16.12.2008
  * @author Ueli Kurmann
  */
-public class NotSupportedGesturePanel implements GesturePanel{
+public class NotSupportedInputPanel implements InputPanel{
 
-   Gesture<?> gesture;
+   GestureDevice<?,?> gestureDevice;
    
    @Override
-   public void init(Gesture<?> gesture) {
-     this.gesture = gesture;
+   public void init(GestureDevice<?,?> gestureDevice) {
+     this.gestureDevice = gestureDevice;
    }
    
    @Override
    public JPanel getPanel(Dimension dimension) {
-      JLabel label = new JLabel(gesture.getName());
+      JLabel label = new JLabel(gestureDevice.getClass().getName());
       JPanel panel = new JPanel();
       panel.setPreferredSize(dimension);
       panel.add(label);
