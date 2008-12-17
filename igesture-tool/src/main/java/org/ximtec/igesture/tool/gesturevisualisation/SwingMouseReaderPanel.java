@@ -12,7 +12,7 @@
  *
  * Date				Who			Reason
  *
- * 16.12.2008			ukurmann	Initial Release
+ * 17.12.2008			ukurmann	Initial Release
  *
  * -----------------------------------------------------------------------
  *
@@ -28,34 +28,36 @@ package org.ximtec.igesture.tool.gesturevisualisation;
 
 import java.awt.Dimension;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.ximtec.igesture.core.Gesture;
-
+import org.ximtec.igesture.io.GestureDevice;
+import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
 
 
 /**
  * Comment
- * @version 1.0 16.12.2008
+ * @version 1.0 17.12.2008
  * @author Ueli Kurmann
  */
-public class NotSupportedGesturePanel implements GesturePanel{
+public class SwingMouseReaderPanel implements InputPanel {
 
-   Gesture<?> gesture;
-   
+   SwingMouseReader mouseReader;
+
+
    @Override
-   public void init(Gesture<?> gesture) {
-     this.gesture = gesture;
+   public void init(GestureDevice< ? , ? > gestureDevice) {
+      if (gestureDevice instanceof SwingMouseReader) {
+         this.mouseReader = (SwingMouseReader)gestureDevice;
+      }
    }
-   
+
+
    @Override
    public JPanel getPanel(Dimension dimension) {
-      JLabel label = new JLabel(gesture.getName());
-      JPanel panel = new JPanel();
-      panel.setPreferredSize(dimension);
-      panel.add(label);
-      
-      return panel;
+      if (mouseReader != null) {
+         return mouseReader.getPanel(dimension);
+      }
+      return null;
    }
+
 }

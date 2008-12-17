@@ -51,11 +51,13 @@ import org.sigtec.graphix.widget.BasicButton;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
-import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
+import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.gesturevisualisation.InputPanel;
+import org.ximtec.igesture.tool.gesturevisualisation.PanelFactory;
 import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.InputDeviceClientService;
+import org.ximtec.igesture.tool.service.SwingMouseReaderService;
 import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.util.TitleFactory;
@@ -80,15 +82,13 @@ public class ConfigurationPanel extends AbstractPanel {
 
    private Configuration configuration;
 
-   private SwingMouseReader note;
+   private GestureDevice<?,?> gestureDevice;
    private JScrollPane resultList;
-   private Controller controller;
 
    private RecogniseAction recogniseAction;
 
 
    public ConfigurationPanel(Controller controller, Configuration configuration) {
-      this.controller = controller;
       this.configuration = configuration;
       init();
 
@@ -120,15 +120,11 @@ public class ConfigurationPanel extends AbstractPanel {
 
       // input area
       basePanel.setLayout(new FlowLayout());
-
-   
-      // FIXME
-      SwingMouseReader gestureDevice = Locator.getDefault().getService(
-            InputDeviceClientService.IDENTIFIER, SwingMouseReader.class);
       
-      
-      note = (SwingMouseReader)gestureDevice;
-      basePanel.add(note.getPanel(new Dimension(200, 200)));
+      gestureDevice = Locator.getDefault().getService(
+            SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
+      InputPanel inputPanel = PanelFactory.createInputPanel(gestureDevice);
+      basePanel.add(inputPanel.getPanel(new Dimension(200, 200)));
 
       // buttons
       JPanel buttonPanel = new JPanel();
@@ -162,7 +158,7 @@ public class ConfigurationPanel extends AbstractPanel {
       });
 
 
-      JButton clearButton = new BasicButton(new ClearGestureSampleAction(note));
+      JButton clearButton = new BasicButton(new ClearGestureSampleAction(gestureDevice));
       JButton recogniseButton = new BasicButton(recogniseAction);
 
       buttonPanel.add(clearButton);
@@ -185,7 +181,7 @@ public class ConfigurationPanel extends AbstractPanel {
 
    @Override
    public void refresh() {
-      note.clear();
+      gestureDevice.clear();
    }
 
 

@@ -35,7 +35,7 @@ import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
-import org.ximtec.igesture.tool.service.InputDeviceClientService;
+import org.ximtec.igesture.tool.service.SwingMouseReaderService;
 
 
 public class AddSampleAction extends BasicAction {
@@ -54,7 +54,7 @@ public class AddSampleAction extends BasicAction {
    public void actionPerformed(ActionEvent action) {
       
       GestureDevice<?, ?> gestureDevice = Locator.getDefault().getService(
-            InputDeviceClientService.IDENTIFIER, GestureDevice.class);
+            SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
       
       if(gestureDevice.getGesture() != null){
          Gesture<?> gesture = gestureDevice.getGesture();

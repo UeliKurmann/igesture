@@ -33,9 +33,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -43,11 +41,14 @@ import javax.swing.JPopupMenu;
 import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.SampleDescriptor;
-import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
+import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.gesturevisualisation.GesturePanel;
+import org.ximtec.igesture.tool.gesturevisualisation.InputPanel;
+import org.ximtec.igesture.tool.gesturevisualisation.PanelFactory;
 import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.InputDeviceClientService;
+import org.ximtec.igesture.tool.service.SwingMouseReaderService;
 import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.util.TitleFactory;
@@ -55,7 +56,6 @@ import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.action.RemoveGestureSampleAction;
-import org.ximtec.igesture.util.GestureTool;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -64,7 +64,7 @@ import com.jgoodies.forms.layout.FormLayout;
 public class SampleDescriptorPanel extends AbstractPanel {
 
    private final SampleDescriptor descriptor;
-   private SwingMouseReader note;
+   private GestureDevice<?,?> gestureDevice;
    
    public SampleDescriptorPanel(Controller controller, SampleDescriptor descriptor) {
       this.descriptor = descriptor;
@@ -107,8 +107,8 @@ public class SampleDescriptorPanel extends AbstractPanel {
       builder.nextLine(4);
 
       for (final Gesture<Note> sample : descriptor.getSamples()) {
-         final JLabel label = new JLabel(new ImageIcon(GestureTool.createNoteImage(
-               sample.getGesture(), 100, 100)));
+         GesturePanel gesturePanel = PanelFactory.createGesturePanel(sample); 
+         final JPanel label = gesturePanel.getPanel(new Dimension(100,100));
          label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
          label.addMouseListener(new MouseAdapter(){
             
@@ -150,15 +150,12 @@ public class SampleDescriptorPanel extends AbstractPanel {
 
       // input area
       basePanel.setLayout(new FlowLayout());
-
       
-      //FIXME save implementation! (Avoid Casts and dependences of subtypes!)
-      SwingMouseReader client = Locator.getDefault().getService(
-            InputDeviceClientService.IDENTIFIER, SwingMouseReader.class);
+      gestureDevice = Locator.getDefault().getService(
+            SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
       
-      note = (SwingMouseReader)client;
-
-      basePanel.add(note.getPanel(new Dimension(200,200)));
+      InputPanel inputPanel = PanelFactory.createInputPanel(gestureDevice);
+      basePanel.add(inputPanel.getPanel(new Dimension(200,200)));
 
       // buttons
       JPanel buttonPanel = new JPanel();
@@ -168,7 +165,7 @@ public class SampleDescriptorPanel extends AbstractPanel {
       Formatter.formatButton(addSampleButton);
       buttonPanel.add(addSampleButton);
 
-      JButton clearSampleButton = ComponentFactory.createButton(GestureConstants.GESTURE_SAMPLE_CLEAR, new ClearGestureSampleAction(note));
+      JButton clearSampleButton = ComponentFactory.createButton(GestureConstants.GESTURE_SAMPLE_CLEAR, new ClearGestureSampleAction(gestureDevice));
       Formatter.formatButton(clearSampleButton);
       buttonPanel.add(clearSampleButton);
 
@@ -179,7 +176,7 @@ public class SampleDescriptorPanel extends AbstractPanel {
    
    @Override
    public void refresh(){
-      note.clear();
+      gestureDevice.clear();
       initSampleSection(descriptor);
    }
 

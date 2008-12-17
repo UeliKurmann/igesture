@@ -26,6 +26,8 @@
 
 package org.ximtec.igesture.tool.gesturevisualisation;
 
+import java.awt.Dimension;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -35,29 +37,37 @@ import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.util.GestureTool;
 
 
-
 /**
  * Comment
  * @version 1.0 16.12.2008
  * @author Ueli Kurmann
  */
-public class NoteGesturePanel implements GesturePanel{
+public class NoteGesturePanel implements GesturePanel {
 
-   Gesture<?> gesture;
-   
+   Gesture< ? > gesture;
+
+
    @Override
-   public void init(Gesture<?> gesture) {
-     this.gesture = gesture;
+   public void init(Gesture< ? > gesture) {
+      this.gesture = gesture;
    }
-   
+
+
    @Override
-   public JPanel getPanel() {
-      JLabel label = new JLabel(new ImageIcon(GestureTool
-            .createNoteImage(((GestureSample)gesture).getGesture(), 100, 100)));
-      
-      JPanel panel = new JPanel();
-      panel.add(label);
-      
+   public JPanel getPanel(Dimension dimension) {
+
+      JPanel panel = null;
+
+      if (gesture != null) {
+         JLabel label = new JLabel(new ImageIcon(GestureTool.createNoteImage(
+               ((GestureSample)gesture).getGesture(), dimension.width,
+               dimension.height)));
+
+         panel = new JPanel();
+         panel.setOpaque(true);
+         panel.add(label);
+
+      }
       return panel;
    }
 }

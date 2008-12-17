@@ -43,7 +43,7 @@ import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeModel;
 import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.InputDeviceClientService;
+import org.ximtec.igesture.tool.service.SwingMouseReaderService;
 import org.ximtec.igesture.tool.util.NodeInfoFactory;
 import org.ximtec.igesture.tool.view.MainModel;
 import org.ximtec.igesture.tool.view.testbench.panel.ConfigurationPanel;
@@ -99,7 +99,7 @@ public class TestbenchController extends DefaultController {
          // are provided.
 
          GestureDevice< ? , ? > gestureDevice = Locator.getDefault().getService(
-               InputDeviceClientService.IDENTIFIER, GestureDevice.class);
+               SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
 
          if (gestureDevice.getGesture() != null) {
 
