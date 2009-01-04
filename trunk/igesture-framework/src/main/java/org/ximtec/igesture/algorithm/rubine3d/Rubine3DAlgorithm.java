@@ -11,17 +11,22 @@ import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.AlgorithmException.ExceptionType;
+import org.ximtec.igesture.algorithm.rubine.RubineAlgorithm;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample3D;
+import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
+import org.ximtec.igesture.util.XMLTool;
 
 public class Rubine3DAlgorithm implements Algorithm {
 
 	private Configuration configuration;
-	
+	private static final String GESTURE_SET = "gestureSet/msApplicationGestures.xml";
+	private static final String RECOGNISER_CONFIGURATION = "rubine3drecogniserconfig.xml";
+
 	@Override
 	public Enum<?>[] getConfigParameters() {
 		// TODO Auto-generated method stub
@@ -37,7 +42,7 @@ public class Rubine3DAlgorithm implements Algorithm {
 	@Override
 	public void init(Configuration configuration) throws AlgorithmException {
 		this.configuration = configuration;
-		
+
 	}
 
 	/**
@@ -66,16 +71,12 @@ public class Rubine3DAlgorithm implements Algorithm {
 			throws AlgorithmException {
 		// Split gesture into planes
 		List<Gesture<Note>> planes = gesture.splitToPlanes();
-
-		// TODO What to do with the configuration??
-
-		// Determine the weights of the planes by analysing the movement per
-		// plane
+		// Determine the weights of the planes
 		List<Double> weights = computePlaneWeights(planes);
+		Configuration config = createConfiguration();
 		// Start recognition process
-		Recogniser recogniser = new Recogniser(new Configuration());
-		// Iterate through the planes and recognise per plane and add a
-		// ResultSet to sets for every plane
+		Recogniser recogniser = new Recogniser(config);
+		// Recognise and add a ResultSet to sets per plane
 		Iterator<Gesture<Note>> iterator = planes.iterator();
 		List<ResultSet> sets = new ArrayList<ResultSet>();
 		while (iterator.hasNext()) {
@@ -90,6 +91,28 @@ public class Rubine3DAlgorithm implements Algorithm {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	/**
+	 * Creates a configuration for the recogniser
+	 * 
+	 * @return The Configuration for the recogniser
+	 */
+	private Configuration createConfiguration() {
+		// Create configuration for the recogniser
+		Configuration config = XMLTool.importConfiguration(ClassLoader
+				.getSystemResourceAsStream(RECOGNISER_CONFIGURATION));
+
+		// Add the Rubine algorithm to the configuration
+		//config.addAlgorithm(RubineAlgorithm.class.getName());
+		
+		// Get gesture set from XML
+		GestureSet gestureSet = XMLTool.importGestureSet(ClassLoader
+				.getSystemResourceAsStream(GESTURE_SET));
+		// Add GestureSet to configuration
+		config.addGestureSet(gestureSet);
+		// Return the configuration
+		return config;
 	}
 
 	/**
