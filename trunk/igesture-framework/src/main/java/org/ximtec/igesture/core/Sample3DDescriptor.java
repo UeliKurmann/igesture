@@ -40,7 +40,7 @@ import org.ximtec.igesture.util.RecordedGesture3D;
  */
 public class Sample3DDescriptor extends DefaultDescriptor {
 
-   public static final String PROPERTY_SAMPLES = "samples";
+   public static final String PROPERTY_SAMPLES = "samples3d";
 
    private List<Gesture<RecordedGesture3D>> samples;
 

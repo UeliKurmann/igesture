@@ -24,6 +24,10 @@
 
 package org.ximtec.igesture.util;
 
+import java.util.List;
+
+import org.sigtec.ink.Note;
+
 public class WiiMoteTools {
 
 
@@ -101,5 +105,4 @@ public class WiiMoteTools {
 		// TODO Auto-generated method stub
 
 	}
-
 }
