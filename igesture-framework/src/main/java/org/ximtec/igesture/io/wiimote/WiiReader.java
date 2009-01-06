@@ -91,6 +91,16 @@ public class WiiReader extends
 	}
 
 	/**
+	 * Returns the panel with standard dimension 
+	 * 
+	 * @return
+	 */
+	public WiiReaderPanel getPanel(){
+		return getPanel(new Dimension(200,200));
+	}
+	
+	
+	/**
 	 * Returns the singleton panel
 	 * 
 	 * @param dimension

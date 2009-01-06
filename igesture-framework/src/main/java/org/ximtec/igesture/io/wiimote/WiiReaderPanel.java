@@ -50,6 +50,7 @@ import org.ximtec.igesture.util.WiiAccelerations;
 public class WiiReaderPanel extends JPanel {
 
 	private WiiReader reader;
+	private GestureSample3D gs;
 
 	/**
 	 * Constructor
@@ -70,15 +71,32 @@ public class WiiReaderPanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		// Clear first
 		g.clearRect(0, 0, getWidth(), getHeight());
+
 		if (reader != null) {
-			// Calculate the drawing fields for the planes
-			List<Rectangle> fields = calculateFieldSizes(0.02);
-			Rectangle XYfield = fields.get(0);
-			Rectangle YZfield = fields.get(1);
-			Rectangle ZXfield = fields.get(2);
-			Rectangle graphField = fields.get(3);
 			// Get gesture to draw
-			GestureSample3D gs = (GestureSample3D) reader.getGesture();
+			gs = (GestureSample3D) reader.getGesture();
+		}
+		// Calculate the drawing fields for the planes
+		List<Rectangle> fields = calculateFieldSizes(0.02);
+		Rectangle XYfield = fields.get(0);
+		Rectangle YZfield = fields.get(1);
+		Rectangle ZXfield = fields.get(2);
+		Rectangle graphField = fields.get(3);
+		//Draw rectangles around the fields
+		g.drawRect((int) XYfield.getX(), (int) XYfield.getY(), (int) XYfield.getWidth(), (int) XYfield.getHeight());
+		g.drawRect((int) YZfield.getX(), (int) YZfield.getY(), (int) YZfield.getWidth(), (int) YZfield.getHeight());
+		g.drawRect((int) ZXfield.getX(), (int) ZXfield.getY(), (int) ZXfield.getWidth(), (int) ZXfield.getHeight());
+		g.drawRect((int) graphField.getX(), (int) graphField.getY(), (int) graphField.getWidth(), (int) graphField.getHeight());
+		//Draw titles in the fields
+		g.setColor(Color.RED);
+		g.drawString("XY-Plane", (int) (XYfield.getX() + 10),(int) (XYfield.getY() + 15));
+		g.drawString("YZ-Plane", (int) (YZfield.getX() + 10),(int) (YZfield.getY() + 15));
+		g.drawString("ZX-Plane", (int) (ZXfield.getX() + 10),(int) (ZXfield.getY() + 15));
+		g.drawString("Accelerations", (int) (graphField.getX() + 10),(int) (graphField.getY() + 15));
+		
+		
+		if (gs != null) {
+
 			WiiAccelerations acc = gs.getGesture().getAccelerations();
 
 			// Split the gesture to three planes of type Gesture<Note>
@@ -107,11 +125,11 @@ public class WiiReaderPanel extends JPanel {
 			Note noteZX = gest.getGesture();
 			// Rectangle accelerationsField = fields.get(3);
 			// Draw planes on g
-			drawPlane(noteXY, XYfield, "XY-Plane", g);
-			drawPlane(noteYZ, YZfield, "YZ-Plane", g);
-			drawPlane(noteZX, ZXfield, "ZX-Plane", g);
+			drawPlane(noteXY, XYfield, g);
+			drawPlane(noteYZ, YZfield, g);
+			drawPlane(noteZX, ZXfield, g);
 			// Draw acceleration graphs
-			drawAccelerationsGraph(acc, graphField, 0.02, "Accelerations", g);
+			drawAccelerationsGraph(acc, graphField, 0.02, g);
 		}
 	}
 
@@ -130,14 +148,7 @@ public class WiiReaderPanel extends JPanel {
 	 *            The Graphics object on which the graph should be drawn
 	 */
 	private void drawAccelerationsGraph(WiiAccelerations acc, Rectangle field,
-			double spacePercentage, String title, Graphics g) {
-		// Draw a rectangle around the field
-		g.drawRect((int) field.getX(), (int) field.getY(), (int) field
-				.getWidth(), (int) field.getHeight());
-		// Draw title
-		g.setColor(Color.RED);
-		g.drawString(title, (int) (field.getX() + 10),
-				(int) (field.getY() + 15));
+			double spacePercentage, Graphics g) {
 		g.setColor(Color.BLACK);
 
 		if (acc != null) {
@@ -173,13 +184,13 @@ public class WiiReaderPanel extends JPanel {
 					g);
 
 		} else {
-			Font originalFont = g.getFont();
-			Font font = new Font("Arial", Font.PLAIN, 10);
-			g.setFont(font);
-			g.drawString("No acceleration data available",
-					(int) (field.getX() + 5),
-					(int) ((field.getY() + (0.5 * field.getHeight()))));
-			g.setFont(originalFont);
+//			Font originalFont = g.getFont();
+//			Font font = new Font("Arial", Font.PLAIN, 10);
+//			g.setFont(font);
+//			g.drawString("No acceleration data available",
+//					(int) (field.getX() + 5),
+//					(int) ((field.getY() + (0.5 * field.getHeight()))));
+//			g.setFont(originalFont);
 		}
 	}
 
@@ -217,21 +228,21 @@ public class WiiReaderPanel extends JPanel {
 			Sample s = i.next();
 			Point point = new Point();
 			// X position
-			double xPos = getX() + horizontalScalingFactor
+			double xPos = horizontalScalingFactor
 					* (s.getTimeStamp() - timeFirst);
-			double yPos = getY() + (graphHeight / 2)
+			double yPos = (graphHeight / 2)
 					- (verticalScalingFactor * (s.getXAcceleration()));
 			point.setLocation(xPos, yPos);
 			bufferX.add(point);
 			// Y position
 			point = new Point();
-			yPos = getY() + (graphHeight / 2)
+			yPos = (graphHeight / 2)
 					- (verticalScalingFactor * (s.getYAcceleration()));
 			point.setLocation(xPos, yPos);
 			bufferY.add(point);
 			// Z position
 			point = new Point();
-			yPos = getY() + (graphHeight / 2)
+			yPos = (graphHeight / 2)
 					- (verticalScalingFactor * (s.getZAcceleration()));
 			point.setLocation(xPos, yPos);
 			bufferZ.add(point);
@@ -255,15 +266,8 @@ public class WiiReaderPanel extends JPanel {
 	 * @param g
 	 *            The Graphics object onto which the Note should be drawn
 	 */
-	private void drawPlane(Note plane, Rectangle field, String title, Graphics g) {
+	private void drawPlane(Note plane, Rectangle field, Graphics g) {
 		if (plane != null) {
-			// Draw a rectangle around the field
-			g.drawRect((int) field.getX(), (int) field.getY(), (int) field
-					.getWidth(), (int) field.getHeight());
-			// Draw text into the field in red
-			g.setColor(Color.RED);
-			g.drawString(title, (int) (field.getX() + 10),
-					(int) (field.getY() + 15));
 			g.setColor(Color.BLACK);
 			// Draw all traces from plane on g
 			for (Trace trace : plane.getTraces()) {
@@ -485,6 +489,7 @@ public class WiiReaderPanel extends JPanel {
 	 */
 	private void drawGraph(List<Point> data, Rectangle field, Color axisColor,
 			Color dataColor, String title, Graphics g) {
+		//System.err.println("Field: " + field.getX() + "," + field.getY() + " dimensions " + field.getWidth() + "," + field.getHeight());
 		// Save original color
 		Color originalColor = g.getColor();
 		// Draw axes
@@ -519,9 +524,30 @@ public class WiiReaderPanel extends JPanel {
 			int newY = (int) (field.getY() + p.getY());
 			g.drawLine(oldX, oldY, newX, newY);
 			lastPoint = p;
+			//System.err.println("old: (" + oldX + "," + oldY + ") , new: " + newX + "," + newY + ")");
 		}
 		// Set color back to original
 		g.setColor(originalColor);
+	}
+
+	/**
+	 * Returns the gesture drawn by this panel
+	 * 
+	 * @return The gesture drawn by this panel
+	 */
+	public GestureSample3D getGesture() {
+		return gs;
+	}
+
+	/**
+	 * Sets the gesture to be drawn by this panel
+	 * 
+	 * @param gs
+	 *            The gesture to be drawn by this panel
+	 */
+	public void setGesture(GestureSample3D gs) {
+		this.gs = gs;
+		this.paintComponent(this.getGraphics());
 	}
 
 }
