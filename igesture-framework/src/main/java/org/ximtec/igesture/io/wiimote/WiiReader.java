@@ -154,6 +154,7 @@ public class WiiReader extends
 	 */
 	@Override
 	public Gesture<RecordedGesture3D> getGesture() {
+		System.err.println("Source accelerations: " + this.gesture.getGesture().getAccelerations());
 		return this.gesture;
 	}
 
@@ -207,12 +208,13 @@ public class WiiReader extends
 				accelerations.clear(); // Clear accelerations list
 				recording = true;
 			} else { // If already recording, stop recording
-				gesture.setGesture(WiiMoteTools
+				this.gesture.setGesture(WiiMoteTools
 						.accelerationsToTraces(this.accelerations)); // Convert
 																		// accelerations
 																		// list
 																		// to a
 																		// gesture
+				
 				// Paint the gesture on the panel
 				this.currentPanel.paintComponent(currentPanel.getGraphics());
 				// Indicate recording stop
