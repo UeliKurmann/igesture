@@ -28,35 +28,15 @@ public class Tester {
 	 */
 	public static void main(String[] args) {		
 		
-		// The WiiReader to read from the WiiMote
-		WiiReader reader = new WiiReader();
-		// Storagemanager to keep database
-		StorageManager storage = new StorageManager(StorageManager
-				.createStorageEngine(new File("C:\\ali2.db")));
 
+		//Create controller
+		TestController controller = new TestController();
+		controller.initWiiMote();
+		
 		// Create UI Frame
-		JFrame frame = new TestUI(reader.getPanel());
+		JFrame frame = new TestUI(controller);
 		frame.setVisible(true);
-
 		
-		
-		// Load list of gesturesets from database
-		List<GestureSet> gestureSets = storage.load(GestureSet.class);
-		
-		
-		
-		
-		// PANEL
-		//Dimension dimension = new Dimension(150, 150);
-		//JPanel panel = reader.getPanel(dimension);
-		// panel.setSize(250, 250);
-		//panel.setBounds(200, 10, 180, 180);
-		//panel.setVisible(true);
-
-		// ADD PANEL TO FRAME
-		// frame.getContentPane().add(panel);
-		reader.init();
-
 		System.out.println("End of test main.");
 
 	}
