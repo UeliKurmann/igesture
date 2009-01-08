@@ -2,6 +2,8 @@ package org.ximtec.igesture.io.wiimote;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,11 +13,18 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.util.RecordedGesture3D;
 
 public class TestUI extends JFrame {
+
+	private String setName;
+	private String className;
+	private int currentSampleNumber;
+	private List<Gesture<RecordedGesture3D>> samples;
 
 	private JLabel gestureSetLabel;
 	private JLabel gestureClassLabel;
@@ -42,9 +51,15 @@ public class TestUI extends JFrame {
 
 	private JButton addGestureSampleButton; // Button to add a gesture sample
 
+	private JButton startWiiMoteButton; // Button to start wiimote
+	
+	private JButton stopWiiMoteButton; // Button to start wiimote
+	
 	private TestController controller; // controller
 
-	public TestUI(TestController controller) {
+	public TestUI(final TestController controller) {
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		setSize(1100, 500);
 		setTitle("WiiMote Test Frame");
 		setLayout(null);
@@ -71,6 +86,8 @@ public class TestUI extends JFrame {
 
 		gestureClassComboBox = new JComboBox();
 		gestureClassComboBox.setBounds(190, 35, 150, 20);
+		gestureClassComboBox
+				.addActionListener(new gestureClassComboBoxListener());
 		getContentPane().add(gestureClassComboBox);
 
 		samplePanel = new WiiReaderPanel(null);
@@ -80,11 +97,13 @@ public class TestUI extends JFrame {
 
 		sampleBackButton = new JButton("<");
 		sampleBackButton.setBounds(20, 125, 45, 190);
+		sampleBackButton.addActionListener(new sampleBackwardButtonListener());
 		getContentPane().add(sampleBackButton);
 
 		sampleForwardButton = new JButton(">");
 		sampleForwardButton.setBounds(290, 125, 45, 190);
-		sampleForwardButton.addActionListener(new sampleForwardButtonListener());
+		sampleForwardButton
+				.addActionListener(new sampleForwardButtonListener());
 		getContentPane().add(sampleForwardButton);
 
 		addGestureSetTextField = new JTextField("");
@@ -118,12 +137,73 @@ public class TestUI extends JFrame {
 		addGestureSampleButton
 				.addActionListener(new addGestureSampleButtonListener());
 		getContentPane().add(addGestureSampleButton);
+		
+		startWiiMoteButton = new JButton("Start WiiMote");
+		startWiiMoteButton.setBounds(620, 125, 220, 50);
+		startWiiMoteButton.addActionListener(new startWiiMoteButtonListener());
+		getContentPane().add(startWiiMoteButton);
+		
+		stopWiiMoteButton = new JButton("Stop WiiMote");
+		stopWiiMoteButton.setBounds(870, 125, 150, 50);
+		stopWiiMoteButton.addActionListener(new stopWiiMoteButtonListener());
+		getContentPane().add(stopWiiMoteButton);
 
 		// Fill comboboxes
 		setGestureSetsBox(controller.getGestureSets());
 		setGestureClassesBox(controller
 				.getGestureSet((String) gestureSetComboBox.getSelectedItem()));
 
+		// Get current names and numbers
+		setName = (String) gestureSetComboBox.getSelectedItem();
+		className = (String) gestureClassComboBox.getSelectedItem();
+		currentSampleNumber = 0;
+
+		// Get samples
+		samples = controller.getGestureSamples(setName, className);
+		// setSample(currentSampleNumber);
+		
+		
+		//Set close operation
+        this.addWindowListener(new WindowAdapter() {
+        	public void windowClosing(WindowEvent e) {
+                System.out.println("Window Closing");
+                controller.disconnectWiiMote();
+            }
+        
+        });
+		
+	}
+
+	private void setSample(int currentSampleNumber2) {
+		samplePanel.setGesture((GestureSample3D) samples
+				.get(currentSampleNumber));
+	}
+
+	public void setNextSample() {
+		System.err.print("setNextSample(): Samples size: " + samples.size());
+		if (!(currentSampleNumber + 1 >= samples.size())) {
+			currentSampleNumber = currentSampleNumber + 1;
+		}
+		if (samples.size() > 0) {
+			samplePanel.setGesture((GestureSample3D) samples
+					.get(currentSampleNumber));
+			System.err.println(" Sample number displayed: "
+					+ currentSampleNumber);
+		}
+	}
+
+	public void setPreviousSample() {
+		System.err
+				.print("setPreviousSample(): Samples size: " + samples.size());
+		if (currentSampleNumber > 0) {
+			currentSampleNumber = currentSampleNumber - 1;
+		}
+		if (samples.size() > 0) {
+			samplePanel.setGesture((GestureSample3D) samples
+					.get(currentSampleNumber));
+			System.err.println(" Sample number displayed: "
+					+ currentSampleNumber);
+		}
 	}
 
 	/**
@@ -191,65 +271,89 @@ public class TestUI extends JFrame {
 	private class gestureSetComboBoxListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// Determine name of selected set
-			String setName = (String) gestureSetComboBox.getSelectedItem();
+			setName = (String) gestureSetComboBox.getSelectedItem();
 			// Fill gesture classes combobox with gesture class names from
 			// selected set
 			setGestureClassesBox(controller.getGestureSet(setName));
 		}
 	}
 
+	private class gestureClassComboBoxListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			// Determine name of selected class
+			className = (String) gestureClassComboBox.getSelectedItem();
+			// Load gesture samples from this class
+			samples = controller.getGestureSamples(setName, className);
+		}
+	}
+
 	private class addGestureSetButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			String setName = addGestureSetTextField.getText();
-			controller.addGestureSet(setName);
+			String newSetName = addGestureSetTextField.getText();
+			controller.addGestureSet(newSetName);
 			setGestureSetsBox(controller.getGestureSets());
+			addGestureSetTextField.setText("");
+			gestureClassComboBox.removeAllItems();
+			gestureSetComboBox.setSelectedItem(newSetName);
 		}
 	}
 
 	private class addGestureClassButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			String setName = "";
-			if (gestureSetComboBox.getSelectedItem() != null)
-				setName = (String) gestureSetComboBox.getSelectedItem();
-			else {
+			if (setName == null || setName.equals("")) {
 				System.err.println("No Gesture Set selected.");
 				return;
 			}
-			String className = addGestureClassTextField.getText();
-			controller.addGestureClass(setName, className);
+			String newClassName = addGestureClassTextField.getText();
+			controller.addGestureClass(setName, newClassName);
 			setGestureClassesBox(controller.getGestureSet(setName));
+			addGestureClassTextField.setText("");
+			gestureClassComboBox.setSelectedItem(newClassName);
 		}
 	}
 
 	private class addGestureSampleButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			String setName = "";
-			String className = "";
-			if (gestureSetComboBox.getSelectedItem() != null)
-				setName = (String) gestureSetComboBox.getSelectedItem();
-			else {
+			if (setName == null || setName.equals("")) {
 				System.err.println("No Gesture Set selected.");
 				return;
 			}
-			if (gestureClassComboBox.getSelectedItem() != null)
-				className = (String) gestureClassComboBox.getSelectedItem();
-			else {
+			if (className == null || className.equals("")) {
 				System.err.println("No Gesture Class selected.");
 				return;
 			}
 			controller
 					.addCurrentGestureSampleToGestureClass(setName, className);
+			samples = controller.getGestureSamples(setName, className);
 		}
 	}
 
 	private class sampleForwardButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// Fill samplePanel if applicable
-			String setName = (String) gestureSetComboBox.getSelectedItem();
-			String className = (String) gestureClassComboBox.getSelectedItem();
-			samplePanel.setGesture(controller.getFirstGestureSample(setName,
-					className));
+			setNextSample();
 		}
 	}
 
+	private class sampleBackwardButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			// Fill samplePanel if applicable
+			setPreviousSample();
+		}
+	}
+	
+	private class startWiiMoteButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			// Start WiiMote
+			controller.initWiiMote();
+		}
+	}
+
+	private class stopWiiMoteButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			// Disconnect WiiMote
+			controller.disconnectWiiMote();
+		}
+	}
+	
 }

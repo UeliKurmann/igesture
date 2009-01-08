@@ -105,7 +105,7 @@ public class GestureSet extends DefaultDataObject {
 	 */
 	public void addGestureClass(GestureClass gestureClass) {
 		this.gestureClasses.add(gestureClass);
-		System.err.println("propertyChangeSupport: " + propertyChangeSupport);
+		//System.err.println("propertyChangeSupport: " + propertyChangeSupport);
 		//propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_CLASSES, gestureClasses.indexOf(gestureClass), null, gestureClass);
 	} // addGestureClass
 
