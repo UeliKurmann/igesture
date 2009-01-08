@@ -100,7 +100,7 @@ public class WiiReaderPanel extends JPanel {
 
 			WiiAccelerations acc = gs.getGesture().getAccelerations();
 
-			System.err.println("Accelerations: " + gs.getGesture().getAccelerations());
+			//System.err.println("Accelerations: " + gs.getGesture().getAccelerations());
 			
 			// Split the gesture to three planes of type Gesture<Note>
 			List<Gesture<Note>> notes = gs.splitToPlanes();
@@ -551,6 +551,7 @@ public class WiiReaderPanel extends JPanel {
 	public void setGesture(GestureSample3D gs) {
 		//System.err.println("SAMPLE : " + gs.getName());
 		this.gs = gs;
+		System.err.println("WiiReaderPanel.setGesture() Displaying: " + gs.getName());
 		if(gs != null)
 			this.paintComponent(this.getGraphics());
 	}

@@ -48,7 +48,8 @@ public abstract class DefaultDataObject extends DefaultPropertyChangeNotifier
     * Constructs a new default data object.
     */
    public DefaultDataObject() {
-      setId(StorageManager.generateUUID());
+	   super();
+	   setId(StorageManager.generateUUID());
    }
 
 
