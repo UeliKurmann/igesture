@@ -200,4 +200,14 @@ public class RecordedGesture3D implements Cloneable, InputHandler {
 	public void setAccelerations(WiiAccelerations accelerations) {
 		this.accelerations = accelerations;
 	}
+
+	/**
+	 * Sets a points list for this gesture
+	 * 
+	 * @param pointsList
+	 *            The points list
+	 */
+	public void setPoints(List<Point3D> pointsList) {
+		this.points = pointsList;		
+	}
 }
