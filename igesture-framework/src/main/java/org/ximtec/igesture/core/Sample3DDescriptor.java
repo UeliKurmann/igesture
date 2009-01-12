@@ -86,8 +86,8 @@ public class Sample3DDescriptor extends DefaultDescriptor {
     */
    public void addSample(Gesture<RecordedGesture3D> sample) {
       samples.add(sample);
-      //propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SAMPLES, samples
-            //.indexOf(sample), null, sample);
+      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SAMPLES, samples
+            .indexOf(sample), null, sample);
    } // addSample
 
 

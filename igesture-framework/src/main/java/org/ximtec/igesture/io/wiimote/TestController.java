@@ -5,11 +5,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
+import org.ximtec.igesture.Recogniser;
+import org.ximtec.igesture.algorithm.AlgorithmException;
+import org.ximtec.igesture.algorithm.rubine3d.Rubine3DAlgorithm;
+import org.ximtec.igesture.algorithm.siger.SigerAlgorithm;
+import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.core.Sample3DDescriptor;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.storage.StorageManager;
@@ -19,6 +25,8 @@ public class TestController {
 
 	private StorageManager storage; // The storage manager for database or xml
 	private WiiReader reader; // The WiiReader to read from the WiiMote
+	private Recogniser recogniser; // The recogniser
+	private TestUI ui;
 
 	public TestController() {
 		storage = new StorageManager(StorageManager
@@ -41,6 +49,10 @@ public class TestController {
 		reader.disconnect();
 	}
 
+	public void setUI(TestUI ui){
+		this.ui = ui;
+	}
+	
 	/**
 	 * Returns the panel of the WiiReader in this controller
 	 * 
@@ -214,6 +226,30 @@ public class TestController {
 					+ "\".");
 		// Return list
 		return returnList;
+	}
+
+	/**
+	 * Recognises the current gesture from the WiiReader against the gesture set with name setName
+	 * 
+	 * @param setName the set to be recognised against
+	 */
+	public void recognise(String setName) {
+		// Configure recogniser
+		new Rubine3DAlgorithm();
+		Configuration config = new Configuration();
+		config.addAlgorithm(Rubine3DAlgorithm.class.getName());
+		config.addGestureSet(getGestureSet(setName));
+		try {
+			recogniser = new Recogniser(config);
+		} catch (AlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// Recognise
+		ResultSet resultSet = recogniser.recognise(reader.getGesture());
+		ui.setResultField(resultSet);
+		//
+		System.err.println("Number of Results in ResultSet: " + resultSet.getResults().size());
 	}
 
 }

@@ -13,20 +13,38 @@ import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.AlgorithmException.ExceptionType;
 import org.ximtec.igesture.algorithm.rubine.RubineAlgorithm;
 import org.ximtec.igesture.configuration.Configuration;
+import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
+import org.ximtec.igesture.core.Sample3DDescriptor;
+import org.ximtec.igesture.core.SampleDescriptor;
+import org.ximtec.igesture.util.RecordedGesture3D;
 import org.ximtec.igesture.util.XMLTool;
 
 public class Rubine3DAlgorithm implements Algorithm {
 
 	private Configuration configuration;
 	private static final String GESTURE_SET = "gestureSet/msApplicationGestures.xml";
-	private static final String RECOGNISER_CONFIGURATION = "rubine3drecogniserconfig.xml";
-
+	private static final String RECOGNISER_CONFIGURATION = "rubineconfig.xml";
+	
+	//Plane gesture sets
+	private GestureSet setXY;
+	private GestureSet setYZ;
+	private GestureSet setZX;
+	
+	/**
+	 * Constructor
+	 */
+	public Rubine3DAlgorithm(){
+		setXY = new GestureSet();
+		setYZ = new GestureSet();
+		setZX = new GestureSet();
+	}
+	
 	@Override
 	public Enum<?>[] getConfigParameters() {
 		// TODO Auto-generated method stub
@@ -41,8 +59,14 @@ public class Rubine3DAlgorithm implements Algorithm {
 
 	@Override
 	public void init(Configuration configuration) throws AlgorithmException {
+		System.err.println("Rubine3DAlgorithm.init()");
 		this.configuration = configuration;
-
+		//Split all gesture sets up into planes
+		Iterator<GestureSet> i = configuration.getGestureSets().iterator();
+		while(i.hasNext()){
+			GestureSet tempSet = i.next();
+			splitGestureSet(tempSet);
+		}
 	}
 
 	/**
@@ -73,17 +97,18 @@ public class Rubine3DAlgorithm implements Algorithm {
 		List<Gesture<Note>> planes = gesture.splitToPlanes();
 		// Determine the weights of the planes
 		List<Double> weights = computePlaneWeights(planes);
-		Configuration config = createConfiguration();
+		Configuration configXY = createConfiguration("XY");
+		Configuration configYZ = createConfiguration("YZ");
+		Configuration configZX = createConfiguration("ZX");
 		// Start recognition process
-		Recogniser recogniser = new Recogniser(config);
+		Recogniser recogniserXY = new Recogniser(configXY);
+		Recogniser recogniserYZ = new Recogniser(configYZ);
+		Recogniser recogniserZX = new Recogniser(configZX);
 		// Recognise and add a ResultSet to sets per plane
-		Iterator<Gesture<Note>> iterator = planes.iterator();
 		List<ResultSet> sets = new ArrayList<ResultSet>();
-		while (iterator.hasNext()) {
-			Gesture<Note> plane = iterator.next();
-			// Recognise current plane and add ResultSet to sets
-			sets.add(recogniser.recognise(plane));
-		}
+		sets.add(recogniserXY.recognise(planes.get(0)));
+		sets.add(recogniserYZ.recognise(planes.get(1)));
+		sets.add(recogniserZX.recognise(planes.get(2)));
 		// Combine sets to one ResultSet and return
 		try {
 			return combineResultSets(sets, weights);
@@ -98,21 +123,26 @@ public class Rubine3DAlgorithm implements Algorithm {
 	 * 
 	 * @return The Configuration for the recogniser
 	 */
-	private Configuration createConfiguration() {
-		// Create configuration for the recogniser
-		Configuration config = XMLTool.importConfiguration(ClassLoader
-				.getSystemResourceAsStream(RECOGNISER_CONFIGURATION));
-
+	private Configuration createConfiguration(String plane) {
+		//New Configuration object
+		Configuration config = new Configuration();
 		// Add the Rubine algorithm to the configuration
-		//config.addAlgorithm(RubineAlgorithm.class.getName());
-		
-		// Get gesture set from XML
-		GestureSet gestureSet = XMLTool.importGestureSet(ClassLoader
-				.getSystemResourceAsStream(GESTURE_SET));
-		// Add GestureSet to configuration
-		config.addGestureSet(gestureSet);
-		// Return the configuration
-		return config;
+		config.addAlgorithm(RubineAlgorithm.class.getName());
+		// Add gesture set to the configuration
+		if(plane.equals("XY")){
+			config.addGestureSet(this.setXY);
+			return config;
+		}
+		if(plane.equals("YZ")){
+			config.addGestureSet(this.setYZ);
+			return config;
+		}
+		if(plane.equals("ZX")){
+			config.addGestureSet(this.setZX);
+			return config;
+		}
+		System.err.println("Rubine3DAlgorithm.createConfiguration(): Please provide a valid plane name (\"XY\", \"YZ\" or \"ZX\")");
+		return null;
 	}
 
 	/**
@@ -324,5 +354,54 @@ public class Rubine3DAlgorithm implements Algorithm {
 		// Return output variable
 		return outputSet;
 	}
+	
+	
+	/**
+	 * Splits inputSet into three separate gesture sets for the three planes
+	 * 
+	 * @param inputSet
+	 */
+	private void splitGestureSet(GestureSet inputSet){
+		//Set names
+		setXY.setName(inputSet.getName());
+		setYZ.setName(inputSet.getName());
+		setZX.setName(inputSet.getName());
+		//Iterate through gesture classes in set
+		Iterator<GestureClass> classIter = inputSet.getGestureClasses().iterator();
+		while(classIter.hasNext()){
+			GestureClass tempClass = classIter.next();
+			GestureClass classXY = new GestureClass(tempClass.getName());
+			GestureClass classYZ = new GestureClass(tempClass.getName());
+			GestureClass classZX = new GestureClass(tempClass.getName());
+			//If the gesture class contains a sample descriptor
+			if(tempClass.getDescriptor(Sample3DDescriptor.class) != null){
+				SampleDescriptor descXY = new SampleDescriptor();
+				SampleDescriptor descYZ = new SampleDescriptor();
+				SampleDescriptor descZX = new SampleDescriptor();
+				//Iterate through samples
+				Iterator<Gesture<RecordedGesture3D>> sampleIter = tempClass.getDescriptor(Sample3DDescriptor.class).getSamples().iterator();
+				while(sampleIter.hasNext()){
+					GestureSample3D tempSample = (GestureSample3D)sampleIter.next();
+					//Split to planes
+					List<Gesture<Note>> planes = tempSample.splitToPlanes();
+					//Add each plane to its own descriptor
+					descXY.addSample(planes.get(0));
+					descYZ.addSample(planes.get(1));
+					descZX.addSample(planes.get(2));
+				}
+				//Add descriptors to classes
+				classXY.addDescriptor(descXY);
+				classYZ.addDescriptor(descYZ);
+				classZX.addDescriptor(descZX);
+			}
+			//Add classes to sets
+			setXY.addGestureClass(classXY);
+			setYZ.addGestureClass(classYZ);
+			setZX.addGestureClass(classZX);			
+		}	
+		
+	}
+	
+	
 
 }

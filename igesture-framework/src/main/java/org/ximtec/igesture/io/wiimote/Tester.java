@@ -18,8 +18,10 @@ public class Tester {
 		TestController controller = new TestController();
 		
 		// Create UI Frame
-		JFrame frame = new TestUI(controller);
-		frame.setVisible(true);
+		TestUI ui = new TestUI(controller);
+		ui.setVisible(true);
+		
+		controller.setUI(ui);
 		
 		System.out.println("End of test main.");
 

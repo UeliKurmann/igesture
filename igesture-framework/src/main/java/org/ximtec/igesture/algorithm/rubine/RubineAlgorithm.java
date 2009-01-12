@@ -172,6 +172,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
                AlgorithmException.ExceptionType.Initialisation, e);
       }
       catch (InvalidMatrixException e) {
+         e.printStackTrace();
          throw new AlgorithmException(
                AlgorithmException.ExceptionType.Initialisation, e);
       }

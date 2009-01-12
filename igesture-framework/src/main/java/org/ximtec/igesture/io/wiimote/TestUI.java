@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.ResultSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import org.ximtec.igesture.core.Gesture;
@@ -54,6 +56,10 @@ public class TestUI extends JFrame {
 	private JButton startWiiMoteButton; // Button to start wiimote
 	
 	private JButton stopWiiMoteButton; // Button to start wiimote
+	
+	private JButton recogniseButton; // Button to start recognising
+	
+	private JTextArea resultTextArea; // Textfield to display the result
 	
 	private TestController controller; // controller
 
@@ -147,6 +153,15 @@ public class TestUI extends JFrame {
 		stopWiiMoteButton.setBounds(870, 125, 150, 50);
 		stopWiiMoteButton.addActionListener(new stopWiiMoteButtonListener());
 		getContentPane().add(stopWiiMoteButton);
+		
+		recogniseButton = new JButton("Recognise this gesture");
+		recogniseButton.setBounds(400,350,200,50);
+		recogniseButton.addActionListener(new recogniseButtonListener());
+		getContentPane().add(recogniseButton);
+		
+		resultTextArea = new JTextArea();
+		resultTextArea.setBounds(620,280,400,180);
+		getContentPane().add(resultTextArea);
 
 		// Fill comboboxes
 		setGestureSetsBox(controller.getGestureSets());
@@ -174,15 +189,11 @@ public class TestUI extends JFrame {
 		
 	}
 
-	private void setSample(int currentSampleNumber2) {
-		samplePanel.setGesture((GestureSample3D) samples
-				.get(currentSampleNumber));
-	}
-
 	public void setNextSample() {
 		System.err.print("setNextSample(): Samples size: " + samples.size());
 		if (!(currentSampleNumber + 1 >= samples.size())) {
 			currentSampleNumber = currentSampleNumber + 1;
+			//sampleForwardButton.setEnabled(false);
 		}
 		if (samples.size() > 0) {
 			samplePanel.setGesture((GestureSample3D) samples
@@ -198,6 +209,8 @@ public class TestUI extends JFrame {
 		if (currentSampleNumber > 0) {
 			currentSampleNumber = currentSampleNumber - 1;
 		}
+		else
+			;//sampleBackButton.setEnabled(false);
 		if (samples.size() > 0) {
 			samplePanel.setGesture((GestureSample3D) samples
 					.get(currentSampleNumber));
@@ -265,6 +278,14 @@ public class TestUI extends JFrame {
 	public void setSamplePanel(GestureSample3D sample) {
 		samplePanel.setGesture(sample);
 	}
+	
+	public void setResultField(org.ximtec.igesture.core.ResultSet set){
+		String text = "Gesture Class:         Accuracy:\n";
+		for(int i = 0; i < set.getResults().size(); i++){
+			text = text + set.getResult(i).getGestureClass().getName() + "     " + set.getResult(i).getAccuracy() + "\n";
+		}		
+		resultTextArea.setText(text);
+	}
 
 	// ACTION LISTENERS
 
@@ -275,6 +296,7 @@ public class TestUI extends JFrame {
 			// Fill gesture classes combobox with gesture class names from
 			// selected set
 			setGestureClassesBox(controller.getGestureSet(setName));
+			currentSampleNumber = 0;
 		}
 	}
 
@@ -284,6 +306,7 @@ public class TestUI extends JFrame {
 			className = (String) gestureClassComboBox.getSelectedItem();
 			// Load gesture samples from this class
 			samples = controller.getGestureSamples(setName, className);
+			currentSampleNumber = 0;
 		}
 	}
 
@@ -295,6 +318,7 @@ public class TestUI extends JFrame {
 			addGestureSetTextField.setText("");
 			gestureClassComboBox.removeAllItems();
 			gestureSetComboBox.setSelectedItem(newSetName);
+			currentSampleNumber = 0;
 		}
 	}
 
@@ -309,6 +333,7 @@ public class TestUI extends JFrame {
 			setGestureClassesBox(controller.getGestureSet(setName));
 			addGestureClassTextField.setText("");
 			gestureClassComboBox.setSelectedItem(newClassName);
+			currentSampleNumber = 0;
 		}
 	}
 
@@ -353,6 +378,13 @@ public class TestUI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			// Disconnect WiiMote
 			controller.disconnectWiiMote();
+		}
+	}
+	
+	private class recogniseButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			// Start Recognising
+			controller.recognise(setName);
 		}
 	}
 	

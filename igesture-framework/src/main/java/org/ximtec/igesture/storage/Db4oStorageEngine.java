@@ -58,6 +58,7 @@ public class Db4oStorageEngine extends DefaultStorageEngine {
       Db4o.configure().activationDepth(Integer.MAX_VALUE);
       Db4o.configure().updateDepth(Integer.MAX_VALUE);
       Db4o.configure().allowVersionUpdates(true);
+      Db4o.configure().callConstructors(true);
       db = Db4o.openFile(filename);
    }
 

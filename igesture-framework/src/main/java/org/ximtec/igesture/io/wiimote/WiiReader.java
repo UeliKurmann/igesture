@@ -148,13 +148,16 @@ public class WiiReader extends
 	}
 
 	/**
-	 * Returns the recorded gesture in a GestureSample3D
+	 * Returns a copy of the recorded gesture in a GestureSample3D
 	 */
 	@Override
 	public Gesture<RecordedGesture3D> getGesture() {
 		// System.err.println("Source accelerations: " +
 		// this.gesture.getGesture().getAccelerations());
-		return this.gesture;
+		RecordedGesture3D newGesture = new RecordedGesture3D();
+		newGesture.setAccelerations(this.gesture.getGesture().getAccelerations());
+		newGesture.setPoints(this.gesture.getGesture().getPoints());		
+		return new GestureSample3D(this.gesture.getName(), newGesture);
 	}
 
 	/**
