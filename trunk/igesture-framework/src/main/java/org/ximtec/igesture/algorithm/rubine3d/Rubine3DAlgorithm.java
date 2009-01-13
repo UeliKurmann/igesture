@@ -30,21 +30,21 @@ public class Rubine3DAlgorithm implements Algorithm {
 	private Configuration configuration;
 	private static final String GESTURE_SET = "gestureSet/msApplicationGestures.xml";
 	private static final String RECOGNISER_CONFIGURATION = "rubineconfig.xml";
-	
-	//Plane gesture sets
+
+	// Plane gesture sets
 	private GestureSet setXY;
 	private GestureSet setYZ;
 	private GestureSet setZX;
-	
+
 	/**
 	 * Constructor
 	 */
-	public Rubine3DAlgorithm(){
+	public Rubine3DAlgorithm() {
 		setXY = new GestureSet();
 		setYZ = new GestureSet();
 		setZX = new GestureSet();
 	}
-	
+
 	@Override
 	public Enum<?>[] getConfigParameters() {
 		// TODO Auto-generated method stub
@@ -61,9 +61,9 @@ public class Rubine3DAlgorithm implements Algorithm {
 	public void init(Configuration configuration) throws AlgorithmException {
 		System.err.println("Rubine3DAlgorithm.init()");
 		this.configuration = configuration;
-		//Split all gesture sets up into planes
+		// Split all gesture sets up into planes
 		Iterator<GestureSet> i = configuration.getGestureSets().iterator();
-		while(i.hasNext()){
+		while (i.hasNext()) {
 			GestureSet tempSet = i.next();
 			splitGestureSet(tempSet);
 		}
@@ -96,7 +96,8 @@ public class Rubine3DAlgorithm implements Algorithm {
 		// Split gesture into planes
 		List<Gesture<Note>> planes = gesture.splitToPlanes();
 		// Determine the weights of the planes
-		List<Double> weights = computePlaneWeights(planes);
+		List<Double> weights = determinePlaneWeights(planes);
+				
 		Configuration configXY = createConfiguration("XY");
 		Configuration configYZ = createConfiguration("YZ");
 		Configuration configZX = createConfiguration("ZX");
@@ -111,6 +112,7 @@ public class Rubine3DAlgorithm implements Algorithm {
 		sets.add(recogniserZX.recognise(planes.get(2)));
 		// Combine sets to one ResultSet and return
 		try {
+			// return sets.get(0);
 			return combineResultSets(sets, weights);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,75 +126,37 @@ public class Rubine3DAlgorithm implements Algorithm {
 	 * @return The Configuration for the recogniser
 	 */
 	private Configuration createConfiguration(String plane) {
-		//New Configuration object
+		// New Configuration object
 		Configuration config = new Configuration();
 		// Add the Rubine algorithm to the configuration
 		config.addAlgorithm(RubineAlgorithm.class.getName());
 		// Add gesture set to the configuration
-		if(plane.equals("XY")){
+		if (plane.equals("XY")) {
 			config.addGestureSet(this.setXY);
 			return config;
 		}
-		if(plane.equals("YZ")){
+		if (plane.equals("YZ")) {
 			config.addGestureSet(this.setYZ);
 			return config;
 		}
-		if(plane.equals("ZX")){
+		if (plane.equals("ZX")) {
 			config.addGestureSet(this.setZX);
 			return config;
 		}
-		System.err.println("Rubine3DAlgorithm.createConfiguration(): Please provide a valid plane name (\"XY\", \"YZ\" or \"ZX\")");
+		System.err
+				.println("Rubine3DAlgorithm.createConfiguration(): Please provide a valid plane name (\"XY\", \"YZ\" or \"ZX\")");
 		return null;
 	}
 
-	/**
-	 * Analyses the amount of movement per plane for the given list of plane
-	 * notes and calculates weight percentages per plane out of it
-	 * 
-	 * @param planes
-	 *            The planes to be analysed
-	 * @return The list of weights per plane, corresponding to the order of the
-	 *         input planes
-	 */
-	private List<Double> computePlaneWeights(List<Gesture<Note>> planes) {
-		// Each plane is a note that consists of traces. By adding up the length
-		// of all traces in the note you get an idea of the amount of movement
-		// in the plane
-		List<Double> planeMovements = new Vector<Double>();
-		Iterator<Gesture<Note>> planeIterator = planes.iterator();
-		while (planeIterator.hasNext()) {
-			double planeMovementLength = 0;
-			Gesture<Note> plane = planeIterator.next();
-			Iterator<Trace> traceIterator = plane.getGesture().getTraces()
-					.iterator();
-			while (traceIterator.hasNext()) {
-				Trace trace = traceIterator.next();
-				planeMovementLength = planeMovementLength + trace.getLength();
-			}
-			planeMovements.add(Double.valueOf(planeMovementLength));
-		}
-		// Now we have the lengths of the combined traces (which can be seen as
-		// the amount of movement) per Note. This has to be converted to
-		// percentages, that make 100 when added up. These percentages stand for
-		// the movement that takes place in the corresponding plane, as a
-		// percentage of the total movement of all planes added up (total Trace
-		// length)
-		double totalLength = 0;
-		Iterator<Double> lengthsIterator = planeMovements.iterator();
-		while (lengthsIterator.hasNext()) {
-			Double length = lengthsIterator.next();
-			totalLength = totalLength + length.doubleValue();
-		}
-		// Compute per plane its percentage of the total movement
-		List<Double> weightPercentages = new Vector<Double>();
-		lengthsIterator = planeMovements.iterator();
-		while (lengthsIterator.hasNext()) {
-			Double length = lengthsIterator.next();
-			double percentage = (length / totalLength) * 100;
-			weightPercentages.add(Double.valueOf(percentage));
-		}
-		// Return the list of found percentages
-		return weightPercentages;
+
+	private List<Double> determinePlaneWeights(List<Gesture<Note>> planes) {
+		List<Double> weights = new Vector<Double>();
+		//Fill
+		weights.add(Double.valueOf(0.3333333));
+		weights.add(Double.valueOf(0.3333333));
+		weights.add(Double.valueOf(1 - weights.get(0) - weights.get(1)));
+		// Return
+		return weights;
 	}
 
 	/**
@@ -214,23 +178,10 @@ public class Rubine3DAlgorithm implements Algorithm {
 			throw new Exception(
 					"Rubine3DAlgorithm.combineResultSets(): The number of ResultSets does not match the number of weights.");
 		}
-		// Then check if the sum of the weights is 100 %
-		double totalWeights = 0;
-		Iterator<Double> wIt = weights.iterator();
-		while (wIt.hasNext()) {
-			Double weight = wIt.next();
-			totalWeights = totalWeights + weight.doubleValue();
-		}
-		if (totalWeights != 100) {
-			throw new Exception(
-					"Rubine3DAlgorithm.combineResultSets(): The sum of the weights is not 100 %.");
-		}
-		// Create a list of found GestureClasses in the resultsets combined
-		List<GestureClass> foundClasses = findAllGestureClasses(sets);
 		// Create a Resultset with combined Results
-		ResultSet returnSet = combine(sets, weights, foundClasses);
+		ResultSet returnSet = combine(sets, weights);
 		// Sort the results in the resultset by accuracy
-		returnSet = sortByAccuray(returnSet);
+		//returnSet = sortByAccuray(returnSet);
 		// Return the set
 		return returnSet;
 	}
@@ -246,47 +197,82 @@ public class Rubine3DAlgorithm implements Algorithm {
 	 *            The GestureClasses that have been found in the sets before
 	 * @return The combined ResultSet
 	 */
-	private ResultSet combine(List<ResultSet> sets, List<Double> weights,
-			List<GestureClass> foundClasses) {
+	private ResultSet combine(List<ResultSet> sets, List<Double> weights) {
+		// Multiply each plane result by its weight
+		// XY plane
+		for (int i = 0; i < sets.get(0).getResults().size(); i++) {
+			sets.get(0).getResults().get(i).setAccuracy(
+					sets.get(0).getResults().get(i).getAccuracy()
+							* weights.get(0));
+		}
+		// YZ plane
+		for (int i = 0; i < sets.get(1).getResults().size(); i++) {
+			sets.get(1).getResults().get(i).setAccuracy(
+					sets.get(1).getResults().get(i).getAccuracy()
+							* weights.get(1));
+		}
+		// ZX plane
+		for (int i = 0; i < sets.get(2).getResults().size(); i++) {
+			sets.get(2).getResults().get(i).setAccuracy(
+					sets.get(2).getResults().get(i).getAccuracy()
+							* weights.get(2));
+		}
 		// Create return variable
 		ResultSet returnSet = new ResultSet();
-		// Iterate through found gesture classes list
-		Iterator<GestureClass> it = foundClasses.iterator();
-		while (it.hasNext()) {
-			GestureClass gClass = it.next();
-			List<Double> accuracies = new Vector<Double>();
-			// Iterate through all available resultsets looking for results for
-			// this gesture class
-			Iterator<ResultSet> ite = sets.iterator();
-			Iterator<Double> wIte = weights.iterator();
-			while (ite.hasNext()) {
-				double weight = wIte.next().doubleValue();
-				// Iterate through resultlist in set
-				Iterator<Result> iter = ite.next().getResults().iterator();
-				while (it.hasNext()) {
-					Result tempResult = iter.next();
-					if (tempResult.getGestureClass().equals(gClass)) {
-						// Add accuracy to the list of accuracies for this
-						// gesture class
-						double weightedAccuracy = tempResult.getAccuracy()
-								* (weight / 100);
-						accuracies.add(new Double(weightedAccuracy));
+		// Add results up to make final resultset
+		// XY plane
+		returnSet = sets.get(0);
+		// YZ plane
+		// Loop through results
+		for (int i = 0; i < sets.get(1).getResults().size(); i++) {
+			// if the returnset already contains a result for this gesture class
+			if (returnSet.contains(sets.get(1).getResult(i).getGestureClass())) {
+				// Find the result with this gesture class
+				for (int j = 0; j < returnSet.getResults().size(); j++) {
+					if (returnSet.getResults().get(j).getGestureClass().getName().equals(
+							sets.get(1).getResult(i).getGestureClass().getName())) {
+						returnSet.getResults().get(j).setAccuracy(
+								returnSet.getResults().get(j).getAccuracy()
+										+ sets.get(1).getResult(i)
+												.getAccuracy());
 					}
-
 				}
+			} else { // Add a new result for this gesture class to the returnset
+				returnSet.addResult(sets.get(1).getResult(i));
 			}
-			// Add up the weighted accuracies for this gesture class
-			double accuracy = 0;
-			Iterator<Double> accIt = accuracies.iterator();
-			while (accIt.hasNext()) {
-				Double acc = accIt.next();
-				accuracy = accuracy + acc.doubleValue();
-			}
-			// Divide by the number of accuracies in the list
-			accuracy = accuracy / accuracies.size();
-			// Create new result and add it to return variable
-			returnSet.addResult(new Result(gClass, accuracy));
 		}
+		// ZX plane
+		// Loop through results
+		for (int i = 0; i < sets.get(2).getResults().size(); i++) {
+			// if the returnset already contains a result for this gesture class
+			if (returnSet.contains(sets.get(2).getResult(i).getGestureClass())) {
+				// Find the result with this gesture class
+				for (int j = 0; j < returnSet.getResults().size(); j++) {
+					if (returnSet.getResults().get(j).getGestureClass().getName().equals(
+							sets.get(2).getResult(i).getGestureClass().getName())) {
+						returnSet.getResults().get(j).setAccuracy(
+								returnSet.getResults().get(j).getAccuracy()
+										+ sets.get(2).getResult(i)
+												.getAccuracy());
+					}
+				}
+			} else { // Add a new result for this gesture class to the returnset
+				returnSet.addResult(sets.get(2).getResult(i));
+			}
+		}
+		//Make the accuracies in the set add up to 1
+		double totalAccuracy = 0;
+		for(int i = 0; i < returnSet.getResults().size(); i++){
+			totalAccuracy = totalAccuracy + returnSet.getResult(i).getAccuracy();
+		}
+		System.err.println("TOTAL ACCURACY: " + totalAccuracy);
+		if(totalAccuracy != 0 && totalAccuracy < 1){
+			double factor = 1/totalAccuracy;
+			for(int i = 0; i < returnSet.getResults().size(); i++){
+				returnSet.getResults().get(i).setAccuracy(returnSet.getResults().get(i).getAccuracy() * factor);
+			}
+		}	
+		// Return the set
 		return returnSet;
 	}
 
@@ -354,54 +340,55 @@ public class Rubine3DAlgorithm implements Algorithm {
 		// Return output variable
 		return outputSet;
 	}
-	
-	
+
 	/**
 	 * Splits inputSet into three separate gesture sets for the three planes
 	 * 
 	 * @param inputSet
 	 */
-	private void splitGestureSet(GestureSet inputSet){
-		//Set names
+	private void splitGestureSet(GestureSet inputSet) {
+		// Set names
 		setXY.setName(inputSet.getName());
 		setYZ.setName(inputSet.getName());
 		setZX.setName(inputSet.getName());
-		//Iterate through gesture classes in set
-		Iterator<GestureClass> classIter = inputSet.getGestureClasses().iterator();
-		while(classIter.hasNext()){
+		// Iterate through gesture classes in set
+		Iterator<GestureClass> classIter = inputSet.getGestureClasses()
+				.iterator();
+		while (classIter.hasNext()) {
 			GestureClass tempClass = classIter.next();
 			GestureClass classXY = new GestureClass(tempClass.getName());
 			GestureClass classYZ = new GestureClass(tempClass.getName());
 			GestureClass classZX = new GestureClass(tempClass.getName());
-			//If the gesture class contains a sample descriptor
-			if(tempClass.getDescriptor(Sample3DDescriptor.class) != null){
+			// If the gesture class contains a sample descriptor
+			if (tempClass.getDescriptor(Sample3DDescriptor.class) != null) {
 				SampleDescriptor descXY = new SampleDescriptor();
 				SampleDescriptor descYZ = new SampleDescriptor();
 				SampleDescriptor descZX = new SampleDescriptor();
-				//Iterate through samples
-				Iterator<Gesture<RecordedGesture3D>> sampleIter = tempClass.getDescriptor(Sample3DDescriptor.class).getSamples().iterator();
-				while(sampleIter.hasNext()){
-					GestureSample3D tempSample = (GestureSample3D)sampleIter.next();
-					//Split to planes
+				// Iterate through samples
+				Iterator<Gesture<RecordedGesture3D>> sampleIter = tempClass
+						.getDescriptor(Sample3DDescriptor.class).getSamples()
+						.iterator();
+				while (sampleIter.hasNext()) {
+					GestureSample3D tempSample = (GestureSample3D) sampleIter
+							.next();
+					// Split to planes
 					List<Gesture<Note>> planes = tempSample.splitToPlanes();
-					//Add each plane to its own descriptor
+					// Add each plane to its own descriptor
 					descXY.addSample(planes.get(0));
 					descYZ.addSample(planes.get(1));
 					descZX.addSample(planes.get(2));
 				}
-				//Add descriptors to classes
+				// Add descriptors to classes
 				classXY.addDescriptor(descXY);
 				classYZ.addDescriptor(descYZ);
 				classZX.addDescriptor(descZX);
 			}
-			//Add classes to sets
+			// Add classes to sets
 			setXY.addGestureClass(classXY);
 			setYZ.addGestureClass(classYZ);
-			setZX.addGestureClass(classZX);			
-		}	
-		
+			setZX.addGestureClass(classZX);
+		}
+
 	}
-	
-	
 
 }
