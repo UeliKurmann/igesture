@@ -280,9 +280,9 @@ public class TestUI extends JFrame {
 	}
 	
 	public void setResultField(org.ximtec.igesture.core.ResultSet set){
-		String text = "Gesture Class:         Accuracy:\n";
+		String text = "Gesture Class:    ->    Accuracy:\n\n";
 		for(int i = 0; i < set.getResults().size(); i++){
-			text = text + set.getResult(i).getGestureClass().getName() + "     " + set.getResult(i).getAccuracy() + "\n";
+			text = text + set.getResult(i).getGestureClass().getName() + " -> " + set.getResult(i).getAccuracy() + "\n";
 		}		
 		resultTextArea.setText(text);
 	}

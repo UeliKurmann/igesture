@@ -150,7 +150,7 @@ public class ResultSet {
    public boolean contains(GestureClass gestureClass) {
       for (final Result result : results) {
 
-         if (result.getGestureClass() == gestureClass) {
+         if (result.getGestureClass().getName().equals(gestureClass.getName())) {
             return true;
          }
 
