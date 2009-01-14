@@ -1,14 +1,22 @@
 package org.ximtec.igesture.io.wiimote;
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JFrame;
 
+import org.sigtec.ink.Note;
 import org.ximtec.igesture.batch.BatchResultSet;
+import org.ximtec.igesture.core.Gesture;
+import org.ximtec.igesture.core.GestureClass;
+import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.core.Sample3DDescriptor;
+import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.storage.StorageManager;
+import org.ximtec.igesture.util.RecordedGesture3D;
 
 
 
@@ -22,47 +30,21 @@ public class Tester {
 	public static void main(String[] args) {		
 		
 
-//		// ******************GESTURE RECOGNITION TOOL PART******************
-//		
-//		//Create controller
-//		TestController controller = new TestController();
-//		
-//		// Create UI Frame
-//		TestUI ui = new TestUI(controller);
-//		ui.setVisible(true);
-//		
-//		controller.setUI(ui);
+		// ******************GESTURE RECOGNITION TOOL PART******************
 		
-
+		//Create controller
+		TestController controller = new TestController();
 		
-		// ******************CONVERT GESTURE SET TO TEST SET PART******************
+		// Create UI Frame
+		TestUI ui = new TestUI(controller);
+		ui.setVisible(true);
 		
-		// Create storage manager
-		StorageManager storage = new StorageManager(StorageManager.createStorageEngine(new File("C:\\gesturedata.db")));
+		controller.setUI(ui);
 		
-		// Get first gesture set from database
-		GestureSet gestureSet = storage.load(GestureSet.class).get(0);
-		
-		// Make test set
-		TestSet testSet = TestBatchTool.convertGestureSetToTestSet(gestureSet);
-		
-		
-		
-		// ******************TEST BATCH PART******************
-		
-		// Create a testbatchtool
-		TestBatchTool batchTool = new TestBatchTool(testSet,gestureSet,null,null);
-		// Try to get a result out of it
-		try {
-			BatchResultSet batchResultSet = batchTool.runBatch();
-			System.out.println("Batch Result: " + batchResultSet);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		
 		// Indicate end of code
 		System.out.println("End of test main.");
-
+		
 	}
 
 }

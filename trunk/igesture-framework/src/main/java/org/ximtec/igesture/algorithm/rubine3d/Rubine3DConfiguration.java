@@ -30,7 +30,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.algorithm.AlgorithmTool;
 import org.ximtec.igesture.algorithm.rubine.RubineConfiguration;
@@ -135,6 +134,10 @@ public class Rubine3DConfiguration {
 
 	public void setZxConfiguration(RubineConfiguration zxConfiguration) {
 		this.zxConfiguration = zxConfiguration;
+	}
+
+	public static Map<String, String> getDefaultConfiguration() {
+		return DEFAULT_CONFIGURATION;
 	}
 
 }

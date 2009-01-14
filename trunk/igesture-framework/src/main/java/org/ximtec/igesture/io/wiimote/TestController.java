@@ -30,7 +30,7 @@ public class TestController {
 
 	public TestController() {
 		storage = new StorageManager(StorageManager
-				.createStorageEngine(new File("C:\\gesturedata.db")));
+				.createStorageEngine(new File("C:\\GestureDB\\gesturedata.db")));
 		reader = new WiiReader();
 	}
 
