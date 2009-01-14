@@ -12,6 +12,7 @@ import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.AlgorithmException.ExceptionType;
 import org.ximtec.igesture.algorithm.rubine.RubineAlgorithm;
+import org.ximtec.igesture.algorithm.rubine.RubineConfiguration;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.Gesture;
@@ -27,7 +28,7 @@ import org.ximtec.igesture.util.XMLTool;
 
 public class Rubine3DAlgorithm implements Algorithm {
 
-	private Configuration configuration;
+	private Rubine3DConfiguration rubine3dConfig;
 	private static final String GESTURE_SET = "gestureSet/msApplicationGestures.xml";
 	private static final String RECOGNISER_CONFIGURATION = "rubineconfig.xml";
 
@@ -60,7 +61,7 @@ public class Rubine3DAlgorithm implements Algorithm {
 	@Override
 	public void init(Configuration configuration) throws AlgorithmException {
 		System.err.println("Rubine3DAlgorithm.init()");
-		this.configuration = configuration;
+		this.rubine3dConfig = new Rubine3DConfiguration(configuration);
 		// Split all gesture sets up into planes
 		Iterator<GestureSet> i = configuration.getGestureSets().iterator();
 		while (i.hasNext()) {
@@ -97,7 +98,7 @@ public class Rubine3DAlgorithm implements Algorithm {
 		List<Gesture<Note>> planes = gesture.splitToPlanes();
 		// Determine the weights of the planes
 		List<Double> weights = determinePlaneWeights(planes);
-				
+
 		Configuration configXY = createConfiguration("XY");
 		Configuration configYZ = createConfiguration("YZ");
 		Configuration configZX = createConfiguration("ZX");
@@ -132,7 +133,27 @@ public class Rubine3DAlgorithm implements Algorithm {
 		config.addAlgorithm(RubineAlgorithm.class.getName());
 		// Add gesture set to the configuration
 		if (plane.equals("XY")) {
+			// Add Gesture Set
 			config.addGestureSet(this.setXY);
+			// Add parameters for the rubine algorithm for the plane
+			config.addParameter(RubineAlgorithm.class.getName(),
+					RubineConfiguration.Config.MAHALANOBIS_DISTANCE.name(),
+					Double.toString(this.rubine3dConfig.getXyConfiguration()
+							.getMahalanobisDistance()));
+			config.addParameter(RubineAlgorithm.class.getName(),
+					RubineConfiguration.Config.MIN_DISTANCE.name(), Double
+							.toString(this.rubine3dConfig.getXyConfiguration()
+									.getMinDistance()));
+			config.addParameter(RubineAlgorithm.class.getName(),
+					RubineConfiguration.Config.PROBABILITY.name(),
+					Double.toString(this.rubine3dConfig.getXyConfiguration()
+							.getProbability()));
+			config.addParameter(RubineAlgorithm.class.getName(),
+					RubineConfiguration.Config.FEATURE_LIST.name(),
+					this.rubine3dConfig.getXyConfiguration().getFeatureList().toString());
+			
+
+			// Return configuration
 			return config;
 		}
 		if (plane.equals("YZ")) {
@@ -148,13 +169,12 @@ public class Rubine3DAlgorithm implements Algorithm {
 		return null;
 	}
 
-
 	private List<Double> determinePlaneWeights(List<Gesture<Note>> planes) {
 		List<Double> weights = new Vector<Double>();
-		//Fill
-		weights.add(Double.valueOf(0.3333333));
-		weights.add(Double.valueOf(0.3333333));
-		weights.add(Double.valueOf(1 - weights.get(0) - weights.get(1)));
+		// Fill
+		weights.add(rubine3dConfig.getXyWeight());
+		weights.add(rubine3dConfig.getYzWeight());
+		weights.add(rubine3dConfig.getZxWeight());
 		// Return
 		return weights;
 	}
@@ -181,7 +201,7 @@ public class Rubine3DAlgorithm implements Algorithm {
 		// Create a Resultset with combined Results
 		ResultSet returnSet = combine(sets, weights);
 		// Sort the results in the resultset by accuracy
-		//returnSet = sortByAccuray(returnSet);
+		returnSet = sortByAccuray(returnSet);
 		// Return the set
 		return returnSet;
 	}
@@ -229,8 +249,10 @@ public class Rubine3DAlgorithm implements Algorithm {
 			if (returnSet.contains(sets.get(1).getResult(i).getGestureClass())) {
 				// Find the result with this gesture class
 				for (int j = 0; j < returnSet.getResults().size(); j++) {
-					if (returnSet.getResults().get(j).getGestureClass().getName().equals(
-							sets.get(1).getResult(i).getGestureClass().getName())) {
+					if (returnSet.getResults().get(j).getGestureClass()
+							.getName().equals(
+									sets.get(1).getResult(i).getGestureClass()
+											.getName())) {
 						returnSet.getResults().get(j).setAccuracy(
 								returnSet.getResults().get(j).getAccuracy()
 										+ sets.get(1).getResult(i)
@@ -248,8 +270,10 @@ public class Rubine3DAlgorithm implements Algorithm {
 			if (returnSet.contains(sets.get(2).getResult(i).getGestureClass())) {
 				// Find the result with this gesture class
 				for (int j = 0; j < returnSet.getResults().size(); j++) {
-					if (returnSet.getResults().get(j).getGestureClass().getName().equals(
-							sets.get(2).getResult(i).getGestureClass().getName())) {
+					if (returnSet.getResults().get(j).getGestureClass()
+							.getName().equals(
+									sets.get(2).getResult(i).getGestureClass()
+											.getName())) {
 						returnSet.getResults().get(j).setAccuracy(
 								returnSet.getResults().get(j).getAccuracy()
 										+ sets.get(2).getResult(i)
@@ -260,47 +284,22 @@ public class Rubine3DAlgorithm implements Algorithm {
 				returnSet.addResult(sets.get(2).getResult(i));
 			}
 		}
-		//Make the accuracies in the set add up to 1
+		// Make the accuracies in the set add up to 1
 		double totalAccuracy = 0;
-		for(int i = 0; i < returnSet.getResults().size(); i++){
-			totalAccuracy = totalAccuracy + returnSet.getResult(i).getAccuracy();
+		for (int i = 0; i < returnSet.getResults().size(); i++) {
+			totalAccuracy = totalAccuracy
+					+ returnSet.getResult(i).getAccuracy();
 		}
-		System.err.println("TOTAL ACCURACY: " + totalAccuracy);
-		if(totalAccuracy != 0 && totalAccuracy < 1){
-			double factor = 1/totalAccuracy;
-			for(int i = 0; i < returnSet.getResults().size(); i++){
-				returnSet.getResults().get(i).setAccuracy(returnSet.getResults().get(i).getAccuracy() * factor);
+		// System.err.println("TOTAL ACCURACY: " + totalAccuracy);
+		if (totalAccuracy != 0 && totalAccuracy < 1) {
+			double factor = 1 / totalAccuracy;
+			for (int i = 0; i < returnSet.getResults().size(); i++) {
+				returnSet.getResults().get(i).setAccuracy(
+						returnSet.getResults().get(i).getAccuracy() * factor);
 			}
-		}	
+		}
 		// Return the set
 		return returnSet;
-	}
-
-	/**
-	 * Creates a list of all the GestureClasses it finds in the given list of
-	 * ResultSets
-	 * 
-	 * @param sets
-	 *            The ResultSets to be searched
-	 * @return The list of found GestureClasses
-	 */
-	private List<GestureClass> findAllGestureClasses(List<ResultSet> sets) {
-		// Create a list of found GestureClasses in the resultsets combined
-		List<GestureClass> foundClasses = new Vector<GestureClass>();
-		// Iterate through list of sets to create complete list of gesture
-		// classes in the results
-		Iterator<ResultSet> i = sets.iterator();
-		while (i.hasNext()) {
-			// Iterate through resultlist in set
-			Iterator<Result> it = i.next().getResults().iterator();
-			while (it.hasNext()) {
-				Result tempResult = it.next();
-				if (!foundClasses.contains(tempResult.getGestureClass())) {
-					foundClasses.add(tempResult.getGestureClass());
-				}
-			}
-		}
-		return foundClasses;
 	}
 
 	/**
