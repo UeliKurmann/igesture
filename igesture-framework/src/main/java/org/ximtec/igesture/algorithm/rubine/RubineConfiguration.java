@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -94,15 +94,15 @@ public class RubineConfiguration {
       LOGGER.setLevel(Level.SEVERE);
    }
 
-   private Feature[] featureList;
+   protected Feature[] featureList;
 
-   private double minDistance;
+   protected double minDistance;
 
-   private double mahalanobisDistance;
+   protected double mahalanobisDistance;
 
-   private double probability;
+   protected double probability;
 
-   private int minimalNumberOfPoints;
+   protected int minimalNumberOfPoints;
 
 
    public RubineConfiguration(Configuration config) {
