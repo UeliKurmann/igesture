@@ -11,6 +11,7 @@ import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.AlgorithmException.ExceptionType;
+import org.ximtec.igesture.algorithm.feature.FeatureTool;
 import org.ximtec.igesture.algorithm.rubine.RubineAlgorithm;
 import org.ximtec.igesture.algorithm.rubine.RubineConfiguration;
 import org.ximtec.igesture.configuration.Configuration;
@@ -29,8 +30,6 @@ import org.ximtec.igesture.util.XMLTool;
 public class Rubine3DAlgorithm implements Algorithm {
 
 	private Rubine3DConfiguration rubine3dConfig;
-	private static final String GESTURE_SET = "gestureSet/msApplicationGestures.xml";
-	private static final String RECOGNISER_CONFIGURATION = "rubineconfig.xml";
 
 	// Plane gesture sets
 	private GestureSet setXY;
@@ -48,14 +47,12 @@ public class Rubine3DAlgorithm implements Algorithm {
 
 	@Override
 	public Enum<?>[] getConfigParameters() {
-		// TODO Auto-generated method stub
-		return null;
+		return Rubine3DConfiguration.Config.values();
 	}
 
 	@Override
 	public String getDefaultParameterValue(String parameterName) {
-		// TODO Auto-generated method stub
-		return null;
+		return Rubine3DConfiguration.getDefaultConfiguration().get(parameterName);
 	}
 
 	@Override
@@ -122,7 +119,7 @@ public class Rubine3DAlgorithm implements Algorithm {
 	}
 
 	/**
-	 * Creates a configuration for the recogniser
+	 * Creates a configuration for the recogniser (ugly, needs improvement)
 	 * 
 	 * @return The Configuration for the recogniser
 	 */
@@ -148,20 +145,76 @@ public class Rubine3DAlgorithm implements Algorithm {
 					RubineConfiguration.Config.PROBABILITY.name(),
 					Double.toString(this.rubine3dConfig.getXyConfiguration()
 							.getProbability()));
+			// Create feauture string
+			String featureString = "";
+			for(int i = 0; i < this.rubine3dConfig.getXyConfiguration().getFeatureList().length; i++){
+				featureString = featureString + this.rubine3dConfig.getXyConfiguration().getFeatureList()[i].getClass().getName() + ",";
+			}
+			//Remove last comma
+			featureString = featureString.substring(0, featureString.length()-1);
+			//Add feature string to config
 			config.addParameter(RubineAlgorithm.class.getName(),
 					RubineConfiguration.Config.FEATURE_LIST.name(),
-					this.rubine3dConfig.getXyConfiguration().getFeatureList().toString());
-			
-
+					featureString);
 			// Return configuration
 			return config;
 		}
 		if (plane.equals("YZ")) {
 			config.addGestureSet(this.setYZ);
+			// Add parameters for the rubine algorithm for the plane
+			config.addParameter(RubineAlgorithm.class.getName(),
+					RubineConfiguration.Config.MAHALANOBIS_DISTANCE.name(),
+					Double.toString(this.rubine3dConfig.getYzConfiguration()
+							.getMahalanobisDistance()));
+			config.addParameter(RubineAlgorithm.class.getName(),
+					RubineConfiguration.Config.MIN_DISTANCE.name(), Double
+							.toString(this.rubine3dConfig.getYzConfiguration()
+									.getMinDistance()));
+			config.addParameter(RubineAlgorithm.class.getName(),
+					RubineConfiguration.Config.PROBABILITY.name(),
+					Double.toString(this.rubine3dConfig.getYzConfiguration()
+							.getProbability()));
+			// Create feauture string
+			String featureString = "";
+			for(int i = 0; i < this.rubine3dConfig.getYzConfiguration().getFeatureList().length; i++){
+				featureString = featureString + this.rubine3dConfig.getYzConfiguration().getFeatureList()[i].getClass().getName() + ",";
+			}
+			//Remove last comma
+			featureString = featureString.substring(0, featureString.length()-1);
+			//Add feature string to config
+			config.addParameter(RubineAlgorithm.class.getName(),
+					RubineConfiguration.Config.FEATURE_LIST.name(),
+					featureString);
+			// Return configuration
 			return config;
 		}
 		if (plane.equals("ZX")) {
 			config.addGestureSet(this.setZX);
+			// Add parameters for the rubine algorithm for the plane
+			config.addParameter(RubineAlgorithm.class.getName(),
+					RubineConfiguration.Config.MAHALANOBIS_DISTANCE.name(),
+					Double.toString(this.rubine3dConfig.getZxConfiguration()
+							.getMahalanobisDistance()));
+			config.addParameter(RubineAlgorithm.class.getName(),
+					RubineConfiguration.Config.MIN_DISTANCE.name(), Double
+							.toString(this.rubine3dConfig.getZxConfiguration()
+									.getMinDistance()));
+			config.addParameter(RubineAlgorithm.class.getName(),
+					RubineConfiguration.Config.PROBABILITY.name(),
+					Double.toString(this.rubine3dConfig.getZxConfiguration()
+							.getProbability()));
+			// Create feauture string
+			String featureString = "";
+			for(int i = 0; i < this.rubine3dConfig.getZxConfiguration().getFeatureList().length; i++){
+				featureString = featureString + this.rubine3dConfig.getZxConfiguration().getFeatureList()[i].getClass().getName() + ",";
+			}
+			//Remove last comma
+			featureString = featureString.substring(0, featureString.length()-1);
+			//Add feature string to config
+			config.addParameter(RubineAlgorithm.class.getName(),
+					RubineConfiguration.Config.FEATURE_LIST.name(),
+					featureString);
+			// Return configuration
 			return config;
 		}
 		System.err
