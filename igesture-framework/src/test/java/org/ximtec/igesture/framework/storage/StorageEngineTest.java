@@ -94,6 +94,9 @@ public abstract class StorageEngineTest {
       StorageManager manager = getStorageManager();
       List<GestureSet> gestureSets = manager.load(GestureSet.class);
       Assert.assertEquals(1, gestureSets.size());
+      
+      gestureSets.get(0).setName("asdf");
+      
       manager.dispose();
    }
 

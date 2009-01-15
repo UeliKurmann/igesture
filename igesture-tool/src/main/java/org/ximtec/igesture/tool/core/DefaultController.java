@@ -112,7 +112,7 @@ public abstract class DefaultController implements Controller {
 
       if (command != null && command.getCommand() != null) {
 
-         if (!invokeCommand(command.getCommand())) {
+         if (!invokeCommand(command)) {
             LOGGER.warning("Command not handled. '" + command.getCommand()
                   + Constant.SINGLE_QUOTE);
 
@@ -142,23 +142,27 @@ public abstract class DefaultController implements Controller {
     * @param cmd
     * @return
     */
-   protected boolean invokeCommand(String cmd) {
+   protected boolean invokeCommand(Command cmd) {
       LOGGER.info("Invoke " + cmd);
-      Method method = commandMethods.get(cmd);
+      Method method = commandMethods.get(cmd.getCommand());
       if (method != null) {
          try {
             if (!method.isAccessible()) {
                method.setAccessible(true);
             }
-            method.invoke(this);
-            LOGGER.info("Command invoked. " + cmd);
+            if(method.getParameterTypes().length == 0){
+               method.invoke(this);
+            }else{
+               method.invoke(this, cmd);
+            }
+            LOGGER.info("Command invoked. " + cmd.getCommand());
             return true;
          }
          catch (Exception e) {
-            LOGGER.warning("Could not execute command. " + cmd);
+            LOGGER.warning("Could not execute command. " + cmd.getCommand());
          }
       }else{
-         LOGGER.warning("Command not defined. " + cmd);
+         LOGGER.warning("Command not defined. " + cmd.getCommand());
       }
 
       return false;

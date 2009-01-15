@@ -58,8 +58,6 @@ public class SwingMouseReaderPanel extends JPanel {
 		
 	   Graphics g = this.getGraphics();		
 	   
-	   System.err.println("Graphics: " + g); //TEST
-	   
 		if (getGraphics() != null && currentPoint != null && lastPoint != null
             && lastPoint.distance(currentPoint) < 1000000) {
 

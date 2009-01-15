@@ -84,12 +84,14 @@ public class ConfigurationPanel extends AbstractPanel {
 
    private GestureDevice<?,?> gestureDevice;
    private JScrollPane resultList;
+   private Controller testbenchController;
 
    private RecogniseAction recogniseAction;
 
 
    public ConfigurationPanel(Controller controller, Configuration configuration) {
       this.configuration = configuration;
+      this.testbenchController = controller;
       init();
 
    }
