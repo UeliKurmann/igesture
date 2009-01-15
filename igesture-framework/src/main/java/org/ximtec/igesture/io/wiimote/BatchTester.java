@@ -62,36 +62,80 @@ public class BatchTester {
 		//Make XY 2D test set
 		TestSet zxTestSet = TestBatchTool.convert2DGestureSetToTestSet(testSetZX);
 		// Make 3D test set
-		TestSet testGestureSet3D = TestBatchTool.convert3DGestureSetToTestSet(gestureSet3D);
+		TestSet testGestureSet3D = TestBatchTool.convert3DGestureSetToTestSet(testSet3D);
 		
 		
 		
-		// ******************TEST BATCH PART******************
-		
-		// Create a testbatchtool
-		TestBatchTool batchTool = new TestBatchTool(yzTestSet,gestureSetYZ,null,null);
-		BatchResultSet batchResultSet = null;
-		// Try to get a result out of it
-		try {
-			batchResultSet = batchTool.runBatch();
-			System.out.println("Number of Batch Results: " + batchResultSet.getBatchResults().size());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		StorageManager store = new StorageManager(StorageManager.createStorageEngine(new File("C:\\gestureset.igz")));
+		store.store(gestureSetXY);
+		store.store(xyTestSet);
+		store.commit();
 		
 		
-		// ******************TEST RESULTS PART******************
 		
-		//Check for the best result
-		BatchResult bestResult = batchResultSet.getBatchResults().get(0);
-		Iterator<BatchResult> i = batchResultSet.getBatchResults().iterator();
-		while(i.hasNext()){
-			BatchResult tempResult = i.next();
-			if(tempResult.getNumberOfCorrects() > bestResult.getNumberOfCorrects()){
-				bestResult = tempResult;
-			}
-		}		
-		System.out.println("Highest correct number: " + bestResult.getNumberOfCorrects());
+//
+//		System.err.println("\nGESTURE SET NAME: " + gestureSet3D.getName());
+//		for(int i = 0; i < gestureSet3D.getGestureClasses().size(); i++){
+//			System.err.println("  GESTURE CLASS " + i + " NAME: " + gestureSet3D.getGestureClasses().get(i).getName());
+//			for(int j = 0; j < gestureSet3D.getGestureClasses().get(i).getDescriptor(Sample3DDescriptor.class).getSamples().size(); j++){
+//				System.err.println("    SAMPLE: " + gestureSet3D.getGestureClasses().get(i).getDescriptor(Sample3DDescriptor.class).getSample(j));
+//			}
+//		}
+//		
+//		System.err.println("\nTEST SET NAME: " + testGestureSet3D.getName());
+//		for(int i = 0; i < testGestureSet3D.getTestClasses().size(); i++){
+//			System.err.println("  TEST CLASS " + i + " NAME: " + testGestureSet3D.getTestClasses().get(i).getName());
+//			for(int j = 0; j < testGestureSet3D.getTestClasses().get(i).getGestures().size(); j++){
+//				System.err.println("    SAMPLE: " + testGestureSet3D.getTestClasses().get(i).getGestures().get(j));
+//			}
+//		}
+		
+//
+//		System.err.println("\nGESTURE SET NAME: " + gestureSetXY.getName());
+//		for(int i = 0; i < gestureSetXY.getGestureClasses().size(); i++){
+//			System.err.println("  GESTURE CLASS " + i + " NAME: " + gestureSetXY.getGestureClasses().get(i).getName());
+//			for(int j = 0; j < gestureSetXY.getGestureClasses().get(i).getDescriptor(SampleDescriptor.class).getSamples().size(); j++){
+//				System.err.println("    SAMPLE: " + gestureSetXY.getGestureClasses().get(i).getDescriptor(SampleDescriptor.class).getSample(j).getGesture().getClass());
+//			}
+//		}
+//		
+//		System.err.println("\nTEST SET NAME: " + xyTestSet.getName());
+//		for(int i = 0; i < xyTestSet.getTestClasses().size(); i++){
+//			System.err.println("  TEST CLASS " + i + " NAME: " + xyTestSet.getTestClasses().get(i).getName());
+//			for(int j = 0; j < xyTestSet.getTestClasses().get(i).getGestures().size(); j++){
+//				System.err.println("    SAMPLE: " + xyTestSet.getTestClasses().get(i).getGestures().get(j).getGesture().getClass());
+//			}
+//		}
+//		
+		
+//		
+//		
+//		// ******************TEST BATCH PART******************
+//		
+//		// Create a testbatchtool
+//		TestBatchTool batchTool = new TestBatchTool(yzTestSet,gestureSetYZ,null,null);
+//		BatchResultSet batchResultSet = null;
+//		// Try to get a result out of it
+//		try {
+//			batchResultSet = batchTool.runBatch();
+//			System.out.println("Number of Batch Results: " + batchResultSet.getBatchResults().size());
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		
+//		// ******************TEST RESULTS PART******************
+//		
+//		//Check for the best result
+//		BatchResult bestResult = batchResultSet.getBatchResults().get(0);
+//		Iterator<BatchResult> i = batchResultSet.getBatchResults().iterator();
+//		while(i.hasNext()){
+//			BatchResult tempResult = i.next();
+//			if(tempResult.getNumberOfCorrects() > bestResult.getNumberOfCorrects()){
+//				bestResult = tempResult;
+//			}
+//		}		
+//		System.out.println("Highest correct number: " + bestResult.getNumberOfCorrects());
 		
 		// Indicate end of code
 		System.out.println("End of test main.");

@@ -89,11 +89,13 @@ public class TestBatchTool {
 	 */
 	public static TestSet convert3DGestureSetToTestSet(GestureSet gestureSet) {
 		TestSet testSet = new TestSet(gestureSet.getName());
+		//System.err.println("NUMBER OF TEST CLASSES IN TEST SET: " + testSet.getTestClasses().size());
 		// Iterate through gesture classes in gesture set and add them to
 		// testset
 		Iterator<GestureClass> i = gestureSet.getGestureClasses().iterator();
 		while (i.hasNext()) {
 			GestureClass tempGestureClass = i.next();
+			//System.err.println("TEMP CLASS NAME: " + tempGestureClass.getName());
 			// Create new TestClass
 			TestClass tempTestClass = new TestClass(tempGestureClass.getName());
 			// Add gesture samples from the gesture class to the test class
@@ -103,12 +105,14 @@ public class TestBatchTool {
 			while (sampleIter.hasNext()) {
 				GestureSample3D tempSample = (GestureSample3D) sampleIter
 						.next();
+				//System.err.println("TEMP SAMPLE NAME: " + tempSample.getName());
 				// Add sample to tempTestClass
 				tempTestClass.add(tempSample);
 			}
 			// Add tempTestClass to set
 			testSet.addTestClass(tempTestClass);
 		}
+		//System.err.println("TESTSET NAME: " + testSet.getName());
 		// Return
 		return testSet;
 	}

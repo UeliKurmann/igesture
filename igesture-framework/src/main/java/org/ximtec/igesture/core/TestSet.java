@@ -58,7 +58,7 @@ public class TestSet extends DefaultDataObject {
       super();
       testClasses = new ArrayList<TestClass>();
       setName(name);
-      addTestClass(new TestClass(NOISE));
+      //addTestClass(new TestClass(NOISE));
    }
 
 

@@ -52,7 +52,8 @@ public class Rubine3DAlgorithm implements Algorithm {
 
 	@Override
 	public String getDefaultParameterValue(String parameterName) {
-		return Rubine3DConfiguration.getDefaultConfiguration().get(parameterName);
+		return Rubine3DConfiguration.getDefaultConfiguration().get(
+				parameterName);
 	}
 
 	@Override
@@ -82,7 +83,10 @@ public class Rubine3DAlgorithm implements Algorithm {
 	}
 
 	/**
-	 * Recognizes a GestureSample3D and returns a Resultset
+	 * Recognizes a GestureSample3D by splitting it up into three 2D-planes (XY,
+	 * YZ, ZX) and recognising these three 2D planes with the standard
+	 * RubineAlgorithm. It returns a combined ResultSet, made up of the three
+	 * ResultSets of the three planes, combined using weight factors.
 	 * 
 	 * @param gesture
 	 *            The GestureSample3D to be recognized
@@ -94,7 +98,7 @@ public class Rubine3DAlgorithm implements Algorithm {
 		// Split gesture into planes
 		List<Gesture<Note>> planes = gesture.splitToPlanes();
 		// Determine the weights of the planes
-		List<Double> weights = determinePlaneWeights(planes);
+		List<Double> weights = determinePlaneWeights();
 
 		Configuration configXY = createConfiguration("XY");
 		Configuration configYZ = createConfiguration("YZ");
@@ -119,110 +123,67 @@ public class Rubine3DAlgorithm implements Algorithm {
 	}
 
 	/**
-	 * Creates a configuration for the recogniser (ugly, needs improvement)
+	 * Creates a configuration for the recogniser, based on the plane name
+	 * provided
 	 * 
-	 * @return The Configuration for the recogniser
+	 * @param plane
+	 *            The name of the plane for which the configuration should be
+	 *            created
+	 * @return The configuration object for the recogniser of the plane
 	 */
 	private Configuration createConfiguration(String plane) {
-		// New Configuration object
-		Configuration config = new Configuration();
-		// Add the Rubine algorithm to the configuration
-		config.addAlgorithm(RubineAlgorithm.class.getName());
-		// Add gesture set to the configuration
+		// Configuration objects
+		Configuration recogniserConfig = new Configuration();
+		RubineConfiguration rubineConfig = new RubineConfiguration(null);
+
+		// Include the Rubine Algorithm
+		recogniserConfig.addAlgorithm(RubineAlgorithm.class.getName());
+		// Check for which plane the configuration should be
 		if (plane.equals("XY")) {
 			// Add Gesture Set
-			config.addGestureSet(this.setXY);
-			// Add parameters for the rubine algorithm for the plane
-			config.addParameter(RubineAlgorithm.class.getName(),
-					RubineConfiguration.Config.MAHALANOBIS_DISTANCE.name(),
-					Double.toString(this.rubine3dConfig.getXyConfiguration()
-							.getMahalanobisDistance()));
-			config.addParameter(RubineAlgorithm.class.getName(),
-					RubineConfiguration.Config.MIN_DISTANCE.name(), Double
-							.toString(this.rubine3dConfig.getXyConfiguration()
-									.getMinDistance()));
-			config.addParameter(RubineAlgorithm.class.getName(),
-					RubineConfiguration.Config.PROBABILITY.name(),
-					Double.toString(this.rubine3dConfig.getXyConfiguration()
-							.getProbability()));
-			// Create feauture string
-			String featureString = "";
-			for(int i = 0; i < this.rubine3dConfig.getXyConfiguration().getFeatureList().length; i++){
-				featureString = featureString + this.rubine3dConfig.getXyConfiguration().getFeatureList()[i].getClass().getName() + ",";
-			}
-			//Remove last comma
-			featureString = featureString.substring(0, featureString.length()-1);
-			//Add feature string to config
-			config.addParameter(RubineAlgorithm.class.getName(),
-					RubineConfiguration.Config.FEATURE_LIST.name(),
-					featureString);
-			// Return configuration
-			return config;
+			recogniserConfig.addGestureSet(this.setXY);
+			rubineConfig = rubine3dConfig.getXyConfiguration();
 		}
-		if (plane.equals("YZ")) {
-			config.addGestureSet(this.setYZ);
-			// Add parameters for the rubine algorithm for the plane
-			config.addParameter(RubineAlgorithm.class.getName(),
-					RubineConfiguration.Config.MAHALANOBIS_DISTANCE.name(),
-					Double.toString(this.rubine3dConfig.getYzConfiguration()
-							.getMahalanobisDistance()));
-			config.addParameter(RubineAlgorithm.class.getName(),
-					RubineConfiguration.Config.MIN_DISTANCE.name(), Double
-							.toString(this.rubine3dConfig.getYzConfiguration()
-									.getMinDistance()));
-			config.addParameter(RubineAlgorithm.class.getName(),
-					RubineConfiguration.Config.PROBABILITY.name(),
-					Double.toString(this.rubine3dConfig.getYzConfiguration()
-							.getProbability()));
-			// Create feauture string
-			String featureString = "";
-			for(int i = 0; i < this.rubine3dConfig.getYzConfiguration().getFeatureList().length; i++){
-				featureString = featureString + this.rubine3dConfig.getYzConfiguration().getFeatureList()[i].getClass().getName() + ",";
-			}
-			//Remove last comma
-			featureString = featureString.substring(0, featureString.length()-1);
-			//Add feature string to config
-			config.addParameter(RubineAlgorithm.class.getName(),
-					RubineConfiguration.Config.FEATURE_LIST.name(),
-					featureString);
-			// Return configuration
-			return config;
+		if (plane.equals("XY")) {
+			// Add Gesture Set
+			recogniserConfig.addGestureSet(this.setXY);
+			rubineConfig = rubine3dConfig.getXyConfiguration();
 		}
-		if (plane.equals("ZX")) {
-			config.addGestureSet(this.setZX);
-			// Add parameters for the rubine algorithm for the plane
-			config.addParameter(RubineAlgorithm.class.getName(),
-					RubineConfiguration.Config.MAHALANOBIS_DISTANCE.name(),
-					Double.toString(this.rubine3dConfig.getZxConfiguration()
-							.getMahalanobisDistance()));
-			config.addParameter(RubineAlgorithm.class.getName(),
-					RubineConfiguration.Config.MIN_DISTANCE.name(), Double
-							.toString(this.rubine3dConfig.getZxConfiguration()
-									.getMinDistance()));
-			config.addParameter(RubineAlgorithm.class.getName(),
-					RubineConfiguration.Config.PROBABILITY.name(),
-					Double.toString(this.rubine3dConfig.getZxConfiguration()
-							.getProbability()));
-			// Create feauture string
-			String featureString = "";
-			for(int i = 0; i < this.rubine3dConfig.getZxConfiguration().getFeatureList().length; i++){
-				featureString = featureString + this.rubine3dConfig.getZxConfiguration().getFeatureList()[i].getClass().getName() + ",";
-			}
-			//Remove last comma
-			featureString = featureString.substring(0, featureString.length()-1);
-			//Add feature string to config
-			config.addParameter(RubineAlgorithm.class.getName(),
-					RubineConfiguration.Config.FEATURE_LIST.name(),
-					featureString);
-			// Return configuration
-			return config;
+		if (plane.equals("XY")) {
+			// Add Gesture Set
+			recogniserConfig.addGestureSet(this.setXY);
+			rubineConfig = rubine3dConfig.getXyConfiguration();
 		}
-		System.err
-				.println("Rubine3DAlgorithm.createConfiguration(): Please provide a valid plane name (\"XY\", \"YZ\" or \"ZX\")");
-		return null;
+		if (!plane.equals("XY") && !plane.equals("YZ") && !plane.equals("ZX")) {
+			System.err
+					.println("Rubine3DAlgorithm.createConfiguration(): Please provide a valid plane name.");
+			return null;
+		}
+		// Put parameters from rubineConfig into recogniserConfig
+		recogniserConfig.addParameter(RubineAlgorithm.class.getName(),
+				RubineConfiguration.Config.MAHALANOBIS_DISTANCE.name(), String
+						.valueOf(rubineConfig.getMahalanobisDistance()));
+		recogniserConfig.addParameter(RubineAlgorithm.class.getName(),
+				RubineConfiguration.Config.MIN_DISTANCE.name(), String
+						.valueOf(rubineConfig.getMinDistance()));
+		recogniserConfig.addParameter(RubineAlgorithm.class.getName(),
+				RubineConfiguration.Config.PROBABILITY.name(), String
+						.valueOf(rubineConfig.getProbability()));
+		recogniserConfig.addParameter(RubineAlgorithm.class.getName(),
+				RubineConfiguration.Config.FEATURE_LIST.name(), String
+						.valueOf(rubineConfig.getFeatureList()));
+
+		// Return the configuration
+		return recogniserConfig;
 	}
 
-	private List<Double> determinePlaneWeights(List<Gesture<Note>> planes) {
+	/**
+	 * Determines the weights of the planes from the Rubine3DConfiguration
+	 * 
+	 * @return A list with 3 weights. The first for the XY plane, second for the
+	 *         YZ plane and third for the ZX plane
+	 */
+	private List<Double> determinePlaneWeights() {
 		List<Double> weights = new Vector<Double>();
 		// Fill
 		weights.add(rubine3dConfig.getXyWeight());
@@ -242,7 +203,7 @@ public class Rubine3DAlgorithm implements Algorithm {
 	 * @return The combined ResultSet
 	 * @throws Exception
 	 *             When the number of resultsets does not match the number of
-	 *             weights or the sum of the weights is not 100%
+	 *             weights
 	 */
 	private ResultSet combineResultSets(List<ResultSet> sets,
 			List<Double> weights) throws Exception {
@@ -394,9 +355,11 @@ public class Rubine3DAlgorithm implements Algorithm {
 	}
 
 	/**
-	 * Splits inputSet into three separate gesture sets for the three planes
+	 * Splits GestureSet inputSet (which contains 3D gestures) into three
+	 * separate gesture sets (containing 2D gestures) for the three planes
 	 * 
 	 * @param inputSet
+	 *            The gesture set with 3D gestures
 	 */
 	private void splitGestureSet(GestureSet inputSet) {
 		// Set names
