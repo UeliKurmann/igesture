@@ -80,6 +80,7 @@ public class TestClass extends DefaultDataObject {
     * @param gesture
     */
    public void add(Gesture<?> gesture) {
+      gesture.setName(this.getName());
       gestures.add(gesture);
       propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, 0,
             null, gesture);
