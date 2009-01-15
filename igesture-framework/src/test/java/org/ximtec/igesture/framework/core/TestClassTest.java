@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -52,7 +52,7 @@ public class TestClassTest {
       Assert.assertEquals(0, testClass.size());
 
       testClass.add(new GestureSample(SAMPLE1, null));
-      Assert.assertEquals(SAMPLE1, testClass.getGestures().get(0).getName());
+      Assert.assertEquals(TEST_CLASS_NAME_1, testClass.getGestures().get(0).getName());
       Assert.assertEquals(1, testClass.size());
       
       testClass.add(new GestureSample("Sample2", null));
