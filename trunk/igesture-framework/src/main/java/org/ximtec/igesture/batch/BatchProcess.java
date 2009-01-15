@@ -282,7 +282,7 @@ public class BatchProcess implements Callable<BatchResultSet> {
     * @param parameters the batch parameters to be used.
     * @param index
     */
-   private static void processSimpleParameter(BatchParameter param,
+   protected static void processSimpleParameter(BatchParameter param,
          Configuration configuration, String algorithm,
          List<BatchParameter> parameters, int index,
          List<Configuration> configurations) {
@@ -308,7 +308,7 @@ public class BatchProcess implements Callable<BatchResultSet> {
     * @param index
     * @param configurations
     */
-   private static void processPowerSetParameter(BatchParameter param,
+   protected static void processPowerSetParameter(BatchParameter param,
          Configuration configuration, String algorithm,
          List<BatchParameter> parameters, int index,
          List<Configuration> configurations) {
@@ -338,7 +338,7 @@ public class BatchProcess implements Callable<BatchResultSet> {
     * @param index
     * @param configurations
     */
-   private static void processSequenceParameter(BatchParameter param,
+   protected static void processSequenceParameter(BatchParameter param,
          Configuration configuration, String algorithm,
          List<BatchParameter> parameters, int index,
          List<Configuration> configurations) {
@@ -368,7 +368,7 @@ public class BatchProcess implements Callable<BatchResultSet> {
     * @param index
     * @param configurations
     */
-   private static void processForLoopParameter(BatchParameter param,
+   protected static void processForLoopParameter(BatchParameter param,
          Configuration configuration, String algorithm,
          List<BatchParameter> parameters, int index,
          List<Configuration> configurations) {
