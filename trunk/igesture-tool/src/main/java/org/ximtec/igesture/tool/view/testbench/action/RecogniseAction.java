@@ -59,6 +59,7 @@ public class RecogniseAction extends BasicAction {
 
    @Override
    public void actionPerformed(ActionEvent arg0) {
+      
       controller.execute(new Command(TestbenchController.CMD_RECOGNIZE,
             configuration));
    }
