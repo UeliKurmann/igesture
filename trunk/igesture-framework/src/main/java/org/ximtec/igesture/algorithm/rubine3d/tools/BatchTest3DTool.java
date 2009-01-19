@@ -1,4 +1,29 @@
-package org.ximtec.igesture.io.wiimote;
+/*
+ * @(#)$Id: BatchTest3DTool.java
+ *
+ * Author		:	Arthur Vogels, arthur.vogels@gmail.com
+ *                  
+ *
+ * Purpose		:   Provides tools for running batch tests.
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Revision Information:
+ *
+ * Date				Who			Reason
+ *
+ * 15.01.2009		vogelsar	Initial Release
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Copyright 1999-2008 ETH Zurich. All Rights Reserved.
+ *
+ * This software is the proprietary information of ETH Zurich.
+ * Use is subject to license terms.
+ * 
+ */
+
+package org.ximtec.igesture.algorithm.rubine3d.tools;
 
 import java.io.File;
 import java.util.Iterator;
@@ -15,14 +40,13 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.core.Sample3DDescriptor;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.TestClass;
 import org.ximtec.igesture.core.TestSet;
-import org.ximtec.igesture.util.RecordedGesture3D;
 import org.ximtec.igesture.util.XMLTool;
+import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
-public class TestBatchTool {
+public class BatchTest3DTool {
 
 	private File configFile;
 	private File outputDir;
@@ -35,10 +59,13 @@ public class TestBatchTool {
 	 * @param testSet
 	 * @param gestureSet
 	 */
-	public TestBatchTool(TestSet testSet, GestureSet gestureSet,
+	public BatchTest3DTool(TestSet testSet, GestureSet gestureSet,
 			String configFileName, String outputDirName) {
 		if (configFileName == null || configFileName.equals(""))
-			configFile = new File("C:\\configuration.xml");
+			configFile = new File("C:\\configuration3d.xml");
+		else
+			configFile = new File(configFileName);
+		System.out.println("CONFIG FILE: " + configFile);
 		if (outputDirName == null || outputDirName.equals(""))
 			outputDir = new File("C:\\Output");
 		if (testSet == null) {
@@ -99,8 +126,8 @@ public class TestBatchTool {
 			// Create new TestClass
 			TestClass tempTestClass = new TestClass(tempGestureClass.getName());
 			// Add gesture samples from the gesture class to the test class
-			Iterator<Gesture<RecordedGesture3D>> sampleIter = tempGestureClass
-					.getDescriptor(Sample3DDescriptor.class).getSamples()
+			Iterator<Gesture<?>> sampleIter = tempGestureClass
+					.getDescriptor(SampleDescriptor.class).getSamples()
 					.iterator();
 			while (sampleIter.hasNext()) {
 				GestureSample3D tempSample = (GestureSample3D) sampleIter
@@ -133,9 +160,8 @@ public class TestBatchTool {
 			// Create new TestClass
 			TestClass tempTestClass = new TestClass(tempGestureClass.getName());
 			// Add gesture samples from the gesture class to the test class
-			Iterator<Gesture<Note>> sampleIter = tempGestureClass
-					.getDescriptor(SampleDescriptor.class).getSamples()
-					.iterator();
+			List<Gesture<?>> samples = tempGestureClass.getDescriptor(SampleDescriptor.class).getSamples();
+			Iterator<Gesture<?>> sampleIter = samples.iterator();
 			while (sampleIter.hasNext()) {
 				GestureSample tempSample = (GestureSample) sampleIter.next();
 				// Add sample to tempTestClass
@@ -168,8 +194,8 @@ public class TestBatchTool {
 			SampleDescriptor yzDescriptor = new SampleDescriptor();
 			SampleDescriptor zxDescriptor = new SampleDescriptor();
 			// Iterate through samples
-			Iterator<Gesture<RecordedGesture3D>> sampleIter = tempClass
-					.getDescriptor(Sample3DDescriptor.class).getSamples()
+			Iterator<Gesture<?>> sampleIter = tempClass
+					.getDescriptor(SampleDescriptor.class).getSamples()
 					.iterator();
 			while (sampleIter.hasNext()) {
 				GestureSample3D tempSample = (GestureSample3D) sampleIter

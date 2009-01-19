@@ -1,5 +1,5 @@
 /*
- * @(#)$Id: RecordedGesture3D.java 2008-12-02 arthurvogels $
+ * @(#)$Id: RecordedGesture3D.java
  *
  * Author       :   Arthur Vogels, arthur.vogels@gmail.com
  *
@@ -23,16 +23,15 @@
  * 
  */
 
-package org.ximtec.igesture.util;
+package org.ximtec.igesture.util.additions3d;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
-
 import org.sigtec.ink.input.TimestampedInputEvent;
 import org.sigtec.input.InputHandler;
+import org.ximtec.igesture.util.additionswiimote.WiiAccelerations;
 
-;
 
 public class RecordedGesture3D implements Cloneable, InputHandler {
 	private List<Point3D> points; // List of position data

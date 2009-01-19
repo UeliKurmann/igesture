@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -58,7 +58,7 @@ public class GestureClassHelper implements Runnable{
    private GestureClass gestureClass;
    private RubineConfiguration configuration;
    
-   private List<Gesture<Note>> samples;
+   private List<Gesture<?>> samples;
    private DoubleVector meanFeatureVector;
    /**
     * data structure for storing the feature vector per sample
@@ -96,7 +96,7 @@ public class GestureClassHelper implements Runnable{
       // computes the feature vector per class
       List<DoubleVector> vectors = new ArrayList<DoubleVector>();
 
-      for (Gesture<Note> sample : samples) {
+      for (Gesture<?> sample : samples) {
          try{
             /**
              * FIXME
@@ -107,8 +107,8 @@ public class GestureClassHelper implements Runnable{
              * does not fulfill the requirements defined in the features. 
              */
             
-            GestureSampleHelper helper = new GestureSampleHelper(sample.getGesture(), configuration);
-            sampleFeatureVector.put(sample, helper);
+            GestureSampleHelper helper = new GestureSampleHelper((Note)sample.getGesture(), configuration);
+            sampleFeatureVector.put((Gesture<Note>)sample, helper);
             
             if(VectorTools.hasValidValues(helper.getFeatureVector())){
                vectors.add(helper.getFeatureVector());
@@ -134,7 +134,7 @@ public class GestureClassHelper implements Runnable{
    
    
    
-   private List<Gesture<Note>> getSamples(){
+   private List<Gesture<?>> getSamples(){
       final SampleDescriptor descriptor = gestureClass.getDescriptor(SampleDescriptor.class);
       return descriptor.getSamples();
    }
@@ -172,7 +172,7 @@ public class GestureClassHelper implements Runnable{
             for (int j = 0; j < numOfFeatures; j++) {
                double sum = 0;
 
-               for (Gesture<Note> sample : samples) {
+               for (Gesture<?> sample : samples) {
                   try{
                   sum += (sampleFeatureVector.get(sample).getFeatureVector().get(i) - meanFeatureVector
                         .get(i))

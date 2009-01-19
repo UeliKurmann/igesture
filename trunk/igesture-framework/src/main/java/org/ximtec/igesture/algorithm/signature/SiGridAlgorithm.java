@@ -126,8 +126,8 @@ public class SiGridAlgorithm extends SampleBasedAlgorithm {
 
       for (final GestureClass gestureClass : gestureSet.getGestureClasses()) {
 
-         for (final Gesture<Note> sample : getSamples(gestureClass)) {
-            signatures.add(new GestureSignature((Note)sample.getGesture()
+         for (final Gesture<?> sample : getSamples(gestureClass)) {
+            signatures.add(new GestureSignature((Note)((Note)sample.getGesture())
                   .clone(), gestureClass, rasterSize, gridSize));
          }
 

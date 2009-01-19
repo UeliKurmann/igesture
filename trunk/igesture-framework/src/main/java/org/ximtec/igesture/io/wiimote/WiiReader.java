@@ -1,5 +1,5 @@
 /*
- * @(#)$Id: WiiReader.java 2008-12-16 arthurvogels $
+ * @(#)$Id: WiiReader.java
  *
  * Author       :   Arthur Vogels, arthur.vogels@gmail.com
  *
@@ -33,11 +33,11 @@ import java.util.List;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.io.AbstractGestureDevice;
-import org.ximtec.igesture.util.Point3D;
-import org.ximtec.igesture.util.RecordedGesture3D;
-import org.ximtec.igesture.util.Sample;
-import org.ximtec.igesture.util.WiiAccelerations;
-import org.ximtec.igesture.util.WiiMoteTools;
+import org.ximtec.igesture.util.additions3d.Point3D;
+import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.additionswiimote.AccelerationSample;
+import org.ximtec.igesture.util.additionswiimote.WiiAccelerations;
+import org.ximtec.igesture.util.additionswiimote.WiiMoteTools;
 
 import control.Wiigee;
 
@@ -55,27 +55,22 @@ public class WiiReader extends
 		AbstractGestureDevice<RecordedGesture3D, Point3D> implements
 		WiimoteListener {
 
-	private WiiReaderPanel currentPanel; // The panel to draw planes and graphs
-	// on
-
-	private Wiigee wiigee; // Instance of WiiGee for WiiMote device
-	private Wiimote wiimote; // The WiiMote this listener is listening to
-	private RecordedGesture3D recordedGesture; // The RecordedGesture3D that
-	// will contain the position
-	// data
-	private GestureSample3D gesture; // The GestureSample3D that will contain
-	// recordedGesture
-	private WiiAccelerations accelerations; // List of recorded accelerations
-	// from the wiimote
-	private boolean recording; // Indicates if accelerations recording is in
-	// progress
-	private int recordButton = WiimoteButtonPressedEvent.BUTTON_B; // Button
-
-	// that is
-	// used to
-	// start and
-	// stop
-	// recording
+	// The panel to draw planes and graphs on
+	private WiiReaderPanel currentPanel;
+	// Instance of WiiGee for WiiMote device
+	private Wiigee wiigee;
+	// The WiiMote this listener is listening to
+	private Wiimote wiimote;
+	// The RecordedGesture3D that will contain the position data
+	private RecordedGesture3D recordedGesture;
+	// The GestureSample3D that will contain recordedGesture
+	private GestureSample3D gesture;
+	// List of recorded accelerations from the wiimote
+	private WiiAccelerations accelerations;
+	// Indicator if accelerations recording is in progress
+	private boolean recording;
+	// Button that is used to start and stop recording
+	private int recordButton = WiimoteButtonPressedEvent.BUTTON_B;
 
 	/**
 	 * Constructor
@@ -99,7 +94,7 @@ public class WiiReader extends
 	}
 
 	/**
-	 * Returns the singleton panel
+	 * Returns the panel
 	 * 
 	 * @param dimension
 	 *            The dimension of the panel
@@ -152,11 +147,10 @@ public class WiiReader extends
 	 */
 	@Override
 	public Gesture<RecordedGesture3D> getGesture() {
-		// System.err.println("Source accelerations: " +
-		// this.gesture.getGesture().getAccelerations());
 		RecordedGesture3D newGesture = new RecordedGesture3D();
-		newGesture.setAccelerations(this.gesture.getGesture().getAccelerations());
-		newGesture.setPoints(this.gesture.getGesture().getPoints());		
+		newGesture.setAccelerations(this.gesture.getGesture()
+				.getAccelerations());
+		newGesture.setPoints(this.gesture.getGesture().getPoints());
 		return new GestureSample3D(this.gesture.getName(), newGesture);
 	}
 
@@ -167,15 +161,17 @@ public class WiiReader extends
 	public void init() {
 		System.out.println("Initializing WiiReader...");
 		try {
-			wiigee = Wiigee.getInstance(); // Get WiiGee singleton instance
-			Wiimote[] wiimotes = wiigee.getWiimotes(); // Retrieve array of
-			// WiiMotes in range
-			if (wiimotes[0] != null) // If a wiimote was found in range
-				this.wiimote = wiimotes[0]; // Take the first wiimote in the
-			// list
-			wiigee.addWiimoteListener(this); // Add this as a listener to WiiGee
+			// Get WiiGee instance
+			wiigee = Wiigee.getInstance();
+			// Retrieve array of WiiMotes in range
+			Wiimote[] wiimotes = wiigee.getWiimotes();
+			// If a wiimote was found in range
+			if (wiimotes[0] != null)
+				// Take the first wiimote in the list
+				this.wiimote = wiimotes[0];
+			// Add this as a listener to WiiGee
+			wiigee.addWiimoteListener(this);
 			System.out.println("WiiReader added as a listener to wiigee.");
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -188,56 +184,55 @@ public class WiiReader extends
 	@Override
 	public void accelerationReceived(WiimoteAccelerationEvent event) {
 		if (recording) {
-			Sample sample = new Sample(event.getX(), event.getY(),
-					event.getZ(), System.currentTimeMillis()); // Create
-			// acceleration
-			// sample with
-			// time stamp
-			this.accelerations.addSample(sample); // Add sample to accelerations
-			// list
+			// Create acceleration sample with time stamp
+			AccelerationSample sample = new AccelerationSample(event.getX(),
+					event.getY(), event.getZ(), System.currentTimeMillis());
+			// Add sample to accelerations list
+			this.accelerations.addSample(sample);
 		}
 	}
 
 	/**
-	 * When a button is pressed this method starts or stops recording
-	 * accelerations.
+	 * When the recording button is pressed this method starts recording
 	 */
 	@Override
 	public void buttonPressReceived(WiimoteButtonPressedEvent event) {
-		if (event.getButton() == recordButton) { // If recording button is
-			// pressed
-			if (!recording) { // If not already recording, start recording
+		// If recording button is pressed
+		if (event.getButton() == recordButton) {
+			// If not already recording
+			if (!recording) {
 				accelerations.clear(); // Clear accelerations list
-				recording = true;
-			} else { // If already recording, stop recording
-				this.gesture.setGesture(WiiMoteTools
-						.accelerationsToTraces(this.accelerations)); // Convert
-				// accelerations
-				// list
-				// to a
-				// gesture
-				gesture
-						.setName("GestureSample3D taken from WiiMote at system time: "
-								+ System.currentTimeMillis());
-
-				// Paint the gesture on the panel
-				this.currentPanel.paintComponent(currentPanel.getGraphics());
-				// Indicate recording stop
-				recording = false;
-				// Vibration to confirm gesture recording
-				try {
-					wiimote.vibrateForTime(200);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				recording = true; // Start recording
 			}
 		}
 	}
 
+	/**
+	 * When the button is released the recoding stops and the recorded gesture
+	 * is displayed on the panel
+	 */
 	@Override
 	public void buttonReleaseReceived(WiimoteButtonReleasedEvent event) {
-		// TODO Auto-generated method stub
+		// If the device is recording
+		if (recording) {
+			// Convert accelerations list to a gesture
+			this.gesture.setGesture(WiiMoteTools
+					.accelerationsToTraces(this.accelerations));
+			gesture
+					.setName("GestureSample3D taken from WiiMote at system time: "
+							+ System.currentTimeMillis());
 
+			// Paint the gesture on the panel
+			this.currentPanel.paintComponent(currentPanel.getGraphics());
+			// Indicate recording stop
+			recording = false;
+			// Vibration to confirm gesture recording
+			try {
+				wiimote.vibrateForTime(200);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override

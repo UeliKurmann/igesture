@@ -1,4 +1,6 @@
 /*
+ * @(#)$Id: JdomPoint3D.java
+ *  
  * Author       :   Arthur Vogels, arthur.vogels@gmail.com
  *
  * Purpose      :   Constructs an XML representation of a Point3D object.
@@ -21,11 +23,12 @@
  * 
  */
 
-package org.ximtec.igesture.util;
+package org.ximtec.igesture.util.additions3d.jdom;
 
 import org.jdom.Element;
 import org.sigtec.jdom.element.JdomDoubleElement;
 import org.sigtec.jdom.element.JdomLongElement;
+import org.ximtec.igesture.util.additions3d.Point3D;
 
 
 /**

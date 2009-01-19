@@ -80,7 +80,7 @@ public class GestureClassPanel extends AbstractPanel {
       if (gestureClass.hasDescriptor(SampleDescriptor.class)) {
          Gesture<Note> sample = null;
          if(gestureClass.getDescriptor(SampleDescriptor.class).getSamples().size() > 0){
-            sample = gestureClass.getDescriptor(SampleDescriptor.class).getSample(0);
+            sample = (Gesture<Note>)gestureClass.getDescriptor(SampleDescriptor.class).getSample(0);
          }
          if(sample != null){
             JLabel label = new JLabel(new ImageIcon(GestureTool

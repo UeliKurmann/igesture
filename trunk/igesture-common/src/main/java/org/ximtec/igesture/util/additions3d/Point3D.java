@@ -1,5 +1,5 @@
 /*
- * @(#)$Id: Point3D.java 2008-12-02 arthurvogels $
+ * @(#)$Id: Point3D.java
  *
  * Author       :   Arthur Vogels, arthur.vogels@gmail.com
  *
@@ -23,7 +23,7 @@
  * 
  */
 
-package org.ximtec.igesture.util;
+package org.ximtec.igesture.util.additions3d;
 
 public class Point3D {
 

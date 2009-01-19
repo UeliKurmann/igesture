@@ -56,8 +56,8 @@ public class JdomSampleDescriptor extends Element {
       setAttribute(TYPE_ATTRIBUTE, descriptor.getType().getName());
       setAttribute(UUID_ATTRIBUTE, descriptor.getId());
 
-      for (final Gesture<Note> sample : descriptor.getSamples()) {
-         addContent(new JdomGestureSample(sample));
+      for (final Gesture<?> sample : descriptor.getSamples()) {
+         addContent(new JdomGestureSample((Gesture<Note>)sample));
       }
 
    }
