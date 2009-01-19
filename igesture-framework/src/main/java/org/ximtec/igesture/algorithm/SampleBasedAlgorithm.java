@@ -52,7 +52,7 @@ public abstract class SampleBasedAlgorithm extends DefaultAlgorithm {
     * @param gestureClass the gesture class whose samples have to be returned.
     * @return the samples for the given gesture class.
     */
-   public List<Gesture<Note>> getSamples(GestureClass gestureClass) {
+   public List<Gesture<?>> getSamples(GestureClass gestureClass) {
       final SampleDescriptor descriptor = gestureClass
             .getDescriptor(SampleDescriptor.class);
       return descriptor.getSamples();

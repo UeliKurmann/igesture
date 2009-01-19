@@ -1,10 +1,10 @@
 /*
- * @(#)$Id: WiiReaderPanel.java 2008-12-16 arthurvogels $
+ * @(#)$Id: WiiReaderPanel.java
  *
  * Author       :   Arthur Vogels, arthur.vogels@gmail.com
  *
  * Purpose      :	Draws the data recorded by the WiiReader into
- * 					planes and graphs.
+ * 					planes and graphs on a JPanel.
  *
  *
  * -----------------------------------------------------------------------
@@ -44,8 +44,8 @@ import org.sigtec.ink.Trace;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSample3D;
-import org.ximtec.igesture.util.Sample;
-import org.ximtec.igesture.util.WiiAccelerations;
+import org.ximtec.igesture.util.additionswiimote.AccelerationSample;
+import org.ximtec.igesture.util.additionswiimote.WiiAccelerations;
 
 public class WiiReaderPanel extends JPanel {
 
@@ -226,9 +226,9 @@ public class WiiReaderPanel extends JPanel {
 		List<Point> bufferX = new Vector<Point>();
 		List<Point> bufferY = new Vector<Point>();
 		List<Point> bufferZ = new Vector<Point>();
-		Iterator<Sample> i = acc.getSamples().iterator();
+		Iterator<AccelerationSample> i = acc.getSamples().iterator();
 		while (i.hasNext()) {
-			Sample s = i.next();
+			AccelerationSample s = i.next();
 			Point point = new Point();
 			// X position
 			double xPos = horizontalScalingFactor
@@ -551,9 +551,13 @@ public class WiiReaderPanel extends JPanel {
 	public void setGesture(GestureSample3D gs) {
 		//System.err.println("SAMPLE : " + gs.getName());
 		this.gs = gs;
-		System.err.println("WiiReaderPanel.setGesture() Displaying: " + gs.getName());
-		if(gs != null)
-			this.paintComponent(this.getGraphics());
+		if(gs != null){
+			System.err.println("WiiReaderPanel.setGesture() Displaying: " + gs.getName());
+		}
+		else {
+			System.err.println("WiiReaderPanel.setGesture() Displaying: null gesture");
+		}
+		this.paintComponent(this.getGraphics());
 	}
 
 }

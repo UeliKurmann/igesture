@@ -31,8 +31,8 @@ import java.util.List;
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Point;
 import org.sigtec.ink.Trace;
-import org.ximtec.igesture.util.Point3D;
-import org.ximtec.igesture.util.RecordedGesture3D;
+import org.ximtec.igesture.util.additions3d.Point3D;
+import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 public class GestureSample3D extends DefaultDataObject implements Cloneable,
 		Gesture<RecordedGesture3D> {

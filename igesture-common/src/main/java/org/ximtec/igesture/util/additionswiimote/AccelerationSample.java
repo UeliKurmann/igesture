@@ -1,5 +1,5 @@
 /*
- * @(#)$Id: Sample.java 2008-12-02 arthurvogels $
+ * @(#)$Id: AccelerationSample.java
  *
  * Author       :   Arthur Vogels, arthur.vogels@gmail.com
  *
@@ -23,7 +23,7 @@
  * 
  */
 
-package org.ximtec.igesture.util;
+package org.ximtec.igesture.util.additionswiimote;
 
 /**
  * Contains a sample of x- y- and z- acceleration
@@ -31,7 +31,7 @@ package org.ximtec.igesture.util;
  * @author vogelsar
  * 
  */
-public class Sample {
+public class AccelerationSample {
 
 	private double xAcceleration;
 	private double yAcceleration;
@@ -42,7 +42,7 @@ public class Sample {
 	 * Constructor
 	 * 
 	 */
-	public Sample() {
+	public AccelerationSample() {
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class Sample {
 	 * @param zAcc
 	 *            The z acceleration to be set
 	 */
-	public Sample(double xAcc, double yAcc, double zAcc) {
+	public AccelerationSample(double xAcc, double yAcc, double zAcc) {
 		this.xAcceleration = xAcc;
 		this.yAcceleration = yAcc;
 		this.zAcceleration = zAcc;
@@ -73,7 +73,7 @@ public class Sample {
 	 * @param timeStamp
 	 *            The system time at the moment the sample was recorded
 	 */
-	public Sample(double xAcceleration, double yAcceleration,
+	public AccelerationSample(double xAcceleration, double yAcceleration,
 			double zAcceleration, long timeStamp) {
 		this.xAcceleration = xAcceleration;
 		this.yAcceleration = yAcceleration;

@@ -1,3 +1,28 @@
+/*
+ * @(#)$Id: Rubine3DAlgorithm.java
+ *
+ * Author		:	Arthur Vogels, arthur.vogels@gmail.com
+ *                  
+ *
+ * Purpose		:   3 Dimensional use of the Rubine algorithm.
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Revision Information:
+ *
+ * Date				Who			Reason
+ *
+ * 05.01.2009		vogelsar	Initial Release
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Copyright 1999-2008 ETH Zurich. All Rights Reserved.
+ *
+ * This software is the proprietary information of ETH Zurich.
+ * Use is subject to license terms.
+ * 
+ */
+
 package org.ximtec.igesture.algorithm.rubine3d;
 
 import java.util.ArrayList;
@@ -7,10 +32,31 @@ import java.util.Vector;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Trace;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.AlgorithmException.ExceptionType;
+import org.ximtec.igesture.algorithm.feature.F1;
+import org.ximtec.igesture.algorithm.feature.F10;
+import org.ximtec.igesture.algorithm.feature.F11;
+import org.ximtec.igesture.algorithm.feature.F12;
+import org.ximtec.igesture.algorithm.feature.F13;
+import org.ximtec.igesture.algorithm.feature.F14;
+import org.ximtec.igesture.algorithm.feature.F15;
+import org.ximtec.igesture.algorithm.feature.F16;
+import org.ximtec.igesture.algorithm.feature.F17;
+import org.ximtec.igesture.algorithm.feature.F18;
+import org.ximtec.igesture.algorithm.feature.F19;
+import org.ximtec.igesture.algorithm.feature.F2;
+import org.ximtec.igesture.algorithm.feature.F21;
+import org.ximtec.igesture.algorithm.feature.F3;
+import org.ximtec.igesture.algorithm.feature.F4;
+import org.ximtec.igesture.algorithm.feature.F5;
+import org.ximtec.igesture.algorithm.feature.F6;
+import org.ximtec.igesture.algorithm.feature.F7;
+import org.ximtec.igesture.algorithm.feature.F8;
+import org.ximtec.igesture.algorithm.feature.F9;
 import org.ximtec.igesture.algorithm.feature.FeatureTool;
 import org.ximtec.igesture.algorithm.rubine.RubineAlgorithm;
 import org.ximtec.igesture.algorithm.rubine.RubineConfiguration;
@@ -22,10 +68,9 @@ import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.core.Sample3DDescriptor;
 import org.ximtec.igesture.core.SampleDescriptor;
-import org.ximtec.igesture.util.RecordedGesture3D;
 import org.ximtec.igesture.util.XMLTool;
+import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 public class Rubine3DAlgorithm implements Algorithm {
 
@@ -134,7 +179,9 @@ public class Rubine3DAlgorithm implements Algorithm {
 	private Configuration createConfiguration(String plane) {
 		// Configuration objects
 		Configuration recogniserConfig = new Configuration();
-		RubineConfiguration rubineConfig = new RubineConfiguration(null);
+		RubineConfiguration rubineConfig = null;
+
+		// System.err.println("PLANE: " + plane);
 
 		// Include the Rubine Algorithm
 		recogniserConfig.addAlgorithm(RubineAlgorithm.class.getName());
@@ -144,21 +191,24 @@ public class Rubine3DAlgorithm implements Algorithm {
 			recogniserConfig.addGestureSet(this.setXY);
 			rubineConfig = rubine3dConfig.getXyConfiguration();
 		}
-		if (plane.equals("XY")) {
+		if (plane.equals("YZ")) {
 			// Add Gesture Set
-			recogniserConfig.addGestureSet(this.setXY);
-			rubineConfig = rubine3dConfig.getXyConfiguration();
+			recogniserConfig.addGestureSet(this.setYZ);
+			rubineConfig = rubine3dConfig.getYzConfiguration();
 		}
-		if (plane.equals("XY")) {
+		if (plane.equals("ZX")) {
 			// Add Gesture Set
-			recogniserConfig.addGestureSet(this.setXY);
-			rubineConfig = rubine3dConfig.getXyConfiguration();
+			recogniserConfig.addGestureSet(this.setZX);
+			rubineConfig = rubine3dConfig.getZxConfiguration();
 		}
-		if (!plane.equals("XY") && !plane.equals("YZ") && !plane.equals("ZX")) {
-			System.err
-					.println("Rubine3DAlgorithm.createConfiguration(): Please provide a valid plane name.");
-			return null;
-		}
+		// else {
+		// System.err
+		// .println("Rubine3DAlgorithm.createConfiguration(): Please provide a valid plane name.");
+		// return null;
+		// }
+
+		// System.err.println("RUBINE CONFIG: " + rubineConfig);
+
 		// Put parameters from rubineConfig into recogniserConfig
 		recogniserConfig.addParameter(RubineAlgorithm.class.getName(),
 				RubineConfiguration.Config.MAHALANOBIS_DISTANCE.name(), String
@@ -170,8 +220,46 @@ public class Rubine3DAlgorithm implements Algorithm {
 				RubineConfiguration.Config.PROBABILITY.name(), String
 						.valueOf(rubineConfig.getProbability()));
 		recogniserConfig.addParameter(RubineAlgorithm.class.getName(),
-				RubineConfiguration.Config.FEATURE_LIST.name(), String
-						.valueOf(rubineConfig.getFeatureList()));
+				RubineConfiguration.Config.FEATURE_LIST.name(), F1.class
+						.getName()
+						+ Constant.COMMA
+						+ F2.class.getName()
+						+ Constant.COMMA
+						+ F3.class.getName()
+						+ Constant.COMMA
+						+ F4.class.getName()
+						+ Constant.COMMA
+						+ F5.class.getName()
+						+ Constant.COMMA
+						+ F6.class.getName()
+						+ Constant.COMMA
+						+ F7.class.getName()
+						+ Constant.COMMA
+						+ F8.class.getName()
+						+ Constant.COMMA
+						+ F9.class.getName()
+						+ Constant.COMMA
+						+ F10.class.getName()
+						+ Constant.COMMA
+						+ F11.class.getName()
+						+ Constant.COMMA
+						+ F12.class.getName()
+						+ Constant.COMMA
+						+ F13.class.getName()
+						+ Constant.COMMA
+						+ F14.class.getName()
+						+ Constant.COMMA
+						+ F15.class.getName()
+						+ Constant.COMMA
+						+ F16.class.getName()
+						+ Constant.COMMA
+						+ F17.class.getName()
+						+ Constant.COMMA
+						+ F18.class.getName()
+						+ Constant.COMMA
+						+ F19.class.getName()
+						+ Constant.COMMA
+						+ F21.class.getName());
 
 		// Return the configuration
 		return recogniserConfig;
@@ -182,9 +270,19 @@ public class Rubine3DAlgorithm implements Algorithm {
 	 * 
 	 * @return A list with 3 weights. The first for the XY plane, second for the
 	 *         YZ plane and third for the ZX plane
+	 * @throws Exception
 	 */
-	private List<Double> determinePlaneWeights() {
+	private List<Double> determinePlaneWeights() throws AlgorithmException {
 		List<Double> weights = new Vector<Double>();
+		// Check if weights add up to 1
+		if ((rubine3dConfig.getXyWeight() + rubine3dConfig.getYzWeight() + rubine3dConfig
+				.getZxWeight()) > 1.01
+				|| (rubine3dConfig.getXyWeight() + rubine3dConfig.getYzWeight() + rubine3dConfig
+						.getZxWeight()) < 0.99) {
+			System.err.println("Weights do not add up to 1");
+			throw new AlgorithmException(
+					AlgorithmException.ExceptionType.Initialisation);
+		}
 		// Fill
 		weights.add(rubine3dConfig.getXyWeight());
 		weights.add(rubine3dConfig.getYzWeight());
@@ -328,26 +426,30 @@ public class Rubine3DAlgorithm implements Algorithm {
 	private ResultSet sortByAccuray(ResultSet inputSet) {
 		// Create output resultset and give it its first result
 		ResultSet outputSet = new ResultSet();
-		outputSet.addResult(inputSet.getResult(0));
-		// Loop through inputSet and take accuracy
-		for (int j = 0; j < inputSet.getResults().size(); j++) {
-			boolean added = false;
-			// Loop through output set and compare accuracies
-			for (int k = 0; k < outputSet.getResults().size(); k++) {
-				// If the accuracy is higher than the accuracy of the result at
-				// position k in outputset
-				if (inputSet.getResult(j).getAccuracy() > outputSet
-						.getResult(k).getAccuracy()) {
-					// Insert the result and break the loop to prevent from
-					// inserting multiple times
-					outputSet.getResults().add(k, inputSet.getResult(j));
-					added = true;
+		if (inputSet.getResults().size() > 0) {
+			outputSet.addResult(inputSet.getResult(0));
+			// Loop through inputSet and take accuracy
+			for (int j = 0; j < inputSet.getResults().size(); j++) {
+				boolean added = false;
+				// Loop through output set and compare accuracies
+				for (int k = 0; k < outputSet.getResults().size(); k++) {
+					// If the accuracy is higher than the accuracy of the result
+					// at
+					// position k in outputset
+					if (inputSet.getResult(j).getAccuracy() > outputSet
+							.getResult(k).getAccuracy()) {
+						// Insert the result and break the loop to prevent from
+						// inserting multiple times
+						outputSet.getResults().add(k, inputSet.getResult(j));
+						added = true;
+					}
 				}
-			}
-			// If not added because the accuracy is smaller than the existing
-			// ones, add at the end
-			if (!added) {
-				outputSet.getResults().add(inputSet.getResult(j));
+				// If not added because the accuracy is smaller than the
+				// existing
+				// ones, add at the end
+				if (!added) {
+					outputSet.getResults().add(inputSet.getResult(j));
+				}
 			}
 		}
 		// Return output variable
@@ -375,13 +477,13 @@ public class Rubine3DAlgorithm implements Algorithm {
 			GestureClass classYZ = new GestureClass(tempClass.getName());
 			GestureClass classZX = new GestureClass(tempClass.getName());
 			// If the gesture class contains a sample descriptor
-			if (tempClass.getDescriptor(Sample3DDescriptor.class) != null) {
+			if (tempClass.getDescriptor(SampleDescriptor.class) != null) {
 				SampleDescriptor descXY = new SampleDescriptor();
 				SampleDescriptor descYZ = new SampleDescriptor();
 				SampleDescriptor descZX = new SampleDescriptor();
 				// Iterate through samples
-				Iterator<Gesture<RecordedGesture3D>> sampleIter = tempClass
-						.getDescriptor(Sample3DDescriptor.class).getSamples()
+				Iterator<Gesture<?>> sampleIter = tempClass
+						.getDescriptor(SampleDescriptor.class).getSamples()
 						.iterator();
 				while (sampleIter.hasNext()) {
 					GestureSample3D tempSample = (GestureSample3D) sampleIter

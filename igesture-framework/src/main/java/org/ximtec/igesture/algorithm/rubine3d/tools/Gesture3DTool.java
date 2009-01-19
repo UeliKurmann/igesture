@@ -1,4 +1,30 @@
-package org.ximtec.igesture.io.wiimote;
+/*
+ * @(#)$Id: Gesture3DTool.java
+ *
+ * Author		:	Arthur Vogels, arthur.vogels@gmail.com
+ *                  
+ *
+ * Purpose		:   Tool for creating and manipulating 3D Gesture 
+ * 					sets with the WiiMote.
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Revision Information:
+ *
+ * Date				Who			Reason
+ *
+ * 15.01.2009		vogelsar	Initial Release
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Copyright 1999-2008 ETH Zurich. All Rights Reserved.
+ *
+ * This software is the proprietary information of ETH Zurich.
+ * Use is subject to license terms.
+ * 
+ */
+
+package org.ximtec.igesture.algorithm.rubine3d.tools;
 
 import java.io.File;
 import java.util.Iterator;
@@ -16,21 +42,22 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.core.Sample3DDescriptor;
 import org.ximtec.igesture.core.SampleDescriptor;
+import org.ximtec.igesture.io.wiimote.WiiReader;
+import org.ximtec.igesture.io.wiimote.WiiReaderPanel;
 import org.ximtec.igesture.storage.StorageManager;
-import org.ximtec.igesture.util.RecordedGesture3D;
+import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
-public class TestController {
+public class Gesture3DTool {
 
 	private StorageManager storage; // The storage manager for database or xml
 	private WiiReader reader; // The WiiReader to read from the WiiMote
 	private Recogniser recogniser; // The recogniser
-	private TestUI ui;
+	private Gesture3DToolUI ui;
 
-	public TestController() {
+	public Gesture3DTool(String gestureSetName) {
 		storage = new StorageManager(StorageManager
-				.createStorageEngine(new File("C:\\GestureDB\\gesturedata.db")));
+				.createStorageEngine(new File(gestureSetName)));
 		reader = new WiiReader();
 	}
 
@@ -49,10 +76,10 @@ public class TestController {
 		reader.disconnect();
 	}
 
-	public void setUI(TestUI ui){
+	public void setUI(Gesture3DToolUI ui) {
 		this.ui = ui;
 	}
-	
+
 	/**
 	 * Returns the panel of the WiiReader in this controller
 	 * 
@@ -144,8 +171,8 @@ public class TestController {
 				// If the gesture class does not contain a Sample3DDescriptor
 				// yet
 				if (tempSet.getGestureClass(className).getDescriptor(
-						Sample3DDescriptor.class) == null) {
-					Sample3DDescriptor desc = new Sample3DDescriptor();
+						SampleDescriptor.class) == null) {
+					SampleDescriptor desc = new SampleDescriptor();
 					tempSet.getGestureClass(className).addDescriptor(desc);
 				}
 				GestureSample3D gesture = (GestureSample3D) reader.getGesture();
@@ -153,7 +180,7 @@ public class TestController {
 				if (gesture.getGesture().getAccelerations() != null) {
 					// Add the sample from Wiireader to the Sample3DDescriptor
 					tempSet.getGestureClass(className).getDescriptor(
-							Sample3DDescriptor.class).addSample(gesture);
+							SampleDescriptor.class).addSample(gesture);
 					// Update the set in the database and commit changes
 					storage.update(tempSet);
 					storage.commit();
@@ -162,23 +189,23 @@ public class TestController {
 							+ "\" to gesture class with name \"" + className
 							+ "\" in gesture set \"" + setName + "\"");
 					// Job's done
-					
+
 					// DEBUG
-					
-					Iterator i = tempSet.getGestureClass(className).getDescriptor(Sample3DDescriptor.class).getSamples().iterator();
-					while (i.hasNext()){
+
+					Iterator i = tempSet.getGestureClass(className)
+							.getDescriptor(SampleDescriptor.class).getSamples()
+							.iterator();
+					while (i.hasNext()) {
 						GestureSample3D tempSample = (GestureSample3D) i.next();
-						System.out.println("Name: \"" + tempSample.getName() + "\"");
+						System.out.println("Name: \"" + tempSample.getName()
+								+ "\"");
 					}
-					
-					
-					
-					
+
 					return;
 				}
 			}
 		}
-		System.err.println("Nothing added"); 
+		System.err.println("Nothing added");
 	}
 
 	/**
@@ -191,12 +218,11 @@ public class TestController {
 	 *            The name of the gesture class to look in
 	 * @return The list of found gesture samples
 	 */
-	public List<Gesture<RecordedGesture3D>> getGestureSamples(String setName,
-			String className) {
+	public List<Gesture<?>> getGestureSamples(String setName, String className) {
 		System.err.println("getGestureSamples() for GestureSet " + setName
 				+ " and GestureClass " + className + ".");
 		// Create return variable
-		List<Gesture<RecordedGesture3D>> returnList = new Vector<Gesture<RecordedGesture3D>>();
+		List<Gesture<?>> returnList = new Vector<Gesture<?>>();
 		// If there is a gesture set with name setName
 		if (storage.load(GestureSet.class, "name", setName).size() > 0) {
 			GestureSet tempSet = storage
@@ -205,16 +231,16 @@ public class TestController {
 			if (tempSet.getGestureClass(className) != null) {
 				GestureClass tempClass = tempSet.getGestureClass(className);
 				// Get descriptor from gesture class if it contains a
-				// Sample3DDescriptor
-				Sample3DDescriptor descriptor = tempClass
-						.getDescriptor(Sample3DDescriptor.class);
+				// SampleDescriptor
+				SampleDescriptor descriptor = tempClass
+						.getDescriptor(SampleDescriptor.class);
 				// If there is a descriptor, take the list of samples from the
 				// descriptor
 				if (descriptor != null)
 					returnList = descriptor.getSamples();
 				else
 					System.err
-							.println("There is no Sample3DDescriptor in gesture class with name \""
+							.println("There is no SampleDescriptor in gesture class with name \""
 									+ className
 									+ "\" in gesture set \""
 									+ setName + "\".");
@@ -229,9 +255,11 @@ public class TestController {
 	}
 
 	/**
-	 * Recognises the current gesture from the WiiReader against the gesture set with name setName
+	 * Recognises the current gesture from the WiiReader against the gesture set
+	 * with name setName
 	 * 
-	 * @param setName the set to be recognised against
+	 * @param setName
+	 *            the set to be recognised against
 	 */
 	public void recognise(String setName) {
 		// Configure recogniser
@@ -249,7 +277,68 @@ public class TestController {
 		ResultSet resultSet = recogniser.recognise(reader.getGesture());
 		ui.setResultField(resultSet);
 		//
-		System.err.println("Number of Results in ResultSet: " + resultSet.getResults().size());
+		System.err.println("Number of Results in ResultSet: "
+				+ resultSet.getResults().size());
+	}
+
+	/**
+	 * Removes Sample with the number sampleNumber from the gesture class with
+	 * name className from gesture set with name setName
+	 * 
+	 * @param setName
+	 * @param className
+	 * @param sampleNumber
+	 */
+	public void removeSample(String setName, String className, int sampleNumber) {
+		GestureSet tempSet = storage.load(GestureSet.class, "name", setName)
+				.get(0);
+		if (tempSet.getGestureClass(className).getDescriptor(
+				SampleDescriptor.class).getSamples().size() > 0) {
+			tempSet.getGestureClass(className).getDescriptor(
+					SampleDescriptor.class).getSamples().remove(sampleNumber);
+			storage.update(tempSet);
+		} else
+			System.err
+					.println("Gesture3DTool: No samples can be removed from Gesture class "
+							+ className
+							+ " in gesture set "
+							+ setName
+							+ " because there are no samples present.");
+
+	}
+
+	/**
+	 * Removes the gesture set with name setName from storage
+	 * 
+	 * @param setName
+	 */
+	public void removeSet(String setName) {
+		if (storage.load(GestureSet.class, "name", setName).get(0) != null) {
+			storage.remove(storage.load(GestureSet.class, "name", setName).get(
+					0));
+		} else
+			System.err.println("Gesture3DTool: Gesture set " + setName
+					+ " can not be removed because it does not exist");
+	}
+
+	/**
+	 * Removes the gesture class with name className from gesture set with name
+	 * setName in storage
+	 * 
+	 * @param setName
+	 * @param className
+	 */
+	public void removeClass(String setName, String className) {
+		GestureSet tempSet = storage.load(GestureSet.class, "name", setName)
+				.get(0);
+		if (tempSet.getGestureClass(className) != null) {
+			tempSet.removeGestureClass(tempSet.getGestureClass(className));
+			storage.update(tempSet);
+		} else
+			System.err.println("Gesture3DTool: Gesture class " + className
+					+ " in gesture set " + setName
+					+ " can not be removed because it does not exist");
+
 	}
 
 }

@@ -1,10 +1,34 @@
-package org.ximtec.igesture.io.wiimote;
+/*
+ * @(#)$Id: Gesture3DToolUI.java
+ *
+ * Author		:	Arthur Vogels, arthur.vogels@gmail.com
+ *                  
+ *
+ * Purpose		:   User interface for the Gesture3DTool.
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Revision Information:
+ *
+ * Date				Who			Reason
+ *
+ * 15.01.2009		vogelsar	Initial Release
+ *
+ * -----------------------------------------------------------------------
+ *
+ * Copyright 1999-2008 ETH Zurich. All Rights Reserved.
+ *
+ * This software is the proprietary information of ETH Zurich.
+ * Use is subject to license terms.
+ * 
+ */
+
+package org.ximtec.igesture.algorithm.rubine3d.tools;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.ResultSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,15 +43,18 @@ import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.util.RecordedGesture3D;
+import org.ximtec.igesture.io.wiimote.WiiReaderPanel;
+import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
-public class TestUI extends JFrame {
+public class Gesture3DToolUI extends JFrame {
 
 	private String setName;
 	private String className;
 	private int currentSampleNumber;
-	private List<Gesture<RecordedGesture3D>> samples;
+	private List<Gesture<?>> samples;
 
+	private boolean started;
+	
 	private JLabel gestureSetLabel;
 	private JLabel gestureClassLabel;
 	private JLabel gestureSampleLabel;
@@ -36,12 +63,20 @@ public class TestUI extends JFrame {
 	private JComboBox gestureClassComboBox; // Combobox to pick the GestureClass
 	// from
 	// the GestureSet
+
+	private JButton removeSetButton; // Button to remove a gesture set
+
+	private JButton removeClassButton; // Button to remove a gesture class
+
 	private WiiReaderPanel samplePanel;// Panel that displays the current
 	// GestureSample3d
 	private JButton sampleBackButton; // Button to go one GestureSample3D
 	// backward
 	private JButton sampleForwardButton; // Button to go one GestureSample3D
 	// backward
+
+	private JButton removeSampleButton; // Button to remove the current gesture
+	// sample
 
 	private JTextField addGestureSetTextField; // Field to type the name of a
 	// new gesture set
@@ -54,23 +89,25 @@ public class TestUI extends JFrame {
 	private JButton addGestureSampleButton; // Button to add a gesture sample
 
 	private JButton startWiiMoteButton; // Button to start wiimote
-	
-	private JButton stopWiiMoteButton; // Button to start wiimote
-	
-	private JButton recogniseButton; // Button to start recognising
-	
-	private JTextArea resultTextArea; // Textfield to display the result
-	
-	private TestController controller; // controller
 
-	public TestUI(final TestController controller) {
+	private JButton stopWiiMoteButton; // Button to start wiimote
+
+	private JButton recogniseButton; // Button to start recognising
+
+	private JTextArea resultTextArea; // Textfield to display the result
+
+	private Gesture3DTool controller; // controller
+
+	public Gesture3DToolUI(final Gesture3DTool controller) {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		setSize(1100, 500);
 		setTitle("WiiMote Test Frame");
 		setLayout(null);
 
 		this.controller = controller;
+		
+		started = false;
 
 		// UI ELEMENTS
 		gestureSetLabel = new JLabel("Choose Gesture Set");
@@ -96,6 +133,16 @@ public class TestUI extends JFrame {
 				.addActionListener(new gestureClassComboBoxListener());
 		getContentPane().add(gestureClassComboBox);
 
+		removeSetButton = new JButton("Remove Set");
+		removeSetButton.setBounds(15, 60, 150, 25);
+		removeSetButton.addActionListener(new removeSetButtonListener());
+		getContentPane().add(removeSetButton);
+
+		removeClassButton = new JButton("Remove Class");
+		removeClassButton.setBounds(190, 60, 150, 25);
+		removeClassButton.addActionListener(new removeClassButtonListener());
+		getContentPane().add(removeClassButton);
+
 		samplePanel = new WiiReaderPanel(null);
 		samplePanel.setBounds(80, 120, 200, 200);
 		samplePanel.setVisible(true);
@@ -111,6 +158,11 @@ public class TestUI extends JFrame {
 		sampleForwardButton
 				.addActionListener(new sampleForwardButtonListener());
 		getContentPane().add(sampleForwardButton);
+
+		removeSampleButton = new JButton("Remove Sample");
+		removeSampleButton.setBounds(100, 330, 150, 40);
+		removeSampleButton.addActionListener(new removeSampleButtonListener());
+		getContentPane().add(removeSampleButton);
 
 		addGestureSetTextField = new JTextField("");
 		addGestureSetTextField.setBounds(400, 35, 200, 20);
@@ -143,24 +195,24 @@ public class TestUI extends JFrame {
 		addGestureSampleButton
 				.addActionListener(new addGestureSampleButtonListener());
 		getContentPane().add(addGestureSampleButton);
-		
+
 		startWiiMoteButton = new JButton("Start WiiMote");
 		startWiiMoteButton.setBounds(620, 125, 220, 50);
 		startWiiMoteButton.addActionListener(new startWiiMoteButtonListener());
 		getContentPane().add(startWiiMoteButton);
-		
+
 		stopWiiMoteButton = new JButton("Stop WiiMote");
 		stopWiiMoteButton.setBounds(870, 125, 150, 50);
 		stopWiiMoteButton.addActionListener(new stopWiiMoteButtonListener());
 		getContentPane().add(stopWiiMoteButton);
-		
+
 		recogniseButton = new JButton("Recognise this gesture");
-		recogniseButton.setBounds(400,350,200,50);
+		recogniseButton.setBounds(400, 350, 200, 50);
 		recogniseButton.addActionListener(new recogniseButtonListener());
 		getContentPane().add(recogniseButton);
-		
+
 		resultTextArea = new JTextArea();
-		resultTextArea.setBounds(620,280,400,180);
+		resultTextArea.setBounds(620, 280, 400, 180);
 		getContentPane().add(resultTextArea);
 
 		// Fill comboboxes
@@ -175,25 +227,32 @@ public class TestUI extends JFrame {
 
 		// Get samples
 		samples = controller.getGestureSamples(setName, className);
-		// setSample(currentSampleNumber);
+
+		// Set close operation
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				System.out.println("Window Closing");
+				controller.disconnectWiiMote();
+			}
+
+		});
 		
-		
-		//Set close operation
-        this.addWindowListener(new WindowAdapter() {
-        	public void windowClosing(WindowEvent e) {
-                System.out.println("Window Closing");
-                controller.disconnectWiiMote();
-            }
-        
-        });
-		
+		// Set sample panel when window is made visible
+		this.addWindowListener(new WindowAdapter() {
+			public void windowOpened(WindowEvent e) {
+				System.out.println("Window Opening, setting sample panel");
+				started = true;
+				setSamplePanel();
+			}
+
+		});
 	}
 
 	public void setNextSample() {
 		System.err.print("setNextSample(): Samples size: " + samples.size());
 		if (!(currentSampleNumber + 1 >= samples.size())) {
 			currentSampleNumber = currentSampleNumber + 1;
-			//sampleForwardButton.setEnabled(false);
+			// sampleForwardButton.setEnabled(false);
 		}
 		if (samples.size() > 0) {
 			samplePanel.setGesture((GestureSample3D) samples
@@ -208,9 +267,8 @@ public class TestUI extends JFrame {
 				.print("setPreviousSample(): Samples size: " + samples.size());
 		if (currentSampleNumber > 0) {
 			currentSampleNumber = currentSampleNumber - 1;
-		}
-		else
-			;//sampleBackButton.setEnabled(false);
+		} else
+			;// sampleBackButton.setEnabled(false);
 		if (samples.size() > 0) {
 			samplePanel.setGesture((GestureSample3D) samples
 					.get(currentSampleNumber));
@@ -275,16 +333,27 @@ public class TestUI extends JFrame {
 		gestureClassComboBox.setSelectedItem(gClass.getName());
 	}
 
-	public void setSamplePanel(GestureSample3D sample) {
-		samplePanel.setGesture(sample);
-	}
-	
-	public void setResultField(org.ximtec.igesture.core.ResultSet set){
+	public void setResultField(org.ximtec.igesture.core.ResultSet set) {
 		String text = "Gesture Class:    ->    Accuracy:\n\n";
-		for(int i = 0; i < set.getResults().size(); i++){
-			text = text + set.getResult(i).getGestureClass().getName() + " -> " + set.getResult(i).getAccuracy() + "\n";
-		}		
+		for (int i = 0; i < set.getResults().size(); i++) {
+			text = text + set.getResult(i).getGestureClass().getName() + " -> "
+					+ set.getResult(i).getAccuracy() + "\n";
+		}
 		resultTextArea.setText(text);
+	}
+
+	private void setSamplePanel() {
+		if (controller.getGestureSamples(setName, className).size() > 0
+				&& currentSampleNumber < controller.getGestureSamples(setName,
+						className).size()) {
+			samplePanel.setGesture((GestureSample3D) controller
+					.getGestureSamples(setName, className).get(
+							currentSampleNumber));
+		} else {
+			System.err
+					.println("Gesture3DToolUI.setSamplePanel(): currentSampleNumber out of range");
+			samplePanel.setGesture(null);
+		}
 	}
 
 	// ACTION LISTENERS
@@ -297,6 +366,8 @@ public class TestUI extends JFrame {
 			// selected set
 			setGestureClassesBox(controller.getGestureSet(setName));
 			currentSampleNumber = 0;
+			if(started)
+				setSamplePanel();
 		}
 	}
 
@@ -307,6 +378,8 @@ public class TestUI extends JFrame {
 			// Load gesture samples from this class
 			samples = controller.getGestureSamples(setName, className);
 			currentSampleNumber = 0;
+			if(started)
+				setSamplePanel();
 		}
 	}
 
@@ -319,6 +392,8 @@ public class TestUI extends JFrame {
 			gestureClassComboBox.removeAllItems();
 			gestureSetComboBox.setSelectedItem(newSetName);
 			currentSampleNumber = 0;
+			if(started)
+				setSamplePanel();
 		}
 	}
 
@@ -334,6 +409,8 @@ public class TestUI extends JFrame {
 			addGestureClassTextField.setText("");
 			gestureClassComboBox.setSelectedItem(newClassName);
 			currentSampleNumber = 0;
+			if(started)
+				setSamplePanel();
 		}
 	}
 
@@ -366,7 +443,7 @@ public class TestUI extends JFrame {
 			setPreviousSample();
 		}
 	}
-	
+
 	private class startWiiMoteButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// Start WiiMote
@@ -380,12 +457,50 @@ public class TestUI extends JFrame {
 			controller.disconnectWiiMote();
 		}
 	}
-	
+
 	private class recogniseButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// Start Recognising
 			controller.recognise(setName);
 		}
 	}
-	
+
+	private class removeSampleButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			// Remove Sample
+			controller.removeSample(setName, className, currentSampleNumber);
+			currentSampleNumber = 0;
+			// Reset sample panel
+			if(started)
+				setSamplePanel();
+		}
+	}
+
+	private class removeSetButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			// Remove Sample
+			controller.removeSet(setName);
+			// Refill comboboxes
+			setGestureSetsBox(controller.getGestureSets());
+			setGestureClassesBox(controller
+					.getGestureSet((String) gestureSetComboBox
+							.getSelectedItem()));
+			if(started)
+				setSamplePanel();
+		}
+	}
+
+	private class removeClassButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			// Remove Sample
+			controller.removeClass(setName, className);
+			// Refill combobox
+			setGestureClassesBox(controller
+					.getGestureSet((String) gestureSetComboBox
+							.getSelectedItem()));
+			if(started)
+				setSamplePanel();
+		}
+	}
+
 }

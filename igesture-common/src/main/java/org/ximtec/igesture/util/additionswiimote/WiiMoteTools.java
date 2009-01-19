@@ -1,5 +1,5 @@
 /*
- * @(#)$Id: WiiMoteTools.java 2008-12-02 arthurvogels $
+ * @(#)$Id: WiiMoteTools.java
  *
  * Author       :   Arthur Vogels, arthur.vogels@gmail.com
  *
@@ -22,11 +22,10 @@
  * 
  */
 
-package org.ximtec.igesture.util;
+package org.ximtec.igesture.util.additionswiimote;
 
-import java.util.List;
-
-import org.sigtec.ink.Note;
+import org.ximtec.igesture.util.additions3d.Point3D;
+import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 public class WiiMoteTools {
 
@@ -53,7 +52,7 @@ public class WiiMoteTools {
 		
 		//Loop through acceleration samples
 		for(int i = 0; i<acc.numberOfSamples(); i++){
-			Sample sample = acc.getSample(i);							//Get current sample
+			AccelerationSample sample = acc.getSample(i);							//Get current sample
 			
 			sample.setXAcceleration(sample.getXAcceleration() * -1);
 			sample.setYAcceleration(sample.getYAcceleration() * -1);
@@ -86,7 +85,7 @@ public class WiiMoteTools {
 			
 			gesture.add(point);											//Add new point to gesture
 			point = new Point3D();
-			sample = new Sample();
+			sample = new AccelerationSample();
 			//System.err.println("x: " + point.getX());// + ", y: " + point.getY() + ", z: " + point.getZ());
 			//System.err.println("xAcc: " + sample.getXAcceleration() + ", yAcc: " + sample.getYAcceleration() + ", zAcc: " + sample.getZAcceleration());
 		}

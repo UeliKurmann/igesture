@@ -13,6 +13,7 @@
  *
  * Dec 26, 2006     ukurmann    Initial Release
  * Mar 22, 2007     bsigner     Cleanup
+ * Jan 19, 2009		vogelsar	Made more generic to be able to store GestureSample3D
  *
  * -----------------------------------------------------------------------
  *
@@ -43,7 +44,7 @@ public class SampleDescriptor extends DefaultDescriptor {
 
    public static final String PROPERTY_SAMPLES = "samples";
 
-   private List<Gesture<Note>> samples;
+   private List<Gesture<?>> samples;
 
 
    /**
@@ -52,7 +53,7 @@ public class SampleDescriptor extends DefaultDescriptor {
     */
    public SampleDescriptor() {
       super();
-      samples = new ArrayList<Gesture<Note>>();
+      samples = new ArrayList<Gesture<?>>();
    }
 
 
@@ -61,7 +62,7 @@ public class SampleDescriptor extends DefaultDescriptor {
     * 
     * @return the samples.
     */
-   public List<Gesture<Note>> getSamples() {
+   public List<Gesture<?>> getSamples() {
       return samples;
    } // getSamples
 
@@ -71,7 +72,7 @@ public class SampleDescriptor extends DefaultDescriptor {
     * @param index the position of the sample to be returned.
     * @return the sample at the specified index position.
     */
-   public Gesture<Note> getSample(int index) {
+   public Gesture<?> getSample(int index) {
       if (samples.size() >= index - 1) {
          return samples.get(index);
       }
@@ -85,7 +86,7 @@ public class SampleDescriptor extends DefaultDescriptor {
     * 
     * @param sample the sample to be added.
     */
-   public void addSample(Gesture<Note> sample) {
+   public void addSample(Gesture<?> sample) {
       samples.add(sample);
       propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SAMPLES, samples
             .indexOf(sample), null, sample);
@@ -97,7 +98,7 @@ public class SampleDescriptor extends DefaultDescriptor {
     * 
     * @param sample the sample to be removed.
     */
-   public void removeSample(Gesture<Note> sample) {
+   public void removeSample(Gesture<?> sample) {
       int index = samples.indexOf(sample);
       samples.remove(sample);
       propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SAMPLES, index,
@@ -112,7 +113,7 @@ public class SampleDescriptor extends DefaultDescriptor {
    public void accept(Visitor visitor) {
       visitor.visit(this);
       
-      for (Gesture<Note> sample : samples) {
+      for (Gesture<?> sample : samples) {
          
          if (sample instanceof GestureSample) {
             ((GestureSample)sample).accept(visitor);

@@ -1,5 +1,5 @@
 /*
- * @(#)$Id: WiiAccelerations.java 2008-12-02 arthurvogels $
+ * @(#)$Id: WiiAccelerations.java
  *
  * Author       :   Arthur Vogels, arthur.vogels@gmail.com
  *
@@ -23,17 +23,17 @@
  * 
  */
 
-package org.ximtec.igesture.util;
+package org.ximtec.igesture.util.additionswiimote;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
 public class WiiAccelerations {
-	private List<Sample> samples;
+	private List<AccelerationSample> samples;
 
 	public WiiAccelerations() {
-		samples = new ArrayList<Sample>();
+		samples = new ArrayList<AccelerationSample>();
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class WiiAccelerations {
 	 * @param sample
 	 *            The Sample to be added
 	 */
-	public void addSample(Sample sample) {
+	public void addSample(AccelerationSample sample) {
 		samples.add(sample);
 	}
 
@@ -62,7 +62,7 @@ public class WiiAccelerations {
 	 *            The number of the sample to be returned
 	 * @return The Sample with the given number
 	 */
-	public Sample getSample(int number) {
+	public AccelerationSample getSample(int number) {
 		return samples.get(number);
 	}
 
@@ -117,9 +117,9 @@ public class WiiAccelerations {
 	public double getMaxXValue() {
 		double value = 0;
 		boolean found = false;
-		Iterator<Sample> i = samples.iterator();
+		Iterator<AccelerationSample> i = samples.iterator();
 		while (i.hasNext()) {
-			Sample s = i.next();
+			AccelerationSample s = i.next();
 			if (!found) {
 				value = s.getXAcceleration();
 				found = true;
@@ -139,9 +139,9 @@ public class WiiAccelerations {
 	public double getMaxYValue() {
 		double value = 0;
 		boolean found = false;
-		Iterator<Sample> i = samples.iterator();
+		Iterator<AccelerationSample> i = samples.iterator();
 		while (i.hasNext()) {
-			Sample s = i.next();
+			AccelerationSample s = i.next();
 			if (!found) {
 				value = s.getYAcceleration();
 				found = true;
@@ -161,9 +161,9 @@ public class WiiAccelerations {
 	public double getMaxZValue() {
 		double value = 0;
 		boolean found = false;
-		Iterator<Sample> i = samples.iterator();
+		Iterator<AccelerationSample> i = samples.iterator();
 		while (i.hasNext()) {
-			Sample s = i.next();
+			AccelerationSample s = i.next();
 			if (!found) {
 				value = s.getZAcceleration();
 				found = true;
@@ -183,9 +183,9 @@ public class WiiAccelerations {
 	public double getMinXValue() {
 		double value = 0;
 		boolean found = false;
-		Iterator<Sample> i = samples.iterator();
+		Iterator<AccelerationSample> i = samples.iterator();
 		while (i.hasNext()) {
-			Sample s = i.next();
+			AccelerationSample s = i.next();
 			if (!found) {
 				value = s.getXAcceleration();
 				found = true;
@@ -205,9 +205,9 @@ public class WiiAccelerations {
 	public double getMinYValue() {
 		double value = 0;
 		boolean found = false;
-		Iterator<Sample> i = samples.iterator();
+		Iterator<AccelerationSample> i = samples.iterator();
 		while (i.hasNext()) {
-			Sample s = i.next();
+			AccelerationSample s = i.next();
 			if (!found) {
 				value = s.getYAcceleration();
 				found = true;
@@ -227,9 +227,9 @@ public class WiiAccelerations {
 	public double getMinZValue() {
 		double value = 0;
 		boolean found = false;
-		Iterator<Sample> i = samples.iterator();
+		Iterator<AccelerationSample> i = samples.iterator();
 		while (i.hasNext()) {
-			Sample s = i.next();
+			AccelerationSample s = i.next();
 			if (!found) {
 				value = s.getZAcceleration();
 				found = true;
@@ -290,7 +290,7 @@ public class WiiAccelerations {
 	 * 
 	 * @return The list of samples in this WiiAccelerations object
 	 */
-	public List<Sample> getSamples() {
+	public List<AccelerationSample> getSamples() {
 		return samples;
 	}
 }

@@ -1,4 +1,6 @@
 /*
+ * @(#)$Id: JdomRecordedGesture3D.java
+ * 
  * Author       :   Arthur Vogels, arthur.vogels@gmail.com
  *
  * Purpose      :   Constructs an XML representation of a RecordedGesture3D represented
@@ -21,11 +23,13 @@
  * 
  */
 
-package org.ximtec.igesture.util;
+package org.ximtec.igesture.util.additions3d.jdom;
 
 import java.util.List;
 
 import org.jdom.Element;
+import org.ximtec.igesture.util.additions3d.Point3D;
+import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 
 /**

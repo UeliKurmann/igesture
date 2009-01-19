@@ -91,7 +91,7 @@ public class GestureSetPanel extends AbstractPanel {
 
             Gesture<Note> sample = null;
             if(gestureClass.getDescriptor(SampleDescriptor.class).getSamples().size() > 0){
-               sample = gestureClass.getDescriptor(SampleDescriptor.class).getSample(0);
+               sample = (Gesture<Note>)gestureClass.getDescriptor(SampleDescriptor.class).getSample(0);
             }
             if(sample != null){
                

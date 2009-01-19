@@ -219,7 +219,7 @@ public class GestureTool {
             if (samples.containsKey(gestureClass.getName())) {
                GestureClass target = samples.get(gestureClass.getName());
 
-               for (Gesture<Note> sample : gestureClass.getDescriptor(
+               for (Gesture<?> sample : gestureClass.getDescriptor(
                      SampleDescriptor.class).getSamples()) {
                   target.getDescriptor(SampleDescriptor.class).addSample(sample);
                }
@@ -247,9 +247,9 @@ public class GestureTool {
 
       for (GestureClass gestureClass : set.getGestureClasses()) {
 
-         for (Gesture<Note> sample : gestureClass.getDescriptor(
+         for (Gesture<?> sample : gestureClass.getDescriptor(
                SampleDescriptor.class).getSamples()) {
-            testSet.add(new GestureSample(gestureClass.getName(), sample
+            testSet.add(new GestureSample(gestureClass.getName(), (Note)sample
                   .getGesture()));
          }
 
@@ -269,9 +269,9 @@ public class GestureTool {
 
       for (GestureClass gestureClass : set.getGestureClasses()) {
 
-         for (Gesture<Note> sample : gestureClass.getDescriptor(
+         for (Gesture<?> sample : gestureClass.getDescriptor(
                SampleDescriptor.class).getSamples()) {
-            testSet.add(new GestureSample(TestSet.NOISE, sample.getGesture()));
+            testSet.add(new GestureSample(TestSet.NOISE, (Note)sample.getGesture()));
          }
 
       }
@@ -305,9 +305,9 @@ public class GestureTool {
    public static void hasSampleEnoughPoints(GestureClass gestureClass, int min){
       if(gestureClass.hasDescriptor(SampleDescriptor.class)){
          SampleDescriptor descriptor = gestureClass.getDescriptor(SampleDescriptor.class);
-         for(Gesture<Note> sample:descriptor.getSamples()){
-            if(sample.getGesture().getPoints().size() <= min){
-               System.out.println(gestureClass.getName()+"  :  "+sample.getGesture().getPoints().size());
+         for(Gesture<?> sample:descriptor.getSamples()){
+            if(((Note)sample.getGesture()).getPoints().size() <= min){
+               System.out.println(gestureClass.getName()+"  :  "+ ((Note)sample.getGesture()).getPoints().size());
             }
          }
       }

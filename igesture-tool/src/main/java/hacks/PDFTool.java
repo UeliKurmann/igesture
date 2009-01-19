@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.sigtec.ink.Note;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
@@ -176,7 +177,7 @@ public class PDFTool {
     */
    private static BufferedImage getImage(GestureClass gestureClass) {
       final JNote jnote = new JNote(200, 200);
-      jnote.setNote(gestureClass.getDescriptor(SampleDescriptor.class)
+      jnote.setNote((Note)gestureClass.getDescriptor(SampleDescriptor.class)
             .getSamples().get(0).getGesture());
       return jnote.getImage();
    } // getImage
