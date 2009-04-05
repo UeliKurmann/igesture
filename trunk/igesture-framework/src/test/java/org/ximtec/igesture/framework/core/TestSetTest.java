@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -49,15 +49,14 @@ public class TestSetTest {
       TestSet testSet = new TestSet(TEST_SET_NAME1);
       
       Assert.assertEquals(TEST_SET_NAME1, testSet.getName());
-      Assert.assertEquals(1, testSet.size());
-      Assert.assertEquals(TestSet.NOISE, testSet.getTestClasses().get(0).getName());
-      
+      Assert.assertEquals(0, testSet.size());
+    
       testSet.add(new GestureSample(SAMPLE1, null));
       testSet.add(new GestureSample(SAMPLE2, null));
       
-      Assert.assertEquals(3, testSet.size());
+      Assert.assertEquals(2, testSet.size());
       
-      Assert.assertEquals(TestSet.NOISE, testSet.getTestClass(TestSet.NOISE).getName());
+      Assert.assertEquals(SAMPLE2, testSet.getTestClass(SAMPLE2).getName());
       Assert.assertEquals(SAMPLE1, testSet.getTestClass(SAMPLE1).getName()); 
       
    }
