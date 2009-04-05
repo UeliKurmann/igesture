@@ -111,7 +111,7 @@ public abstract class StorageEngineTest {
       TestSet testSet = testSets.get(0);
       
       Assert.assertEquals(TEST_SET_NAME, testSet.getName());
-      Assert.assertEquals(3, testSet.size());
+      Assert.assertEquals(2, testSet.size());
       
       manager.dispose();
    }

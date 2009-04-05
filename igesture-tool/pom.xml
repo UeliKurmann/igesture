@@ -48,12 +48,14 @@
 						<descriptor>
 							src/main/assembly/assembly-bin.xml
 						</descriptor>
+						<!-- 
 						<descriptor>
 							src/main/assembly/assembly-src.xml
 						</descriptor>
 						<descriptor>
 							src/main/assembly/assembly-lib.xml
 						</descriptor>
+						 -->
 					</descriptors>
 					<archive>
 						<manifest>

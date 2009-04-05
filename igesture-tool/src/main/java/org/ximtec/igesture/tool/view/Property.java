@@ -29,7 +29,7 @@ package org.ximtec.igesture.tool.view;
 
 
 /**
- * Comment
+ * Property, Configuration Constants
  * @version 1.0 07.12.2008
  * @author Ueli Kurmann
  */
