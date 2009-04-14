@@ -265,7 +265,15 @@ public class Recogniser {
       return recognise(new GestureSample(Constant.EMPTY_STRING, note));
    } // recognise
 
+   
+   /*
+    * Returns the list of algorithms.
+    */
+   public List<Algorithm> getAlgorithms() {
+      return algorithms;
+   } // getAlgorithms
 
+   
    // FIXME: remove?
    public static Recogniser newRecogniser(String configFile,
          String gestureSetFile) throws AlgorithmException {
