@@ -23,32 +23,28 @@
  * 
  */
 
-
 package org.ximtec.igesture.tool.view.action;
 
 import java.awt.event.ActionEvent;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Command;
-import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.LocateableAction;
 import org.ximtec.igesture.tool.view.MainController;
 
+public class ShowAboutAction extends LocateableAction {
 
-public class ShowAboutAction extends BasicAction {
+	private Controller controller;
 
-   public ShowAboutAction() {
-      super(GestureConstants.MENUBAR_ABOUT, Locator.getDefault().getService(
-            GuiBundleService.IDENTIFIER, GuiBundleService.class));
+	public ShowAboutAction(Controller controller) {
+		super(GestureConstants.MENUBAR_ABOUT, controller.getLocator());
+		this.controller = controller;
+	}
 
-   }
-
-
-   @Override
-   public void actionPerformed(ActionEvent event) {
-      Locator.getDefault().getService(MainController.IDENTIFIER,
-            MainController.class).execute(
-            new Command(MainController.CMD_SHOW_ABOUT_DIALOG, event));
-   }
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		controller.execute(new Command(MainController.CMD_SHOW_ABOUT_DIALOG,
+				event));
+	}
 }

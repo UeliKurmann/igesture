@@ -29,29 +29,24 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.tree.TreePath;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.TextDescriptor;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.TreePathAction;
 
 
-public class AddTextDescriptorAction extends BasicAction {
-
-   private TreePath treePath;
+public class AddTextDescriptorAction extends TreePathAction {
 
 
-   public AddTextDescriptorAction(TreePath treePath) {
-      super(GestureConstants.TEXT_DESCRIPTOR_ADD, Locator.getDefault()
-            .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
-      this.treePath = treePath;
+   public AddTextDescriptorAction(Controller controller, TreePath treePath) {
+      super(GestureConstants.TEXT_DESCRIPTOR_ADD, controller, treePath);
    }
 
 
    @Override
    public void actionPerformed(ActionEvent arg0) {
-      GestureClass gestureClass = (GestureClass)treePath.getLastPathComponent();
+      GestureClass gestureClass = (GestureClass)getTreePath().getLastPathComponent();
       gestureClass.addDescriptor(new TextDescriptor());
    }
 

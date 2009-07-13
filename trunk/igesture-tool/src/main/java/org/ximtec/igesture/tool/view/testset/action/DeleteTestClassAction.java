@@ -30,12 +30,11 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.tree.TreePath;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestClass;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.TreePathAction;
 
 
 /**
@@ -43,20 +42,17 @@ import org.ximtec.igesture.tool.service.GuiBundleService;
  * @version 1.0 08.10.2008
  * @author Ueli Kurmann
  */
-public class DeleteTestClassAction extends BasicAction {
+public class DeleteTestClassAction extends TreePathAction {
 
-   private TreePath treePath;
 
-   public DeleteTestClassAction(TreePath treePath) {
-      super(GestureConstants.TESTSET_REMOVE, Locator.getDefault().getService(
-            GuiBundleService.IDENTIFIER, GuiBundleService.class));
-      this.treePath = treePath;
+   public DeleteTestClassAction(Controller controller, TreePath treePath) {
+      super(GestureConstants.TESTSET_REMOVE, controller, treePath);
    }
 
    @Override
    public void actionPerformed(ActionEvent evt) {
-      TestClass testClass = (TestClass)treePath.getLastPathComponent();
-      TestSet testSet = (TestSet)treePath.getParentPath().getLastPathComponent();
+      TestClass testClass = (TestClass)getTreePath().getLastPathComponent();
+      TestSet testSet = (TestSet)getTreePath().getParentPath().getLastPathComponent();
       testSet.remove(testClass);
    }
 }

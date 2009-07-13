@@ -121,7 +121,7 @@ public class DatabaseSelector extends JDialog{
       panel.setForeground(Color.white);
       panel.setOpaque(true);
       panel.setLayout(new FlowLayout());
-      panel.add(new JButton(new SelectDatabaseAction()));
+      panel.add(new JButton(new SelectDatabaseAction(null)));
       return panel;
    }
    

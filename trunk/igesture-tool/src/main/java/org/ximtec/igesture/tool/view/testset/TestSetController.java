@@ -29,6 +29,7 @@ package org.ximtec.igesture.tool.view.testset;
 import java.beans.PropertyChangeEvent;
 import java.util.logging.Logger;
 
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
@@ -45,13 +46,15 @@ public class TestSetController extends DefaultController {
 
    private TestSetView testSetView;
 
-   private MainModel mainModel = Locator.getDefault().getService(
-         MainModel.IDENTIFIER, MainModel.class);
+   private MainModel mainModel; 
 
    private ExplorerTreeController explorerTreeController;
 
 
-   public TestSetController() {
+   public TestSetController(Controller parentController) {
+	   super(parentController);
+	  mainModel = getLocator().getService(
+		         MainModel.IDENTIFIER, MainModel.class);
       initController();
    }
 
@@ -60,8 +63,8 @@ public class TestSetController extends DefaultController {
       testSetView = new TestSetView();
 
       ExplorerTreeModel explorerModel = new ExplorerTreeModel(mainModel
-            .getTestSetList(), NodeInfoFactory.createTestSetNodeInfo());
-      explorerTreeController = new ExplorerTreeController(testSetView,
+            .getTestSetList(), NodeInfoFactory.createTestSetNodeInfo(this));
+      explorerTreeController = new ExplorerTreeController(this, testSetView,
             explorerModel);
       
       addController(explorerTreeController);

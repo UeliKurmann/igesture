@@ -85,8 +85,8 @@ public class NodeInfoImplJdom extends Element {
          for(Element actionElement: ((List<Element>)actions.getChildren(ACTION))){
             actionList.add((Class< ? extends BasicAction>)Class.forName(actionElement.getText()));
          }
-         
-         return new NodeInfoImpl(typeClass, propertyName, childrenList.toString(), viewClass, actionList,
+         // FIXME set controller
+         return new NodeInfoImpl(null, typeClass, propertyName, childrenList.toString(), viewClass, actionList,
                nodeIcon);
       }
       catch (ClassNotFoundException e) {

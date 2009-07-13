@@ -267,8 +267,9 @@ public class Gesture3DToolUI extends JFrame {
 				.print("setPreviousSample(): Samples size: " + samples.size());
 		if (currentSampleNumber > 0) {
 			currentSampleNumber = currentSampleNumber - 1;
-		} else
-			;// sampleBackButton.setEnabled(false);
+		} else{
+			// sampleBackButton.setEnabled(false);
+		}
 		if (samples.size() > 0) {
 			samplePanel.setGesture((GestureSample3D) samples
 					.get(currentSampleNumber));

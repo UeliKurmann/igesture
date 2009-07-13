@@ -98,54 +98,54 @@ public class BatchMain {
 
       try {
          line = parser.parse(options, args);
+         if (line.getOptions().length == 0 || line.hasOption(HELP)) {
+        	 final HelpFormatter formatter = new HelpFormatter();
+        	 formatter.printHelp("iGesutre - Batch Processing", options);
+         }
+         else if ((line.hasOption(CONFIG) && line.hasOption(GESTURESET) && line
+        		 .hasOption(TESTSET))) {
+        	 BatchProcessContainer container = XMLTool.importBatchProcessContainer(new File(line
+        			 .getOptionValue(CONFIG)));
+        	 
+        	 final BatchProcess batchProcess = new BatchProcess(container);
+        	 batchProcess.addGestureSet(XMLTool.importGestureSet(new File(line
+        			 .getOptionValue(GESTURESET))));
+        	 batchProcess.setTestSet(XMLTool.importTestSet(
+        			 new File(line.getOptionValue(TESTSET))));
+        	 final BatchResultSet resultSet = batchProcess.run();
+        	 final String xmlDocument = XMLTool.exportBatchResultSet(resultSet);
+        	 
+        	 if (line.hasOption(XML)) {
+        		 org.sigtec.util.FileHandler.writeFile(line.getOptionValue(XML),
+        				 xmlDocument);
+        	 }
+        	 
+        	 if (line.hasOption(XSL) && line.hasOption(HTML)) {
+        		 String htmlPage = Constant.EMPTY_STRING;
+        		 
+        		 try {
+        			 htmlPage = XMLTool.transform(xmlDocument, line
+        					 .getOptionValue(XSL));
+        		 }
+        		 catch (final TransformerConfigurationException e) {
+        			 LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+        		 }
+        		 catch (final TransformerException e) {
+        			 LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+        		 }
+        		 catch (final TransformerFactoryConfigurationError e) {
+        			 LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+        		 }
+        		 
+        		 FileHandler.writeFile(line.getOptionValue(HTML), htmlPage);
+        	 }
+        	 
+         }
       }
       catch (final ParseException e) {
          LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
       }
 
-      if (line.getOptions().length == 0 || line.hasOption(HELP)) {
-         final HelpFormatter formatter = new HelpFormatter();
-         formatter.printHelp("iGesutre - Batch Processing", options);
-      }
-      else if ((line.hasOption(CONFIG) && line.hasOption(GESTURESET) && line
-            .hasOption(TESTSET))) {
-         BatchProcessContainer container = XMLTool.importBatchProcessContainer(new File(line
-               .getOptionValue(CONFIG)));
-         
-         final BatchProcess batchProcess = new BatchProcess(container);
-         batchProcess.addGestureSet(XMLTool.importGestureSet(new File(line
-               .getOptionValue(GESTURESET))));
-         batchProcess.setTestSet(XMLTool.importTestSet(
-               new File(line.getOptionValue(TESTSET))));
-         final BatchResultSet resultSet = batchProcess.run();
-         final String xmlDocument = XMLTool.exportBatchResultSet(resultSet);
-
-         if (line.hasOption(XML)) {
-            org.sigtec.util.FileHandler.writeFile(line.getOptionValue(XML),
-                  xmlDocument);
-         }
-
-         if (line.hasOption(XSL) && line.hasOption(HTML)) {
-            String htmlPage = Constant.EMPTY_STRING;
-
-            try {
-               htmlPage = XMLTool.transform(xmlDocument, line
-                     .getOptionValue(XSL));
-            }
-            catch (final TransformerConfigurationException e) {
-               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-            }
-            catch (final TransformerException e) {
-               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-            }
-            catch (final TransformerFactoryConfigurationError e) {
-               LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-            }
-
-            FileHandler.writeFile(line.getOptionValue(HTML), htmlPage);
-         }
-
-      }
 
    }
 

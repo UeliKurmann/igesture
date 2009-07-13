@@ -45,7 +45,6 @@ import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.TabbedView;
-import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.util.HtmlPanel;
@@ -285,7 +284,7 @@ public class BatchView extends AbstractPanel implements TabbedView {
     * @return
     */
    private MainModel getModel() {
-      return Locator.getDefault().getService(MainModel.IDENTIFIER,
+      return controller.getLocator().getService(MainModel.IDENTIFIER,
             MainModel.class);
    }
 

@@ -29,30 +29,26 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.tree.TreePath;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.TreePathAction;
 
 
-public class AddGestureClassAction extends BasicAction {
+public class AddGestureClassAction extends TreePathAction {
 
    private static final String NEW_GESTURE_CLASS = "New Gesture Class";
-   private TreePath treePath;
 
 
-   public AddGestureClassAction(TreePath treePath) {
-      super(GestureConstants.GESTURE_CLASS_ADD, Locator.getDefault().getService(
-            GuiBundleService.IDENTIFIER, GuiBundleService.class));
-      this.treePath = treePath;
+   public AddGestureClassAction(Controller controller, TreePath treePath) {
+      super(GestureConstants.GESTURE_CLASS_ADD, controller, treePath);
    }
 
 
    @Override
    public void actionPerformed(ActionEvent arg0) {
-      GestureSet gestureSet = (GestureSet)treePath.getLastPathComponent();
+      GestureSet gestureSet = (GestureSet)getTreePath().getLastPathComponent();
       
       // find a unique name for the new gesture class
       String gestureClassName = NEW_GESTURE_CLASS;

@@ -65,6 +65,7 @@ public class NodeInfoImpl implements NodeInfo {
    private String childList;
    private Class< ? extends ExplorerTreeView> viewClass;
    private Class< ? extends Object> nodeClass;
+   private Controller controller;
 
    private List<Class< ? extends BasicAction>> popupActions;
    
@@ -83,11 +84,12 @@ public class NodeInfoImpl implements NodeInfo {
     * @param popupActions a list of actions.
     * @param icon the icon of the node
     */
-   public NodeInfoImpl(Class< ? extends Object> type, String propertyName,
+   public NodeInfoImpl(Controller controller, Class< ? extends Object> type, String propertyName,
          String childList, Class< ? extends ExplorerTreeView> view,
          List<Class< ? extends BasicAction>> popupActions, Icon icon) {
 
-      this.nodeClass = type;
+      this.controller = controller;
+	   this.nodeClass = type;
       this.propertyName = propertyName;
       this.childList = childList;
       this.viewClass = view;
@@ -244,14 +246,14 @@ public class NodeInfoImpl implements NodeInfo {
     * @see org.ximtec.igesture.tool.explorer.core.NodeInfo#getPopupMenu(javax.swing.tree.TreePath)
     */
    @Override
-   public JPopupMenu getPopupMenu(TreePath node) {
+   public JPopupMenu getPopupMenu(TreePath treePath) {
 
       JPopupMenu popupMenu = new JPopupMenu();
       if (popupActions != null) {
          for (Class< ? extends BasicAction> actionClass : popupActions) {
             try {
-               BasicAction action = actionClass.getConstructor(TreePath.class)
-                     .newInstance(node);
+               BasicAction action = actionClass.getConstructor(Controller.class, TreePath.class)
+                     .newInstance(controller, treePath);
                popupMenu.add(action);
             }
             catch (InstantiationException e) {

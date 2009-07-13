@@ -29,30 +29,23 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.tree.TreePath;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.TreePathAction;
 
+public class AddSampleDescriptorAction extends TreePathAction {
 
-public class AddSampleDescriptorAction extends BasicAction {
+	public AddSampleDescriptorAction(Controller controller, TreePath treePath) {
+		super(GestureConstants.SAMPLE_DESCRIPTOR_ADD, controller, treePath);
+	}
 
-   private TreePath treePath;
-
-
-   public AddSampleDescriptorAction(TreePath treePath) {
-      super(GestureConstants.SAMPLE_DESCRIPTOR_ADD, Locator.getDefault()
-            .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
-      this.treePath = treePath;
-   }
-
-
-   @Override
-   public void actionPerformed(ActionEvent arg0) {
-      GestureClass gestureClass = (GestureClass)treePath.getLastPathComponent();
-      gestureClass.addDescriptor(new SampleDescriptor());
-   }
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		GestureClass gestureClass = (GestureClass) getTreePath()
+				.getLastPathComponent();
+		gestureClass.addDescriptor(new SampleDescriptor());
+	}
 
 }

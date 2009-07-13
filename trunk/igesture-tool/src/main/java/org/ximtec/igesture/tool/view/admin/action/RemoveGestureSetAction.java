@@ -29,30 +29,25 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.tree.TreePath;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.TreePathAction;
 import org.ximtec.igesture.tool.view.admin.wrapper.GestureSetList;
 
 
-public class RemoveGestureSetAction extends BasicAction {
-
-   private TreePath treePath;
+public class RemoveGestureSetAction extends TreePathAction {
 
 
-   public RemoveGestureSetAction(TreePath treePath) {
-      super(GestureConstants.GESTURE_SET_DEL, Locator.getDefault().getService(
-            GuiBundleService.IDENTIFIER, GuiBundleService.class));
-      this.treePath = treePath;
+   public RemoveGestureSetAction(Controller controller, TreePath treePath) {
+      super(GestureConstants.GESTURE_SET_DEL, controller, treePath);
    }
 
 
    @Override
    public void actionPerformed(ActionEvent arg0) {
-      GestureSet gestureSet = (GestureSet)treePath.getLastPathComponent();
-      GestureSetList rootSet = (GestureSetList)treePath.getParentPath().getLastPathComponent();
+      GestureSet gestureSet = (GestureSet)getTreePath().getLastPathComponent();
+      GestureSetList rootSet = (GestureSetList)getTreePath().getParentPath().getLastPathComponent();
       rootSet.removeGestureSet(gestureSet);
 
    }

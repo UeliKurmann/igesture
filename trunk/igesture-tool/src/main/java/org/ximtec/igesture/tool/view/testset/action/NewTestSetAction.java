@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -30,11 +30,10 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.tree.TreePath;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.TreePathAction;
 import org.ximtec.igesture.tool.view.testset.wrapper.TestSetList;
 
 
@@ -43,22 +42,16 @@ import org.ximtec.igesture.tool.view.testset.wrapper.TestSetList;
  * @version 1.0 08.10.2008
  * @author Ueli Kurmann
  */
-public class NewTestSetAction extends BasicAction {
+public class NewTestSetAction extends TreePathAction {
 
-   private TreePath treePath;
-
-
-   public NewTestSetAction(TreePath treePath) {
-      super(GestureConstants.TESTSET_NEW, Locator.getDefault().getService(
-            GuiBundleService.IDENTIFIER, GuiBundleService.class));
-
-      this.treePath = treePath;
+   public NewTestSetAction(Controller controller, TreePath treePath) {
+      super(GestureConstants.TESTSET_NEW, controller, treePath);
    }
 
 
    @Override
    public void actionPerformed(ActionEvent e) {
-      TestSetList testSetList = (TestSetList)treePath.getLastPathComponent();
+      TestSetList testSetList = (TestSetList)getTreePath().getLastPathComponent();
       TestSet testSet = new TestSet("unnamed test set");
       testSetList.addTestSet(testSet);  
    }

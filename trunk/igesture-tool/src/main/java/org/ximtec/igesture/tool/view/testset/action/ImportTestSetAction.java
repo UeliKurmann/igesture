@@ -32,11 +32,10 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.tree.TreePath;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.TreePathAction;
 import org.ximtec.igesture.tool.util.FileFilterFactory;
 import org.ximtec.igesture.tool.view.testset.wrapper.TestSetList;
 import org.ximtec.igesture.util.XMLTool;
@@ -47,22 +46,17 @@ import org.ximtec.igesture.util.XMLTool;
  * @version 1.0 08.10.2008
  * @author Ueli Kurmann
  */
-public class ImportTestSetAction extends BasicAction {
-
-   private TreePath treePath;
+public class ImportTestSetAction extends TreePathAction {
 
 
-   public ImportTestSetAction(TreePath treePath) {
-      super(GestureConstants.TESTSET_IMPORT, Locator.getDefault().getService(
-            GuiBundleService.IDENTIFIER, GuiBundleService.class));
-
-      this.treePath = treePath;
+   public ImportTestSetAction(Controller controller, TreePath treePath) {
+      super(GestureConstants.TESTSET_IMPORT, controller, treePath);
    }
 
 
    @Override
    public void actionPerformed(ActionEvent e) {
-      TestSetList testSetList = (TestSetList)treePath.getLastPathComponent();
+      TestSetList testSetList = (TestSetList)getTreePath().getLastPathComponent();
 
       JFileChooser fileChooser = new JFileChooser();
       fileChooser.setFileFilter(FileFilterFactory.getTestSet());

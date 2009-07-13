@@ -29,30 +29,25 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.tree.TreePath;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.TreePathAction;
 
 
-public class RemoveDescriptorAction extends BasicAction {
-
-   private TreePath treePath;
+public class RemoveDescriptorAction extends TreePathAction {
 
 
-   public RemoveDescriptorAction(TreePath treePath) {
-      super(GestureConstants.DESCRIPTOR_DEL, Locator.getDefault().getService(
-            GuiBundleService.IDENTIFIER, GuiBundleService.class));
-      this.treePath = treePath;
+   public RemoveDescriptorAction(Controller controller, TreePath treePath) {
+      super(GestureConstants.DESCRIPTOR_DEL, controller, treePath);
    }
 
 
    @Override
    public void actionPerformed(ActionEvent arg0) {
-      Descriptor descriptor = (Descriptor)treePath.getLastPathComponent();
-      GestureClass gestureClass = (GestureClass)treePath.getParentPath()
+      Descriptor descriptor = (Descriptor)getTreePath().getLastPathComponent();
+      GestureClass gestureClass = (GestureClass)getTreePath().getParentPath()
             .getLastPathComponent();
       gestureClass.removeDescriptor(descriptor.getClass());
    }

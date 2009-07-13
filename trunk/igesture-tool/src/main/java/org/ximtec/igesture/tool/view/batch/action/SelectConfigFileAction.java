@@ -31,22 +31,20 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.core.LocateableAction;
 import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.util.FileFilterFactory;
 import org.ximtec.igesture.tool.view.batch.BatchView;
 
 
-public class SelectConfigFileAction extends BasicAction {
+public class SelectConfigFileAction extends LocateableAction {
 
    private BatchView view;
 
 
    public SelectConfigFileAction(BatchView view) {
-      super(GestureConstants.BATCH_BROWSE_CONFIG, Locator.getDefault()
-            .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
+      super(GestureConstants.BATCH_BROWSE_CONFIG, Locator.getDefault());
 
       this.view = view;
 

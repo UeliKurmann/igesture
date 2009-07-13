@@ -45,6 +45,7 @@ import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.TestClass;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.core.TextDescriptor;
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.explorer.NodeInfoImpl;
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureClassAction;
@@ -93,7 +94,7 @@ import org.ximtec.igesture.tool.view.testset.wrapper.TestSetList;
  */
 public class NodeInfoFactory {
 
-   public static List<NodeInfo> createAdminNodeInfo() {
+   public static List<NodeInfo> createAdminNodeInfo(Controller controller) {
       List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
 
       List<Class< ? extends BasicAction>> rootActions = new ArrayList<Class< ? extends BasicAction>>();
@@ -119,26 +120,26 @@ public class NodeInfoFactory {
             Decorator.SIZE_16);
 
       nodeInfos = new ArrayList<NodeInfo>();
-      nodeInfos.add(new NodeInfoImpl(GestureSetList.class, "name", "sets",
+      nodeInfos.add(new NodeInfoImpl(controller, GestureSetList.class, "name", "sets",
             GestureSetsPanel.class, rootActions, null));
-      nodeInfos.add(new NodeInfoImpl(GestureSet.class, "name", "gestureClasses",
+      nodeInfos.add(new NodeInfoImpl(controller, GestureSet.class, "name", "gestureClasses",
             GestureSetPanel.class, setActions, setIcon));
-      nodeInfos.add(new NodeInfoImpl(GestureClass.class, "name", "descriptors",
+      nodeInfos.add(new NodeInfoImpl(controller, GestureClass.class, "name", "descriptors",
             GestureClassPanel.class, classActions, null));
-      nodeInfos.add(new NodeInfoImpl(SampleDescriptor.class, "name", null,
+      nodeInfos.add(new NodeInfoImpl(controller, SampleDescriptor.class, "name", null,
             SampleDescriptorPanel.class, descriptorActions, null));
-      nodeInfos.add(new NodeInfoImpl(TextDescriptor.class, null, null,
+      nodeInfos.add(new NodeInfoImpl(controller, TextDescriptor.class, null, null,
             TextDescriptorPanel.class, descriptorActions, null));
-      nodeInfos.add(new NodeInfoImpl(GestureSample.class, "name", null,
+      nodeInfos.add(new NodeInfoImpl(controller, GestureSample.class, "name", null,
             DefaultPanel.class, null, null));
-      nodeInfos.add(new NodeInfoImpl(String.class, Constant.EMPTY_STRING, null,
+      nodeInfos.add(new NodeInfoImpl(controller, String.class, Constant.EMPTY_STRING, null,
             DefaultPanel.class, null, null));
 
       return nodeInfos;
    }
 
 
-   public static List<NodeInfo> createTestBenchNodeInfo() {
+   public static List<NodeInfo> createTestBenchNodeInfo(Controller controller) {
 
       List<Class< ? extends BasicAction>> algorithmListActions = new ArrayList<Class< ? extends BasicAction>>();
       List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
@@ -151,14 +152,14 @@ public class NodeInfoFactory {
       configurationActions.add(ExportConfigurationAction.class);
 
       nodeInfos = new ArrayList<NodeInfo>();
-      nodeInfos.add(new NodeInfoImpl(AlgorithmList.class, "name", "algorithms",
+      nodeInfos.add(new NodeInfoImpl(controller, AlgorithmList.class, "name", "algorithms",
             AlgorithmListPanel.class, algorithmListActions, null));
 
-      nodeInfos.add(new NodeInfoImpl(AlgorithmWrapper.class, "name",
+      nodeInfos.add(new NodeInfoImpl(controller, AlgorithmWrapper.class, "name",
             "configurations", AlgorithmWrapperPanel.class,
             algorithmWrapperActions, null));
 
-      nodeInfos.add(new NodeInfoImpl(Configuration.class, "name", null,
+      nodeInfos.add(new NodeInfoImpl(controller, Configuration.class, "name", null,
             ConfigurationPanel.class, configurationActions, null));
 
       return nodeInfos;
@@ -166,7 +167,7 @@ public class NodeInfoFactory {
    }
 
 
-   public static List<NodeInfo> createTestSetNodeInfo() {
+   public static List<NodeInfo> createTestSetNodeInfo(Controller controller) {
       List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
 
       List<Class< ? extends BasicAction>> rootActions = new ArrayList<Class< ? extends BasicAction>>();
@@ -189,13 +190,13 @@ public class NodeInfoFactory {
 
       nodeInfos = new ArrayList<NodeInfo>();
       
-      nodeInfos.add(new NodeInfoImpl(TestSetList.class, "name",
+      nodeInfos.add(new NodeInfoImpl(controller, TestSetList.class, "name",
             TestSetList.PROPERTY_SETS, TestSetsPanel.class, rootActions, null));
       
-      nodeInfos.add(new NodeInfoImpl(TestSet.class, "name", "testClasses",
+      nodeInfos.add(new NodeInfoImpl(controller, TestSet.class, "name", "testClasses",
             TestSetPanel.class, setActions, setIcon));
       
-      nodeInfos.add(new NodeInfoImpl(TestClass.class, "name", null, TestClassPanel.class, classActions, null));
+      nodeInfos.add(new NodeInfoImpl(controller, TestClass.class, "name", null, TestClassPanel.class, classActions, null));
 
       // nodeInfos.add(new NodeInfoImpl(GestureSample.class, "name", null,
       // DefaultPanel.class, null, null));
