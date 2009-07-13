@@ -32,6 +32,7 @@ import java.beans.PropertyChangeEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.lang.reflect.Constructor;
 import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.CyclicBarrier;
@@ -57,6 +58,10 @@ import org.ximtec.igesture.tool.service.SwingMouseReaderService;
 import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.ExtensionFileFilter;
 import org.ximtec.igesture.tool.util.FileFilterFactory;
+import org.ximtec.igesture.tool.view.action.ExitAction;
+import org.ximtec.igesture.tool.view.action.LoadWorkspaceAction;
+import org.ximtec.igesture.tool.view.action.ShowAboutAction;
+import org.ximtec.igesture.tool.view.action.StoreWorkspaceAction;
 import org.ximtec.igesture.tool.view.admin.AdminController;
 import org.ximtec.igesture.tool.view.batch.BatchController;
 import org.ximtec.igesture.tool.view.testbench.TestbenchController;
@@ -71,6 +76,8 @@ import org.ximtec.igesture.tool.view.welcome.WelcomeController;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class MainController extends DefaultController implements Service {
+
+	private static final String USER_DIR = "user.dir";
 
 	private static final Logger LOGGER = Logger.getLogger(MainController.class
 			.getName());
@@ -93,9 +100,6 @@ public class MainController extends DefaultController implements Service {
 
 	private static final String RESOURCE_BUNDLE = "igestureMenu";
 
-	// Service Locator
-	private Locator locator;
-
 	// Services
 	private MainModel mainModel;
 	private GuiBundleService guiBundle;
@@ -107,6 +111,7 @@ public class MainController extends DefaultController implements Service {
 	private Properties properties;
 
 	public MainController() {
+		super(null);
 		initServices();
 		initViews();
 	}
@@ -121,7 +126,7 @@ public class MainController extends DefaultController implements Service {
 		} catch (Exception e) {
 			// if no properties are available, set default values
 			properties.setProperty(Property.WORKING_DIRECTORY, System
-					.getProperty("user.dir"));
+					.getProperty(USER_DIR));
 			LOGGER.log(Level.WARNING, "Failed to load properties.");
 		}
 
@@ -137,12 +142,13 @@ public class MainController extends DefaultController implements Service {
 		/**
 		 * Register the services
 		 */
-		locator = Locator.getDefault();
-		locator.addService(mainModel);
-		locator.addService(guiBundle);
-		locator.addService(deviceClient);
-		locator.addService(this);
-		locator.startAll();
+
+		setLocator(Locator.getDefault());
+		getLocator().addService(mainModel);
+		getLocator().addService(guiBundle);
+		getLocator().addService(deviceClient);
+		getLocator().addService(this);
+		getLocator().startAll();
 	} // initServices
 
 	/**
@@ -150,7 +156,14 @@ public class MainController extends DefaultController implements Service {
 	 */
 	private void initViews() {
 		if (mainView == null) {
-			mainView = new MainView();
+
+			addAction(LoadWorkspaceAction.class, new LoadWorkspaceAction(this));
+			addAction(StoreWorkspaceAction.class,
+					new StoreWorkspaceAction(this));
+			addAction(ExitAction.class, new ExitAction(this));
+			addAction(ShowAboutAction.class, new ShowAboutAction(this));
+
+			mainView = new MainView(this);
 			mainView.addWindowListener(new MainWindowAdapter(this));
 		}
 
@@ -163,13 +176,20 @@ public class MainController extends DefaultController implements Service {
 
 				for (Class<?> clazz : controllers) {
 					try {
-						Controller controller = (Controller) clazz
-								.newInstance();
+
+						Controller controller = null;
+						if (clazz.getConstructor(Controller.class) != null) {
+							//FIXME Generics!
+							Constructor<?> constructor = clazz.getConstructor(Controller.class);
+							controller = (Controller)constructor.newInstance(MainController.this);
+						}else{
+							controller = (Controller) clazz.newInstance();
+						}
 						addController(controller);
 						mainView.addTab(controller.getView());
 					} catch (Exception e) {
 						LOGGER.log(Level.SEVERE, "Could not initialize view. "
-								+ clazz.getName());
+								+ clazz.getName(), e);
 					}
 				}
 
@@ -225,7 +245,7 @@ public class MainController extends DefaultController implements Service {
 		if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, text,
 				title, JOptionPane.YES_NO_OPTION)) {
 			mainModel.getStorageManager().commit();
-			Locator.getDefault().stopAll();
+			getLocator().stopAll();
 
 			try {
 				mainModel.getProperties().storeToXML(
@@ -251,7 +271,7 @@ public class MainController extends DefaultController implements Service {
 	protected void execShowAboutDialog() {
 		LOGGER.info("Show About Dialog.");
 		AboutDialog dialog = new AboutDialog(GestureConstants.MENUBAR_ABOUT,
-				Locator.getDefault().getService(GuiBundleService.IDENTIFIER,
+				getLocator().getService(GuiBundleService.IDENTIFIER,
 						GuiBundleService.class));
 		Point point = mainView.getLocation();
 		point.translate(100, 60);
@@ -338,19 +358,19 @@ public class MainController extends DefaultController implements Service {
 				.getProperty(Property.WORKING_DIRECTORY)));
 		chooser.showOpenDialog(null);
 		file = chooser.getSelectedFile();
-		
-		try{
-			ExtensionFileFilter fileFilter = (ExtensionFileFilter)chooser.getFileFilter();
-			if(!fileFilter.accept(file)){
-				file = new File(file.getAbsolutePath()+"."+fileFilter.getExtension());
+
+		try {
+			ExtensionFileFilter fileFilter = (ExtensionFileFilter) chooser
+					.getFileFilter();
+			if (!fileFilter.accept(file)) {
+				file = new File(file.getAbsolutePath() + "."
+						+ fileFilter.getExtension());
 			}
-		
-		}catch(Exception e){
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		
+
 		if (file != null) {
 			properties
 					.setProperty(Property.WORKING_DIRECTORY, file.getParent());

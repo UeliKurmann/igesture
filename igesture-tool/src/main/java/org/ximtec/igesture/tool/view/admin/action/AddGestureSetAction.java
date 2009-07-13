@@ -29,30 +29,26 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.tree.TreePath;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.TreePathAction;
 import org.ximtec.igesture.tool.view.admin.wrapper.GestureSetList;
 
 
-public class AddGestureSetAction extends BasicAction {
+public class AddGestureSetAction extends TreePathAction {
 
    private static final String NEW_GESTURE_SET = "New Gesture Set";
-   private TreePath treePath;
 
 
-   public AddGestureSetAction(TreePath treePath) {
-      super(GestureConstants.GESTURE_SET_ADD, Locator.getDefault().getService(
-            GuiBundleService.IDENTIFIER, GuiBundleService.class));
-      this.treePath = treePath;
+   public AddGestureSetAction(Controller controller, TreePath treePath) {
+      super(GestureConstants.GESTURE_SET_ADD, controller, treePath);
    }
 
 
    @Override
    public void actionPerformed(ActionEvent event) {
-      GestureSetList gestureSets = (GestureSetList)treePath.getLastPathComponent();
+      GestureSetList gestureSets = (GestureSetList)getTreePath().getLastPathComponent();
       GestureSet gestureSet = new GestureSet();
       gestureSet.setName(NEW_GESTURE_SET);
       gestureSets.addGestureSet(gestureSet);

@@ -29,11 +29,11 @@ package org.ximtec.igesture.tool.view.admin;
 import java.beans.PropertyChangeEvent;
 import java.util.logging.Logger;
 
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeModel;
-import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.util.NodeInfoFactory;
 import org.ximtec.igesture.tool.view.MainModel;
 
@@ -51,8 +51,7 @@ public class AdminController extends DefaultController {
    /**
     * Reference to the main model.
     */
-   private MainModel mainModel = Locator.getDefault().getService(
-         MainModel.IDENTIFIER, MainModel.class);
+   private MainModel mainModel;
 
    /**
     * Explorer Tree Controller
@@ -60,8 +59,13 @@ public class AdminController extends DefaultController {
    private ExplorerTreeController explorerTreeController;
 
 
-   public AdminController() {
+   public AdminController(Controller parentController) {
+	   super(parentController);
+	   mainModel = getLocator().getService(
+  	         MainModel.IDENTIFIER, MainModel.class);
       initController();
+      
+     
    }
 
 
@@ -72,8 +76,8 @@ public class AdminController extends DefaultController {
       adminView = new AdminView();
 
       ExplorerTreeModel explorerModel = new ExplorerTreeModel(mainModel
-            .getGestureSetList(), NodeInfoFactory.createAdminNodeInfo());
-      explorerTreeController = new ExplorerTreeController(adminView,
+            .getGestureSetList(), NodeInfoFactory.createAdminNodeInfo(this));
+      explorerTreeController = new ExplorerTreeController(this, adminView,
             explorerModel);
 
       addController(explorerTreeController);

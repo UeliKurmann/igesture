@@ -28,23 +28,19 @@ package org.ximtec.igesture.tool.view.batch.action;
 
 import java.awt.event.ActionEvent;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Command;
 import org.ximtec.igesture.tool.core.Controller;
-import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.core.LocateableAction;
 import org.ximtec.igesture.tool.view.batch.BatchController;
 
 
-public class CancelBatchAction extends BasicAction {
+public class CancelBatchAction extends LocateableAction {
    
    private Controller controller;
 
    public CancelBatchAction(Controller controller) {
-      super(GestureConstants.BATCH_CANCEL, Locator.getDefault()
-            .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
-      
+      super(GestureConstants.BATCH_CANCEL, controller.getLocator());
       this.controller = controller;
 
    }

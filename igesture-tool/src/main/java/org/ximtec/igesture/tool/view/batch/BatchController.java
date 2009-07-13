@@ -39,6 +39,7 @@ import org.ximtec.igesture.batch.BatchProcess;
 import org.ximtec.igesture.batch.BatchProcessContainer;
 import org.ximtec.igesture.batch.BatchResultSet;
 import org.ximtec.igesture.batch.BatchTools;
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.ExecCmd;
 import org.ximtec.igesture.tool.core.TabbedView;
@@ -62,7 +63,8 @@ public class BatchController extends DefaultController {
    private BatchView view;
 
 
-   public BatchController() {
+   public BatchController(Controller parentController) {
+	  super(parentController);
       initialize();
    }
 

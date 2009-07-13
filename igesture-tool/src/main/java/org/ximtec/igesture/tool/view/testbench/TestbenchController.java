@@ -23,7 +23,6 @@
  * 
  */
 
-
 package org.ximtec.igesture.tool.view.testbench;
 
 import java.beans.PropertyChangeEvent;
@@ -37,6 +36,7 @@ import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.tool.core.Command;
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.ExecCmd;
 import org.ximtec.igesture.tool.core.TabbedView;
@@ -48,83 +48,82 @@ import org.ximtec.igesture.tool.util.NodeInfoFactory;
 import org.ximtec.igesture.tool.view.MainModel;
 import org.ximtec.igesture.tool.view.testbench.panel.ConfigurationPanel;
 
-
 public class TestbenchController extends DefaultController {
 
-   private static final Logger LOGGER = Logger
-         .getLogger(TestbenchController.class.getName());
+	private static final Logger LOGGER = Logger
+			.getLogger(TestbenchController.class.getName());
 
-   private TestbenchView testbenchView;
+	private TestbenchView testbenchView;
 
-   private MainModel mainModel = Locator.getDefault().getService(
-         MainModel.IDENTIFIER, MainModel.class);
+	private MainModel mainModel; 
 
-   private ExplorerTreeController explorerTreeController;
+	private ExplorerTreeController explorerTreeController;
 
-   public final static String CMD_RECOGNIZE = "recognize";
+	public final static String CMD_RECOGNIZE = "recognize";
 
+	public TestbenchController(Controller parentController) {
+		super(parentController);
+		
+		mainModel = getLocator().getService(
+				MainModel.IDENTIFIER, MainModel.class);
+		
+		initController();
+	}
 
-   public TestbenchController() {
-      initController();
-   }
+	private void initController() {
+		testbenchView = new TestbenchView();
 
+		ExplorerTreeModel explorerModel = new ExplorerTreeModel(mainModel
+				.getAlgorithmList(), NodeInfoFactory.createTestBenchNodeInfo(this));
+		explorerTreeController = new ExplorerTreeController(this, testbenchView,
+				explorerModel);
 
-   private void initController() {
-      testbenchView = new TestbenchView();
+		addController(explorerTreeController);
+	}
 
-      ExplorerTreeModel explorerModel = new ExplorerTreeModel(mainModel
-            .getAlgorithmList(), NodeInfoFactory.createTestBenchNodeInfo());
-      explorerTreeController = new ExplorerTreeController(testbenchView,
-            explorerModel);
+	@Override
+	public TabbedView getView() {
+		return testbenchView;
+	}
 
-      addController(explorerTreeController);
-   }
+	@ExecCmd(name = CMD_RECOGNIZE)
+	protected void executeRecognize(Command command) {
+		try {
+			Algorithm algorithm = AlgorithmFactory
+					.createAlgorithm((Configuration) command.getSender());
 
+			// FIXME General Implementation. Add logic to getGesture. Get
+			// gesture
+			// should ensure that only valid gestures
+			// (SampleGesture.numberOfPoints
+			// > 5)
+			// are provided.
 
-   @Override
-   public TabbedView getView() {
-      return testbenchView;
-   }
+			GestureDevice<?, ?> gestureDevice = getLocator().getService(SwingMouseReaderService.IDENTIFIER,
+							GestureDevice.class);
 
+			if (gestureDevice.getGesture() != null) {
 
-   @ExecCmd(name = CMD_RECOGNIZE)
-   protected void executeRecognize(Command command) {
-      try {
-         Algorithm algorithm = AlgorithmFactory
-               .createAlgorithm((Configuration)command.getSender());
+				Gesture<?> gesture = gestureDevice.getGesture();
+				ResultSet resultSet = algorithm.recognise(gesture);
 
-         // FIXME General Implementation. Add logic to getGesture. Get gesture
-         // should ensure that only valid gestures (SampleGesture.numberOfPoints
-         // > 5)
-         // are provided.
+				if (explorerTreeController.getExplorerTreeView() instanceof ConfigurationPanel) {
+					ConfigurationPanel panel = (ConfigurationPanel) explorerTreeController
+							.getExplorerTreeView();
+					panel.setResultList(resultSet.getResults());
+				}
+			}
 
-         GestureDevice< ? , ? > gestureDevice = Locator.getDefault().getService(
-               SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
+		} catch (AlgorithmException e) {
+			e.printStackTrace();
+		}
 
-         if (gestureDevice.getGesture() != null) {
+	}
 
-            Gesture< ? > gesture = gestureDevice.getGesture();
-            ResultSet resultSet = algorithm.recognise(gesture);
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		LOGGER.info("PropertyChange");
 
-            if (explorerTreeController.getExplorerTreeView() instanceof ConfigurationPanel) {
-               ConfigurationPanel panel = (ConfigurationPanel)explorerTreeController
-                     .getExplorerTreeView();
-               panel.setResultList(resultSet.getResults());
-            }
-         }
-
-      }
-      catch (AlgorithmException e) {
-         e.printStackTrace();
-      }
-
-   }
-
-
-   @Override
-   public void propertyChange(PropertyChangeEvent evt) {
-      LOGGER.info("PropertyChange");
-
-      super.propertyChange(evt);
-   }
+		super.propertyChange(evt);
+	}
 }

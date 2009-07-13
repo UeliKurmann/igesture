@@ -32,29 +32,24 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.tree.TreePath;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.TreePathAction;
 import org.ximtec.igesture.tool.util.FileFilterFactory;
 import org.ximtec.igesture.util.XMLTool;
 
 
-public class ExportGestureSetAction extends BasicAction {
-
-   private TreePath treePath;
+public class ExportGestureSetAction extends TreePathAction {
 
 
-   public ExportGestureSetAction(TreePath treePath) {
-      super(GestureConstants.GESTURE_SET_EXPORT, Locator.getDefault()
-            .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
-      this.treePath = treePath;
+   public ExportGestureSetAction(Controller controller, TreePath treePath) {
+      super(GestureConstants.GESTURE_SET_EXPORT, controller, treePath);
    }
 
 
    public void actionPerformed(ActionEvent event) {
-      GestureSet gestureSet = (GestureSet)treePath.getLastPathComponent();
+      GestureSet gestureSet = (GestureSet)getTreePath().getLastPathComponent();
 
       final JFileChooser fileChooser = new JFileChooser();
       fileChooser.setFileFilter(FileFilterFactory.getGestureSet());

@@ -27,21 +27,19 @@ package org.ximtec.igesture.tool.view.admin.action;
 
 import java.awt.event.ActionEvent;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.core.LocateableAction;
 import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.GuiBundleService;
 
 
-public class ClearGestureSampleAction extends BasicAction {
+public class ClearGestureSampleAction extends LocateableAction {
 
    GestureDevice<?,?> mouseReader;
 
 
    public ClearGestureSampleAction(GestureDevice<?,?> note) {
-      super(GestureConstants.GESTURE_SAMPLE_CLEAR, Locator.getDefault()
-            .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
+      super(GestureConstants.GESTURE_SAMPLE_CLEAR, Locator.getDefault());
       this.mouseReader = note;
    }
 

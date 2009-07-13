@@ -30,9 +30,10 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.tree.TreePath;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.TreePathAction;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmWrapper;
@@ -44,21 +45,16 @@ import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmWrapper;
  * @version 1.0 23.03.2008
  * @author Ueli Kurmann
  */
-public class RemoveConfigurationAction extends BasicAction {
+public class RemoveConfigurationAction extends TreePathAction {
    
-   private TreePath treePath;
-
-
-   public RemoveConfigurationAction(TreePath treePath) {
-      super(GestureConstants.CONFIGURATION_DEL, Locator.getDefault()
-            .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
-      this.treePath = treePath;
+    public RemoveConfigurationAction(Controller controller, TreePath treePath) {
+      super(GestureConstants.CONFIGURATION_DEL, controller, treePath);
    }
 
    @Override
    public void actionPerformed(ActionEvent arg0) {
-      Configuration configuration = (Configuration)treePath.getLastPathComponent();
-      AlgorithmWrapper algorithWrapper = (AlgorithmWrapper)treePath.getParentPath().getLastPathComponent();
+      Configuration configuration = (Configuration)getTreePath().getLastPathComponent();
+      AlgorithmWrapper algorithWrapper = (AlgorithmWrapper)getTreePath().getParentPath().getLastPathComponent();
       
      algorithWrapper.removeConfiguration(configuration);
 

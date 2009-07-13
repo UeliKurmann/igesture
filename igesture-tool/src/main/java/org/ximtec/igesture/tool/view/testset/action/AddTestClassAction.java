@@ -30,29 +30,23 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.tree.TreePath;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.TestClass;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.TreePathAction;
 
 
-public class AddTestClassAction extends BasicAction {
+public class AddTestClassAction extends TreePathAction {
 
-   private TreePath treePath;
-
-
-   public AddTestClassAction(TreePath treePath) {
-      super(GestureConstants.TESTSET_ADD_CLASS, Locator.getDefault().getService(
-            GuiBundleService.IDENTIFIER, GuiBundleService.class));
-      this.treePath = treePath;
+   public AddTestClassAction(Controller controller, TreePath treePath) {
+      super(GestureConstants.TESTSET_ADD_CLASS, controller, treePath);
    }
 
 
    @Override
    public void actionPerformed(ActionEvent action) {
-      TestSet testSet = (TestSet)treePath.getLastPathComponent();
+      TestSet testSet = (TestSet)getTreePath().getLastPathComponent();
       TestClass testClass = new TestClass("unnamed test class");
       testSet.addTestClass(testClass);
    }

@@ -30,35 +30,31 @@ import java.util.logging.Logger;
 
 import javax.swing.tree.TreePath;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.TestClass;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.TreePathAction;
 import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.view.MainModel;
 
 
-public class CreateTestSetStructureAction extends BasicAction {
+public class CreateTestSetStructureAction extends TreePathAction {
 
    private static final Logger LOG = Logger
          .getLogger(CreateTestSetStructureAction.class.getName());
 
-   private TreePath treePath;
 
-
-   public CreateTestSetStructureAction(TreePath treePath) {
-      super(GestureConstants.GESTURE_SET_TEST_SET, Locator.getDefault().getService(
-            GuiBundleService.IDENTIFIER, GuiBundleService.class));
-      this.treePath = treePath;
+   public CreateTestSetStructureAction(Controller controller, TreePath treePath) {
+      super(GestureConstants.GESTURE_SET_TEST_SET, controller, treePath);
    }
 
 
    public void actionPerformed(ActionEvent event) {
       LOG.info("Create Test Set structure.");
-      GestureSet gestureSet = (GestureSet)treePath.getLastPathComponent();
+      GestureSet gestureSet = (GestureSet)getTreePath().getLastPathComponent();
 
       
       TestSet testSet = new TestSet(gestureSet.getName());
@@ -66,7 +62,7 @@ public class CreateTestSetStructureAction extends BasicAction {
          testSet.addTestClass(new TestClass(gestureClass.getName()));
       }
       
-      MainModel mainModel = Locator.getDefault().getService(MainModel.IDENTIFIER, MainModel.class);
+      MainModel mainModel = getLocator().getService(MainModel.IDENTIFIER, MainModel.class);
       mainModel.getTestSetList().addTestSet(testSet);
       
 

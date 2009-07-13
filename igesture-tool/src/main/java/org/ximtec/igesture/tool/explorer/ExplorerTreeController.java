@@ -38,6 +38,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeContainer;
@@ -82,8 +83,9 @@ public class ExplorerTreeController extends DefaultController implements
    private ExplorerTreeView selectedExplorerTreeView;
 
 
-   public ExplorerTreeController(ExplorerTreeContainer container,
+   public ExplorerTreeController(Controller parentController, ExplorerTreeContainer container,
          ExplorerTreeModel model, TreeCellRenderer renderer) {
+	   super(parentController);
       this.container = container;
       this.model = model;
       this.nodeInfos = model.getNodeInfos();
@@ -106,9 +108,9 @@ public class ExplorerTreeController extends DefaultController implements
     * @param model the Explorer Tree model.
     * @param nodeInfos a map of NodeInfos
     */
-   public ExplorerTreeController(ExplorerTreeContainer container,
+   public ExplorerTreeController(Controller parentController, ExplorerTreeContainer container,
          ExplorerTreeModel model) {
-      this(container, model, new NodeRenderer(model.getNodeInfos()));
+      this(parentController, container, model, new NodeRenderer(model.getNodeInfos()));
    }
 
 

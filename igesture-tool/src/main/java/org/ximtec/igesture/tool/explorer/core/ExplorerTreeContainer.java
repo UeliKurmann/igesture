@@ -30,11 +30,11 @@ import javax.swing.JComponent;
 import org.ximtec.igesture.tool.explorer.ExplorerTree;
 
 /**
- * Interface is implemented by components displaying an Exploerer Tree
+ * Interface is implemented by components displaying an Explorer Tree
  *
  * @author  UeliKurmann
  * @version 1.0
- * @since   igesture
+ * @since   iGesture
  */
 public interface ExplorerTreeContainer {
 

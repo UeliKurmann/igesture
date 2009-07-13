@@ -36,36 +36,30 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.tree.TreePath;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.TreePathAction;
 import org.ximtec.igesture.tool.util.FileFilterFactory;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 
 
-public class ExportPDFGestureSetAction extends BasicAction {
+public class ExportPDFGestureSetAction extends TreePathAction {
 
    private static final Logger LOG = Logger
          .getLogger(ExportPDFGestureSetAction.class.getName());
 
-   private TreePath treePath;
-
-
-   public ExportPDFGestureSetAction(TreePath treePath) {
-      super(GestureConstants.GESTURE_SET_PDF, Locator.getDefault().getService(
-            GuiBundleService.IDENTIFIER, GuiBundleService.class));
-      this.treePath = treePath;
+   public ExportPDFGestureSetAction(Controller controller, TreePath treePath) {
+      super(GestureConstants.GESTURE_SET_PDF, controller, treePath);
    }
 
 
    public void actionPerformed(ActionEvent event) {
 
-      GestureSet gestureSet = (GestureSet)treePath.getLastPathComponent();
+      GestureSet gestureSet = (GestureSet)getTreePath().getLastPathComponent();
 
       Document.compress = false;
       JFileChooser fileChooser = new JFileChooser();

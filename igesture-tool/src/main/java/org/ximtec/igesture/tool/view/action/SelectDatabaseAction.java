@@ -23,31 +23,27 @@
  * 
  */
 
-
 package org.ximtec.igesture.tool.view.action;
 
 import java.awt.event.ActionEvent;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Command;
-import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.LocateableAction;
 import org.ximtec.igesture.tool.view.MainController;
 
+public class SelectDatabaseAction extends LocateableAction {
 
-public class SelectDatabaseAction extends BasicAction {
+	private Controller controller;
 
-   public SelectDatabaseAction() {
-      super(GestureConstants.APPLICATION_EXIT, Locator.getDefault().getService(
-            GuiBundleService.IDENTIFIER, GuiBundleService.class));
-   }
+	public SelectDatabaseAction(Controller controller) {
+		super(GestureConstants.APPLICATION_EXIT, controller.getLocator());
+		this.controller = controller;
+	}
 
-
-   @Override
-   public void actionPerformed(ActionEvent event) {
-      Locator.getDefault().getService(MainController.IDENTIFIER,
-            MainController.class).execute(
-            new Command(MainController.CMD_CLOSE, event));
-   }
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		controller.execute(new Command(MainController.CMD_CLOSE, event));
+	}
 }
