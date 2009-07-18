@@ -17,7 +17,7 @@ public abstract class TreePathAction extends LocateableAction {
 		this.treePath = treePath;
 	}
 	
-	protected TreePath getTreePath(){
+	public TreePath getTreePath(){
 		return treePath;
 	}
 	

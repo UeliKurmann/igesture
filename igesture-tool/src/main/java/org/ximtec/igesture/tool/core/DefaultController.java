@@ -72,7 +72,7 @@ public abstract class DefaultController implements Controller {
 		}
 	}
 
-	/*
+  /*
 	 * (non-Javadoc)
 	 * 
 	 * @see
@@ -139,7 +139,6 @@ public abstract class DefaultController implements Controller {
 		for (Controller controller : getControllers()) {
 			controller.propertyChange(event);
 		}
-
 	}
 
 	/**
@@ -209,6 +208,14 @@ public abstract class DefaultController implements Controller {
 	public void setLocator(Locator locator){
 		this.locator = locator;
 	}
+
+	/**
+	 * Returns true if this is the root controller
+	 * @return
+	 */
+  public boolean isRoot() {
+    return getParent() == null;
+  }
 	
 	
 
