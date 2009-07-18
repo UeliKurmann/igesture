@@ -47,7 +47,7 @@ public class DefaultPanel extends AbstractPanel {
 
 
    public DefaultPanel(Controller controller, Object obj) {
-      super();
+      super(controller);
       init(obj);
    }
 

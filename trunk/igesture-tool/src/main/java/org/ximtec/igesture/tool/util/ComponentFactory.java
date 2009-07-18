@@ -23,7 +23,6 @@
  * 
  */
 
-
 package org.ximtec.igesture.tool.util;
 
 import javax.swing.Action;
@@ -38,48 +37,56 @@ import org.sigtec.graphix.GuiBundle;
 import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicLabel;
 import org.sigtec.graphix.widget.BasicTextField;
-import org.ximtec.igesture.tool.locator.Locator;
+import org.ximtec.igesture.tool.locator.Service;
 import org.ximtec.igesture.tool.service.GuiBundleService;
-
 
 /**
  * Comment
+ * 
  * @version 1.0 04.05.2008
  * @author Ueli Kurmann
  */
-public class ComponentFactory {
+public class ComponentFactory implements Service {
 
-   public static JLabel createLabel(String key) {
-      return new BasicLabel(key, getGuiBundle());
-   }
+	
 
+	private GuiBundleService guiBundleService;
 
-   public static JButton createButton(String key, Action action) {
-      return new BasicButton(action, key, getGuiBundle());
-   }
+  public ComponentFactory(GuiBundleService guiBundleService) {
+		this.guiBundleService = guiBundleService;
+	}
 
+	public JLabel createLabel(String key) {
+		return new BasicLabel(key, getGuiBundle());
+	}
 
-   public static JTextField createTextField(String key) {
-      return new BasicTextField(key, getGuiBundle());
-   }
+	public JButton createButton(String key, Action action) {
+		return new BasicButton(action, key, getGuiBundle());
+	}
 
+	public JTextField createTextField(String key) {
+		return new BasicTextField(key, getGuiBundle());
+	}
 
-   public static JTextArea createTextArea(String key) {
-      return new JTextArea();
-   }
+	public JTextArea createTextArea(String key) {
+		return new JTextArea();
+	}
 
+	public GuiBundle getGuiBundle() {
+	  return guiBundleService;
+	}
 
-   public static GuiBundle getGuiBundle() {
-      return Locator.getDefault().getService(GuiBundleService.IDENTIFIER,
-            GuiBundleService.class);
-   }
-   
-   public static JPopupMenu createPopupMenu(Action action){
-      JPopupMenu menu = new JPopupMenu();
-      JMenuItem item = new JMenuItem();
-      item.setAction(action);
-      menu.add(item);
-      return menu;
-   }
+	public JPopupMenu createPopupMenu(Action action) {
+		JPopupMenu menu = new JPopupMenu();
+		JMenuItem item = new JMenuItem();
+		item.setAction(action);
+		menu.add(item);
+		return menu;
+	}
+
+	@Override
+	public String getIdentifier() {
+		return ComponentFactory.class.getName();
+	}
 
 }

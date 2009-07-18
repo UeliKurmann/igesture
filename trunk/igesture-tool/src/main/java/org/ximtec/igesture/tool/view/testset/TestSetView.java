@@ -31,61 +31,53 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.DefaultSplitPane;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.explorer.ExplorerTree;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeContainer;
-import org.ximtec.igesture.tool.util.ComponentFactory;
 
+public class TestSetView extends DefaultSplitPane implements TabbedView, ExplorerTreeContainer {
 
-public class TestSetView extends JSplitPane implements TabbedView,
-      ExplorerTreeContainer {
+  private JScrollPane scrollPaneLeft;
 
-   private JScrollPane scrollPaneLeft;
+  public TestSetView(Controller controller) {
+    super(controller);
 
+    setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+    scrollPaneLeft = new JScrollPane();
+    scrollPaneLeft.setOpaque(true);
+    scrollPaneLeft.setBackground(Color.blue);
+    scrollPaneLeft.setForeground(Color.blue);
+    setLeftComponent(scrollPaneLeft);
+  }
 
-   public TestSetView() {
-      super(JSplitPane.HORIZONTAL_SPLIT);
-      
-      setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-      scrollPaneLeft = new JScrollPane();
-      scrollPaneLeft.setOpaque(true);
-      scrollPaneLeft.setBackground(Color.blue);
-      scrollPaneLeft.setForeground(Color.blue);
-      setLeftComponent(scrollPaneLeft);
-   }
+  @Override
+  public Icon getIcon() {
+    return null;
+  }
 
+  @Override
+  public String getTabName() {
+    return getComponentFactory().getGuiBundle().getName(GestureConstants.TESTSET_VIEW_NAME);
+  }
 
-   @Override
-   public Icon getIcon() {
-      return null;
-   }
+  @Override
+  public JComponent getPane() {
+    return this;
+  }
 
+  @Override
+  public void setTree(ExplorerTree tree) {
+    tree.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+    scrollPaneLeft.setViewportView(tree);
+  }
 
-   @Override
-   public String getName() {
-      return ComponentFactory.getGuiBundle().getName(GestureConstants.TESTSET_VIEW_NAME);
-   }
-
-
-   @Override
-   public JComponent getPane() {
-      return this;
-   }
-
-
-   @Override
-   public void setTree(ExplorerTree tree) {
-      tree.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-      scrollPaneLeft.setViewportView(tree);
-   }
-
-
-   @Override
-   public void setView(JComponent view) {
-      setRightComponent(view);
-   }
+  @Override
+  public void setView(JComponent view) {
+    setRightComponent(view);
+  }
 
 }

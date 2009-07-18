@@ -130,14 +130,14 @@ public class MainModel implements RunnableService {
     * @return a gesture set list.
     */
    public GestureSetList getGestureSetList() {
-      GestureSetList rootSet = new GestureSetList();
+      GestureSetList rootSet = new GestureSetList(this);
       rootSet.addPropertyChangeListener(mainController);
       return rootSet;
    } // getGestureSetList
 
 
    public TestSetList getTestSetList() {
-      TestSetList testSetList = new TestSetList();
+      TestSetList testSetList = new TestSetList(this);
       testSetList.addPropertyChangeListener(mainController);
       return testSetList;
    } // getTestSetList
@@ -148,10 +148,10 @@ public class MainModel implements RunnableService {
     * @return an algorithm list (all algorithms are wrapped in an AlgorithmList)
     */
    public AlgorithmList getAlgorithmList() {
-      AlgorithmList algorithmList = new AlgorithmList();
+      AlgorithmList algorithmList = new AlgorithmList(this);
 
       for (Class< ? extends Algorithm> algorithmClass : getAlgorithms()) {
-         AlgorithmWrapper algorithmWrapper = new AlgorithmWrapper(algorithmClass);
+         AlgorithmWrapper algorithmWrapper = new AlgorithmWrapper(this, algorithmClass);
          algorithmWrapper.addPropertyChangeListener(mainController);
          algorithmList.addAlgorithm(algorithmWrapper);
       }

@@ -23,7 +23,6 @@
  * 
  */
 
-
 package org.ximtec.igesture.tool.view.testbench.panel;
 
 import java.awt.Dimension;
@@ -35,23 +34,23 @@ import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.testbench.wrapper.AlgorithmList;
 
-
-
 /**
  * Comment
+ * 
  * @version 1.0 23.03.2008
  * @author Ueli Kurmann
  */
 public class AlgorithmListPanel extends AbstractPanel {
 
-   public AlgorithmListPanel(Controller controller, AlgorithmList algorithmList){
-      // FIXME Implement View
-      setTitle(TitleFactory.createStaticTitle("Test Bench"));
-      
-      URL path = AlgorithmListPanel.class.getClassLoader().getResource("html/testBenchTab.html");
+  public AlgorithmListPanel(Controller controller, AlgorithmList algorithmList) {
+    super(controller);
+    // FIXME Implement View
+    setTitle(TitleFactory.createStaticTitle("Test Bench"));
 
-      HtmlPanel htmlPanel = new HtmlPanel(path, new Dimension(400,400));
-      
-      setCenter(htmlPanel);      
-   }
+    URL path = AlgorithmListPanel.class.getClassLoader().getResource("html/testBenchTab.html");
+
+    HtmlPanel htmlPanel = new HtmlPanel(path, new Dimension(400, 400));
+
+    setCenter(htmlPanel);
+  }
 }

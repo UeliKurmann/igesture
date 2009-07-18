@@ -42,7 +42,7 @@ public interface TabbedView {
     * Returns the name of the tab. This name is used as the tab name.
     * @return the name of the tab. This name is used as the tab name.
     */
-   String getName();
+   String getTabName();
 
 
    /**

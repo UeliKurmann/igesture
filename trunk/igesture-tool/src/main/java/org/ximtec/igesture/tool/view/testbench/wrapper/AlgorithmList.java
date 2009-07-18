@@ -23,47 +23,39 @@
  * 
  */
 
-
 package org.ximtec.igesture.tool.view.testbench.wrapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.ximtec.igesture.core.DefaultPropertyChangeNotifier;
-import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.util.ComponentFactory;
-
+import org.ximtec.igesture.tool.view.MainModel;
 
 public class AlgorithmList extends DefaultPropertyChangeNotifier {
 
-   public static final String PROPERTY_SETS = "algorithms";
+  public static final String PROPERTY_SETS = "algorithms";
 
-   public List<AlgorithmWrapper> algorithms;
+  public List<AlgorithmWrapper> algorithms;
 
+  public AlgorithmList(MainModel mainModel) {
+    algorithms = new ArrayList<AlgorithmWrapper>();
+  }
 
-   public AlgorithmList() {
-      algorithms = new ArrayList<AlgorithmWrapper>();
-   }
+  public void addAlgorithm(AlgorithmWrapper algorithmWrapper) {
+    algorithms.add(algorithmWrapper);
+  }
 
+  public List<AlgorithmWrapper> getAlgorithms() {
+    return algorithms;
+  }
 
-   public void addAlgorithm(AlgorithmWrapper algorithmWrapper) {
-      algorithms.add(algorithmWrapper);
-   }
+  public String getName() {
+    // FIXME constant
+    return "Algorithm List";
+  }
 
-
-   public List<AlgorithmWrapper> getAlgorithms() {
-      return algorithms;
-   }
-
-
-   public String getName() {
-      return ComponentFactory.getGuiBundle().getName(
-            GestureConstants.ALGORITHM_LIST_NAME);
-   }
-
-
-   @Override
-   public String toString() {
-      return getName();
-   }
+  @Override
+  public String toString() {
+    return getName();
+  }
 }

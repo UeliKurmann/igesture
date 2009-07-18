@@ -30,7 +30,6 @@ import java.net.URL;
 
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
-import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.HtmlPanel;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
@@ -44,13 +43,14 @@ public class GestureSetsPanel extends AbstractPanel {
 
 
    public GestureSetsPanel(Controller controller, GestureSetList rootSet) {
-      this.rootSet = rootSet;
+     super(controller); 
+     this.rootSet = rootSet;
       init();
    }
 
 
    private void init() {
-      String title = ComponentFactory.getGuiBundle().getName(GestureConstants.GESTURE_SETS_PANEL_TITLE);
+      String title = getComponentFactory().getGuiBundle().getName(GestureConstants.GESTURE_SETS_PANEL_TITLE);
       setTitle(TitleFactory.createStaticTitle(title));
       
       URL path = this.getClass().getClassLoader().getResource(HTML_FILE);

@@ -34,7 +34,6 @@ import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeModel;
-import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.util.NodeInfoFactory;
 import org.ximtec.igesture.tool.view.MainModel;
 
@@ -60,7 +59,7 @@ public class TestSetController extends DefaultController {
 
 
    private void initController() {
-      testSetView = new TestSetView();
+      testSetView = new TestSetView(this);
 
       ExplorerTreeModel explorerModel = new ExplorerTreeModel(mainModel
             .getTestSetList(), NodeInfoFactory.createTestSetNodeInfo(this));

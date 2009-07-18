@@ -73,7 +73,7 @@ public class AdminController extends DefaultController {
     * Initializes the controller.
     */
    private void initController() {
-      adminView = new AdminView();
+      adminView = new AdminView(this);
 
       ExplorerTreeModel explorerModel = new ExplorerTreeModel(mainModel
             .getGestureSetList(), NodeInfoFactory.createAdminNodeInfo(this));

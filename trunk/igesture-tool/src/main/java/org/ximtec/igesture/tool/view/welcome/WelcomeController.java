@@ -54,7 +54,7 @@ public class WelcomeController extends DefaultController {
 
 	private void initialize() {
 		LOGGER.log(Level.FINE, "Initialize the Welcome Controller.");
-		this.view = new WelcomeView();
+		this.view = new WelcomeView(this);
 	}
 
 	@Override

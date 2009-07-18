@@ -27,23 +27,21 @@ package org.ximtec.igesture.tool.view.testset.action;
 
 import java.awt.event.ActionEvent;
 
-import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.TestClass;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.locator.Locator;
-import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.LocateableAction;
 
 
-public class RemoveSampleAction extends BasicAction {
+public class RemoveSampleAction extends LocateableAction {
 
    TestClass testSet;
    Gesture<?> sample;
 
 
-   public RemoveSampleAction(TestClass descriptor, Gesture<?> sample) {
-      super(GestureConstants.GESTURE_SAMPLE_DEL, Locator.getDefault()
-            .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
+   public RemoveSampleAction(Controller controller, TestClass descriptor, Gesture<?> sample) {
+      super(GestureConstants.GESTURE_SAMPLE_DEL, controller.getLocator());
       this.testSet = descriptor;
       this.sample = sample;
    }

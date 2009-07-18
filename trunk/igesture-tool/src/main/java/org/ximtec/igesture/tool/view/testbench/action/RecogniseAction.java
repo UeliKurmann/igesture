@@ -33,7 +33,6 @@ import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Command;
 import org.ximtec.igesture.tool.core.Controller;
-import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.view.testbench.TestbenchController;
 
@@ -50,7 +49,7 @@ public class RecogniseAction extends BasicAction {
 
 
    public RecogniseAction(Controller controller, Configuration configuration) {
-      super(GestureConstants.RECONGISE, Locator.getDefault().getService(
+      super(GestureConstants.RECONGISE, controller.getLocator().getService(
             GuiBundleService.IDENTIFIER, GuiBundleService.class));
       this.configuration = configuration;
       this.controller = controller;

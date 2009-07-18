@@ -147,6 +147,7 @@ public class MainController extends DefaultController implements Service {
 		getLocator().addService(mainModel);
 		getLocator().addService(guiBundle);
 		getLocator().addService(deviceClient);
+		getLocator().addService(new ComponentFactory(guiBundle));
 		getLocator().addService(this);
 		getLocator().startAll();
 	} // initServices
@@ -236,10 +237,10 @@ public class MainController extends DefaultController implements Service {
 	protected void execCloseCommand() {
 		LOGGER.info("Command Close");
 
-		String title = ComponentFactory.getGuiBundle().getName(
+		String title = getComponentFactory().getGuiBundle().getName(
 				GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT);
 
-		String text = ComponentFactory.getGuiBundle().getShortDescription(
+		String text = getComponentFactory().getGuiBundle().getShortDescription(
 				GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT);
 
 		if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, text,
@@ -258,6 +259,10 @@ public class MainController extends DefaultController implements Service {
 		}
 
 	} // execCloseCommand
+
+	private ComponentFactory getComponentFactory() {
+		return getLocator().getService(ComponentFactory.class.getName(), ComponentFactory.class);
+	}
 
 	protected void execStartWaiting() {
 		LOGGER.info("Start Progress Panel.");
