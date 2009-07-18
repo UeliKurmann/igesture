@@ -35,16 +35,16 @@ import org.ximtec.igesture.tool.view.MainController;
 
 public class LoadWorkspaceAction extends LocateableAction {
 
-	private Controller mainController;
+	private Controller controller;
 
 	public LoadWorkspaceAction(Controller mainController) {
 		super(GestureConstants.APPLICATION_BROWSE, mainController.getLocator());
-		this.mainController = mainController;
+		this.controller = mainController;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		mainController.execute(new Command(MainController.CMD_LOAD, this));
+		controller.execute(new Command(MainController.CMD_LOAD, this));
 	}
 
 }

@@ -136,8 +136,7 @@ public class GestureClass extends DefaultDataObject {
          Descriptor descriptor) {
       if (!descriptors.containsKey(classname)) {
          descriptors.put(classname, descriptor);
-         //propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_DESCRIPTORS,
-              // 0, null, descriptor);
+         propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_DESCRIPTORS, 0, null, descriptor);
       }
 
    } // addDescriptor
