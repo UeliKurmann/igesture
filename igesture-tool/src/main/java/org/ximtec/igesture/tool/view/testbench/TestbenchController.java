@@ -42,7 +42,6 @@ import org.ximtec.igesture.tool.core.ExecCmd;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeModel;
-import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
 import org.ximtec.igesture.tool.util.NodeInfoFactory;
 import org.ximtec.igesture.tool.view.MainModel;
@@ -71,7 +70,7 @@ public class TestbenchController extends DefaultController {
 	}
 
 	private void initController() {
-		testbenchView = new TestbenchView();
+		testbenchView = new TestbenchView(this);
 
 		ExplorerTreeModel explorerModel = new ExplorerTreeModel(mainModel
 				.getAlgorithmList(), NodeInfoFactory.createTestBenchNodeInfo(this));

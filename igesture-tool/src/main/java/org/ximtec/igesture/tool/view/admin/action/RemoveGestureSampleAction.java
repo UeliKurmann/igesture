@@ -31,8 +31,8 @@ import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.LocateableAction;
-import org.ximtec.igesture.tool.locator.Locator;
 
 
 public class RemoveGestureSampleAction extends LocateableAction {
@@ -41,8 +41,8 @@ public class RemoveGestureSampleAction extends LocateableAction {
    Gesture<Note> sample;
 
 
-   public RemoveGestureSampleAction(SampleDescriptor descriptor, Gesture<Note> sample) {
-      super(GestureConstants.GESTURE_SAMPLE_DEL, Locator.getDefault());
+   public RemoveGestureSampleAction(Controller controller, SampleDescriptor descriptor, Gesture<Note> sample) {
+      super(GestureConstants.GESTURE_SAMPLE_DEL, controller.getLocator());
       this.descriptor = descriptor;
       this.sample = sample;
    }

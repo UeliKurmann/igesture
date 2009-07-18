@@ -23,7 +23,6 @@
  * 
  */
 
-
 package org.ximtec.igesture.tool.view.testbench.panel;
 
 import java.awt.BorderLayout;
@@ -56,13 +55,10 @@ import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanel;
 import org.ximtec.igesture.tool.gesturevisualisation.PanelFactory;
-import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
-import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
-import org.ximtec.igesture.tool.view.MainController;
 import org.ximtec.igesture.tool.view.MainModel;
 import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
 import org.ximtec.igesture.tool.view.testbench.action.RecogniseAction;
@@ -72,159 +68,143 @@ import org.ximtex.igesture.tool.binding.MapTextFieldBinding;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
-
 /**
  * Comment
+ * 
  * @version 1.0 23.03.2008
  * @author Ueli Kurmann
  */
 public class ConfigurationPanel extends AbstractPanel {
 
-   private Configuration configuration;
+  private Configuration configuration;
 
-   private GestureDevice<?,?> gestureDevice;
-   private JScrollPane resultList;
-   private Controller testbenchController;
-
-   private RecogniseAction recogniseAction;
+  private GestureDevice<?, ?> gestureDevice;
+  private JScrollPane resultList;
 
 
-   public ConfigurationPanel(Controller controller, Configuration configuration) {
-      this.configuration = configuration;
-      this.testbenchController = controller;
-      init();
+  private RecogniseAction recogniseAction;
 
-   }
+  public ConfigurationPanel(Controller controller, Configuration configuration) {
+    super(controller);
+    this.configuration = configuration;
+    init();
 
+  }
 
-   private void init() {
-      setTitle(TitleFactory.createDynamicTitle(configuration,
-            Configuration.PROPERTY_NAME));
+  private void init() {
+    setTitle(TitleFactory.createDynamicTitle(configuration, Configuration.PROPERTY_NAME));
 
-      JPanel basePanel = new JPanel();
-      basePanel.setBackground(Color.WHITE);
-      basePanel.setOpaque(true);
-      basePanel.setLayout(new BorderLayout());
-      basePanel.add(createParameterPanel(), BorderLayout.NORTH);
-      basePanel.add(createWorkspace(), BorderLayout.CENTER);
-      
-      setCenter(basePanel);
-   }
+    JPanel basePanel = new JPanel();
+    basePanel.setBackground(Color.WHITE);
+    basePanel.setOpaque(true);
+    basePanel.setLayout(new BorderLayout());
+    basePanel.add(createParameterPanel(), BorderLayout.NORTH);
+    basePanel.add(createWorkspace(), BorderLayout.CENTER);
 
+    setCenter(basePanel);
+  }
 
-   private JPanel createWorkspace() {
-      JPanel basePanel = new JPanel();
-      
-      Controller mainController = Locator.getDefault().getService(MainController.IDENTIFIER, Controller.class);
-      
-      recogniseAction = new RecogniseAction(mainController, configuration);
-      recogniseAction.setEnabled(false);
+  private JPanel createWorkspace() {
+    JPanel basePanel = new JPanel();
 
-      // input area
-      basePanel.setLayout(new FlowLayout());
-      
-      gestureDevice = Locator.getDefault().getService(
-            SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
-      InputPanel inputPanel = PanelFactory.createInputPanel(gestureDevice);
-      basePanel.add(inputPanel.getPanel(new Dimension(200, 200)));
+    recogniseAction = new RecogniseAction(getController(), configuration);
+    recogniseAction.setEnabled(false);
 
-      // buttons
-      JPanel buttonPanel = new JPanel();
-      buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-      
+    // input area
+    basePanel.setLayout(new FlowLayout());
 
-      final JComboBox comboBox = new JComboBox(Locator.getDefault().getService(
-            MainModel.IDENTIFIER, MainModel.class).getGestureSets().toArray());
+    gestureDevice = getController().getLocator().getService(SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
+    InputPanel inputPanel = PanelFactory.createInputPanel(gestureDevice);
+    basePanel.add(inputPanel.getPanel(new Dimension(200, 200)));
 
-      comboBox.addActionListener(new ActionListener() {
+    // buttons
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
-         @Override
-         public void actionPerformed(ActionEvent arg0) {
-            configuration.removeAllGestureSets();
-            GestureSet gestureSet = (GestureSet)comboBox.getSelectedItem();
-            configuration.addGestureSet(gestureSet);
-            recogniseAction.setEnabled(true);
-         }
-      });
+    final JComboBox comboBox = new JComboBox(getController().getLocator().getService(MainModel.IDENTIFIER, MainModel.class)
+        .getGestureSets().toArray());
 
-      comboBox.addMouseListener(new MouseAdapter() {
+    comboBox.addActionListener(new ActionListener() {
 
-         @Override
-         public void mouseClicked(MouseEvent e) {
-            configuration.removeAllGestureSets();
-            GestureSet gestureSet = (GestureSet)comboBox.getSelectedItem();
-            configuration.addGestureSet(gestureSet);
-            recogniseAction.setEnabled(true);
-         }
+      @Override
+      public void actionPerformed(ActionEvent arg0) {
+        configuration.removeAllGestureSets();
+        GestureSet gestureSet = (GestureSet) comboBox.getSelectedItem();
+        configuration.addGestureSet(gestureSet);
+        recogniseAction.setEnabled(true);
+      }
+    });
 
-      });
+    comboBox.addMouseListener(new MouseAdapter() {
 
-
-      JButton clearButton = new BasicButton(new ClearGestureSampleAction(gestureDevice));
-      JButton recogniseButton = new BasicButton(recogniseAction);
-
-      buttonPanel.add(clearButton);
-      Formatter.formatButton(clearButton);
-      buttonPanel.add(recogniseButton);
-      buttonPanel.add(comboBox);
-      Formatter.formatButton(recogniseButton);
-
-      basePanel.add(buttonPanel);
-
-      // Result List
-      resultList = new JScrollPane(new JList());
-      resultList.setPreferredSize(new Dimension(200, 200));
-
-      basePanel.add(resultList);
-
-      return basePanel;
-   }
-
-
-   @Override
-   public void refresh() {
-      gestureDevice.clear();
-   }
-
-
-   private JPanel createParameterPanel() {
-
-      FormLayout layout = new FormLayout(
-            "100dlu, 4dlu, 100dlu",
-            "pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref");
-
-      DefaultFormBuilder builder = new DefaultFormBuilder(layout);
-      builder.setDefaultDialogBorder();
-
-      String algorithmName = configuration.getAlgorithms().get(0);
-
-      builder.append(ComponentFactory
-            .createLabel(GestureConstants.CONFIGURATION_PANEL_PARAMETERS));
-      builder.nextLine(2);
-
-      builder.append(ComponentFactory
-            .createLabel(GestureConstants.CONFIGURATION_PANEL_NAME));
-      JTextField textField = new JTextField();
-      BindingFactory.createInstance(textField, configuration,
-            Configuration.PROPERTY_NAME);
-      builder.append(textField);
-      builder.nextLine(2);
-
-      Map<String, String> parameter = configuration.getParameters(algorithmName);
-      for (String parameterName : parameter.keySet()) {
-         builder.append(new JLabel(parameterName));
-         JTextField paramTextField = new JTextField();
-         new MapTextFieldBinding(paramTextField, configuration, parameterName,
-               algorithmName);
-         builder.append(paramTextField);
-         builder.nextLine(2);
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        configuration.removeAllGestureSets();
+        GestureSet gestureSet = (GestureSet) comboBox.getSelectedItem();
+        configuration.addGestureSet(gestureSet);
+        recogniseAction.setEnabled(true);
       }
 
-      return builder.getPanel();
-   }
+    });
 
+    JButton clearButton = new BasicButton(new ClearGestureSampleAction(getController(), gestureDevice));
+    JButton recogniseButton = new BasicButton(recogniseAction);
 
-   public void setResultList(List<Result> classes) {
-      resultList.setViewportView(new JList(new Vector<Result>(classes)));
-   }
+    buttonPanel.add(clearButton);
+    Formatter.formatButton(clearButton);
+    buttonPanel.add(recogniseButton);
+    buttonPanel.add(comboBox);
+    Formatter.formatButton(recogniseButton);
+
+    basePanel.add(buttonPanel);
+
+    // Result List
+    resultList = new JScrollPane(new JList());
+    resultList.setPreferredSize(new Dimension(200, 200));
+
+    basePanel.add(resultList);
+
+    return basePanel;
+  }
+
+  @Override
+  public void refresh() {
+    gestureDevice.clear();
+  }
+
+  private JPanel createParameterPanel() {
+
+    FormLayout layout = new FormLayout(
+        "100dlu, 4dlu, 100dlu",
+        "pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref");
+
+    DefaultFormBuilder builder = new DefaultFormBuilder(layout);
+    builder.setDefaultDialogBorder();
+
+    String algorithmName = configuration.getAlgorithms().get(0);
+
+    builder.append(getComponentFactory().createLabel(GestureConstants.CONFIGURATION_PANEL_PARAMETERS));
+    builder.nextLine(2);
+
+    builder.append(getComponentFactory().createLabel(GestureConstants.CONFIGURATION_PANEL_NAME));
+    JTextField textField = new JTextField();
+    BindingFactory.createInstance(textField, configuration, Configuration.PROPERTY_NAME);
+    builder.append(textField);
+    builder.nextLine(2);
+
+    Map<String, String> parameter = configuration.getParameters(algorithmName);
+    for (String parameterName : parameter.keySet()) {
+      builder.append(new JLabel(parameterName));
+      JTextField paramTextField = new JTextField();
+      new MapTextFieldBinding(paramTextField, configuration, parameterName, algorithmName);
+      builder.append(paramTextField);
+      builder.nextLine(2);
+    }
+
+    return builder.getPanel();
+  }
+
+  public void setResultList(List<Result> classes) {
+    resultList.setViewportView(new JList(new Vector<Result>(classes)));
+  }
 }

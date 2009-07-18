@@ -34,8 +34,8 @@ import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.LocateableAction;
-import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
 
 
@@ -44,8 +44,8 @@ public class AddGestureSampleAction extends LocateableAction {
    SampleDescriptor descriptor;
 
 
-   public AddGestureSampleAction(SampleDescriptor descriptor) {
-      super(GestureConstants.GESTURE_SAMPLE_ADD, Locator.getDefault());
+   public AddGestureSampleAction(Controller controller, SampleDescriptor descriptor) {
+      super(GestureConstants.GESTURE_SAMPLE_ADD, controller.getLocator());
       this.descriptor = descriptor;
    }
 

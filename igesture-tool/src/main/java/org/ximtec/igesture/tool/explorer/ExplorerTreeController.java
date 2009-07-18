@@ -149,7 +149,7 @@ public class ExplorerTreeController extends DefaultController implements
          }
 
          @Override
-         public String getName() {
+         public String getTabName() {
             return tree.getName();
          }
 

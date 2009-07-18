@@ -23,7 +23,6 @@
  * 
  */
 
-
 package org.ximtec.igesture.tool.view.testset.panel;
 
 import java.awt.Color;
@@ -48,9 +47,7 @@ import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.gesturevisualisation.GesturePanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanel;
 import org.ximtec.igesture.tool.gesturevisualisation.PanelFactory;
-import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
-import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
@@ -62,157 +59,139 @@ import org.ximtex.igesture.tool.binding.BindingFactory;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
-
 /**
  * Comment
+ * 
  * @version 1.0 07.10.2008
  * @author Ueli Kurmann
  */
 public class TestClassPanel extends AbstractPanel {
 
-   private TestClass testClass;
-   private GestureDevice<?, ?> gestureDevice;
+  private TestClass testClass;
+  private GestureDevice<?, ?> gestureDevice;
 
+  public TestClassPanel(Controller controller, TestClass testClass) {
+    super(controller);
+    this.testClass = testClass;
+    init(this.testClass);
+    setTitle(TitleFactory.createStaticTitle("Test Class Panel"));
+  }
 
-   public TestClassPanel(Controller controller, TestClass testClass) {
-      this.testClass = testClass;
-      init(this.testClass);
+  private void init(TestClass descriptor) {
+    initTitle(descriptor);
+    initSampleSection(descriptor);
+    initInputSection(descriptor);
+  }
 
-      setTitle(TitleFactory.createStaticTitle("Test Class Panel"));
+  /**
+   * Sets the title of the form
+   * 
+   * @param descriptor
+   */
+  private void initTitle(TestClass descriptor) {
+    setTitle(TitleFactory.createStaticTitle(descriptor.toString()));
+  }
 
-   }
+  /**
+   * Shows the already existing samples
+   * 
+   * @param testSet
+   */
+  private void initSampleSection(TestClass testSet) {
 
+    FormLayout layout = new FormLayout("100px, 4dlu, 100px, 4dlu, 100px, 4dlu, 100px,4dlu, 100px",
+        "pref, 4dlu, pref, pref, pref, pref,  pref,  pref,  pref,  pref,  pref,  pref");
 
-   private void init(TestClass descriptor) {
-      initTitle(descriptor);
-      initSampleSection(descriptor);
-      initInputSection(descriptor);
-   }
+    DefaultFormBuilder builder = new DefaultFormBuilder(layout);
+    builder.setDefaultDialogBorder();
 
+    builder.append(getComponentFactory().createLabel(GestureConstants.TESTSET_NAME));
+    JTextField textField = new JTextField();
+    BindingFactory.createInstance(textField, testSet, TestSet.PROPERTY_NAME);
+    builder.append(textField, 3);
 
-   /**
-    * Sets the title of the form
-    * 
-    * @param descriptor
-    */
-   private void initTitle(TestClass descriptor) {
-      setTitle(TitleFactory.createStaticTitle(descriptor.toString()));
-   }
+    builder.nextLine(2);
 
+    builder.append(new JLabel("Test Class has " + testSet.size() + " samples."), 3);
+    builder.nextLine(2);
 
-   /**
-    * Shows the already existing samples
-    * 
-    * @param testSet
-    */
-   private void initSampleSection(TestClass testSet) {
+    for (final Gesture<?> sample : testSet.getGestures()) {
+      builder.append(createGesture(sample));
+    }
 
-      FormLayout layout = new FormLayout(
-            "100px, 4dlu, 100px, 4dlu, 100px, 4dlu, 100px,4dlu, 100px",
-            "pref, 4dlu, pref, pref, pref, pref,  pref,  pref,  pref,  pref,  pref,  pref");
+    JPanel panel = builder.getPanel();
+    panel.setOpaque(true);
+    panel.setAutoscrolls(true);
+    setCenter(panel);
+  }
 
-      DefaultFormBuilder builder = new DefaultFormBuilder(layout);
-      builder.setDefaultDialogBorder();
+  private JPanel createGesture(final Gesture<?> gesture) {
 
-      builder
-            .append(ComponentFactory.createLabel(GestureConstants.TESTSET_NAME));
-      JTextField textField = new JTextField();
-      BindingFactory.createInstance(textField, testSet, TestSet.PROPERTY_NAME);
-      builder.append(textField, 3);
+    GesturePanel gesturePanel = PanelFactory.createGesturePanel(gesture);
+    final JPanel panel = gesturePanel.getPanel(new Dimension(100, 100));
+    panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 
-      builder.nextLine(2);
+    panel.addMouseListener(new MouseAdapter() {
 
-      builder.append(
-            new JLabel("Test Class has " + testSet.size() + " samples."), 3);
-      builder.nextLine(2);
+      RemoveSampleAction action = new RemoveSampleAction(getController(), TestClassPanel.this.testClass, gesture);
 
-      for (final Gesture< ? > sample : testSet.getGestures()) {
-         builder.append(createGesture(sample));
+      @Override
+      public void mouseClicked(MouseEvent arg0) {
+        popUp(arg0);
       }
 
-      JPanel panel = builder.getPanel();
-      panel.setOpaque(true);
-      panel.setAutoscrolls(true);
-      setCenter(panel);
-   }
+      @Override
+      public void mouseReleased(MouseEvent e) {
+        popUp(e);
+      }
 
+      private void popUp(MouseEvent e) {
+        if (e.isPopupTrigger()) {
+          getComponentFactory().createPopupMenu(action).show(panel, e.getX(), e.getY());
+        }
+      }
+    });
 
-   private JPanel createGesture(final Gesture< ? > gesture) {
+    return panel;
 
-      GesturePanel gesturePanel = PanelFactory.createGesturePanel(gesture);
-      final JPanel panel = gesturePanel.getPanel(new Dimension(100,100));
-      panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-      
-      panel.addMouseListener(new MouseAdapter() {
+  }
 
-         RemoveSampleAction action = new RemoveSampleAction(
-               TestClassPanel.this.testClass, gesture);
+  /**
+   * Input Area to capture a new sample
+   */
+  private void initInputSection(TestClass testClass) {
+    JPanel basePanel = new JPanel();
 
+    // input area
+    basePanel.setLayout(new FlowLayout());
 
-         @Override
-         public void mouseClicked(MouseEvent arg0) {
-            popUp(arg0);
-         }
+    gestureDevice = getController().getLocator().getService(SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
 
+    InputPanel inputPanel = PanelFactory.createInputPanel(gestureDevice);
+    basePanel.add(inputPanel.getPanel(new Dimension(200, 200)));
 
-         @Override
-         public void mouseReleased(MouseEvent e) {
-            popUp(e);
-         }
+    // buttons
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
+    JButton addSampleButton = getComponentFactory().createButton(GestureConstants.GESTURE_SAMPLE_ADD,
+        new AddSampleAction(getController(), testClass));
+    Formatter.formatButton(addSampleButton);
+    buttonPanel.add(addSampleButton);
 
-         private void popUp(MouseEvent e) {
-            if (e.isPopupTrigger()) {
-               ComponentFactory.createPopupMenu(action).show(panel, e.getX(),
-                     e.getY());
-            }
-         }
-      });
-      
-      return panel;
+    JButton clearSampleButton = getComponentFactory().createButton(null,
+        new ClearGestureSampleAction(getController(), gestureDevice));
+    Formatter.formatButton(clearSampleButton);
+    buttonPanel.add(clearSampleButton);
 
+    basePanel.add(buttonPanel);
 
-   }
+    setBottom(basePanel);
+  }
 
-
-   /**
-    * Input Area to capture a new sample
-    */
-   private void initInputSection(TestClass testClass) {
-      JPanel basePanel = new JPanel();
-
-      // input area
-      basePanel.setLayout(new FlowLayout());
-
-      gestureDevice = Locator.getDefault().getService(
-            SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
-
-      InputPanel inputPanel = PanelFactory.createInputPanel(gestureDevice);
-      basePanel.add(inputPanel.getPanel(new Dimension(200, 200)));
-      
-      // buttons
-      JPanel buttonPanel = new JPanel();
-      buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-
-      JButton addSampleButton = ComponentFactory.createButton(
-            GestureConstants.GESTURE_SAMPLE_ADD, new AddSampleAction(testClass));
-      Formatter.formatButton(addSampleButton);
-      buttonPanel.add(addSampleButton);
-
-      JButton clearSampleButton = ComponentFactory.createButton(null,
-            new ClearGestureSampleAction(gestureDevice));
-      Formatter.formatButton(clearSampleButton);
-      buttonPanel.add(clearSampleButton);
-
-      basePanel.add(buttonPanel);
-
-      setBottom(basePanel);
-   }
-
-
-   @Override
-   public void refresh() {
-      gestureDevice.clear();
-      initSampleSection(testClass);
-   }
+  @Override
+  public void refresh() {
+    gestureDevice.clear();
+    initSampleSection(testClass);
+  }
 }

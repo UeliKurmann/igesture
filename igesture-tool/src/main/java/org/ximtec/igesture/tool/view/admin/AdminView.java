@@ -32,23 +32,23 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.DefaultSplitPane;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.explorer.ExplorerTree;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeContainer;
-import org.ximtec.igesture.tool.util.ComponentFactory;
 
 
-public class AdminView extends JSplitPane implements TabbedView,
+public class AdminView extends DefaultSplitPane implements TabbedView,
       ExplorerTreeContainer {
 
    private JScrollPane scrollPaneLeft;
 
 
-   public AdminView() {
-      super(JSplitPane.HORIZONTAL_SPLIT);
+   public AdminView(Controller controller) {
+     super(controller);
       init();
    }
 
@@ -70,8 +70,8 @@ public class AdminView extends JSplitPane implements TabbedView,
 
 
    @Override
-   public String getName() {
-      return ComponentFactory.getGuiBundle().getName(
+   public String getTabName() {
+      return getComponentFactory().getGuiBundle().getName(
             GestureConstants.ADMIN_VIEW_NAME);
    }
 

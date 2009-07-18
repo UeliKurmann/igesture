@@ -32,7 +32,6 @@ import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.DataObjectWrapper;
 import org.ximtec.igesture.core.DefaultPropertyChangeNotifier;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.view.MainModel;
 
 
@@ -45,8 +44,8 @@ public class GestureSetList extends DefaultPropertyChangeNotifier implements Dat
    List<GestureSet> sets;
 
 
-   public GestureSetList() {
-      model = Locator.getDefault().getService(MainModel.IDENTIFIER, MainModel.class);
+   public GestureSetList(MainModel mainModel) {
+      model = mainModel;
       sets = model.getGestureSets();
    }
 

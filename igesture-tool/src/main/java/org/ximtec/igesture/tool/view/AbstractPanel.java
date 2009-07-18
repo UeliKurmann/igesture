@@ -32,42 +32,61 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.explorer.DefaultExplorerTreeView;
-
+import org.ximtec.igesture.tool.util.ComponentFactory;
 
 public abstract class AbstractPanel extends DefaultExplorerTreeView {
 
-   JScrollPane centerPane;
+	private JScrollPane centerPane;
+	private Controller controller;
 
-   public AbstractPanel() {
-      setLayout(new BorderLayout());
-      centerPane = new JScrollPane();
-      centerPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-      setBackground(Color.LIGHT_GRAY);
-      setOpaque(true);
-      this.add(centerPane, BorderLayout.CENTER);
-   }
+	public AbstractPanel(Controller controller) {
+		this.controller = controller;
+		if(controller == null){
+		  throw new RuntimeException("Controller must not be null.");
+		}
+		setLayout(new BorderLayout());
+		centerPane = new JScrollPane();
+		centerPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		setBackground(Color.LIGHT_GRAY);
+		setOpaque(true);
+		this.add(centerPane, BorderLayout.CENTER);
+	}
 
+	public void setTitle(JComponent component) {
+		this.add(component, BorderLayout.NORTH);
+	}
 
-   public void setTitle(JComponent component) { 
-      this.add(component, BorderLayout.NORTH);
-   }
+	public void setCenter(JComponent component) {
+		component.setBackground(Color.white);
+		component.setOpaque(true);
+		centerPane.setViewportView(component);
+	}
 
+	public void setBottom(JComponent component) {
+		this.add(component, BorderLayout.SOUTH);
+	}
+	
+	/**
+	 * Returns the controller
+	 * @return the controller
+	 */
+	protected Controller getController(){
+		return this.controller;
+	}
+	
+	/**
+	 * Returns the component factory
+	 * @return the component factory
+	 */
+	protected ComponentFactory getComponentFactory(){
+		return controller.getLocator().getService(ComponentFactory.class.getName(), ComponentFactory.class);
+	}
 
-   public void setCenter(JComponent component) {
-      component.setBackground(Color.white);
-      component.setOpaque(true);
-      centerPane.setViewportView(component);
-   }
+	@Override
+	public void refresh() {
 
-
-   public void setBottom(JComponent component) {
-      this.add(component, BorderLayout.SOUTH);
-   }
-   
-   @Override
-   public void refresh() {
-      
-   }
+	}
 
 }

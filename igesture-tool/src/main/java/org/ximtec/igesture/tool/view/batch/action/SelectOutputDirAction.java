@@ -23,7 +23,6 @@
  * 
  */
 
-
 package org.ximtec.igesture.tool.view.batch.action;
 
 import java.awt.event.ActionEvent;
@@ -33,31 +32,30 @@ import javax.swing.JFileChooser;
 
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.GestureConstants;
-import org.ximtec.igesture.tool.locator.Locator;
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.view.batch.BatchView;
 
-
 public class SelectOutputDirAction extends BasicAction {
 
-   private BatchView view;
+  private BatchView view;
 
+  public SelectOutputDirAction(Controller controller, BatchView view) {
+    super(GestureConstants.BATCH_BROWSE_OUTPUT, controller.getLocator().getService(GuiBundleService.IDENTIFIER,
+        GuiBundleService.class));
 
-   public SelectOutputDirAction(BatchView view) {
-      super(GestureConstants.BATCH_BROWSE_OUTPUT, Locator.getDefault()
-            .getService(GuiBundleService.IDENTIFIER, GuiBundleService.class));
+    this.view = view;
+  }
 
-      this.view = view;
-   }
-
-
-   @Override
-   public void actionPerformed(ActionEvent action) {
-      JFileChooser chooser = new JFileChooser();
-      chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-      chooser.showOpenDialog(null);
-      File file = chooser.getSelectedFile();
+  @Override
+  public void actionPerformed(ActionEvent action) {
+    JFileChooser chooser = new JFileChooser();
+    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    chooser.showOpenDialog(null);
+    File file = chooser.getSelectedFile();
+    if (file != null) {
       view.setOutputDir(file.getAbsolutePath());
-   }
+    }
+  }
 
 }

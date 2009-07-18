@@ -29,8 +29,8 @@ import java.awt.event.ActionEvent;
 
 import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.LocateableAction;
-import org.ximtec.igesture.tool.locator.Locator;
 
 
 public class ClearGestureSampleAction extends LocateableAction {
@@ -38,8 +38,8 @@ public class ClearGestureSampleAction extends LocateableAction {
    GestureDevice<?,?> mouseReader;
 
 
-   public ClearGestureSampleAction(GestureDevice<?,?> note) {
-      super(GestureConstants.GESTURE_SAMPLE_CLEAR, Locator.getDefault());
+   public ClearGestureSampleAction(Controller controller, GestureDevice<?,?> note) {
+      super(GestureConstants.GESTURE_SAMPLE_CLEAR, controller.getLocator());
       this.mouseReader = note;
    }
 

@@ -37,7 +37,6 @@ import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.TreePathAction;
-import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.view.MainModel;
 
 

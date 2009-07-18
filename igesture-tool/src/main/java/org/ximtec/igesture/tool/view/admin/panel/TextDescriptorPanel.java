@@ -42,7 +42,7 @@ import com.jgoodies.forms.layout.FormLayout;
 public class TextDescriptorPanel extends AbstractPanel {
 
    public TextDescriptorPanel(Controller controller, TextDescriptor textDescriptor) {
-
+     super(controller);
       setTitle(TitleFactory.createStaticTitle(textDescriptor.getClass().getName()));
 
       FormLayout layout = new FormLayout(

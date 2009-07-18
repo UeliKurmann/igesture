@@ -1,5 +1,5 @@
 /*
- * @(#)$Id:$
+ * @(#)$Id$
  *
  * Author		:	Ueli Kurmann, igesture@uelikurmann.ch
  *                  
@@ -23,7 +23,6 @@
  * 
  */
 
-
 package org.ximtec.igesture.tool.view.testset.panel;
 
 import java.awt.Dimension;
@@ -35,31 +34,30 @@ import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.testset.wrapper.TestSetList;
 
-
 /**
  * Comment
+ * 
  * @version 1.0 07.10.2008
  * @author Ueli Kurmann
  */
 public class TestSetsPanel extends AbstractPanel {
 
-   private static final String HTML_FILE = "html/testSetTab.html";
+  private static final String HTML_FILE = "html/testSetTab.html";
 
+  public TestSetsPanel(Controller controller, TestSetList testSetList) {
+    super(controller);
+    init();
+  }
 
-   public TestSetsPanel(Controller controller, TestSetList testSetList) {
-      init();
-   }
+  private void init() {
+    // TODO strings aus property file
+    setTitle(TitleFactory.createStaticTitle("Test Set Management"));
 
+    URL path = this.getClass().getClassLoader().getResource(HTML_FILE);
 
-   private void init() {
-      // TODO strings aus property file
-      setTitle(TitleFactory.createStaticTitle("Test Set Management"));
+    HtmlPanel htmlPanel = new HtmlPanel(path, new Dimension(400, 400));
 
-      URL path = this.getClass().getClassLoader().getResource(HTML_FILE);
-
-      HtmlPanel htmlPanel = new HtmlPanel(path, new Dimension(400,400));
-      
-      setCenter(htmlPanel);
-   }
+    setCenter(htmlPanel);
+  }
 
 }

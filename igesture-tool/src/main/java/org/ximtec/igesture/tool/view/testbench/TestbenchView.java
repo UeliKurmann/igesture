@@ -32,23 +32,23 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.core.DefaultSplitPane;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.explorer.ExplorerTree;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeContainer;
-import org.ximtec.igesture.tool.util.ComponentFactory;
 
 
-public class TestbenchView extends JSplitPane implements TabbedView,
+public class TestbenchView extends DefaultSplitPane implements TabbedView,
       ExplorerTreeContainer {
 
    private JScrollPane scrollPaneLeft;
 
 
-   public TestbenchView() {
-      super(JSplitPane.HORIZONTAL_SPLIT);
+   public TestbenchView(Controller controller) {
+      super(controller);
 
       setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
       scrollPaneLeft = new JScrollPane();
@@ -71,8 +71,8 @@ public class TestbenchView extends JSplitPane implements TabbedView,
 
 
    @Override
-   public String getName() {
-      return ComponentFactory.getGuiBundle().getName(
+   public String getTabName() {
+      return getComponentFactory().getGuiBundle().getName(
             GestureConstants.TESTBENCH_VIEW_NAME);
    }
 

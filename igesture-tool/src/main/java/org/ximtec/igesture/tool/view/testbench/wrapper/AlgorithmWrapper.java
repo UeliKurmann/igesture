@@ -36,7 +36,6 @@ import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.DataObjectWrapper;
 import org.ximtec.igesture.core.DefaultPropertyChangeNotifier;
-import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.view.MainModel;
 
 
@@ -57,10 +56,9 @@ public class AlgorithmWrapper extends DefaultPropertyChangeNotifier implements
    List<Configuration> configurations;
 
 
-   public AlgorithmWrapper(Class< ? extends Algorithm> algorithmClass) {
+   public AlgorithmWrapper(MainModel mainModel, Class< ? extends Algorithm> algorithmClass) {
       this.algorithmClass = algorithmClass;
-      mainModel = Locator.getDefault().getService(MainModel.IDENTIFIER,
-            MainModel.class);
+      this.mainModel = mainModel;
       updateReference();
    }
 
