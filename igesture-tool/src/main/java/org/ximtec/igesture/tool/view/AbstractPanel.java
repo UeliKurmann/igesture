@@ -31,6 +31,7 @@ import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.explorer.DefaultExplorerTreeView;
@@ -86,7 +87,7 @@ public abstract class AbstractPanel extends DefaultExplorerTreeView {
 
 	@Override
 	public void refresh() {
-
+	  
 	}
 
 }
