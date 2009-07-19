@@ -110,7 +110,8 @@ public class MainController extends DefaultController implements Service {
   public MainController() {
     super(null);
     initServices();
-    initViews();
+    initMainView();
+    initSubContrllersViews();
   }
 
   private void initServices() {
@@ -148,22 +149,16 @@ public class MainController extends DefaultController implements Service {
   } // initServices
 
   /**
-   * Initialises the views
+   * Initialises controllers an views connected to the main controller.
    */
-  private void initViews() {
-    if (mainView == null) {
-
-      addAction(LoadWorkspaceAction.class, new LoadWorkspaceAction(this));
-      addAction(StoreWorkspaceAction.class, new StoreWorkspaceAction(this));
-      addAction(ExitAction.class, new ExitAction(this));
-      addAction(ShowAboutAction.class, new ShowAboutAction(this));
-
-      mainView = new MainView(this);
-      mainView.addWindowListener(new MainWindowAdapter(this));
+  private void initSubContrllersViews() {
+  
+    if(SwingUtilities.isEventDispatchThread()){
+      throw new RuntimeException("Must not be executed in the Event Dispatch Thread.");
     }
-
+    
     final CyclicBarrier barrier = new CyclicBarrier(2);
-
+    
     SwingUtilities.invokeLater(new Runnable() {
 
       @Override
@@ -188,6 +183,7 @@ public class MainController extends DefaultController implements Service {
         }
 
         try {
+          //FIXME try to set a timeout to handle a deadlock
           barrier.await();
         } catch (Exception e) {
           LOGGER.log(Level.SEVERE, "View Initialization failed.");
@@ -204,6 +200,19 @@ public class MainController extends DefaultController implements Service {
 
   }
 
+  private void initMainView() {
+    if (mainView == null) {
+
+      addAction(LoadWorkspaceAction.class, new LoadWorkspaceAction(this));
+      addAction(StoreWorkspaceAction.class, new StoreWorkspaceAction(this));
+      addAction(ExitAction.class, new ExitAction(this));
+      addAction(ShowAboutAction.class, new ShowAboutAction(this));
+
+      mainView = new MainView(this);
+      mainView.addWindowListener(new MainWindowAdapter(this));
+    }
+  }
+
   @ExecCmd(name = CMD_LOAD)
   protected void execLoadCommand() {
     LOGGER.info("Command Load");
@@ -214,7 +223,7 @@ public class MainController extends DefaultController implements Service {
       mainModel.stop();
       mainModel.setStorageEngine(StorageManager.createStorageEngine(dataBase));
       mainModel.start();
-      initViews();
+      initSubContrllersViews();
     }
 
   } // execLoadCommand

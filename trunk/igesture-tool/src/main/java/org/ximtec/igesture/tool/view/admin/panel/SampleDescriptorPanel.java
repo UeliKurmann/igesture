@@ -177,6 +177,7 @@ public class SampleDescriptorPanel extends AbstractPanel {
 
   @Override
   public void refresh() {
+    super.refresh();
     gestureDevice.clear();
     initSampleSection(descriptor);
   }

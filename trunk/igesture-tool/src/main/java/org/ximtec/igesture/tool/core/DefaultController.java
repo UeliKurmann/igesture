@@ -31,7 +31,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
 import java.util.logging.Logger;
+
+import javax.swing.SwingUtilities;
 
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.tool.locator.Locator;
@@ -45,178 +48,196 @@ import org.ximtec.igesture.tool.locator.Locator;
  */
 public abstract class DefaultController implements Controller {
 
-	private static final Logger LOGGER = Logger
-			.getLogger(DefaultController.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(DefaultController.class.getName());
 
-	private Map<String, Method> commandMethods;
+  private Map<String, Method> commandMethods;
 
-	private List<Controller> controllers;
+  private List<Controller> controllers;
 
-	private Controller parent;
+  private Controller parent;
 
-	private Map<Class<?>, LocateableAction> actions;
+  private Map<Class<?>, LocateableAction> actions;
 
-	private Locator locator;
+  private Locator locator;
 
-	public DefaultController(Controller parentController) {
-		controllers = new ArrayList<Controller>();
-		actions = new HashMap<Class<?>, LocateableAction>();
-		this.setParent(parentController);
+  public DefaultController(Controller parentController) {
+    controllers = new ArrayList<Controller>();
+    actions = new HashMap<Class<?>, LocateableAction>();
+    this.setParent(parentController);
 
-		commandMethods = new HashMap<String, Method>();
-		for (Method method : this.getClass().getDeclaredMethods()) {
-			if (method.isAnnotationPresent(ExecCmd.class)) {
-				commandMethods.put(method.getAnnotation(ExecCmd.class).name(),
-						method);
-			}
-		}
-	}
+    commandMethods = new HashMap<String, Method>();
+    for (Method method : this.getClass().getDeclaredMethods()) {
+      if (method.isAnnotationPresent(ExecCmd.class)) {
+        commandMethods.put(method.getAnnotation(ExecCmd.class).name(), method);
+      }
+    }
+  }
 
   /*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.ximtec.igesture.tool.core.Controller#addController(org.ximtec.igesture
-	 * .tool.core.Controller)
-	 */
-	@Override
-	public void addController(Controller controller) {
-		if (controller.getParent() != null && controller.getParent() != this) {
-			throw new RuntimeException(
-					"Controller should have only one parent.");
-		} else {
-			controller.setParent(this);
-		}
+   * (non-Javadoc)
+   * 
+   * @see
+   * org.ximtec.igesture.tool.core.Controller#addController(org.ximtec.igesture
+   * .tool.core.Controller)
+   */
+  @Override
+  public void addController(Controller controller) {
+    if (controller.getParent() != null && controller.getParent() != this) {
+      throw new RuntimeException("Controller should have only one parent.");
+    } else {
+      controller.setParent(this);
+    }
 
-		controllers.add(controller);
-	}
+    controllers.add(controller);
+  }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ximtec.igesture.tool.core.Controller#getControllers()
-	 */
-	@Override
-	public List<Controller> getControllers() {
-		return controllers;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ximtec.igesture.tool.core.Controller#getControllers()
+   */
+  @Override
+  public List<Controller> getControllers() {
+    return controllers;
+  }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.ximtec.igesture.tool.core.Controller#removeAllController()
-	 */
-	@Override
-	public void removeAllControllers() {
-		controllers.clear();
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ximtec.igesture.tool.core.Controller#removeAllController()
+   */
+  @Override
+  public void removeAllControllers() {
+    controllers.clear();
+  }
 
-	@Override
-	public void removeController(Controller controller) {
-		controllers.remove(controller);
-	}
+  @Override
+  public void removeController(Controller controller) {
+    controllers.remove(controller);
+  }
 
-	@Override
-	public void execute(Command command) {
+  @Override
+  public void execute(final Command command) {
 
-		if (command != null && command.getCommand() != null) {
+    if (SwingUtilities.isEventDispatchThread()) {
+      invokeInWorkerThread(command);
+      return;
+    }
 
-			if (!invokeCommand(command)) {
-				LOGGER.info("Command not handled. " + Constant.SINGLE_QUOTE
-						+ command.getCommand() + Constant.SINGLE_QUOTE);
+    if (command != null && command.getCommand() != null) {
 
-				if (parent != null) {
-					parent.execute(command);
-				}
-			}
-		} else {
-			LOGGER.warning("Command not set.");
-		}
-	}
+      if (!invokeCommand(command)) {
+        
+        LOGGER.info("Command not handled in " + this.getClass().getName() + ". " + Constant.SINGLE_QUOTE
+            + command.getCommand() + Constant.SINGLE_QUOTE);
 
-	@Override
-	public void propertyChange(PropertyChangeEvent event) {
-		for (Controller controller : getControllers()) {
-			controller.propertyChange(event);
-		}
-	}
+        // if command execution fails, try to execute it in the parent controller
+        if (parent != null) {
+          parent.execute(command);
+        }
+      }
+    } else {
+      LOGGER.warning("Command not available.");
+    }
+  }
 
-	/**
-	 * Invokes a command
-	 * 
-	 * @param object
-	 * @param cmd
-	 * @return
-	 */
-	protected boolean invokeCommand(Command cmd) {
-		LOGGER.info("Invoke " + cmd);
-		Method method = commandMethods.get(cmd.getCommand());
-		if (method != null) {
-			try {
-				if (!method.isAccessible()) {
-					method.setAccessible(true);
-				}
-				if (method.getParameterTypes().length == 0) {
-					method.invoke(this);
-				} else {
-					method.invoke(this, cmd);
-				}
-				LOGGER.info("Command invoked. " + cmd.getCommand());
-				return true;
-			} catch (Exception e) {
-				LOGGER
-						.warning("Could not execute command. "
-								+ cmd.getCommand());
-			}
-		} else {
-			LOGGER.warning("Command not defined. " + cmd.getCommand());
-		}
+  /**
+   * Invokes a command in the Worker Thread
+   * @param command
+   */
+  private void invokeInWorkerThread(final Command command) {
+    LOGGER.info("Dispatch Event Dispatch Thread to a worker thread.");
+    Executors.newSingleThreadExecutor().execute(new Runnable() {
 
-		return false;
-	}
+      @Override
+      public void run() {
+        execute(command);
+      }
 
-	@Override
-	public Controller getParent() {
-		return parent;
-	}
+    });
+  }
 
-	@Override
-	public void setParent(Controller controller) {
-		this.parent = controller;
+  @Override
+  public void propertyChange(PropertyChangeEvent event) {
+    for (Controller controller : getControllers()) {
+      controller.propertyChange(event);
+    }
+  }
 
-	}
+  /**
+   * Invokes a command
+   * 
+   * @param object
+   * @param cmd
+   * @return
+   */
+  private boolean invokeCommand(Command cmd) {
+    LOGGER.info("Invoke " + cmd);
+    
+    Method method = commandMethods.get(cmd.getCommand());
+    if (method != null) {
+      try {
+        if (!method.isAccessible()) {
+          method.setAccessible(true);
+        }
+        if (method.getParameterTypes().length == 0) {
+          method.invoke(this);
+        } else {
+          method.invoke(this, cmd);
+        }
+        LOGGER.info("Command invoked. " + cmd.getCommand());
+        return true;
+      } catch (Exception e) {
+        LOGGER.warning("Could not execute command. " + cmd.getCommand() + e.getMessage());
+      }
+    } else {
+      LOGGER.warning("Command not defined. " + cmd.getCommand());
+    }
 
-	@Override
-	public LocateableAction getAction(Class<?> actionClass) {
-		return actions.get(actionClass);
-	}
-	
-	public void addAction(Class<?> actionClass, LocateableAction action){
-		actions.put(actionClass, action);
-	}
+    return false;
+  }
 
-	@Override
-	public Locator getLocator() {
-		if (locator != null) {
-			return locator;
-		} else if (getParent() != null) {
-			return getParent().getLocator();
-		}
-		return null;
-	}
-	
-	public void setLocator(Locator locator){
-		this.locator = locator;
-	}
+  @Override
+  public Controller getParent() {
+    return parent;
+  }
 
-	/**
-	 * Returns true if this is the root controller
-	 * @return
-	 */
+  @Override
+  public void setParent(Controller controller) {
+    this.parent = controller;
+
+  }
+
+  @Override
+  public LocateableAction getAction(Class<?> actionClass) {
+    return actions.get(actionClass);
+  }
+
+  public void addAction(Class<?> actionClass, LocateableAction action) {
+    actions.put(actionClass, action);
+  }
+
+  @Override
+  public Locator getLocator() {
+    if (locator != null) {
+      return locator;
+    } else if (getParent() != null) {
+      return getParent().getLocator();
+    }
+    return null;
+  }
+
+  public void setLocator(Locator locator) {
+    this.locator = locator;
+  }
+
+  /**
+   * Returns true if this is the root controller
+   * 
+   * @return
+   */
   public boolean isRoot() {
     return getParent() == null;
   }
-	
-	
 
 }

@@ -101,8 +101,9 @@ public class AdminController extends DefaultController {
     explorerTreeController.getExplorerTreeView().refresh();
   }
 
-  @ExecCmd(name = ADD_GESTURE_CLASS_CMD)
+  @ExecCmd(name = ADD_GESTURE_CLASS_CMD, executeInEDT=false)
   public void cmdAddGestureClass(Command command) {
+    
     GestureSet gestureSet = (GestureSet) getTreePath(command).getLastPathComponent();
 
     // find a unique name for the new gesture class

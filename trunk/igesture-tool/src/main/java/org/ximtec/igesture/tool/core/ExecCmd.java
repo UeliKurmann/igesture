@@ -42,7 +42,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface ExecCmd {
-   
+   public boolean executeInEDT() default false;
    public String name();
 
 }
