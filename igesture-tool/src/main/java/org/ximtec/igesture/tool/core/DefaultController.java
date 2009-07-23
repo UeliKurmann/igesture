@@ -117,7 +117,7 @@ public abstract class DefaultController implements Controller {
   }
 
   @Override
-  public void execute(final Command command) {
+  public final void execute(final Command command) {
 
     if (SwingUtilities.isEventDispatchThread()) {
       invokeInWorkerThread(command);

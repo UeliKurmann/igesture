@@ -27,6 +27,7 @@ package org.ximtec.igesture.tool.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.util.concurrent.Executors;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -39,55 +40,70 @@ import org.ximtec.igesture.tool.util.ComponentFactory;
 
 public abstract class AbstractPanel extends DefaultExplorerTreeView {
 
-	private JScrollPane centerPane;
-	private Controller controller;
+  private JScrollPane centerPane;
+  private Controller controller;
 
-	public AbstractPanel(Controller controller) {
-		this.controller = controller;
-		if(controller == null){
-		  throw new RuntimeException("Controller must not be null.");
-		}
-		setLayout(new BorderLayout());
-		centerPane = new JScrollPane();
-		centerPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		setBackground(Color.LIGHT_GRAY);
-		setOpaque(true);
-		this.add(centerPane, BorderLayout.CENTER);
-	}
+  public AbstractPanel(Controller controller) {
+    this.controller = controller;
+    if (controller == null) {
+      throw new RuntimeException("Controller must not be null.");
+    }
+    setLayout(new BorderLayout());
+    centerPane = new JScrollPane();
+    centerPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+    setBackground(Color.LIGHT_GRAY);
+    setOpaque(true);
+    this.add(centerPane, BorderLayout.CENTER);
+  }
 
-	public void setTitle(JComponent component) {
-		this.add(component, BorderLayout.NORTH);
-	}
+  public void setTitle(JComponent component) {
+    this.add(component, BorderLayout.NORTH);
+  }
 
-	public void setCenter(JComponent component) {
-		component.setBackground(Color.white);
-		component.setOpaque(true);
-		centerPane.setViewportView(component);
-	}
+  public void setCenter(JComponent component) {
+    component.setBackground(Color.white);
+    component.setOpaque(true);
+    centerPane.setViewportView(component);
+  }
 
-	public void setBottom(JComponent component) {
-		this.add(component, BorderLayout.SOUTH);
-	}
-	
-	/**
-	 * Returns the controller
-	 * @return the controller
-	 */
-	protected Controller getController(){
-		return this.controller;
-	}
-	
-	/**
-	 * Returns the component factory
-	 * @return the component factory
-	 */
-	protected ComponentFactory getComponentFactory(){
-		return controller.getLocator().getService(ComponentFactory.class.getName(), ComponentFactory.class);
-	}
+  public void setBottom(JComponent component) {
+    this.add(component, BorderLayout.SOUTH);
+  }
 
-	@Override
-	public void refresh() {
-	  
-	}
+  /**
+   * Returns the controller
+   * 
+   * @return the controller
+   */
+  protected Controller getController() {
+    return this.controller;
+  }
+
+  /**
+   * Returns the component factory
+   * 
+   * @return the component factory
+   */
+  protected ComponentFactory getComponentFactory() {
+    return controller.getLocator().getService(ComponentFactory.class.getName(), ComponentFactory.class);
+  }
+
+  @Override
+  public final void refresh() {
+    if (SwingUtilities.isEventDispatchThread()) {
+      refreshUILogic();
+    } else {
+      SwingUtilities.invokeLater(new Runnable() {
+        @Override
+        public void run() {
+          refreshUILogic();
+        }
+      });
+    }
+  }
+
+  protected void refreshUILogic() {
+
+  }
 
 }

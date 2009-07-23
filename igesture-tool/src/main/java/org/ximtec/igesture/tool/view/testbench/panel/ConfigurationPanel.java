@@ -168,8 +168,8 @@ public class ConfigurationPanel extends AbstractPanel {
   }
 
   @Override
-  public void refresh() {
-    super.refresh();
+  public void refreshUILogic() {
+    super.refreshUILogic();
     gestureDevice.clear();
   }
 
