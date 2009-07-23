@@ -114,4 +114,12 @@ public class GestureClassPanel extends AbstractPanel {
 
   }
 
+  @Override
+  protected void refreshUILogic() {
+    // TODO Auto-generated method stub
+    
+  }
+  
+  
+
 }

@@ -76,8 +76,8 @@ public class WelcomeView extends AbstractPanel implements TabbedView {
   }
 
   @Override
-  public void refresh() {
-    super.refresh();
+  public void refreshUILogic() {
+    super.refreshUILogic();
     init();
   }
 

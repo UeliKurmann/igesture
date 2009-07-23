@@ -190,8 +190,8 @@ public class TestClassPanel extends AbstractPanel {
   }
 
   @Override
-  public void refresh() {
-    super.refresh();
+  public void refreshUILogic() {
+    super.refreshUILogic();
     gestureDevice.clear();
     initSampleSection(testClass);
   }

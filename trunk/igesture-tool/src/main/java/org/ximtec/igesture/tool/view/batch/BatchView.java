@@ -274,8 +274,8 @@ public class BatchView extends AbstractPanel implements TabbedView {
   }
 
   @Override
-  public void refresh() {
-    super.refresh();
+  public void refreshUILogic() {
+    super.refreshUILogic();
     // TODO: optimize refresh mechanism
     init();
   }

@@ -67,7 +67,7 @@ public class DefaultPanel extends AbstractPanel {
 
 
    @Override
-   public void refresh() {
+   public void refreshUILogic() {
 
    }
 }

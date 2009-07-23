@@ -29,7 +29,6 @@ import java.beans.PropertyChangeEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.ximtec.igesture.tool.core.Command;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.TabbedView;
@@ -60,11 +59,6 @@ public class WelcomeController extends DefaultController {
 	@Override
 	public TabbedView getView() {
 		return view;
-	}
-
-	@Override
-	public void execute(Command command) {
-		super.execute(command);
 	}
 
 	@Override
