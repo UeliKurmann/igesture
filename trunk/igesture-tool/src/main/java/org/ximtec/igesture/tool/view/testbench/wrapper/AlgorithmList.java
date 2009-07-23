@@ -43,6 +43,7 @@ public class AlgorithmList extends DefaultPropertyChangeNotifier {
 
   public void addAlgorithm(AlgorithmWrapper algorithmWrapper) {
     algorithms.add(algorithmWrapper);
+    propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_SETS, 0, null, algorithmWrapper);
   }
 
   public List<AlgorithmWrapper> getAlgorithms() {
