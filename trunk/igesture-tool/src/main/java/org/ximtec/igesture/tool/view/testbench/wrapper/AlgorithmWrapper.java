@@ -23,7 +23,6 @@
  * 
  */
 
-
 package org.ximtec.igesture.tool.view.testbench.wrapper;
 
 import java.beans.PropertyChangeListener;
@@ -38,89 +37,83 @@ import org.ximtec.igesture.core.DataObjectWrapper;
 import org.ximtec.igesture.core.DefaultPropertyChangeNotifier;
 import org.ximtec.igesture.tool.view.MainModel;
 
-
 /**
  * Comment
+ * 
  * @version 1.0 23.03.2008
  * @author Ueli Kurmann
  */
-public class AlgorithmWrapper extends DefaultPropertyChangeNotifier implements
-      DataObjectWrapper {
+public class AlgorithmWrapper extends DefaultPropertyChangeNotifier implements DataObjectWrapper {
 
-   private static final String PROPERTY_CONFIGURATIONS = "configurations";
+  private static final String PROPERTY_CONFIGURATIONS = "configurations";
 
-   Class< ? extends Algorithm> algorithmClass;
+  Class<? extends Algorithm> algorithmClass;
 
-   MainModel mainModel;
+  MainModel mainModel;
 
-   List<Configuration> configurations;
+  List<Configuration> configurations;
 
+  public AlgorithmWrapper(MainModel mainModel, Class<? extends Algorithm> algorithmClass) {
+    this.algorithmClass = algorithmClass;
+    this.mainModel = mainModel;
+    updateReference();
+  }
 
-   public AlgorithmWrapper(MainModel mainModel, Class< ? extends Algorithm> algorithmClass) {
-      this.algorithmClass = algorithmClass;
-      this.mainModel = mainModel;
-      updateReference();
-   }
+  public void addConfiguration(Configuration configuration) {
+    mainModel.getStorageManager().store(configuration);
 
+    for (PropertyChangeListener listener : getListeners()) {
+      configuration.addPropertyChangeListener(listener);
+    }
+    updateReference();
 
-   public void addConfiguration(Configuration configuration) {
-      mainModel.getStorageManager().store(configuration);
-      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_CONFIGURATIONS,
-            0, null, configuration);
-      updateReference();
-   }
+    propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_CONFIGURATIONS, 0, null, configuration);
+    
+  }
 
+  public void removeConfiguration(Configuration configuration) {
+    propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_CONFIGURATIONS, 0, configuration, null);
+    updateReference();
+  }
 
-   public void removeConfiguration(Configuration configuration) {
-      propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_CONFIGURATIONS,
-            0, configuration, null);
-      updateReference();
-   }
+  public Class<? extends Algorithm> getAlgorithm() {
+    return algorithmClass;
+  }
 
+  public String getName() {
+    return algorithmClass.getSimpleName();
+  }
 
-   public Class< ? extends Algorithm> getAlgorithm() {
-      return algorithmClass;
-   }
+  @Override
+  public String toString() {
+    return getName();
+  }
 
+  @Override
+  public List<DataObject> getDataObjects() {
+    List<DataObject> result = new ArrayList<DataObject>();
+    result.addAll(configurations);
+    return result;
+  }
 
-   public String getName() {
-      return algorithmClass.getSimpleName();
-   }
+  private List<PropertyChangeListener> getListeners() {
+    return Arrays.asList(propertyChangeSupport.getPropertyChangeListeners());
+  }
 
-
-   @Override
-   public String toString() {
-      return getName();
-   }
-
-
-   @Override
-   public List<DataObject> getDataObjects() {
-      List<DataObject> result = new ArrayList<DataObject>();
-      result.addAll(configurations);
-      return result;
-   }
-
-
-   public List<PropertyChangeListener> getListeners() {
-      return Arrays.asList(propertyChangeSupport.getPropertyChangeListeners());
-   }
-
-
-   private synchronized void updateReference() {
-      if (configurations == null) {
-         configurations = new ArrayList<Configuration>();
+  private synchronized void updateReference() {
+    if (configurations == null) {
+      configurations = new ArrayList<Configuration>();
+    }
+    configurations.clear();
+    for (Configuration configuration : mainModel.getConfigurations()) {
+      if (configuration.getAlgorithms().contains(algorithmClass.getName())) {
+        configurations.add(configuration);
       }
-      configurations.clear();
-      for (Configuration configuration : mainModel.getConfigurations()) {
-         if (configuration.getAlgorithms().contains(algorithmClass.getName())) {
-            configurations.add(configuration);
-         }
-      }
+    }
 
-      // FIXME find another solution to notify the main controller about the
-      // update.
-      propertyChangeSupport.firePropertyChange("nil", "not", "yes");
-   }
+    // FIXME find another solution to notify the main controller about the
+    // update.
+    propertyChangeSupport.firePropertyChange("nil", "not", "yes");
+  }
 
 }
