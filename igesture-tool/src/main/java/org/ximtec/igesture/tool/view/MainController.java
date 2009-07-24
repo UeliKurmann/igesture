@@ -113,6 +113,7 @@ public class MainController extends DefaultController implements Service {
     initMainView();
     initSubControllersAndViews(passiveControllers);
     getAction(CMD_CLOSE_WS).setEnabled(false);
+    getAction(CMD_SAVE).setEnabled(false);
   }
 
   private void initServices() {
@@ -236,7 +237,11 @@ public class MainController extends DefaultController implements Service {
       mainModel.setStorageEngine(StorageManager.createStorageEngine(dataBase));
       mainModel.start();
       initSubControllersAndViews(activeControllers);
+      
+      //activate actions
       getAction(CMD_CLOSE_WS).setEnabled(true);
+      getAction(CMD_SAVE).setEnabled(true);
+      getAction(CMD_LOAD).setEnabled(false);
     }
 
   } // execLoadCommand
@@ -251,7 +256,11 @@ public class MainController extends DefaultController implements Service {
     mainModel.stop();
     mainModel.setStorageEngine(null);
     initSubControllersAndViews(passiveControllers);
+    
     getAction(CMD_CLOSE_WS).setEnabled(false);
+    getAction(CMD_SAVE).setEnabled(false);
+    getAction(CMD_LOAD).setEnabled(true);
+    
   } // execLoadCommand
 
   @ExecCmd(name = CMD_SAVE)
