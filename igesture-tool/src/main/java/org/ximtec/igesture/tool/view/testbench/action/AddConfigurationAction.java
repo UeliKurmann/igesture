@@ -27,7 +27,6 @@
 package org.ximtec.igesture.tool.view.testbench.action;
 
 import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeListener;
 
 import javax.swing.tree.TreePath;
 
@@ -63,15 +62,15 @@ public class AddConfigurationAction extends TreePathAction {
       .createAlgorithmInstance(algorithmName);
       
       configuration.addAlgorithm(algorithmName);
+      
       for (Enum< ? > e : algorithm.getConfigParameters()) {
          configuration.addParameter(algorithmName, e.name(), algorithm
                .getDefaultParameterValue(e.name()));
       }
+      
       algorithWrapper.addConfiguration(configuration);
 
-      for (PropertyChangeListener listener : algorithWrapper.getListeners()) {
-         configuration.addPropertyChangeListener(listener);
-      }
+      
 
    }
 

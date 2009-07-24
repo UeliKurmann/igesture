@@ -295,7 +295,7 @@ public class MainController extends DefaultController implements Service {
       }
 
     } else if (event.getSource() instanceof DataObjectWrapper) {
-      LOGGER.info("DataObjectWrapper");
+      LOGGER.info("DataObjectWrapper: "+event.getSource().getClass().getName() );
 
       if (event.getOldValue() instanceof DataObject && event.getNewValue() == null) {
         mainModel.getStorageManager().remove((DataObject) event.getOldValue());

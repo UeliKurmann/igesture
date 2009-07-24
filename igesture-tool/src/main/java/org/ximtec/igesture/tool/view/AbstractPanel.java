@@ -27,7 +27,6 @@ package org.ximtec.igesture.tool.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.util.concurrent.Executors;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
