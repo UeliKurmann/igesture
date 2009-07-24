@@ -38,10 +38,6 @@ import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultView;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.service.GuiBundleService;
-import org.ximtec.igesture.tool.view.action.ExitAction;
-import org.ximtec.igesture.tool.view.action.LoadWorkspaceAction;
-import org.ximtec.igesture.tool.view.action.ShowAboutAction;
-import org.ximtec.igesture.tool.view.action.StoreWorkspaceAction;
 
 /**
  * The main view of the iGesture tool.
@@ -88,19 +84,16 @@ public class MainView extends DefaultView {
 						GuiBundleService.class));
 		menuBar.add(helpMenu);
 
-		BasicMenuItem openItem = new BasicMenuItem();
-		openItem.setAction(getController().getAction(LoadWorkspaceAction.class));
-		fileMenu.add(openItem);
-		BasicMenuItem storeItem = new BasicMenuItem();
-		storeItem.setAction(getController().getAction(StoreWorkspaceAction.class));
-		fileMenu.add(storeItem);
-		BasicMenuItem exitItem = new BasicMenuItem();
-		exitItem.setAction(getController().getAction(ExitAction.class));
+
+		fileMenu.add(createMenuItem(MainController.CMD_LOAD));
+		fileMenu.add(createMenuItem(MainController.CMD_CLOSE_WS));
+		fileMenu.add(createMenuItem(MainController.CMD_SAVE));
 		fileMenu.addSeparator();
-		fileMenu.add(exitItem);
+		fileMenu.add(createMenuItem(MainController.CMD_EXIT));
+		
 
 		BasicMenuItem aboutItem = new BasicMenuItem();
-		aboutItem.setAction(getController().getAction(ShowAboutAction.class));
+		aboutItem.setAction(getController().getAction(MainController.CMD_SHOW_ABOUT_DIALOG));
 		helpMenu.add(aboutItem);
 	}
 
@@ -111,5 +104,11 @@ public class MainView extends DefaultView {
 	public void removeAllTabs() {
 		tabbedPane.removeAll();
 	} // removeAllTabs
+	
+	private BasicMenuItem createMenuItem(String action){
+	  BasicMenuItem item = new BasicMenuItem();
+    item.setAction(getController().getAction(action));
+    return item;
+	}
 
 }

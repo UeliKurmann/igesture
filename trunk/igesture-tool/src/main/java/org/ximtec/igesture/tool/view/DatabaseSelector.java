@@ -44,7 +44,6 @@ import javax.swing.JTextField;
 
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.service.GuiBundleService;
-import org.ximtec.igesture.tool.view.action.SelectDatabaseAction;
 import org.ximtec.igesture.tool.view.databaseselector.BrowseAction;
 
 
@@ -121,7 +120,7 @@ public class DatabaseSelector extends JDialog{
       panel.setForeground(Color.white);
       panel.setOpaque(true);
       panel.setLayout(new FlowLayout());
-      panel.add(new JButton(new SelectDatabaseAction(null)));
+     // panel.add(new JButton(new SelectDatabaseAction(null)));
       return panel;
    }
    

@@ -23,7 +23,6 @@
  * 
  */
 
-
 package org.ximtec.igesture.storage;
 
 import java.io.File;
@@ -43,7 +42,6 @@ import org.ximtec.igesture.core.DataObject;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-
 /**
  * XML storage engine implementation.
  * 
@@ -51,173 +49,155 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
  * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class XMLStorageEngine extends DefaultStorageEngine{
+public class XMLStorageEngine extends DefaultStorageEngine {
 
-   private static final Logger LOGGER = Logger.getLogger(XMLStorageEngine.class
-         .getName());
+  private static final Logger LOGGER = Logger.getLogger(XMLStorageEngine.class.getName());
 
-   private File xmlFile;
+  private File xmlFile;
 
-   private HashMap<Class< ? extends DataObject>, List<DataObject>> dataObjects;
+  private HashMap<Class<? extends DataObject>, List<DataObject>> dataObjects;
 
+  public XMLStorageEngine(String filename) {
+    xmlFile = new File(filename);
 
-   public XMLStorageEngine(String filename) {
-      xmlFile = new File(filename);
+    if (xmlFile.exists()) {
+      dataObjects = deserialize(xmlFile);
+    } else {
+      dataObjects = new HashMap<Class<? extends DataObject>, List<DataObject>>();
+    }
 
-      if (xmlFile.exists()) {
-         dataObjects = deserialize(xmlFile);
-      }
-      else {
-         dataObjects = new HashMap<Class< ? extends DataObject>, List<DataObject>>();
-      }
+  }
 
-   }
+  /**
+   * Serialize the internal data structure to an XML file.
+   */
+  private void serialize(HashMap<Class<? extends DataObject>, List<DataObject>> objects, File file) {
+    final XStream xstream = new XStream(new DomDriver());
+    final String xml = xstream.toXML(objects);
 
+    try {
+      final FileWriter fw = new FileWriter(file);
+      fw.write(xml);
+      fw.flush();
+      fw.close();
+    } catch (final IOException e) {
+      LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+    }
 
-   /**
-    * Serialize the internal data structure to an XML file.
-    */
-   private void serialize(
-         HashMap<Class< ? extends DataObject>, List<DataObject>> objects,
-         File file) {
-      final XStream xstream = new XStream(new DomDriver());
-      final String xml = xstream.toXML(objects);
+  } // serialize
 
-      try {
-         final FileWriter fw = new FileWriter(file);
-         fw.write(xml);
-         fw.flush();
-         fw.close();
-      }
-      catch (final IOException e) {
-         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-      }
+  /**
+   * Deserialise an XML file.
+   * 
+   * @param file
+   *          the file to be deserialised.
+   * @return the internal data structure handling the data objects.
+   */
+  @SuppressWarnings("unchecked")
+  private HashMap<Class<? extends DataObject>, List<DataObject>> deserialize(File file) {
+    final XStream xstream = new XStream(new DomDriver());
+    HashMap<Class<? extends DataObject>, List<DataObject>> dataObjects = null;
 
-   } // serialize
+    try {
+      final FileReader fr = new FileReader(file);
+      dataObjects = (HashMap<Class<? extends DataObject>, List<DataObject>>) xstream.fromXML(fr);
+      fr.close();
+    } catch (final FileNotFoundException e) {
+      LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+    } catch (final IOException e) {
+      LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+    } catch (final ClassCastException e) {
+      LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+    }
+    if (dataObjects == null) {
+      dataObjects = new HashMap<Class<? extends DataObject>, List<DataObject>>();
+    }
 
+    return dataObjects;
+  }
 
-   /**
-    * Deserialise an XML file.
-    * 
-    * @param file the file to be deserialised.
-    * @return the internal data structure handling the data objects.
-    */
-   @SuppressWarnings("unchecked")
-   private HashMap<Class< ? extends DataObject>, List<DataObject>> deserialize(
-         File file) {
-      final XStream xstream = new XStream(new DomDriver());
-      HashMap<Class< ? extends DataObject>, List<DataObject>> dataObjects = null;
+  @Override
+  public void dispose() {
+    //
+  } // dispose
 
-      try {
-         final FileReader fr = new FileReader(file);
-         dataObjects = (HashMap<Class< ? extends DataObject>, List<DataObject>>)xstream
-               .fromXML(fr);
-         fr.close();
-      }
-      catch (final FileNotFoundException e) {
-         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-      }
-      catch (final IOException e) {
-         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-      }
-      catch (final ClassCastException e) {
-         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
-      }
-      if (dataObjects == null) {
-         dataObjects = new HashMap<Class< ? extends DataObject>, List<DataObject>>();
-      }
+  @SuppressWarnings("unchecked")
+  public <T extends DataObject> T load(final Class<T> clazz, final String id) {
+    T dataObject = null;
 
-      return dataObjects;
-   }
+    if (dataObjects.get(clazz) != null) {
 
+      for (final DataObject tmp : dataObjects.get(clazz)) {
 
-   public void dispose() {
-      commit();
-   } // dispose
-
-
-   @SuppressWarnings("unchecked")
-   public <T extends DataObject> T load(final Class<T> clazz, final String id) {
-      T dataObject = null;
-
-      if (dataObjects.get(clazz) != null) {
-
-         for (final DataObject tmp : dataObjects.get(clazz)) {
-
-            if (tmp.getId().equals(id)) {
-               dataObject = (T)tmp;
-               break;
-            }
-
-         }
+        if (tmp.getId().equals(id)) {
+          dataObject = (T) tmp;
+          break;
+        }
 
       }
 
-      return dataObject;
-   } // load
+    }
 
+    return dataObject;
+  } // load
 
-   @SuppressWarnings("unchecked")
-   public <T extends DataObject> List<T> load(Class<T> clazz) {
-      if (dataObjects.get(clazz) != null) {
-         return (List<T>)dataObjects.get(clazz);
-      }
+  @SuppressWarnings("unchecked")
+  public <T extends DataObject> List<T> load(Class<T> clazz) {
+    if (dataObjects.get(clazz) != null) {
+      return (List<T>) dataObjects.get(clazz);
+    }
 
-      return new ArrayList<T>();
-   } // load
+    return new ArrayList<T>();
+  } // load
 
+  public void store(DataObject dataObject) {
+    addDataObject(dataObject);
+  } // store
 
-   public void store(DataObject dataObject) {
-      addDataObject(dataObject);
-   } // store
+  public void update(DataObject dataObject) {
+    addDataObject(dataObject);
+  } // update
 
+  public void remove(DataObject dataObject) {
+    removeDataObject(dataObject);
+  } // remove
 
-   public void update(DataObject dataObject) {
-      addDataObject(dataObject);
-   } // update
+  /**
+   * Adds a data object to the object container.
+   * 
+   * @param dataObject
+   *          the data object to be added.
+   */
+  private void addDataObject(DataObject dataObject) {
+    // create a list for a specific type if it doesn't exist
+    if (dataObjects.get(dataObject.getClass()) == null) {
+      dataObjects.put(dataObject.getClass(), new ArrayList<DataObject>());
+    }
 
+    // only add dataObject if it isn't already present in the list
+    if (!dataObjects.get(dataObject.getClass()).contains(dataObject)) {
+      dataObjects.get(dataObject.getClass()).add(dataObject);
+    }
 
-   public void remove(DataObject dataObject) {
-      removeDataObject(dataObject);
-   } // remove
+  } // addDataObject
 
+  /**
+   * Removes a data object from the object container.
+   * 
+   * @param dataObject
+   *          the data object to be removed.
+   */
+  private void removeDataObject(DataObject dataObject) {
+    if (dataObjects.get(dataObject.getClass()) != null) {
+      dataObjects.get(dataObject.getClass()).remove(dataObject);
+    }
 
-   /**
-    * Adds a data object to the object container.
-    * 
-    * @param dataObject the data object to be added.
-    */
-   private void addDataObject(DataObject dataObject) {
-      // create a list for a specific type if it doesn't exist
-      if (dataObjects.get(dataObject.getClass()) == null) {
-         dataObjects.put(dataObject.getClass(), new ArrayList<DataObject>());
-      }
+  } // removeDataObject
 
-      // only add dataObject if it isn't already present in the list
-      if (!dataObjects.get(dataObject.getClass()).contains(dataObject)) {
-         dataObjects.get(dataObject.getClass()).add(dataObject);
-      }
+  @Override
+  public void commit() {
+    serialize(dataObjects, xmlFile);
 
-   } // addDataObject
-
-
-   /**
-    * Removes a data object from the object container.
-    * 
-    * @param dataObject the data object to be removed.
-    */
-   private void removeDataObject(DataObject dataObject) {
-      if (dataObjects.get(dataObject.getClass()) != null) {
-         dataObjects.get(dataObject.getClass()).remove(dataObject);
-      }
-
-   } // removeDataObject
-
-
-   @Override
-   public void commit() {
-      serialize(dataObjects, xmlFile);
-      
-   }
+  }
 
 }

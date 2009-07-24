@@ -47,7 +47,7 @@ public class MainWindowAdapter extends WindowAdapter {
 
    @Override
    public void windowClosing(WindowEvent e) {
-      controller.execute(new Command(MainController.CMD_CLOSE, e));
+      controller.execute(new Command(MainController.CMD_EXIT, e));
    }
 
 }

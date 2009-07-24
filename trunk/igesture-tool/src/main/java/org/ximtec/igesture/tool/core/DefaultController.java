@@ -56,13 +56,13 @@ public abstract class DefaultController implements Controller {
 
   private Controller parent;
 
-  private Map<Class<?>, LocateableAction> actions;
+  private Map<String, LocateableAction> actions;
 
   private Locator locator;
 
   public DefaultController(Controller parentController) {
     controllers = new ArrayList<Controller>();
-    actions = new HashMap<Class<?>, LocateableAction>();
+    actions = new HashMap<String, LocateableAction>();
     this.setParent(parentController);
 
     commandMethods = new HashMap<String, Method>();
@@ -209,12 +209,12 @@ public abstract class DefaultController implements Controller {
   }
 
   @Override
-  public LocateableAction getAction(Class<?> actionClass) {
-    return actions.get(actionClass);
+  public LocateableAction getAction(String actionName) {
+    return actions.get(actionName);
   }
 
-  public void addAction(Class<?> actionClass, LocateableAction action) {
-    actions.put(actionClass, action);
+  public void addAction(String actionName, LocateableAction action) {
+    actions.put(actionName, action);
   }
 
   @Override

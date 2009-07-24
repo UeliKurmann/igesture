@@ -66,6 +66,8 @@ public class MainModel implements RunnableService {
   private Properties properties;
 
   private AlgorithmList algorithmList;
+  
+  private boolean isActive;
 
   /**
    * Constructs a new main model.
@@ -208,6 +210,7 @@ public class MainModel implements RunnableService {
   public void setStorageEngine(StorageEngine storageEngine) {
     PropertyChangeVisitor visitor = new PropertyChangeVisitor(mainController);
     this.storageManager = StorageManagerProxy.newInstance(new StorageManager(storageEngine), visitor);
+    isActive = storageEngine != null;
   } // setStorageEngine
 
   /**
@@ -243,6 +246,10 @@ public class MainModel implements RunnableService {
 
   public Properties getProperties() {
     return properties;
+  }
+
+  public boolean isActive() {
+    return isActive;
   }
 
 }

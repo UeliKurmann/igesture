@@ -247,8 +247,11 @@ public class ZipStorageEngine extends DefaultStorageEngine {
 
    @Override
    public void dispose() {
-      commit();
-
+      try {
+        zipFS.close();
+      } catch (IOException e) {
+        LOGGER.info("Could not close the ZIP file");
+      }
    }
 
 
