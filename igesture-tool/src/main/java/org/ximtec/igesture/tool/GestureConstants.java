@@ -58,6 +58,7 @@ public class GestureConstants {
    public static final String APPLICATION_EXIT = "ApplicationExit";
    public static final String APPLICATION_SAVE = "ApplicationSave";
    public static final String APPLICATION_ROOT = "ApplicationRoot";
+   public static final String APPLICATION_CLOSE_WS = "ApplicationCloseWorkspace";
    
    public static final String APPLICATION_BROWSE = "ApplicationBrowse";
    public static final String FILE_MENU = "FileMenu";
@@ -85,6 +86,7 @@ public class GestureConstants {
    public static final String ADMIN_VIEW_NAME = "AdminViewName";
    
    public static final String MAIN_CONTROLLER_DIALOG_EXIT = "MainControllerDialogExit";
+   public static final String MAIN_CONTROLLER_DIALOG_SAVE = "MainControllerDialogSave";
    
    public static final String TESTSET_VIEW_NAME = "TestSetTab";
    public static final String TESTSET_ADD = "TestSetAdd";

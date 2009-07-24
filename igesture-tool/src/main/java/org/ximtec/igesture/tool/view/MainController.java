@@ -36,6 +36,7 @@ import java.lang.reflect.Constructor;
 import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,6 +51,7 @@ import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.ExecCmd;
+import org.ximtec.igesture.tool.core.GenericLocateableAction;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.locator.Service;
@@ -58,10 +60,6 @@ import org.ximtec.igesture.tool.service.SwingMouseReaderService;
 import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.ExtensionFileFilter;
 import org.ximtec.igesture.tool.util.FileFilterFactory;
-import org.ximtec.igesture.tool.view.action.ExitAction;
-import org.ximtec.igesture.tool.view.action.LoadWorkspaceAction;
-import org.ximtec.igesture.tool.view.action.ShowAboutAction;
-import org.ximtec.igesture.tool.view.action.StoreWorkspaceAction;
 import org.ximtec.igesture.tool.view.admin.AdminController;
 import org.ximtec.igesture.tool.view.batch.BatchController;
 import org.ximtec.igesture.tool.view.testbench.TestbenchController;
@@ -84,14 +82,16 @@ public class MainController extends DefaultController implements Service {
   private static final String PROPERTIES = "properties.xml";
 
   public static final String CMD_LOAD = "load";
-  public static final String CMD_CLOSE = "close";
+  public static final String CMD_EXIT = "close";
   public static final String CMD_SAVE = "save";
   public static final String CMD_START_WAITING = "startWaiting";
   public static final String CMD_STOP_WAITING = "stopWaiting";
   public static final String CMD_SHOW_ABOUT_DIALOG = "showAboutDialog";
+  public static final String CMD_CLOSE_WS = "closeWorkspace";
 
-  private static Class<?>[] controllers = new Class<?>[] { WelcomeController.class, AdminController.class,
-      TestbenchController.class, BatchController.class, TestSetController.class };
+  private static Class<?>[] activeControllers = new Class<?>[] { AdminController.class, TestbenchController.class,
+      BatchController.class, TestSetController.class };
+  private static Class<?>[] passiveControllers = new Class<?>[] { WelcomeController.class };
 
   public static final String IDENTIFIER = "mainController";
 
@@ -111,7 +111,8 @@ public class MainController extends DefaultController implements Service {
     super(null);
     initServices();
     initMainView();
-    initSubContrllersViews();
+    initSubControllersAndViews(passiveControllers);
+    getAction(CMD_CLOSE_WS).setEnabled(false);
   }
 
   private void initServices() {
@@ -127,12 +128,7 @@ public class MainController extends DefaultController implements Service {
       LOGGER.log(Level.WARNING, "Failed to load properties.");
     }
 
-    File database = null;
-    while (database == null) {
-      database = getDatabase();
-    }
-
-    mainModel = new MainModel(StorageManager.createStorageEngine(database), this, properties);
+    mainModel = new MainModel(null, this, properties);
     deviceClient = new SwingMouseReaderService();
 
     /**
@@ -151,40 +147,24 @@ public class MainController extends DefaultController implements Service {
   /**
    * Initialises controllers an views connected to the main controller.
    */
-  private void initSubContrllersViews() {
-  
-    if(SwingUtilities.isEventDispatchThread()){
-      throw new RuntimeException("Must not be executed in the Event Dispatch Thread.");
+  private void initSubControllersAndViews(final Class<?>[] controllers) {
+
+    if (SwingUtilities.isEventDispatchThread()) {
+      throw new RuntimeException("Must not be executed in the EDT.");
     }
-    
+
     final CyclicBarrier barrier = new CyclicBarrier(2);
-    
+
     SwingUtilities.invokeLater(new Runnable() {
 
       @Override
       public void run() {
 
-        for (Class<?> clazz : controllers) {
-          try {
-
-            Controller controller = null;
-            if (clazz.getConstructor(Controller.class) != null) {
-              // FIXME Generics!
-              Constructor<?> constructor = clazz.getConstructor(Controller.class);
-              controller = (Controller) constructor.newInstance(MainController.this);
-            } else {
-              controller = (Controller) clazz.newInstance();
-            }
-            addController(controller);
-            mainView.addTab(controller.getView());
-          } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Could not initialize view. " + clazz.getName(), e);
-          }
-        }
+        initControllers(controllers);
 
         try {
-          //FIXME try to set a timeout to handle a deadlock
-          barrier.await();
+          // FIXME try to set a timeout to handle a deadlock
+          barrier.await(5l, TimeUnit.SECONDS);
         } catch (Exception e) {
           LOGGER.log(Level.SEVERE, "View Initialization failed.");
         }
@@ -200,13 +180,45 @@ public class MainController extends DefaultController implements Service {
 
   }
 
+  protected void initControllers(Class<?>[] controllers) {
+    for (Class<?> clazz : controllers) {
+      try {
+        Controller controller = createController(clazz);
+        addController(controller);
+        mainView.addTab(controller.getView());
+      } catch (Exception e) {
+        LOGGER.log(Level.SEVERE, "Could not initialize view. " + clazz.getName(), e);
+      }
+    }
+  }
+
+  /**
+   * Creates a Controller
+   * 
+   * @param clazz
+   * @return
+   * @throws Exception
+   */
+  private Controller createController(Class<?> clazz) throws Exception {
+    Controller controller;
+    if (clazz.getConstructor(Controller.class) != null) {
+      Constructor<?> constructor = clazz.getConstructor(Controller.class);
+      controller = (Controller) constructor.newInstance(MainController.this);
+    } else {
+      controller = (Controller) clazz.newInstance();
+    }
+    return controller;
+  }
+
   private void initMainView() {
     if (mainView == null) {
 
-      addAction(LoadWorkspaceAction.class, new LoadWorkspaceAction(this));
-      addAction(StoreWorkspaceAction.class, new StoreWorkspaceAction(this));
-      addAction(ExitAction.class, new ExitAction(this));
-      addAction(ShowAboutAction.class, new ShowAboutAction(this));
+      addAction(CMD_LOAD, new GenericLocateableAction(this, GestureConstants.APPLICATION_BROWSE, CMD_LOAD));
+      addAction(CMD_SAVE, new GenericLocateableAction(this, GestureConstants.APPLICATION_SAVE, CMD_SAVE));
+      addAction(CMD_EXIT, new GenericLocateableAction(this, GestureConstants.APPLICATION_EXIT, CMD_EXIT));
+      addAction(CMD_SHOW_ABOUT_DIALOG, new GenericLocateableAction(this, GestureConstants.MENUBAR_ABOUT,
+          CMD_SHOW_ABOUT_DIALOG));
+      addAction(CMD_CLOSE_WS, new GenericLocateableAction(this, GestureConstants.APPLICATION_CLOSE_WS, CMD_CLOSE_WS));
 
       mainView = new MainView(this);
       mainView.addWindowListener(new MainWindowAdapter(this));
@@ -223,9 +235,23 @@ public class MainController extends DefaultController implements Service {
       mainModel.stop();
       mainModel.setStorageEngine(StorageManager.createStorageEngine(dataBase));
       mainModel.start();
-      initSubContrllersViews();
+      initSubControllersAndViews(activeControllers);
+      getAction(CMD_CLOSE_WS).setEnabled(true);
     }
 
+  } // execLoadCommand
+
+  @ExecCmd(name = CMD_CLOSE_WS)
+  protected void execCloseWsCommand() {
+    LOGGER.info("Command Close Workspace");
+    if(mainModel.isActive() && JOptionPane.YES_OPTION == showYesNoDialog(GestureConstants.MAIN_CONTROLLER_DIALOG_SAVE)){  
+      mainModel.getStorageManager().commit();
+    }
+    mainView.removeAllTabs();
+    mainModel.stop();
+    mainModel.setStorageEngine(null);
+    initSubControllersAndViews(passiveControllers);
+    getAction(CMD_CLOSE_WS).setEnabled(false);
   } // execLoadCommand
 
   @ExecCmd(name = CMD_SAVE)
@@ -234,17 +260,16 @@ public class MainController extends DefaultController implements Service {
     mainModel.getStorageManager().commit();
   } // execSaveCommand
 
-  @ExecCmd(name = CMD_CLOSE)
-  protected void execCloseCommand() {
-    LOGGER.info("Command Close");
+  @ExecCmd(name = CMD_EXIT)
+  protected void execExitCommand() {
+    LOGGER.info("Command Exit");
 
-    String title = getComponentFactory().getGuiBundle().getName(GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT);
-
-    String text = getComponentFactory().getGuiBundle()
-        .getShortDescription(GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT);
-
-    if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, text, title, JOptionPane.YES_NO_OPTION)) {
-      mainModel.getStorageManager().commit();
+    if (JOptionPane.YES_OPTION == showYesNoDialog(GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT)) {
+      
+      if(mainModel.isActive() && JOptionPane.YES_OPTION == showYesNoDialog(GestureConstants.MAIN_CONTROLLER_DIALOG_SAVE)){
+        mainModel.getStorageManager().commit();
+      }
+      
       getLocator().stopAll();
 
       try {
@@ -255,7 +280,13 @@ public class MainController extends DefaultController implements Service {
       System.exit(0);
     }
 
-  } // execCloseCommand
+  } // execExitCommand
+
+  private int showYesNoDialog(String key) {
+    String title = getComponentFactory().getGuiBundle().getName(key);
+    String text = getComponentFactory().getGuiBundle().getShortDescription(key);
+    return JOptionPane.showConfirmDialog(null, text, title, JOptionPane.YES_NO_OPTION);
+  }
 
   private ComponentFactory getComponentFactory() {
     return getLocator().getService(ComponentFactory.class.getName(), ComponentFactory.class);
@@ -295,7 +326,7 @@ public class MainController extends DefaultController implements Service {
       }
 
     } else if (event.getSource() instanceof DataObjectWrapper) {
-      LOGGER.info("DataObjectWrapper: "+event.getSource().getClass().getName() );
+      LOGGER.info("DataObjectWrapper: " + event.getSource().getClass().getName());
 
       if (event.getOldValue() instanceof DataObject && event.getNewValue() == null) {
         mainModel.getStorageManager().remove((DataObject) event.getOldValue());
@@ -336,8 +367,6 @@ public class MainController extends DefaultController implements Service {
    * 
    * @return file handle to the database to be opened.
    */
-  // TODO select database file (ms access like application). show recent used
-  // files.
   private File getDatabase() {
     File file = null;
 
@@ -349,17 +378,15 @@ public class MainController extends DefaultController implements Service {
     chooser.showOpenDialog(null);
     file = chooser.getSelectedFile();
 
-    try {
-      ExtensionFileFilter fileFilter = (ExtensionFileFilter) chooser.getFileFilter();
-      if (!fileFilter.accept(file)) {
-        file = new File(file.getAbsolutePath() + "." + fileFilter.getExtension());
-      }
-
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
     if (file != null) {
+      try {
+        ExtensionFileFilter fileFilter = (ExtensionFileFilter) chooser.getFileFilter();
+        if (!fileFilter.accept(file)) {
+          file = new File(file.getAbsolutePath() + "." + fileFilter.getExtension());
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
       properties.setProperty(Property.WORKING_DIRECTORY, file.getParent());
     }
 

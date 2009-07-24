@@ -53,7 +53,11 @@ public class ExtensionFileFilter extends FileFilter{
    
    @Override
    public boolean accept(File f) {
+     if(f != null){
       return f.isDirectory() || f.getName().endsWith(DOT+extension);
+     }else {
+       return false;
+     }
    }
 
    @Override

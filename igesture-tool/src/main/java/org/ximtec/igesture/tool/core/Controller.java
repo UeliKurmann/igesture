@@ -100,10 +100,10 @@ public interface Controller extends PropertyChangeListener {
 	
 	/**
 	 * Returns the action instance of the given class
-	 * @param action
+	 * @param actionName
 	 * @return
 	 */
-	public LocateableAction getAction(Class<?> action);
+	public LocateableAction getAction(String actionName);
 	
 	/**
 	 * Returns the applications locator
