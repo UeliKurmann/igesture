@@ -84,6 +84,7 @@ public abstract class StorageEngineTest {
       StorageManager manager = getStorageManager();
       manager.store(gestureSet);
       manager.store(testSet);
+      manager.commit();
       manager.dispose();
 
    }
