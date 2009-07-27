@@ -52,6 +52,11 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>com.famfamfam</groupId>
+			<artifactId>silkicons</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.sigtec</groupId>
 			<artifactId>sigtec-graphix</artifactId>
 		</dependency>	
