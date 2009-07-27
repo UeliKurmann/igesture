@@ -238,7 +238,7 @@ public class MainController extends DefaultController implements Service {
          addAction(CMD_EXIT, new GenericLocateableAction(this,
                GestureConstants.EXIT, CMD_EXIT));
          addAction(CMD_SHOW_ABOUT_DIALOG, new GenericLocateableAction(this,
-               GestureConstants.MENUBAR_ABOUT, CMD_SHOW_ABOUT_DIALOG));
+               GestureConstants.ABOUT, CMD_SHOW_ABOUT_DIALOG));
          addAction(CMD_CLOSE_WS, new GenericLocateableAction(this,
                GestureConstants.CLOSE_PROJECT, CMD_CLOSE_WS));
 
@@ -350,7 +350,7 @@ public class MainController extends DefaultController implements Service {
    @ExecCmd(name = CMD_SHOW_ABOUT_DIALOG)
    protected void execShowAboutDialog() {
       LOGGER.info("Show About Dialog.");
-      AboutDialog dialog = new AboutDialog(GestureConstants.MENUBAR_ABOUT,
+      AboutDialog dialog = new AboutDialog(GestureConstants.ABOUT,
             getLocator().getService(GuiBundleService.IDENTIFIER,
                   GuiBundleService.class));
       Point point = mainView.getLocation();
