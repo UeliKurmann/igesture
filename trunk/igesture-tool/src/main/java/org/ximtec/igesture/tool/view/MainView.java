@@ -23,6 +23,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.view;
 
 import java.awt.Frame;
@@ -39,6 +40,7 @@ import org.ximtec.igesture.tool.core.DefaultView;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 
+
 /**
  * The main view of the iGesture tool.
  * 
@@ -49,67 +51,72 @@ import org.ximtec.igesture.tool.service.GuiBundleService;
 @SuppressWarnings("serial")
 public class MainView extends DefaultView {
 
-	private JTabbedPane tabbedPane;
-	private JMenuBar menuBar;
-
-	public MainView(Controller controller) {
-		super(controller);
-		initMenu();
-		initView();
-	}
-
-	private void initView() {
-		setBounds(100, 100, 900, 650);
-		setDefaultCloseOperation(Frame.NORMAL);
-		setTitle(getComponentFactory().getGuiBundle().getName(
-				GestureConstants.APPLICATION_ROOT));
-		setIconImage(getComponentFactory().getGuiBundle().getSmallIcon(
-				GestureConstants.APPLICATION_ROOT).getImage());
-		setVisible(true);
-		tabbedPane = new JTabbedPane();
-		this.add(tabbedPane);
-	}
-
-	private void initMenu() {
-		menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-
-		JMenu fileMenu = new BasicMenu(GestureConstants.FILE_MENU, getController()
-				.getLocator().getService(GuiBundleService.IDENTIFIER,
-						GuiBundleService.class));
-		menuBar.add(fileMenu);
-
-		JMenu helpMenu = new BasicMenu(GestureConstants.MENUBAR_HELP, getController()
-				.getLocator().getService(GuiBundleService.IDENTIFIER,
-						GuiBundleService.class));
-		menuBar.add(helpMenu);
+   private JTabbedPane tabbedPane;
+   private JMenuBar menuBar;
 
 
-		fileMenu.add(createMenuItem(MainController.CMD_LOAD));
-		fileMenu.add(createMenuItem(MainController.CMD_CLOSE_WS));
-		fileMenu.addSeparator();
-		fileMenu.add(createMenuItem(MainController.CMD_SAVE));
-		fileMenu.addSeparator();
-		fileMenu.add(createMenuItem(MainController.CMD_EXIT));
-		
+   public MainView(Controller controller) {
+      super(controller);
+      initMenu();
+      initView();
+   }
 
-		BasicMenuItem aboutItem = new BasicMenuItem();
-		aboutItem.setAction(getController().getAction(MainController.CMD_SHOW_ABOUT_DIALOG));
-		helpMenu.add(aboutItem);
-	}
 
-	public void addTab(TabbedView view) {
-		tabbedPane.add(view.getTabName(), view.getPane());
-	} // addTab
+   private void initView() {
+      setBounds(100, 100, 900, 650);
+      setDefaultCloseOperation(Frame.NORMAL);
+      setTitle(getComponentFactory().getGuiBundle().getName(
+            GestureConstants.APPLICATION_ROOT));
+      setIconImage(getComponentFactory().getGuiBundle().getSmallIcon(
+            GestureConstants.APPLICATION_ROOT).getImage());
+      setVisible(true);
+      tabbedPane = new JTabbedPane();
+      this.add(tabbedPane);
+   }
 
-	public void removeAllTabs() {
-		tabbedPane.removeAll();
-	} // removeAllTabs
-	
-	private BasicMenuItem createMenuItem(String action){
-	  BasicMenuItem item = new BasicMenuItem();
-    item.setAction(getController().getAction(action));
-    return item;
-	}
+
+   private void initMenu() {
+      menuBar = new JMenuBar();
+      setJMenuBar(menuBar);
+
+      JMenu fileMenu = new BasicMenu(GestureConstants.FILE_MENU, getController()
+            .getLocator().getService(GuiBundleService.IDENTIFIER,
+                  GuiBundleService.class));
+      menuBar.add(fileMenu);
+
+      JMenu helpMenu = new BasicMenu(GestureConstants.MENUBAR_HELP,
+            getController().getLocator().getService(GuiBundleService.IDENTIFIER,
+                  GuiBundleService.class));
+      menuBar.add(helpMenu);
+
+      fileMenu.add(createMenuItem(MainController.CMD_LOAD));
+      fileMenu.add(createMenuItem(MainController.CMD_CLOSE_WS));
+      fileMenu.addSeparator();
+      fileMenu.add(createMenuItem(MainController.CMD_SAVE));
+      fileMenu.addSeparator();
+      fileMenu.add(createMenuItem(MainController.CMD_EXIT));
+
+      BasicMenuItem aboutItem = new BasicMenuItem();
+      aboutItem.setAction(getController().getAction(
+            MainController.CMD_SHOW_ABOUT_DIALOG));
+      helpMenu.add(aboutItem);
+   }
+
+
+   public void addTab(TabbedView view) {
+      tabbedPane.add(view.getTabName(), view.getPane());
+   } // addTab
+
+
+   public void removeAllTabs() {
+      tabbedPane.removeAll();
+   } // removeAllTabs
+
+
+   private BasicMenuItem createMenuItem(String action) {
+      BasicMenuItem item = new BasicMenuItem();
+      item.setAction(getController().getAction(action));
+      return item;
+   }
 
 }
