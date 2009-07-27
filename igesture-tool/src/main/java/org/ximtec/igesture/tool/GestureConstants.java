@@ -55,12 +55,13 @@ public class GestureConstants {
    public static final String CONFIGURATION_DEL = "RemoveConfigurationAction";
    public static final String CONFIGURATION_EXPORT = "ConfigExportAction";
    public static final String RECONGISE = "RecogniseAction";
-   public static final String APPLICATION_EXIT = "ApplicationExit";
-   public static final String APPLICATION_SAVE = "ApplicationSave";
    public static final String APPLICATION_ROOT = "ApplicationRoot";
-   public static final String APPLICATION_CLOSE_WS = "ApplicationCloseWorkspace";
    
-   public static final String APPLICATION_BROWSE = "ApplicationBrowse";
+   public static final String OPEN_PROJECT = "OpenProjectAction";
+   public static final String CLOSE_PROJECT = "CloseProjectAction";
+   public static final String SAVE = "SaveAction";
+   public static final String EXIT = "ExitAction";
+   
    public static final String FILE_MENU = "FileMenu";
    public static final String MENUBAR_ABOUT = "MenuBarAbout";
    public static final String MENUBAR_HELP = "MenuBarHelp";
