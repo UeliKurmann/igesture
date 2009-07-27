@@ -87,6 +87,7 @@ public class MainView extends DefaultView {
 
 		fileMenu.add(createMenuItem(MainController.CMD_LOAD));
 		fileMenu.add(createMenuItem(MainController.CMD_CLOSE_WS));
+		fileMenu.addSeparator();
 		fileMenu.add(createMenuItem(MainController.CMD_SAVE));
 		fileMenu.addSeparator();
 		fileMenu.add(createMenuItem(MainController.CMD_EXIT));
