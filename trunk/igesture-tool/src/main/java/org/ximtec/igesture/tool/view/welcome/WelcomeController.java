@@ -23,6 +23,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.view.welcome;
 
 import java.beans.PropertyChangeEvent;
@@ -33,6 +34,7 @@ import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.TabbedView;
 
+
 /**
  * Comment
  * 
@@ -41,30 +43,34 @@ import org.ximtec.igesture.tool.core.TabbedView;
  */
 public class WelcomeController extends DefaultController {
 
-	private static final Logger LOGGER = Logger
-			.getLogger(WelcomeController.class.getName());
+   private static final Logger LOGGER = Logger.getLogger(WelcomeController.class
+         .getName());
 
-	private WelcomeView view;
+   private WelcomeView view;
 
-	public WelcomeController(Controller parentController) {
-		super(parentController);
-		initialize();
-	}
 
-	private void initialize() {
-		LOGGER.log(Level.FINE, "Initialize the Welcome Controller.");
-		this.view = new WelcomeView(this);
-	}
+   public WelcomeController(Controller parentController) {
+      super(parentController);
+      initialize();
+   }
 
-	@Override
-	public TabbedView getView() {
-		return view;
-	}
 
-	@Override
-	public void propertyChange(PropertyChangeEvent event) {
-		super.propertyChange(event);
-		view.refresh();
-	}
+   private void initialize() {
+      LOGGER.log(Level.FINE, "Initialize the Welcome Controller.");
+      this.view = new WelcomeView(this);
+   }
+
+
+   @Override
+   public TabbedView getView() {
+      return view;
+   }
+
+
+   @Override
+   public void propertyChange(PropertyChangeEvent event) {
+      super.propertyChange(event);
+      view.refresh();
+   }
 
 }
