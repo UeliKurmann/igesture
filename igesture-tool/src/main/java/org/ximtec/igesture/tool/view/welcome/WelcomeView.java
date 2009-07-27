@@ -23,6 +23,7 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool.view.welcome;
 
 import java.awt.Dimension;
@@ -37,6 +38,7 @@ import org.ximtec.igesture.tool.util.HtmlPanel;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 
+
 /**
  * Comment
  * 
@@ -45,40 +47,46 @@ import org.ximtec.igesture.tool.view.AbstractPanel;
  */
 public class WelcomeView extends AbstractPanel implements TabbedView {
 
-  private static final String HTML_FILE = "html/welcomeTab.html";
+   private static final String HTML_FILE = "html/welcomeTab.html";
 
-  public WelcomeView(Controller controller) {
-    super(controller);
-    init();
-  }
 
-  private void init() {
-    setTitle(TitleFactory.createStaticTitle("Welcome to iGesture Tool 1.2"));
-    URL path = WelcomeView.class.getClassLoader().getResource(HTML_FILE);
-    HtmlPanel htmlPanel = new HtmlPanel(path, new Dimension(400, 400));
-    setCenter(htmlPanel);
-  }
+   public WelcomeView(Controller controller) {
+      super(controller);
+      init();
+   }
 
-  @Override
-  public Icon getIcon() {
-    return null;
-  }
 
-  @Override
-  public String getTabName() {
-    // FIXME: property file
-    return "Welcome";
-  }
+   private void init() {
+      setTitle(TitleFactory.createStaticTitle("Welcome to the iGesture Workbench"));
+      URL path = WelcomeView.class.getClassLoader().getResource(HTML_FILE);
+      HtmlPanel htmlPanel = new HtmlPanel(path, new Dimension(400, 400));
+      setCenter(htmlPanel);
+   }
 
-  @Override
-  public JComponent getPane() {
-    return this;
-  }
 
-  @Override
-  public void refreshUILogic() {
-    super.refreshUILogic();
-    init();
-  }
+   @Override
+   public Icon getIcon() {
+      return null;
+   }
+
+
+   @Override
+   public String getTabName() {
+      // FIXME: property file
+      return "Welcome";
+   }
+
+
+   @Override
+   public JComponent getPane() {
+      return this;
+   }
+
+
+   @Override
+   public void refreshUILogic() {
+      super.refreshUILogic();
+      init();
+   }
 
 }
