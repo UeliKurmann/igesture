@@ -84,8 +84,8 @@ public class MainView extends DefaultView {
                   GuiBundleService.class));
       menuBar.add(fileMenu);
 
-      JMenu helpMenu = new BasicMenu(GestureConstants.MENUBAR_HELP,
-            getController().getLocator().getService(GuiBundleService.IDENTIFIER,
+      JMenu helpMenu = new BasicMenu(GestureConstants.HELP_MENU, getController()
+            .getLocator().getService(GuiBundleService.IDENTIFIER,
                   GuiBundleService.class));
       menuBar.add(helpMenu);
 
