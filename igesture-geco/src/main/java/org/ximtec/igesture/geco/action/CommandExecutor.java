@@ -3,7 +3,7 @@
  *
  * Author		:	Michele Croci, mcroci@gmail.com
  *
- * Purpose		:  Class encapsulating the execution of a command
+ * Purpose		:   Class encapsulating the execution of a command.
  *
  * -----------------------------------------------------------------------
  *
@@ -12,6 +12,7 @@
  * Date				Who			Reason
  *
  * Dec 6, 2007		crocimi		Initial Release
+ * Nov 11, 2008     bsigner     Cleanup
  *
  * -----------------------------------------------------------------------
  *
@@ -33,9 +34,10 @@ import org.ximtec.igesture.event.GestureAction;
 
 
 /**
- * Comment
+ * Class encapsulating the execution of a command.
  * @version 0.9, Dec 6, 2007
  * @author Michele Croci, mcroci@gmail.com
+ * @author Beat Signer, signer@inf.ethz.ch
  */
 public class CommandExecutor implements GestureAction {
 
@@ -71,7 +73,7 @@ public class CommandExecutor implements GestureAction {
       catch (IOException ioe) {
          ioe.printStackTrace();
       }
-      
+
    } // run
 
 
