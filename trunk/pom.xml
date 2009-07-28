@@ -224,16 +224,6 @@
                     <address>ueli@smartness.ch</address>
                 </configuration>
             </notifier>
-            <notifier>
-                <type>mail</type>
-                <sendOnError>true</sendOnError>
-                <sendOnFailure>true</sendOnFailure>
-                <sendOnWarning>true</sendOnWarning>
-                <sendOnSuccess>true</sendOnSuccess>
-                <configuration>
-                    <address>arthur.vogels@gmail.com</address>
-                </configuration>
-            </notifier>
         </notifiers>
     </ciManagement>
 
