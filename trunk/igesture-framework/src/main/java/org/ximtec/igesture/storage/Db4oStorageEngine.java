@@ -23,11 +23,12 @@
  * 
  */
 
-
 package org.ximtec.igesture.storage;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.ximtec.igesture.core.DataObject;
 
@@ -35,7 +36,6 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Predicate;
-
 
 /**
  * Storage engine implementation for db4o.
@@ -46,71 +46,80 @@ import com.db4o.query.Predicate;
  */
 public class Db4oStorageEngine extends DefaultStorageEngine {
 
-   ObjectContainer db;
+  ObjectContainer db;
+  
+  private Set<Object> objectCache;
 
+  /**
+   * Constructs a new db4o engine.
+   * 
+   * @param filename
+   *          the database file.
+   */
+  public Db4oStorageEngine(String filename) {
+    Db4o.configure().activationDepth(Integer.MAX_VALUE);
+    Db4o.configure().updateDepth(Integer.MAX_VALUE);
+    Db4o.configure().allowVersionUpdates(true);
+    Db4o.configure().callConstructors(true);
 
-   /**
-    * Constructs a new db4o engine.
-    * 
-    * @param filename the database file.
-    */
-   public Db4oStorageEngine(String filename) {
-      Db4o.configure().activationDepth(Integer.MAX_VALUE);
-      Db4o.configure().updateDepth(Integer.MAX_VALUE);
-      Db4o.configure().allowVersionUpdates(true);
-      Db4o.configure().callConstructors(true);
-      db = Db4o.openFile(filename);
-   }
+    db = Db4o.openFile(filename);
+    objectCache = new HashSet<Object>();
+  }
 
+  public void dispose() {
+    db.rollback();
+    db.close();
+    
+  } // dispose
 
-   public void dispose() {
-      db.close();
-   } // dispose
+  @SuppressWarnings("serial")
+  public <T extends DataObject> T load(final Class<T> clazz, final String id) {
+    T result = null;
+    final ObjectSet<T> os = db.query(new Predicate<T>() {
 
-
-   @SuppressWarnings("serial")
-   public <T extends DataObject> T load(final Class<T> clazz, final String id) {
-      T result = null;
-      final ObjectSet<T> os = db.query(new Predicate<T>() {
-
-         @Override
-         public boolean match(T dataObject) {
-            return dataObject.getClass().equals(clazz)
-                  && dataObject.getId().equals(id);
-         }
-      });
-
-      if (!os.isEmpty()) {
-         result = os.get(0);
+      @Override
+      public boolean match(T dataObject) {
+        return dataObject.getClass().equals(clazz) && dataObject.getId().equals(id);
       }
+    });
 
-      return result;
-   } // load
+    if (!os.isEmpty()) {
+      result = os.get(0);
+    }
+    objectCache.add(result);
+    return result;
+  } // load
 
+  public <T extends DataObject> List<T> load(Class<T> clazz) {
+    List<T> result = new ArrayList<T>(db.query(clazz));
+    objectCache.addAll(result);
+    return result;
+  } // load
 
-   public <T extends DataObject> List<T> load(Class<T> clazz) {
-      return new ArrayList<T>(db.query(clazz));
-   } // load
+  public void store(DataObject dataObject) {
+    db.set(dataObject);
+    objectCache.add(dataObject);
+  } // store
 
+  public void update(DataObject dataObject) {
+    db.set(dataObject);
+    objectCache.add(dataObject);
+  } // update
 
-   public void store(DataObject dataObject) {
-      db.set(dataObject);
-   } // store
+  public void remove(DataObject dataObject) {
+    db.delete(dataObject);
+    objectCache.remove(dataObject);
+  } // remove
 
-
-   public void update(DataObject dataObject) {
-      db.set(dataObject);
-   } // update
-
-
-   public void remove(DataObject dataObject) {
-      db.delete(dataObject);
-   } // remove
-
-
-   @Override
-   public void commit() {
-      db.commit();
-   }
+  @Override
+  public synchronized void commit() {
+    for(Object obj:objectCache){
+      db.set(obj);
+    }
+    
+    db.commit();
+    
+    objectCache.clear();
+  }
 
 }
