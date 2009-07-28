@@ -289,7 +289,7 @@ public class ZipStorageEngine extends DefaultStorageEngine {
    @Override
    public <T extends DataObject> List<T> load(Class<T> clazz) {
       if (dataObjects.get(clazz) != null) {
-         return (List<T>)dataObjects.get(clazz);
+         return new ArrayList<T>((List<T>)dataObjects.get(clazz));
       }
 
       return new ArrayList<T>();
