@@ -247,9 +247,14 @@ public class NodeInfoImpl implements NodeInfo {
     if (popupActions != null) {
       for (Class<? extends BasicAction> actionClass : popupActions) {
         try {
-          BasicAction action = actionClass.getConstructor(Controller.class, TreePath.class).newInstance(controller,
-              treePath);
-          popupMenu.add(action);
+          if (actionClass == SeparatorAction.class) {
+            popupMenu.addSeparator();
+          } else {
+            BasicAction action = actionClass.getConstructor(Controller.class, TreePath.class).newInstance(controller,
+                treePath);
+            popupMenu.add(action);
+          }
+
         } catch (InstantiationException e) {
           LOG.log(Level.SEVERE, "Can't create Popup Menu.", e);
         } catch (IllegalAccessException e) {

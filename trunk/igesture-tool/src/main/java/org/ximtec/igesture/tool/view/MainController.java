@@ -47,6 +47,7 @@ import javax.swing.SwingUtilities;
 
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.DataObjectWrapper;
+import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.storage.StorageManager;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
@@ -101,6 +102,8 @@ public class MainController extends DefaultController implements Service {
 
    private static final String RESOURCE_BUNDLE = "igestureMenu";
 
+  public static final String CMD_CHANGE_TAB = "changeTab";
+
    // Services
    private MainModel mainModel;
    private GuiBundleService guiBundle;
@@ -110,6 +113,8 @@ public class MainController extends DefaultController implements Service {
    private MainView mainView;
 
    private Properties properties;
+   
+   private boolean saveFlag;
 
 
    public MainController() {
@@ -119,6 +124,7 @@ public class MainController extends DefaultController implements Service {
       initSubControllersAndViews(passiveControllers);
       getAction(CMD_CLOSE_WS).setEnabled(false);
       getAction(CMD_SAVE).setEnabled(false);
+      this.saveFlag = false;
    }
 
 
@@ -265,6 +271,8 @@ public class MainController extends DefaultController implements Service {
          getAction(CMD_CLOSE_WS).setEnabled(true);
          getAction(CMD_SAVE).setEnabled(true);
          getAction(CMD_LOAD).setEnabled(false);
+         
+         this.saveFlag = false;
       }
 
    } // execLoadCommand
@@ -273,7 +281,7 @@ public class MainController extends DefaultController implements Service {
    @ExecCmd(name = CMD_CLOSE_WS)
    protected void execCloseWsCommand() {
       LOGGER.info("Command Close Workspace");
-      if (mainModel.isActive()
+      if (saveFlag && mainModel.isActive()
             && JOptionPane.YES_OPTION == showYesNoDialog(GestureConstants.MAIN_CONTROLLER_DIALOG_SAVE)) {
          mainModel.getStorageManager().commit();
       }
@@ -293,6 +301,7 @@ public class MainController extends DefaultController implements Service {
    protected void execSaveCommand() {
       LOGGER.info("Command Save");
       mainModel.getStorageManager().commit();
+      this.saveFlag = false;
    } // execSaveCommand
 
 
@@ -302,7 +311,7 @@ public class MainController extends DefaultController implements Service {
 
       if (JOptionPane.YES_OPTION == showYesNoDialog(GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT)) {
 
-         if (mainModel.isActive()
+         if (saveFlag && mainModel.isActive()
                && JOptionPane.YES_OPTION == showYesNoDialog(GestureConstants.MAIN_CONTROLLER_DIALOG_SAVE)) {
             mainModel.getStorageManager().commit();
          }
@@ -341,6 +350,15 @@ public class MainController extends DefaultController implements Service {
       LOGGER.info("Start Progress Panel.");
    } // execStartWaiting
 
+   @ExecCmd(name = CMD_CHANGE_TAB)
+   protected void execChangeTab(){
+     LOGGER.info("Change Tab");
+     GestureDevice<?, ?> gestureDevice = getLocator().getService(SwingMouseReaderService.IDENTIFIER,
+         GestureDevice.class);
+     if(gestureDevice != null){
+       gestureDevice.clear();
+     }
+   }
 
    protected void execStopWaiting() {
       LOGGER.info("Stop Progress Panel.");
@@ -364,6 +382,8 @@ public class MainController extends DefaultController implements Service {
    public void propertyChange(PropertyChangeEvent event) {
       LOGGER.info("PropertyChange");
       super.propertyChange(event);
+      
+      this.saveFlag = true;
 
       // Dispatch DataObjects
       if (event.getSource() instanceof DataObject) {
