@@ -84,7 +84,7 @@ public class GestureConstants {
    public static final String GESTURE_SETS_PANEL_TITLE = "GestureSetsPanelTitle";
    
    public static final String TESTBENCH_VIEW_NAME = "TestbenchViewName";
-   public static final String ADMIN_VIEW_NAME = "AdminViewName";
+   public static final String ADMIN_VIEW = "AdminView";
    
    public static final String MAIN_CONTROLLER_DIALOG_EXIT = "MainControllerDialogExit";
    public static final String MAIN_CONTROLLER_DIALOG_SAVE = "MainControllerDialogSave";

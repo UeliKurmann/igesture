@@ -23,13 +23,11 @@
  * 
  */
 
-
 package org.ximtec.igesture.tool;
 
 import javax.swing.UIManager;
 
 import org.ximtec.igesture.tool.view.MainController;
-
 
 /**
  * The main class.
@@ -40,20 +38,20 @@ import org.ximtec.igesture.tool.view.MainController;
  */
 public class Main {
 
-   public static void main(String[] args) {      
-      try {
-         UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-      }
-      catch (Exception e) {
-         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-         }
-         catch (Exception e1) {
-            e1.printStackTrace();
-         }
-      }
-      
-      new MainController();
-   }
+	public static void main(String[] args) {
+		try {
+			UIManager
+					.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+		} catch (Exception e) {
+			try {
+				UIManager.setLookAndFeel(UIManager
+						.getSystemLookAndFeelClassName());
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+
+		new MainController();
+	}
 
 }
