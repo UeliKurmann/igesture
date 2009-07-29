@@ -40,7 +40,7 @@ public class GestureConstants {
    public static final String TEST_SET_EXPORT = "ExportCreateTestSetAction";
    public static final String GESTURE_SET_EXPORT = "ExportGestureSetAction";
    public static final String GESTURE_CLASS_DEL = "RemoveGestureClassAction";
-   public static final String GESTURE_SET_DEL = "RemoveGestureSetAction";
+   public static final String GESTURE_SET_DEL = "DeleteGestureSetAction";
    public static final String GESTURE_SET_PDF = "ExportPDFGestureSetAction";
    public static final String GESTURE_SET_TEST_SET = "CreateTestSet";
    public static final String GESTURE_SET_FORM = "ExportIPaperFormAction";
@@ -82,14 +82,14 @@ public class GestureConstants {
    public static final String GESTURE_SET_PANEL_NSA = "GestureSetPanelNsa";
    
    public static final String GESTURE_SETS_PANEL_TITLE = "GestureSetsPanelTitle";
-   
-   public static final String TESTBENCH_VIEW_NAME = "TestbenchViewName";
-   public static final String ADMIN_VIEW = "AdminView";
-   
+
+   public static final String GESTURE_SET_VIEW = "GestureSetView";
+   public static final String TEST_BENCH_VIEW = "TestBenchView";
+
    public static final String MAIN_CONTROLLER_DIALOG_EXIT = "MainControllerDialogExit";
    public static final String MAIN_CONTROLLER_DIALOG_SAVE = "MainControllerDialogSave";
    
-   public static final String TESTSET_VIEW_NAME = "TestSetTab";
+   public static final String TEST_SET_VIEW = "TestSetView";
    public static final String TESTSET_ADD = "TestSetAdd";
    public static final String TESTSET_IMPORT = "TestSetImport";
    public static final String TESTSET_CONVERT_GESTURESET = "TestSetConvertGestureSet";
@@ -101,7 +101,7 @@ public class GestureConstants {
    public static final String TESTSET_NAME = "TestSetName";
    public static final String TESTSET_ADD_CLASS = "TestClassAdd";
  
-   public static final String BATCH_VIEW_NAME = "BatchViewName";
+   public static final String BATCH_PROCESSING_VIEW = "BatchProcessingView";
    public static final String BATCH_GESTURESET = "BatchGestureSet";
    public static final String BATCH_TESTSET = "BatchTestSet";
    public static final String BATCH_BROWSE_CONFIG = "BatchBrowseConfig";
