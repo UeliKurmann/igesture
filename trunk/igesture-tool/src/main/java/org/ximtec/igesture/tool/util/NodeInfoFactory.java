@@ -102,9 +102,9 @@ public class NodeInfoFactory {
       rootActions.add(AddGestureSetAction.class);
 
       List<Class< ? extends BasicAction>> setActions = new ArrayList<Class< ? extends BasicAction>>();
-      setActions.add(AddGestureClassAction.class);
       setActions.add(RemoveGestureSetAction.class);
       setActions.add(ExportGestureSetAction.class);
+      setActions.add(AddGestureClassAction.class);
       setActions.add(ExportPDFGestureSetAction.class);
       setActions.add(CreateTestSetStructureAction.class);
 

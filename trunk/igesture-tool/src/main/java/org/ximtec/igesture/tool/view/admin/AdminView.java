@@ -23,7 +23,6 @@
  * 
  */
 
-
 package org.ximtec.igesture.tool.view.admin;
 
 import java.awt.Color;
@@ -40,58 +39,50 @@ import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.explorer.ExplorerTree;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeContainer;
 
-
 public class AdminView extends DefaultSplitPane implements TabbedView,
-      ExplorerTreeContainer {
+		ExplorerTreeContainer {
 
-   private JScrollPane scrollPaneLeft;
+	private JScrollPane scrollPaneLeft;
 
+	public AdminView(Controller controller) {
+		super(controller);
+		init();
+	}
 
-   public AdminView(Controller controller) {
-     super(controller);
-      init();
-   }
+	private void init() {
+		setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		scrollPaneLeft = new JScrollPane();
+		scrollPaneLeft.setOpaque(true);
+		scrollPaneLeft.setBackground(Color.blue);
+		scrollPaneLeft.setForeground(Color.blue);
+		setLeftComponent(scrollPaneLeft);
+	}
 
+	@Override
+	public Icon getIcon() {
+		return null;
+	}
 
-   private void init() {
-      setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-      scrollPaneLeft = new JScrollPane();
-      scrollPaneLeft.setOpaque(true);
-      scrollPaneLeft.setBackground(Color.blue);
-      scrollPaneLeft.setForeground(Color.blue);
-      setLeftComponent(scrollPaneLeft);
-   }
+	@Override
+	public String getTabName() {
+		return getComponentFactory().getGuiBundle().getName(
+				GestureConstants.ADMIN_VIEW);
+	}
 
+	@Override
+	public JComponent getPane() {
+		return this;
+	}
 
-   @Override
-   public Icon getIcon() {
-      return null;
-   }
+	@Override
+	public void setTree(ExplorerTree tree) {
+		tree.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		scrollPaneLeft.setViewportView(tree);
+	}
 
-
-   @Override
-   public String getTabName() {
-      return getComponentFactory().getGuiBundle().getName(
-            GestureConstants.ADMIN_VIEW_NAME);
-   }
-
-
-   @Override
-   public JComponent getPane() {
-      return this;
-   }
-
-
-   @Override
-   public void setTree(ExplorerTree tree) {
-      tree.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-      scrollPaneLeft.setViewportView(tree);
-   }
-
-
-   @Override
-   public void setView(JComponent view) {
-      setRightComponent(view);
-   }
+	@Override
+	public void setView(JComponent view) {
+		setRightComponent(view);
+	}
 
 }
