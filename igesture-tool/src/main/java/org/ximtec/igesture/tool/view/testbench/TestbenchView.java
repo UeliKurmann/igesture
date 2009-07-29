@@ -73,7 +73,7 @@ public class TestbenchView extends DefaultSplitPane implements TabbedView,
    @Override
    public String getTabName() {
       return getComponentFactory().getGuiBundle().getName(
-            GestureConstants.TESTBENCH_VIEW_NAME);
+            GestureConstants.TEST_BENCH_VIEW);
    }
 
 

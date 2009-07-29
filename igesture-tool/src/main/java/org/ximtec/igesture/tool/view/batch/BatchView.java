@@ -79,7 +79,7 @@ public class BatchView extends AbstractPanel implements TabbedView {
 
   public BatchView(Controller controller) {
     super(controller);
-    setTitle(TitleFactory.createStaticTitle(GestureConstants.BATCH_VIEW_NAME));
+    setTitle(TitleFactory.createStaticTitle(GestureConstants.BATCH_PROCESSING_VIEW));
     init();
   }
 
@@ -94,7 +94,7 @@ public class BatchView extends AbstractPanel implements TabbedView {
 
   @Override
   public String getTabName() {
-    return getComponentFactory().getGuiBundle().getName(GestureConstants.BATCH_VIEW_NAME);
+    return getComponentFactory().getGuiBundle().getName(GestureConstants.BATCH_PROCESSING_VIEW);
   }
 
   @Override

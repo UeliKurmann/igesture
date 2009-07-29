@@ -61,7 +61,7 @@ public class TestSetView extends DefaultSplitPane implements TabbedView, Explore
 
   @Override
   public String getTabName() {
-    return getComponentFactory().getGuiBundle().getName(GestureConstants.TESTSET_VIEW_NAME);
+    return getComponentFactory().getGuiBundle().getName(GestureConstants.TEST_SET_VIEW);
   }
 
   @Override

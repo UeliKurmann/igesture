@@ -66,7 +66,7 @@ public class AdminView extends DefaultSplitPane implements TabbedView,
 	@Override
 	public String getTabName() {
 		return getComponentFactory().getGuiBundle().getName(
-				GestureConstants.ADMIN_VIEW);
+				GestureConstants.GESTURE_SET_VIEW);
 	}
 
 	@Override
