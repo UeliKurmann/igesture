@@ -57,13 +57,13 @@ public class LabelBinding extends DataBinding<JLabel> {
 
 
    @Override
-   public void updateView() {
+   protected void updateView() {
       label.setText(prefix + getValue());
    }
 
 
    @Override
-   public void updateModel() {
+   protected void updateModel() {
       // do nothing, read only component
    }
 }
