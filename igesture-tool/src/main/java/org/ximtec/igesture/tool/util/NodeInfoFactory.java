@@ -47,6 +47,7 @@ import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.core.TextDescriptor;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.explorer.NodeInfoImpl;
+import org.ximtec.igesture.tool.explorer.SeparatorAction;
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureClassAction;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureSetAction;
@@ -98,20 +99,23 @@ public class NodeInfoFactory {
       List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
 
       List<Class< ? extends BasicAction>> rootActions = new ArrayList<Class< ? extends BasicAction>>();
-      rootActions.add(ImportGestureSetAction.class);
       rootActions.add(AddGestureSetAction.class);
-
+      rootActions.add(ImportGestureSetAction.class);
+      
       List<Class< ? extends BasicAction>> setActions = new ArrayList<Class< ? extends BasicAction>>();
+      setActions.add(AddGestureClassAction.class);
+      setActions.add(SeparatorAction.class);      
       setActions.add(RemoveGestureSetAction.class);
       setActions.add(ExportGestureSetAction.class);
-      setActions.add(AddGestureClassAction.class);
+      setActions.add(SeparatorAction.class);
       setActions.add(ExportPDFGestureSetAction.class);
       setActions.add(CreateTestSetStructureAction.class);
 
       List<Class< ? extends BasicAction>> classActions = new ArrayList<Class< ? extends BasicAction>>();
-      classActions.add(RemoveGestureClassAction.class);
       classActions.add(AddSampleDescriptorAction.class);
-      classActions.add(AddTextDescriptorAction.class);
+      classActions.add(AddTextDescriptorAction.class);      
+      classActions.add(SeparatorAction.class);
+      classActions.add(RemoveGestureClassAction.class);
 
       List<Class< ? extends BasicAction>> descriptorActions = new ArrayList<Class< ? extends BasicAction>>();
       descriptorActions.add(RemoveDescriptorAction.class);
@@ -148,8 +152,9 @@ public class NodeInfoFactory {
       algorithmWrapperActions.add(AddConfigurationAction.class);
 
       List<Class< ? extends BasicAction>> configurationActions = new ArrayList<Class< ? extends BasicAction>>();
-      configurationActions.add(RemoveConfigurationAction.class);
       configurationActions.add(ExportConfigurationAction.class);
+      configurationActions.add(SeparatorAction.class);       
+      configurationActions.add(RemoveConfigurationAction.class);
 
       nodeInfos = new ArrayList<NodeInfo>();
       nodeInfos.add(new NodeInfoImpl(controller, AlgorithmList.class, "name", "algorithms",
