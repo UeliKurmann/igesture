@@ -129,6 +129,216 @@ public class MainController extends DefaultController implements Service {
   }
 
   /**
+   * Instantiates a controller using reflection. If the controller has a
+   * Constructor taking a parent controller as argument, this constructor is
+   * used. If no such constructor exists, the default constructor is used.
+   * 
+   * @param controllerClass
+   *          the type of the controller
+   * @return the created controller
+   * @throws Exception
+   */
+  private Controller createController(Class<?> controllerClass) throws Exception {
+    Controller controller;
+    if (controllerClass.getConstructor(Controller.class) != null) {
+      Constructor<?> constructor = controllerClass.getConstructor(Controller.class);
+      controller = (Controller) constructor.newInstance(MainController.this);
+    } else {
+      controller = (Controller) controllerClass.newInstance();
+    }
+    return controller;
+  }
+
+  @ExecCmd(name = CMD_CHANGE_TAB)
+  protected void execChangeTab() {
+    LOGGER.info("Change Tab");
+    GestureDevice<?, ?> gestureDevice = getLocator()
+        .getService(SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
+    if (gestureDevice != null) {
+      gestureDevice.clear();
+    }
+  }
+
+  @ExecCmd(name = CMD_CLOSE_WS)
+  protected void execCloseWsCommand() {
+    LOGGER.info("Command Close Workspace");
+    if (saveFlag && mainModel.isActive()
+        && JOptionPane.YES_OPTION == showYesNoDialog(GestureConstants.MAIN_CONTROLLER_DIALOG_SAVE)) {
+      mainModel.getStorageManager().commit();
+    }
+    mainView.removeAllTabs();
+    mainModel.stop();
+    mainModel.setStorageEngine(null);
+    initSubControllersAndViews(passiveControllers);
+
+    getAction(CMD_CLOSE_WS).setEnabled(false);
+    getAction(CMD_SAVE).setEnabled(false);
+    getAction(CMD_LOAD).setEnabled(true);
+
+  } // execLoadCommand
+
+  @ExecCmd(name = CMD_EXIT)
+  protected void execExitCommand() {
+    LOGGER.info("Command Exit");
+
+    if (JOptionPane.YES_OPTION == showYesNoDialog(GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT)) {
+
+      if (saveFlag && mainModel.isActive()
+          && JOptionPane.YES_OPTION == showYesNoDialog(GestureConstants.MAIN_CONTROLLER_DIALOG_SAVE)) {
+        mainModel.getStorageManager().commit();
+      }
+
+      getLocator().stopAll();
+
+      try {
+        mainModel.getProperties().storeToXML(new FileOutputStream(GestureConstants.PROPERTIES),
+            "iGesture: " + new Date());
+      } catch (Exception e) {
+        LOGGER.log(Level.WARNING, "Failed to store properties.", e);
+      }
+      System.exit(0);
+    }
+
+  } // execExitCommand
+
+  @ExecCmd(name = CMD_LOAD)
+  protected void execLoadCommand() {
+    LOGGER.info("Command Load");
+    File dataBase = getDatabase();
+
+    if (dataBase != null) {
+      mainView.removeAllTabs();
+      mainModel.stop();
+      mainModel.setStorageEngine(StorageManager.createStorageEngine(dataBase));
+      mainModel.start();
+      initSubControllersAndViews(activeControllers);
+
+      // activate actions
+      getAction(CMD_CLOSE_WS).setEnabled(true);
+      getAction(CMD_SAVE).setEnabled(true);
+      getAction(CMD_LOAD).setEnabled(false);
+
+      this.saveFlag = false;
+    }
+
+  } // execLoadCommand
+
+  @ExecCmd(name = CMD_SAVE)
+  protected void execSaveCommand() {
+    LOGGER.info("Command Save");
+    mainModel.getStorageManager().commit();
+    this.saveFlag = false;
+  } // execSaveCommand
+
+  @ExecCmd(name = CMD_SHOW_ABOUT_DIALOG)
+  protected void execShowAboutDialog() {
+    LOGGER.info("Show About Dialog.");
+    AboutDialog dialog = new AboutDialog(GestureConstants.ABOUT, getLocator().getService(GuiBundleService.IDENTIFIER,
+        GuiBundleService.class));
+    Point point = mainView.getLocation();
+    point.translate(100, 60);
+    dialog.setLocation(point);
+    dialog.setVisible(true);
+  } // execShowAboutDialog
+
+  /**
+   * Returns the component factory referenced in the locator.
+   * 
+   * @return the component factory referenced in the locator.
+   */
+  private ComponentFactory getComponentFactory() {
+    return getLocator().getService(ComponentFactory.class.getName(), ComponentFactory.class);
+  }
+
+  /**
+   * Returns a file handle to the database to be opened.
+   * 
+   * @return file handle to the database to be opened.
+   */
+  private File getDatabase() {
+    File file = null;
+
+    JFileChooser chooser = new JFileChooser();
+    chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceDb4o());
+    chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceXStream());
+    chooser.setFileFilter(FileFilterFactory.getWorkspaceCompressed());
+    chooser.setCurrentDirectory(new File(properties.getProperty(Property.WORKING_DIRECTORY)));
+    chooser.showOpenDialog(null);
+    file = chooser.getSelectedFile();
+
+    if (file != null) {
+      try {
+        ExtensionFileFilter fileFilter = (ExtensionFileFilter) chooser.getFileFilter();
+        if (!fileFilter.accept(file)) {
+          file = new File(file.getAbsolutePath() + Constant.DOT + fileFilter.getExtension());
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      properties.setProperty(Property.WORKING_DIRECTORY, file.getParent());
+    }
+
+    return file;
+  } // getDatabase
+
+  /*
+   * (non-Javadoc)
+   * @see org.ximtec.igesture.tool.locator.Service#getIdentifier()
+   */
+  @Override
+  public String getIdentifier() {
+    return IDENTIFIER;
+  } // getIdentifier
+
+  @Override
+  public TabbedView getView() {
+    return null;
+  } // getView
+
+
+  /**
+   * Initialises the controllers and sub views. This method has to be called in
+   * the EDT.
+   * 
+   * @param controllers
+   */
+  private void initControllers(Class<?>[] controllers) {
+    if (!SwingUtilities.isEventDispatchThread()) {
+      throw new RuntimeException("Must not be executed in the EDT.");
+    }
+
+    for (Class<?> clazz : controllers) {
+      try {
+        Controller controller = createController(clazz);
+        addController(controller);
+        mainView.addTab(controller.getView());
+      } catch (Exception e) {
+        LOGGER.log(Level.SEVERE, "Could not initialize view. " + clazz.getName(), e);
+      }
+    }
+  }
+
+  /**
+   * Initialises the main view.
+   * <ul>
+   * <li>Add Actions</li>
+   * </ul>
+   */
+  private void initMainView() {
+    if (mainView == null) {
+
+      addAction(CMD_LOAD, new GenericLocateableAction(this, GestureConstants.OPEN_PROJECT, CMD_LOAD));
+      addAction(CMD_SAVE, new GenericLocateableAction(this, GestureConstants.SAVE, CMD_SAVE));
+      addAction(CMD_EXIT, new GenericLocateableAction(this, GestureConstants.EXIT, CMD_EXIT));
+      addAction(CMD_SHOW_ABOUT_DIALOG, new GenericLocateableAction(this, GestureConstants.ABOUT, CMD_SHOW_ABOUT_DIALOG));
+      addAction(CMD_CLOSE_WS, new GenericLocateableAction(this, GestureConstants.CLOSE_PROJECT, CMD_CLOSE_WS));
+
+      mainView = new MainView(this);
+      mainView.addWindowListener(new MainWindowAdapter(this));
+    }
+  }
+
+  /**
    * Initialises the different services. These are the
    * <ul>
    * <li>MainModel</li>
@@ -196,190 +406,22 @@ public class MainController extends DefaultController implements Service {
     }
   }
 
-  /**
-   * Initialises the controllers and sub views. This method has to be called in
-   * the EDT.
-   * 
-   * @param controllers
-   */
-  private void initControllers(Class<?>[] controllers) {
-    if (!SwingUtilities.isEventDispatchThread()) {
-      throw new RuntimeException("Must not be executed in the EDT.");
+  private void persist(IndexedPropertyChangeEvent event) {
+    LOGGER.info("Store, Delete, Update: indexed property " + event.getSource());
+
+    if (event.getOldValue() == null) {
+      mainModel.getStorageManager().store((DataObject) event.getNewValue());
+    } else if (event.getNewValue() == null && event.getOldValue() instanceof DataObject) {
+      mainModel.getStorageManager().remove((DataObject) event.getOldValue());
     }
 
-    for (Class<?> clazz : controllers) {
-      try {
-        Controller controller = createController(clazz);
-        addController(controller);
-        mainView.addTab(controller.getView());
-      } catch (Exception e) {
-        LOGGER.log(Level.SEVERE, "Could not initialize view. " + clazz.getName(), e);
-      }
-    }
-  }
+    mainModel.getStorageManager().update((DataObject) event.getSource());
+  } // persist
 
-  /**
-   * Instantiates a controller using reflection. If the controller has a
-   * Constructor taking a parent controller as argument, this constructor is
-   * used. If no such constructor exists, the default constructor is used.
-   * 
-   * @param controllerClass
-   *          the type of the controller
-   * @return the created controller
-   * @throws Exception
-   */
-  private Controller createController(Class<?> controllerClass) throws Exception {
-    Controller controller;
-    if (controllerClass.getConstructor(Controller.class) != null) {
-      Constructor<?> constructor = controllerClass.getConstructor(Controller.class);
-      controller = (Controller) constructor.newInstance(MainController.this);
-    } else {
-      controller = (Controller) controllerClass.newInstance();
-    }
-    return controller;
-  }
-
-  /**
-   * Initialises the main view.
-   * <ul>
-   * <li>Add Actions</li>
-   * </ul>
-   */
-  private void initMainView() {
-    if (mainView == null) {
-
-      addAction(CMD_LOAD, new GenericLocateableAction(this, GestureConstants.OPEN_PROJECT, CMD_LOAD));
-      addAction(CMD_SAVE, new GenericLocateableAction(this, GestureConstants.SAVE, CMD_SAVE));
-      addAction(CMD_EXIT, new GenericLocateableAction(this, GestureConstants.EXIT, CMD_EXIT));
-      addAction(CMD_SHOW_ABOUT_DIALOG, new GenericLocateableAction(this, GestureConstants.ABOUT, CMD_SHOW_ABOUT_DIALOG));
-      addAction(CMD_CLOSE_WS, new GenericLocateableAction(this, GestureConstants.CLOSE_PROJECT, CMD_CLOSE_WS));
-
-      mainView = new MainView(this);
-      mainView.addWindowListener(new MainWindowAdapter(this));
-    }
-  }
-
-  @ExecCmd(name = CMD_LOAD)
-  protected void execLoadCommand() {
-    LOGGER.info("Command Load");
-    File dataBase = getDatabase();
-
-    if (dataBase != null) {
-      mainView.removeAllTabs();
-      mainModel.stop();
-      mainModel.setStorageEngine(StorageManager.createStorageEngine(dataBase));
-      mainModel.start();
-      initSubControllersAndViews(activeControllers);
-
-      // activate actions
-      getAction(CMD_CLOSE_WS).setEnabled(true);
-      getAction(CMD_SAVE).setEnabled(true);
-      getAction(CMD_LOAD).setEnabled(false);
-
-      this.saveFlag = false;
-    }
-
-  } // execLoadCommand
-
-  @ExecCmd(name = CMD_CLOSE_WS)
-  protected void execCloseWsCommand() {
-    LOGGER.info("Command Close Workspace");
-    if (saveFlag && mainModel.isActive()
-        && JOptionPane.YES_OPTION == showYesNoDialog(GestureConstants.MAIN_CONTROLLER_DIALOG_SAVE)) {
-      mainModel.getStorageManager().commit();
-    }
-    mainView.removeAllTabs();
-    mainModel.stop();
-    mainModel.setStorageEngine(null);
-    initSubControllersAndViews(passiveControllers);
-
-    getAction(CMD_CLOSE_WS).setEnabled(false);
-    getAction(CMD_SAVE).setEnabled(false);
-    getAction(CMD_LOAD).setEnabled(true);
-
-  } // execLoadCommand
-
-  @ExecCmd(name = CMD_SAVE)
-  protected void execSaveCommand() {
-    LOGGER.info("Command Save");
-    mainModel.getStorageManager().commit();
-    this.saveFlag = false;
-  } // execSaveCommand
-
-  @ExecCmd(name = CMD_EXIT)
-  protected void execExitCommand() {
-    LOGGER.info("Command Exit");
-
-    if (JOptionPane.YES_OPTION == showYesNoDialog(GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT)) {
-
-      if (saveFlag && mainModel.isActive()
-          && JOptionPane.YES_OPTION == showYesNoDialog(GestureConstants.MAIN_CONTROLLER_DIALOG_SAVE)) {
-        mainModel.getStorageManager().commit();
-      }
-
-      getLocator().stopAll();
-
-      try {
-        mainModel.getProperties().storeToXML(new FileOutputStream(GestureConstants.PROPERTIES),
-            "iGesture: " + new Date());
-      } catch (Exception e) {
-        LOGGER.log(Level.WARNING, "Failed to store properties.", e);
-      }
-      System.exit(0);
-    }
-
-  } // execExitCommand
-
-  /**
-   * Shows a Yes/No Dialog
-   * 
-   * @param key
-   *          the key used in the Gui Bundle
-   * @return the return value of the Yes/No Dialog
-   */
-  private int showYesNoDialog(String key) {
-    String title = getComponentFactory().getGuiBundle().getName(key);
-    String text = getComponentFactory().getGuiBundle().getShortDescription(key);
-    return JOptionPane.showConfirmDialog(null, text, title, JOptionPane.YES_NO_OPTION);
-  }
-
-  /**
-   * Returns the component factory referenced in the locator.
-   * 
-   * @return the component factory referenced in the locator.
-   */
-  private ComponentFactory getComponentFactory() {
-    return getLocator().getService(ComponentFactory.class.getName(), ComponentFactory.class);
-  }
-
-  protected void execStartWaiting() {
-    LOGGER.info("Start Progress Panel.");
-  } // execStartWaiting
-
-  @ExecCmd(name = CMD_CHANGE_TAB)
-  protected void execChangeTab() {
-    LOGGER.info("Change Tab");
-    GestureDevice<?, ?> gestureDevice = getLocator()
-        .getService(SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
-    if (gestureDevice != null) {
-      gestureDevice.clear();
-    }
-  }
-
-  protected void execStopWaiting() {
-    LOGGER.info("Stop Progress Panel.");
-  } // execStopWaiting
-
-  @ExecCmd(name = CMD_SHOW_ABOUT_DIALOG)
-  protected void execShowAboutDialog() {
-    LOGGER.info("Show About Dialog.");
-    AboutDialog dialog = new AboutDialog(GestureConstants.ABOUT, getLocator().getService(GuiBundleService.IDENTIFIER,
-        GuiBundleService.class));
-    Point point = mainView.getLocation();
-    point.translate(100, 60);
-    dialog.setLocation(point);
-    dialog.setVisible(true);
-  } // execShowAboutDialog
+  private void persist(PropertyChangeEvent event) {
+    LOGGER.info("Update: property " + event.getSource());
+    mainModel.getStorageManager().update((DataObject) event.getSource());
+  } // persist
 
   /*
    * (non-Javadoc)
@@ -416,66 +458,17 @@ public class MainController extends DefaultController implements Service {
 
   } // propertyChange
 
-  private void persist(PropertyChangeEvent event) {
-    LOGGER.info("Update: property " + event.getSource());
-    mainModel.getStorageManager().update((DataObject) event.getSource());
-  } // persist
-
-  private void persist(IndexedPropertyChangeEvent event) {
-    LOGGER.info("Store, Delete, Update: indexed property " + event.getSource());
-
-    if (event.getOldValue() == null) {
-      mainModel.getStorageManager().store((DataObject) event.getNewValue());
-    } else if (event.getNewValue() == null && event.getOldValue() instanceof DataObject) {
-      mainModel.getStorageManager().remove((DataObject) event.getOldValue());
-    }
-
-    mainModel.getStorageManager().update((DataObject) event.getSource());
-  } // persist
-
-  @Override
-  public TabbedView getView() {
-    return null;
-  } // getView
-
   /**
-   * Returns a file handle to the database to be opened.
+   * Shows a Yes/No Dialog
    * 
-   * @return file handle to the database to be opened.
+   * @param key
+   *          the key used in the Gui Bundle
+   * @return the return value of the Yes/No Dialog
    */
-  private File getDatabase() {
-    File file = null;
-
-    JFileChooser chooser = new JFileChooser();
-    chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceDb4o());
-    chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceXStream());
-    chooser.setFileFilter(FileFilterFactory.getWorkspaceCompressed());
-    chooser.setCurrentDirectory(new File(properties.getProperty(Property.WORKING_DIRECTORY)));
-    chooser.showOpenDialog(null);
-    file = chooser.getSelectedFile();
-
-    if (file != null) {
-      try {
-        ExtensionFileFilter fileFilter = (ExtensionFileFilter) chooser.getFileFilter();
-        if (!fileFilter.accept(file)) {
-          file = new File(file.getAbsolutePath() + Constant.DOT + fileFilter.getExtension());
-        }
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-      properties.setProperty(Property.WORKING_DIRECTORY, file.getParent());
-    }
-
-    return file;
-  } // getDatabase
-
-  /*
-   * (non-Javadoc)
-   * @see org.ximtec.igesture.tool.locator.Service#getIdentifier()
-   */
-  @Override
-  public String getIdentifier() {
-    return IDENTIFIER;
-  } // getIdentifier
+  private int showYesNoDialog(String key) {
+    String title = getComponentFactory().getGuiBundle().getName(key);
+    String text = getComponentFactory().getGuiBundle().getShortDescription(key);
+    return JOptionPane.showConfirmDialog(null, text, title, JOptionPane.YES_NO_OPTION);
+  }
 
 }
