@@ -111,4 +111,8 @@ public class GestureConstants {
    public static final String BATCH_RUN = "BatchRun";
    public static final String BATCH_CANCEL = "BatchCancel";
    
+   public static final String USER_DIR = "user.dir";
+   public static final String RESOURCE_BUNDLE = "igestureMenu";
+   public static final String PROPERTIES = "properties.xml";
+   
 }
