@@ -50,13 +50,13 @@ public class TextAreaBinding extends DataBinding<JTextArea> {
 
 
    @Override
-   public void updateView() {
+   protected void updateView() {
       textArea.setText(getValue());
    }
 
 
    @Override
-   public void updateModel() {
+   protected void updateModel() {
       setValue(textArea.getText());
    }
 }

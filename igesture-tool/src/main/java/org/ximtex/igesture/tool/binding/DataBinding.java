@@ -33,126 +33,121 @@ import java.beans.PropertyVetoException;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JComponent;
+import javax.swing.SwingUtilities;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.ximtec.igesture.core.DataObject;
 
+public abstract class DataBinding<T extends JComponent> implements FocusListener, PropertyChangeListener {
 
-public abstract class DataBinding<T extends JComponent> implements
-      FocusListener, PropertyChangeListener {
+  private DataObject dataObject;
+  private String property;
 
-   private DataObject dataObject;
-   private String property;
+  /**
+   * Constructor
+   * 
+   * @param dataObject
+   *          the data object
+   * @param property
+   *          the name of the property
+   * @param key
+   *          the key used by the localization handler (can be null)
+   */
+  public DataBinding(DataObject dataObject, String property) {
+    this.dataObject = dataObject;
+    this.dataObject.addPropertyChangeListener(this);
+    this.property = property;
+  }
 
+  /**
+   * This method provides functionality to update the view in case of model
+   * changes. This method is invoked on a propertyChange event.
+   */
+  protected abstract void updateView();
 
-   /**
-    * Constructor
-    * 
-    * @param dataObject the data object
-    * @param property the name of the property
-    * @param key the key used by the localization handler (can be null)
-    */
-   public DataBinding(DataObject dataObject, String property) {
-      this.dataObject = dataObject;
-      this.dataObject.addPropertyChangeListener(this);
-      this.property = property;
-   }
+  /**
+   * This method provides functionality to update the model.
+   */
+  protected abstract void updateModel();
 
+  /**
+   * Returns the JComponent which is involved in the binding process.
+   * 
+   * @return
+   */
+  public abstract T getComponent();
 
-   /**
-    * This method provides functionality to update the view in case of model
-    * changes. This method is invoked on a propertyChange event.
-    */
-   public abstract void updateView();
+  /**
+   * Set a value in the dataobject
+   * 
+   * @param object
+   * @throws PropertyVetoException
+   */
+  protected void setValue(Object object) {
+    try {
+      BeanUtils.setProperty(dataObject, property, object);
+    } catch (SecurityException e) {
+    } catch (IllegalAccessException e) {
+    } catch (InvocationTargetException e) {
 
+    }
+  }
 
-   /**
-    * This method provides functionality to update the model.
-    */
-   public abstract void updateModel();
+  /**
+   * Read a value from the data object
+   * 
+   * @return
+   */
+  protected String getValue() {
+    try {
+      return BeanUtils.getProperty(dataObject, property);
+    } catch (IllegalAccessException e) {
+    } catch (InvocationTargetException e) {
+    } catch (NoSuchMethodException e) {
+    }
+    return null;
+  }
 
+  /**
+   * Returns the data object
+   * 
+   * @return
+   */
+  public Object getObject() {
+    return dataObject;
+  }
 
-   /**
-    * Returns the JComponent which is involved in the binding process.
-    * 
-    * @return
-    */
-   public abstract T getComponent();
+  /**
+   * Returns the property name
+   * 
+   * @return
+   */
+  public String getProperty() {
+    return property;
+  }
 
+  @Override
+  public void focusGained(FocusEvent arg0) {
+    // do nothing
+  }
 
-   /**
-    * Set a value in the dataobject
-    * 
-    * @param object
-    * @throws PropertyVetoException
-    */
-   protected void setValue(Object object) {
-      try {
-         BeanUtils.setProperty(dataObject, property, object);
-      }
-      catch (SecurityException e) {
-      }
-      catch (IllegalAccessException e) {
-      }
-      catch (InvocationTargetException e) {
+  @Override
+  public void focusLost(FocusEvent arg0) {
+    updateModel();
+  }
 
-      }
-   }
-
-
-   /**
-    * Read a value from the data object
-    * 
-    * @return
-    */
-   protected String getValue() {
-      try {
-         return BeanUtils.getProperty(dataObject, property);
-      }
-      catch (IllegalAccessException e) {
-      }
-      catch (InvocationTargetException e) {
-      }
-      catch (NoSuchMethodException e) {
-      }
-      return null;
-   }
-
-
-   /**
-    * Returns the data object
-    * 
-    * @return
-    */
-   public Object getObject() {
-      return dataObject;
-   }
-
-
-   /**
-    * Returns the property name
-    * 
-    * @return
-    */
-   public String getProperty() {
-      return property;
-   }
-
-
-   @Override
-   public void focusGained(FocusEvent arg0) {
-      // do nothing
-   }
-
-
-   @Override
-   public void focusLost(FocusEvent arg0) {
-      updateModel();
-   }
-
-
-   @Override
-   public void propertyChange(PropertyChangeEvent evt) {
+  @Override
+  public final void propertyChange(PropertyChangeEvent evt) {
+    if (SwingUtilities.isEventDispatchThread()) {
       updateView();
-   }
+    } else {
+      SwingUtilities.invokeLater(new Runnable() {
+
+        @Override
+        public void run() {
+          updateView();
+        }
+      });
+    }
+  }
 }

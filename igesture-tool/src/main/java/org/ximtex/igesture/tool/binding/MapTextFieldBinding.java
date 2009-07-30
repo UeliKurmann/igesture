@@ -52,13 +52,13 @@ public class MapTextFieldBinding extends DataBinding<JTextField> {
 
 
    @Override
-   public void updateView() {
+   protected void updateView() {
       textField.setText(getValue());
    }
 
 
    @Override
-   public void updateModel() {
+   protected void updateModel() {
       setValue(textField.getText());
    }
    
