@@ -35,72 +35,80 @@ import org.ximtec.igesture.tool.core.Controller;
 
 /**
  * NodeInfo. Defines the structure of an Exlorer Tree.
- *
- * @author  UeliKurmann
+ * 
+ * @author UeliKurmann
  * @version 1.0
- * @since   igesture
+ * @since igesture
  */
 public interface NodeInfo {
 
-   /**
-    * Rerturns the type of the node
-    * @return
-    */
-   Class< ? > getType();
+  /**
+   * Rerturns the type of the node
+   * 
+   * @return
+   */
+  Class<?> getType();
 
+  /**
+   * Returns the name of the node
+   * 
+   * @param object
+   * @return
+   */
+  String getName(Object object);
 
-   /**
-    * Returns the name of the node
-    * @param object
-    * @return
-    */
-   String getName(Object object);
+  /**
+   * Returns the tool tip of the node
+   * 
+   * @return
+   */
+  String getTooltip();
 
+  /**
+   * Returns the icon of the node
+   * 
+   * @return
+   */
+  Icon getIcon();
 
-   /**
-    * Returns the tool tip of the node
-    * @return
-    */
-   String getTooltip();
+  /**
+   * Returns a list of children
+   * 
+   * @param node
+   * @return
+   */
+  List<Object> getChildren(Object node);
 
+  /**
+   * Returns true if the current node is a leaf
+   * 
+   * @param node
+   *          the node
+   * @return true if the current node is a leaf.
+   */
+  boolean isLeaf(Object node);
 
-   /**
-    * Returns the icon of the node
-    * @return
-    */
-   Icon getIcon();
+  /**
+   * Returns the view of the node
+   * 
+   * @param controller
+   * @param node
+   * @return
+   */
+  ExplorerTreeView getView(Controller controller, Object node);
 
+  /**
+   * Returns the context menu of a node.
+   * 
+   * @param node
+   * @return
+   */
+  JPopupMenu getPopupMenu(TreePath node);
 
-   /**
-    * Returns a list of children
-    * @param node
-    * @return
-    */
-   List<Object> getChildren(Object node);
-
-
-   /**
-    * Returns true if the current node is a leaf
-    * @param node the node
-    * @return true if the current node is a leaf. 
-    */
-   boolean isLeaf(Object node);
-
-
-   /**
-    * Returns the view of the node
-    * @param controller
-    * @param node
-    * @return
-    */
-   ExplorerTreeView getView(Controller controller, Object node);
-
-
-   /**
-    * Returns the context menu of a node. 
-    * @param node
-    * @return
-    */
-   JPopupMenu getPopupMenu(TreePath node);
+  /**
+   * Returns the expanded icon
+   * @return the expanded icon
+   */
+  Icon getExpandedIcon();
 
 }

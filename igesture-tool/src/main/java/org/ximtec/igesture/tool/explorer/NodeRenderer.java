@@ -23,7 +23,6 @@
  * 
  */
 
-
 package org.ximtec.igesture.tool.explorer;
 
 import java.awt.Component;
@@ -35,7 +34,6 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
 
-
 /**
  * 
  * @author UeliKurmann
@@ -44,34 +42,49 @@ import org.ximtec.igesture.tool.explorer.core.NodeInfo;
  */
 public class NodeRenderer extends DefaultTreeCellRenderer {
 
-   /**
-    * A Map of NodeInfo. Node Info contains information about a specific node.
-    */
-   private Map<Class< ? >, NodeInfo> nodeInfos;
+  /**
+   * A Map of NodeInfo. Node Info contains information about a specific node.
+   */
+  private Map<Class<?>, NodeInfo> nodeInfos;
 
-   public NodeRenderer(Map<Class< ? >, NodeInfo> nodeInfos) {
-      this.nodeInfos = nodeInfos;
-   }
+  public NodeRenderer(Map<Class<?>, NodeInfo> nodeInfos) {
+    this.nodeInfos = nodeInfos;
+  }
 
-   @Override
-   public Component getTreeCellRendererComponent(JTree tree, Object value,
-         boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+  @Override
+  public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf,
+      int row, boolean hasFocus) {
 
-      super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row,
-            hasFocus);
+    super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
 
-      if (nodeInfos.get(value.getClass()) != null){
-         Icon icon;
-         if((icon = nodeInfos.get(value.getClass()).getIcon()) != null) {
-            setIcon(icon);
-         }
-         
-         String name;
-         if((name = nodeInfos.get(value.getClass()).getName(value)) != null){
-            setText(name);
-         }
+    if (nodeInfos.get(value.getClass()) != null) {
+
+      NodeInfo nodeInfo = nodeInfos.get(value.getClass());
+
+      Icon icon;
+      
+      if(expanded){
+        icon = nodeInfo.getExpandedIcon();
+      }else{
+        icon = nodeInfo.getIcon();
       }
       
-      return this;
-   }
+      if(expanded && icon == null){
+        icon = nodeInfo.getIcon();
+      }
+      
+      if (icon != null) {
+        setIcon(icon);
+      }
+
+      setToolTipText(nodeInfo.getTooltip());
+
+      String name;
+      if ((name = nodeInfos.get(value.getClass()).getName(value)) != null) {
+        setText(name);
+      }
+    }
+
+    return this;
+  }
 }
