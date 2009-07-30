@@ -46,7 +46,6 @@ public class NodeInfoImplJdom extends Element {
    private static final String ACTIONS = "actions";
    private static final String TYPE = "type";
    private static final String VIEW = "view";
-   private static final String ICON = "icon";
    private static final String CHILD = "child";
    private static final String PROPERTY_NAME = "propertyName";
 

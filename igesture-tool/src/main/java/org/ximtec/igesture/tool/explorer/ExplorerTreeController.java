@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
+import javax.swing.ToolTipManager;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreeCellRenderer;
@@ -91,6 +92,8 @@ public class ExplorerTreeController extends DefaultController implements
       this.nodeInfos = model.getNodeInfos();
 
       tree = new ExplorerTree(this.model, renderer);
+      ToolTipManager.sharedInstance().registerComponent(tree);
+
       tree.addTreeSelectionListener(this);
       tree.addMouseListener(new ExplorerPopupDispatcher(nodeInfos));
 

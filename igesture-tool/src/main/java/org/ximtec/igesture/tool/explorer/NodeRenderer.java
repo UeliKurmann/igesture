@@ -55,12 +55,12 @@ public class NodeRenderer extends DefaultTreeCellRenderer {
   public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf,
       int row, boolean hasFocus) {
 
-    super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
-
     if (nodeInfos.get(value.getClass()) != null) {
 
       NodeInfo nodeInfo = nodeInfos.get(value.getClass());
 
+      setToolTipText(nodeInfo.getTooltip());
+      
       Icon icon;
       
       if(expanded){
@@ -77,10 +77,8 @@ public class NodeRenderer extends DefaultTreeCellRenderer {
         setIcon(icon);
       }
 
-      setToolTipText(nodeInfo.getTooltip());
-
       String name;
-      if ((name = nodeInfos.get(value.getClass()).getName(value)) != null) {
+      if ((name = nodeInfo.getName(value)) != null) {
         setText(name);
       }
     }
