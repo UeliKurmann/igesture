@@ -27,7 +27,6 @@ package org.ximtec.igesture.tool.explorer;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -127,14 +126,7 @@ public class NodeInfoImpl implements NodeInfo {
           } else {
             result.add(o);
           }
-        } catch (SecurityException e) {
-
-          LOG.log(Level.SEVERE, "Can't access children.", e);
-        } catch (NoSuchFieldException e) {
-          LOG.log(Level.SEVERE, "Can't access children.", e);
-        } catch (IllegalArgumentException e) {
-          LOG.log(Level.SEVERE, "Can't access children.", e);
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
           LOG.log(Level.SEVERE, "Can't access children.", e);
         }
       }
@@ -170,11 +162,7 @@ public class NodeInfoImpl implements NodeInfo {
     if (propertyName != null) {
       try {
         return BeanUtils.getProperty(node, propertyName);
-      } catch (IllegalAccessException e) {
-        LOG.log(Level.SEVERE, "Can't get the node name. (" + node.getClass() + ")");
-      } catch (InvocationTargetException e) {
-        LOG.log(Level.SEVERE, "Can't get the node name. (" + node.getClass() + ")");
-      } catch (NoSuchMethodException e) {
+      } catch (Exception e) {
         LOG.log(Level.SEVERE, "Can't get the node name. (" + node.getClass() + ")");
       }
     }
