@@ -23,20 +23,13 @@
  * 
  */
 
-
 package org.ximtec.igesture.tool.util;
-
-import hacks.IconLoader;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.Icon;
-
-import org.sigtec.graphix.IconTool;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.Constant;
-import org.sigtec.util.Decorator;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample;
@@ -45,6 +38,7 @@ import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.TestClass;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.core.TextDescriptor;
+import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.explorer.NodeInfoImpl;
 import org.ximtec.igesture.tool.explorer.SeparatorAction;
@@ -87,126 +81,114 @@ import org.ximtec.igesture.tool.view.testset.panel.TestSetPanel;
 import org.ximtec.igesture.tool.view.testset.panel.TestSetsPanel;
 import org.ximtec.igesture.tool.view.testset.wrapper.TestSetList;
 
-
 /**
  * Comment
+ * 
  * @version 1.0 08.04.2008
  * @author Ueli Kurmann
  */
 public class NodeInfoFactory {
 
-   public static List<NodeInfo> createAdminNodeInfo(Controller controller) {
-      List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
+  public static List<NodeInfo> createAdminNodeInfo(Controller controller) {
+    List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
 
-      List<Class< ? extends BasicAction>> rootActions = new ArrayList<Class< ? extends BasicAction>>();
-      rootActions.add(AddGestureSetAction.class);
-      rootActions.add(ImportGestureSetAction.class);
-      
-      List<Class< ? extends BasicAction>> setActions = new ArrayList<Class< ? extends BasicAction>>();
-      setActions.add(AddGestureClassAction.class);
-      setActions.add(SeparatorAction.class);      
-      setActions.add(RemoveGestureSetAction.class);
-      setActions.add(ExportGestureSetAction.class);
-      setActions.add(SeparatorAction.class);
-      setActions.add(ExportPDFGestureSetAction.class);
-      setActions.add(CreateTestSetStructureAction.class);
+    List<Class<? extends BasicAction>> rootActions = new ArrayList<Class<? extends BasicAction>>();
+    rootActions.add(AddGestureSetAction.class);
+    rootActions.add(ImportGestureSetAction.class);
 
-      List<Class< ? extends BasicAction>> classActions = new ArrayList<Class< ? extends BasicAction>>();
-      classActions.add(AddSampleDescriptorAction.class);
-      classActions.add(AddTextDescriptorAction.class);      
-      classActions.add(SeparatorAction.class);
-      classActions.add(RemoveGestureClassAction.class);
+    List<Class<? extends BasicAction>> setActions = new ArrayList<Class<? extends BasicAction>>();
+    setActions.add(AddGestureClassAction.class);
+    setActions.add(SeparatorAction.class);
+    setActions.add(RemoveGestureSetAction.class);
+    setActions.add(ExportGestureSetAction.class);
+    setActions.add(SeparatorAction.class);
+    setActions.add(ExportPDFGestureSetAction.class);
+    setActions.add(CreateTestSetStructureAction.class);
 
-      List<Class< ? extends BasicAction>> descriptorActions = new ArrayList<Class< ? extends BasicAction>>();
-      descriptorActions.add(RemoveDescriptorAction.class);
+    List<Class<? extends BasicAction>> classActions = new ArrayList<Class<? extends BasicAction>>();
+    classActions.add(AddSampleDescriptorAction.class);
+    classActions.add(AddTextDescriptorAction.class);
+    classActions.add(SeparatorAction.class);
+    classActions.add(RemoveGestureClassAction.class);
 
-      Icon setIcon = IconTool.getIcon(IconLoader.PACKAGE,
-            Decorator.SIZE_16);
+    List<Class<? extends BasicAction>> descriptorActions = new ArrayList<Class<? extends BasicAction>>();
+    descriptorActions.add(RemoveDescriptorAction.class);
 
-      nodeInfos = new ArrayList<NodeInfo>();
-      nodeInfos.add(new NodeInfoImpl(controller, GestureSetList.class, "name", "sets",
-            GestureSetsPanel.class, rootActions, null));
-      nodeInfos.add(new NodeInfoImpl(controller, GestureSet.class, "name", "gestureClasses",
-            GestureSetPanel.class, setActions, setIcon));
-      nodeInfos.add(new NodeInfoImpl(controller, GestureClass.class, "name", "descriptors",
-            GestureClassPanel.class, classActions, null));
-      nodeInfos.add(new NodeInfoImpl(controller, SampleDescriptor.class, "name", null,
-            SampleDescriptorPanel.class, descriptorActions, null));
-      nodeInfos.add(new NodeInfoImpl(controller, TextDescriptor.class, null, null,
-            TextDescriptorPanel.class, descriptorActions, null));
-      nodeInfos.add(new NodeInfoImpl(controller, GestureSample.class, "name", null,
-            DefaultPanel.class, null, null));
-      nodeInfos.add(new NodeInfoImpl(controller, String.class, Constant.EMPTY_STRING, null,
-            DefaultPanel.class, null, null));
+    nodeInfos = new ArrayList<NodeInfo>();
+    nodeInfos.add(new NodeInfoImpl(controller, GestureSetList.class, "name", "sets", GestureSetsPanel.class,
+        rootActions, GestureConstants.NODE_ICON_GESTURE_SET_LIST));
+    nodeInfos.add(new NodeInfoImpl(controller, GestureSet.class, "name", "gestureClasses", GestureSetPanel.class,
+        setActions, GestureConstants.NODE_ICON_GESTURE_SET));
+    nodeInfos.add(new NodeInfoImpl(controller, GestureClass.class, "name", "descriptors", GestureClassPanel.class,
+        classActions, GestureConstants.NODE_ICON_GESTURE_CLASS));
+    nodeInfos.add(new NodeInfoImpl(controller, SampleDescriptor.class, "name", null, SampleDescriptorPanel.class,
+        descriptorActions, GestureConstants.NODE_ICON_GESTURE_DESCRIPTOR));
+    nodeInfos.add(new NodeInfoImpl(controller, TextDescriptor.class, null, null, TextDescriptorPanel.class,
+        descriptorActions, GestureConstants.NODE_ICON_GESTURE_DESCRIPTOR));
+    nodeInfos
+        .add(new NodeInfoImpl(controller, GestureSample.class, "name", null, DefaultPanel.class, null, GestureConstants.NODE_ICON_GESTURE_SAMPLE));
+    nodeInfos.add(new NodeInfoImpl(controller, String.class, Constant.EMPTY_STRING, null, DefaultPanel.class, null,
+        null));
 
-      return nodeInfos;
-   }
+    return nodeInfos;
+  }
+
+  public static List<NodeInfo> createTestBenchNodeInfo(Controller controller) {
+
+    List<Class<? extends BasicAction>> algorithmListActions = new ArrayList<Class<? extends BasicAction>>();
+    List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
+
+    List<Class<? extends BasicAction>> algorithmWrapperActions = new ArrayList<Class<? extends BasicAction>>();
+    algorithmWrapperActions.add(AddConfigurationAction.class);
+
+    List<Class<? extends BasicAction>> configurationActions = new ArrayList<Class<? extends BasicAction>>();
+    configurationActions.add(ExportConfigurationAction.class);
+    configurationActions.add(SeparatorAction.class);
+    configurationActions.add(RemoveConfigurationAction.class);
+
+    nodeInfos = new ArrayList<NodeInfo>();
+    nodeInfos.add(new NodeInfoImpl(controller, AlgorithmList.class, "name", "algorithms", AlgorithmListPanel.class,
+        algorithmListActions, GestureConstants.NODE_ICON_ALGORITHM_LIST));
+
+    nodeInfos.add(new NodeInfoImpl(controller, AlgorithmWrapper.class, "name", "configurations",
+        AlgorithmWrapperPanel.class, algorithmWrapperActions, GestureConstants.NODE_ICON_ALGORITHM));
+
+    nodeInfos.add(new NodeInfoImpl(controller, Configuration.class, "name", null, ConfigurationPanel.class,
+        configurationActions, GestureConstants.NODE_ICON_CONFIGURATION));
+
+    return nodeInfos;
+
+  }
+
+  public static List<NodeInfo> createTestSetNodeInfo(Controller controller) {
+    List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
+
+    List<Class<? extends BasicAction>> rootActions = new ArrayList<Class<? extends BasicAction>>();
+    rootActions.add(ImportTestSetAction.class);
+    rootActions.add(NewTestSetAction.class);
+    rootActions.add(ConvertGestureSetAction.class);
+
+    List<Class<? extends BasicAction>> setActions = new ArrayList<Class<? extends BasicAction>>();
+    setActions.add(DeleteTestSetAction.class);
+    setActions.add(ExportTestSetAction.class);
+    setActions.add(AddTestClassAction.class);
+
+    List<Class<? extends BasicAction>> classActions = new ArrayList<Class<? extends BasicAction>>();
+    classActions.add(DeleteTestClassAction.class);
 
 
-   public static List<NodeInfo> createTestBenchNodeInfo(Controller controller) {
+    nodeInfos = new ArrayList<NodeInfo>();
 
-      List<Class< ? extends BasicAction>> algorithmListActions = new ArrayList<Class< ? extends BasicAction>>();
-      List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
+    nodeInfos.add(new NodeInfoImpl(controller, TestSetList.class, "name", TestSetList.PROPERTY_SETS,
+        TestSetsPanel.class, rootActions, GestureConstants.NODE_ICON_TEST_SET_LIST));
 
-      List<Class< ? extends BasicAction>> algorithmWrapperActions = new ArrayList<Class< ? extends BasicAction>>();
-      algorithmWrapperActions.add(AddConfigurationAction.class);
+    nodeInfos.add(new NodeInfoImpl(controller, TestSet.class, "name", "testClasses", TestSetPanel.class, setActions,
+        GestureConstants.NODE_ICON_TEST_SET));
 
-      List<Class< ? extends BasicAction>> configurationActions = new ArrayList<Class< ? extends BasicAction>>();
-      configurationActions.add(ExportConfigurationAction.class);
-      configurationActions.add(SeparatorAction.class);       
-      configurationActions.add(RemoveConfigurationAction.class);
+    nodeInfos.add(new NodeInfoImpl(controller, TestClass.class, "name", null, TestClassPanel.class, classActions,
+        GestureConstants.NODE_ICON_TEST_CLASS));
 
-      nodeInfos = new ArrayList<NodeInfo>();
-      nodeInfos.add(new NodeInfoImpl(controller, AlgorithmList.class, "name", "algorithms",
-            AlgorithmListPanel.class, algorithmListActions, null));
-
-      nodeInfos.add(new NodeInfoImpl(controller, AlgorithmWrapper.class, "name",
-            "configurations", AlgorithmWrapperPanel.class,
-            algorithmWrapperActions, null));
-
-      nodeInfos.add(new NodeInfoImpl(controller, Configuration.class, "name", null,
-            ConfigurationPanel.class, configurationActions, null));
-
-      return nodeInfos;
-
-   }
-
-
-   public static List<NodeInfo> createTestSetNodeInfo(Controller controller) {
-      List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
-
-      List<Class< ? extends BasicAction>> rootActions = new ArrayList<Class< ? extends BasicAction>>();
-      rootActions.add(ImportTestSetAction.class);
-      rootActions.add(NewTestSetAction.class);
-      rootActions.add(ConvertGestureSetAction.class);
-
-      List<Class< ? extends BasicAction>> setActions = new ArrayList<Class< ? extends BasicAction>>();
-      setActions.add(DeleteTestSetAction.class);
-      setActions.add(ExportTestSetAction.class);
-      setActions.add(AddTestClassAction.class);
-      
-      
-      List<Class< ? extends BasicAction>> classActions = new ArrayList<Class< ? extends BasicAction>>();
-      classActions.add(DeleteTestClassAction.class);
-      
-      
-      Icon setIcon = IconTool.getIcon("mimetypes/package-x-generic",
-            Decorator.SIZE_16);
-
-      nodeInfos = new ArrayList<NodeInfo>();
-      
-      nodeInfos.add(new NodeInfoImpl(controller, TestSetList.class, "name",
-            TestSetList.PROPERTY_SETS, TestSetsPanel.class, rootActions, null));
-      
-      nodeInfos.add(new NodeInfoImpl(controller, TestSet.class, "name", "testClasses",
-            TestSetPanel.class, setActions, setIcon));
-      
-      nodeInfos.add(new NodeInfoImpl(controller, TestClass.class, "name", null, TestClassPanel.class, classActions, null));
-
-      // nodeInfos.add(new NodeInfoImpl(GestureSample.class, "name", null,
-      // DefaultPanel.class, null, null));
-
-      return nodeInfos;
-   }
+    return nodeInfos;
+  }
 
 }

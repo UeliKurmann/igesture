@@ -44,6 +44,7 @@ import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeView;
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
+import org.ximtec.igesture.tool.service.GuiBundleService;
 
 /**
  * Implementation of the NodeInfo interface. Reflection and dynamic class
@@ -67,7 +68,9 @@ public class NodeInfoImpl implements NodeInfo {
 
   private List<Class<? extends BasicAction>> popupActions;
 
-  private Icon icon;
+  private String key;
+
+  private GuiBundleService guiBundle;
 
   /**
    * Constructor
@@ -88,7 +91,7 @@ public class NodeInfoImpl implements NodeInfo {
    *          the icon of the node
    */
   public NodeInfoImpl(Controller controller, Class<? extends Object> type, String propertyName, String childList,
-      Class<? extends ExplorerTreeView> view, List<Class<? extends BasicAction>> popupActions, Icon icon) {
+      Class<? extends ExplorerTreeView> view, List<Class<? extends BasicAction>> popupActions, String key) {
 
     this.controller = controller;
     this.nodeClass = type;
@@ -96,7 +99,8 @@ public class NodeInfoImpl implements NodeInfo {
     this.childList = childList;
     this.viewClass = view;
     this.popupActions = popupActions;
-    this.icon = icon;
+    this.key = key;
+    this.guiBundle = controller.getLocator().getService(GuiBundleService.IDENTIFIER, GuiBundleService.class);
   }
 
   /*
@@ -146,8 +150,14 @@ public class NodeInfoImpl implements NodeInfo {
    */
   @Override
   public Icon getIcon() {
-    return icon;
+    return guiBundle.getSmallIcon(key);
   }
+  
+  @Override
+  public Icon getExpandedIcon() {
+    return guiBundle.getSmallIconExpanded(key);
+  }
+  
 
   /*
    * (non-Javadoc)
@@ -178,8 +188,7 @@ public class NodeInfoImpl implements NodeInfo {
    */
   @Override
   public String getTooltip() {
-    // TODO Auto-generated method stub
-    return null;
+    return guiBundle.getShortDescription(key);
   }
 
   /*
@@ -255,19 +264,9 @@ public class NodeInfoImpl implements NodeInfo {
             popupMenu.add(action);
           }
 
-        } catch (InstantiationException e) {
+        } catch (Exception e) {
           LOG.log(Level.SEVERE, "Can't create Popup Menu.", e);
-        } catch (IllegalAccessException e) {
-          LOG.log(Level.SEVERE, "Can't create Popup Menu.", e);
-        } catch (SecurityException e) {
-          LOG.log(Level.SEVERE, "Can't create Popup Menu.", e);
-        } catch (NoSuchMethodException e) {
-          LOG.log(Level.SEVERE, "Can't create Popup Menu.", e);
-        } catch (IllegalArgumentException e) {
-          LOG.log(Level.SEVERE, "Can't create Popup Menu.", e);
-        } catch (InvocationTargetException e) {
-          LOG.log(Level.SEVERE, "Can't create Popup Menu.", e);
-        }
+        } 
       }
     }
     return popupMenu;

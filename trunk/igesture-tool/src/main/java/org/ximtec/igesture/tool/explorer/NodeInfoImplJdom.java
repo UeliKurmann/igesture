@@ -26,12 +26,8 @@
 
 package org.ximtec.igesture.tool.explorer;
 
-import hacks.IconLoader;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.Icon;
 
 import org.jdom.Element;
 import org.sigtec.graphix.widget.BasicAction;
@@ -71,14 +67,14 @@ public class NodeInfoImplJdom extends Element {
          childrenList.append(NodeInfoImpl.CHILD_DELIMITER);
       }
 
-      String icon = element.getChildText(ICON);
+
       String view = element.getChildText(VIEW);
       String type = element.getChildText(TYPE);
 
       try {
          Class< ? extends ExplorerTreeView> viewClass = (Class< ? extends ExplorerTreeView>)Class.forName(view);
          Class< ? > typeClass = Class.forName(type);
-         Icon nodeIcon = IconLoader.getIcon(icon);
+        
          
          Element actions = element.getChild(ACTIONS);
          List<Class< ? extends BasicAction>> actionList = new ArrayList<Class< ? extends BasicAction>>();
@@ -87,7 +83,7 @@ public class NodeInfoImplJdom extends Element {
          }
          // FIXME set controller
          return new NodeInfoImpl(null, typeClass, propertyName, childrenList.toString(), viewClass, actionList,
-               nodeIcon);
+               "");
       }
       catch (ClassNotFoundException e) {
          e.printStackTrace();
