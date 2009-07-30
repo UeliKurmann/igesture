@@ -117,7 +117,8 @@ public class GestureConstants {
   public static final String NODE_ICON_GESTURE_SET = "GestureSetNodeIcon";
   public static final String NODE_ICON_GESTURE_SET_LIST = "GestureSetListNodeIcon";
   public static final String NODE_ICON_GESTURE_CLASS = "GestureClassNodeIcon";
-  public static final String NODE_ICON_GESTURE_DESCRIPTOR = "GestureSetNodeIcon";
+  public static final String NODE_ICON_GESTURE_SAMPLE_DESCRIPTOR = "GestureSampleDescriptorIcon";
+  public static final String NODE_ICON_GESTURE_TEXT_DESCRIPTOR = "GestureTextDescriptorIcon";
   public static final String NODE_ICON_GESTURE_SAMPLE = "GestureSampleNodeIcon";
   public static final String NODE_ICON_ALGORITHM = "TestBenchAlgorithmIcon";
   public static final String NODE_ICON_CONFIGURATION = "TestBenchConfigurationIcon";
