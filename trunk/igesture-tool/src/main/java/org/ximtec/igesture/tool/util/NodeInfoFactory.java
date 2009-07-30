@@ -122,9 +122,9 @@ public class NodeInfoFactory {
     nodeInfos.add(new NodeInfoImpl(controller, GestureClass.class, "name", "descriptors", GestureClassPanel.class,
         classActions, GestureConstants.NODE_ICON_GESTURE_CLASS));
     nodeInfos.add(new NodeInfoImpl(controller, SampleDescriptor.class, "name", null, SampleDescriptorPanel.class,
-        descriptorActions, GestureConstants.NODE_ICON_GESTURE_DESCRIPTOR));
+        descriptorActions, GestureConstants.NODE_ICON_GESTURE_SAMPLE_DESCRIPTOR));
     nodeInfos.add(new NodeInfoImpl(controller, TextDescriptor.class, null, null, TextDescriptorPanel.class,
-        descriptorActions, GestureConstants.NODE_ICON_GESTURE_DESCRIPTOR));
+        descriptorActions, GestureConstants.NODE_ICON_GESTURE_TEXT_DESCRIPTOR));
     nodeInfos
         .add(new NodeInfoImpl(controller, GestureSample.class, "name", null, DefaultPanel.class, null, GestureConstants.NODE_ICON_GESTURE_SAMPLE));
     nodeInfos.add(new NodeInfoImpl(controller, String.class, Constant.EMPTY_STRING, null, DefaultPanel.class, null,
