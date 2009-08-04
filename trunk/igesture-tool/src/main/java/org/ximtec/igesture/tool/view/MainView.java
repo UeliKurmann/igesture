@@ -53,6 +53,7 @@ import org.ximtec.igesture.tool.service.GuiBundleService;
 @SuppressWarnings("serial")
 public class MainView extends DefaultView {
 
+  private static final String TITLE_DELIMITER = " - ";
   private JTabbedPane tabbedPane;
   private JMenuBar menuBar;
   private String titlePrefix;
@@ -100,6 +101,7 @@ public class MainView extends DefaultView {
     fileMenu.add(createMenuItem(MainController.CMD_CLOSE_WS));
     fileMenu.addSeparator();
     fileMenu.add(createMenuItem(MainController.CMD_SAVE));
+    fileMenu.add(createMenuItem(MainController.CMD_SAVE_AS));
     fileMenu.addSeparator();
     fileMenu.add(createMenuItem(MainController.CMD_EXIT));
 
@@ -116,19 +118,31 @@ public class MainView extends DefaultView {
     tabbedPane.removeAll();
   } // removeAllTabs
 
+  /**
+   * Creates a menu item. The action is identified with action string and part
+   * of the controller.
+   * 
+   * @param action
+   * @return the menu item
+   */
   private BasicMenuItem createMenuItem(String action) {
     BasicMenuItem item = new BasicMenuItem();
     item.setAction(getController().getAction(action));
     return item;
   }
-  
-  public void setTitlePostfix(File file){
-    if(file == null){
+
+  /**
+   * Sets the second part of the title banner. (filename)
+   * 
+   * @param file
+   */
+  public void setTitlePostfix(File file) {
+    if (file == null) {
       setTitle(titlePrefix);
-    }else{
-      setTitle(titlePrefix+" - "+file.getAbsolutePath());
+    } else {
+      setTitle(titlePrefix + TITLE_DELIMITER + file.getAbsolutePath());
     }
-    
+
   }
 
 }
