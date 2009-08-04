@@ -8,6 +8,11 @@ import org.ximtec.igesture.util.ReflectTools;
 
 public abstract class DefaultStorageEngine implements StorageEngine {
 
+  /*
+   * (non-Javadoc)
+   * @see org.ximtec.igesture.storage.StorageEngine#load(java.lang.Class, java.lang.String, java.lang.Object)
+   */
+  @Override
 	public <T extends DataObject> List<T> load(Class<T> clazz, String fieldName, Object value) {
 		List<T> result = new ArrayList<T>();
 		for (T dataObject : load(clazz)) {

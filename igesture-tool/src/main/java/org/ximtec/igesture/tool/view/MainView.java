@@ -26,6 +26,7 @@
 package org.ximtec.igesture.tool.view;
 
 import java.awt.Frame;
+import java.io.File;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -54,6 +55,7 @@ public class MainView extends DefaultView {
 
   private JTabbedPane tabbedPane;
   private JMenuBar menuBar;
+  private String titlePrefix;
 
   public MainView(Controller controller) {
     super(controller);
@@ -64,7 +66,8 @@ public class MainView extends DefaultView {
   private void initView() {
     setBounds(100, 100, 900, 650);
     setDefaultCloseOperation(Frame.NORMAL);
-    setTitle(getComponentFactory().getGuiBundle().getName(GestureConstants.APPLICATION_ROOT));
+    titlePrefix = getComponentFactory().getGuiBundle().getName(GestureConstants.APPLICATION_ROOT);
+    setTitle(titlePrefix);
     setIconImage(getComponentFactory().getGuiBundle().getSmallIcon(GestureConstants.APPLICATION_ROOT).getImage());
     setVisible(true);
     tabbedPane = new JTabbedPane();
@@ -117,6 +120,15 @@ public class MainView extends DefaultView {
     BasicMenuItem item = new BasicMenuItem();
     item.setAction(getController().getAction(action));
     return item;
+  }
+  
+  public void setTitlePostfix(File file){
+    if(file == null){
+      setTitle(titlePrefix);
+    }else{
+      setTitle(titlePrefix+" - "+file.getAbsolutePath());
+    }
+    
   }
 
 }

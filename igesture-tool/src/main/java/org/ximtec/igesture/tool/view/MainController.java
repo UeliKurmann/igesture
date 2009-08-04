@@ -174,6 +174,8 @@ public class MainController extends DefaultController implements Service {
     getAction(CMD_CLOSE_WS).setEnabled(false);
     getAction(CMD_SAVE).setEnabled(false);
     getAction(CMD_LOAD).setEnabled(true);
+    
+    mainView.setTitlePostfix(null);
 
   } // execLoadCommand
 
@@ -219,6 +221,8 @@ public class MainController extends DefaultController implements Service {
       getAction(CMD_LOAD).setEnabled(false);
 
       this.saveFlag = false;
+      
+      mainView.setTitlePostfix(dataBase);
     }
 
   } // execLoadCommand
