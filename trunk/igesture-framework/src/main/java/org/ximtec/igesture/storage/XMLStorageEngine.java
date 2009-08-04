@@ -30,7 +30,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -49,29 +48,24 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
  * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class XMLStorageEngine extends DefaultStorageEngine {
+public class XMLStorageEngine extends DefaultFileStorageEngine {
 
   private static final Logger LOGGER = Logger.getLogger(XMLStorageEngine.class.getName());
 
-  private File xmlFile;
-
-  private HashMap<Class<? extends DataObject>, List<DataObject>> dataObjects;
-
+  /**
+   * Create the XML Storage Engine
+   * 
+   * @param filename
+   */
   public XMLStorageEngine(String filename) {
-    xmlFile = new File(filename);
-
-    if (xmlFile.exists()) {
-      dataObjects = deserialize(xmlFile);
-    } else {
-      dataObjects = new HashMap<Class<? extends DataObject>, List<DataObject>>();
-    }
-
+    super(new File(filename));
   }
 
   /**
    * Serialize the internal data structure to an XML file.
    */
-  private void serialize(HashMap<Class<? extends DataObject>, List<DataObject>> objects, File file) {
+  @Override
+  protected void serialize(HashMap<Class<? extends DataObject>, List<DataObject>> objects, File file) {
     final XStream xstream = new XStream(new DomDriver());
     final String xml = xstream.toXML(objects);
 
@@ -94,9 +88,13 @@ public class XMLStorageEngine extends DefaultStorageEngine {
    * @return the internal data structure handling the data objects.
    */
   @SuppressWarnings("unchecked")
-  private HashMap<Class<? extends DataObject>, List<DataObject>> deserialize(File file) {
+  protected HashMap<Class<? extends DataObject>, List<DataObject>> deserialize(File file) {
     final XStream xstream = new XStream(new DomDriver());
     HashMap<Class<? extends DataObject>, List<DataObject>> dataObjects = null;
+
+    if (!file.exists()) {
+      return new HashMap<Class<? extends DataObject>, List<DataObject>>();
+    }
 
     try {
       final FileReader fr = new FileReader(file);
@@ -116,88 +114,15 @@ public class XMLStorageEngine extends DefaultStorageEngine {
     return dataObjects;
   }
 
-  @Override
-  public void dispose() {
-    //
-  } // dispose
-
-  @SuppressWarnings("unchecked")
-  public <T extends DataObject> T load(final Class<T> clazz, final String id) {
-    T dataObject = null;
-
-    if (dataObjects.get(clazz) != null) {
-
-      for (final DataObject tmp : dataObjects.get(clazz)) {
-
-        if (tmp.getId().equals(id)) {
-          dataObject = (T) tmp;
-          break;
-        }
-
-      }
-
-    }
-
-    return dataObject;
-  } // load
-
-  @SuppressWarnings("unchecked")
-  public <T extends DataObject> List<T> load(Class<T> clazz) {
-    if (dataObjects.get(clazz) != null) {
-      return new ArrayList<T>((List<T>)dataObjects.get(clazz));
-    }
-
-    return new ArrayList<T>();
-  } // load
-
-  public void store(DataObject dataObject) {
-    addDataObject(dataObject);
-  } // store
-
-  public void update(DataObject dataObject) {
-    addDataObject(dataObject);
-  } // update
-
-  public void remove(DataObject dataObject) {
-    removeDataObject(dataObject);
-  } // remove
-
-  /**
-   * Adds a data object to the object container.
+  /*
+   * (non-Javadoc)
    * 
-   * @param dataObject
-   *          the data object to be added.
+   * @see org.ximtec.igesture.storage.StorageEngine#copyTo(java.io.File)
    */
-  private void addDataObject(DataObject dataObject) {
-    // create a list for a specific type if it doesn't exist
-    if (dataObjects.get(dataObject.getClass()) == null) {
-      dataObjects.put(dataObject.getClass(), new ArrayList<DataObject>());
-    }
-
-    // only add dataObject if it isn't already present in the list
-    if (!dataObjects.get(dataObject.getClass()).contains(dataObject)) {
-      dataObjects.get(dataObject.getClass()).add(dataObject);
-    }
-
-  } // addDataObject
-
-  /**
-   * Removes a data object from the object container.
-   * 
-   * @param dataObject
-   *          the data object to be removed.
-   */
-  private void removeDataObject(DataObject dataObject) {
-    if (dataObjects.get(dataObject.getClass()) != null) {
-      dataObjects.get(dataObject.getClass()).remove(dataObject);
-    }
-
-  } // removeDataObject
-
   @Override
-  public void commit() {
-    serialize(dataObjects, xmlFile);
-
+  public synchronized void copyTo(File file) {
+    setStorageFile(file);
+    commit();
   }
 
 }

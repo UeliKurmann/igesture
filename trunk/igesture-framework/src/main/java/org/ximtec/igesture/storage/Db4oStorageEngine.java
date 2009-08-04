@@ -25,6 +25,7 @@
 
 package org.ximtec.igesture.storage;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -121,5 +122,18 @@ public class Db4oStorageEngine extends DefaultStorageEngine {
     
     objectCache.clear();
   }
+
+  /*
+   * (non-Javadoc)
+   * @see org.ximtec.igesture.storage.StorageEngine#copyTo(java.io.File)
+   */
+  @Override
+  public void copyTo(File file) {
+    // FIXME
+    throw new RuntimeException("Not yet implemented.");
+    
+  }
+  
+  
 
 }
