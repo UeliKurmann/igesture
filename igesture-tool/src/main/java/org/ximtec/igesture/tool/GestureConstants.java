@@ -60,6 +60,7 @@ public class GestureConstants {
   public static final String OPEN_PROJECT = "OpenProjectAction";
   public static final String CLOSE_PROJECT = "CloseProjectAction";
   public static final String SAVE = "SaveAction";
+  public static final String SAVE_AS = "SaveAsAction";
   public static final String EXIT = "ExitAction";
 
   public static final String HELP_MENU = "HelpMenu";

@@ -81,13 +81,14 @@ public class MainController extends DefaultController implements Service {
   public static final String CMD_LOAD = "load";
   public static final String CMD_EXIT = "close";
   public static final String CMD_SAVE = "save";
+  public static final String CMD_SAVE_AS = "saveAs";
   public static final String CMD_START_WAITING = "startWaiting";
   public static final String CMD_STOP_WAITING = "stopWaiting";
   public static final String CMD_SHOW_ABOUT_DIALOG = "showAboutDialog";
   public static final String CMD_CLOSE_WS = "closeWorkspace";
   public static final String CMD_CHANGE_TAB = "changeTab";
 
-  // List of controllers (active project)
+  // List of controllers (a project is active)
   private static Class<?>[] activeControllers = new Class<?>[] { AdminController.class, TestbenchController.class,
       BatchController.class, TestSetController.class };
 
@@ -107,8 +108,11 @@ public class MainController extends DefaultController implements Service {
   // Properties
   private Properties properties;
 
-  // Flag indicates, if the project is modified
-  private boolean saveFlag;
+  /**
+   * Flag indicates, if the project is modified False: Project was not modified,
+   * no save needed.
+   */
+  private boolean modelIsModified;
 
   /**
    * Default Constructor. Initialises the application.
@@ -125,7 +129,9 @@ public class MainController extends DefaultController implements Service {
     initSubControllersAndViews(passiveControllers);
     getAction(CMD_CLOSE_WS).setEnabled(false);
     getAction(CMD_SAVE).setEnabled(false);
-    this.saveFlag = false;
+    // FIXME always deactivated
+    getAction(CMD_SAVE_AS).setEnabled(false);
+    this.modelIsModified = false;
   }
 
   /**
@@ -149,6 +155,9 @@ public class MainController extends DefaultController implements Service {
     return controller;
   }
 
+  /**
+   * Command is executed after changing a tab.
+   */
   @ExecCmd(name = CMD_CHANGE_TAB)
   protected void execChangeTab() {
     LOGGER.info("Change Tab");
@@ -159,10 +168,13 @@ public class MainController extends DefaultController implements Service {
     }
   }
 
+  /**
+   * Command to close a project.
+   */
   @ExecCmd(name = CMD_CLOSE_WS)
   protected void execCloseWsCommand() {
     LOGGER.info("Command Close Workspace");
-    if (saveFlag && mainModel.isActive()
+    if (modelIsModified && mainModel.isActive()
         && JOptionPane.YES_OPTION == showYesNoDialog(GestureConstants.MAIN_CONTROLLER_DIALOG_SAVE)) {
       mainModel.getStorageManager().commit();
     }
@@ -174,35 +186,64 @@ public class MainController extends DefaultController implements Service {
     getAction(CMD_CLOSE_WS).setEnabled(false);
     getAction(CMD_SAVE).setEnabled(false);
     getAction(CMD_LOAD).setEnabled(true);
-    
+
     mainView.setTitlePostfix(null);
 
   } // execLoadCommand
 
+  /**
+   * Command to exit the application.
+   */
   @ExecCmd(name = CMD_EXIT)
   protected void execExitCommand() {
     LOGGER.info("Command Exit");
 
-    if (JOptionPane.YES_OPTION == showYesNoDialog(GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT)) {
-
-      if (saveFlag && mainModel.isActive()
-          && JOptionPane.YES_OPTION == showYesNoDialog(GestureConstants.MAIN_CONTROLLER_DIALOG_SAVE)) {
+    if (modelIsModified) {
+      switch (showYesNoDialog(GestureConstants.MAIN_CONTROLLER_DIALOG_EXIT)) {
+      case JOptionPane.YES_OPTION:
         mainModel.getStorageManager().commit();
-      }
+        shutdownApplication();
+        break;
 
-      getLocator().stopAll();
+      case JOptionPane.NO_OPTION:
+        shutdownApplication();
+        break;
 
-      try {
-        mainModel.getProperties().storeToXML(new FileOutputStream(GestureConstants.PROPERTIES),
-            "iGesture: " + new Date());
-      } catch (Exception e) {
-        LOGGER.log(Level.WARNING, "Failed to store properties.", e);
+      case JOptionPane.CANCEL_OPTION:
+        LOGGER.info("Exit cancelled.");
+        break;
       }
-      System.exit(0);
+    } else {
+      shutdownApplication();
     }
-
   } // execExitCommand
 
+  /**
+   * Terminates the application. All services are stopped, the properties are
+   * stored. afterwards the application is terminated with an exit statement.
+   */
+  private void shutdownApplication() {
+    getLocator().stopAll();
+    storeProperties();
+    System.exit(0);
+  } // shutdownAPplication
+
+  /**
+   * Persist the properties. This method should be called before shutting down
+   * the application.
+   */
+  private void storeProperties() {
+    try {
+      mainModel.getProperties()
+          .storeToXML(new FileOutputStream(GestureConstants.PROPERTIES), "iGesture: " + new Date());
+    } catch (Exception e) {
+      LOGGER.log(Level.WARNING, "Failed to store properties.", e);
+    }
+  }
+
+  /**
+   * Command to load a project.
+   */
   @ExecCmd(name = CMD_LOAD)
   protected void execLoadCommand() {
     LOGGER.info("Command Load");
@@ -220,20 +261,34 @@ public class MainController extends DefaultController implements Service {
       getAction(CMD_SAVE).setEnabled(true);
       getAction(CMD_LOAD).setEnabled(false);
 
-      this.saveFlag = false;
-      
+      this.modelIsModified = false;
+
       mainView.setTitlePostfix(dataBase);
     }
 
   } // execLoadCommand
 
+  /**
+   * Command to save as a project. 
+   */
+  @ExecCmd(name = CMD_SAVE_AS)
+  protected void execSaveAsCommand() {
+    LOGGER.info("Command Save AS (not yet implemented)");
+  } // execSaveCommand
+
+  /**
+   * Command to save the project
+   */
   @ExecCmd(name = CMD_SAVE)
   protected void execSaveCommand() {
     LOGGER.info("Command Save");
     mainModel.getStorageManager().commit();
-    this.saveFlag = false;
+    this.modelIsModified = false;
   } // execSaveCommand
 
+  /**
+   * Command to show the about dialog
+   */
   @ExecCmd(name = CMD_SHOW_ABOUT_DIALOG)
   protected void execShowAboutDialog() {
     LOGGER.info("Show About Dialog.");
@@ -287,6 +342,7 @@ public class MainController extends DefaultController implements Service {
 
   /*
    * (non-Javadoc)
+   * 
    * @see org.ximtec.igesture.tool.locator.Service#getIdentifier()
    */
   @Override
@@ -298,7 +354,6 @@ public class MainController extends DefaultController implements Service {
   public TabbedView getView() {
     return null;
   } // getView
-
 
   /**
    * Initialises the controllers and sub views. This method has to be called in
@@ -336,6 +391,7 @@ public class MainController extends DefaultController implements Service {
       addAction(CMD_EXIT, new GenericLocateableAction(this, GestureConstants.EXIT, CMD_EXIT));
       addAction(CMD_SHOW_ABOUT_DIALOG, new GenericLocateableAction(this, GestureConstants.ABOUT, CMD_SHOW_ABOUT_DIALOG));
       addAction(CMD_CLOSE_WS, new GenericLocateableAction(this, GestureConstants.CLOSE_PROJECT, CMD_CLOSE_WS));
+      addAction(CMD_SAVE_AS, new GenericLocateableAction(this, GestureConstants.SAVE_AS, CMD_SAVE_AS));
 
       mainView = new MainView(this);
       mainView.addWindowListener(new MainWindowAdapter(this));
@@ -410,6 +466,10 @@ public class MainController extends DefaultController implements Service {
     }
   }
 
+  /**
+   * Handles property change events and persists the changed data model. 
+   * @param event
+   */
   private void persist(IndexedPropertyChangeEvent event) {
     LOGGER.info("Store, Delete, Update: indexed property " + event.getSource());
 
@@ -422,6 +482,10 @@ public class MainController extends DefaultController implements Service {
     mainModel.getStorageManager().update((DataObject) event.getSource());
   } // persist
 
+  /**
+   * Handles property change events and persists the changed data model. 
+   * @param event
+   */
   private void persist(PropertyChangeEvent event) {
     LOGGER.info("Update: property " + event.getSource());
     mainModel.getStorageManager().update((DataObject) event.getSource());
@@ -429,14 +493,17 @@ public class MainController extends DefaultController implements Service {
 
   /*
    * (non-Javadoc)
-   * @see org.ximtec.igesture.tool.core.DefaultController#propertyChange(java.beans.PropertyChangeEvent)
+   * 
+   * @see
+   * org.ximtec.igesture.tool.core.DefaultController#propertyChange(java.beans
+   * .PropertyChangeEvent)
    */
   @Override
   public void propertyChange(PropertyChangeEvent event) {
     LOGGER.info("PropertyChange");
     super.propertyChange(event);
 
-    this.saveFlag = true;
+    this.modelIsModified = true;
 
     // Dispatch DataObjects
     if (event.getSource() instanceof DataObject) {
@@ -457,9 +524,7 @@ public class MainController extends DefaultController implements Service {
       } else if (event.getNewValue() instanceof DataObject && event.getOldValue() != null) {
         mainModel.getStorageManager().update((DataObject) event.getNewValue());
       }
-
     }
-
   } // propertyChange
 
   /**
@@ -472,7 +537,7 @@ public class MainController extends DefaultController implements Service {
   private int showYesNoDialog(String key) {
     String title = getComponentFactory().getGuiBundle().getName(key);
     String text = getComponentFactory().getGuiBundle().getShortDescription(key);
-    return JOptionPane.showConfirmDialog(null, text, title, JOptionPane.YES_NO_OPTION);
+    return JOptionPane.showConfirmDialog(null, text, title, JOptionPane.YES_NO_CANCEL_OPTION);
   }
 
 }
