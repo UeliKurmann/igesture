@@ -27,6 +27,7 @@
 
 package org.ximtec.igesture.storage;
 
+import java.io.File;
 import java.util.List;
 
 import org.ximtec.igesture.core.DataObject;
@@ -90,5 +91,11 @@ public interface StorageEngine {
     * Disposes the engine.
     */
    public void dispose();
+   
+   /**
+    * 
+    * @param file
+    */
+   public void copyTo(File file);
 
 }

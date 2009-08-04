@@ -129,7 +129,6 @@ public class MainController extends DefaultController implements Service {
     initSubControllersAndViews(passiveControllers);
     getAction(CMD_CLOSE_WS).setEnabled(false);
     getAction(CMD_SAVE).setEnabled(false);
-    // FIXME always deactivated
     getAction(CMD_SAVE_AS).setEnabled(false);
     this.modelIsModified = false;
   }
@@ -185,6 +184,7 @@ public class MainController extends DefaultController implements Service {
 
     getAction(CMD_CLOSE_WS).setEnabled(false);
     getAction(CMD_SAVE).setEnabled(false);
+    getAction(CMD_SAVE_AS).setEnabled(false);
     getAction(CMD_LOAD).setEnabled(true);
 
     mainView.setTitlePostfix(null);
@@ -247,7 +247,7 @@ public class MainController extends DefaultController implements Service {
   @ExecCmd(name = CMD_LOAD)
   protected void execLoadCommand() {
     LOGGER.info("Command Load");
-    File dataBase = getDatabase();
+    File dataBase = getDatabase(false);
 
     if (dataBase != null) {
       mainView.removeAllTabs();
@@ -260,6 +260,7 @@ public class MainController extends DefaultController implements Service {
       getAction(CMD_CLOSE_WS).setEnabled(true);
       getAction(CMD_SAVE).setEnabled(true);
       getAction(CMD_LOAD).setEnabled(false);
+      getAction(CMD_SAVE_AS).setEnabled(true);
 
       this.modelIsModified = false;
 
@@ -269,11 +270,18 @@ public class MainController extends DefaultController implements Service {
   } // execLoadCommand
 
   /**
-   * Command to save as a project. 
+   * Command to save as a project.
    */
   @ExecCmd(name = CMD_SAVE_AS)
   protected void execSaveAsCommand() {
-    LOGGER.info("Command Save AS (not yet implemented)");
+    LOGGER.info("Command Save AS");
+    File dataBase = getDatabase(true);
+    if (dataBase != null) {
+      mainModel.getStorageManager().copyTo(dataBase);
+      this.modelIsModified = false;
+      mainView.setTitlePostfix(dataBase);
+    }
+
   } // execSaveCommand
 
   /**
@@ -314,7 +322,7 @@ public class MainController extends DefaultController implements Service {
    * 
    * @return file handle to the database to be opened.
    */
-  private File getDatabase() {
+  private File getDatabase(boolean isSaveDialog) {
     File file = null;
 
     JFileChooser chooser = new JFileChooser();
@@ -322,7 +330,13 @@ public class MainController extends DefaultController implements Service {
     chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceXStream());
     chooser.setFileFilter(FileFilterFactory.getWorkspaceCompressed());
     chooser.setCurrentDirectory(new File(properties.getProperty(Property.WORKING_DIRECTORY)));
-    chooser.showOpenDialog(null);
+
+    if (isSaveDialog) {
+      chooser.showSaveDialog(null);
+    } else {
+      chooser.showOpenDialog(null);
+    }
+
     file = chooser.getSelectedFile();
 
     if (file != null) {
@@ -467,7 +481,8 @@ public class MainController extends DefaultController implements Service {
   }
 
   /**
-   * Handles property change events and persists the changed data model. 
+   * Handles property change events and persists the changed data model.
+   * 
    * @param event
    */
   private void persist(IndexedPropertyChangeEvent event) {
@@ -483,7 +498,8 @@ public class MainController extends DefaultController implements Service {
   } // persist
 
   /**
-   * Handles property change events and persists the changed data model. 
+   * Handles property change events and persists the changed data model.
+   * 
    * @param event
    */
   private void persist(PropertyChangeEvent event) {

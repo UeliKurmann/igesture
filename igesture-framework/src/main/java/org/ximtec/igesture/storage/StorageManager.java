@@ -213,5 +213,15 @@ public class StorageManager implements IStorageManager {
       storageEngine.commit();
     }
   } // commit
+  
+  /*
+   * (non-Javadoc)
+   * @see org.ximtec.igesture.storage.StorageEngine#copyTo(java.io.File)
+   */
+  @Override
+  public void copyTo(File file) {
+    storageEngine.copyTo(file);
+    
+  }
 
 }
