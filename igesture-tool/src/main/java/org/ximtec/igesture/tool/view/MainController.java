@@ -46,7 +46,9 @@ import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.DataObjectWrapper;
 import org.ximtec.igesture.io.GestureDevice;
+import org.ximtec.igesture.storage.StorageEngineConverter;
 import org.ximtec.igesture.storage.StorageManager;
+import org.ximtec.igesture.storage.StorageManager.StorageEngineType;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultController;
@@ -101,6 +103,7 @@ public class MainController extends DefaultController implements Service {
   private MainModel mainModel;
   private GuiBundleService guiBundle;
   private SwingMouseReaderService deviceClient;
+  private StorageEngineType storageEngineType;
 
   // Main View
   private MainView mainView;
@@ -252,22 +255,27 @@ public class MainController extends DefaultController implements Service {
     if (dataBase != null) {
       mainView.removeAllTabs();
       mainModel.stop();
-      mainModel.setStorageEngine(StorageManager.createStorageEngine(dataBase));
-      mainModel.start();
-      initSubControllersAndViews(activeControllers);
-
-      // activate actions
-      getAction(CMD_CLOSE_WS).setEnabled(true);
-      getAction(CMD_SAVE).setEnabled(true);
-      getAction(CMD_LOAD).setEnabled(false);
-      getAction(CMD_SAVE_AS).setEnabled(true);
-
-      this.modelIsModified = false;
-
-      mainView.setTitlePostfix(dataBase);
+      loadAndInitProject(dataBase);
     }
 
   } // execLoadCommand
+
+  private void loadAndInitProject(File dataBase) {
+    storageEngineType = StorageManager.getEngineType(dataBase);
+    mainModel.setStorageEngine(StorageManager.createStorageEngine(dataBase));
+    mainModel.start();
+    initSubControllersAndViews(activeControllers);
+
+    // activate actions
+    getAction(CMD_CLOSE_WS).setEnabled(true);
+    getAction(CMD_SAVE).setEnabled(true);
+    getAction(CMD_LOAD).setEnabled(false);
+    getAction(CMD_SAVE_AS).setEnabled(true);
+
+    this.modelIsModified = false;
+
+    mainView.setTitlePostfix(dataBase);
+  }
 
   /**
    * Command to save as a project.
@@ -276,10 +284,29 @@ public class MainController extends DefaultController implements Service {
   protected void execSaveAsCommand() {
     LOGGER.info("Command Save AS");
     File dataBase = getDatabase(true);
+
+    StorageEngineType targetFileType = StorageManager.getEngineType(dataBase);
+
     if (dataBase != null) {
-      mainModel.getStorageManager().copyTo(dataBase);
-      this.modelIsModified = false;
-      mainView.setTitlePostfix(dataBase);
+      if (storageEngineType == targetFileType) {
+        mainModel.getStorageManager().copyTo(dataBase);
+        this.modelIsModified = false;
+        mainView.setTitlePostfix(dataBase);
+      } else {
+        
+        File workingCopy = new File(dataBase.getParentFile(), Long.toString(System.currentTimeMillis())+Constant.DOT+storageEngineType.name());
+        mainModel.getStorageManager().copyTo(workingCopy);
+        mainView.removeAllTabs();
+        mainModel.stop();
+        mainModel.setStorageEngine(null);
+        StorageEngineConverter converter = new StorageEngineConverter();
+        converter.convert(workingCopy, dataBase);
+        loadAndInitProject(dataBase);
+        workingCopy.delete();
+        storageEngineType = targetFileType;
+        mainView.setTitlePostfix(dataBase);
+
+      }
     }
 
   } // execSaveCommand

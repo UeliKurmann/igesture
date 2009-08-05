@@ -69,6 +69,7 @@ public class Db4oStorageEngine extends DefaultStorageEngine {
 
   public void dispose() {
     db.rollback();
+    objectCache.clear();
     db.close();
     
   } // dispose
@@ -119,8 +120,6 @@ public class Db4oStorageEngine extends DefaultStorageEngine {
     }
     
     db.commit();
-    
-    objectCache.clear();
   }
 
   /*
@@ -128,10 +127,15 @@ public class Db4oStorageEngine extends DefaultStorageEngine {
    * @see org.ximtec.igesture.storage.StorageEngine#copyTo(java.io.File)
    */
   @Override
-  public void copyTo(File file) {
-    // FIXME
-    throw new RuntimeException("Not yet implemented.");
-    
+  public synchronized void copyTo(File file) {
+    db.rollback();
+    db.ext().backup(file.getAbsolutePath());
+    db.close();
+    db = Db4o.openFile(file.getName());
+    for(Object dataObject:objectCache){
+      db.set(dataObject);
+    }
+    db.commit();
   }
   
   
