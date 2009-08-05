@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.Vector;
 
 import org.sigtec.ink.Note;
-import org.sigtec.ink.Trace;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.Algorithm;
@@ -57,20 +56,15 @@ import org.ximtec.igesture.algorithm.feature.F6;
 import org.ximtec.igesture.algorithm.feature.F7;
 import org.ximtec.igesture.algorithm.feature.F8;
 import org.ximtec.igesture.algorithm.feature.F9;
-import org.ximtec.igesture.algorithm.feature.FeatureTool;
 import org.ximtec.igesture.algorithm.rubine.RubineAlgorithm;
 import org.ximtec.igesture.algorithm.rubine.RubineConfiguration;
 import org.ximtec.igesture.configuration.Configuration;
-import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.core.SampleDescriptor;
-import org.ximtec.igesture.util.XMLTool;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 public class Rubine3DAlgorithm implements Algorithm {
 

@@ -29,19 +29,11 @@ import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 
-import org.sigtec.ink.Note;
-import org.ximtec.igesture.algorithm.AlgorithmException;
-import org.ximtec.igesture.algorithm.rubine.RubineConfiguration;
 import org.ximtec.igesture.batch.BatchResult;
 import org.ximtec.igesture.batch.BatchResultSet;
-import org.ximtec.igesture.core.Gesture;
-import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.storage.StorageManager;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 public class BatchTest3DMain {
 

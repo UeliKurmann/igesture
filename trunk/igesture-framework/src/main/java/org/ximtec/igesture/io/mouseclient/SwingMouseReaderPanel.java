@@ -23,7 +23,6 @@
  * 
  */
 
-
 package org.ximtec.igesture.io.mouseclient;
 
 import java.awt.Cursor;
@@ -37,77 +36,69 @@ import javax.swing.JPanel;
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Trace;
 
-
 /**
  * Comment
+ * 
  * @version 1.0 04.05.2008
  * @author Ueli Kurmann
  */
 public class SwingMouseReaderPanel extends JPanel {
 
-   private SwingMouseReader reader;
+  private SwingMouseReader reader;
 
+  public SwingMouseReaderPanel(SwingMouseReader reader) {
+    this.reader = reader;
+    setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+  }
 
-   public SwingMouseReaderPanel(SwingMouseReader reader) {
-      this.reader = reader;
-      setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
-   }
+  public void drawLine(Point lastPoint, Point currentPoint) {
 
+    if (getGraphics() != null && currentPoint != null && lastPoint != null
+        && lastPoint.distance(currentPoint) < 1000000) {
 
-   public void drawLine(Point lastPoint, Point currentPoint) {
-		
-	   Graphics g = this.getGraphics();		
-	   
-		if (getGraphics() != null && currentPoint != null && lastPoint != null
-            && lastPoint.distance(currentPoint) < 1000000) {
+      getGraphics().drawLine((int) lastPoint.getX(), (int) lastPoint.getY(), (int) currentPoint.getX(),
+          (int) currentPoint.getY());
 
-         getGraphics().drawLine((int)lastPoint.getX(), (int)lastPoint.getY(),
-               (int)currentPoint.getX(), (int)currentPoint.getY());
+    }
+  }
 
+  public void clear() {
+    if (getGraphics() != null) {
+      getGraphics().clearRect(0, 0, getWidth(), getHeight());
+    }
+
+    repaint();
+  }
+
+  @Override
+  public void paint(Graphics g) {
+    super.paint(g);
+    redrawGesture();
+  }
+
+  @Override
+  public void repaint() {
+    super.repaint();
+    redrawGesture();
+  }
+
+  private void redrawGesture() {
+    if (reader != null) {
+
+      Note note = reader.getGesture().getGesture();
+      if (note != null) {
+        List<Point> buffer = new ArrayList<Point>();
+        for (Trace trace : note.getTraces()) {
+          for (org.sigtec.ink.Point point : trace.getPoints()) {
+            buffer.add(new Point((int) point.getX(), (int) point.getY()));
+          }
+        }
+
+        for (int i = 0; i < buffer.size() - 1; i++) {
+          drawLine(buffer.get(i), buffer.get(i + 1));
+        }
       }
-   }
-
-
-   public void clear() {
-      if (getGraphics() != null) {
-         getGraphics().clearRect(0, 0, getWidth(), getHeight());
-      }
-
-      repaint();
-   }
-
-
-   @Override
-   public void paint(Graphics g) {
-      super.paint(g);
-      redrawGesture();
-   }
-
-
-   @Override
-   public void repaint() {
-      super.repaint();
-      redrawGesture();
-   }
-
-
-   private void redrawGesture() {
-      if (reader != null) {
-
-         Note note = reader.getGesture().getGesture();
-         if (note != null) {
-            List<Point> buffer = new ArrayList<Point>();
-            for (Trace trace : note.getTraces()) {
-               for (org.sigtec.ink.Point point : trace.getPoints()) {
-                  buffer.add(new Point((int)point.getX(), (int)point.getY()));
-               }
-            }
-
-            for (int i = 0; i < buffer.size() - 1; i++) {
-               drawLine(buffer.get(i), buffer.get(i + 1));
-            }
-         }
-      }
-   }
+    }
+  }
 
 }

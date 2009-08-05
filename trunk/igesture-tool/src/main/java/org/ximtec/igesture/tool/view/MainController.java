@@ -43,7 +43,6 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import org.sigtec.util.Constant;
-import org.sigtec.util.StringTool;
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.DataObjectWrapper;
 import org.ximtec.igesture.io.GestureDevice;
@@ -311,10 +310,12 @@ public class MainController extends DefaultController implements Service {
 				mainView.removeAllTabs();
 				mainModel.stop();
 				mainModel.setStorageEngine(null);
+				
 				StorageEngineConverter converter = new StorageEngineConverter();
 				converter.convert(workingCopy, dataBase);
 				loadAndInitProject(dataBase);
 				workingCopy.delete();
+				
 				storageEngineType = targetFileType;
 				mainView.setTitlePostfix(dataBase);
 

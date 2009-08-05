@@ -34,9 +34,7 @@ import java.util.Vector;
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.rubine3d.Rubine3DAlgorithm;
-import org.ximtec.igesture.algorithm.siger.SigerAlgorithm;
 import org.ximtec.igesture.configuration.Configuration;
-import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample3D;
@@ -46,7 +44,6 @@ import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.io.wiimote.WiiReader;
 import org.ximtec.igesture.io.wiimote.WiiReaderPanel;
 import org.ximtec.igesture.storage.StorageManager;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 public class Gesture3DTool {
 

@@ -28,7 +28,6 @@ package org.ximtec.igesture.algorithm;
 
 import java.util.List;
 
-import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.SampleDescriptor;
