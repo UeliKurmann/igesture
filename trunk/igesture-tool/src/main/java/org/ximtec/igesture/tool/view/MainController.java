@@ -578,7 +578,7 @@ public class MainController extends DefaultController implements Service {
    * @return the return value of the Yes/No Dialog
    */
   private int showYesNoDialog(String key) {
-    String title = getComponentFactory().getGuiBundle().getName(key);
+    String title = getComponentFactory().getGuiBundle().getName(GestureConstants.APPLICATION_ROOT);
     String text = getComponentFactory().getGuiBundle().getShortDescription(key);
     return JOptionPane.showConfirmDialog(null, text, title, JOptionPane.YES_NO_CANCEL_OPTION);
   }
