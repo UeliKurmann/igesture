@@ -49,9 +49,11 @@ public class StorageManager implements IStorageManager {
   private static final String LOADING_DB = "Loading database from '";
 
   private StorageEngine storageEngine;
+  
+  
 
-  public enum Filetype {
-    db, xml, igz
+  public enum StorageEngineType {
+    igd, igx, igz
   }
 
   /**
@@ -171,11 +173,11 @@ public class StorageManager implements IStorageManager {
     LOGGER.info(LOADING_DB + file + Constant.SINGLE_QUOTE);
     StorageEngine engine = null;
 
-    switch (getFileType(file)) {
-    case db:
+    switch (getEngineType(file)) {
+    case igd:
       engine = new Db4oStorageEngine(file.getPath());
       break;
-    case xml:
+    case igx:
       engine = new XMLStorageEngine(file.getPath());
       break;
     case igz:
@@ -187,9 +189,9 @@ public class StorageManager implements IStorageManager {
     return engine;
   } // createStorageEngine
 
-  public static Filetype getFileType(File file) {
+  public static StorageEngineType getEngineType(File file) {
     String extension = file.getName().substring(file.getName().lastIndexOf(Constant.DOT) + 1);
-    return Filetype.valueOf(extension);
+    return StorageEngineType.valueOf(extension);
   } // getFileType
 
   /**
