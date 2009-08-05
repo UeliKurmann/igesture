@@ -68,6 +68,8 @@ public class MainModel implements RunnableService {
   private AlgorithmList algorithmList;
   
   private boolean isActive;
+  
+  private String projectName;
 
   /**
    * Constructs a new main model.
@@ -250,6 +252,14 @@ public class MainModel implements RunnableService {
 
   public boolean isActive() {
     return isActive;
+  }
+
+  public void setProjectName(String projectName) {
+    this.projectName = projectName;
+  }
+
+  public String getProjectName() {
+    return projectName;
   }
 
 }

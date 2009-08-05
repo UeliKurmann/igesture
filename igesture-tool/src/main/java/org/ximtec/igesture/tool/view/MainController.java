@@ -104,6 +104,7 @@ public class MainController extends DefaultController implements Service {
   private GuiBundleService guiBundle;
   private SwingMouseReaderService deviceClient;
   private StorageEngineType storageEngineType;
+  
 
   // Main View
   private MainView mainView;
@@ -273,7 +274,7 @@ public class MainController extends DefaultController implements Service {
     getAction(CMD_SAVE_AS).setEnabled(true);
 
     this.modelIsModified = false;
-
+    mainModel.setProjectName(dataBase.getAbsolutePath());
     mainView.setTitlePostfix(dataBase);
   }
 
