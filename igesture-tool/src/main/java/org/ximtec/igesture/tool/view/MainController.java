@@ -26,6 +26,7 @@
 
 package org.ximtec.igesture.tool.view;
 
+import java.awt.Cursor;
 import java.awt.Point;
 import java.beans.IndexedPropertyChangeEvent;
 import java.beans.PropertyChangeEvent;
@@ -260,9 +261,11 @@ public class MainController extends DefaultController implements Service {
 		File dataBase = getDatabase(false);
 
 		if (dataBase != null) {
+		  mainView.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 			mainView.removeAllTabs();
 			mainModel.stop();
 			loadAndInitProject(dataBase);
+			mainView.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		}
 
 	} // execLoadCommand
