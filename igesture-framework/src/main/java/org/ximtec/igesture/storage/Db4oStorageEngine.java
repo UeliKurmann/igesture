@@ -31,7 +31,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.DataObject;
+import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.core.TestSet;
 
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
@@ -48,8 +51,9 @@ import com.db4o.query.Predicate;
 public class Db4oStorageEngine extends DefaultStorageEngine {
 
   ObjectContainer db;
-  
+
   private Set<Object> objectCache;
+  private Set<Object> objectsToRemove;
 
   /**
    * Constructs a new db4o engine.
@@ -65,13 +69,14 @@ public class Db4oStorageEngine extends DefaultStorageEngine {
 
     db = Db4o.openFile(filename);
     objectCache = new HashSet<Object>();
+    objectsToRemove = new HashSet<Object>();
   }
 
   public void dispose() {
     db.rollback();
     objectCache.clear();
     db.close();
-    
+
   } // dispose
 
   @SuppressWarnings("serial")
@@ -111,33 +116,47 @@ public class Db4oStorageEngine extends DefaultStorageEngine {
   public void remove(DataObject dataObject) {
     db.delete(dataObject);
     objectCache.remove(dataObject);
+    objectsToRemove.add(dataObject);
   } // remove
 
   @Override
   public synchronized void commit() {
-    for(Object obj:objectCache){
+    for (Object obj : objectCache) {
       db.set(obj);
     }
-    
+    for (Object obj : objectsToRemove) {
+      db.delete(obj);
+    }
+
     db.commit();
   }
 
   /*
    * (non-Javadoc)
+   * 
    * @see org.ximtec.igesture.storage.StorageEngine#copyTo(java.io.File)
    */
   @Override
   public synchronized void copyTo(File file) {
-    db.rollback();
-    db.ext().backup(file.getAbsolutePath());
-    db.close();
-    db = Db4o.openFile(file.getName());
-    for(Object dataObject:objectCache){
-      db.set(dataObject);
+
+    ObjectContainer workingCopy = Db4o.openFile(file.getAbsolutePath());
+    for (GestureSet gestureSet : db.query(GestureSet.class)) {
+      workingCopy.set(gestureSet);
     }
-    db.commit();
+    for (Configuration configuration : db.query(Configuration.class)) {
+      workingCopy.set(configuration);
+    }
+    for (TestSet testSet : db.query(TestSet.class)) {
+      workingCopy.set(testSet);
+    }
+    workingCopy.commit();
+    workingCopy.close();
+
+    db.rollback();
+    db.close();
+
+    db = Db4o.openFile(file.getName());
+
   }
-  
-  
 
 }

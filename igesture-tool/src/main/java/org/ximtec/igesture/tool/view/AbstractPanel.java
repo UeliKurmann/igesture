@@ -85,6 +85,9 @@ public abstract class AbstractPanel extends DefaultExplorerTreeView {
    */
   protected ComponentFactory getComponentFactory() {
     return controller.getLocator().getService(ComponentFactory.class.getName(), ComponentFactory.class);
+    
+   
+    
   }
 
   @Override

@@ -44,7 +44,6 @@ import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.TestClass;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.util.XMLTool;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 public class BatchTest3DTool {
 

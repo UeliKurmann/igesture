@@ -30,8 +30,6 @@ package org.ximtec.igesture.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.sigtec.ink.Note;
-
 
 /**
  * Describes a gesture by a set of gesture samples.
