@@ -83,6 +83,8 @@ public class AdminView extends DefaultSplitPane implements TabbedView,
 	@Override
 	public void setView(JComponent view) {
 		setRightComponent(view);
+		//TODO Cleanup
+		setDividerLocation(getDividerLocation());
 	}
 
 }

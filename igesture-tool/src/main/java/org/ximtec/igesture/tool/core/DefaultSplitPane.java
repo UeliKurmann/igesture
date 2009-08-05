@@ -10,6 +10,7 @@ public class DefaultSplitPane extends JSplitPane {
 
   public DefaultSplitPane(Controller controller) {
     super(JSplitPane.HORIZONTAL_SPLIT);
+    
     this.controller = controller;
     if (this.controller == null) {
       throw new RuntimeException("Controller must not be null.");
@@ -33,5 +34,5 @@ public class DefaultSplitPane extends JSplitPane {
   public ComponentFactory getComponentFactory() {
     return controller.getLocator().getService(ComponentFactory.class.getName(), ComponentFactory.class);
   }
-  
+
 }
