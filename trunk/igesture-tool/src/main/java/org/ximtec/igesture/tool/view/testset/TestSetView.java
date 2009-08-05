@@ -78,6 +78,8 @@ public class TestSetView extends DefaultSplitPane implements TabbedView, Explore
   @Override
   public void setView(JComponent view) {
     setRightComponent(view);
+    //TODO Cleanup
+    setDividerLocation(getDividerLocation());
   }
 
 }
