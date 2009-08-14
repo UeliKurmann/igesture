@@ -67,6 +67,8 @@ public class SampleDescriptorPanel extends AbstractPanel {
       SampleDescriptor descriptor) {
     super(controller);
     this.descriptor = descriptor;
+   
+    System.out.println(controller.getClass());
 
     init(descriptor);
   }

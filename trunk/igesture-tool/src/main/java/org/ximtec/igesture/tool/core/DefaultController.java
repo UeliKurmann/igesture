@@ -127,11 +127,12 @@ public abstract class DefaultController implements Controller {
     if (command != null && command.getCommand() != null) {
 
       if (!invokeCommand(command)) {
-        
+
         LOGGER.info("Command not handled in " + this.getClass().getName() + ". " + Constant.SINGLE_QUOTE
             + command.getCommand() + Constant.SINGLE_QUOTE);
 
-        // if command execution fails, try to execute it in the parent controller
+        // if command execution fails, try to execute it in the parent
+        // controller
         if (parent != null) {
           parent.execute(command);
         }
@@ -143,6 +144,7 @@ public abstract class DefaultController implements Controller {
 
   /**
    * Invokes a command in the Worker Thread
+   * 
    * @param command
    */
   private void invokeInWorkerThread(final Command command) {
@@ -158,9 +160,21 @@ public abstract class DefaultController implements Controller {
   }
 
   @Override
-  public void propertyChange(PropertyChangeEvent event) {
-    for (Controller controller : getControllers()) {
-      controller.propertyChange(event);
+  public void propertyChange(final PropertyChangeEvent event) {
+    for (final Controller controller : getControllers()) {
+      if (SwingUtilities.isEventDispatchThread()) {
+        controller.propertyChange(event);
+      } else {
+        SwingUtilities.invokeLater(new Runnable() {
+          @Override
+          public void run() {
+            controller.propertyChange(event);
+
+          }
+
+        });
+      }
+
     }
   }
 
@@ -173,7 +187,7 @@ public abstract class DefaultController implements Controller {
    */
   private boolean invokeCommand(Command cmd) {
     LOGGER.info("Invoke " + cmd);
-    
+
     Method method = commandMethods.get(cmd.getCommand());
     if (method != null) {
       try {

@@ -55,6 +55,7 @@ import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.ExecCmd;
 import org.ximtec.igesture.tool.core.GenericLocateableAction;
+import org.ximtec.igesture.tool.core.SwingViewProxy;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.locator.Service;
@@ -109,7 +110,7 @@ public class MainController extends DefaultController implements Service {
 	private StorageEngineType storageEngineType;
 
 	// Main View
-	private MainView mainView;
+	private IMainView mainView;
 
 	// Properties
 	private Properties properties;
@@ -463,7 +464,8 @@ public class MainController extends DefaultController implements Service {
 			addAction(CMD_SAVE_AS, new GenericLocateableAction(this,
 					GestureConstants.SAVE_AS, CMD_SAVE_AS));
 
-			mainView = new MainView(this);
+			
+			mainView = SwingViewProxy.newInstance(new MainView(this), IMainView.class);
 			mainView.addWindowListener(new MainWindowAdapter(this));
 		}
 	}
