@@ -32,13 +32,13 @@ import java.util.logging.Logger;
 
 import javax.swing.SwingUtilities;
 
-public class SwingViewProxy implements InvocationHandler {
+public class EdtProxy implements InvocationHandler {
   
-  private static final Logger LOGGER = Logger.getLogger(SwingViewProxy.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(EdtProxy.class.getName());
 
   private Object view;
 
-  private SwingViewProxy(Object view) {
+  private EdtProxy(Object view) {
     this.view = view;
   }
 
@@ -74,7 +74,7 @@ public class SwingViewProxy implements InvocationHandler {
   public static <T> T newInstance(T view, Class<T> type) {
 
     return type.cast(Proxy.newProxyInstance(view.getClass().getClassLoader(), view.getClass().getInterfaces(),
-        new SwingViewProxy(view)));
+        new EdtProxy(view)));
   }
 
 }

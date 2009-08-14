@@ -23,7 +23,6 @@
  * 
  */
 
-
 package org.ximtec.igesture.tool.explorer;
 
 import java.beans.PropertyChangeEvent;
@@ -46,7 +45,6 @@ import org.ximtec.igesture.tool.explorer.core.ExplorerTreeContainer;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeView;
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
 
-
 /**
  * Controller Component of the Explorer Tree.
  * 
@@ -54,166 +52,182 @@ import org.ximtec.igesture.tool.explorer.core.NodeInfo;
  * @version 1.0
  * @since igesture
  */
-public class ExplorerTreeController extends DefaultController implements
-      TreeSelectionListener {
+public class ExplorerTreeController extends DefaultController implements TreeSelectionListener {
 
-   private static final Logger LOG = Logger
-         .getLogger(ExplorerTreeController.class.getName());
+  private static final Logger LOG = Logger.getLogger(ExplorerTreeController.class.getName());
 
-   /**
-    * The Container where the Tree and Views are shown. A Container has to
-    * implement the Container interface.
-    */
-   private ExplorerTreeContainer container;
+  /**
+   * The Container where the tree and views are shown. A container has to
+   * implement the ExplorerTreeContainer interface.
+   */
+  private ExplorerTreeContainer container;
 
-   /**
-    * The Model of the Explorer Tree
-    */
-   private ExplorerTreeModel model;
+  /**
+   * The Model of the Explorer Tree
+   */
+  private ExplorerTreeModel model;
 
-   /**
-    * A Map of NodeInfo. Node Info contains information about a specific node.
-    */
-   private Map<Class< ? >, NodeInfo> nodeInfos;
+  /**
+   * A Map of NodeInfo. Node Info contains information about a specific node.
+   */
+  private Map<Class<?>, NodeInfo> nodeInfos;
 
-   /**
-    * The Explorer Tree instance.
-    */
-   private ExplorerTree tree;
+  /**
+   * The Explorer Tree instance.
+   */
+  private ExplorerTree tree;
 
-   private ExplorerTreeView selectedExplorerTreeView;
+  private ExplorerTreeView selectedExplorerTreeView;
 
+  /**
+   * Constructor
+   * 
+   * @param parentController
+   * @param container
+   * @param model
+   * @param renderer
+   */
+  public ExplorerTreeController(Controller parentController, ExplorerTreeContainer container, ExplorerTreeModel model,
+      TreeCellRenderer renderer) {
+    super(parentController);
+    this.container = container;
+    this.model = model;
+    this.nodeInfos = model.getNodeInfos();
 
-   public ExplorerTreeController(Controller parentController, ExplorerTreeContainer container,
-         ExplorerTreeModel model, TreeCellRenderer renderer) {
-	   super(parentController);
-      this.container = container;
-      this.model = model;
-      this.nodeInfos = model.getNodeInfos();
+    tree = new ExplorerTree(this.model, renderer);
+    ToolTipManager.sharedInstance().registerComponent(tree);
 
-      tree = new ExplorerTree(this.model, renderer);
-      ToolTipManager.sharedInstance().registerComponent(tree);
+    tree.addTreeSelectionListener(this);
+    tree.addMouseListener(new ExplorerPopupDispatcher(nodeInfos));
 
-      tree.addTreeSelectionListener(this);
-      tree.addMouseListener(new ExplorerPopupDispatcher(nodeInfos));
+    container.setTree(tree);
+    selectedExplorerTreeView = nodeInfos.get(model.getRoot().getClass()).getView(this, model.getRoot());
+    container.setView(selectedExplorerTreeView);
 
-      container.setTree(tree);
-      selectedExplorerTreeView = nodeInfos.get(model.getRoot().getClass())
-            .getView(this, model.getRoot());
-      container.setView(selectedExplorerTreeView);
+  }
 
-   }
+  /**
+   * 
+   * @param container
+   *          the container where the components are visualized.
+   * @param model
+   *          the Explorer Tree model.
+   * @param nodeInfos
+   *          a map of NodeInfos
+   */
+  public ExplorerTreeController(Controller parentController, ExplorerTreeContainer container, ExplorerTreeModel model) {
+    this(parentController, container, model, new NodeRenderer(model.getNodeInfos()));
+  }
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * javax.swing.event.TreeSelectionListener#valueChanged(javax.swing.event.
+   * TreeSelectionEvent)
+   */
+  @Override
+  public void valueChanged(TreeSelectionEvent e) {
+    final Object node = e.getPath().getLastPathComponent();
+    if (nodeInfos.get(node.getClass()) != null) {
+      SwingUtilities.invokeLater(new Runnable() {
 
-   /**
-    * 
-    * @param container the container where the components are visualized.
-    * @param model the Explorer Tree model.
-    * @param nodeInfos a map of NodeInfos
-    */
-   public ExplorerTreeController(Controller parentController, ExplorerTreeContainer container,
-         ExplorerTreeModel model) {
-      this(parentController, container, model, new NodeRenderer(model.getNodeInfos()));
-   }
+        @Override
+        public void run() {
+          selectedExplorerTreeView = nodeInfos.get(node.getClass()).getView(ExplorerTreeController.this, node);
+          container.setView(selectedExplorerTreeView);
+        }
+      });
+    }
+  }
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.ximtec.igesture.tool.core.Controller#getView()
+   */
+  @Override
+  public TabbedView getView() {
+    return new TabbedView() {
 
-   /*
-    * (non-Javadoc)
-    * @see javax.swing.event.TreeSelectionListener#valueChanged(javax.swing.event.TreeSelectionEvent)
-    */
-   @Override
-   public void valueChanged(TreeSelectionEvent e) {
-      final Object node = e.getPath().getLastPathComponent();
-      if (nodeInfos.get(node.getClass()) != null) {
-         SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-               selectedExplorerTreeView = nodeInfos.get(node.getClass())
-                     .getView(ExplorerTreeController.this, node);
-               container.setView(selectedExplorerTreeView);
-            }
-         });
-      }
-   }
-
-
-   /*
-    * (non-Javadoc)
-    * @see org.ximtec.igesture.tool.core.Controller#getView()
-    */
-   @Override
-   public TabbedView getView() {
-      return new TabbedView(){
-
-         @Override
-         public Icon getIcon() {
-            return null;
-         }
-
-         @Override
-         public String getTabName() {
-            return tree.getName();
-         }
-
-         @Override
-         public JComponent getPane() {
-            return tree;
-         }
-         
-      };
-   }
-
-
-   public void selectNode(Object obj) {
-      TreePath path = new TreePath(obj);
-      tree.setSelectionPath(path);
-      tree.setExpandsSelectedPaths(true);
-   }
-
-
-   public ExplorerTreeView getExplorerTreeView() {
-      return selectedExplorerTreeView;
-   }
-
-
-   /*
-    * (non-Javadoc)
-    * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
-    */
-   @Override
-   public void propertyChange(PropertyChangeEvent evt) {
-
-      LOG.info("PropertyChange, Update Tree");
-
-      // node was inserted, select the inserted node
-      if (evt.getOldValue() == null && evt.getNewValue() != null) {
-         TreePath[] paths = tree.getSelectionPaths();
-         if (paths != null) {
-            for (TreePath treePath : paths) {
-
-               if (treePath.getLastPathComponent() == evt.getSource() && !nodeInfos.get(treePath.getLastPathComponent().getClass()).isLeaf(treePath.getLastPathComponent())) {
-                  tree.setSelectionPath(treePath.pathByAddingChild(evt
-                        .getNewValue()));
-               }
-            }
-         }
-      }
-      // node was deleted, select the parent node
-      else if (evt.getOldValue() != null && evt.getNewValue() == null) {
-         TreePath[] paths = tree.getSelectionPaths();
-         if (paths != null) {
-            for (TreePath treePath : paths) {
-
-               if (treePath.getParentPath() != null && treePath.getParentPath().getLastPathComponent() == evt.getSource()) {
-                  tree.setSelectionPath(treePath.getParentPath());
-               }
-            }
-         }
+      @Override
+      public Icon getIcon() {
+        return null;
       }
 
-      // FIXME find a solution to update the tree more efficiently
-      tree.updateUI();
-   }
+      @Override
+      public String getTabName() {
+        return tree.getName();
+      }
+
+      @Override
+      public JComponent getPane() {
+        return tree;
+      }
+
+    };
+  }
+
+  public void selectNode(Object obj) {
+    TreePath path = new TreePath(obj);
+    tree.setSelectionPath(path);
+    tree.setExpandsSelectedPaths(true);
+  }
+
+  /**
+   * Returns the currently active explorer tree view. (the view of the selected
+   * node)
+   * 
+   * @return
+   */
+  public ExplorerTreeView getExplorerTreeView() {
+    return selectedExplorerTreeView;
+  }
+  
+  public ExplorerTree getExplorerTree(){
+    return tree;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent
+   * )
+   */
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+
+    LOG.info("Update Tree");
+
+    // node was inserted, select the new, inserted node
+    if (evt.getOldValue() == null && evt.getNewValue() != null) {
+      TreePath[] paths = tree.getSelectionPaths();
+      if (paths != null) {
+        for (TreePath treePath : paths) {
+
+          if (treePath.getLastPathComponent() == evt.getSource()
+              && !nodeInfos.get(treePath.getLastPathComponent().getClass()).isLeaf(treePath.getLastPathComponent())) {
+            tree.setSelectionPath(treePath.pathByAddingChild(evt.getNewValue()));
+          }
+        }
+      }
+    }
+
+    // node was deleted, select the parent node of the deleted node
+    else if (evt.getOldValue() != null && evt.getNewValue() == null) {
+      TreePath[] paths = tree.getSelectionPaths();
+      if (paths != null) {
+        for (TreePath treePath : paths) {
+
+          if (treePath.getParentPath() != null && treePath.getParentPath().getLastPathComponent() == evt.getSource()) {
+            tree.setSelectionPath(treePath.getParentPath());
+          }
+        }
+      }
+    }
+
+    tree.updateUI();
+  }
 
 }

@@ -28,7 +28,6 @@ package org.ximtec.igesture.core;
 
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
-
 /**
  * Describes a gesture by a set of gesture samples.
  * 
@@ -37,5 +36,8 @@ import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 public class SampleDescriptor3D extends DefaultSampleDescriptor<RecordedGesture3D> {
-
+  @Override
+  public String getName() {
+    return SampleDescriptor3D.class.getSimpleName();
+  }
 }

@@ -38,4 +38,9 @@ import org.sigtec.ink.Note;
  */
 public class SampleDescriptor extends DefaultSampleDescriptor<Note> {
 
+  @Override
+  public String getName() {
+    return SampleDescriptor.class.getSimpleName();
+  }
+
 }

@@ -4,7 +4,7 @@
  * Author   : Ueli Kurmann, igesture@uelikurmann.ch
  *                                   
  *                                   
- * Purpose  : 
+ * Purpose  : Visualizes gesture samples
  *
  * -----------------------------------------------------------------------
  *
@@ -30,10 +30,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
+import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -41,14 +43,18 @@ import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.tree.TreePath;
 
 import org.sigtec.graphix.GridBagLayouter;
 import org.sigtec.ink.Note;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.Gesture;
+import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
 import org.ximtec.igesture.tool.gesturevisualisation.GesturePanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanelFactory;
@@ -62,138 +68,36 @@ import org.ximtec.igesture.tool.view.admin.action.RemoveGestureSampleAction;
 
 public class SampleDescriptorPanel extends AbstractPanel {
 
+  
+  private static final int INPUTAREA_SIZE = 200;
+  private static final int SPACE_SIZE = 5;
+  private static final int SAMPLE_SIZE = 100;
   private final SampleDescriptor descriptor;
   private GestureDevice<?, ?> gestureDevice;
 
+  private Map<Gesture<Note>, JPanel> sampleCache;
+
+  /**
+   * Constructor
+   * 
+   * @param controller
+   * @param descriptor
+   */
   public SampleDescriptorPanel(Controller controller, final SampleDescriptor descriptor) {
     super(controller);
     this.descriptor = descriptor;
+    this.sampleCache = new HashMap<Gesture<Note>, JPanel>();
 
-    addComponentListener(new ComponentListener() {
-
-      @Override
-      public void componentHidden(ComponentEvent e) {
-
-      }
-
-      @Override
-      public void componentMoved(ComponentEvent e) {
-        // TODO Auto-generated method stub
-
-      }
-
+    // component listener to handle resize actions
+    addComponentListener(new ComponentAdapter() {
       @Override
       public void componentResized(ComponentEvent e) {
         initSampleSection(descriptor);
-
-      }
-
-      @Override
-      public void componentShown(ComponentEvent e) {
-        // TODO Auto-generated method stub
-
       }
     });
+
     init(descriptor);
-  }
 
-  private void init(SampleDescriptor descriptor) {
-    initTitle(descriptor);
-    initSampleSection(descriptor);
-    initInputSection(descriptor);
-  }
-
-  /**
-   * Sets the title of the form
-   * 
-   * @param descriptor
-   */
-  private void initTitle(SampleDescriptor descriptor) {
-    setTitle(TitleFactory.createStaticTitle(descriptor.toString()));
-  }
-
-  /**
-   * Shows the already existing samples
-   * 
-   * @param descriptor
-   */
-  private void initSampleSection(SampleDescriptor descriptor) {
-
-    JPanel panel = new JPanel();
-
-    panel.setLayout(new GridBagLayout());
-
-    if (getWidth() > 10) {
-      System.out.println(getWidth());
-      int i = 0;
-      int j = 0;
-      int len = (getWidth())/(120);
-     
-      
-      for (final Gesture<Note> sample : descriptor.getSamples()) {
-        GridBagLayouter.addComponent(panel, createSampleIcon(sample), i, j);
-        if(len == i+1){
-          i = 0;
-          j++;
-        }else{
-          i++;
-        }
-      }
-    }
-
-    panel.setOpaque(true);
-    panel.setAutoscrolls(true);
-    setContent(panel);
-  }
-
-  /**
-   * FormLayout layout = new
-   * FormLayout("pref, 4dlu, pref, 4dlu, pref, 4dlu, pref,4dlu, pref",
-   * "pref, pref, pref, pref, pref, pref,  pref,  pref,  pref,  pref,  pref,  pref"
-   * );
-   * 
-   * DefaultFormBuilder builder = new DefaultFormBuilder(layout);
-   * builder.setDefaultDialogBorder();
-   * 
-   * 
-   * builder.nextLine(4);
-   */
-
-  private JPanel createSampleIcon(final Gesture<Note> sample) {
-    GesturePanel gesturePanel = InputPanelFactory.createGesturePanel(sample);
-    final JPanel label = gesturePanel.getPanel(new Dimension(100, 100));
-    label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-    label.addMouseListener(new SampleIconMouseListener(sample, label));
-    return label;
-  }
-
-  /**
-   * Input Area to capture a new sample
-   */
-  private void initInputSection(SampleDescriptor descriptor) {
-    JPanel basePanel = new JPanel();
-
-    // input area
-    basePanel.setLayout(new FlowLayout());
-
-    initGestureDevice();
-
-    InputPanel inputPanel = InputPanelFactory.createInputPanel(gestureDevice);
-    basePanel.add(inputPanel.getPanel(new Dimension(200, 200)));
-
-    // buttons
-    JPanel buttonPanel = new JPanel();
-    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-    buttonPanel.add(createAddSampleButton(descriptor));
-    buttonPanel.add(createClearSampleButton());
-
-    basePanel.add(buttonPanel);
-
-    setBottom(basePanel);
-  }
-
-  private void initGestureDevice() {
-    gestureDevice = getController().getLocator().getService(SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
   }
 
   private JButton createAddSampleButton(SampleDescriptor descriptor) {
@@ -210,13 +114,190 @@ public class SampleDescriptorPanel extends AbstractPanel {
     return clearSampleButton;
   }
 
+  /**
+   * Returns the visualization of a gesture. A hash map is used to cache these
+   * visualizations. Otherwise every update of the view requires the computation
+   * of all samples.
+   * 
+   * The cache is very simple and it's elements are never removed. This simple
+   * implementation is sufficient, because of the short life-cycle of the
+   * explorer tree views.
+   * 
+   * @param sample
+   * @return
+   */
+  private synchronized JPanel createSampleIcon(final Gesture<Note> sample) {
+
+    if (sampleCache.containsKey(sample)) {
+      return sampleCache.get(sample);
+    }
+
+    GesturePanel gesturePanel = InputPanelFactory.createGesturePanel(sample);
+    final JPanel panel = gesturePanel.getPanel(new Dimension(SAMPLE_SIZE, SAMPLE_SIZE));
+    panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+    panel.addMouseListener(new SampleIconMouseListener(sample, panel));
+    panel.setOpaque(true);
+    panel.setBackground(Color.WHITE);
+    sampleCache.put(sample, panel);
+
+    return panel;
+
+  }
+
+  /**
+   * Returns a white, square spacer element (JPanel) of the given size.
+   * 
+   * @param size
+   *          the size of the space element
+   * @return the space element
+   */
+  private JPanel createSpacerPanel(int size) {
+    JPanel panel = new JPanel();
+    panel.setLayout(null);
+    panel.setOpaque(true);
+    panel.setBackground(Color.WHITE);
+    panel.setPreferredSize(new Dimension(size, size));
+    return panel;
+  }
+
+  /**
+   * Initialize the Sample Descriptor View
+   * 
+   * @param descriptor
+   */
+  private void init(SampleDescriptor descriptor) {
+    initTitle(descriptor);
+    initSampleSection(descriptor);
+    initInputSection(descriptor);
+  }
+
+  /**
+   * Captures a local reference of the gesture input device.
+   */
+  private void initGestureDevice() {
+    gestureDevice = getController().getLocator().getService(SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
+  }
+
+  /**
+   * Creates the input area to capture new gestures.
+   * 
+   * @param descriptor
+   */
+  private void initInputSection(SampleDescriptor descriptor) {
+    JPanel basePanel = new JPanel();
+
+    // input area
+    basePanel.setLayout(new FlowLayout());
+
+    initGestureDevice();
+
+    InputPanel inputPanel = InputPanelFactory.createInputPanel(gestureDevice);
+    basePanel.add(inputPanel.getPanel(new Dimension(INPUTAREA_SIZE, INPUTAREA_SIZE)));
+
+    // buttons
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+    buttonPanel.add(createAddSampleButton(descriptor));
+    buttonPanel.add(createClearSampleButton());
+
+    basePanel.add(buttonPanel);
+
+    setBottom(basePanel);
+  }
+
+  /**
+   * Visualizes the samples. The GridBagLayout is used. The number of elements
+   * in a row are computed dynamically. Between two gesture elements a space
+   * element is placed.
+   * 
+   * @param descriptor
+   *          the sample descriptor
+   */
+  private synchronized void initSampleSection(SampleDescriptor descriptor) {
+
+    JPanel panel = new JPanel();
+
+    panel.setLayout(new GridBagLayout());
+
+    // if the component has size 0 (before it is placed into another container
+    // component, don't visualize the samples
+    if (getWidth() > 0) {
+
+      int x = 0;
+      int y = 1;
+
+      // compute the number of samples shown in a row
+      int elementsPerRow = (getWidth() - 20) / (SAMPLE_SIZE + 20);
+      elementsPerRow = elementsPerRow * 2 - 1;
+
+      // add a line of space elements before the first row
+      GridBagLayouter.addComponent(panel, createSpacerPanel(SPACE_SIZE), 0, 0);
+
+      // iterate over all the samples
+      for (final Gesture<Note> sample : descriptor.getSamples()) {
+        GridBagLayouter.addComponent(panel, createSampleIcon(sample), x, y);
+        GridBagLayouter.addComponent(panel, createSpacerPanel(SPACE_SIZE), x + 1, y);
+        if (x + 1 >= elementsPerRow) {
+          x = 0;
+          y++;
+          // add a line (spacer) between two sample rows
+          GridBagLayouter.addComponent(panel, createSpacerPanel(SPACE_SIZE), 0, y);
+          y++;
+        } else {
+          // element + spacer = 2
+          x = x + 2;
+        }
+
+      }
+    }
+
+    panel.setOpaque(true);
+    panel.setAutoscrolls(true);
+    setContent(panel);
+  }
+
+  /**
+   * Sets the title of the form
+   * 
+   * @param descriptor
+   */
+  private void initTitle(SampleDescriptor descriptor) {
+
+    StringBuilder sb = new StringBuilder();
+
+    if (getController() instanceof ExplorerTreeController) {
+      try {
+        ExplorerTreeController ec = (ExplorerTreeController) getController();
+        sb.append(descriptor.getName());
+        sb.append(Constant.COLON_BLANK);
+
+        TreePath treePath = ec.getExplorerTree().getSelectionPath();
+        GestureClass gc = (GestureClass) treePath.getParentPath().getLastPathComponent();
+
+        sb.append(gc.getName());
+      } catch (Exception e) {
+        sb.append(descriptor.getName());
+      }
+    } else {
+      sb.append(descriptor.getName());
+    }
+
+    setTitle(TitleFactory.createStaticTitle(sb.toString()));
+  }
+
   @Override
   public void refreshUILogic() {
     super.refreshUILogic();
     gestureDevice.clear();
     initSampleSection(descriptor);
   }
-
+  
+  /**
+   * Context Menu for the sample elements
+   * 
+   * @author UeliKurmann
+   * 
+   */
   private class SampleIconMouseListener extends MouseAdapter {
     private final Gesture<Note> sample;
     private final JPanel label;

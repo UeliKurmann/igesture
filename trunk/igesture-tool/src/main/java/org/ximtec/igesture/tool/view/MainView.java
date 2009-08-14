@@ -31,7 +31,6 @@ import java.io.File;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JTabbedPane;
-import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -117,9 +116,6 @@ public class MainView extends DefaultView implements IMainView {
    * @see org.ximtec.igesture.tool.view.IMainView#addTab(org.ximtec.igesture.tool.core.TabbedView)
    */
   public void addTab(TabbedView view) {
-    if(!SwingUtilities.isEventDispatchThread()){
-      System.out.println("NNNNNNNNNNNNNNEEEEEEEEEEEEEEEEEEEEEEEINNNNNNNNNNNNN");
-    }
     tabbedPane.add(view.getTabName(), view.getPane());
   } // addTab
 
@@ -127,9 +123,6 @@ public class MainView extends DefaultView implements IMainView {
    * @see org.ximtec.igesture.tool.view.IMainView#removeAllTabs()
    */
   public void removeAllTabs() {
-    if(!SwingUtilities.isEventDispatchThread()){
-      System.out.println("NNNNNNNNNNNNNNEEEEEEEEEEEEEEEEEEEEEEEINNNNNNNNNNNNN");
-    }
     tabbedPane.removeAll();
   } // removeAllTabs
 
