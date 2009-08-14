@@ -58,7 +58,7 @@ public class GestureClassHelper implements Runnable{
    private GestureClass gestureClass;
    private RubineConfiguration configuration;
    
-   private List<Gesture<?>> samples;
+   private List<Gesture<Note>> samples;
    private DoubleVector meanFeatureVector;
    /**
     * data structure for storing the feature vector per sample
@@ -96,7 +96,7 @@ public class GestureClassHelper implements Runnable{
       // computes the feature vector per class
       List<DoubleVector> vectors = new ArrayList<DoubleVector>();
 
-      for (Gesture<?> sample : samples) {
+      for (Gesture<Note> sample : samples) {
          try{
             /**
              * FIXME
@@ -106,9 +106,10 @@ public class GestureClassHelper implements Runnable{
              * and therefore the algorithm can't be instantiated as soon as one sample
              * does not fulfill the requirements defined in the features. 
              */
-            
-            GestureSampleHelper helper = new GestureSampleHelper((Note)sample.getGesture(), configuration);
-            sampleFeatureVector.put((Gesture<Note>)sample, helper);
+           
+            // FIXME correct?  
+            GestureSampleHelper helper = new GestureSampleHelper(sample.getGesture(), configuration);
+            sampleFeatureVector.put(sample, helper);
             
             if(VectorTools.hasValidValues(helper.getFeatureVector())){
                vectors.add(helper.getFeatureVector());
@@ -131,11 +132,12 @@ public class GestureClassHelper implements Runnable{
       }
    } // computeFeatureVectors
    
-   
-   
-   
-   private List<Gesture<?>> getSamples(){
-      final SampleDescriptor descriptor = gestureClass.getDescriptor(SampleDescriptor.class);
+   /**
+    * Returns a list of GestureSamples
+    * @return a list of GestureSamples
+    */
+   private List<Gesture<Note>> getSamples(){
+      SampleDescriptor descriptor = gestureClass.getDescriptor(SampleDescriptor.class);
       return descriptor.getSamples();
    }
    

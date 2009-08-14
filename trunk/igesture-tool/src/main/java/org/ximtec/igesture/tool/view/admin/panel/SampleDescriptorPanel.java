@@ -67,6 +67,7 @@ public class SampleDescriptorPanel extends AbstractPanel {
       SampleDescriptor descriptor) {
     super(controller);
     this.descriptor = descriptor;
+
     init(descriptor);
   }
 
@@ -103,7 +104,7 @@ public class SampleDescriptorPanel extends AbstractPanel {
         + " samples.");
     builder.nextLine(4);
 
-    for (final Gesture<?> sample : descriptor.getSamples()) {
+    for (final Gesture<Note> sample : descriptor.getSamples()) {
       GesturePanel gesturePanel = PanelFactory.createGesturePanel(sample);
       final JPanel label = gesturePanel.getPanel(new Dimension(100, 100));
       label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
@@ -124,7 +125,7 @@ public class SampleDescriptorPanel extends AbstractPanel {
             JPopupMenu menu = new JPopupMenu();
             JMenuItem item = new JMenuItem();
             item.setAction(new RemoveGestureSampleAction(getController(),
-                SampleDescriptorPanel.this.descriptor, (Gesture<Note>) sample));
+                SampleDescriptorPanel.this.descriptor, sample));
             menu.add(item);
             menu.show(label, e.getX(), e.getY());
           }

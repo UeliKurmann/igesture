@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.algorithm.AlgorithmTool;
 import org.ximtec.igesture.algorithm.feature.F1;
@@ -53,7 +54,6 @@ import org.ximtec.igesture.algorithm.feature.F8;
 import org.ximtec.igesture.algorithm.feature.F9;
 import org.ximtec.igesture.algorithm.rubine.RubineAlgorithm;
 import org.ximtec.igesture.algorithm.rubine.RubineConfiguration;
-import org.ximtec.igesture.algorithm.rubine.RubineConfiguration.Config;
 import org.ximtec.igesture.configuration.Configuration;
 
 public class Rubine3DConfiguration {

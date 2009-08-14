@@ -74,7 +74,7 @@ public class MapTextFieldBinding extends DataBinding<JTextField> {
    
    @Override
    protected void setValue(Object value) {
-      if(!getValue().equals((String)value)){
+      if(!getValue().equals(value)){
          ((Configuration)getObject()).addParameter(algorithm, getProperty(), (String)value);
       }
       

@@ -411,7 +411,7 @@ public class XMLTool {
 
       for (final Element set : (List<Element>)document.getRootElement()
             .getChildren(JdomGestureSet.ROOT_TAG)) {
-         container.addGestureSet((GestureSet)JdomGestureSet.unmarshal(set));
+         container.addGestureSet(JdomGestureSet.unmarshal(set));
       }
 
       return container;

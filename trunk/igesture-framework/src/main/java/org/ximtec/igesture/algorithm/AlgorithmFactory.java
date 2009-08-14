@@ -174,7 +174,7 @@ public class AlgorithmFactory {
       try {
          final Class< ? extends Algorithm> clazz = (Class< ? extends Algorithm>)Class
                .forName(className);
-         algorithm = (Algorithm)clazz.newInstance();
+         algorithm = clazz.newInstance();
       }
       catch (final ClassNotFoundException e) {
          LOGGER.log(Level.SEVERE, null, e);

@@ -204,7 +204,7 @@ public class GestureTool {
 
 
    /**
-    * Combines samples from different gesture sets.
+    * Combines samples (SampleDescriptor) from different gesture sets.
     * @param sets a list of gesture sets.
     * @return samples from different gesture sets.
     */
@@ -219,7 +219,7 @@ public class GestureTool {
             if (samples.containsKey(gestureClass.getName())) {
                GestureClass target = samples.get(gestureClass.getName());
 
-               for (Gesture<?> sample : gestureClass.getDescriptor(
+               for (Gesture<Note> sample : gestureClass.getDescriptor(
                      SampleDescriptor.class).getSamples()) {
                   target.getDescriptor(SampleDescriptor.class).addSample(sample);
                }

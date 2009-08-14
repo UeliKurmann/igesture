@@ -43,6 +43,7 @@ import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
+import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.util.GestureTool;
 
 
@@ -126,8 +127,9 @@ public class SiGridAlgorithm extends SampleBasedAlgorithm {
 
       for (final GestureClass gestureClass : gestureSet.getGestureClasses()) {
 
-         for (final Gesture<?> sample : getSamples(gestureClass)) {
-            signatures.add(new GestureSignature((Note)((Note)sample.getGesture())
+         for (Gesture<Note> sample : getSamples(gestureClass, SampleDescriptor.class)) {
+           // FIXME test 
+           signatures.add(new GestureSignature((Note)(sample.getGesture())
                   .clone(), gestureClass, rasterSize, gridSize));
          }
 

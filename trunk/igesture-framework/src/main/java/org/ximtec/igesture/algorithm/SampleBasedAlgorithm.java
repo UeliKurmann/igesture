@@ -23,15 +23,13 @@
  * 
  */
 
-
 package org.ximtec.igesture.algorithm;
 
 import java.util.List;
 
+import org.ximtec.igesture.core.DefaultSampleDescriptor;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.core.SampleDescriptor;
-
 
 /**
  * This is an abstract base class for sample based recognition algorithms. All
@@ -44,17 +42,17 @@ import org.ximtec.igesture.core.SampleDescriptor;
  */
 public abstract class SampleBasedAlgorithm extends DefaultAlgorithm {
 
-   /**
-    * Returns the list of samples of a given gesture class. The samples are
-    * extracted from the sample class descriptor.
-    * 
-    * @param gestureClass the gesture class whose samples have to be returned.
-    * @return the samples for the given gesture class.
-    */
-   public List<Gesture<?>> getSamples(GestureClass gestureClass) {
-      final SampleDescriptor descriptor = gestureClass
-            .getDescriptor(SampleDescriptor.class);
-      return descriptor.getSamples();
-   } // getSamples
+  /**
+   * Returns the list of samples of a given gesture class. The samples are
+   * extracted from the sample class descriptor.
+   * 
+   * @param gestureClass
+   *          the gesture class whose samples have to be returned.
+   * @return the samples for the given gesture class.
+   */
+  public <T> List<Gesture<T>> getSamples(GestureClass gestureClass, Class<? extends DefaultSampleDescriptor<T>> type) {
+    final DefaultSampleDescriptor<T> descriptor = gestureClass.getDescriptor(type);
+    return descriptor.getSamples();
+  } // getSamples
 
 }
