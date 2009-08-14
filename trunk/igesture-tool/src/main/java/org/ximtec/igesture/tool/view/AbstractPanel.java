@@ -55,16 +55,34 @@ public abstract class AbstractPanel extends DefaultExplorerTreeView {
     this.add(centerPane, BorderLayout.CENTER);
   }
 
+  /**
+   * Sets the title component
+   * 
+   * @param component
+   *          the title component
+   */
   public void setTitle(JComponent component) {
     this.add(component, BorderLayout.NORTH);
   }
 
-  public void setCenter(JComponent component) {
+  /**
+   * Sets the content area.
+   * 
+   * @param component
+   *          the content area.
+   */
+  public void setContent(JComponent component) {
     component.setBackground(Color.white);
     component.setOpaque(true);
     centerPane.setViewportView(component);
   }
 
+  /**
+   * Sets the footer of the panel.
+   * 
+   * @param component
+   *          the footer of the panel.
+   */
   public void setBottom(JComponent component) {
     this.add(component, BorderLayout.SOUTH);
   }
@@ -79,15 +97,16 @@ public abstract class AbstractPanel extends DefaultExplorerTreeView {
   }
 
   /**
-   * Returns the component factory
+   * Returns the component factory. The Controller and it's locator is used to
+   * get the applications component factory.
    * 
    * @return the component factory
    */
   protected ComponentFactory getComponentFactory() {
-    return controller.getLocator().getService(ComponentFactory.class.getName(), ComponentFactory.class);
-    
-   
-    
+    if (controller != null) {
+      return controller.getLocator().getService(ComponentFactory.class.getName(), ComponentFactory.class);
+    }
+    return null;
   }
 
   @Override
@@ -104,6 +123,10 @@ public abstract class AbstractPanel extends DefaultExplorerTreeView {
     }
   }
 
+  /**
+   * Abstract implementations of the refreshUILogic method. This implementation
+   * is empty. Per default nothing has to be updated.
+   */
   protected void refreshUILogic() {
 
   }

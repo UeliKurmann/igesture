@@ -52,7 +52,7 @@ public class AlgorithmWrapperPanel extends AbstractPanel {
 
     HtmlPanel htmlPanel = new HtmlPanel(path, new Dimension(400, 400));
 
-    setCenter(htmlPanel);
+    setContent(htmlPanel);
 
   }
 }

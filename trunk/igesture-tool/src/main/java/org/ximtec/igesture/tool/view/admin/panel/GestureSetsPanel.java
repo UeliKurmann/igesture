@@ -55,7 +55,7 @@ public class GestureSetsPanel extends AbstractPanel {
       
       URL path = this.getClass().getClassLoader().getResource(HTML_FILE);
       HtmlPanel htmlPanel = new HtmlPanel(path, new Dimension(400,400));
-      setCenter(htmlPanel);
+      setContent(htmlPanel);
       
    }
 

@@ -65,7 +65,7 @@ public class TextDescriptorPanel extends AbstractPanel {
       panel.setOpaque(false);
       // panel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 
-      setCenter(panel);
+      setContent(panel);
 
    }
 
