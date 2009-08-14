@@ -178,7 +178,7 @@ public class PDFTool {
    private static BufferedImage getImage(GestureClass gestureClass) {
       final JNote jnote = new JNote(200, 200);
       try{
-      jnote.setNote((Note)gestureClass.getDescriptor(SampleDescriptor.class)
+      jnote.setNote(gestureClass.getDescriptor(SampleDescriptor.class)
             .getSamples().get(0).getGesture());
       }catch(Exception e){
         e.printStackTrace();

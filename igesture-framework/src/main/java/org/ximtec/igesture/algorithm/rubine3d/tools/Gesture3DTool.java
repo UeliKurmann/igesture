@@ -40,10 +40,11 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.ResultSet;
-import org.ximtec.igesture.core.SampleDescriptor;
+import org.ximtec.igesture.core.SampleDescriptor3D;
 import org.ximtec.igesture.io.wiimote.WiiReader;
 import org.ximtec.igesture.io.wiimote.WiiReaderPanel;
 import org.ximtec.igesture.storage.StorageManager;
+import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 public class Gesture3DTool {
 
@@ -168,8 +169,8 @@ public class Gesture3DTool {
 				// If the gesture class does not contain a Sample3DDescriptor
 				// yet
 				if (tempSet.getGestureClass(className).getDescriptor(
-						SampleDescriptor.class) == null) {
-					SampleDescriptor desc = new SampleDescriptor();
+						SampleDescriptor3D.class) == null) {
+					SampleDescriptor3D desc = new SampleDescriptor3D();
 					tempSet.getGestureClass(className).addDescriptor(desc);
 				}
 				GestureSample3D gesture = (GestureSample3D) reader.getGesture();
@@ -177,7 +178,7 @@ public class Gesture3DTool {
 				if (gesture.getGesture().getAccelerations() != null) {
 					// Add the sample from Wiireader to the Sample3DDescriptor
 					tempSet.getGestureClass(className).getDescriptor(
-							SampleDescriptor.class).addSample(gesture);
+							SampleDescriptor3D.class).addSample(gesture);
 					// Update the set in the database and commit changes
 					storage.update(tempSet);
 					storage.commit();
@@ -190,7 +191,7 @@ public class Gesture3DTool {
 					// DEBUG
 
 					Iterator i = tempSet.getGestureClass(className)
-							.getDescriptor(SampleDescriptor.class).getSamples()
+							.getDescriptor(SampleDescriptor3D.class).getSamples()
 							.iterator();
 					while (i.hasNext()) {
 						GestureSample3D tempSample = (GestureSample3D) i.next();
@@ -215,11 +216,11 @@ public class Gesture3DTool {
 	 *            The name of the gesture class to look in
 	 * @return The list of found gesture samples
 	 */
-	public List<Gesture<?>> getGestureSamples(String setName, String className) {
+	public List<Gesture<RecordedGesture3D>> getGestureSamples(String setName, String className) {
 		System.err.println("getGestureSamples() for GestureSet " + setName
 				+ " and GestureClass " + className + ".");
 		// Create return variable
-		List<Gesture<?>> returnList = new Vector<Gesture<?>>();
+		List<Gesture<RecordedGesture3D>> returnList = new Vector<Gesture<RecordedGesture3D>>();
 		// If there is a gesture set with name setName
 		if (storage.load(GestureSet.class, "name", setName).size() > 0) {
 			GestureSet tempSet = storage
@@ -229,8 +230,8 @@ public class Gesture3DTool {
 				GestureClass tempClass = tempSet.getGestureClass(className);
 				// Get descriptor from gesture class if it contains a
 				// SampleDescriptor
-				SampleDescriptor descriptor = tempClass
-						.getDescriptor(SampleDescriptor.class);
+				SampleDescriptor3D descriptor = tempClass
+						.getDescriptor(SampleDescriptor3D.class);
 				// If there is a descriptor, take the list of samples from the
 				// descriptor
 				if (descriptor != null)
@@ -290,9 +291,9 @@ public class Gesture3DTool {
 		GestureSet tempSet = storage.load(GestureSet.class, "name", setName)
 				.get(0);
 		if (tempSet.getGestureClass(className).getDescriptor(
-				SampleDescriptor.class).getSamples().size() > 0) {
+				SampleDescriptor3D.class).getSamples().size() > 0) {
 			tempSet.getGestureClass(className).getDescriptor(
-					SampleDescriptor.class).getSamples().remove(sampleNumber);
+					SampleDescriptor3D.class).getSamples().remove(sampleNumber);
 			storage.update(tempSet);
 		} else
 			System.err

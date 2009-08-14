@@ -31,7 +31,6 @@ import java.util.List;
 import org.jdom.Element;
 import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.Gesture;
-import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.SampleDescriptor;
 
 
@@ -56,8 +55,8 @@ public class JdomSampleDescriptor extends Element {
       setAttribute(TYPE_ATTRIBUTE, descriptor.getType().getName());
       setAttribute(UUID_ATTRIBUTE, descriptor.getId());
 
-      for (final Gesture<?> sample : descriptor.getSamples()) {
-         addContent(new JdomGestureSample((Gesture<Note>)sample));
+      for (final Gesture<Note> sample : descriptor.getSamples()) {
+         addContent(new JdomGestureSample(sample));
       }
 
    }
@@ -65,14 +64,12 @@ public class JdomSampleDescriptor extends Element {
 
    @SuppressWarnings("unchecked")
    public static Object unmarshal(Element descriptor) {
-      final String uuid = descriptor.getAttributeValue(UUID_ATTRIBUTE);
-      final SampleDescriptor gestureDescriptor = new SampleDescriptor();
+      String uuid = descriptor.getAttributeValue(UUID_ATTRIBUTE);
+      SampleDescriptor gestureDescriptor = new SampleDescriptor();
       gestureDescriptor.setId(uuid);
 
-      for (final Element sample : (List<Element>)descriptor
-            .getChildren(JdomGestureSample.ROOT_TAG)) {
-         gestureDescriptor.addSample((GestureSample)JdomGestureSample
-               .unmarshal(sample));
+      for (Element sample : (List<Element>)descriptor.getChildren(JdomGestureSample.ROOT_TAG)) {
+         gestureDescriptor.addSample(JdomGestureSample.unmarshal(sample));
       }
 
       return gestureDescriptor;

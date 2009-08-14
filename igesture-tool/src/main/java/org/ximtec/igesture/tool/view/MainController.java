@@ -589,7 +589,7 @@ public class MainController extends DefaultController implements Service {
 			if (event instanceof IndexedPropertyChangeEvent) {
 				persist((IndexedPropertyChangeEvent) event);
 			} else {
-				persist((PropertyChangeEvent) event);
+				persist(event);
 			}
 
 		} else if (event.getSource() instanceof DataObjectWrapper) {

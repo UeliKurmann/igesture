@@ -93,7 +93,7 @@ public class JdomGestureSet extends Element {
                classInstance = (Element)XPath.selectSingleNode(setElement
                      .getParent(), "./" + JdomGestureClass.ROOT_TAG + "[@"
                      + UUID_ATTRIBUTE + "='" + classID + "']");
-               gestureClass = (GestureClass)JdomGestureClass
+               gestureClass = JdomGestureClass
                      .unmarshal(classInstance);
 
             }
@@ -103,8 +103,7 @@ public class JdomGestureSet extends Element {
 
          }
          else {
-            gestureClass = (GestureClass)JdomGestureClass
-                  .unmarshal(classElement);
+            gestureClass = JdomGestureClass.unmarshal(classElement);
          }
 
          gestureSet.addGestureClass(gestureClass);

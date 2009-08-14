@@ -140,7 +140,7 @@ public class JdomConfiguration extends Element {
 
       for (final Element set : (List<Element>)configurationElement
             .getChildren(JdomGestureSet.ROOT_TAG)) {
-         configuration.addGestureSet((GestureSet)JdomGestureSet.unmarshal(set));
+         configuration.addGestureSet(JdomGestureSet.unmarshal(set));
       }
 
       return configuration;

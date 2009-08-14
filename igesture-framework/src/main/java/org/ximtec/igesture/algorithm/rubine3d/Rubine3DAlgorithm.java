@@ -65,6 +65,8 @@ import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.core.SampleDescriptor;
+import org.ximtec.igesture.core.SampleDescriptor3D;
+import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 public class Rubine3DAlgorithm implements Algorithm {
 
@@ -476,8 +478,8 @@ public class Rubine3DAlgorithm implements Algorithm {
 				SampleDescriptor descYZ = new SampleDescriptor();
 				SampleDescriptor descZX = new SampleDescriptor();
 				// Iterate through samples
-				Iterator<Gesture<?>> sampleIter = tempClass
-						.getDescriptor(SampleDescriptor.class).getSamples()
+				Iterator<Gesture<RecordedGesture3D>> sampleIter = tempClass
+						.getDescriptor(SampleDescriptor3D.class).getSamples()
 						.iterator();
 				while (sampleIter.hasNext()) {
 					GestureSample3D tempSample = (GestureSample3D) sampleIter

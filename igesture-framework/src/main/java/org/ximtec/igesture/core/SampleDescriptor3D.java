@@ -1,5 +1,5 @@
 /*
- * @(#)$Id$
+ * @(#)$Id: SampleDescriptor.java 730 2009-08-05 21:17:30Z kurmannu $
  *
  * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
  *
@@ -26,7 +26,7 @@
 
 package org.ximtec.igesture.core;
 
-import org.sigtec.ink.Note;
+import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 
 /**
@@ -36,6 +36,6 @@ import org.sigtec.ink.Note;
  * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class SampleDescriptor extends DefaultSampleDescriptor<Note> {
+public class SampleDescriptor3D extends DefaultSampleDescriptor<RecordedGesture3D> {
 
 }

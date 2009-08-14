@@ -129,9 +129,8 @@ public class Statistics {
     * 
     * @return the number of straight elements
     */
-   @SuppressWarnings("cast")
    public double getStraight() {
-      return (double)(numOfLeft + numOfRight + numOfUp + numOfDown)
+      return (numOfLeft + numOfRight + numOfUp + numOfDown)
             / getTotalDirections();
    }
 
@@ -141,9 +140,8 @@ public class Statistics {
     * 
     * @return the number of diagonal elements
     */
-   @SuppressWarnings("cast")
    public double getDiagonal() {
-      return (double)(numOfRightDown + numOfRightUp + numOfLeftDown + numOfLeftUp)
+      return (numOfRightDown + numOfRightUp + numOfLeftDown + numOfLeftUp)
             / getTotalDirections();
    }
 
@@ -153,12 +151,11 @@ public class Statistics {
     * 
     * @return the proportional distance between the first and last point
     */
-   @SuppressWarnings("cast")
    public double getProximity() {
       final double diag = Math.sqrt(Math.pow(note.getBounds2D().getWidth(), 2)
             + Math.pow(note.getBounds2D().getHeight(), 2));
-      return (double)note.getStartPoint().distance(note.getEndPoint())
-            / (double)diag;
+      return note.getStartPoint().distance(note.getEndPoint())
+            / diag;
    }
 
 
@@ -167,10 +164,9 @@ public class Statistics {
     * 
     * @return the number of East directions
     */
-   @SuppressWarnings("cast")
    public double getEast() {
 
-      return (double)numOfRight / getTotalDirections();
+      return numOfRight / getTotalDirections();
    }
 
 
@@ -179,9 +175,8 @@ public class Statistics {
     * 
     * @return the number of west directions
     */
-   @SuppressWarnings("cast")
    public double getWest() {
-      return (double)numOfLeft / getTotalDirections();
+      return numOfLeft / getTotalDirections();
    }
 
 
@@ -190,9 +185,8 @@ public class Statistics {
     * 
     * @return the number of north directions
     */
-   @SuppressWarnings("cast")
    public double getNorth() {
-      return (double)numOfUp / getTotalDirections();
+      return numOfUp / getTotalDirections();
    }
 
 
@@ -201,9 +195,8 @@ public class Statistics {
     * 
     * @return the number of south directions
     */
-   @SuppressWarnings("cast")
    public double getSouth() {
-      return (double)numOfDown / getTotalDirections();
+      return numOfDown / getTotalDirections();
    }
 
 
@@ -212,9 +205,8 @@ public class Statistics {
     * 
     * @return the number of north/west directions
     */
-   @SuppressWarnings("cast")
    public double getNorthWest() {
-      return (double)numOfLeftUp / getTotalDirections();
+      return numOfLeftUp / getTotalDirections();
    }
 
 
@@ -223,9 +215,8 @@ public class Statistics {
     * 
     * @return the number of south/west directions
     */
-   @SuppressWarnings("cast")
    public double getSouthWest() {
-      return (double)numOfLeftDown / getTotalDirections();
+      return numOfLeftDown / getTotalDirections();
    }
 
 
@@ -234,9 +225,8 @@ public class Statistics {
     * 
     * @return the number of north/east directions
     */
-   @SuppressWarnings("cast")
    public double getNorthEast() {
-      return (double)numOfRightUp / getTotalDirections();
+      return numOfRightUp / getTotalDirections();
    }
 
 
@@ -245,9 +235,8 @@ public class Statistics {
     * 
     * @return the number of south/east directions
     */
-   @SuppressWarnings("cast")
    public double getSouthEast() {
-      return (double)numOfRightDown / getTotalDirections();
+      return numOfRightDown / getTotalDirections();
    }
 
 

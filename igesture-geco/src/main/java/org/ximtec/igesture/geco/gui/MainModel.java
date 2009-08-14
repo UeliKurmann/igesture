@@ -437,8 +437,7 @@ public class MainModel implements GestureEventListener {
    @Override
    public void handleGesture(Gesture< ? > gesture) {
 
-      if (client.getGesture() != null
-            && client.getGesture().getGesture() instanceof Note) {
+      if (client.getGesture() != null) {
          Note note = client.getGesture().getGesture();
          if (note.getPoints().size() > 5) {
             recogniser.recognise(note);

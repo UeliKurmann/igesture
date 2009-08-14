@@ -99,7 +99,7 @@ public class XMLImportGeco {
       if (newGestureSet != null) {
          gestureSet = newGestureSet;
 
-         final List<Element> mappingElements = (List<Element>)document
+         final List<Element> mappingElements = document
                .getRootElement().getChildren(ROOT_TAG);
 
          for (final Element mappingElement : mappingElements) {

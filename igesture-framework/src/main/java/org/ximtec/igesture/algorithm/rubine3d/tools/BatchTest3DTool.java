@@ -37,13 +37,14 @@ import org.ximtec.igesture.batch.BatchResultSet;
 import org.ximtec.igesture.batch.BatchTools;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
-import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.SampleDescriptor;
+import org.ximtec.igesture.core.SampleDescriptor3D;
 import org.ximtec.igesture.core.TestClass;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.util.XMLTool;
+import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 public class BatchTest3DTool {
 
@@ -125,8 +126,8 @@ public class BatchTest3DTool {
 			// Create new TestClass
 			TestClass tempTestClass = new TestClass(tempGestureClass.getName());
 			// Add gesture samples from the gesture class to the test class
-			Iterator<Gesture<?>> sampleIter = tempGestureClass
-					.getDescriptor(SampleDescriptor.class).getSamples()
+			Iterator<Gesture<RecordedGesture3D>> sampleIter = tempGestureClass
+					.getDescriptor(SampleDescriptor3D.class).getSamples()
 					.iterator();
 			while (sampleIter.hasNext()) {
 				GestureSample3D tempSample = (GestureSample3D) sampleIter
@@ -153,16 +154,15 @@ public class BatchTest3DTool {
 		TestSet testSet = new TestSet(gestureSet.getName());
 		// Iterate through gesture classes in gesture set and add them to
 		// testset
-		Iterator<GestureClass> i = gestureSet.getGestureClasses().iterator();
-		while (i.hasNext()) {
-			GestureClass tempGestureClass = i.next();
+	
+		for(GestureClass tempGestureClass: gestureSet.getGestureClasses()){
+		
 			// Create new TestClass
 			TestClass tempTestClass = new TestClass(tempGestureClass.getName());
 			// Add gesture samples from the gesture class to the test class
-			List<Gesture<?>> samples = tempGestureClass.getDescriptor(SampleDescriptor.class).getSamples();
-			Iterator<Gesture<?>> sampleIter = samples.iterator();
-			while (sampleIter.hasNext()) {
-				GestureSample tempSample = (GestureSample) sampleIter.next();
+			
+			List<Gesture<Note>> samples = tempGestureClass.getDescriptor(SampleDescriptor.class).getSamples();
+			for(Gesture<Note> tempSample:samples){
 				// Add sample to tempTestClass
 				tempTestClass.add(tempSample);
 				// System.err.println("Sample: " + tempSample.getGesture());
@@ -185,7 +185,7 @@ public class BatchTest3DTool {
 		// Iterate through gesture classes
 		Iterator<GestureClass> i = gestureSet3D.getGestureClasses().iterator();
 		while (i.hasNext()) {
-			GestureClass tempClass = (GestureClass) i.next();
+			GestureClass tempClass = i.next();
 			GestureClass xyClass = new GestureClass(tempClass.getName());
 			GestureClass yzClass = new GestureClass(tempClass.getName());
 			GestureClass zxClass = new GestureClass(tempClass.getName());
@@ -193,8 +193,8 @@ public class BatchTest3DTool {
 			SampleDescriptor yzDescriptor = new SampleDescriptor();
 			SampleDescriptor zxDescriptor = new SampleDescriptor();
 			// Iterate through samples
-			Iterator<Gesture<?>> sampleIter = tempClass
-					.getDescriptor(SampleDescriptor.class).getSamples()
+			Iterator<Gesture<RecordedGesture3D>> sampleIter = tempClass
+					.getDescriptor(SampleDescriptor3D.class).getSamples()
 					.iterator();
 			while (sampleIter.hasNext()) {
 				GestureSample3D tempSample = (GestureSample3D) sampleIter
