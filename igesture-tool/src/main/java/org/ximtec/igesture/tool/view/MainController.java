@@ -55,7 +55,7 @@ import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.ExecCmd;
 import org.ximtec.igesture.tool.core.GenericLocateableAction;
-import org.ximtec.igesture.tool.core.SwingViewProxy;
+import org.ximtec.igesture.tool.core.EdtProxy;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.locator.Service;
@@ -463,9 +463,8 @@ public class MainController extends DefaultController implements Service {
 					GestureConstants.CLOSE_PROJECT, CMD_CLOSE_WS));
 			addAction(CMD_SAVE_AS, new GenericLocateableAction(this,
 					GestureConstants.SAVE_AS, CMD_SAVE_AS));
-
-			
-			mainView = SwingViewProxy.newInstance(new MainView(this), IMainView.class);
+	
+			mainView = EdtProxy.newInstance(new MainView(this), IMainView.class);
 			mainView.addWindowListener(new MainWindowAdapter(this));
 		}
 	}

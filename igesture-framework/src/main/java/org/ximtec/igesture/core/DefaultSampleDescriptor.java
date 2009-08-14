@@ -38,7 +38,7 @@ import java.util.List;
  * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class DefaultSampleDescriptor<T> extends DefaultDescriptor {
+public abstract class DefaultSampleDescriptor<T> extends DefaultDescriptor {
 
    public static final String PROPERTY_SAMPLES = "samples";
 
@@ -116,9 +116,7 @@ public class DefaultSampleDescriptor<T> extends DefaultDescriptor {
    } // accept
 
 
-   public String getName() {
-      return DefaultSampleDescriptor.class.getSimpleName();
-   } // getName
+   public abstract String getName();
 
 
    @Override

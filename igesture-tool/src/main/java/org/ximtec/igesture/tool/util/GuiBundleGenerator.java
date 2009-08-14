@@ -24,7 +24,7 @@
  */
 
 
-package hacks;
+package org.ximtec.igesture.tool.util;
 
 import java.lang.reflect.Field;
 
