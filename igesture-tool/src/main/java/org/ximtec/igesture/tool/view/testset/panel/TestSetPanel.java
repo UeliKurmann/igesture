@@ -80,7 +80,7 @@ public class TestSetPanel extends AbstractPanel {
 
     JPanel panel = builder.getPanel();
     panel.setOpaque(false);
-    setCenter(panel);
+    setContent(panel);
 
   }
 

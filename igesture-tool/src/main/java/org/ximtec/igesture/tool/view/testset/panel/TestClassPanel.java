@@ -122,7 +122,7 @@ public class TestClassPanel extends AbstractPanel {
     JPanel panel = builder.getPanel();
     panel.setOpaque(true);
     panel.setAutoscrolls(true);
-    setCenter(panel);
+    setContent(panel);
   }
 
   private JPanel createGesture(final Gesture<?> gesture) {

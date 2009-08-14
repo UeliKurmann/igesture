@@ -84,7 +84,7 @@ public class BatchView extends AbstractPanel implements TabbedView {
   }
 
   private void init() {
-    setCenter(createParameterPanel());
+    setContent(createParameterPanel());
   }
 
   @Override
