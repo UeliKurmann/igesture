@@ -46,7 +46,7 @@ import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.gesturevisualisation.GesturePanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanel;
-import org.ximtec.igesture.tool.gesturevisualisation.PanelFactory;
+import org.ximtec.igesture.tool.gesturevisualisation.InputPanelFactory;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
 import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.util.TitleFactory;
@@ -68,8 +68,6 @@ public class SampleDescriptorPanel extends AbstractPanel {
     super(controller);
     this.descriptor = descriptor;
    
-    System.out.println(controller.getClass());
-
     init(descriptor);
   }
 
@@ -107,7 +105,7 @@ public class SampleDescriptorPanel extends AbstractPanel {
     builder.nextLine(4);
 
     for (final Gesture<Note> sample : descriptor.getSamples()) {
-      GesturePanel gesturePanel = PanelFactory.createGesturePanel(sample);
+      GesturePanel gesturePanel = InputPanelFactory.createGesturePanel(sample);
       final JPanel label = gesturePanel.getPanel(new Dimension(100, 100));
       label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
       label.addMouseListener(new MouseAdapter() {
@@ -154,7 +152,7 @@ public class SampleDescriptorPanel extends AbstractPanel {
     gestureDevice = getController().getLocator().getService(
         SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
 
-    InputPanel inputPanel = PanelFactory.createInputPanel(gestureDevice);
+    InputPanel inputPanel = InputPanelFactory.createInputPanel(gestureDevice);
     basePanel.add(inputPanel.getPanel(new Dimension(200, 200)));
 
     // buttons
