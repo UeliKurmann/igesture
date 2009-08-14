@@ -54,7 +54,7 @@ import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanel;
-import org.ximtec.igesture.tool.gesturevisualisation.PanelFactory;
+import org.ximtec.igesture.tool.gesturevisualisation.InputPanelFactory;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
 import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.util.TitleFactory;
@@ -114,7 +114,7 @@ public class ConfigurationPanel extends AbstractPanel {
     basePanel.setLayout(new FlowLayout());
 
     gestureDevice = getController().getLocator().getService(SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
-    InputPanel inputPanel = PanelFactory.createInputPanel(gestureDevice);
+    InputPanel inputPanel = InputPanelFactory.createInputPanel(gestureDevice);
     basePanel.add(inputPanel.getPanel(new Dimension(200, 200)));
 
     // buttons

@@ -40,7 +40,7 @@ import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
  * @version 1.0 16.12.2008
  * @author Ueli Kurmann
  */
-public class PanelFactory {
+public class InputPanelFactory {
 
    private static Map<Class< ? >, Class< ? extends GesturePanel>> gesturePanels;
    private static Map<Class< ? >, Class< ? extends InputPanel>> inputPanels;

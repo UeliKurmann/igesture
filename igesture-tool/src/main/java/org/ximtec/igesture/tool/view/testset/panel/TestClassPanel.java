@@ -46,7 +46,7 @@ import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.gesturevisualisation.GesturePanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanel;
-import org.ximtec.igesture.tool.gesturevisualisation.PanelFactory;
+import org.ximtec.igesture.tool.gesturevisualisation.InputPanelFactory;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
 import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.util.TitleFactory;
@@ -127,7 +127,7 @@ public class TestClassPanel extends AbstractPanel {
 
   private JPanel createGesture(final Gesture<?> gesture) {
 
-    GesturePanel gesturePanel = PanelFactory.createGesturePanel(gesture);
+    GesturePanel gesturePanel = InputPanelFactory.createGesturePanel(gesture);
     final JPanel panel = gesturePanel.getPanel(new Dimension(100, 100));
     panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
 
@@ -167,7 +167,7 @@ public class TestClassPanel extends AbstractPanel {
 
     gestureDevice = getController().getLocator().getService(SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
 
-    InputPanel inputPanel = PanelFactory.createInputPanel(gestureDevice);
+    InputPanel inputPanel = InputPanelFactory.createInputPanel(gestureDevice);
     basePanel.add(inputPanel.getPanel(new Dimension(200, 200)));
 
     // buttons
