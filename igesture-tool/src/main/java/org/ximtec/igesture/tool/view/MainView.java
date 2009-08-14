@@ -31,6 +31,7 @@ import java.io.File;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -51,8 +52,10 @@ import org.ximtec.igesture.tool.service.GuiBundleService;
  * @author Beat Signer, signer@inf.ethz.ch
  */
 @SuppressWarnings("serial")
-public class MainView extends DefaultView {
+public class MainView extends DefaultView implements IMainView {
 
+  
+  
   private static final String TITLE_DELIMITER = " - ";
   private JTabbedPane tabbedPane;
   private JMenuBar menuBar;
@@ -110,11 +113,23 @@ public class MainView extends DefaultView {
     helpMenu.add(aboutItem);
   }
 
+  /* (non-Javadoc)
+   * @see org.ximtec.igesture.tool.view.IMainView#addTab(org.ximtec.igesture.tool.core.TabbedView)
+   */
   public void addTab(TabbedView view) {
+    if(!SwingUtilities.isEventDispatchThread()){
+      System.out.println("NNNNNNNNNNNNNNEEEEEEEEEEEEEEEEEEEEEEEINNNNNNNNNNNNN");
+    }
     tabbedPane.add(view.getTabName(), view.getPane());
   } // addTab
 
+  /* (non-Javadoc)
+   * @see org.ximtec.igesture.tool.view.IMainView#removeAllTabs()
+   */
   public void removeAllTabs() {
+    if(!SwingUtilities.isEventDispatchThread()){
+      System.out.println("NNNNNNNNNNNNNNEEEEEEEEEEEEEEEEEEEEEEEINNNNNNNNNNNNN");
+    }
     tabbedPane.removeAll();
   } // removeAllTabs
 
@@ -131,10 +146,8 @@ public class MainView extends DefaultView {
     return item;
   }
 
-  /**
-   * Sets the second part of the title banner. (filename)
-   * 
-   * @param file
+  /* (non-Javadoc)
+   * @see org.ximtec.igesture.tool.view.IMainView#setTitlePostfix(java.io.File)
    */
   public void setTitlePostfix(File file) {
     if (file == null) {
