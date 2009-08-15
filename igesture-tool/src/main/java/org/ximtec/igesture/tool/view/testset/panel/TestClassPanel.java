@@ -48,6 +48,7 @@ import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.TestClass;
 import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.binding.BindingFactory;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.gesturevisualisation.GesturePanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanel;
@@ -60,7 +61,6 @@ import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.panel.SampleDescriptorPanel;
 import org.ximtec.igesture.tool.view.testset.action.AddSampleAction;
 import org.ximtec.igesture.tool.view.testset.action.RemoveSampleAction;
-import org.ximtex.igesture.tool.binding.BindingFactory;
 
 /**
  * Comment

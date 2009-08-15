@@ -30,7 +30,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
 import org.ximtec.igesture.core.DataObject;
-import org.ximtex.igesture.tool.binding.BindingFactory;
+import org.ximtec.igesture.tool.binding.BindingFactory;
 
 
 

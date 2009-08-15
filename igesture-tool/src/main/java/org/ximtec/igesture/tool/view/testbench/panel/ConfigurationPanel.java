@@ -51,6 +51,8 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.binding.BindingFactory;
+import org.ximtec.igesture.tool.binding.MapTextFieldBinding;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanelFactory;
@@ -60,8 +62,6 @@ import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.MainModel;
 import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
 import org.ximtec.igesture.tool.view.testbench.action.RecogniseAction;
-import org.ximtex.igesture.tool.binding.BindingFactory;
-import org.ximtex.igesture.tool.binding.MapTextFieldBinding;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
