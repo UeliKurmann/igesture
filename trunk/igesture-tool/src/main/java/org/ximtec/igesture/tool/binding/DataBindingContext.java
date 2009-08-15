@@ -23,7 +23,7 @@
  * 
  */
 
-package org.ximtex.igesture.tool.binding;
+package org.ximtec.igesture.tool.binding;
 
 import java.util.HashMap;
 

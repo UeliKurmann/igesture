@@ -30,10 +30,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import org.ximtec.igesture.core.TextDescriptor;
+import org.ximtec.igesture.tool.binding.BindingFactory;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
-import org.ximtex.igesture.tool.binding.BindingFactory;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;

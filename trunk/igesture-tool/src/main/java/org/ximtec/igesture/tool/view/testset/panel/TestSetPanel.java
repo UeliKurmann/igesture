@@ -31,10 +31,10 @@ import javax.swing.JTextField;
 
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.binding.BindingFactory;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
-import org.ximtex.igesture.tool.binding.BindingFactory;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
