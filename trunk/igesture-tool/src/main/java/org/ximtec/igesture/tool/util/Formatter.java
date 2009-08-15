@@ -30,6 +30,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JButton;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 
@@ -44,8 +45,12 @@ public class Formatter {
    public static void formatButton(JButton button){    
       button.setPreferredSize(new Dimension(160, 25));
       button.setHorizontalAlignment(SwingConstants.LEFT);
-      button.setAlignmentX(Component.LEFT_ALIGNMENT);
-      
-      
+      button.setAlignmentX(Component.LEFT_ALIGNMENT);     
    }
+   
+   public static void formatTextField(JTextField textField){    
+     textField.setPreferredSize(new Dimension(160, 25));
+     textField.setHorizontalAlignment(SwingConstants.LEFT);
+     textField.setAlignmentX(Component.LEFT_ALIGNMENT);     
+  }
 }

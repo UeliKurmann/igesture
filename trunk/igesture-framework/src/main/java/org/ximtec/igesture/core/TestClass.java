@@ -38,6 +38,7 @@ import java.util.List;
 public class TestClass extends DefaultDataObject {
 
    public static final String PROPERTY_GESTURES = "gestures";
+   public static final String PROPERTY_NAME = "name";
    private ArrayList<Gesture<?>> gestures;
    private String name;
 
@@ -57,11 +58,14 @@ public class TestClass extends DefaultDataObject {
    }
    
    public void setName(String name){
-      this.name = name;
+     String oldName = this.name; 
+     this.name = name;
       
       for(Gesture<?> gesture:gestures){
          gesture.setName(name);
       }
+      
+      propertyChangeSupport.firePropertyChange(PROPERTY_NAME, oldName, this.name);
    }
 
 
