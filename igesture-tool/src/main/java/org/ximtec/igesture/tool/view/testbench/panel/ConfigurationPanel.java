@@ -37,7 +37,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -56,7 +55,6 @@ import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanelFactory;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
-import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.MainModel;
@@ -95,12 +93,15 @@ public class ConfigurationPanel extends AbstractPanel {
     setTitle(TitleFactory.createDynamicTitle(configuration, Configuration.PROPERTY_NAME));
 
     JPanel basePanel = new JPanel();
-    basePanel.setBackground(Color.WHITE);
-    basePanel.setOpaque(true);
+   
+    
     basePanel.setLayout(new BorderLayout());
     basePanel.add(createParameterPanel(), BorderLayout.NORTH);
     basePanel.add(createWorkspace(), BorderLayout.CENTER);
 
+    basePanel.setOpaque(true);
+    basePanel.setBackground(Color.WHITE);
+    
     setContent(basePanel);
   }
 
@@ -119,10 +120,11 @@ public class ConfigurationPanel extends AbstractPanel {
 
     // buttons
     JPanel buttonPanel = new JPanel();
-    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+    buttonPanel.setLayout(new BorderLayout());
 
     final JComboBox comboBox = new JComboBox(getController().getLocator().getService(MainModel.IDENTIFIER, MainModel.class)
         .getGestureSets().toArray());
+   
 
     comboBox.addActionListener(new ActionListener() {
 
@@ -134,6 +136,8 @@ public class ConfigurationPanel extends AbstractPanel {
         recogniseAction.setEnabled(true);
       }
     });
+    
+    comboBox.setSelectedIndex(0);
 
     comboBox.addMouseListener(new MouseAdapter() {
 
@@ -148,13 +152,14 @@ public class ConfigurationPanel extends AbstractPanel {
     });
 
     JButton clearButton = new BasicButton(new ClearGestureSampleAction(getController(), gestureDevice));
+    //Formatter.formatButton(clearButton);
     JButton recogniseButton = new BasicButton(recogniseAction);
-
-    buttonPanel.add(clearButton);
-    Formatter.formatButton(clearButton);
-    buttonPanel.add(recogniseButton);
-    buttonPanel.add(comboBox);
-    Formatter.formatButton(recogniseButton);
+    //Formatter.formatButton(recogniseButton);
+    
+    buttonPanel.add(clearButton, BorderLayout.NORTH);
+    buttonPanel.add(recogniseButton, BorderLayout.CENTER);
+    buttonPanel.add(comboBox, BorderLayout.SOUTH);
+    
 
     basePanel.add(buttonPanel);
 
@@ -163,6 +168,9 @@ public class ConfigurationPanel extends AbstractPanel {
     resultList.setPreferredSize(new Dimension(200, 200));
 
     basePanel.add(resultList);
+    
+    basePanel.setOpaque(true);
+    basePanel.setBackground(Color.WHITE);
 
     return basePanel;
   }
@@ -201,8 +209,13 @@ public class ConfigurationPanel extends AbstractPanel {
       builder.append(paramTextField);
       builder.nextLine(2);
     }
+    
+    
 
-    return builder.getPanel();
+    JPanel panel = builder.getPanel();
+    panel.setOpaque(true);
+    panel.setBackground(Color.WHITE);
+    return panel;
   }
 
   public void setResultList(List<Result> classes) {

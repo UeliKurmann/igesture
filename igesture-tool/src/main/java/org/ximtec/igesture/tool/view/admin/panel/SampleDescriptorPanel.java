@@ -35,8 +35,10 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -68,7 +70,6 @@ import org.ximtec.igesture.tool.view.admin.action.RemoveGestureSampleAction;
 
 public class SampleDescriptorPanel extends AbstractPanel {
 
-  
   private static final int INPUTAREA_SIZE = 200;
   private static final int SPACE_SIZE = 5;
   private static final int SAMPLE_SIZE = 100;
@@ -92,7 +93,7 @@ public class SampleDescriptorPanel extends AbstractPanel {
     addComponentListener(new ComponentAdapter() {
       @Override
       public void componentResized(ComponentEvent e) {
-        initSampleSection(descriptor);
+        initSampleSection(descriptor.getSamples());
       }
     });
 
@@ -135,7 +136,8 @@ public class SampleDescriptorPanel extends AbstractPanel {
     GesturePanel gesturePanel = InputPanelFactory.createGesturePanel(sample);
     final JPanel panel = gesturePanel.getPanel(new Dimension(SAMPLE_SIZE, SAMPLE_SIZE));
     panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-    panel.addMouseListener(new SampleIconMouseListener(sample, panel));
+    panel.addMouseListener(new SampleIconMouseListener(new RemoveGestureSampleAction(getController(), descriptor,
+        sample), panel));
     panel.setOpaque(true);
     panel.setBackground(Color.WHITE);
     sampleCache.put(sample, panel);
@@ -166,9 +168,9 @@ public class SampleDescriptorPanel extends AbstractPanel {
    * @param descriptor
    */
   private void init(SampleDescriptor descriptor) {
-    initTitle(descriptor);
-    initSampleSection(descriptor);
-    initInputSection(descriptor);
+    initTitle();
+    initSampleSection(descriptor.getSamples());
+    initInputSection();
   }
 
   /**
@@ -183,7 +185,7 @@ public class SampleDescriptorPanel extends AbstractPanel {
    * 
    * @param descriptor
    */
-  private void initInputSection(SampleDescriptor descriptor) {
+  private void initInputSection() {
     JPanel basePanel = new JPanel();
 
     // input area
@@ -209,11 +211,8 @@ public class SampleDescriptorPanel extends AbstractPanel {
    * Visualizes the samples. The GridBagLayout is used. The number of elements
    * in a row are computed dynamically. Between two gesture elements a space
    * element is placed.
-   * 
-   * @param descriptor
-   *          the sample descriptor
    */
-  private synchronized void initSampleSection(SampleDescriptor descriptor) {
+  private synchronized void initSampleSection(List<Gesture<Note>> samples) {
 
     JPanel panel = new JPanel();
 
@@ -234,7 +233,7 @@ public class SampleDescriptorPanel extends AbstractPanel {
       GridBagLayouter.addComponent(panel, createSpacerPanel(SPACE_SIZE), 0, 0);
 
       // iterate over all the samples
-      for (final Gesture<Note> sample : descriptor.getSamples()) {
+      for (final Gesture<Note> sample : samples) {
         GridBagLayouter.addComponent(panel, createSampleIcon(sample), x, y);
         GridBagLayouter.addComponent(panel, createSpacerPanel(SPACE_SIZE), x + 1, y);
         if (x + 1 >= elementsPerRow) {
@@ -258,10 +257,8 @@ public class SampleDescriptorPanel extends AbstractPanel {
 
   /**
    * Sets the title of the form
-   * 
-   * @param descriptor
    */
-  private void initTitle(SampleDescriptor descriptor) {
+  private void initTitle() {
 
     StringBuilder sb = new StringBuilder();
 
@@ -289,22 +286,22 @@ public class SampleDescriptorPanel extends AbstractPanel {
   public void refreshUILogic() {
     super.refreshUILogic();
     gestureDevice.clear();
-    initSampleSection(descriptor);
+    initSampleSection(descriptor.getSamples());
   }
-  
+
   /**
    * Context Menu for the sample elements
    * 
    * @author UeliKurmann
    * 
    */
-  private class SampleIconMouseListener extends MouseAdapter {
-    private final Gesture<Note> sample;
-    private final JPanel label;
+  public static class SampleIconMouseListener extends MouseAdapter {
+    private final Action action;
+    private final JPanel gesturePanel;
 
-    private SampleIconMouseListener(Gesture<Note> sample, JPanel label) {
-      this.sample = sample;
-      this.label = label;
+    public SampleIconMouseListener(Action action, JPanel gesturePanel) {
+      this.gesturePanel = gesturePanel;
+      this.action = action;
     }
 
     @Override
@@ -321,11 +318,10 @@ public class SampleDescriptorPanel extends AbstractPanel {
       if (e.isPopupTrigger()) {
         JPopupMenu menu = new JPopupMenu();
         JMenuItem item = new JMenuItem();
-        item.setAction(new RemoveGestureSampleAction(getController(), SampleDescriptorPanel.this.descriptor, sample));
+        item.setAction(action);
         menu.add(item);
-        menu.show(label, e.getX(), e.getY());
+        menu.show(gesturePanel, e.getX(), e.getY());
       }
     }
   }
-
 }
