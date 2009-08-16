@@ -2,9 +2,8 @@
  * @(#)$Id$
  *
  * Author       :   Ueli Kurmann, igesture@uelikurmann.ch
- *                                   
- *                                   
- * Purpose      :   The main class.
+ *                                                                    
+ * Purpose      :   The workbench main class.
  *
  * -----------------------------------------------------------------------
  *
@@ -23,35 +22,38 @@
  * 
  */
 
+
 package org.ximtec.igesture.tool;
 
 import javax.swing.UIManager;
 
 import org.ximtec.igesture.tool.view.MainController;
 
+
 /**
- * The main class.
+ * The workbench main class.
  * 
  * @version 1.0, Mar 2008
  * @author Ueli Kurmann, igesture@uelikurmann.ch
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Beat Signer, bsigner@vub.ac.be
  */
 public class Main {
 
-	public static void main(String[] args) {
-		try {
-			UIManager
-					.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-		} catch (Exception e) {
-			try {
-				UIManager.setLookAndFeel(UIManager
-						.getSystemLookAndFeelClassName());
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		}
+   public static void main(String[] args) {
+      try {
+         UIManager
+               .setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+      }
+      catch (Exception e) {
+         try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+         }
+         catch (Exception e1) {
+            e1.printStackTrace();
+         }
+      }
 
-		new MainController();
-	}
+      new MainController();
+   }
 
 }
