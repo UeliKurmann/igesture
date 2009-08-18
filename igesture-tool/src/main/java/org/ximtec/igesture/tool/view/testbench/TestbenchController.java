@@ -38,6 +38,7 @@ import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.tool.core.Command;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultController;
+import org.ximtec.igesture.tool.core.EdtProxy;
 import org.ximtec.igesture.tool.core.ExecCmd;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
@@ -52,7 +53,7 @@ public class TestbenchController extends DefaultController {
 	private static final Logger LOGGER = Logger
 			.getLogger(TestbenchController.class.getName());
 
-	private TestbenchView testbenchView;
+	private ITestBenchView testbenchView;
 
 	private MainModel mainModel; 
 
@@ -70,7 +71,7 @@ public class TestbenchController extends DefaultController {
 	}
 
 	private void initController() {
-		testbenchView = new TestbenchView(this);
+		testbenchView = EdtProxy.newInstance(new TestbenchView(this), ITestBenchView.class);
 
 		ExplorerTreeModel explorerModel = new ExplorerTreeModel(mainModel
 				.getAlgorithmList(), NodeInfoFactory.createTestBenchNodeInfo(this));

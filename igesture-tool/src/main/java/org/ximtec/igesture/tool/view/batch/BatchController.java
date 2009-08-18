@@ -41,6 +41,7 @@ import org.ximtec.igesture.batch.BatchResultSet;
 import org.ximtec.igesture.batch.BatchTools;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultController;
+import org.ximtec.igesture.tool.core.EdtProxy;
 import org.ximtec.igesture.tool.core.ExecCmd;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.util.XMLTool;
@@ -60,7 +61,7 @@ public class BatchController extends DefaultController {
 
    private BatchSwingWorker batchSwingWorker;
 
-   private BatchView view;
+   private IBatchView view;
 
 
    public BatchController(Controller parentController) {
@@ -70,7 +71,7 @@ public class BatchController extends DefaultController {
 
 
    private void initialize() {
-      this.view = new BatchView(this);
+      this.view = EdtProxy.newInstance(new BatchView(this), IBatchView.class);
    }
 
 

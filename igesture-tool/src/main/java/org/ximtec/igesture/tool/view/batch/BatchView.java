@@ -63,7 +63,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @version 1.0 17.04.2008
  * @author Ueli Kurmann
  */
-public class BatchView extends AbstractPanel implements TabbedView {
+public class BatchView extends AbstractPanel implements TabbedView, IBatchView {
 
   private static final int NEXT_LINE = 2;
   private GestureSet gestureSet;

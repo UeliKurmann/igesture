@@ -40,7 +40,7 @@ import org.ximtec.igesture.tool.explorer.ExplorerTree;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeContainer;
 
 public class AdminView extends DefaultSplitPane implements TabbedView,
-		ExplorerTreeContainer {
+		ExplorerTreeContainer, IAdminView {
 
 	private JScrollPane scrollPaneLeft;
 

@@ -31,6 +31,7 @@ import java.util.logging.Logger;
 
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultController;
+import org.ximtec.igesture.tool.core.EdtProxy;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeModel;
@@ -43,7 +44,7 @@ public class TestSetController extends DefaultController {
    private static final Logger LOGGER = Logger.getLogger(TestSetController.class
          .getName());
 
-   private TestSetView testSetView;
+   private ITestSetView testSetView;
 
    private MainModel mainModel; 
 
@@ -59,7 +60,7 @@ public class TestSetController extends DefaultController {
 
 
    private void initController() {
-      testSetView = new TestSetView(this);
+      testSetView = EdtProxy.newInstance(new TestSetView(this), ITestSetView.class);
 
       ExplorerTreeModel explorerModel = new ExplorerTreeModel(mainModel
             .getTestSetList(), NodeInfoFactory.createTestSetNodeInfo(this));

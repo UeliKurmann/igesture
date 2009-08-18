@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.ximtec.igesture.tool.view.MainView;
+import org.ximtec.igesture.tool.view.testbench.TestbenchView;
 
 
 public class InterfaceGenerator {
@@ -41,7 +41,7 @@ public class InterfaceGenerator {
 	private static int declaredGenericTypesInsertPosition;
 
 	public static void main(String[] args) {
-		System.out.println(generateInterface(MainView.class));
+		System.out.println(generateInterface(TestbenchView.class));
 	}
 
 	public static StringBuilder generateInterface(Class<?> type) {
@@ -61,7 +61,7 @@ public class InterfaceGenerator {
 		for (Method method : type.getMethods()) {
 
 			if (method.isSynthetic() || method.isBridge()
-					|| (Modifier.isStatic(method.getModifiers()))) {
+					|| (Modifier.isStatic(method.getModifiers())) || (Modifier.isFinal(method.getModifiers()))) {
 				continue;
 			}
 
