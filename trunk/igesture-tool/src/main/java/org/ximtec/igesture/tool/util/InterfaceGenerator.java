@@ -1,145 +1,191 @@
 package org.ximtec.igesture.tool.util;
 
+import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.ximtec.igesture.tool.view.MainView;
 
+
 public class InterfaceGenerator {
 
-  private static final String ARRAY = "[]";
-  private static final String COMMA = ",";
-  private static final String B_OPEN = "(";
-  private static final String B_CLOSE = ")";
-  private static final String CB_CLOSE = "}";
-  private static final String CB_OPEN = "{";
-  private static final String AB_CLOSE = "]";
-  private static final String AB_OPEN = "[";
-  private static final String INTERFACE_PREFIX = "I";
-  private static final String PACKAGE = "package";
-  private static final String PUBLIC = "public";
-  private static final String INTERFACE = "interface";
-  private static final String BLANK = " ";
-  private static final String SEMICOLON = ";";
-  private static final String NL = "\n";
+	private static final String ARRAY = "[]";
+	private static final String COMMA = ",";
+	private static final String QMARK = "?";
+	private static final String AND = "&";
+	private static final String A_OPEN = "<";
+	private static final String A_CLOSE = ">";
+	private static final String B_OPEN = "(";
+	private static final String B_CLOSE = ")";
+	private static final String CB_CLOSE = "}";
+	private static final String CB_OPEN = "{";
+	private static final String AB_CLOSE = "]";
+	private static final String AB_OPEN = "[";
+	private static final String INTERFACE_PREFIX = "I";
+	private static final String PACKAGE = "package";
+	private static final String PUBLIC = "public";
+	private static final String INTERFACE = "interface";
+	private static final String EXTENDS = "extends";
+	private static final String THROWS = "throws";
+	private static final String BLANK = " ";
+	private static final String SEMICOLON = ";";
+	private static final String NL = "\n";
 
-  public static void main(String[] args) {
-    System.out.println(generateInterface(MainView.class));
-  }
+	private static final List<String> declaredGenericTypes = new LinkedList<String>();
+	private static int declaredGenericTypesInsertPosition;
 
-  public static StringBuilder generateInterface(Class<?> type) {
-    StringBuilder sb = new StringBuilder();
+	public static void main(String[] args) {
+		System.out.println(generateInterface(MainView.class));
+	}
 
-    sb.append("// automatically generated code");
-    sb.append(NL);
-    sb.append(PACKAGE + BLANK + type.getPackage().getName() + SEMICOLON);
-    sb.append(NL);
-    sb.append(NL);
-    sb.append(PUBLIC + BLANK + INTERFACE + BLANK + INTERFACE_PREFIX + type.getSimpleName() + CB_OPEN);
-    sb.append(NL);
-    for (Method method : type.getMethods()) {
+	public static StringBuilder generateInterface(Class<?> type) {
+		StringBuilder sb = new StringBuilder();
 
-      if (method.isSynthetic() || method.isBridge() || (Modifier.isFinal(method.getModifiers()))) {
-        continue;
-      }
+		sb.append("// automatically generated code");
+		sb.append(NL);
+		sb.append(PACKAGE + BLANK + type.getPackage().getName() + SEMICOLON);
+		sb.append(NL);
+		sb.append(NL);
+		sb.append(PUBLIC + BLANK + INTERFACE + BLANK + INTERFACE_PREFIX
+				+ type.getSimpleName() + BLANK);
+		declaredGenericTypesInsertPosition = sb.length();
+		sb.append(CB_OPEN);
+		sb.append(NL);
+		sb.append(NL);
+		for (Method method : type.getMethods()) {
 
-      generateMethodDefinition(sb, method);
-      
-      sb.append(NL);
-      sb.append(NL);
-    }
-    sb.append(CB_CLOSE);
+			if (method.isSynthetic() || method.isBridge()
+					|| (Modifier.isStatic(method.getModifiers()))) {
+				continue;
+			}
 
-    return sb;
-  }
+			generateMethodDefinition(sb, method);
 
-  private static void generateMethodDefinition(StringBuilder sb, Method method) {
-    sb.append(BLANK + BLANK + PUBLIC + BLANK);
+			sb.append(NL);
+			sb.append(NL);
+		}
+		sb.append(CB_CLOSE);
 
-    extractReturnType(sb, method);
+		if (!declaredGenericTypes.isEmpty()) {
+			Collections.reverse(declaredGenericTypes);
+			sb.insert(declaredGenericTypesInsertPosition, A_CLOSE + BLANK);
+			boolean last = true;
+			for (String typeName : declaredGenericTypes) {
+				if (last) {
+					last = false;
+				} else {
+					sb
+							.insert(declaredGenericTypesInsertPosition, COMMA
+									+ BLANK);
+				}
+				sb.insert(declaredGenericTypesInsertPosition, typeName);
+			}
+			sb.insert(declaredGenericTypesInsertPosition, A_OPEN);
+		}
+		return sb;
+	}
 
-    sb.append(BLANK + method.getName() + B_OPEN);
-    if (method.getParameterTypes().length > 0) {
-      int i = 1;
-      for (Class<?> parameterType : method.getParameterTypes()) {
-        if (parameterType.isArray()) {
-          sb.append(parameterType.getName().substring(2) + ARRAY + BLANK + "arg" + i + COMMA);
-        } else {
-          sb.append(parameterType.getName() + BLANK + "arg" + i + COMMA);
-        }
-        i++;
-      }
-      sb.deleteCharAt(sb.length() - 1);
-    }
-    sb.append(B_CLOSE + SEMICOLON);
-  }
+	private static void generateMethodDefinition(StringBuilder sb, Method method) {
+		sb.append(BLANK + BLANK + PUBLIC + BLANK);
 
-  private static void extractReturnType(StringBuilder sb, Method method) {
+		TypeVariable<Method>[] typeParameters = method.getTypeParameters();
+		if (typeParameters.length > 0) {
+			sb.append(A_OPEN);
+			boolean firstParam = true;
+			for (TypeVariable<Method> typeVar : typeParameters) {
+				if (firstParam) {
+					firstParam = false;
+				} else {
+					sb.append(COMMA).append(BLANK);
+				}
+				sb.append(typeVar.getName());
+				if (typeVar.getBounds() != null) {
+					boolean first = true;
+					for (Type bound : typeVar.getBounds()) {
+						if (bound != Object.class
+								|| typeVar.getBounds().length > 1) {
+							if (first) {
+								first = false;
+								sb.append(BLANK).append(EXTENDS);
+							} else {
+								sb.append(BLANK).append(AND);
+							}
+							sb.append(BLANK);
+							writeType(sb, bound);
+						}
+					}
+				}
+			}
+			sb.append(A_CLOSE).append(BLANK);
+		}
 
-    Class<?> returnType = method.getReturnType();
+		writeType(sb, method.getGenericReturnType());
 
-    if (returnType.isArray()) {
-      sb.append(generateArrayTypeName(returnType));
-    } else {
-      sb.append(returnType.getName());
-    }
-    
- 
-  }
+		sb.append(BLANK + method.getName() + B_OPEN);
 
-  private static String generateArrayTypeName(Class<?> arrayType) {
-    char[] binaryName = arrayType.getName().toCharArray();
-    binaryName = Arrays.copyOfRange(arrayType.getName().toCharArray(), 0, binaryName.length - 1);
-    // count the number of preceding [ characters
-    int arrayDepth = 0;
-    for (int i = 0; i < binaryName.length; i++) {
-      if (AB_OPEN.charAt(0) == binaryName[i]) {
-        arrayDepth++;
-      } else {
-        break;
-      }
-    }
+		int i = 1;
+		for (Type parameterType : method.getGenericParameterTypes()) {
+			if (i > 1) {
+				sb.append(COMMA).append(BLANK);
+			}
+			writeType(sb, parameterType);
+			sb.append(BLANK).append("arg").append(i);
+			i++;
+		}
+		sb.append(B_CLOSE);
 
-    String typeName = null;
-    switch (binaryName[arrayDepth]) {
-    case 'L':
-      typeName = new String(binaryName, arrayDepth + 1, binaryName.length - arrayDepth - 1);
-      break;
-    case 'Z':
-      typeName = "boolean";
-      break;
-    case 'B':
-      typeName = "byte";
-      break;
-    case 'C':
-      typeName = "char";
-      break;
-    case 'D':
-      typeName = "double";
-      break;
-    case 'F':
-      typeName = "float";
-      break;
-    case 'I':
-      typeName = "I";
-      break;
-    case 'J':
-      typeName = "long";
-      break;
-    case 'S':
-      typeName = "short";
-      break;
-    default:
-      throw new IllegalStateException("should not happen... ;-)");
-    }
+		boolean first = true;
+		for (Type exceptionType : method.getGenericExceptionTypes()) {
+			if (first) {
+				sb.append(BLANK).append(THROWS).append(BLANK);
+				first = false;
+			} else {
+				sb.append(COMMA).append(BLANK);
+			}
+			writeType(sb, exceptionType);
+		}
 
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < arrayDepth; i++) {
-      sb.append(ARRAY);
-    }
+		sb.append(SEMICOLON);
+	}
 
-    return typeName + sb.toString();
-  }
+	private static void writeType(StringBuilder sb, Type type) {
 
+		if (type instanceof Class<?>) {
+			Class<?> typeClass = (Class<?>) type;
+
+			if (typeClass.isArray()) {
+				Class<?> componentType = typeClass.getComponentType();
+				sb.append(componentType.getName().replace('$','.')).append(ARRAY);
+			} else {
+				sb.append(typeClass.getName().replace('$','.'));
+			}
+		} else if (type instanceof TypeVariable<?>) {
+			TypeVariable<?> typeVar = (TypeVariable<?>) type;
+
+			Object genericDeclaration = typeVar.getGenericDeclaration();
+			if (genericDeclaration instanceof Method) {
+			} else {
+				if (!declaredGenericTypes.contains(typeVar.getName())) {
+					declaredGenericTypes.add(typeVar.getName());
+				}
+			}
+			sb.append(typeVar.getName());
+		} else if (type instanceof GenericArrayType) {
+			GenericArrayType arrayType = (GenericArrayType) type;
+
+			Type genericComponentType = arrayType.getGenericComponentType();
+			writeType(sb, genericComponentType);
+			sb.append(ARRAY);
+		} else if (type instanceof ParameterizedType) {
+			ParameterizedType paramType = (ParameterizedType) type;
+
+			sb.append(paramType);
+		}
+	}
 }
