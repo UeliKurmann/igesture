@@ -53,8 +53,6 @@ import org.ximtec.igesture.tool.service.GuiBundleService;
 @SuppressWarnings("serial")
 public class MainView extends DefaultView implements IMainView {
 
-  
-  
   private static final String TITLE_DELIMITER = " - ";
   private JTabbedPane tabbedPane;
   private JMenuBar menuBar;
