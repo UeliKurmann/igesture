@@ -39,7 +39,7 @@ import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.explorer.ExplorerTree;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeContainer;
 
-public class TestSetView extends DefaultSplitPane implements TabbedView, ExplorerTreeContainer {
+public class TestSetView extends DefaultSplitPane implements TabbedView, ExplorerTreeContainer, ITestSetView {
 
   private JScrollPane scrollPaneLeft;
 
