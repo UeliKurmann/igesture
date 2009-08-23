@@ -129,6 +129,8 @@ public class GestureConstants {
   public static final String NODE_ICON_TEST_CLASS = "TestClassIcon";
   public static final String NODE_ICON_TEST_SET = "TestSetIcon";
   public static final String SWING_MOUSE_READER = "SwingMouseReader";
+  public static final String TESTCLASS_DELETE = "TestClassDelete";
+  public static final String TESTCLASS_NAME = "TestClassName";
 
   
 

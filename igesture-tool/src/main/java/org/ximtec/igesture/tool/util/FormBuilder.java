@@ -25,6 +25,7 @@
 
 package org.ximtec.igesture.tool.util;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -49,6 +50,8 @@ public class FormBuilder {
 
   public FormBuilder() {
     panel = new JPanel();
+    panel.setOpaque(true);
+    panel.setBackground(Color.WHITE);
     panel.setLayout(new GridBagLayout());
     line = 1;
   }
@@ -67,7 +70,7 @@ public class FormBuilder {
 
   private void addComponent(JComponent component, int position, double weight) {
 
-    GridBagLayouter.addComponent(panel, component, position, line, 1, 1, 5, 5, 5, 5, weight, 1,
+    GridBagLayouter.addComponent(panel, component, position, line, 1, 1, 5, 5, 5, 5, weight, 0,
         GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
   }
 

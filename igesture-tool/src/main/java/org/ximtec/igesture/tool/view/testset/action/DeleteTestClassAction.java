@@ -46,7 +46,7 @@ public class DeleteTestClassAction extends TreePathAction {
 
 
    public DeleteTestClassAction(Controller controller, TreePath treePath) {
-      super(GestureConstants.TESTSET_REMOVE, controller, treePath);
+      super(GestureConstants.TESTCLASS_DELETE, controller, treePath);
    }
 
    @Override
