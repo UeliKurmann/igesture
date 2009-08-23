@@ -28,7 +28,6 @@ package org.ximtec.igesture.tool.view.admin.panel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridBagLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
@@ -47,6 +46,7 @@ import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.binding.BindingFactory;
 import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.FormBuilder;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
@@ -71,13 +71,10 @@ public class GestureSetPanel extends AbstractPanel {
     });
     
     setTitle(TitleFactory.createDynamicTitle(gestureSet, GestureSet.PROPERTY_NAME));
-
-    
   }
 
   private JPanel createGestureIconList() {
-    JPanel panel = new JPanel();
-    panel.setLayout(new GridBagLayout());
+    JPanel panel = ComponentFactory.createGridBagLayoutPanel();
 
     // if the component has size 0 (before it is placed into another container
     // component, don't visualize the samples
@@ -109,18 +106,12 @@ public class GestureSetPanel extends AbstractPanel {
         }
       }
     }
-
-    panel.setOpaque(true);
-    panel.setOpaque(false);
-    panel.setBackground(Color.WHITE);
-    panel.setAutoscrolls(true);
   
     return panel;
   }
 
   private JPanel createGesturePanel(GestureClass gestureClass, int size) {
-    JPanel gesturePanel = new JPanel();
-    gesturePanel.setLayout(new BorderLayout());
+    JPanel gesturePanel = ComponentFactory.createBorderLayoutPanel();
     JLabel gestureName = new JLabel(gestureClass.getName());
     gestureName.setHorizontalAlignment(JLabel.CENTER);
     gesturePanel.add(gestureName, BorderLayout.SOUTH);
@@ -142,8 +133,6 @@ public class GestureSetPanel extends AbstractPanel {
       gesturePanel.add(labelNsa, BorderLayout.CENTER);
     }
     
-    gesturePanel.setOpaque(false);
-    gesturePanel.setBackground(Color.WHITE);
     gesturePanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
     
     return gesturePanel;
@@ -165,25 +154,14 @@ public class GestureSetPanel extends AbstractPanel {
     formBuilder.addLeft(labelNogc);
     formBuilder.addRight(labelNogcValue);
     
-    JPanel basePanel = formBuilder.getPanel();
-    basePanel.setOpaque(false);
-    basePanel.setBackground(Color.WHITE);
-    
-    return basePanel;
+    return formBuilder.getPanel();
   }
 
   protected void updateView() {
-    JPanel basePanel = new JPanel();
-    basePanel.setLayout(new BorderLayout());
-    basePanel.setOpaque(false);
-    basePanel.setBackground(Color.WHITE);
-    
+    JPanel basePanel = ComponentFactory.createBorderLayoutPanel();
     basePanel.add(createHeader(gestureSet), BorderLayout.NORTH);
-    
     JPanel panelIcons = createGestureIconList();
-    
     basePanel.add(panelIcons, BorderLayout.CENTER);
-    
     setContent(basePanel);
     
   }
@@ -196,10 +174,7 @@ public class GestureSetPanel extends AbstractPanel {
    * @return the space element
    */
   private JPanel createSpacerPanel(int size) {
-    JPanel panel = new JPanel();
-    panel.setLayout(null);
-    panel.setOpaque(true);
-    panel.setBackground(Color.WHITE);
+    JPanel panel = ComponentFactory.createBorderLayoutPanel();
     panel.setPreferredSize(new Dimension(size, size));
     return panel;
   }

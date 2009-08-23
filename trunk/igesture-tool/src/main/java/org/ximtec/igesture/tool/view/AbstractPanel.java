@@ -74,6 +74,7 @@ public abstract class AbstractPanel extends DefaultExplorerTreeView {
   public void setContent(JComponent component) {
     component.setBackground(Color.white);
     component.setOpaque(true);
+   
     centerPane.setViewportView(component);
   }
 

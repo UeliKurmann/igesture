@@ -25,6 +25,7 @@
 
 package org.ximtec.igesture.tool.view.admin.panel;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.List;
 
@@ -42,6 +43,7 @@ import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.binding.BindingFactory;
 import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.FormBuilder;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
@@ -61,10 +63,10 @@ public class GestureClassPanel extends AbstractPanel {
 
     JPanel panel = createHeaderPanel();
     
-       
-    panel.setOpaque(false);
-    panel.setBackground(Color.white);
-    setContent(panel);
+    JPanel basePanel = ComponentFactory.createBorderLayoutPanel();
+    basePanel.add(panel, BorderLayout.NORTH);
+
+    setContent(basePanel);
 
   }
   
@@ -101,8 +103,6 @@ public class GestureClassPanel extends AbstractPanel {
 
       formBuilder.nextLine();
     }
-    
-    
     
     if (gestureClass.hasDescriptor(SampleDescriptor.class)) {
       Gesture<Note> sample = null;

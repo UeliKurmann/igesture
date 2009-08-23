@@ -25,6 +25,8 @@
 
 package org.ximtec.igesture.tool.view.testset.panel;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -33,11 +35,10 @@ import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.binding.BindingFactory;
 import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.util.ComponentFactory;
+import org.ximtec.igesture.tool.util.FormBuilder;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
-
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * Comment
@@ -59,28 +60,21 @@ public class TestSetPanel extends AbstractPanel {
 
     setTitle(TitleFactory.createStaticTitle(testSet.getName()));
 
-    // FIXME
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < testSet.size() * 4 || i < 4; i++) {
-      sb.append("pref, 4dlu,");
-    }
-
-    FormLayout layout = new FormLayout("100dlu, 4dlu, 200dlu", sb.toString());
-
-    DefaultFormBuilder builder = new DefaultFormBuilder(layout);
-    builder.setDefaultDialogBorder();
+    FormBuilder formBuilder = new FormBuilder();
 
     JTextField textField = new JTextField();
     BindingFactory.createInstance(textField, testSet, TestSet.PROPERTY_NAME);
-    builder.append(textField);
-    builder.nextLine(2);
+    formBuilder.addLeft(getComponentFactory().createLabel(GestureConstants.TESTCLASS_NAME));
+    formBuilder.addRight(textField);
+    formBuilder.nextLine();
 
-    builder.append(getComponentFactory().createLabel(GestureConstants.GESTURE_SET_PANEL_NOGC));
-    builder.append(new JLabel(Integer.toString(testSet.size())));
-
-    JPanel panel = builder.getPanel();
-    panel.setOpaque(false);
-    setContent(panel);
+    formBuilder.addLeft(getComponentFactory().createLabel(GestureConstants.GESTURE_SET_PANEL_NOGC));
+    formBuilder.addRight(new JLabel(Integer.toString(testSet.size())));
+    
+    JPanel basePanel = ComponentFactory.createBorderLayoutPanel();
+    basePanel.add(formBuilder.getPanel(), BorderLayout.NORTH);
+    
+    setContent(basePanel);
 
   }
 

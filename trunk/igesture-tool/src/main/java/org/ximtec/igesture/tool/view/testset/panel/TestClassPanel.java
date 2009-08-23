@@ -219,13 +219,16 @@ public class TestClassPanel extends AbstractPanel {
 
     JPanel title = new JPanel();
     title.setLayout(new FlowLayout(FlowLayout.LEFT));
-    JLabel label = getComponentFactory().createLabel(GestureConstants.TESTSET_NAME);
+    JLabel label = getComponentFactory().createLabel(GestureConstants.TESTCLASS_NAME);
     title.add(label);
     JTextField textField = new JTextField();
     Formatter.formatTextField(textField);
     title.add(textField);
     BindingFactory.createInstance(textField, testClass, TestClass.PROPERTY_NAME);
 
+    title.setOpaque(true);
+    title.setBackground(Color.WHITE);
+    
     JPanel samplePanel = new JPanel();
 
     samplePanel.setLayout(new GridBagLayout());

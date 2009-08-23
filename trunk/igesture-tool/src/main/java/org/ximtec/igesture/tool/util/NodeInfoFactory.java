@@ -169,9 +169,11 @@ public class NodeInfoFactory {
     rootActions.add(ConvertGestureSetAction.class);
 
     List<Class<? extends BasicAction>> setActions = new ArrayList<Class<? extends BasicAction>>();
-    setActions.add(DeleteTestSetAction.class);
-    setActions.add(ExportTestSetAction.class);
     setActions.add(AddTestClassAction.class);
+    setActions.add(DeleteTestSetAction.class);
+    setActions.add(SeparatorAction.class);
+    setActions.add(ExportTestSetAction.class);
+    
 
     List<Class<? extends BasicAction>> classActions = new ArrayList<Class<? extends BasicAction>>();
     classActions.add(DeleteTestClassAction.class);
