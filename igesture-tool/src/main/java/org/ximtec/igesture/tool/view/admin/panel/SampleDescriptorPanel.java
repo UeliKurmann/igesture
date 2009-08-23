@@ -26,6 +26,7 @@
 
 package org.ximtec.igesture.tool.view.admin.panel;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -42,6 +43,7 @@ import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -61,6 +63,7 @@ import org.ximtec.igesture.tool.gesturevisualisation.GesturePanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanelFactory;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
+import org.ximtec.igesture.tool.util.FontFactory;
 import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
@@ -187,14 +190,20 @@ public class SampleDescriptorPanel extends AbstractPanel {
    */
   private void initInputSection() {
     JPanel basePanel = new JPanel();
-
+    JPanel inputComponentPanel = new JPanel();
+    
     // input area
-    basePanel.setLayout(new FlowLayout());
+    basePanel.setLayout(new BorderLayout());
+    inputComponentPanel.setLayout(new FlowLayout());
 
     initGestureDevice();
 
     InputPanel inputPanel = InputPanelFactory.createInputPanel(gestureDevice);
-    basePanel.add(inputPanel.getPanel(new Dimension(INPUTAREA_SIZE, INPUTAREA_SIZE)));
+    
+    JPanel inputPanelInstance = inputPanel.getPanel(new Dimension(INPUTAREA_SIZE, INPUTAREA_SIZE));
+    inputPanelInstance.setToolTipText(getComponentFactory().getGuiBundle().getShortDescription(GestureConstants.SWING_MOUSE_READER));
+    
+    inputComponentPanel.add(inputPanelInstance);
 
     // buttons
     JPanel buttonPanel = new JPanel();
@@ -202,8 +211,15 @@ public class SampleDescriptorPanel extends AbstractPanel {
     buttonPanel.add(createAddSampleButton(descriptor));
     buttonPanel.add(createClearSampleButton());
 
-    basePanel.add(buttonPanel);
+    inputComponentPanel.add(buttonPanel);
 
+    JLabel title = getComponentFactory().createLabel(GestureConstants.SAMPLE_DESCRIPTOR_TITLE);
+    title.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+    title.setFont(FontFactory.getArialBold(18));
+    
+    basePanel.add(title, BorderLayout.NORTH);
+    basePanel.add(inputComponentPanel, BorderLayout.CENTER);
+    
     setBottom(basePanel);
   }
 

@@ -26,6 +26,7 @@
 package org.ximtec.igesture.tool.view.admin.panel;
 
 import java.awt.Color;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -41,77 +42,90 @@ import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.binding.BindingFactory;
 import org.ximtec.igesture.tool.core.Controller;
+import org.ximtec.igesture.tool.util.FormBuilder;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.util.GestureTool;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
-
 public class GestureClassPanel extends AbstractPanel {
+  
+  private GestureClass gestureClass;
 
   public GestureClassPanel(Controller controller, GestureClass gestureClass) {
     super(controller);
+    
+    this.gestureClass = gestureClass;
+    
     setTitle(TitleFactory.createDynamicTitle(gestureClass,
         GestureClass.PROPERTY_NAME));
 
-    FormLayout layout = new FormLayout(
-        "100dlu, 4dlu, 200dlu",
-        "pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref,, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref");
+    JPanel panel = createHeaderPanel();
+    
+       
+    panel.setOpaque(false);
+    panel.setBackground(Color.white);
+    setContent(panel);
 
-    DefaultFormBuilder builder = new DefaultFormBuilder(layout);
-    builder.setDefaultDialogBorder();
+  }
+  
 
-    builder.nextLine(4);
 
-    builder.append(getComponentFactory().createLabel(
-        GestureConstants.GESTURE_CLASS_PANEL_NAME));
+  private JPanel createHeaderPanel(){
+    
+    FormBuilder formBuilder = new FormBuilder();
+    
+    JLabel labelName = getComponentFactory().createLabel(GestureConstants.GESTURE_CLASS_PANEL_NAME);
+    formBuilder.addLeft(labelName);
+    
     JTextField textField = new JTextField();
 
-    BindingFactory.createInstance(textField, gestureClass,
-        GestureClass.PROPERTY_NAME);
+    BindingFactory.createInstance(textField, gestureClass, GestureClass.PROPERTY_NAME);
+    formBuilder.addRight(textField);
+    
+    formBuilder.nextLine();
+   
+    JLabel labelNod = getComponentFactory().createLabel(GestureConstants.GESTURE_CLASS_PANEL_NOD);
+    JLabel labelNodValue = new JLabel(Integer.toString(gestureClass.getDescriptors().size()));
+    
+    formBuilder.addLeft(labelNod);
+    formBuilder.addRight(labelNodValue);
+    
+    formBuilder.nextLine();
+    
+    for (Descriptor descriptor : gestureClass.getDescriptors()) {
+      JLabel labelDescriptorName = getComponentFactory().createLabel(GestureConstants.GESTURE_CLASS_PANEL_DESCRIPTOR_NAME);
+      JLabel labelDescriptorNameValue = new JLabel(descriptor.getType().getName());
+      
+      formBuilder.addLeft(labelDescriptorName);
+      formBuilder.addRight(labelDescriptorNameValue);
 
-    // textField.setText(gestureClass.getName());
-    builder.append(textField);
-    builder.nextLine(2);
-    builder.append(getComponentFactory().createLabel(
-        GestureConstants.GESTURE_CLASS_PANEL_GESTURE));
+      formBuilder.nextLine();
+    }
+    
+    
+    
     if (gestureClass.hasDescriptor(SampleDescriptor.class)) {
       Gesture<Note> sample = null;
-      if (gestureClass.getDescriptor(SampleDescriptor.class).getSamples()
-          .size() > 0) {
-        sample = gestureClass.getDescriptor(
-            SampleDescriptor.class).getSample(0);
+      
+      SampleDescriptor descriptor = gestureClass.getDescriptor(SampleDescriptor.class);
+      List<Gesture<Note>> samples = descriptor.getSamples();
+      
+      if (samples.size() > 0) {
+        sample = descriptor.getSample(0);
       }
+      
       if (sample != null) {
         JLabel label = new JLabel(new ImageIcon(GestureTool.createNoteImage(
             sample.getGesture(), 150, 150)));
-        label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-        builder.append(label);
+        label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 0));
+        formBuilder.addRight(label);
       } else {
-        builder.append(getComponentFactory().createLabel(
+        formBuilder.addRight(getComponentFactory().createLabel(
             GestureConstants.GESTURE_CLASS_PANEL_NSA));
       }
     }
-    builder.nextLine(2);
 
-    builder.append(getComponentFactory().createLabel(
-        GestureConstants.GESTURE_CLASS_PANEL_NOD));
-    builder.append(new JLabel(Integer.toString(gestureClass.getDescriptors()
-        .size())));
-    builder.nextLine(2);
-    for (Descriptor descriptor : gestureClass.getDescriptors()) {
-      builder.append(getComponentFactory().createLabel(
-          GestureConstants.GESTURE_CLASS_PANEL_DESCRIPTOR_NAME));
-      builder.append(new JLabel(descriptor.getType().getName()));
-      builder.nextLine(2);
-    }
-
-    JPanel panel = builder.getPanel();
-    panel.setOpaque(false);
-
-    setContent(panel);
-
+    return formBuilder.getPanel();
   }
 
   @Override
