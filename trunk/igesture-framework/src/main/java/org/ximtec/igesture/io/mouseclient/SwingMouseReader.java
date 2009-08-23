@@ -23,7 +23,6 @@
  * 
  */
 
-
 package org.ximtec.igesture.io.mouseclient;
 
 import java.awt.Color;
@@ -47,157 +46,141 @@ import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.io.AbstractGestureDevice;
 
-
 /**
  * Comment
+ * 
  * @version 1.0 03.05.2008
  * @author Ueli Kurmann
  */
 public class SwingMouseReader extends AbstractGestureDevice<Note, Point> {
 
-   private static final Logger LOGGER = Logger.getLogger(SwingMouseReader.class
-         .getName());
+  private static final Logger LOGGER = Logger.getLogger(SwingMouseReader.class.getName());
 
-   private org.sigtec.ink.Point translation;
-   private SwingMouseReaderPanel currentPanel;
+  private org.sigtec.ink.Point translation;
+  private SwingMouseReaderPanel currentPanel;
 
-   private Note note;
-   private Trace trace;
-   private boolean lastKeyState = false;
-   
-   private Point lastPoint;
+  private Note note;
+  private Trace trace;
+  private boolean lastKeyState = false;
 
+  private Point lastPoint;
 
-   public SwingMouseReader() {
+  public SwingMouseReader() {
 
-   }
+  }
 
+  public JPanel getPanel(Dimension dimension) {
 
-   public JPanel getPanel(Dimension dimension) {
-      SwingMouseReaderPanel panel = new SwingMouseReaderPanel(this);
-      panel.setSize(dimension);
-      panel.setPreferredSize(dimension);
-      panel.setOpaque(true);
-      panel.setBackground(Color.WHITE);
-      panel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+    SwingMouseReaderPanel panel = new SwingMouseReaderPanel(this);
+    panel.setSize(dimension);
+    panel.setPreferredSize(dimension);
+    panel.setOpaque(true);
+    panel.setBackground(Color.WHITE);
+    panel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 
-      panel.addMouseListener(new SwingMouseListener(panel));
+    panel.addMouseListener(new SwingMouseListener(panel));
 
-      return panel;
-   }
+    return panel;
+  }
 
+  public void clear() {
+    note = new Note();
+    trace = new Trace();
+    if (currentPanel != null) {
+      currentPanel.clear();
+    }
+  }
 
-   public void clear() {
-      note = new Note();
-      trace = new Trace();
-      if (currentPanel != null) {
-         currentPanel.clear();
+  private class SwingMouseListener extends MouseAdapter {
+
+    SwingMouseReaderPanel owner;
+
+    private SwingMouseListener(SwingMouseReaderPanel panel) {
+      this.owner = panel;
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+      super.mousePressed(e);
+      LOGGER.info("Mouse pressed...");
+      currentPanel = owner;
+      Point p1 = e.getPoint();
+      Point p2 = MouseInfo.getPointerInfo().getLocation();
+      long timestamp = System.currentTimeMillis();
+      translation = new org.sigtec.ink.Point((int) (p1.getX() - p2.getX()), (int) (p1.getY() - p2.getY()), timestamp);
+
+      lastKeyState = true;
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+      super.mouseReleased(e);
+      if (lastKeyState) {
+        note.add(trace);
+        trace = new Trace();
+
+        lastKeyState = false;
+        lastPoint = null;
+        fireGestureEvent(getGesture());
       }
-   }
+    }
+  }
 
-   private class SwingMouseListener extends MouseAdapter {
+  @Override
+  public void dispose() {
+    removeAllListener();
+    clear();
 
-      SwingMouseReaderPanel owner;
+  }
 
+  @Override
+  public List<Point> getChunks() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
-      private SwingMouseListener(SwingMouseReaderPanel panel) {
-         this.owner = panel;
+  @Override
+  public Gesture<Note> getGesture() {
+    return new GestureSample(Constant.EMPTY_STRING, note);
+  }
+
+  @Override
+  public void init() {
+    note = new Note();
+    trace = new Trace();
+
+    Executors.newCachedThreadPool().execute(new Worker());
+  }
+
+  private class Worker implements Runnable {
+
+    @Override
+    public void run() {
+      while (true) {
+        if (lastKeyState) {
+          PointerInfo info = MouseInfo.getPointerInfo();
+          Point currentPoint = info.getLocation();
+
+          currentPoint.move((int) (currentPoint.getX() + translation.getX()), (int) (currentPoint.getY() + translation
+              .getY()));
+
+          trace.add(new org.sigtec.ink.Point(currentPoint.getX(), currentPoint.getY(), System.currentTimeMillis()));
+          if (currentPanel != null && lastPoint != null) {
+            currentPanel.drawLine(lastPoint, currentPoint);
+
+          }
+
+          lastPoint = currentPoint;
+        }
+
+        try {
+          Thread.sleep(1000 / 20);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
       }
-
-
-      @Override
-      public void mousePressed(MouseEvent e) {
-         super.mousePressed(e);
-         LOGGER.info("Mouse pressed...");
-         currentPanel = owner;
-         Point p1 = e.getPoint();
-         Point p2 = MouseInfo.getPointerInfo().getLocation();
-         long timestamp = System.currentTimeMillis();
-         translation = new org.sigtec.ink.Point((int)(p1.getX() - p2.getX()),
-               (int)(p1.getY() - p2.getY()), timestamp);
-
-         
-         lastKeyState = true;
-
-      }
-
-
-      @Override
-      public void mouseReleased(MouseEvent e) {
-         super.mouseReleased(e);
-         if (lastKeyState) {
-            note.add(trace);
-            trace = new Trace();
-
-            lastKeyState = false;
-            lastPoint = null;
-            fireGestureEvent(getGesture());
-         }
-      }
-   }
-
-
-   @Override
-   public void dispose() {
-      removeAllListener();
-      clear();
-
-   }
-
-
-   @Override
-   public List<Point> getChunks() {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-
-   @Override
-   public Gesture<Note> getGesture() {
-      return new GestureSample(Constant.EMPTY_STRING, note);
-   }
-
-
-   @Override
-   public void init() {
-      note = new Note();
-      trace = new Trace();
-
-      Executors.newCachedThreadPool().execute(new Worker());
-   }
-
-   private class Worker implements Runnable {
-
-     
-      
-      @Override
-      public void run() {
-         while (true) {
-             if (lastKeyState) {
-               PointerInfo info = MouseInfo.getPointerInfo();
-               Point currentPoint = info.getLocation();
-
-               currentPoint.move(
-                     (int)(currentPoint.getX() + translation.getX()),
-                     (int)(currentPoint.getY() + translation.getY()));
-
-               trace.add(new org.sigtec.ink.Point(currentPoint.getX(), currentPoint.getY(), System.currentTimeMillis()));
-               if (currentPanel != null && lastPoint != null) {
-                  currentPanel.drawLine(lastPoint, currentPoint);
-                
-               }
-
-               lastPoint = currentPoint;
-            }
-
-            try {
-               Thread.sleep(1000 / 20);
-            }
-            catch (InterruptedException e) {
-               e.printStackTrace();
-            }
-         }
-      }
-   }
+    }
+  }
 
 }

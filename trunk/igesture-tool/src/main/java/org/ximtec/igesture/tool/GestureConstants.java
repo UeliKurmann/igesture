@@ -74,6 +74,7 @@ public class GestureConstants {
   public static final String GESTURE_CLASS_PANEL_NSA = "GestureClassPanelNsa";
   public static final String GESTURE_CLASS_PANEL_NOD = "GestureClassPanelNod";
   public static final String GESTURE_CLASS_PANEL_DESCRIPTOR_NAME = "GestureClassPanelDescriptorName";
+  public static final String SAMPLE_DESCRIPTOR_TITLE = "SampleDescriptorTitle";
 
   public static final String ALGORITHM_LIST_NAME = "AlgorithmListName";
 
@@ -127,6 +128,8 @@ public class GestureConstants {
   public static final String NODE_ICON_TEST_SET_LIST = "TestSetListIcon";
   public static final String NODE_ICON_TEST_CLASS = "TestClassIcon";
   public static final String NODE_ICON_TEST_SET = "TestSetIcon";
+  public static final String SWING_MOUSE_READER = "SwingMouseReader";
+
   
 
 }
