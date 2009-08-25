@@ -54,5 +54,10 @@ public class LineDescriptor extends DigitalDescriptor {
       int y = (int)((note.getBounds2D().getMinY() + note.getBounds2D().getMaxY()) / 2);
       graphic.drawLine(x1, y, x2, y);
    } // getDigitalObject
+   
+   @Override
+   public String getName() {
+     return this.getClass().getSimpleName();
+   }
 
 }

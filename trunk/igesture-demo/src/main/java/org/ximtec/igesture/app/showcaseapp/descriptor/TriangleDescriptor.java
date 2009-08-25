@@ -57,5 +57,10 @@ public class TriangleDescriptor extends DigitalDescriptor {
       graphic.drawLine(x1, y, (x1 + x2) / 2, y2);
       graphic.drawLine(x2, y, (x1 + x2) / 2, y2);
    } // getDigitalObject
+   
+   @Override
+   public String getName() {
+     return this.getClass().getSimpleName();
+   }
 
 }

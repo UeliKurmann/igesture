@@ -116,7 +116,7 @@ public abstract class DefaultSampleDescriptor<T> extends DefaultDescriptor {
    } // accept
 
 
-   public abstract String getName();
+   
 
 
    @Override

@@ -53,5 +53,10 @@ public class RectangleDescriptor extends DigitalDescriptor {
             .getBounds2D().getMinY(), (int)note.getBounds2D().getWidth(),
             (int)note.getBounds2D().getHeight());
    } // getDigitalObject
+   
+   @Override
+   public String getName() {
+     return this.getClass().getSimpleName();
+   }
 
 }

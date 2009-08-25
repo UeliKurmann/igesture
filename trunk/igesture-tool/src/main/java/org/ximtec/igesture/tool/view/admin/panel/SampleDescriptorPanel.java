@@ -47,36 +47,30 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.tree.TreePath;
 
 import org.sigtec.graphix.GridBagLayouter;
 import org.sigtec.ink.Note;
-import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.Gesture;
-import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
-import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
 import org.ximtec.igesture.tool.gesturevisualisation.GesturePanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanelFactory;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
 import org.ximtec.igesture.tool.util.FontFactory;
 import org.ximtec.igesture.tool.util.Formatter;
-import org.ximtec.igesture.tool.util.TitleFactory;
-import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.action.RemoveGestureSampleAction;
 
-public class SampleDescriptorPanel extends AbstractPanel {
+public class SampleDescriptorPanel extends DefaultDescriptorPanel<SampleDescriptor> {
 
   private static final int INPUTAREA_SIZE = 200;
   private static final int SPACE_SIZE = 5;
   private static final int SAMPLE_SIZE = 100;
-  private final SampleDescriptor descriptor;
+ 
   private GestureDevice<?, ?> gestureDevice;
 
   private Map<Gesture<Note>, JPanel> sampleCache;
@@ -88,8 +82,8 @@ public class SampleDescriptorPanel extends AbstractPanel {
    * @param descriptor
    */
   public SampleDescriptorPanel(Controller controller, final SampleDescriptor descriptor) {
-    super(controller);
-    this.descriptor = descriptor;
+    super(controller, descriptor);
+   
     this.sampleCache = new HashMap<Gesture<Note>, JPanel>();
 
     // component listener to handle resize actions
@@ -139,7 +133,7 @@ public class SampleDescriptorPanel extends AbstractPanel {
     GesturePanel gesturePanel = InputPanelFactory.createGesturePanel(sample);
     final JPanel panel = gesturePanel.getPanel(new Dimension(SAMPLE_SIZE, SAMPLE_SIZE));
     panel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-    panel.addMouseListener(new SampleIconMouseListener(new RemoveGestureSampleAction(getController(), descriptor,
+    panel.addMouseListener(new SampleIconMouseListener(new RemoveGestureSampleAction(getController(), getDescriptor(),
         sample), panel));
     panel.setOpaque(true);
     panel.setBackground(Color.WHITE);
@@ -208,7 +202,7 @@ public class SampleDescriptorPanel extends AbstractPanel {
     // buttons
     JPanel buttonPanel = new JPanel();
     buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-    buttonPanel.add(createAddSampleButton(descriptor));
+    buttonPanel.add(createAddSampleButton(getDescriptor()));
     buttonPanel.add(createClearSampleButton());
 
     inputComponentPanel.add(buttonPanel);
@@ -271,38 +265,11 @@ public class SampleDescriptorPanel extends AbstractPanel {
     setContent(panel);
   }
 
-  /**
-   * Sets the title of the form
-   */
-  private void initTitle() {
-
-    StringBuilder sb = new StringBuilder();
-
-    if (getController() instanceof ExplorerTreeController) {
-      try {
-        ExplorerTreeController ec = (ExplorerTreeController) getController();
-        sb.append(descriptor.getName());
-        sb.append(Constant.COLON_BLANK);
-
-        TreePath treePath = ec.getExplorerTree().getSelectionPath();
-        GestureClass gc = (GestureClass) treePath.getParentPath().getLastPathComponent();
-
-        sb.append(gc.getName());
-      } catch (Exception e) {
-        sb.append(descriptor.getName());
-      }
-    } else {
-      sb.append(descriptor.getName());
-    }
-
-    setTitle(TitleFactory.createStaticTitle(sb.toString()));
-  }
-
   @Override
   public void refreshUILogic() {
     super.refreshUILogic();
     gestureDevice.clear();
-    initSampleSection(descriptor.getSamples());
+    initSampleSection(getDescriptor().getSamples());
   }
 
   /**

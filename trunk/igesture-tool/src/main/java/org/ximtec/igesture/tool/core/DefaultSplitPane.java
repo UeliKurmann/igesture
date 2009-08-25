@@ -6,10 +6,13 @@ import org.ximtec.igesture.tool.util.ComponentFactory;
 
 public class DefaultSplitPane extends JSplitPane {
 
+  private static final int DIVIDER_LOCATION = 240;
   private Controller controller;
 
   public DefaultSplitPane(Controller controller) {
     super(JSplitPane.HORIZONTAL_SPLIT);
+    
+    setDividerLocation(DIVIDER_LOCATION);
     
     this.controller = controller;
     if (this.controller == null) {
