@@ -1,23 +1,20 @@
 <html>
 <body>
 <h1>iGesture Data Structure</h1>
-The figure below shows the simplified core data structure of iGesture. A
-<b>gesture class</b> describes a gesture in an abstract manner. Multiple
-gesture classes are taken together into <b>gesture sets</b>. Therefore, a
-gesture set is a number of related gestures which are used by an
-application.
+A simplified version of the iGesture core data structure is shown in the figure at the bottom of this page. A
+<b>Gesture Class</b> describes a gesture in an abstract manner. A <b>Gesture Set</b> represents a group
+of gesture classes that can be used within an application.
 <br />
 <br />
-The <b>gesture descriptor</b> is a concrete description of the gestures. A
-gesture class should has at least one descriptor. The most used
-descriptor is the SampleDescriptor. It is used for training based
-algorithms (e.g. Rubine Algorithm) and is composed of a number of
-samples.
+The gesture <b>Descriptor</b> provides a specific description for a gesture class. A
+gesture class should have at least one descriptor. The most commonly used
+gesture descriptor is the <b>SampleDescriptor</b>. Training-based algorithms (e.g. the Rubine algorithm)
+store a set of samples within the sample descriptor class.
 <br />
 <br />
-The left side of the figure shows the abstract data structure. On the right
-side a concrete example of a gesture set and its gesture classes and
-descriptions is imaged.
+The left-hand side of the figure shows the abstract data structure whereas on the right-hand
+side an example of a specific gesture set (MS application gestures) together with its gesture classes and
+descriptions is outlined.
 <center><img src="../image/datastructure.png"
 	alt="iGesture Data Structure"></center>
 </body>
