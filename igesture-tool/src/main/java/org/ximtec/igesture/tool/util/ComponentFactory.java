@@ -42,6 +42,7 @@ import org.sigtec.graphix.GuiBundle;
 import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicLabel;
 import org.sigtec.graphix.widget.BasicTextField;
+import org.sigtec.util.Constant;
 import org.ximtec.igesture.tool.locator.Service;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 
@@ -62,7 +63,7 @@ public class ComponentFactory implements Service {
 	}
 
 	public JLabel createLabel(String key) {
-		return new BasicLabel(key, getGuiBundle());
+		return new BasicLabel(key, getGuiBundle(), Constant.COLON);
 	}
 
 	public JButton createButton(String key, Action action) {
