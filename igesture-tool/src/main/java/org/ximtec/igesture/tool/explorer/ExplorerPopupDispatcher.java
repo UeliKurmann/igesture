@@ -57,34 +57,43 @@ public class ExplorerPopupDispatcher extends MouseAdapter {
    public ExplorerPopupDispatcher(Map<Class< ? >, NodeInfo> nodeInfos) {
       this.nodeInfos = nodeInfos;
    }
+   
+   @Override
+  public void mousePressed(MouseEvent e) {
+     handlePopUpTrigger(e);
+  }
 
 
    @Override
    public void mouseReleased(MouseEvent e) {
-      if (e.isPopupTrigger()) {
-
-         // lookup selected tree node
-         JTree tree = (JTree)e.getSource();
-         TreePath closestPathForLocation = tree.getClosestPathForLocation(e
-               .getX(), e.getY());
-
-         // select the nearest node if it is not active.
-         if (!tree.isPathSelected(closestPathForLocation)) {
-            tree.setSelectionPath(closestPathForLocation);
-         }
-
-         // get the selected node
-         Object node = tree.getLastSelectedPathComponent();
-
-         NodeInfo nodeInfo = nodeInfos.get(node.getClass());
-         if (nodeInfo != null) {
-            LOG.info("NodeInfo was found. Get the Popup Menu.");
-            // show Popup Menu
-            JPopupMenu popupMenu = nodeInfo.getPopupMenu(closestPathForLocation);
-            popupMenu.show(e.getComponent(), e.getX(), e.getY());
-         }
-      }
+      handlePopUpTrigger(e);
 
    } // mouseReleased
+
+  private void handlePopUpTrigger(MouseEvent e) {
+    if (e.isPopupTrigger()) {
+
+       // lookup selected tree node
+       JTree tree = (JTree)e.getSource();
+       TreePath closestPathForLocation = tree.getClosestPathForLocation(e
+             .getX(), e.getY());
+
+       // select the nearest node if it is not active.
+       if (!tree.isPathSelected(closestPathForLocation)) {
+          tree.setSelectionPath(closestPathForLocation);
+       }
+
+       // get the selected node
+       Object node = tree.getLastSelectedPathComponent();
+
+       NodeInfo nodeInfo = nodeInfos.get(node.getClass());
+       if (nodeInfo != null) {
+          LOG.info("NodeInfo was found. Get the Popup Menu.");
+          // show Popup Menu
+          JPopupMenu popupMenu = nodeInfo.getPopupMenu(closestPathForLocation);
+          popupMenu.show(e.getComponent(), e.getX(), e.getY());
+       }
+    }
+  }
 
 }
