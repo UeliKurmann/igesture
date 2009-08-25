@@ -25,48 +25,41 @@
 
 package org.ximtec.igesture.tool.view.admin.panel;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import org.ximtec.igesture.core.TextDescriptor;
+import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.binding.BindingFactory;
 import org.ximtec.igesture.tool.core.Controller;
-import org.ximtec.igesture.tool.util.TitleFactory;
-import org.ximtec.igesture.tool.view.AbstractPanel;
+import org.ximtec.igesture.tool.util.ComponentFactory;
+import org.ximtec.igesture.tool.util.FormBuilder;
 
-import com.jgoodies.forms.builder.DefaultFormBuilder;
-import com.jgoodies.forms.layout.FormLayout;
+public class TextDescriptorPanel extends DefaultDescriptorPanel<TextDescriptor> {
 
+  public TextDescriptorPanel(Controller controller, TextDescriptor textDescriptor) {
+    super(controller, textDescriptor);
 
-public class TextDescriptorPanel extends AbstractPanel {
+    initTitle();
 
-   public TextDescriptorPanel(Controller controller, TextDescriptor textDescriptor) {
-     super(controller);
-      setTitle(TitleFactory.createStaticTitle(textDescriptor.getClass().getName()));
+    FormBuilder formBuilder = new FormBuilder();
 
-      FormLayout layout = new FormLayout(
-            "100dlu, 4dlu, 200dlu",
-            "pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref,, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref");
+    JLabel labelText = getComponentFactory().createLabel(GestureConstants.TEXT_DESCRIPTOR_TEXT);
+    
+    JTextArea textArea = new JTextArea();
+    BindingFactory.createInstance(textArea, textDescriptor, TextDescriptor.PROPERTY_TEXT);
 
-      DefaultFormBuilder builder = new DefaultFormBuilder(layout);
-      builder.setDefaultDialogBorder();
+    formBuilder.addLeft(labelText);
+    formBuilder.addRight(textArea);
+    
+    JPanel basePanel = ComponentFactory.createBorderLayoutPanel();
+    basePanel.add(formBuilder.getPanel(), BorderLayout.NORTH);
 
-      builder.append(new JLabel("Text"));
-      JTextArea textArea = new JTextArea();
+    setContent(basePanel);
 
-      BindingFactory.createInstance(textArea, textDescriptor,
-            TextDescriptor.PROPERTY_TEXT);
-
-      builder.append(textArea);
-      builder.nextLine(2);
-
-      JPanel panel = builder.getPanel();
-      panel.setOpaque(false);
-      // panel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-
-      setContent(panel);
-
-   }
+  }
 
 }

@@ -57,6 +57,7 @@ import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanelFactory;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
+import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.MainModel;
@@ -119,8 +120,7 @@ public class ConfigurationPanel extends AbstractPanel {
     basePanel.add(inputPanel.getPanel(new Dimension(200, 200)));
 
     // buttons
-    JPanel buttonPanel = new JPanel();
-    buttonPanel.setLayout(new BorderLayout());
+    JPanel buttonPanel = ComponentFactory.createBorderLayoutPanel();
 
     final JComboBox comboBox = new JComboBox(getController().getLocator().getService(MainModel.IDENTIFIER, MainModel.class)
         .getGestureSets().toArray());
@@ -159,7 +159,6 @@ public class ConfigurationPanel extends AbstractPanel {
     buttonPanel.add(clearButton, BorderLayout.NORTH);
     buttonPanel.add(recogniseButton, BorderLayout.CENTER);
     buttonPanel.add(comboBox, BorderLayout.SOUTH);
-    
 
     basePanel.add(buttonPanel);
 

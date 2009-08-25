@@ -51,5 +51,7 @@ public abstract class DefaultDescriptor extends DefaultDataObject implements
    public Class< ? extends Descriptor> getType() {
       return this.getClass();
    } // getType
+   
+   public abstract String getName();
 
 }

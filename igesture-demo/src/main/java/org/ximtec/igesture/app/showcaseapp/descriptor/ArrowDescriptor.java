@@ -62,4 +62,10 @@ public class ArrowDescriptor extends DigitalDescriptor {
       graphic.drawLine(x2, y, x2 - SPACE, y + diff);
    } // getDigitalObject
 
+
+  @Override
+  public String getName() {
+    return this.getClass().getSimpleName();
+  }
+
 }

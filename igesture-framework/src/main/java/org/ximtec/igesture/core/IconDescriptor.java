@@ -56,4 +56,10 @@ public class IconDescriptor extends DefaultDescriptor {
    public void setPath(String path) {
       this.path = path;
    }
+
+
+  @Override
+  public String getName() {
+    return this.getClass().getSimpleName();
+  }
 }

@@ -131,6 +131,7 @@ public class GestureConstants {
   public static final String SWING_MOUSE_READER = "SwingMouseReader";
   public static final String TESTCLASS_DELETE = "TestClassDelete";
   public static final String TESTCLASS_NAME = "TestClassName";
+  public static final String TEXT_DESCRIPTOR_TEXT = "TextDescriptorText";
 
   
 

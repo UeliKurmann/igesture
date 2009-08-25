@@ -99,4 +99,10 @@ public class TextDescriptor extends DefaultDescriptor {
       return this.getClass().getSimpleName();
    } // toString
 
+
+  @Override
+  public String getName() {
+    return this.getClass().getSimpleName();
+  }
+
 }
