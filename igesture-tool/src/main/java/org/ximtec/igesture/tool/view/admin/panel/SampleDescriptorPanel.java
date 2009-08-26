@@ -296,6 +296,11 @@ public class SampleDescriptorPanel extends DefaultDescriptorPanel<SampleDescript
     public void mouseReleased(MouseEvent e) {
       popUp(e);
     }
+    
+    @Override
+    public void mousePressed(MouseEvent e) {
+      popUp(e);
+    }
 
     private void popUp(MouseEvent e) {
       if (e.isPopupTrigger()) {
