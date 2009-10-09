@@ -52,7 +52,7 @@ public class FileFilterFactory {
       db4oWorkbench = new ExtensionFileFilter("igd", "iGesture Workspace db4o");
       gestureSet = new ExtensionFileFilter("igs", "iGesture Gesture Set");
       testSet = new ExtensionFileFilter("igt", "iGesture Test Set");
-      algorithmConfiguration = new ExtensionFileFilter("igc", "iGesture Recogniser Configuraiton");
+      algorithmConfiguration = new ExtensionFileFilter("igc", "iGesture Recogniser Configuration");
       pdf = new ExtensionFileFilter("pdf", "Portable Document Format");
       igb = new ExtensionFileFilter("igb", "iGesture Batch Configuration");
    }
