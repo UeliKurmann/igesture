@@ -51,7 +51,7 @@ public abstract class AbstractGestureDevice<E, F> implements GestureDevice<E, F>
     * @see org.ximtec.igesture.io.GestureDevice#removeGestureHandle(org.ximtec.igesture.io.GestureEventListener)
     */
    @Override
-   public void removeGestureHandle(GestureEventListener listener) {
+   public void removeGestureHandler(GestureEventListener listener) {
       gestureListeners.remove(listener);
    }
 

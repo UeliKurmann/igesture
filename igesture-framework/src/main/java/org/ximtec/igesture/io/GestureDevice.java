@@ -83,6 +83,6 @@ public interface GestureDevice<E, F> {
     * Remove a gesture handler
     * @param listener
     */
-   void removeGestureHandle(GestureEventListener listener);
+   void removeGestureHandler(GestureEventListener listener);
 
 }
