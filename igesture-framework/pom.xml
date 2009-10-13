@@ -200,7 +200,7 @@
 		</dependency>
 
         <dependency>
-            <groupId>wiigee</groupId>
+            <groupId>com.wiigee</groupId>
             <artifactId>wiigee</artifactId>
         </dependency>
         
