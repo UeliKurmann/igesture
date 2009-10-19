@@ -25,6 +25,9 @@
 
 package org.ximtec.igesture.algorithm.rubine3d.tools;
 
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+
 public class Gesture3DMain {
 	
 	/**
@@ -32,8 +35,24 @@ public class Gesture3DMain {
 	 */
 	public static void main(String[] args) {		
 		
+		//Set System Look & Feel
+		try {
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		        if ("Nimbus".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		    }
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		//Create tool
-		Gesture3DTool tool = new Gesture3DTool("C:\\GestureDB\\demogestureset.db");
+		//Gesture3DTool tool = new Gesture3DTool("C:\\GestureDB\\demogestureset.db");
+		//FIXME adapt path to where your project is
+		//TODO use java.util.Properties
+		Gesture3DTool tool = new Gesture3DTool("/home/bjorn/workspace/thesis/projects/wii.igz");
 		// Create UI Frame
 		Gesture3DToolUI ui = new Gesture3DToolUI(tool);
 		ui.setVisible(true);

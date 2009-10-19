@@ -26,6 +26,7 @@
 package org.ximtec.igesture.tool;
 
 import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 import org.ximtec.igesture.tool.view.MainController;
 
@@ -41,8 +42,13 @@ public class Main {
 
    public static void main(String[] args) {
       try {
-         UIManager
-               .setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+    	  /* see http://java.sun.com/docs/books/tutorial/uiswing/lookandfeel/nimbus.html */
+    	  for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+    	        if ("Nimbus".equals(info.getName())) {
+    	            UIManager.setLookAndFeel(info.getClassName());
+    	            break;
+    	        }
+    	    }
       }
       catch (Exception e) {
          try {
