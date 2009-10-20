@@ -36,14 +36,10 @@
 		<developer>
 			<id>D\signerb</id>
 			<name>Beat Signer</name>
-			<email>signer@inf.ethz.ch</email>
-			<url>http://www.globis.ethz.ch/people/signerb/</url>
-			<organization>
-				Global Information Systems Group, ETH Zurich
-			</organization>
-			<organizationUrl>
-				http://www.globis.ethz.ch/
-			</organizationUrl>
+			<email>bsigner@vub.ac.be</email>
+			<url>http://www.inf.ethz.ch/personal/signer/</url>
+			<organization>Vrije Universiteit Brussel</organization>
+			<organizationUrl>http://www.vub.ac.be</organizationUrl>
 			<roles>
 				<role>Developer</role>
 			</roles>
@@ -56,6 +52,18 @@
 			<url />
 			<organization>ETH Zurich</organization>
 			<organizationUrl>http://www.ethz.ch/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<id>bpuype</id>
+			<name>Björn Puype</name>
+			<email>bpuype@vub.ac.be</email>
+			<url />
+			<organization>Vrije Universiteit Brussel</organization>
+			<organizationUrl>http://www.vub.ac.be</organizationUrl>
 			<roles>
 				<role>Developer</role>
 			</roles>
