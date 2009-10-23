@@ -49,10 +49,9 @@ public class Gesture3DMain {
 		}
 		
 		//Create tool
-		//Gesture3DTool tool = new Gesture3DTool("C:\\GestureDB\\demogestureset.db");
 		//FIXME adapt path to where your project is
 		//TODO use java.util.Properties
-		Gesture3DTool tool = new Gesture3DTool("/home/bjorn/workspace/thesis/projects/wii.igz");
+		Gesture3DTool tool = new Gesture3DTool("/home/bjorn/workspace/thesis/projects/wii.igd");
 		// Create UI Frame
 		Gesture3DToolUI ui = new Gesture3DToolUI(tool);
 		ui.setVisible(true);

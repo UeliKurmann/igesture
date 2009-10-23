@@ -170,6 +170,10 @@ public class WiiReader extends
 			if (wiimotes[0] != null)
 				// Take the first wiimote in the list
 				this.wiimote = wiimotes[0];
+			//diable WiiGee internal training and recognition
+			wiimote.setRecognitionButton(0);
+			wiimote.setTrainButton(0);
+			wiimote.setCloseGestureButton(0);
 			// Add this as a button listener
 			wiimote.addButtonListener(this);
 			// Add this as a gesture listener

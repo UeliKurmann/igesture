@@ -190,14 +190,14 @@ public class Gesture3DTool {
 
 					// DEBUG
 
-					Iterator i = tempSet.getGestureClass(className)
-							.getDescriptor(SampleDescriptor3D.class).getSamples()
-							.iterator();
-					while (i.hasNext()) {
-						GestureSample3D tempSample = (GestureSample3D) i.next();
-						System.out.println("Name: \"" + tempSample.getName()
-								+ "\"");
-					}
+//					Iterator i = tempSet.getGestureClass(className)
+//							.getDescriptor(SampleDescriptor3D.class).getSamples()
+//							.iterator();
+//					while (i.hasNext()) {
+//						GestureSample3D tempSample = (GestureSample3D) i.next();
+//						System.out.println("Name: \"" + tempSample.getName()
+//								+ "\"");
+//					}
 
 					return;
 				}
@@ -261,14 +261,13 @@ public class Gesture3DTool {
 	 */
 	public void recognise(String setName) {
 		// Configure recogniser
-		new Rubine3DAlgorithm();
+		//new Rubine3DAlgorithm();
 		Configuration config = new Configuration();
 		config.addAlgorithm(Rubine3DAlgorithm.class.getName());
 		config.addGestureSet(getGestureSet(setName));
 		try {
 			recogniser = new Recogniser(config);
 		} catch (AlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// Recognise

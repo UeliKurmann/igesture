@@ -160,7 +160,7 @@ public class Gesture3DToolUI extends JFrame {
 		getContentPane().add(sampleForwardButton);
 
 		removeSampleButton = new JButton("Remove Sample");
-		removeSampleButton.setBounds(100, 330, 150, 40);
+		removeSampleButton.setBounds(100, 330, 150, 50);
 		removeSampleButton.addActionListener(new removeSampleButtonListener());
 		getContentPane().add(removeSampleButton);
 
@@ -196,18 +196,18 @@ public class Gesture3DToolUI extends JFrame {
 				.addActionListener(new addGestureSampleButtonListener());
 		getContentPane().add(addGestureSampleButton);
 
-		startWiiMoteButton = new JButton("Start WiiMote");
-		startWiiMoteButton.setBounds(620, 125, 220, 50);
+		startWiiMoteButton = new JButton("Connect WiiMote");
+		startWiiMoteButton.setBounds(620, 125, 200, 50);
 		startWiiMoteButton.addActionListener(new startWiiMoteButtonListener());
 		getContentPane().add(startWiiMoteButton);
 
-		stopWiiMoteButton = new JButton("Stop WiiMote");
-		stopWiiMoteButton.setBounds(870, 125, 150, 50);
+		stopWiiMoteButton = new JButton("Disconnect WiiMote");
+		stopWiiMoteButton.setBounds(820, 125, 200, 50);
 		stopWiiMoteButton.addActionListener(new stopWiiMoteButtonListener());
 		getContentPane().add(stopWiiMoteButton);
 
 		recogniseButton = new JButton("Recognise this gesture");
-		recogniseButton.setBounds(400, 350, 200, 50);
+		recogniseButton.setBounds(400, 330, 200, 50);
 		recogniseButton.addActionListener(new recogniseButtonListener());
 		getContentPane().add(recogniseButton);
 
