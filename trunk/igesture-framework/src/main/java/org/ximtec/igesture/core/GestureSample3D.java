@@ -117,12 +117,9 @@ public class GestureSample3D extends DefaultDataObject implements Cloneable,
 		while (iterator.hasNext()) {
 			point3d = iterator.next();
 			// Add points to 2d traces
-			traceXY.add(new Point(point3d.getX(), point3d.getY(), point3d
-					.getTimeStamp()));
-			traceYZ.add(new Point(point3d.getX(), point3d.getZ(), point3d
-					.getTimeStamp()));
-			traceZX.add(new Point(point3d.getY(), point3d.getZ(), point3d
-					.getTimeStamp()));
+			traceXY.add(new Point(point3d.getX(), point3d.getY(), point3d.getTimeStamp()));
+			traceYZ.add(new Point(point3d.getY(), point3d.getZ(), point3d.getTimeStamp()));
+			traceZX.add(new Point(point3d.getZ(), point3d.getX(), point3d.getTimeStamp()));
 		}
 		// Put traces into Notes
 		Note noteXY = new Note(); // X plane Note

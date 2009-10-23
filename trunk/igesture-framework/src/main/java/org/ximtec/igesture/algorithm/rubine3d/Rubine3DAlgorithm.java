@@ -473,7 +473,7 @@ public class Rubine3DAlgorithm implements Algorithm {
 			GestureClass classYZ = new GestureClass(tempClass.getName());
 			GestureClass classZX = new GestureClass(tempClass.getName());
 			// If the gesture class contains a sample descriptor
-			if (tempClass.getDescriptor(SampleDescriptor.class) != null) {
+			if (tempClass.getDescriptor(SampleDescriptor3D.class) != null) {		
 				SampleDescriptor descXY = new SampleDescriptor();
 				SampleDescriptor descYZ = new SampleDescriptor();
 				SampleDescriptor descZX = new SampleDescriptor();
