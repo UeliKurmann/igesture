@@ -41,7 +41,7 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.TreePathAction;
-import org.ximtec.igesture.tool.util.FileFilterFactory;
+import org.ximtec.igesture.tool.util.FileType;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -63,7 +63,7 @@ public class ExportPDFGestureSetAction extends TreePathAction {
 
       Document.compress = false;
       JFileChooser fileChooser = new JFileChooser();
-      fileChooser.setFileFilter(FileFilterFactory.getPdf());
+      fileChooser.setFileFilter(FileType.pdf.getFilter());
       fileChooser.showSaveDialog((JMenuItem)event.getSource());
       File selectedFile = fileChooser.getSelectedFile();
 

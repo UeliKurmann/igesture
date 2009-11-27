@@ -36,7 +36,7 @@ import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.TreePathAction;
-import org.ximtec.igesture.tool.util.FileFilterFactory;
+import org.ximtec.igesture.tool.util.FileType;
 import org.ximtec.igesture.util.XMLTool;
 
 
@@ -57,7 +57,7 @@ public class ExportTestSetAction extends TreePathAction {
       TestSet testSet = (TestSet)getTreePath().getLastPathComponent();
       
       JFileChooser fileChooser = new JFileChooser();
-      fileChooser.setFileFilter(FileFilterFactory.getTestSet());
+      fileChooser.setFileFilter(FileType.testSet.getFilter());
       fileChooser.showSaveDialog(null); 
       
       File selectedFile = fileChooser.getSelectedFile();

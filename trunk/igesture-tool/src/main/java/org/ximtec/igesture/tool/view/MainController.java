@@ -53,9 +53,9 @@ import org.ximtec.igesture.storage.StorageManager.StorageEngineType;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultController;
+import org.ximtec.igesture.tool.core.EdtProxy;
 import org.ximtec.igesture.tool.core.ExecCmd;
 import org.ximtec.igesture.tool.core.GenericLocateableAction;
-import org.ximtec.igesture.tool.core.EdtProxy;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.locator.Service;
@@ -63,7 +63,7 @@ import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
 import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.ExtensionFileFilter;
-import org.ximtec.igesture.tool.util.FileFilterFactory;
+import org.ximtec.igesture.tool.util.FileType;
 import org.ximtec.igesture.tool.view.admin.AdminController;
 import org.ximtec.igesture.tool.view.batch.BatchController;
 import org.ximtec.igesture.tool.view.testbench.TestbenchController;
@@ -372,9 +372,9 @@ public class MainController extends DefaultController implements Service {
 		File file = null;
 
 		JFileChooser chooser = new JFileChooser();
-		chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceDb4o());
-		chooser.addChoosableFileFilter(FileFilterFactory.getWorkspaceXStream());
-		chooser.setFileFilter(FileFilterFactory.getWorkspaceCompressed());
+		chooser.addChoosableFileFilter(FileType.db4oWorkbench.getFilter());
+		chooser.addChoosableFileFilter(FileType.xstreamWorkbench.getFilter());
+		chooser.setFileFilter(FileType.compressedWorkbench.getFilter());
 		chooser.setCurrentDirectory(new File(properties
 				.getProperty(Property.WORKING_DIRECTORY)));
 

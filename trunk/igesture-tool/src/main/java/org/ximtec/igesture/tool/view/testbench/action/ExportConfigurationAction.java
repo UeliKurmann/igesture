@@ -36,7 +36,7 @@ import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.TreePathAction;
-import org.ximtec.igesture.tool.util.FileFilterFactory;
+import org.ximtec.igesture.tool.util.FileType;
 import org.ximtec.igesture.util.XMLTool;
 
 
@@ -58,7 +58,7 @@ public class ExportConfigurationAction extends TreePathAction {
       Configuration configuration = (Configuration)getTreePath().getLastPathComponent();
       
       JFileChooser fileChooser = new JFileChooser();
-      fileChooser.setFileFilter(FileFilterFactory.getRecogniserConfig());
+      fileChooser.setFileFilter(FileType.igb.getFilter());
       fileChooser.showSaveDialog(null);
       final File file = fileChooser.getSelectedFile();
 

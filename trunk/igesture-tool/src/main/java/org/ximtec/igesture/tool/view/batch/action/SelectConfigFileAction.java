@@ -34,7 +34,7 @@ import javax.swing.JFileChooser;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.LocateableAction;
-import org.ximtec.igesture.tool.util.FileFilterFactory;
+import org.ximtec.igesture.tool.util.FileType;
 import org.ximtec.igesture.tool.view.batch.BatchView;
 
 
@@ -54,7 +54,7 @@ public class SelectConfigFileAction extends LocateableAction {
    @Override
    public void actionPerformed(ActionEvent action) {
       JFileChooser chooser = new JFileChooser();
-      chooser.setFileFilter(FileFilterFactory.getBatchConfig());
+      chooser.setFileFilter(FileType.igb.getFilter());
       chooser.showOpenDialog(null);
       File file = chooser.getSelectedFile();
       if (file != null) {
