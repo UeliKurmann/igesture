@@ -38,7 +38,7 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.TreePathAction;
-import org.ximtec.igesture.tool.util.FileFilterFactory;
+import org.ximtec.igesture.tool.util.FileType;
 import org.ximtec.igesture.tool.view.admin.wrapper.GestureSetList;
 import org.ximtec.igesture.util.XMLTool;
 
@@ -60,7 +60,7 @@ public class ImportGestureSetAction extends TreePathAction {
       GestureSetList rootSet = (GestureSetList)getTreePath().getLastPathComponent();
 
       JFileChooser fileChooser = new JFileChooser();
-      fileChooser.setFileFilter(FileFilterFactory.getGestureSet());
+      fileChooser.setFileFilter(FileType.gestureSet.getFilter());
       fileChooser.showOpenDialog((JMenuItem)event.getSource());
       File selectedFile = fileChooser.getSelectedFile();
 
