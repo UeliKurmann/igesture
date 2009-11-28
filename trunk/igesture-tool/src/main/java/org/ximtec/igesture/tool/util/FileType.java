@@ -1,5 +1,7 @@
 package org.ximtec.igesture.tool.util;
 
+import java.io.File;
+
 public enum FileType {
   
   compressedWorkbench("igz", "iGesture Workspace Compressed"),
@@ -48,5 +50,19 @@ public enum FileType {
    */
   public ExtensionFileFilter getFilter(){
     return this.filter;
+  }
+  
+  /**
+   * Adds the extension if it is not already there.
+   * @param file
+   * @return file with extension
+   */
+  public File addExtension(File file){
+    if(file != null && !file.getName().endsWith(this.extension) ){
+      File parent = file.getParentFile();
+      return new File(parent, String.format("%s.%s", file.getName(), extension));
+    }
+    
+    return file;
   }
 }
