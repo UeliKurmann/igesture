@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<devices>
+	<device>
+		<minor>4</minor>
+		<major>1280</major>
+		<class>org.ximtec.igesture.io.wiimote.WiiReader</class>
+	</device>
+</devices>

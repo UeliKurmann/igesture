@@ -53,7 +53,7 @@ public class StorageManager implements IStorageManager {
   
 
   public enum StorageEngineType {
-    igd, igx, igz
+    igd, igdc, igx, igz
   }
 
   /**
@@ -175,6 +175,7 @@ public class StorageManager implements IStorageManager {
 
     switch (getEngineType(file)) {
     case igd:
+    case igdc:
       engine = new Db4oStorageEngine(file.getPath());
       break;
     case igx:

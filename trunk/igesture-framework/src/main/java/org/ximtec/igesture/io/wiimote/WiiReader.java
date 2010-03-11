@@ -81,7 +81,27 @@ public class WiiReader extends
 		this.recordedGesture = new RecordedGesture3D();
 		this.gesture = new GestureSample3D("", recordedGesture);
 
+		//MODIFY >
+		setDeviceType("3D");//TODO
+		setConnectionType("BlueTooth");
+		//MODIFY <
+		
 	}
+	
+	//MODIFY >
+	public WiiReader(String address, String name)
+	{
+		this.accelerations = new WiiAccelerations();
+		this.currentPanel = new WiiReaderPanel(this);
+		this.recordedGesture = new RecordedGesture3D();
+		this.gesture = new GestureSample3D("", recordedGesture);
+
+		setDeviceID(address);
+		setName(name);
+		setDeviceType("3D");//TODO
+		setConnectionType("BlueTooth");//TODO
+	}
+	//MODIFY <
 
 	/**
 	 * Returns the panel with standard dimension
@@ -173,23 +193,57 @@ public class WiiReader extends
 			//diable WiiGee internal training and recognition
 			wiimote.setRecognitionButton(0);
 			wiimote.setTrainButton(0);
-			wiimote.setCloseGestureButton(0);
+			wiimote.setCloseGestureButton(0);			
 			// Add this as a button listener
 			wiimote.addButtonListener(this);
 			// Add this as a gesture listener
 			wiimote.addAccelerationListener(this);
 			System.out.println("WiiReader added as a listener for gesture and button events.");
+			
+			//MODIFY >
+			setIsConnected(true);
+			//MODIFY <
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	//MODIFY >
+	public void initNew()
+	{
+		try {
+			wiimote = new Wiimote(getDeviceID(),true,true);
+			
+			//diable WiiGee internal training and recognition
+			wiimote.setRecognitionButton(0);
+			wiimote.setTrainButton(0);
+			wiimote.setCloseGestureButton(0);			
+			// Add this as a button listener
+			wiimote.addButtonListener(this);
+			// Add this as a gesture listener
+			wiimote.addAccelerationListener(this);
+//			System.out.println("WiiReader added as a listener for gesture and button events.");
+			
+			setIsConnected(true);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	//MODIFY <
 
 	/**
 	 * Disconnects the WiiMote
 	 */
 	public void disconnect() {
 		if (this.wiimote != null)
+		{
 			this.wiimote.disconnect();
+			
+			//MODIFY >
+			setIsConnected(false);
+			//MODIFY <
+		}
 	}
 
 	/**
@@ -255,5 +309,12 @@ public class WiiReader extends
 
 	@Override
 	public void motionStopReceived(MotionStopEvent event) {
+	}
+
+	//MODIFY >
+	
+	@Override
+	public void connect() {
+		initNew();
 	}
 }

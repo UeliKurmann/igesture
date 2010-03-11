@@ -153,4 +153,19 @@ public class MouseReader extends AbstractGestureDevice<Note, Point> implements M
       trace = new Trace();
    }
 
+
+	@Override
+	public void connect() {
+		//TODO
+		//init();
+		LOGGER.log(Level.WARNING, "Still to implement");
+	}
+
+
+	@Override
+	public void disconnect() {
+		// TODO Auto-generated method stub
+		LOGGER.log(Level.WARNING, "Still to implement");
+	}
+
 }
