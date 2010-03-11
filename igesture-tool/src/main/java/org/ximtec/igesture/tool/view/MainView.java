@@ -92,7 +92,11 @@ public class MainView extends DefaultView implements IMainView {
     JMenu fileMenu = new BasicMenu(GestureConstants.FILE_MENU, getController().getLocator().getService(
         GuiBundleService.IDENTIFIER, GuiBundleService.class));
     menuBar.add(fileMenu);
-
+    
+    JMenu deviceMenu = new BasicMenu(GestureConstants.DEVICE_MENU, getController().getLocator().getService(
+    	GuiBundleService.IDENTIFIER, GuiBundleService.class));
+    menuBar.add(deviceMenu);
+    
     JMenu helpMenu = new BasicMenu(GestureConstants.HELP_MENU, getController().getLocator().getService(
         GuiBundleService.IDENTIFIER, GuiBundleService.class));
     menuBar.add(helpMenu);
@@ -105,6 +109,10 @@ public class MainView extends DefaultView implements IMainView {
     fileMenu.addSeparator();
     fileMenu.add(createMenuItem(MainController.CMD_EXIT));
 
+    BasicMenuItem deviceManagerItem = new BasicMenuItem();
+    deviceManagerItem.setAction(getController().getAction(MainController.CMD_SHOW_DEVICE_MANAGER));
+    deviceMenu.add(deviceManagerItem);
+    
     BasicMenuItem aboutItem = new BasicMenuItem();
     aboutItem.setAction(getController().getAction(MainController.CMD_SHOW_ABOUT_DIALOG));
     helpMenu.add(aboutItem);

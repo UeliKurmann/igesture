@@ -66,6 +66,8 @@ import org.ximtec.igesture.tool.util.ExtensionFileFilter;
 import org.ximtec.igesture.tool.util.FileType;
 import org.ximtec.igesture.tool.view.admin.AdminController;
 import org.ximtec.igesture.tool.view.batch.BatchController;
+import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
+import org.ximtec.igesture.tool.view.devicemanager.IDeviceManager;
 import org.ximtec.igesture.tool.view.testbench.TestbenchController;
 import org.ximtec.igesture.tool.view.testset.TestSetController;
 import org.ximtec.igesture.tool.view.welcome.WelcomeController;
@@ -92,6 +94,7 @@ public class MainController extends DefaultController implements Service {
 	public static final String CMD_SHOW_ABOUT_DIALOG = "showAboutDialog";
 	public static final String CMD_CLOSE_WS = "closeWorkspace";
 	public static final String CMD_CHANGE_TAB = "changeTab";
+	public static final String CMD_SHOW_DEVICE_MANAGER = "showDeviceManager";
 
 	// List of controllers (a project is active)
 	private static Class<?>[] activeControllers = new Class<?>[] {
@@ -109,6 +112,9 @@ public class MainController extends DefaultController implements Service {
 	private SwingMouseReaderService deviceClient;
 	private StorageEngineType storageEngineType;
 
+	// Device Manager
+	private IDeviceManager deviceManagerController;
+	
 	// Main View
 	private IMainView mainView;
 
@@ -134,11 +140,21 @@ public class MainController extends DefaultController implements Service {
 		initServices();
 		initMainView();
 		initSubControllersAndViews(passiveControllers);
+		initDeviceManager();
 		getAction(CMD_CLOSE_WS).setEnabled(false);
 		getAction(CMD_SAVE).setEnabled(false);
 		getAction(CMD_SAVE_AS).setEnabled(false);
 		this.modelIsModified = false;
 	}
+
+	/**
+	 * Instantiate a device manager controller
+	 */
+	private void initDeviceManager() {
+		deviceManagerController = new DeviceManagerController(this,GestureConstants.DEVICE_MANAGER,
+				getLocator().getService(GuiBundleService.IDENTIFIER,GuiBundleService.class));		
+	}
+	
 
 	/**
 	 * Instantiates a controller using reflection. If the controller has a
@@ -352,6 +368,16 @@ public class MainController extends DefaultController implements Service {
 		dialog.setLocation(point);
 		dialog.setVisible(true);
 	} // execShowAboutDialog
+	
+	
+	@ExecCmd(name = CMD_SHOW_DEVICE_MANAGER)
+	protected void execShowDeviceManager() {
+		LOGGER.info("Show Device Manager.");
+		Point point = mainView.getLocation();
+		point.translate(100, 60);
+		deviceManagerController.showView(point);
+		//TODO
+	}
 
 	/**
 	 * Returns the component factory referenced in the locator.
@@ -463,6 +489,8 @@ public class MainController extends DefaultController implements Service {
 					GestureConstants.CLOSE_PROJECT, CMD_CLOSE_WS));
 			addAction(CMD_SAVE_AS, new GenericLocateableAction(this,
 					GestureConstants.SAVE_AS, CMD_SAVE_AS));
+			addAction(CMD_SHOW_DEVICE_MANAGER, new GenericLocateableAction(this,
+					GestureConstants.DEVICE_MANAGER, CMD_SHOW_DEVICE_MANAGER));
 	
 			mainView = EdtProxy.newInstance(new MainView(this), IMainView.class);
 			mainView.addWindowListener(new MainWindowAdapter(this));

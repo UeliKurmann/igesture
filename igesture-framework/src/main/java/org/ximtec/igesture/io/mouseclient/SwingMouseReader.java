@@ -34,6 +34,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
@@ -66,7 +67,15 @@ public class SwingMouseReader extends AbstractGestureDevice<Note, Point> {
   private Point lastPoint;
 
   public SwingMouseReader() {
-
+	  
+	  //MODIFY >
+	  setName("SwingMouseReader");
+	  setDeviceType("2D");
+	  setDeviceID("System Mouse");
+	  setConnectionType("USB");
+	  setIsConnected(true);
+	  setDefaultDevice(true);
+	  //MODIFY <
   }
 
   public JPanel getPanel(Dimension dimension) {
@@ -183,4 +192,27 @@ public class SwingMouseReader extends AbstractGestureDevice<Note, Point> {
     }
   }
 
+  //MODIFY >
+  
+	@Override
+	public void connect() {
+		// TODO Auto-generated method stub
+		LOGGER.log(Level.WARNING, "Still to implement");
+	}
+	
+	@Override
+	public void disconnect() {
+		// TODO Auto-generated method stub
+		LOGGER.log(Level.WARNING, "Still to implement");
+	}
+
+	@Override
+	public boolean isConnectable() {
+		return false;
+	}
+   	
+   	@Override
+	public boolean isDisconnectable() {
+		return false;
+	}
 }

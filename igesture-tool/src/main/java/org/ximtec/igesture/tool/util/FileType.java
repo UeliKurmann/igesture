@@ -11,7 +11,8 @@ public enum FileType {
   testSet("igt", "iGesture Test Set"),
   algorithmConfiguration("igc", "iGesture Recogniser Configuration"),
   pdf ("pdf", "Portable Document Format"),
-  igb("igb", "iGesture Batch Configuration");
+  igb("igb", "iGesture Batch Configuration"),
+  deviceConfiguration("igdc","iGesture Device Configuration");
   
   private String extension;
   private String description;

@@ -62,6 +62,9 @@ public class GestureConstants {
   public static final String SAVE = "SaveAction";
   public static final String SAVE_AS = "SaveAsAction";
   public static final String EXIT = "ExitAction";
+  
+  public static final String DEVICE_MENU = "DeviceMenu";
+  public static final String DEVICE_MANAGER = "DeviceManagerAction";
 
   public static final String HELP_MENU = "HelpMenu";
   public static final String ABOUT = "AboutAction";
@@ -133,6 +136,27 @@ public class GestureConstants {
   public static final String TESTCLASS_NAME = "TestClassName";
   public static final String TEXT_DESCRIPTOR_TEXT = "TextDescriptorText";
 
+  public static final String ADD_USER = "AddUserAction";
+  public static final String ADD_DEVICE = "AddDeviceAction";
+  public static final String ASSOCIATE_USER = "AssociateUserAction";
+  public static final String REMOVE_DEVICE = "RemoveDeviceAction";
+  public static final String REMOVE_USER = "RemoveUserAction";
+  public static final String RECONNECT_DEVICE = "ReconnectDeviceAction";
+  public static final String USER_PANEL = "UserPanel";
+  public static final String DEVICES_PANEL = "DevicesPanel";
+  public static final String SAVE_DEVICE_CONFIGURATION="SaveDeviceConfigurationAction";
+  public static final String LOAD_DEVICE_CONFIGURATION="LoadDeviceConfigurationAction";
   
+  public static final String USER_NAME = "Name";
+  public static final String USER_INITIALS = "Initials";
+  public static final String DEVICE_NAME = "Name";
+  public static final String DEVICE_ID = "DeviceID";
+  public static final String DEVICE_TYPE = "DeviceType";
+  public static final String DEVICE_USER = "User";
+  public static final String DEVICE_CONNECTION = "ConnectionType";
+  public static final String DEVICE_CONNECTED = "Connected";
 
+  public static final String XML_DISCOVERY = "connections.xml";
+  public static final String XML_BLUETOOTH = "bluetoothdevices.xml";
+  
 }
