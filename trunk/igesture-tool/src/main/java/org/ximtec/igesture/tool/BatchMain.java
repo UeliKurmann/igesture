@@ -100,7 +100,7 @@ public class BatchMain {
          line = parser.parse(options, args);
          if (line.getOptions().length == 0 || line.hasOption(HELP)) {
         	 final HelpFormatter formatter = new HelpFormatter();
-        	 formatter.printHelp("iGesutre - Batch Processing", options);
+        	 formatter.printHelp("iGesture - Batch Processing", options);
          }
          else if ((line.hasOption(CONFIG) && line.hasOption(GESTURESET) && line
         		 .hasOption(TESTSET))) {
