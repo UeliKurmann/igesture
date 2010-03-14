@@ -46,7 +46,6 @@ public abstract class AbstractGestureDevice<E, F> implements GestureDevice<E, F>
    private String deviceType;
    private String id;
    private String name;
-   private String user;
    private boolean isDefault = false;
    private boolean connected = false;
    
