@@ -29,6 +29,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.wiigee.control.WiimoteWiigee;
 import org.wiigee.device.Wiimote;
@@ -54,6 +56,10 @@ public class WiiReader extends
 		AbstractGestureDevice<RecordedGesture3D, Point3D> implements
 		ButtonListener, AccelerationListener {
 
+	//MODIFY >
+	private static final Logger LOGGER = Logger.getLogger(WiiReader.class.getName());
+	//MODIFY <
+	
 	// The panel to draw planes and graphs on
 	private WiiReaderPanel currentPanel;
 	// Instance of WiiGee for WiiMote device
@@ -205,7 +211,7 @@ public class WiiReader extends
 			//MODIFY <
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE,"Could not connect to WiiMote. Please make the device discoverable and try to reconnect.",e);//MODIFY
 		}
 	}
 	
