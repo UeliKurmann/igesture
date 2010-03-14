@@ -41,7 +41,7 @@ public interface IDeviceManagerView {
 	 * Update a device-user association.
 	 * @param value		The new value.
 	 * @param column	The field that should be updated.
-	 * @param object	The object that should be updated, when null the currently selected item is updated.
+	 * @param object	The object that should be updated
 	 */
 	public void updateDevice(Object value, int column, DeviceUserAssociation object);
 	
@@ -56,5 +56,10 @@ public interface IDeviceManagerView {
 	 * @return The selected user.
 	 */
 	public User getSelectedUser();
+	
+	/**
+	 * Clear the view.
+	 */
+	public void clear();
 
 }

@@ -105,6 +105,7 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 		/********************************* Device Panel *******************************/
 		/////////////////////// device actions
 		AddDeviceAction addDeviceAction = new AddDeviceAction(deviceManagerController);
+		addDeviceAction.setEnabled(deviceManagerController.getEnableAddDevicesAction());
 		AssociateUserAction associateUserAction = new AssociateUserAction(deviceManagerController,this);
 		associateUserAction.setEnabled(false);
 		RemoveDeviceAction removeDeviceAction = new RemoveDeviceAction(deviceManagerController,this);
@@ -252,6 +253,12 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 		return deviceTable.getItems();
 	}
 	
+	/**
+	 * Update a device-user association.
+	 * @param value		The new value.
+	 * @param column	The field that should be updated.
+	 * @param object	The object that should be updated, when null only the table model is updated.
+	 */
 	@Override
 	public void updateDevice(Object value, int column, DeviceUserAssociation object)
 	{
@@ -268,5 +275,12 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 	public User getSelectedUser()
 	{
 		return userTable.getSelectedItem();
+	}
+	
+	@Override
+	public void clear()
+	{
+		userTable.removeAllItems();
+		deviceTable.removeAllItems();
 	}
 }

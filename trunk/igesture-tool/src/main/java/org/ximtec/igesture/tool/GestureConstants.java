@@ -158,5 +158,6 @@ public class GestureConstants {
 
   public static final String XML_DISCOVERY = "connections.xml";
   public static final String XML_BLUETOOTH = "bluetoothdevices.xml";
+  public static final String XML_TUIO = "tuiodevices.xml";
   
 }

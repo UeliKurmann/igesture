@@ -48,8 +48,12 @@ public class RemoveDeviceAction extends BasicAction implements ListSelectionList
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		setEnabled(true);
-		//enable the action when something was selected.
+		//enable the action when something was selected. Except if it is a default device
+		if(!view.getSelectedDevice().isDefaultDevice())
+			setEnabled(true);
+		else
+			setEnabled(false);
+		
 	}
 
 }

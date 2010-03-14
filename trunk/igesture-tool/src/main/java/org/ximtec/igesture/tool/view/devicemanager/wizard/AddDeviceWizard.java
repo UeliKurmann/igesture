@@ -8,7 +8,6 @@ import org.netbeans.api.wizard.WizardDisplayer;
 import org.netbeans.spi.wizard.Wizard;
 import org.ximtec.igesture.io.AbstractGestureDevice;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
-import org.ximtec.igesture.tool.view.devicemanager.IDeviceManager;
 import org.ximtec.igesture.tool.view.devicemanager.User;
 
 /**
@@ -41,9 +40,11 @@ public class AddDeviceWizard {
 				
 				//connect to the found device
 				if(association != null)//if not cancelled 				//TODO move to finish??
+				{
 					((AbstractGestureDevice<?,?>)association.get(0)).connect();
-				//add the found device
-				controller.addDevice((AbstractGestureDevice<?,?>)association.get(0), (User)association.get(1));
+					//add the found device
+					controller.addDevice((AbstractGestureDevice<?,?>)association.get(0), (User)association.get(1));
+				}
 				
 			}
 			

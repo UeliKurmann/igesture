@@ -166,5 +166,10 @@ public class DeviceUserAssociation extends DefaultDataObject implements Device{
 		setIsConnected(isConnected);
 		//for convenience, be able to use reflection.
 	}
+	
+	public String toString()
+	{
+		return device.toString()+" - "+user.toString();
+	}
 
 }
