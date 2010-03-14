@@ -52,6 +52,8 @@ public class BlueToothDeviceDiscoveryService implements DeviceDiscoveryService, 
 	@Override
 	public Set<AbstractGestureDevice<?, ?>> discover() {
 		
+		LOGGER.log(Level.INFO,"Device discovery started!");
+		
 		String bluecoveVersion = LocalDevice.getProperty("bluecove");
         if(!bluecoveVersion.equals("")) {
             String l2capFeature = LocalDevice.getProperty("bluecove.feature.l2cap");
@@ -59,7 +61,6 @@ public class BlueToothDeviceDiscoveryService implements DeviceDiscoveryService, 
             if(l2capFeature.equals("true")) {
                 // set min id for Bluecove
                 System.setProperty("bluecove.jsr82.psm_minimum_off", "true");
-
             }
         }
 		
@@ -91,6 +92,15 @@ public class BlueToothDeviceDiscoveryService implements DeviceDiscoveryService, 
 	@Override
 	public void deviceDiscovered(RemoteDevice btDevice, DeviceClass deviceClass) {
 		LOGGER.log(Level.INFO,"Device discovered: " + btDevice.getBluetoothAddress());
+		try {
+			LOGGER.log(Level.INFO,"Device: "+btDevice.getFriendlyName(false)
+					+", minor: "+ deviceClass.getMinorDeviceClass()
+					+", major: "+deviceClass.getMajorDeviceClass());
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING,"Could not get friendly name from BlueTooth device",e);
+			LOGGER.log(Level.INFO,"Device: minor: "+ deviceClass.getMinorDeviceClass()
+					+", major: "+deviceClass.getMajorDeviceClass());
+		}
 		
 		//if the devices was not found yet
         if (!remoteDevices.contains(btDevice))

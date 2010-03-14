@@ -119,15 +119,14 @@ public class BasicTable<T> extends JTable {
 	 * Update item in table.
 	 * @param value	The new value.
 	 * @param col	The column index in the table.
-	 * @param item	The item to update, null if you want to update the selected item.
+	 * @param item	The item to update, null if you do not want to update an item itself, only the table.
 	 */
 	public void updateItem(Object value, int col, T item)
 	{
 		int row = 0;
 		if(item == null)
 		{
-			// update selected item
-			item = getSelectedItem();
+			// update selected item in table model only
 			row = getSelectedRow();
 		}
 		else // update item itself
@@ -139,6 +138,9 @@ public class BasicTable<T> extends JTable {
 			DefaultTableModel model = (DefaultTableModel) getModel();
 			model.setValueAt(value, row, col);
 			
+			// update item that was passed
+			if(item != null)
+			{
 				String name = getModel().getColumnName(col);
 				
 				try {
@@ -161,6 +163,7 @@ public class BasicTable<T> extends JTable {
 		//		} catch (InvocationTargetException e) {
 		//			e.printStackTrace();
 				}
+			}
 		}
 	}
 	

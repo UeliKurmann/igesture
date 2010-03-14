@@ -47,12 +47,12 @@ public interface Device {
 		 * Check whether the device can be connected by the user or is automatically connected.
 		 * @return
 		 */
-		boolean isConnectable();
+		boolean isConnectable();//TODO remove
 		/**
 		 * Check whether the device can be disconnected by the user.
 		 * @return
 		 */
-		boolean isDisconnectable();
+		boolean isDisconnectable();//TODO remove
 		/**
 		 * Check whether the device is connected or not.
 		 * @return	True if connected, else false.

@@ -2,6 +2,7 @@ package org.ximtec.igesture.tool.view.devicemanager;
 
 import java.awt.Point;
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.sigtec.graphix.GuiBundle;
 import org.w3c.dom.Node;
@@ -35,6 +38,8 @@ import org.ximtec.igesture.tool.view.devicemanager.discoveryservice.DeviceDiscov
  */
 public class DeviceManagerController extends DefaultController implements IDeviceManager{
 
+	private static final Logger LOGGER = Logger.getLogger(DeviceManagerController.class.getName());
+	
 	/*
 	 * device mapping: one user per device, what about tuio?
 	 * */
@@ -44,9 +49,9 @@ public class DeviceManagerController extends DefaultController implements IDevic
 	private Map<AbstractGestureDevice<?,?>, User> userMapping = new HashMap<AbstractGestureDevice<?,?>,User>();
 	
 	private final Map<String, DeviceDiscoveryService> discoveryMapping = new HashMap<String,DeviceDiscoveryService>();
+	private boolean enableAddDevicesAction = true;
 	
 	private User defaultUser;
-//	private AbstractGestureDevice<?,?> defaultMouse;
 	private DeviceManagerView view;
 
 	/**
@@ -57,23 +62,7 @@ public class DeviceManagerController extends DefaultController implements IDevic
 	 */
 	public DeviceManagerController(Controller parentController, String key, GuiBundle guiBundle) {
 		super(parentController);
-		
-		//instantiate the view
-		view = new DeviceManagerView(this, key, guiBundle);
-		
-		//instantiate the default user/system user
-		String userName = System.getProperty("user.name");
-		defaultUser = new User(userName,userName.substring(0, 1));
-		defaultUser.setDefaultUser(true);
-		
-		//add the default user and the mouse.
-		addUser(defaultUser);
-		addDevice((AbstractGestureDevice<?, ?>) parentController.getLocator().getService(SwingMouseReaderService.IDENTIFIER),defaultUser);
-//		addUser(new User("test","T"));
-//		User userI = new User("ik","I");
-//		addUser(userI);
-//		addUser(new User("Beat","BS"));
-		
+				
 		//create the mapping between the connection types and the discovery services
 		XMLParser parser = new XMLParser(){
 
@@ -88,22 +77,24 @@ public class DeviceManagerController extends DefaultController implements IDevic
 					Constructor<?> constructor = c.getConstructor();
 					discoveryMapping.put(connection, (DeviceDiscoveryService)constructor.newInstance());
 					
+					LOGGER.log(Level.INFO,"Discovery Service Added: "+connection+" Discovery Service");
+					
 				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
+					LOGGER.log(Level.WARNING, "Discovery Service Class not found. The corresponding discovery service was not added.",e);
 				} catch (SecurityException e) {
-					e.printStackTrace();
+					LOGGER.log(Level.WARNING, "Discovery Service Class could not be instantiated. The corresponding discovery service was not added.",e);
 				} catch (NoSuchMethodException e) {
-					e.printStackTrace();
+					LOGGER.log(Level.WARNING, "Discovery Service Class could not be instantiated. The corresponding discovery service was not added.",e);
 				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
+					LOGGER.log(Level.WARNING, "Discovery Service Class could not be instantiated. The corresponding discovery service was not added.",e);
 				} catch (InstantiationException e) {
-					e.printStackTrace();
+					LOGGER.log(Level.WARNING, "Discovery Service Class could not be instantiated. The corresponding discovery service was not added.",e);
 				} catch (IllegalAccessException e) {
-					e.printStackTrace();
+					LOGGER.log(Level.WARNING, "Discovery Service Class could not be instantiated. The corresponding discovery service was not added.",e);
 				} catch (InvocationTargetException e) {
-					e.printStackTrace();
+					LOGGER.log(Level.WARNING, "Discovery Service Class could not be instantiated. The corresponding discovery service was not added.",e);
+				} catch (NullPointerException e) {
+					LOGGER.log(Level.WARNING, "An empty node was encountered. The corresponding discovery service was not added.",e);
 				}
 			}
 			
@@ -113,10 +104,41 @@ public class DeviceManagerController extends DefaultController implements IDevic
 		nodes.add("discoveryService");
 		try {
 			parser.parse(System.getProperty("user.dir")+System.getProperty("file.separator")+GestureConstants.XML_DISCOVERY, "connection", nodes);
+		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE,"Could not find "+GestureConstants.XML_DISCOVERY +". Adding devices will be disabled",e);
+			enableAddDevicesAction = false;
 		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Could not parse connections.xml"); //TODO
-		}		
+			LOGGER.log(Level.SEVERE,"Could not parse "+GestureConstants.XML_DISCOVERY +". Adding devices will be disabled",e);
+			enableAddDevicesAction = false;
+		}
+		
+		//instantiate the view
+		view = new DeviceManagerView(this, key, guiBundle);
+		
+		//instantiate the default user/system user
+		String userName = System.getProperty("user.name");
+		defaultUser = new User(userName,userName.substring(0, 1));
+		defaultUser.setDefaultUser(true);
+		
+		//add the default user and the mouse.
+		addUser(defaultUser);
+		addDevice((AbstractGestureDevice<?, ?>) parentController.getLocator().getService(SwingMouseReaderService.IDENTIFIER),defaultUser);
+
+	}
+	
+	/**
+	 * This method returns true if the add devices action should be enabled
+	 * @return
+	 */
+	public boolean getEnableAddDevicesAction()
+	{
+		/*
+		 * enableAddDevicesAction is false when connections.xml could not be found or parsed
+		 * even if the file could be parsed, it is possible that the mentionned discovery classes are incorrect
+		 * and no services were added to the mapping
+		 * in both cases, adding devices is not possible
+		 */
+		return (enableAddDevicesAction || !discoveryMapping.isEmpty());
 	}
 
 	@Override
@@ -135,6 +157,8 @@ public class DeviceManagerController extends DefaultController implements IDevic
 				userMapping.put(device, user);
 			}
 			view.addDevice(ass);
+			
+			LOGGER.log(Level.INFO,"Device Added: "+ ass);
 		}
 	}
 
@@ -144,6 +168,8 @@ public class DeviceManagerController extends DefaultController implements IDevic
 		{
 			users.add(user);
 			view.addUser(user);
+			
+			LOGGER.log(Level.INFO,"User Added: "+ user);
 		}
 	}
 
@@ -172,6 +198,8 @@ public class DeviceManagerController extends DefaultController implements IDevic
 			view.removeDevice();
 			devices.remove(device);
 			userMapping.remove(device);
+			
+			LOGGER.log(Level.INFO, "Device Removed: "+ device);
 		}
 				
 	}
@@ -208,6 +236,8 @@ public class DeviceManagerController extends DefaultController implements IDevic
 						}						
 					}
 				}
+				
+				LOGGER.log(Level.INFO,"User Removed: "+ user);
 			}
 		}
 	}
@@ -215,8 +245,10 @@ public class DeviceManagerController extends DefaultController implements IDevic
 	@Override
 	public void associateUser(AbstractGestureDevice<?,?> device, User user) {
 		
-			view.updateDevice(user,DeviceManagerView.COL_DEVICE_USER,null);
+			view.updateDevice(user,DeviceManagerView.COL_DEVICE_USER, view.getSelectedDevice());
 			userMapping.put(device, user);
+			
+			LOGGER.log(Level.INFO,"Associated User '"+user+"' with Device '"+device+"'");
 	}
 
 	@Override
@@ -240,6 +272,8 @@ public class DeviceManagerController extends DefaultController implements IDevic
 		
 		storageManager.commit();
 		storageManager.dispose();
+		
+		LOGGER.log(Level.INFO, "Saved Device-User Configuration: "+file.toString());
 	}
 
 	@Override
@@ -254,7 +288,7 @@ public class DeviceManagerController extends DefaultController implements IDevic
 		List<DeviceUserAssociation> associations = storageManager.load(DeviceUserAssociation.class);
 		storageManager.dispose();
 		
-		cleanup();
+		cleanup();//TODO probably better to not remove default devices and users
 		// load users
 		for(User user : users)
 		{
@@ -265,10 +299,13 @@ public class DeviceManagerController extends DefaultController implements IDevic
 		{
 			if(!devices.contains(ass.getDeviceItem()))
 			{
+				ass.getDeviceItem().setIsConnected(false);
+				ass.getDeviceItem().connect();
 				addDevice(ass.getDeviceItem(),ass.getUserItem());
 			}
 		}
 		
+		LOGGER.log(Level.INFO, "Loaded Device-User Configuration: "+file.toString());
 	}
 	
 	/**
@@ -279,6 +316,7 @@ public class DeviceManagerController extends DefaultController implements IDevic
 		users.clear();
 		devices.clear();
 		userMapping.clear();
+		view.clear();
 	}
 	
 	@Override

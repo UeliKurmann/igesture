@@ -41,6 +41,8 @@ public class ReconnectDeviceAction extends BasicAction implements ListSelectionL
 		view.getSelectedDevice().connect();
 		//update model
 		view.updateDevice(true, DeviceManagerView.COL_DEVICE_CONNECTED, null);
+		if(view.getSelectedDevice().isConnected())
+			setEnabled(false);
 	}
 	
 	@Override
