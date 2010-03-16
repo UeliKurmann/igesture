@@ -36,5 +36,7 @@ package org.ximtec.igesture.tool.view;
 public class Property {
    
    public static final String WORKING_DIRECTORY = "workingDirectory";
+   public static final String TUIO_START_PORT = "tuioStartPort";
+   public static final String TUIO_END_PORT = "tuioEndPort";
 
 }

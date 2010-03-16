@@ -4,4 +4,8 @@
 		<name>BlueTooth</name>
 		<discoveryService>org.ximtec.igesture.tool.view.devicemanager.discoveryservice.BlueToothDeviceDiscoveryService</discoveryService>
 	</connection>
+	<connection>
+		<name>Tuio</name>
+		<discoveryService>org.ximtec.igesture.tool.view.devicemanager.discoveryservice.TuioDeviceDiscoveryService</discoveryService>
+	</connection>
 </connections>
