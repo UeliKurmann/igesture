@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<devices>
+	<device>
+		<port>3333</port>
+		<name>TuioSimulator</name>
+	</device>
+</devices>
