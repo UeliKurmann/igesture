@@ -41,21 +41,23 @@ public class AddSampleAction extends LocateableAction {
 
    private TestClass testClass;
    private Controller controller;
+   
+   private GestureDevice<?,?> gestureDevice;
 
-
-   public AddSampleAction(Controller controller, TestClass descriptor) {
+   public AddSampleAction(Controller controller, TestClass descriptor, GestureDevice<?, ?> device) {
       super(GestureConstants.GESTURE_SAMPLE_ADD, controller.getLocator());
       this.controller = controller;
       this.testClass = descriptor;
+      this.gestureDevice = device;
    }
 
 
    @Override
    public void actionPerformed(ActionEvent action) {
       
-      GestureDevice<?, ?> gestureDevice = controller.getLocator().getService(
-            SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
-      
+//      GestureDevice<?, ?> gestureDevice = controller.getLocator().getService(
+//            SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
+//      
       if(gestureDevice.getGesture() != null){
          Gesture<?> gesture = gestureDevice.getGesture();
          gestureDevice.clear();

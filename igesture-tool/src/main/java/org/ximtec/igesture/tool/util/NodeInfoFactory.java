@@ -140,7 +140,7 @@ public class NodeInfoFactory {
     return nodeInfos;
   }
 
-  public static List<NodeInfo> createTestBenchNodeInfo(Controller controller) {
+  public static List<NodeInfo> createTestBenchNodeInfo(Controller controller, IDeviceManager deviceManagerController) {
 
     List<Class<? extends BasicAction>> algorithmListActions = new ArrayList<Class<? extends BasicAction>>();
     List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
@@ -161,13 +161,13 @@ public class NodeInfoFactory {
         AlgorithmWrapperPanel.class, algorithmWrapperActions, GestureConstants.NODE_ICON_ALGORITHM));
 
     nodeInfos.add(new NodeInfoImpl(controller, Configuration.class, "name", null, ConfigurationPanel.class,
-        configurationActions, GestureConstants.NODE_ICON_CONFIGURATION));
+        configurationActions, GestureConstants.NODE_ICON_CONFIGURATION, deviceManagerController));
 
     return nodeInfos;
 
   }
 
-  public static List<NodeInfo> createTestSetNodeInfo(Controller controller) {
+  public static List<NodeInfo> createTestSetNodeInfo(Controller controller, IDeviceManager deviceManagerController) {
     List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
 
     List<Class<? extends BasicAction>> rootActions = new ArrayList<Class<? extends BasicAction>>();
@@ -195,7 +195,7 @@ public class NodeInfoFactory {
         GestureConstants.NODE_ICON_TEST_SET));
 
     nodeInfos.add(new NodeInfoImpl(controller, TestClass.class, "name", null, TestClassPanel.class, classActions,
-        GestureConstants.NODE_ICON_TEST_CLASS));
+        GestureConstants.NODE_ICON_TEST_CLASS, deviceManagerController));
 
     return nodeInfos;
   }
