@@ -69,7 +69,7 @@ public class TestSetController extends DefaultController {
       testSetView = EdtProxy.newInstance(new TestSetView(this), ITestSetView.class);
 
       ExplorerTreeModel explorerModel = new ExplorerTreeModel(mainModel
-            .getTestSetList(), NodeInfoFactory.createTestSetNodeInfo(this));
+            .getTestSetList(), NodeInfoFactory.createTestSetNodeInfo(this, deviceManagerController));
       explorerTreeController = new ExplorerTreeController(this, testSetView,
             explorerModel);
       

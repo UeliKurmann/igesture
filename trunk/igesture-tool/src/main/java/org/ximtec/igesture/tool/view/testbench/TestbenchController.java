@@ -80,7 +80,7 @@ public class TestbenchController extends DefaultController {
 		testbenchView = EdtProxy.newInstance(new TestbenchView(this), ITestBenchView.class);
 
 		ExplorerTreeModel explorerModel = new ExplorerTreeModel(mainModel
-				.getAlgorithmList(), NodeInfoFactory.createTestBenchNodeInfo(this));
+				.getAlgorithmList(), NodeInfoFactory.createTestBenchNodeInfo(this, deviceManagerController));
 		explorerTreeController = new ExplorerTreeController(this, testbenchView,
 				explorerModel);
 

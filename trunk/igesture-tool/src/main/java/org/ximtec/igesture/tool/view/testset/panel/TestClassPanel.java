@@ -26,6 +26,7 @@
 package org.ximtec.igesture.tool.view.testset.panel;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -46,19 +47,27 @@ import javax.swing.JTextField;
 import org.sigtec.graphix.GridBagLayouter;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.TestClass;
+import org.ximtec.igesture.io.AbstractGestureDevice;
 import org.ximtec.igesture.io.GestureDevice;
+import org.ximtec.igesture.io.GestureDevicePanel;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.binding.BindingFactory;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.gesturevisualisation.GesturePanel;
+import org.ximtec.igesture.tool.gesturevisualisation.InputComponentPanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanelFactory;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
+import org.ximtec.igesture.tool.util.FontFactory;
 import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
+import org.ximtec.igesture.tool.view.DeviceListPanel;
+import org.ximtec.igesture.tool.view.DeviceListPanelListener;
 import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.panel.SampleDescriptorPanel;
+import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerListener;
+import org.ximtec.igesture.tool.view.devicemanager.IDeviceManager;
 import org.ximtec.igesture.tool.view.testset.action.AddSampleAction;
 import org.ximtec.igesture.tool.view.testset.action.RemoveSampleAction;
 
@@ -69,16 +78,22 @@ import org.ximtec.igesture.tool.view.testset.action.RemoveSampleAction;
  * @author Ueli Kurmann
  */
 
-public class TestClassPanel extends AbstractPanel {
+public class TestClassPanel extends AbstractPanel implements DeviceListPanelListener, DeviceManagerListener {
 
   private static final int INPUTAREA_SIZE = 200;
   private static final int SPACE_SIZE = 5;
   private static final int SAMPLE_SIZE = 100;
 
   private GestureDevice<?, ?> gestureDevice;
+  private GestureDevice<?, ?> currentDevice;
 
   private Map<Gesture<?>, JPanel> sampleCache;
   private TestClass testClass;
+  
+  private DeviceListPanel devicePanel;
+  private JPanel cardPanel; 
+  
+  private Map<String, InputComponentPanel> panelMapping;
 
   /**
    * Constructor
@@ -86,10 +101,11 @@ public class TestClassPanel extends AbstractPanel {
    * @param controller
    * @param descriptor
    */
-  public TestClassPanel(Controller controller, TestClass testClass) {
+  public TestClassPanel(Controller controller, TestClass testClass, IDeviceManager manager) {
     super(controller);
     this.testClass = testClass;
     this.sampleCache = new HashMap<Gesture<?>, JPanel>();
+    this.panelMapping = new HashMap<String, InputComponentPanel>();
 
     // component listener to handle resize actions
     addComponentListener(new ComponentAdapter() {
@@ -98,19 +114,21 @@ public class TestClassPanel extends AbstractPanel {
         initSampleSection(TestClassPanel.this.testClass.getGestures());
       }
     });
+    
+    manager.addDeviceManagerListener(this);
 
-    init();
+    init(manager);
 
   }
 
-  private JButton createAddSampleButton() {
+  private JButton createAddSampleButton(GestureDevice<?, ?> device) {
     JButton addSampleButton = getComponentFactory().createButton(GestureConstants.GESTURE_SAMPLE_ADD,
-        new AddSampleAction(getController(), testClass));
+        new AddSampleAction(getController(), testClass, device));
     Formatter.formatButton(addSampleButton);
     return addSampleButton;
   }
 
-  private JButton createClearSampleButton() {
+  private JButton createClearSampleButton(GestureDevice<?, ?> gestureDevice) {
     JButton clearSampleButton = getComponentFactory().createButton(GestureConstants.GESTURE_SAMPLE_CLEAR,
         new ClearGestureSampleAction(getController(), gestureDevice));
     Formatter.formatButton(clearSampleButton);
@@ -167,13 +185,14 @@ public class TestClassPanel extends AbstractPanel {
 
   /**
    * Initialize the Sample Descriptor View
+ * @param manager 
    * 
    * @param descriptor
    */
-  private void init() {
+  private void init(IDeviceManager manager) {
     initTitle();
     initSampleSection(testClass.getGestures());
-    initInputSection();
+    initInputSection(manager);
   }
 
   /**
@@ -185,29 +204,33 @@ public class TestClassPanel extends AbstractPanel {
 
   /**
    * Creates the input area to capture new gestures.
+ * @param manager 
    * 
    * @param descriptor
    */
-  private void initInputSection() {
-    JPanel basePanel = new JPanel();
+  private void initInputSection(IDeviceManager manager) {
+	  JPanel basePanel = new JPanel();
+	    
+	    // input area
+	    basePanel.setLayout(new BorderLayout());
 
-    // input area
-    basePanel.setLayout(new FlowLayout());
-
-    initGestureDevice();
-
-    InputPanel inputPanel = InputPanelFactory.createInputPanel(gestureDevice);
-    basePanel.add(inputPanel.getPanel(new Dimension(INPUTAREA_SIZE, INPUTAREA_SIZE)));
-
-    // buttons
-    JPanel buttonPanel = new JPanel();
-    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-    buttonPanel.add(createAddSampleButton());
-    buttonPanel.add(createClearSampleButton());
-
-    basePanel.add(buttonPanel);
-
-    setBottom(basePanel);
+	    initGestureDevice();
+	    
+		cardPanel = new JPanel();
+		cardPanel.setLayout(new CardLayout());
+		cardPanel.setSize(new Dimension(INPUTAREA_SIZE, INPUTAREA_SIZE));
+		
+		currentDevice = gestureDevice;
+		
+	    basePanel.add(cardPanel, BorderLayout.CENTER);
+	    
+	    devicePanel = new DeviceListPanel(/*manager*/);
+	    for(AbstractGestureDevice<?,?> device : manager.getDevices())
+	    	addDevice(device);
+	    devicePanel.addDevicePanelListener(this);
+	    basePanel.add(devicePanel,BorderLayout.WEST);
+	    
+	    setBottom(basePanel);	  
   }
 
   /**
@@ -300,5 +323,85 @@ public class TestClassPanel extends AbstractPanel {
     gestureDevice.clear();
     initSampleSection(testClass.getGestures());
   }
+
+	/* (non-Javadoc)
+	 * @see org.ximtec.igesture.tool.view.DeviceListPanelListener#updateDeviceListPanelListener(org.ximtec.igesture.io.AbstractGestureDevice)
+	 */
+	@Override
+	public void updateDeviceListPanelListener(AbstractGestureDevice<?, ?> device) {
+		
+		//remove listener from current device
+		currentDevice.removeGestureHandler(panelMapping.get(currentDevice.toString()).getGestureDevicePanel());
+		//change input panel
+		((CardLayout)cardPanel.getLayout()).show(cardPanel, device.toString());
+		currentDevice = device;
+		
+		//add listener to new device
+		device.addGestureHandler(panelMapping.get(device.toString()).getGestureDevicePanel());
+	}
+	
+	private InputComponentPanel createInputPanel(GestureDevice<?,?> device)
+	{
+		InputComponentPanel inputComponentPanel = new InputComponentPanel();
+		inputComponentPanel.setLayout(new FlowLayout());
+		GestureDevicePanel inputPanelInstance = InputPanelFactory.createPanel(device);
+		inputComponentPanel.setGestureDevicePanel(inputPanelInstance);
+		
+		//TODO zorgen dat dit niet nodig is
+		inputPanelInstance.setSize(new Dimension(INPUTAREA_SIZE,INPUTAREA_SIZE));
+		inputPanelInstance.setPreferredSize(new Dimension(INPUTAREA_SIZE,INPUTAREA_SIZE));
+		inputPanelInstance.setOpaque(true);
+		inputPanelInstance.setBackground(Color.WHITE);
+		inputPanelInstance.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+		
+		inputComponentPanel.add(inputPanelInstance);
+		// buttons
+	    JPanel buttonPanel = new JPanel();
+	    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+	    buttonPanel.add(createAddSampleButton(device));//TODO
+	    buttonPanel.add(createClearSampleButton(device));
+	    
+	    inputComponentPanel.add(buttonPanel);	 
+		
+		return inputComponentPanel;
+	}
+	
+	private void addDevice(AbstractGestureDevice<?,?> device)
+	{
+//		if(device.getDeviceType() == "2D")
+		{
+			devicePanel.addDevice(device);
+			//add input panel
+			InputComponentPanel panel = createInputPanel(device);
+			panelMapping.put(device.toString(), panel);
+			cardPanel.add(panel,device.toString());
+		}
+	}
+	
+	private void removeDevice(AbstractGestureDevice<?,?> device)
+	{
+//		if(device.getDeviceType() == "2D")
+		{
+			devicePanel.removeDevice(device);
+			//remove input panel
+			InputComponentPanel panel = panelMapping.get(device.toString());
+			cardPanel.remove(panel);
+		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.ximtec.igesture.tool.view.devicemanager.DeviceManagerListener#updateDeviceManagerListener(int, org.ximtec.igesture.io.AbstractGestureDevice)
+	 */
+	@Override
+	public void updateDeviceManagerListener(int operation, AbstractGestureDevice<?, ?> device) {
+		if(operation == DeviceManagerListener.ADD)
+		{
+			addDevice(device);
+		} 
+		else if(operation == DeviceManagerListener.REMOVE)
+		{
+			removeDevice(device);
+		}
+	}
 
 }
