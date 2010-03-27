@@ -42,6 +42,7 @@ import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeModel;
 import org.ximtec.igesture.tool.util.NodeInfoFactory;
 import org.ximtec.igesture.tool.view.MainModel;
+import org.ximtec.igesture.tool.view.devicemanager.IDeviceManager;
 
 public class AdminController extends DefaultController {
 
@@ -68,9 +69,15 @@ public class AdminController extends DefaultController {
    */
   private ExplorerTreeController explorerTreeController;
 
-  public AdminController(Controller parentController) {
+  // Device Manager
+  private IDeviceManager deviceManagerController;
+  
+  public AdminController(Controller parentController, IDeviceManager deviceManager) {
     super(parentController);
     mainModel = getLocator().getService(MainModel.IDENTIFIER, MainModel.class);
+    
+    deviceManagerController = deviceManager;
+    
     initController();
 
   }
@@ -82,7 +89,7 @@ public class AdminController extends DefaultController {
     adminView = new AdminView(this);
 
     ExplorerTreeModel explorerModel = new ExplorerTreeModel(mainModel.getGestureSetList(), NodeInfoFactory
-        .createAdminNodeInfo(this));
+        .createAdminNodeInfo(this,deviceManagerController));
     explorerTreeController = new ExplorerTreeController(this, adminView, explorerModel);
 
     addController(explorerTreeController);

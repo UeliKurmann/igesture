@@ -24,7 +24,7 @@
  * 
  */
 
-package org.ximtec.igesture.io.wiimote;
+package org.ximtec.igesture.algorithm.rubine3d.tools;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -44,12 +44,10 @@ import org.sigtec.ink.Trace;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSample3D;
-import org.ximtec.igesture.io.GestureDevicePanel;
-import org.ximtec.igesture.io.GestureEventListener;
 import org.ximtec.igesture.util.additionswiimote.AccelerationSample;
 import org.ximtec.igesture.util.additionswiimote.WiiAccelerations;
 
-public class WiiReaderPanel extends GestureDevicePanel implements GestureEventListener{
+public class WiiReaderPanel extends JPanel {
 
 	private WiiReader reader;
 	private GestureSample3D gs;
@@ -73,16 +71,15 @@ public class WiiReaderPanel extends GestureDevicePanel implements GestureEventLi
 	public void paintComponent(Graphics g) {
 		//System.err.println("paintComponent: reader = " + reader);
 		// Clear first
-//		g.clearRect(0, 0, getWidth(), getHeight()); 
+//		g.clearRect(0, 0, getWidth(), getHeight());
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		g.setColor(Color.BLACK);
 		
-//		if (reader != null) {//@
-//			// Get gesture to draw
-//			gs = (GestureSample3D) reader.getGesture();
-//		}
-		
+		if (reader != null) {
+			// Get gesture to draw
+			gs = (GestureSample3D) reader.getGesture();
+		}
 		// Calculate the drawing fields for the planes
 		List<Rectangle> fields = calculateFieldSizes(0.02);
 		Rectangle XYfield = fields.get(0);
@@ -569,22 +566,6 @@ public class WiiReaderPanel extends GestureDevicePanel implements GestureEventLi
 	public void clear()
 	{
 		System.out.println("clearing");
-		paintComponent(getGraphics());
-	}
-
-	/* (non-Javadoc)
-	 * @see org.ximtec.igesture.io.GestureEventListener#handleChunks(java.util.List)
-	 */
-	@Override
-	public void handleChunks(List<?> chunks) {		
-	}
-
-	/* (non-Javadoc)
-	 * @see org.ximtec.igesture.io.GestureEventListener#handleGesture(org.ximtec.igesture.core.Gesture)
-	 */
-	@Override
-	public void handleGesture(Gesture<?> gesture) {
-		gs = (GestureSample3D) gesture;
 		paintComponent(getGraphics());
 	}
 

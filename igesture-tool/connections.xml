@@ -5,7 +5,11 @@
 		<discoveryService>org.ximtec.igesture.tool.view.devicemanager.discoveryservice.BlueToothDeviceDiscoveryService</discoveryService>
 	</connection>
 	<connection>
-		<name>Tuio</name>
-		<discoveryService>org.ximtec.igesture.tool.view.devicemanager.discoveryservice.TuioDeviceDiscoveryService</discoveryService>
+		<name>Tuio 2D</name>
+		<discoveryService>org.ximtec.igesture.tool.view.devicemanager.discoveryservice.Tuio2DDeviceDiscoveryService</discoveryService>
+	</connection>
+	<connection>
+		<name>Tuio 3D</name>
+		<discoveryService>org.ximtec.igesture.tool.view.devicemanager.discoveryservice.Tuio3DDeviceDiscoveryService</discoveryService>
 	</connection>
 </connections>

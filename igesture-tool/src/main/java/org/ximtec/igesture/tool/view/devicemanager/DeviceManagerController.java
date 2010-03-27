@@ -52,8 +52,11 @@ public class DeviceManagerController extends DefaultController implements IDevic
 	private boolean enableAddDevicesAction = true;
 	
 	private User defaultUser;
+	private AbstractGestureDevice<?, ?> defaultDevice;
 	private DeviceManagerView view;
 
+	private List<DeviceManagerListener> listeners = new ArrayList<DeviceManagerListener>();
+	
 	/**
 	 * Constructor
 	 * @param parentController
@@ -119,11 +122,11 @@ public class DeviceManagerController extends DefaultController implements IDevic
 		String userName = System.getProperty("user.name");
 		defaultUser = new User(userName,userName.substring(0, 1));
 		defaultUser.setDefaultUser(true);
+		defaultDevice = (AbstractGestureDevice<?, ?>) parentController.getLocator().getService(SwingMouseReaderService.IDENTIFIER);
 		
 		//add the default user and the mouse.
 		addUser(defaultUser);
-		addDevice((AbstractGestureDevice<?, ?>) parentController.getLocator().getService(SwingMouseReaderService.IDENTIFIER),defaultUser);
-
+		addDevice(defaultDevice,defaultUser);
 	}
 	
 	/**
@@ -157,7 +160,7 @@ public class DeviceManagerController extends DefaultController implements IDevic
 				userMapping.put(device, user);
 			}
 			view.addDevice(ass);
-			
+			notifyDeviceManagerListener(DeviceManagerListener.ADD,device);
 			LOGGER.log(Level.INFO,"Device Added: "+ ass);
 		}
 	}
@@ -198,7 +201,7 @@ public class DeviceManagerController extends DefaultController implements IDevic
 			view.removeDevice();
 			devices.remove(device);
 			userMapping.remove(device);
-			
+			notifyDeviceManagerListener(DeviceManagerListener.REMOVE,device);
 			LOGGER.log(Level.INFO, "Device Removed: "+ device);
 		}
 				
@@ -288,20 +291,44 @@ public class DeviceManagerController extends DefaultController implements IDevic
 		List<DeviceUserAssociation> associations = storageManager.load(DeviceUserAssociation.class);
 		storageManager.dispose();
 		
-		cleanup();//TODO probably better to not remove default devices and users
+		//remove users and devices except the default ones
+		for(AbstractGestureDevice<?,?> device : devices)
+		{
+			if(!device.isDefaultDevice())
+				removeDevice(device);
+		}
+		for(User user : users)
+		{
+			if(!user.isDefaultUser())
+				removeUser(user);
+		}
+		
 		// load users
 		for(User user : users)
 		{
-			addUser(user);
+			if(!user.isDefaultUser())
+				addUser(user);
 		}
 		// load devices and association
 		for(DeviceUserAssociation ass : associations)
 		{
-			if(!devices.contains(ass.getDeviceItem()))
+			if(!ass.getDeviceItem().isDefaultDevice())
 			{
 				ass.getDeviceItem().setIsConnected(false);
 				ass.getDeviceItem().connect();
 				addDevice(ass.getDeviceItem(),ass.getUserItem());
+			} 
+			else 
+			{
+				//TODO if SwingMouseReaderService is not referenced anywhere in hardcoded way this is not necessary anymore
+				// for system mouse, keep current SwingMouseReaderService
+				// if it was previously associated with the system user, use current system user object
+				User u = null;
+				if(ass.getUserItem().isDefaultUser())
+					u = defaultUser;
+				else // else use the associated user
+					u = ass.getUserItem();
+				associateUser(defaultDevice, u);
 			}
 		}
 		
@@ -316,12 +343,35 @@ public class DeviceManagerController extends DefaultController implements IDevic
 		users.clear();
 		devices.clear();
 		userMapping.clear();
-		view.clear();
+//		view.clear();
 	}
 	
 	@Override
 	public Map<String, DeviceDiscoveryService> getDiscoveryMapping()
 	{
 		return discoveryMapping;
+	}
+	
+	public void addDeviceManagerListener(DeviceManagerListener listener)
+	{
+		listeners.add(listener);
+	}
+	
+	public void removeDeviceManagerListener(DeviceManagerListener listener)
+	{
+		listeners.remove(listener);
+	}
+	
+	public void removeAllDeviceManagerListener()
+	{
+		listeners.clear();
+	}
+	
+	public void notifyDeviceManagerListener(int operation, AbstractGestureDevice<?,?> device)
+	{
+		for(DeviceManagerListener listener : listeners)
+		{
+			listener.updateDeviceManagerListener(operation, device);
+		}
 	}
 }

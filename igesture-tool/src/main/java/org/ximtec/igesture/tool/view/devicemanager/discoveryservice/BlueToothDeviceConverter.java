@@ -121,8 +121,8 @@ public class BlueToothDeviceConverter {
 				Class<?> cl = map.get(btdc);
 				// instantiate it
 				try {
-					Constructor<?> constructor = cl.getConstructor(new Class<?>[]{String.class, String.class});
-					obj = constructor.newInstance(new Object[]{device.getBluetoothAddress(),device.getFriendlyName(false)});
+					Constructor<?> constructor = cl.getConstructor(new Class<?>[]{String.class, String.class, RemoteDevice.class});
+					obj = constructor.newInstance(new Object[]{device.getBluetoothAddress(),device.getFriendlyName(false),device});
 					
 				} catch (SecurityException e) {
 					e.printStackTrace();
@@ -147,8 +147,8 @@ public class BlueToothDeviceConverter {
 		{
 			Class<?> cl = BlueToothReader.class;
 			try {
-				Constructor<?> constructor = cl.getConstructor(new Class<?>[]{String.class, String.class});
-				obj = constructor.newInstance(new Object[]{device.getBluetoothAddress(),device.getFriendlyName(false)});
+				Constructor<?> constructor = cl.getConstructor(new Class<?>[]{String.class, String.class, RemoteDevice.class});
+				obj = constructor.newInstance(new Object[]{device.getBluetoothAddress(),device.getFriendlyName(false),device});
 				
 			} catch (SecurityException e) {
 				e.printStackTrace();

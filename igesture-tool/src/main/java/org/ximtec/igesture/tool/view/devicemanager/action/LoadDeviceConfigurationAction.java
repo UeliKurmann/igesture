@@ -33,11 +33,13 @@ public class LoadDeviceConfigurationAction extends BasicAction {
 		
 		JFileChooser fileChooser = new JFileChooser();
 	    fileChooser.setFileFilter(FileType.deviceConfiguration.getFilter());
-	    fileChooser.showOpenDialog((JButton) e.getSource());
-	    File selectedFile = fileChooser.getSelectedFile();
-	
-	    if (selectedFile != null) {
-	      controller.loadConfiguration(selectedFile);
+	    if(fileChooser.showOpenDialog((JButton) e.getSource()) == JFileChooser.APPROVE_OPTION)
+	    {
+		    File selectedFile = fileChooser.getSelectedFile();
+		
+		    if (selectedFile != null) {
+		      controller.loadConfiguration(selectedFile);
+		    }
 	    }
 
 	}

@@ -3,9 +3,18 @@
  */
 package org.ximtec.igesture.io.tuio;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
+
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Point;
@@ -13,8 +22,10 @@ import org.sigtec.ink.Trace;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.core.Gesture;
+import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.io.AbstractGestureDevice;
+import org.ximtec.igesture.io.Gesture3DDevice;
 import org.ximtec.igesture.util.additions3d.Point3D;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 import org.ximtec.igesture.util.additionswiimote.AccelerationSample;
@@ -27,35 +38,54 @@ import org.ximtec.igesture.io.tuio.tuio3D.TuioCursor3D;
 import org.ximtec.igesture.io.tuio.tuio3D.TuioObject3D;
 
 /**
- * Reader that initializes the TuioConnection and handles the events caused by the TuioConnection.
- * Steps to use:
+ * Reader that initializes the TuioConnection and handles the events caused by the TuioConnection. There are three ways to use the TuioReader.
+ * 1) Manually
+ * After performing the gesture, you can get the gesture with getGesture() or getGesture3D() and do the recognition.
+ * 2) GestureEventListener interface
+ * Register with the TuioReader as a GestureEventListener, it will notify you when a gesture was performed. The recognition of the performed
+ * gesture can then be done.
+ * 3) Configure the TuioReader with a Recogniser
+ * When a gesture was performed, the recogniser will automatically try to recognise the gesture and notify GestureHandlers.
+ *  
+ * General steps to use:
  * 	1. create the TuioReader
  * 	2. connect to a tuio service
- *  3. set a recogniser
+ *  3. In case of GestureEventListener : register as a listener
+ *     In case of Recogniser : set this TuioReaders recogniser
  *  4. set the modifiers/tuio messages to listen for
- * 
+ *  
  * @author Björn Puype, bpuype@gmail.com
  * @see TuioConnection
  */
-public class TuioReader extends AbstractGestureDevice<Note,Point> implements TuioListener{
+public class TuioReader extends AbstractGestureDevice<Note,Point> implements TuioListener, Gesture3DDevice<RecordedGesture3D, Point3D>{
 
+	
+	//*******************************************************************************************************************
+	//	DO NOT USE WITH THE WORKBENCH!!!!!!!!!!!!!!!
+	//*******************************************************************************************************************
+	
 	/** List of Notes (2D gestures) */
 	private Hashtable<Long,Note> notes = new Hashtable<Long,Note>();
 	/** List of RecordedGesture3D (3D gestures) */
 	private Hashtable<Long,RecordedGesture3D> gestures = new Hashtable<Long,RecordedGesture3D>();
-
+	
 	/** List of AbstractTuioObject */
 	private Hashtable<Long,AbstractTuioObject> objectList = new Hashtable<Long,AbstractTuioObject>();
 	/** List of AbstractTuioCursor */
 	private Hashtable<Long,AbstractTuioCursor> cursorList = new Hashtable<Long,AbstractTuioCursor>();
 	
 	/** TUIO Connection used */
-	private TuioConnection connection;
+	protected TuioConnection connection;
 	
 	/** Recogniser to recognise the gestures */
 	private Recogniser recogniser;
 	
 	private boolean debug = true;
+	
+	protected GestureSample gesture;
+	protected Note lastNoteAdded;
+	protected GestureSample3D gesture3D;
+	protected RecordedGesture3D lastRecordedGesture3DAdded;
 	
 	/**
 	 * Default Constructor
@@ -79,8 +109,16 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 		
 		setDeviceID(String.valueOf(port));
 		setConnectionType("Tuio");
-		setDeviceType("3D");
+		setDeviceType("2D_3D");
 		setName("Tuio Service on Port "+port);
+		
+		//MODIFIED >
+		lastNoteAdded = new Note();
+		gesture = new GestureSample("", lastNoteAdded);
+		
+		lastRecordedGesture3DAdded = new RecordedGesture3D();
+		gesture3D = new GestureSample3D("", lastRecordedGesture3DAdded);
+		//MODIFIED <
 	}
 	
 	/**
@@ -121,7 +159,8 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 	 */
 	@Override
 	public void clear() {
-		//TODO
+		lastNoteAdded = new Note();
+		lastRecordedGesture3DAdded = new RecordedGesture3D();
 	}
 
 	/* (non-Javadoc)
@@ -129,7 +168,8 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 	 */
 	@Override
 	public void dispose() {
-		//TODO
+		removeAllListener();
+		clear();
 	}
 
 	/* (non-Javadoc)
@@ -137,7 +177,14 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 	 */
 	@Override
 	public List<Point> getChunks() {
-		//TODO
+		return null;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.ximtec.igesture.io.Gesture3DDevice#getChunks3D()
+	 */
+	@Override
+	public List<Point3D> getChunks3D() {
 		return null;
 	}
 
@@ -146,10 +193,18 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 	 */
 	@Override
 	public Gesture<Note> getGesture() {
-		//TODO
-		return null;
+		return new GestureSample(gesture.getName(),lastNoteAdded);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.ximtec.igesture.io.Gesture3DDevice#getGesture3D()
+	 */
+	@Override
+	public Gesture<RecordedGesture3D> getGesture3D()
+	{
+		return new GestureSample3D(gesture3D.getName(),lastRecordedGesture3DAdded);
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.ximtec.igesture.io.GestureDevice#init()
 	 */
@@ -322,10 +377,15 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 			TuioCursor tcur = (TuioCursor)atcur;
 			cursorList.remove(tcur.getSessionID());	
 			
-			//process note by recognizing it and notifying listeners		
-			recogniser.recognise(notes.get(tcur.getSessionID()));
-					//recogniser automatically performs fireEvent which warns 
-					//gestureHandlers of new performed gestures
+			lastNoteAdded = notes.get(tcur.getSessionID());
+			fireGestureEvent(getGesture());
+			if(recogniser != null)
+			{	
+				//process note by recognizing it and notifying listeners		
+				recogniser.recognise(lastNoteAdded);
+						//recogniser automatically performs fireEvent which warns 
+						//gestureHandlers of new performed gestures
+			}
 			
 			//remove note from the list
 			notes.remove(tcur.getSessionID());
@@ -337,10 +397,15 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 			TuioCursor3D tcur = (TuioCursor3D)atcur;
 			cursorList.remove(tcur.getSessionID());	
 			
-			//process note by recognizing it and notifying listeners
-			recogniser.recognise(new GestureSample3D(Constant.EMPTY_STRING, gestures.get(tcur.getSessionID())),false);
-					//recogniser automatically performs fireEvent which warns 
-					//gestureHandlers of new performed gestures
+			lastRecordedGesture3DAdded = gestures.get(tcur.getSessionID());
+			fireGestureEvent(gesture3D);
+			if(recogniser != null)
+			{
+				//process recordedGesture3D by recognizing it and notifying listeners
+				recogniser.recognise(new GestureSample3D(Constant.EMPTY_STRING, lastRecordedGesture3DAdded),false);
+						//recogniser automatically performs fireEvent which warns 
+						//gestureHandlers of new performed gestures
+			}
 			
 			//remove note from the list
 			gestures.remove(tcur.getSessionID());
@@ -361,14 +426,20 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 			
 			Note note = notes.get(tobj.getSessionID());
 			Trace trace = note.get(0);
-			//if the trace contains more than one point, the the object was used to perform a gesture
+			
+			//if the trace contains more than one point, then the object was used to perform a gesture
 			//otherwise not, so no recognition is needed
 			if(trace.size() > 1)
 			{
-				//process note by recognizing it and notifying listeners		
-				recogniser.recognise(notes.get(tobj.getSessionID()));
-						//recogniser automatically performs fireEvent which warns 
-						//gestureHandlers of new performed gestures
+				lastNoteAdded = note;
+				fireGestureEvent(getGesture());
+				if(recogniser != null)
+				{
+					//process note by recognizing it and notifying listeners		
+					recogniser.recognise(notes.get(tobj.getSessionID()));
+							//recogniser automatically performs fireEvent which warns 
+							//gestureHandlers of new performed gestures
+				}
 			}
 			//remove note from the list
 			notes.remove(tobj.getSessionID());
@@ -385,10 +456,15 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 			//otherwise not, so no recognition is TuioCursor tcur = (TuioCursor)atcur;needed.
 			if(record.size() > 1)
 			{
-				//process note by recognizing it and notifying listeners
-				recogniser.recognise(new GestureSample3D(Constant.EMPTY_STRING, gestures.get(tobj.getSessionID())),false);
-						//recogniser automatically performs fireEvent which warns 
-						//gestureHandlers of new performed gestures
+				lastRecordedGesture3DAdded = record;
+				fireGestureEvent(getGesture3D());
+				if(recogniser != null)
+				{
+					//process recordedGesture3D by recognizing it and notifying listeners
+					recogniser.recognise(new GestureSample3D(Constant.EMPTY_STRING, gestures.get(tobj.getSessionID())),false);
+							//recogniser automatically performs fireEvent which warns 
+							//gestureHandlers of new performed gestures
+				}
 			}
 			//remove note from the list
 			gestures.remove(tobj.getSessionID());
@@ -500,5 +576,20 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 			debug("set obj "+tobj.getSymbolID()+" ("+tobj.getSessionID()+") "+tobj.getX()+" "+tobj.getY()+" "+tobj.getZ());
 		}
 	}
-
+	
+	public TuioReaderPanel getPanel()
+	{
+		return getPanel(new Dimension(200,200));
+	}
+	
+	public TuioReaderPanel getPanel(Dimension dimension)
+	{
+		TuioReaderPanel panel = new TuioReaderPanel();
+		panel.setSize(dimension);
+		panel.setPreferredSize(dimension);
+		panel.setOpaque(true);
+		panel.setBackground(Color.WHITE);
+		panel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+		return panel;
+	}
 }

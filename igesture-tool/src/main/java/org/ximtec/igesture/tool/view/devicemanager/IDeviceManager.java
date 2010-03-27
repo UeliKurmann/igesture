@@ -85,4 +85,12 @@ public interface IDeviceManager {
 	 */
 	void loadConfiguration(File file);
 	
+	
+	public void addDeviceManagerListener(DeviceManagerListener listener);
+	
+	public void removeDeviceManagerListener(DeviceManagerListener listener);
+	
+	public void removeAllDeviceManagerListener();
+	
+	public void notifyDeviceManagerListener(int operation, AbstractGestureDevice<?,?> device);
 }

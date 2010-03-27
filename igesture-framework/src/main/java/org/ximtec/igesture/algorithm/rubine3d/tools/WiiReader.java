@@ -37,7 +37,7 @@
  * 
  */
 
-package org.ximtec.igesture.io.wiimote;
+package org.ximtec.igesture.algorithm.rubine3d.tools;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -47,8 +47,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.bluetooth.RemoteDevice;
+import javax.commerce.base.Constants;
 import javax.swing.BorderFactory;
 
+import org.sigtec.util.Constant;
 import org.wiigee.control.WiimoteWiigee;
 import org.wiigee.device.Wiimote;
 import org.wiigee.event.AccelerationEvent;
@@ -58,6 +60,7 @@ import org.wiigee.event.ButtonPressedEvent;
 import org.wiigee.event.ButtonReleasedEvent;
 import org.wiigee.event.MotionStartEvent;
 import org.wiigee.event.MotionStopEvent;
+//@import org.wiigee.device.Wiimote;
 
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.core.Gesture;
@@ -76,7 +79,7 @@ public class WiiReader extends
 	private static final Logger LOGGER = Logger.getLogger(WiiReader.class.getName());
 	
 	// The panel to draw planes and graphs on
-//	private WiiReaderPanel currentPanel;//@
+	private WiiReaderPanel currentPanel;
 	// Instance of WiiGee for WiiMote device
 	private WiimoteWiigee wiigee;
 	// The WiiMote this listener is listening to
@@ -93,24 +96,16 @@ public class WiiReader extends
 	private int recordButton = org.wiigee.device.Wiimote.BUTTON_B;
 
 	private Recogniser recogniser;
-	private RemoteDevice device;
-	
+
 	/**
 	 * Constructor
 	 */
-	public WiiReader(String address, String name, RemoteDevice device)
-	{
+	public WiiReader() {
+
 		this.accelerations = new WiiAccelerations();
-//		this.currentPanel = new WiiReaderPanel(this);//@
+		this.currentPanel = new WiiReaderPanel(this);
 		this.recordedGesture = new RecordedGesture3D();
 		this.gesture = new GestureSample3D("", recordedGesture);
-
-		this.device = device;
-		
-		setDeviceID(address);
-		setName(name);
-		setDeviceType("3D");//TODO
-		setConnectionType("BlueTooth");
 	}
 
 	/**
@@ -130,17 +125,16 @@ public class WiiReader extends
 	 * @return The panel belonging to this WiiReader
 	 */
 	public WiiReaderPanel getPanel(Dimension dimension) {
-	//	if (currentPanel == null) {//@
+		if (currentPanel == null) {
 			WiiReaderPanel panel = new WiiReaderPanel(this);
 			panel.setSize(dimension);
 			panel.setPreferredSize(dimension);
 			panel.setOpaque(true);
 			panel.setBackground(Color.WHITE);
 			panel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-		//	currentPanel = panel;//@
-//		}//@
-//		return currentPanel;//@
-		return panel;
+			currentPanel = panel;
+		}
+		return currentPanel;
 
 	}
 
@@ -151,10 +145,9 @@ public class WiiReader extends
 	public void clear() {
 		recordedGesture = new RecordedGesture3D();
 		gesture = new GestureSample3D("", recordedGesture);
-//		if (currentPanel != null) {//@
-//			currentPanel.clear();
-//		}
-		fireGestureEvent(gesture);
+		if (currentPanel != null) {
+			currentPanel.clear();
+		}
 	}
 
 	/**
@@ -191,8 +184,16 @@ public class WiiReader extends
 	public void init() {
 		System.out.println("Initializing WiiReader...");
 		try {
-			wiimote = new Wiimote(getDeviceID(),true,true);
 			
+			
+			// Create WiiGee instance
+			wiigee = new WiimoteWiigee();
+			// Retrieve array of WiiMotes in range
+			Wiimote[] wiimotes = wiigee.getDevices();
+			// If a wiimote was found in range
+			if (wiimotes[0] != null)
+				// Take the first wiimote in the list
+				this.wiimote = wiimotes[0];
 			//diable WiiGee internal training and recognition
 			wiimote.setRecognitionButton(0);
 			wiimote.setTrainButton(0);
@@ -201,14 +202,16 @@ public class WiiReader extends
 			wiimote.addButtonListener(this);
 			// Add this as a gesture listener
 			wiimote.addAccelerationListener(this);
-//			System.out.println("WiiReader added as a listener for gesture and button events.");
+			System.out.println("WiiReader added as a listener for gesture and button events.");
 			
+			//MODIFY >
 			setIsConnected(true);
+			//MODIFY <
+			
 		} catch (IOException e) {
-			LOGGER.log(Level.SEVERE,"Could not connect to WiiMote. Please make the device discoverable and try to reconnect.",e);
+			LOGGER.log(Level.SEVERE,"Could not connect to WiiMote. Please make the device discoverable and try to reconnect.",e);//MODIFY
 		}
 	}
-	//MODIFY <
 
 	/**
 	 * Disconnects the WiiMote
@@ -217,7 +220,6 @@ public class WiiReader extends
 		if (this.wiimote != null)
 		{
 			this.wiimote.disconnect();
-			setIsConnected(false);
 		}
 	}
 
@@ -250,8 +252,7 @@ public class WiiReader extends
 							+ System.currentTimeMillis());
 
 			// Paint the gesture on the panel
-//			this.currentPanel.paintComponent(currentPanel.getGraphics());//@
-					//replacement is already here see fireGestureEvent
+			this.currentPanel.paintComponent(currentPanel.getGraphics());
 			// Indicate recording stop
 			recording = false;
 			// Vibration to confirm gesture recording

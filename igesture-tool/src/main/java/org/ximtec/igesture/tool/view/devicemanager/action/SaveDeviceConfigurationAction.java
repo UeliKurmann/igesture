@@ -33,13 +33,14 @@ public class SaveDeviceConfigurationAction extends BasicAction {
 		
 		JFileChooser fileChooser = new JFileChooser();
 	    fileChooser.setFileFilter(FileType.deviceConfiguration.getFilter());
-	    fileChooser.showSaveDialog((JButton) e.getSource());
-	    File selectedFile = fileChooser.getSelectedFile();
-	
-	    if (selectedFile != null) {
-	      controller.saveConfiguration(selectedFile);
+	    if(fileChooser.showSaveDialog((JButton) e.getSource())==JFileChooser.APPROVE_OPTION)
+	    {
+		    File selectedFile = fileChooser.getSelectedFile();
+		
+		    if (selectedFile != null) {
+		      controller.saveConfiguration(selectedFile);
+		    }
 	    }
-
 	}
 
 }

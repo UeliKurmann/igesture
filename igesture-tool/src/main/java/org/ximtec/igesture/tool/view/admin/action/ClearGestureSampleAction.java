@@ -35,18 +35,18 @@ import org.ximtec.igesture.tool.core.LocateableAction;
 
 public class ClearGestureSampleAction extends LocateableAction {
 
-   GestureDevice<?,?> mouseReader;
+   GestureDevice<?,?> reader;
 
 
-   public ClearGestureSampleAction(Controller controller, GestureDevice<?,?> note) {
+   public ClearGestureSampleAction(Controller controller, GestureDevice<?,?> device) {
       super(GestureConstants.GESTURE_SAMPLE_CLEAR, controller.getLocator());
-      this.mouseReader = note;
+      this.reader = device;
    }
 
 
    @Override
    public void actionPerformed(ActionEvent arg0) {
-      mouseReader.clear();
+      reader.clear();
    }
 
 }

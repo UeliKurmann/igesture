@@ -77,6 +77,11 @@ public class SwingMouseReader extends AbstractGestureDevice<Note, Point> {
 	  setDefaultDevice(true);
 	  //MODIFY <
   }
+  
+  public JPanel getPanel()
+  {
+	  return getPanel(new Dimension(200,200));
+  }
 
   public JPanel getPanel(Dimension dimension) {
 
@@ -196,13 +201,13 @@ public class SwingMouseReader extends AbstractGestureDevice<Note, Point> {
   
 	@Override
 	public void connect() {
-		// TODO Auto-generated method stub
+		setIsConnected(true);
 		LOGGER.log(Level.WARNING, "Still to implement");
 	}
 	
 	@Override
 	public void disconnect() {
-		// TODO Auto-generated method stub
+		setIsConnected(false);
 		LOGGER.log(Level.WARNING, "Still to implement");
 	}
 

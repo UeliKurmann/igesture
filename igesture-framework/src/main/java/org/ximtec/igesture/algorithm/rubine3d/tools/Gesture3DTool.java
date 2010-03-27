@@ -41,8 +41,6 @@ import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.core.SampleDescriptor3D;
-import org.ximtec.igesture.io.wiimote.WiiReader;
-import org.ximtec.igesture.io.wiimote.WiiReaderPanel;
 import org.ximtec.igesture.storage.StorageManager;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 

@@ -3,5 +3,6 @@
 	<device>
 		<port>3333</port>
 		<name>TuioSimulator</name>
+		<type>2D,3D</type>
 	</device>
 </devices>

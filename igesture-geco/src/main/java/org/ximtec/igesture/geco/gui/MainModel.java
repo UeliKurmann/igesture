@@ -40,9 +40,11 @@ import org.ximtec.igesture.event.GestureActionManager;
 import org.ximtec.igesture.geco.Configuration;
 import org.ximtec.igesture.geco.mapping.GestureToActionMapping;
 import org.ximtec.igesture.geco.util.SortedListModel;
+import org.ximtec.igesture.io.AbstractGestureDevice;
 import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.io.GestureEventListener;
 import org.ximtec.igesture.io.mouseclient.MouseReader;
+import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.storage.StorageManager;
 
@@ -84,7 +86,7 @@ public class MainModel implements GestureEventListener {
 
    private Recogniser recogniser;
 
-   private GestureDevice<Note, Point> client;
+   private SwingMouseReader client;
 
    private boolean minimize;
 
@@ -391,7 +393,7 @@ public class MainModel implements GestureEventListener {
 
    public void configureInputDevice() {
       
-      client = new MouseReader();
+      client = new SwingMouseReader();
       client.init();
       // client = new InputDeviceClient(gestureConfiguration.getInputDevice(),
       // gestureConfiguration.getInputDeviceEventListener());

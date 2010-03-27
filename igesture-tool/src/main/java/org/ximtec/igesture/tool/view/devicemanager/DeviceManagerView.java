@@ -22,6 +22,7 @@ import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.view.devicemanager.action.AddDeviceAction;
 import org.ximtec.igesture.tool.view.devicemanager.action.AddUserAction;
 import org.ximtec.igesture.tool.view.devicemanager.action.AssociateUserAction;
+import org.ximtec.igesture.tool.view.devicemanager.action.DisconnectDeviceAction;
 import org.ximtec.igesture.tool.view.devicemanager.action.LoadDeviceConfigurationAction;
 import org.ximtec.igesture.tool.view.devicemanager.action.ReconnectDeviceAction;
 import org.ximtec.igesture.tool.view.devicemanager.action.RemoveDeviceAction;
@@ -97,7 +98,7 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 		
 		/////////////////////// add components
 //		add(new BasicLabel(GestureConstants.USER_PANEL,guiBundle),0,0,1);
-		add(userPane,0,1,4);
+		add(userPane,0,1,5);
 		add(createButton(addUserAction,BUTTON_WIDTH),0,2,1);
 		add(createButton(removeUserAction,BUTTON_WIDTH),1,2,1);
 		
@@ -111,7 +112,9 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 		RemoveDeviceAction removeDeviceAction = new RemoveDeviceAction(deviceManagerController,this);
 		removeDeviceAction.setEnabled(false);		
 		ReconnectDeviceAction reconnectDeviceAction = new ReconnectDeviceAction(deviceManagerController,this);
-		reconnectDeviceAction.setEnabled(false);		
+		reconnectDeviceAction.setEnabled(false);
+		DisconnectDeviceAction disconnectDeviceAction = new DisconnectDeviceAction(deviceManagerController,this);
+		disconnectDeviceAction.setEnabled(false);
 		
 		/////////////////////// device table
 		headers = new String[]{GestureConstants.DEVICE_NAME, GestureConstants.DEVICE_ID, GestureConstants.DEVICE_TYPE,
@@ -127,11 +130,12 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 	
 		/////////////////////// add components
 //		add(new BasicLabel(GestureConstants.DEVICES_PANEL, guiBundle),0,3,1);
-		add(devicePane,0,4,4);
+		add(devicePane,0,4,5);
 		add(createButton(addDeviceAction,BUTTON_WIDTH),0,5,1);
 		add(createButton(associateUserAction,BUTTON_WIDTH),1,5,1);
 		add(createButton(removeDeviceAction,BUTTON_WIDTH),2,5,1);
 		add(createButton(reconnectDeviceAction,BUTTON_WIDTH),3,5,1);
+		add(createButton(disconnectDeviceAction,BUTTON_WIDTH),4,5,1);
 		
 		/********************************* Bottom Panel *******************************/
 		/////////////////////// actions

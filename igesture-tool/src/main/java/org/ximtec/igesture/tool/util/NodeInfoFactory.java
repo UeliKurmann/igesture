@@ -35,6 +35,7 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.SampleDescriptor;
+import org.ximtec.igesture.core.SampleDescriptor3D;
 import org.ximtec.igesture.core.TestClass;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.core.TextDescriptor;
@@ -45,6 +46,7 @@ import org.ximtec.igesture.tool.explorer.SeparatorAction;
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureClassAction;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureSetAction;
+import org.ximtec.igesture.tool.view.admin.action.AddSampleDescriptor3DAction;
 import org.ximtec.igesture.tool.view.admin.action.AddSampleDescriptorAction;
 import org.ximtec.igesture.tool.view.admin.action.AddTextDescriptorAction;
 import org.ximtec.igesture.tool.view.admin.action.CreateTestSetStructureAction;
@@ -58,9 +60,11 @@ import org.ximtec.igesture.tool.view.admin.panel.DefaultPanel;
 import org.ximtec.igesture.tool.view.admin.panel.GestureClassPanel;
 import org.ximtec.igesture.tool.view.admin.panel.GestureSetPanel;
 import org.ximtec.igesture.tool.view.admin.panel.GestureSetsPanel;
+import org.ximtec.igesture.tool.view.admin.panel.SampleDescriptor3DPanel;
 import org.ximtec.igesture.tool.view.admin.panel.SampleDescriptorPanel;
 import org.ximtec.igesture.tool.view.admin.panel.TextDescriptorPanel;
 import org.ximtec.igesture.tool.view.admin.wrapper.GestureSetList;
+import org.ximtec.igesture.tool.view.devicemanager.IDeviceManager;
 import org.ximtec.igesture.tool.view.testbench.action.AddConfigurationAction;
 import org.ximtec.igesture.tool.view.testbench.action.ExportConfigurationAction;
 import org.ximtec.igesture.tool.view.testbench.action.RemoveConfigurationAction;
@@ -89,7 +93,7 @@ import org.ximtec.igesture.tool.view.testset.wrapper.TestSetList;
  */
 public class NodeInfoFactory {
 
-  public static List<NodeInfo> createAdminNodeInfo(Controller controller) {
+  public static List<NodeInfo> createAdminNodeInfo(Controller controller, IDeviceManager deviceManagerController) {
     List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
 
     List<Class<? extends BasicAction>> rootActions = new ArrayList<Class<? extends BasicAction>>();
@@ -107,6 +111,7 @@ public class NodeInfoFactory {
 
     List<Class<? extends BasicAction>> classActions = new ArrayList<Class<? extends BasicAction>>();
     classActions.add(AddSampleDescriptorAction.class);
+    classActions.add(AddSampleDescriptor3DAction.class);
     classActions.add(AddTextDescriptorAction.class);
     classActions.add(SeparatorAction.class);
     classActions.add(RemoveGestureClassAction.class);
@@ -122,7 +127,9 @@ public class NodeInfoFactory {
     nodeInfos.add(new NodeInfoImpl(controller, GestureClass.class, "name", "descriptors", GestureClassPanel.class,
         classActions, GestureConstants.NODE_ICON_GESTURE_CLASS));
     nodeInfos.add(new NodeInfoImpl(controller, SampleDescriptor.class, "name", null, SampleDescriptorPanel.class,
-        descriptorActions, GestureConstants.NODE_ICON_GESTURE_SAMPLE_DESCRIPTOR));
+        descriptorActions, GestureConstants.NODE_ICON_GESTURE_SAMPLE_DESCRIPTOR, deviceManagerController));
+    nodeInfos.add(new NodeInfoImpl(controller, SampleDescriptor3D.class, "name", null, SampleDescriptor3DPanel.class,
+        descriptorActions, GestureConstants.NODE_ICON_GESTURE_SAMPLE_DESCRIPTOR, deviceManagerController));
     nodeInfos.add(new NodeInfoImpl(controller, TextDescriptor.class, "name", null, TextDescriptorPanel.class,
         descriptorActions, GestureConstants.NODE_ICON_GESTURE_TEXT_DESCRIPTOR));
     nodeInfos

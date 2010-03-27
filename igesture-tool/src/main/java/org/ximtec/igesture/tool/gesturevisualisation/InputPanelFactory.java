@@ -26,12 +26,18 @@
 
 package org.ximtec.igesture.tool.gesturevisualisation;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.JPanel;
 
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.io.GestureDevice;
+import org.ximtec.igesture.io.GestureDevicePanel;
 import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
 
 
@@ -48,7 +54,9 @@ public class InputPanelFactory {
    static {
       gesturePanels = new HashMap<Class< ? >, Class< ? extends GesturePanel>>();
       gesturePanels.put(GestureSample.class, NoteGesturePanel.class);
+      //TODO create one for Gesture3D
 
+      //TODO load from config file
       inputPanels = new HashMap<Class< ? >, Class< ? extends InputPanel>>();
       inputPanels.put(SwingMouseReader.class, SwingMouseReaderPanel.class);
    }
@@ -118,6 +126,34 @@ public class InputPanelFactory {
          }
       }
       return panel;
+   }
+   
+   public static GestureDevicePanel createPanel(GestureDevice<?,?> gestureDevice)
+   {
+	   //TODO config file
+	   GestureDevicePanel panel = null;
+	   if(gestureDevice != null)
+	   {
+		   Class<?> clazz = gestureDevice.getClass();
+		   try {
+			Method getPanelMethod = clazz.getMethod("getPanel");
+			getPanelMethod.setAccessible(true);
+			panel = (GestureDevicePanel) getPanelMethod.invoke(gestureDevice);
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		   
+		   
+	   }
+	   return panel;
    }
 
 }
