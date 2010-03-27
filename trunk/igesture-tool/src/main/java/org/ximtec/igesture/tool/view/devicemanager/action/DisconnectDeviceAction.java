@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package org.ximtec.igesture.tool.view.devicemanager.action;
 
 import java.awt.event.ActionEvent;
@@ -13,23 +16,22 @@ import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerView;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceUserAssociation;
 
 /**
- * Action to reconnect a device. It extends {@link org.sigtec.graphix.widget.BasicAction} and implements the {@link javax.swing.event.ListSelectionListener} interface.
  * @author Björn Puype, bpuype@gmail.com
  *
  */
-public class ReconnectDeviceAction extends BasicAction implements ListSelectionListener{
+public class DisconnectDeviceAction extends BasicAction implements
+		ListSelectionListener {
 
-	private static final long serialVersionUID = 1L;
-	private DeviceManagerView view;
+private DeviceManagerView view;
 	
-	public ReconnectDeviceAction(DeviceManagerController controller, DeviceManagerView view)
+	public DisconnectDeviceAction(DeviceManagerController controller, DeviceManagerView view)
 	{
 		this(controller,view,false);
 	}
 	
-	public ReconnectDeviceAction(DeviceManagerController controller, DeviceManagerView view, boolean enabled)
+	public DisconnectDeviceAction(DeviceManagerController controller, DeviceManagerView view, boolean enabled)
 	{
-		super(GestureConstants.RECONNECT_DEVICE, controller.getLocator().getService(
+		super(GestureConstants.DISCONNECT_DEVICE, controller.getLocator().getService(
 	            GuiBundleService.IDENTIFIER, GuiBundleService.class));
 		this.view = view;
 		setEnabled(enabled);
@@ -37,12 +39,12 @@ public class ReconnectDeviceAction extends BasicAction implements ListSelectionL
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//connect device
-		view.getSelectedDevice().connect();
-		if(view.getSelectedDevice().isConnected())
+		//disconnect device
+		view.getSelectedDevice().disconnect();
+		if(!view.getSelectedDevice().isConnected())
 		{
 			//update model
-			view.updateDevice(true, DeviceManagerView.COL_DEVICE_CONNECTED, null);
+			view.updateDevice(false, DeviceManagerView.COL_DEVICE_CONNECTED, null);
 			setEnabled(false);
 		}
 	}
@@ -51,9 +53,9 @@ public class ReconnectDeviceAction extends BasicAction implements ListSelectionL
 	public void valueChanged(ListSelectionEvent e) {
 		
 			DeviceUserAssociation device = view.getSelectedDevice();
-			if(device != null && !device.isConnected())
+			if(device != null && device.isConnected() && !device.isDefaultDevice())
 			{
-				//enable this action when the device is not connected
+				//enable this action when the device is connected
 				setEnabled(true);
 			}
 			else

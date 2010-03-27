@@ -48,8 +48,9 @@ public class RemoveDeviceAction extends BasicAction implements ListSelectionList
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
+		DeviceUserAssociation ass = view.getSelectedDevice();
 		//enable the action when something was selected. Except if it is a default device
-		if(!view.getSelectedDevice().isDefaultDevice())
+		if((ass != null) && (!ass.isDefaultDevice()))
 			setEnabled(true);
 		else
 			setEnabled(false);

@@ -25,6 +25,7 @@
 
 package org.ximtec.igesture.tool;
 
+
 /**
  * Constants for the GUI application.
  * 
@@ -46,6 +47,7 @@ public class GestureConstants {
   public static final String DESCRIPTOR_DEL = "DeleteDescriptorAction";
   public static final String GESTURE_SET_IMPORT = "ImportGestureSetAction";
   public static final String SAMPLE_DESCRIPTOR_ADD = "AddSampleDescriptorAction";
+  public static final String SAMPLE_DESCRIPTOR_3D_ADD = "AddSampleDescriptor3DAction";
   public static final String TEXT_DESCRIPTOR_ADD = "AddTextDescriptorAction";
   public static final String GESTURE_SAMPLE_ADD = "AddGestureSampleAction";
   public static final String GESTURE_SAMPLE_DEL = "DelGestureSampleAction";
@@ -53,7 +55,7 @@ public class GestureConstants {
   public static final String CONFIGURATION_ADD = "AddConfigurationAction";
   public static final String CONFIGURATION_DEL = "RemoveConfigurationAction";
   public static final String CONFIGURATION_EXPORT = "ConfigExportAction";
-  public static final String RECONGISE = "RecogniseAction";
+  public static final String RECOGNISE = "RecogniseAction";
   public static final String APPLICATION_ROOT = "ApplicationRoot";
 
   public static final String FILE_MENU = "FileMenu";
@@ -142,6 +144,7 @@ public class GestureConstants {
   public static final String REMOVE_DEVICE = "RemoveDeviceAction";
   public static final String REMOVE_USER = "RemoveUserAction";
   public static final String RECONNECT_DEVICE = "ReconnectDeviceAction";
+  public static final String DISCONNECT_DEVICE = "DisconnectDeviceAction";
   public static final String USER_PANEL = "UserPanel";
   public static final String DEVICES_PANEL = "DevicesPanel";
   public static final String SAVE_DEVICE_CONFIGURATION="SaveDeviceConfigurationAction";
@@ -159,5 +162,6 @@ public class GestureConstants {
   public static final String XML_DISCOVERY = "connections.xml";
   public static final String XML_BLUETOOTH = "bluetoothdevices.xml";
   public static final String XML_TUIO = "tuiodevices.xml";
+
   
 }

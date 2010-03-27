@@ -35,6 +35,9 @@ import javax.swing.JPanel;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Trace;
+import org.ximtec.igesture.core.Gesture;
+import org.ximtec.igesture.io.GestureDevicePanel;
+import org.ximtec.igesture.io.GestureEventListener;
 
 /**
  * Comment
@@ -42,7 +45,7 @@ import org.sigtec.ink.Trace;
  * @version 1.0 04.05.2008
  * @author Ueli Kurmann
  */
-public class SwingMouseReaderPanel extends JPanel {
+public class SwingMouseReaderPanel extends GestureDevicePanel implements GestureEventListener {
 
   private SwingMouseReader reader;
 
@@ -100,5 +103,19 @@ public class SwingMouseReaderPanel extends JPanel {
       }
     }
   }
+
+/* (non-Javadoc)
+ * @see org.ximtec.igesture.io.GestureEventListener#handleChunks(java.util.List)
+ */
+@Override
+public void handleChunks(List<?> chunks) {
+}
+
+/* (non-Javadoc)
+ * @see org.ximtec.igesture.io.GestureEventListener#handleGesture(org.ximtec.igesture.core.Gesture)
+ */
+@Override
+public void handleGesture(Gesture<?> gesture) {
+}
 
 }

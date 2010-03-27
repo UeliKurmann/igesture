@@ -36,7 +36,7 @@ public interface IUser {
 	 */
 	boolean isDefaultUser();
 	/**
-	 * Specify whether this user is a default user or not.
+	 * Specify whether this user is the default user or not.
 	 * @param isDefault
 	 */
 	void setDefaultUser(boolean isDefault);

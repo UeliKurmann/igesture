@@ -49,7 +49,7 @@ public class RecogniseAction extends BasicAction {
 
 
    public RecogniseAction(Controller controller, Configuration configuration) {
-      super(GestureConstants.RECONGISE, controller.getLocator().getService(
+      super(GestureConstants.RECOGNISE, controller.getLocator().getService(
             GuiBundleService.IDENTIFIER, GuiBundleService.class));
       this.configuration = configuration;
       this.controller = controller;

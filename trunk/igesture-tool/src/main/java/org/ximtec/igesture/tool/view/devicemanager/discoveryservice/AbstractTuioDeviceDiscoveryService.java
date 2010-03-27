@@ -4,39 +4,35 @@
 package org.ximtec.igesture.tool.view.devicemanager.discoveryservice;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.InvalidPropertiesFormatException;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.ximtec.igesture.io.AbstractGestureDevice;
 import org.ximtec.igesture.io.tuio.TuioConstants;
-import org.ximtec.igesture.io.tuio.TuioReader;
+import org.ximtec.igesture.io.tuio.TuioReader2D;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.view.Property;
 import org.ximtec.igesture.tool.view.devicemanager.XMLParser;
-import org.ximtec.igesture.tool.view.devicemanager.discoveryservice.BlueToothDeviceConverter.BTDeviceClass;
-import org.xml.sax.SAXException;
 
 /**
- * A BlueTooth device discovery service. It implements the {@link org.ximtec.igesture.tool.view.devicemanager.discoveryservice.DeviceDiscoveryService} interface.
  * @author Björn Puype, bpuype@gmail.com
  *
  */
-public class TuioDeviceDiscoveryService implements DeviceDiscoveryService {
+public abstract class AbstractTuioDeviceDiscoveryService implements
+		DeviceDiscoveryService {
 
-	private static final Logger LOGGER = Logger.getLogger(TuioDeviceDiscoveryService.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(Tuio2DDeviceDiscoveryService.class.getName());
 	/**
 	 * First port of range to scan
 	 */
@@ -54,11 +50,18 @@ public class TuioDeviceDiscoveryService implements DeviceDiscoveryService {
 	 */
 	private Map<Integer, String> map;
 	
+	
+	private String typeToDiscover;
+	private Class<?> clazzToInstantiate;
+	
 	/**
 	 * Constructor
 	 */
-	public TuioDeviceDiscoveryService()
+	public AbstractTuioDeviceDiscoveryService(String type, Class<?> clazz)
 	{
+		typeToDiscover = type;
+		clazzToInstantiate = clazz;
+		
 		//get port range to scan from the properties file
 		Properties properties = new Properties();
 		try {
@@ -86,8 +89,19 @@ public class TuioDeviceDiscoveryService implements DeviceDiscoveryService {
 					int port = Integer.parseInt(((Node)nodeLists.get(0).item(0)).getNodeValue());
 					// read the service name
 					String deviceName = ((Node)nodeLists.get(1).item(0)).getNodeValue();
-					// put it in the map
-					map.put(port,deviceName);
+					// read in the types
+					String type = ((Node)nodeLists.get(2).item(0)).getNodeValue();
+					String[] types = type.split(",");
+					for(String s : types)
+					{
+						if(typeToDiscover.equals(s))
+						{
+							// put it in the map
+							map.put(port,deviceName);
+							break;
+						}
+							
+					}					
 				} catch (NumberFormatException e) {
 					LOGGER.log(Level.WARNING,"Invalid Port Number. The corresponding Tuio device type was not added.",e);
 				} catch (NullPointerException e) {
@@ -99,6 +113,7 @@ public class TuioDeviceDiscoveryService implements DeviceDiscoveryService {
 		ArrayList<String> textNodes = new ArrayList<String>();
 		textNodes.add("port");
 		textNodes.add("name");
+		textNodes.add("type");
 		try {
 			parser.parse(System.getProperty("user.dir")+System.getProperty("file.separator")+GestureConstants.XML_TUIO, "device", textNodes);
 		} catch (IOException e) {
@@ -122,16 +137,31 @@ public class TuioDeviceDiscoveryService implements DeviceDiscoveryService {
 			if(map.containsKey(port))
 			{
 				
-				AbstractGestureDevice<?,?> device = new TuioReader(port);
-				String name = map.get(port);
-				if(name != null && !name.isEmpty())
-				{
-					device.setName(name);
+				try {
+					Constructor ctor = clazzToInstantiate.getConstructor(Integer.class);
+					AbstractGestureDevice<?,?> device = (AbstractGestureDevice<?, ?>) ctor.newInstance(new Integer(port));
+					String name = map.get(port);
+					if(name != null && !name.isEmpty())
+					{
+						device.setName(name);
+					}
+					else
+						name = "Tuio Service";
+					LOGGER.log(Level.INFO,"Device discovered: "+name+" on port "+port);
+					devices.add(device);					
+				} catch (SecurityException e) {
+					e.printStackTrace();
+				} catch (NoSuchMethodException e) {
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (InstantiationException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
 				}
-				else
-					name = "Tuio Service";
-				LOGGER.log(Level.INFO,"Device discovered: "+name+" on port "+port);
-				devices.add(device);
 			}
 		}
 		
@@ -150,5 +180,4 @@ public class TuioDeviceDiscoveryService implements DeviceDiscoveryService {
 	public void dispose() {
 		devices.clear();
 	}
-
 }

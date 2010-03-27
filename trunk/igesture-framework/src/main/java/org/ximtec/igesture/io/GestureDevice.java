@@ -178,4 +178,12 @@ public interface GestureDevice<E, F> {
 	void setDefaultDevice(boolean isDefault);	
 	
 	String toString();
+	
+//	public static final String DEVICE_TYPE_2D = "2D";
+//	public static final String DEVICE_TYPE_3D = "3D";
+//	public static final String DEVICE_TYPE_2D_3D = "2D3D";
+//	  
+//	public static final String DEVICE_CONNECTION_BLUETOOTH = "Bluetooth";
+//	public static final String DEVICE_CONNECTION_USB = "USB";
+//	public static final String DEVICE_CONNECTION_TUIO = "Tuio";
 }

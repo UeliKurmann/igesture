@@ -1,13 +1,68 @@
-package org.ximtec.igesture.tool.view.devicemanager;
+/**
+ * 
+ */
+package org.ximtec.igesture.io;
+
+import java.util.List;
+
+import org.ximtec.igesture.core.Gesture;
 
 /**
- * This interface defines all methods for devices, that can be managed by the device manager, must implement.
  * @author Björn Puype, bpuype@gmail.com
  *
  */
-public interface Device {
-	
-		// device identifier
+public interface Gesture3DDevice<E, F> {
+
+	   /**
+	    * Initializes the device. After executing this method, gestures can be
+	    * captured.
+	    */
+	   void init();
+
+
+	   /**
+	    * Disposes the device. After executing this method, gestures are not captured
+	    * anymore and all dependent resources are released.
+	    */
+	   void dispose();
+
+
+	   /**
+	    * Returns the gestures. This method should block, if no gesture is available. 
+	    * @return the gesture. 
+	    */
+	   Gesture<E> getGesture3D();
+
+
+	   /**
+	    * Deletes the current gesture. 
+	    */
+	   void clear();
+
+
+	   /**
+	    * Returns chunks of a gesture while drawing it. 
+	    * @return chunks of a gesture. 
+	    */
+	   List<F> getChunks3D();
+
+
+	   /**
+	    * Add a gesture handler
+	    * @param listener
+	    */
+	   void addGestureHandler(GestureEventListener listener);
+
+
+	   /**
+	    * Remove a gesture handler
+	    * @param listener
+	    */
+	   void removeGestureHandler(GestureEventListener listener);
+
+	   
+	   
+	    // device identifier
 	   /**
 	    * Get the unique identifier of the device. (e.g. MAC address)
 	    */
@@ -47,12 +102,12 @@ public interface Device {
 		 * Check whether the device can be connected by the user or is automatically connected.
 		 * @return
 		 */
-		boolean isConnectable();//TODO remove
+		boolean isConnectable();
 		/**
 		 * Check whether the device can be disconnected by the user.
 		 * @return
 		 */
-		boolean isDisconnectable();//TODO remove
+		boolean isDisconnectable();
 		/**
 		 * Check whether the device is connected or not.
 		 * @return	True if connected, else false.
@@ -87,7 +142,7 @@ public interface Device {
 		void setConnectionType(String connectionType);
 		
 		/**
-		 * Check whether the device is the default device.
+		 * Check whether the device is a default device.
 		 * @return
 		 */
 		boolean isDefaultDevice();
@@ -97,6 +152,6 @@ public interface Device {
 		 */
 		void setDefaultDevice(boolean isDefault);	
 		
-		
 		String toString();
+
 }

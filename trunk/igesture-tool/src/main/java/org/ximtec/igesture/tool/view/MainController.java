@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -167,16 +168,45 @@ public class MainController extends DefaultController implements Service {
 	 * @throws Exception
 	 */
 	private Controller createController(Class<?> controllerClass)
-			throws Exception {
-		Controller controller;
-		if (controllerClass.getConstructor(Controller.class) != null) {
-			Constructor<?> constructor = controllerClass
-					.getConstructor(Controller.class);
-			controller = (Controller) constructor
-					.newInstance(MainController.this);
-		} else {
-			controller = (Controller) controllerClass.newInstance();
+		throws Exception
+	{
+		
+		boolean instantiated = false;
+		
+		Controller controller = null;
+		try {
+			if (!instantiated && (controllerClass.getConstructor(new Class<?>[]{Controller.class,IDeviceManager.class}) != null)) {
+				Constructor<?> constructor = controllerClass
+						.getConstructor(new Class<?>[]{Controller.class,IDeviceManager.class});
+				controller = (Controller) constructor
+						.newInstance(MainController.this,deviceManagerController);
+				instantiated = true;
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		try {
+			if (!instantiated && (controllerClass.getConstructor(Controller.class) != null)){ 
+				Constructor<?> constructor = controllerClass
+						.getConstructor(Controller.class);
+				controller = (Controller) constructor
+						.newInstance(MainController.this);
+				instantiated = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		if(!instantiated)
+		{
+			try {
+				controller = (Controller) controllerClass.newInstance();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if(controller == null)
+			throw new Exception();
 		return controller;
 	}
 
@@ -369,7 +399,9 @@ public class MainController extends DefaultController implements Service {
 		dialog.setVisible(true);
 	} // execShowAboutDialog
 	
-	
+	/**
+	 * Command to show the device manager.
+	 */
 	@ExecCmd(name = CMD_SHOW_DEVICE_MANAGER)
 	protected void execShowDeviceManager() {
 		LOGGER.info("Show Device Manager.");

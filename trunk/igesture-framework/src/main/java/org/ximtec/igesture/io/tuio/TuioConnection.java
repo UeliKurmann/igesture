@@ -67,7 +67,7 @@ public class TuioConnection implements OSCListener {
 	 */
 	public TuioConnection()
 	{
-		
+		this(TuioConstants.DEFAULT_PORT);
 	}
 	
 	/**

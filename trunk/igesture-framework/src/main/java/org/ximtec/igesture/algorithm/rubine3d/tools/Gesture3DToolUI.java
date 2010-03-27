@@ -43,7 +43,6 @@ import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.io.wiimote.WiiReaderPanel;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 public class Gesture3DToolUI extends JFrame {
