@@ -2,31 +2,17 @@ package org.ximtec.igesture.tool.view.devicemanager;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
-import javax.bluetooth.BluetoothStateException;
-import javax.bluetooth.DataElement;
-import javax.bluetooth.DeviceClass;
-import javax.bluetooth.DiscoveryAgent;
-import javax.bluetooth.DiscoveryListener;
-import javax.bluetooth.LocalDevice;
 import javax.bluetooth.RemoteDevice;
-import javax.bluetooth.ServiceRecord;
-import javax.bluetooth.UUID;
 import javax.microedition.io.Connector;
 import javax.microedition.io.StreamConnection;
 import javax.microedition.io.StreamConnectionNotifier;
-import javax.obex.ClientSession;
-import javax.obex.HeaderSet;
-import javax.obex.Operation;
-import javax.obex.ResponseCodes;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Point;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.io.AbstractGestureDevice;
-import org.ximtec.igesture.tool.view.devicemanager.temp.ConnectionType;
 
 /**
  * Dummy BlueTooth Device
