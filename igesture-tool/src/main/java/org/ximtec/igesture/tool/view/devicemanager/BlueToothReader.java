@@ -41,7 +41,7 @@ public class BlueToothReader extends AbstractGestureDevice<Note,Point>{
 	{
 		setName(name);
 		setDeviceID(address);
-		setConnectionType(ConnectionType.CONNECTION_BLUETOOTH);
+		setConnectionType("Bluetooth");
 		setDeviceType("3D");
 		
 		this.device = device;
