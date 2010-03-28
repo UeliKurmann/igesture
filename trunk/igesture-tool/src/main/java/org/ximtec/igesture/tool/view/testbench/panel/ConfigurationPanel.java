@@ -40,7 +40,6 @@ import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -61,8 +60,8 @@ import org.ximtec.igesture.tool.binding.BindingFactory;
 import org.ximtec.igesture.tool.binding.MapTextFieldBinding;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.gesturevisualisation.InputComponentPanel;
-import org.ximtec.igesture.tool.gesturevisualisation.InputPanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanelFactory;
+import org.ximtec.igesture.tool.service.DeviceManagerService;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
 import org.ximtec.igesture.tool.util.ComponentFactory;
 import org.ximtec.igesture.tool.util.TitleFactory;
@@ -101,11 +100,13 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
   
   private Map<String, InputComponentPanel> panelMapping;
 
-  public ConfigurationPanel(Controller controller, Configuration configuration, IDeviceManager manager) {
+  public ConfigurationPanel(Controller controller, Configuration configuration) {
     super(controller);
     this.configuration = configuration;
     
     this.panelMapping = new HashMap<String, InputComponentPanel>();
+    
+    DeviceManagerService manager = controller.getLocator().getService(DeviceManagerService.IDENTIFIER, DeviceManagerService.class);
     manager.addDeviceManagerListener(this);
     
     init(manager);
@@ -153,7 +154,7 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
 	
 	basePanel.add(cardPanel, BorderLayout.CENTER);
 	
-	devicePanel = new DeviceListPanel(/*manager*/);
+	devicePanel = new DeviceListPanel();
     for(AbstractGestureDevice<?,?> device : manager.getDevices())
     	addDevice(device);
     devicePanel.addDevicePanelListener(this);
@@ -181,7 +182,7 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
 
     FormLayout layout = new FormLayout(
         "100dlu, 4dlu, 100dlu",
-        "pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref");
+        "pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref, 4dlu, pref");
 
     DefaultFormBuilder builder = new DefaultFormBuilder(layout);
     builder.setDefaultDialogBorder();
@@ -224,22 +225,14 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
 		inputComponentPanel.setLayout(new FlowLayout());
 		GestureDevicePanel inputPanelInstance = InputPanelFactory.createPanel(device);
 		inputComponentPanel.setGestureDevicePanel(inputPanelInstance);
-		
-		//TODO zorgen dat dit niet nodig is
-		inputPanelInstance.setSize(new Dimension(INPUTAREA_SIZE,INPUTAREA_SIZE));
-		inputPanelInstance.setPreferredSize(new Dimension(INPUTAREA_SIZE,INPUTAREA_SIZE));
-		inputPanelInstance.setOpaque(true);
-		inputPanelInstance.setBackground(Color.WHITE);
-		inputPanelInstance.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-		
 		inputComponentPanel.add(inputPanelInstance);
+		
 	    // buttons
 	    JPanel buttonPanel = ComponentFactory.createBorderLayoutPanel();
 	
 	    final JComboBox comboBox = new JComboBox(getController().getLocator().getService(MainModel.IDENTIFIER, MainModel.class)
 	        .getGestureSets().toArray());
-	   
-	
+
 	    comboBox.addActionListener(new ActionListener() {
 	
 	      @Override

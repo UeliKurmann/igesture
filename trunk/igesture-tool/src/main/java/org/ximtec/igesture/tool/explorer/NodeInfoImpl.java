@@ -44,7 +44,6 @@ import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.explorer.core.ExplorerTreeView;
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
 import org.ximtec.igesture.tool.service.GuiBundleService;
-import org.ximtec.igesture.tool.view.devicemanager.IDeviceManager;
 
 /**
  * Implementation of the NodeInfo interface. Reflection and dynamic class
@@ -71,8 +70,7 @@ public class NodeInfoImpl implements NodeInfo {
   private String key;
 
   private GuiBundleService guiBundle;
-  
-  private IDeviceManager deviceManagerController = null;
+
 
   /**
    * Constructor
@@ -103,16 +101,7 @@ public class NodeInfoImpl implements NodeInfo {
     this.popupActions = popupActions;
     this.key = key;
     this.guiBundle = controller.getLocator().getService(GuiBundleService.IDENTIFIER, GuiBundleService.class);
-  }
-  
-  public NodeInfoImpl(Controller controller, Class<? extends Object> type, String propertyName, String childList,
-	      Class<? extends ExplorerTreeView> view, List<Class<? extends BasicAction>> popupActions, String key, IDeviceManager deviceManager) 
-  {
-
-    this(controller,type,propertyName,childList,view,popupActions,key);
-    deviceManagerController = deviceManager;
-  }
-  
+  }  
 
   /*
    * (non-Javadoc)
@@ -224,29 +213,17 @@ public class NodeInfoImpl implements NodeInfo {
     try {
       Constructor<? extends ExplorerTreeView> ctor = null;
       Class<? extends Object> type = nodeClass;
-      if(deviceManagerController == null)
-      {
-	      while (ctor == null && type != null) {
-	        try {
-	          ctor = viewClass.getConstructor(Controller.class, type);
-	        } finally {
-	          type = type.getSuperclass();
-	        }
-	      }
-	
-	      if (ctor != null) {
-	        return ctor.newInstance(controller, node);
-	      }
-      }else{
-    	  while (ctor == null) {
-  	        
-  	          ctor = viewClass.getConstructor(Controller.class, type, IDeviceManager.class);
+      
+      while (ctor == null && type != null) {
+        try {
+          ctor = viewClass.getConstructor(Controller.class, type);
+        } finally {
+          type = type.getSuperclass();
+        }
+      }
 
-  	      }
-  	
-  	      if (ctor != null) {
-  	        return ctor.newInstance(controller, node, deviceManagerController);
-  	      }
+      if (ctor != null) {
+        return ctor.newInstance(controller, node);
       }
     } catch (Exception e) {
       LOG.log(Level.SEVERE, "Can't create the view.", e);

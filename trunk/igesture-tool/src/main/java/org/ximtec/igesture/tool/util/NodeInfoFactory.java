@@ -64,7 +64,6 @@ import org.ximtec.igesture.tool.view.admin.panel.SampleDescriptor3DPanel;
 import org.ximtec.igesture.tool.view.admin.panel.SampleDescriptorPanel;
 import org.ximtec.igesture.tool.view.admin.panel.TextDescriptorPanel;
 import org.ximtec.igesture.tool.view.admin.wrapper.GestureSetList;
-import org.ximtec.igesture.tool.view.devicemanager.IDeviceManager;
 import org.ximtec.igesture.tool.view.testbench.action.AddConfigurationAction;
 import org.ximtec.igesture.tool.view.testbench.action.ExportConfigurationAction;
 import org.ximtec.igesture.tool.view.testbench.action.RemoveConfigurationAction;
@@ -93,7 +92,7 @@ import org.ximtec.igesture.tool.view.testset.wrapper.TestSetList;
  */
 public class NodeInfoFactory {
 
-  public static List<NodeInfo> createAdminNodeInfo(Controller controller, IDeviceManager deviceManagerController) {
+  public static List<NodeInfo> createAdminNodeInfo(Controller controller) {
     List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
 
     List<Class<? extends BasicAction>> rootActions = new ArrayList<Class<? extends BasicAction>>();
@@ -127,9 +126,9 @@ public class NodeInfoFactory {
     nodeInfos.add(new NodeInfoImpl(controller, GestureClass.class, "name", "descriptors", GestureClassPanel.class,
         classActions, GestureConstants.NODE_ICON_GESTURE_CLASS));
     nodeInfos.add(new NodeInfoImpl(controller, SampleDescriptor.class, "name", null, SampleDescriptorPanel.class,
-        descriptorActions, GestureConstants.NODE_ICON_GESTURE_SAMPLE_DESCRIPTOR, deviceManagerController));
+        descriptorActions, GestureConstants.NODE_ICON_GESTURE_SAMPLE_DESCRIPTOR));
     nodeInfos.add(new NodeInfoImpl(controller, SampleDescriptor3D.class, "name", null, SampleDescriptor3DPanel.class,
-        descriptorActions, GestureConstants.NODE_ICON_GESTURE_SAMPLE_DESCRIPTOR, deviceManagerController));
+        descriptorActions, GestureConstants.NODE_ICON_GESTURE_SAMPLE_DESCRIPTOR));
     nodeInfos.add(new NodeInfoImpl(controller, TextDescriptor.class, "name", null, TextDescriptorPanel.class,
         descriptorActions, GestureConstants.NODE_ICON_GESTURE_TEXT_DESCRIPTOR));
     nodeInfos
@@ -140,7 +139,7 @@ public class NodeInfoFactory {
     return nodeInfos;
   }
 
-  public static List<NodeInfo> createTestBenchNodeInfo(Controller controller, IDeviceManager deviceManagerController) {
+  public static List<NodeInfo> createTestBenchNodeInfo(Controller controller) {
 
     List<Class<? extends BasicAction>> algorithmListActions = new ArrayList<Class<? extends BasicAction>>();
     List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
@@ -161,13 +160,13 @@ public class NodeInfoFactory {
         AlgorithmWrapperPanel.class, algorithmWrapperActions, GestureConstants.NODE_ICON_ALGORITHM));
 
     nodeInfos.add(new NodeInfoImpl(controller, Configuration.class, "name", null, ConfigurationPanel.class,
-        configurationActions, GestureConstants.NODE_ICON_CONFIGURATION, deviceManagerController));
+        configurationActions, GestureConstants.NODE_ICON_CONFIGURATION));
 
     return nodeInfos;
 
   }
 
-  public static List<NodeInfo> createTestSetNodeInfo(Controller controller, IDeviceManager deviceManagerController) {
+  public static List<NodeInfo> createTestSetNodeInfo(Controller controller) {
     List<NodeInfo> nodeInfos = new ArrayList<NodeInfo>();
 
     List<Class<? extends BasicAction>> rootActions = new ArrayList<Class<? extends BasicAction>>();
@@ -195,7 +194,7 @@ public class NodeInfoFactory {
         GestureConstants.NODE_ICON_TEST_SET));
 
     nodeInfos.add(new NodeInfoImpl(controller, TestClass.class, "name", null, TestClassPanel.class, classActions,
-        GestureConstants.NODE_ICON_TEST_CLASS, deviceManagerController));
+        GestureConstants.NODE_ICON_TEST_CLASS));
 
     return nodeInfos;
   }

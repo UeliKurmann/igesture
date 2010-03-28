@@ -235,6 +235,10 @@
 		    	<type>jar</type>
 	    		<scope>compile</scope>
 	    	</dependency>
+	    	<dependency>
+                	<groupId>com.illposed</groupId>
+					<artifactId>osc</artifactId>
+			</dependency>
 	</dependencies>
 
 

@@ -21,15 +21,12 @@ import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
 import org.sigtec.graphix.GridBagLayouter;
-import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.Gesture;
-import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.SampleDescriptor3D;
 import org.ximtec.igesture.io.AbstractGestureDevice;
 import org.ximtec.igesture.io.GestureDevice;
@@ -39,15 +36,14 @@ import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.gesturevisualisation.GesturePanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputComponentPanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanelFactory;
+import org.ximtec.igesture.tool.service.DeviceManagerService;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
-import org.ximtec.igesture.tool.util.FontFactory;
 import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.view.DeviceListPanel;
 import org.ximtec.igesture.tool.view.DeviceListPanelListener;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.action.RemoveGestureSampleAction;
-import org.ximtec.igesture.tool.view.admin.panel.SampleDescriptorPanel.SampleIconMouseListener;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerListener;
 import org.ximtec.igesture.tool.view.devicemanager.IDeviceManager;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
@@ -78,7 +74,7 @@ public class SampleDescriptor3DPanel extends DefaultDescriptorPanel<SampleDescri
 	 * @param controller
 	 * @param descriptor
 	 */
-	public SampleDescriptor3DPanel(Controller controller, final SampleDescriptor3D descriptor, IDeviceManager manager) {
+	public SampleDescriptor3DPanel(Controller controller, final SampleDescriptor3D descriptor) {
 		super(controller, descriptor);
 		
 		this.sampleCache = new HashMap<Gesture<RecordedGesture3D>, JPanel>();
@@ -92,6 +88,7 @@ public class SampleDescriptor3DPanel extends DefaultDescriptorPanel<SampleDescri
 	      }
 	    });
 
+	    DeviceManagerService manager = controller.getLocator().getService(DeviceManagerService.IDENTIFIER, DeviceManagerService.class);
 	    manager.addDeviceManagerListener(this);
 	    
 	    init(descriptor, manager);
@@ -198,14 +195,14 @@ public class SampleDescriptor3DPanel extends DefaultDescriptorPanel<SampleDescri
 		currentDevice = gestureDevice;
 		
 	    
-	    JLabel title = getComponentFactory().createLabel(GestureConstants.SAMPLE_DESCRIPTOR_TITLE);
-	    title.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-	    title.setFont(FontFactory.getArialBold(18));
-	    
-	    basePanel.add(title, BorderLayout.NORTH);
+//	    JLabel title = getComponentFactory().createLabel(GestureConstants.SAMPLE_DESCRIPTOR_TITLE);
+//	    title.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+//	    title.setFont(FontFactory.getArialBold(18));
+//	    
+//	    basePanel.add(title, BorderLayout.NORTH);
 	    basePanel.add(cardPanel, BorderLayout.CENTER);
 	    
-	    devicePanel = new DeviceListPanel(/*manager*/);
+	    devicePanel = new DeviceListPanel();
 	    for(AbstractGestureDevice<?,?> device : manager.getDevices())
 	    	addDevice(device);
 	    devicePanel.addDevicePanelListener(this);
@@ -315,17 +312,19 @@ public class SampleDescriptor3DPanel extends DefaultDescriptorPanel<SampleDescri
 		 */
 		@Override
 		public void updateDeviceListPanelListener(AbstractGestureDevice<?, ?> device) {
-			System.out.println("update");
 			
 			//remove listener from current device
-			currentDevice.removeGestureHandler(panelMapping.get(currentDevice.toString()).getGestureDevicePanel());
+			if(!panelMapping.isEmpty())
+				currentDevice.removeGestureHandler(panelMapping.get(currentDevice.toString()).getGestureDevicePanel());
 			//change input panel
 			((CardLayout)cardPanel.getLayout()).show(cardPanel, device.toString());
 			currentDevice = device;
 			
 			//add listener to new device
-			device.addGestureHandler(panelMapping.get(device.toString()).getGestureDevicePanel());
-			//repaint();
+			if(!panelMapping.isEmpty())
+				device.addGestureHandler(panelMapping.get(device.toString()).getGestureDevicePanel());
+			
+			repaint();
 		}
 		
 		private InputComponentPanel createInputPanel(GestureDevice<?,?> device)
@@ -333,16 +332,9 @@ public class SampleDescriptor3DPanel extends DefaultDescriptorPanel<SampleDescri
 			InputComponentPanel inputComponentPanel = new InputComponentPanel();
 			inputComponentPanel.setLayout(new FlowLayout());
 			GestureDevicePanel inputPanelInstance = InputPanelFactory.createPanel(device);
-			inputComponentPanel.setGestureDevicePanel(inputPanelInstance);
-			
-			//TODO zorgen dat dit niet nodig is
-			inputPanelInstance.setSize(new Dimension(INPUTAREA_SIZE,INPUTAREA_SIZE));
-			inputPanelInstance.setPreferredSize(new Dimension(INPUTAREA_SIZE,INPUTAREA_SIZE));
-			inputPanelInstance.setOpaque(true);
-			inputPanelInstance.setBackground(Color.WHITE);
-			inputPanelInstance.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-			
+			inputComponentPanel.setGestureDevicePanel(inputPanelInstance);			
 			inputComponentPanel.add(inputPanelInstance);
+			
 			// buttons
 		    JPanel buttonPanel = new JPanel();
 		    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));

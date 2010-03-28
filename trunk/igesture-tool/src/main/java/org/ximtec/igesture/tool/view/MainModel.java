@@ -32,6 +32,7 @@ import java.util.Properties;
 
 import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.rubine.RubineAlgorithm;
+import org.ximtec.igesture.algorithm.rubine3d.Rubine3DAlgorithm;
 import org.ximtec.igesture.algorithm.siger.SigerAlgorithm;
 import org.ximtec.igesture.algorithm.signature.SiGridAlgorithm;
 import org.ximtec.igesture.configuration.Configuration;
@@ -117,6 +118,7 @@ public class MainModel implements RunnableService {
     algorithms.add(RubineAlgorithm.class);
     algorithms.add(SigerAlgorithm.class);
     algorithms.add(SiGridAlgorithm.class);
+    algorithms.add(Rubine3DAlgorithm.class);
     return algorithms;
   } // getAlgorithms
 
