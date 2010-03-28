@@ -46,7 +46,6 @@ import org.ximtec.igesture.tool.explorer.ExplorerTreeModel;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
 import org.ximtec.igesture.tool.util.NodeInfoFactory;
 import org.ximtec.igesture.tool.view.MainModel;
-import org.ximtec.igesture.tool.view.devicemanager.IDeviceManager;
 import org.ximtec.igesture.tool.view.testbench.panel.ConfigurationPanel;
 
 public class TestbenchController extends DefaultController {
@@ -61,17 +60,12 @@ public class TestbenchController extends DefaultController {
 	private ExplorerTreeController explorerTreeController;
 
 	public final static String CMD_RECOGNIZE = "recognize";
-
-	// Device Manager
-	private IDeviceManager deviceManagerController;
 	
-	public TestbenchController(Controller parentController, IDeviceManager deviceManager) {
+	public TestbenchController(Controller parentController) {
 		super(parentController);
 		
 		mainModel = getLocator().getService(
 				MainModel.IDENTIFIER, MainModel.class);
-		
-		deviceManagerController = deviceManager;
 		
 		initController();
 	}
@@ -80,7 +74,7 @@ public class TestbenchController extends DefaultController {
 		testbenchView = EdtProxy.newInstance(new TestbenchView(this), ITestBenchView.class);
 
 		ExplorerTreeModel explorerModel = new ExplorerTreeModel(mainModel
-				.getAlgorithmList(), NodeInfoFactory.createTestBenchNodeInfo(this, deviceManagerController));
+				.getAlgorithmList(), NodeInfoFactory.createTestBenchNodeInfo(this));
 		explorerTreeController = new ExplorerTreeController(this, testbenchView,
 				explorerModel);
 

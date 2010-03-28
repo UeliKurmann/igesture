@@ -25,18 +25,14 @@ import org.ximtec.igesture.tool.view.devicemanager.IDeviceManager;
  * @author Björn Puype, bpuype@gmail.com
  *
  */
-public class DeviceListPanel extends JPanel implements /*DeviceManagerListener,*/ ListSelectionListener{
+public class DeviceListPanel extends JPanel implements ListSelectionListener{
 
-	private IDeviceManager deviceManagerController;
-	
 	private List<DeviceListPanelListener> listeners;
 	
 	private JList list = null;
 	
-	public DeviceListPanel(/*IDeviceManager deviceManager*/)
+	public DeviceListPanel()
 	{
-//		this.deviceManagerController = deviceManager;
-//		deviceManagerController.addDeviceManagerListener(this);
 		
 		listeners = new ArrayList<DeviceListPanelListener>();
 		
@@ -50,8 +46,6 @@ public class DeviceListPanel extends JPanel implements /*DeviceManagerListener,*
 		//device list
 		list = new JList();
 		DefaultListModel model = new DefaultListModel();
-//		for(AbstractGestureDevice<?,?> device : deviceManagerController.getDevices())
-//			model.addElement(device);
 		list.setModel(model);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setSelectedIndex(0);
@@ -60,28 +54,6 @@ public class DeviceListPanel extends JPanel implements /*DeviceManagerListener,*
 		JScrollPane scrollpane = new JScrollPane(list);
 		add(scrollpane,BorderLayout.CENTER);
 	}
-
-//	/* (non-Javadoc)
-//	 * @see org.ximtec.igesture.tool.view.devicemanager.DeviceManagerListener#update()
-//	 */
-//	@Override
-//	public void updateDeviceManagerListener(int operation, AbstractGestureDevice<?,?> device) {
-//		
-//		int index = list.getSelectedIndex();
-//		DefaultListModel model = (DefaultListModel)list.getModel();
-//		if(operation == DeviceManagerListener.ADD)
-//		{
-//			model.addElement(device);
-//		}
-//		else if(operation == DeviceManagerListener.REMOVE)
-//		{
-//			model.removeElement(device);
-//		}
-//		if(index > model.getSize())
-//			index = 0;
-//		list.setSelectedIndex(index);
-//
-//	}
 	
 	public void addDevice(AbstractGestureDevice<?,?> device)
 	{

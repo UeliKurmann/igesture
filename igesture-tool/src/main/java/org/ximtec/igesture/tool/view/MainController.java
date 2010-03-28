@@ -34,7 +34,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -60,6 +59,7 @@ import org.ximtec.igesture.tool.core.GenericLocateableAction;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.locator.Locator;
 import org.ximtec.igesture.tool.locator.Service;
+import org.ximtec.igesture.tool.service.DeviceManagerService;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
 import org.ximtec.igesture.tool.util.ComponentFactory;
@@ -67,8 +67,6 @@ import org.ximtec.igesture.tool.util.ExtensionFileFilter;
 import org.ximtec.igesture.tool.util.FileType;
 import org.ximtec.igesture.tool.view.admin.AdminController;
 import org.ximtec.igesture.tool.view.batch.BatchController;
-import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
-import org.ximtec.igesture.tool.view.devicemanager.IDeviceManager;
 import org.ximtec.igesture.tool.view.testbench.TestbenchController;
 import org.ximtec.igesture.tool.view.testset.TestSetController;
 import org.ximtec.igesture.tool.view.welcome.WelcomeController;
@@ -112,9 +110,7 @@ public class MainController extends DefaultController implements Service {
 	private GuiBundleService guiBundle;
 	private SwingMouseReaderService deviceClient;
 	private StorageEngineType storageEngineType;
-
-	// Device Manager
-	private IDeviceManager deviceManagerController;
+	private DeviceManagerService deviceManager;
 	
 	// Main View
 	private IMainView mainView;
@@ -141,21 +137,11 @@ public class MainController extends DefaultController implements Service {
 		initServices();
 		initMainView();
 		initSubControllersAndViews(passiveControllers);
-		initDeviceManager();
 		getAction(CMD_CLOSE_WS).setEnabled(false);
 		getAction(CMD_SAVE).setEnabled(false);
 		getAction(CMD_SAVE_AS).setEnabled(false);
 		this.modelIsModified = false;
 	}
-
-	/**
-	 * Instantiate a device manager controller
-	 */
-	private void initDeviceManager() {
-		deviceManagerController = new DeviceManagerController(this,GestureConstants.DEVICE_MANAGER,
-				getLocator().getService(GuiBundleService.IDENTIFIER,GuiBundleService.class));		
-	}
-	
 
 	/**
 	 * Instantiates a controller using reflection. If the controller has a
@@ -174,17 +160,6 @@ public class MainController extends DefaultController implements Service {
 		boolean instantiated = false;
 		
 		Controller controller = null;
-		try {
-			if (!instantiated && (controllerClass.getConstructor(new Class<?>[]{Controller.class,IDeviceManager.class}) != null)) {
-				Constructor<?> constructor = controllerClass
-						.getConstructor(new Class<?>[]{Controller.class,IDeviceManager.class});
-				controller = (Controller) constructor
-						.newInstance(MainController.this,deviceManagerController);
-				instantiated = true;
-			} 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		try {
 			if (!instantiated && (controllerClass.getConstructor(Controller.class) != null)){ 
 				Constructor<?> constructor = controllerClass
@@ -407,8 +382,7 @@ public class MainController extends DefaultController implements Service {
 		LOGGER.info("Show Device Manager.");
 		Point point = mainView.getLocation();
 		point.translate(100, 60);
-		deviceManagerController.showView(point);
-		//TODO
+		deviceManager.showView(point);
 	}
 
 	/**
@@ -557,7 +531,7 @@ public class MainController extends DefaultController implements Service {
 
 		mainModel = new MainModel(null, this, properties);
 		deviceClient = new SwingMouseReaderService();
-
+	
 		/**
 		 * Register the services
 		 */
@@ -566,6 +540,11 @@ public class MainController extends DefaultController implements Service {
 		getLocator().addService(mainModel);
 		getLocator().addService(guiBundle);
 		getLocator().addService(deviceClient);
+		
+		// init device manager service, ! guiBundle service needs to be installed first
+		deviceManager = new DeviceManagerService(this,GestureConstants.DEVICE_MANAGER, guiBundle);
+		getLocator().addService(deviceManager);
+		
 		getLocator().addService(new ComponentFactory(guiBundle));
 		getLocator().addService(this);
 		getLocator().startAll();

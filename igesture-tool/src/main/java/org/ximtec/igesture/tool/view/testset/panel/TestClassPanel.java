@@ -55,10 +55,9 @@ import org.ximtec.igesture.tool.binding.BindingFactory;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.gesturevisualisation.GesturePanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputComponentPanel;
-import org.ximtec.igesture.tool.gesturevisualisation.InputPanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanelFactory;
+import org.ximtec.igesture.tool.service.DeviceManagerService;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
-import org.ximtec.igesture.tool.util.FontFactory;
 import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
@@ -101,7 +100,7 @@ public class TestClassPanel extends AbstractPanel implements DeviceListPanelList
    * @param controller
    * @param descriptor
    */
-  public TestClassPanel(Controller controller, TestClass testClass, IDeviceManager manager) {
+  public TestClassPanel(Controller controller, TestClass testClass) {
     super(controller);
     this.testClass = testClass;
     this.sampleCache = new HashMap<Gesture<?>, JPanel>();
@@ -115,6 +114,7 @@ public class TestClassPanel extends AbstractPanel implements DeviceListPanelList
       }
     });
     
+    DeviceManagerService manager = controller.getLocator().getService(DeviceManagerService.IDENTIFIER, DeviceManagerService.class);
     manager.addDeviceManagerListener(this);
 
     init(manager);
@@ -224,7 +224,7 @@ public class TestClassPanel extends AbstractPanel implements DeviceListPanelList
 		
 	    basePanel.add(cardPanel, BorderLayout.CENTER);
 	    
-	    devicePanel = new DeviceListPanel(/*manager*/);
+	    devicePanel = new DeviceListPanel();
 	    for(AbstractGestureDevice<?,?> device : manager.getDevices())
 	    	addDevice(device);
 	    devicePanel.addDevicePanelListener(this);
@@ -346,19 +346,12 @@ public class TestClassPanel extends AbstractPanel implements DeviceListPanelList
 		inputComponentPanel.setLayout(new FlowLayout());
 		GestureDevicePanel inputPanelInstance = InputPanelFactory.createPanel(device);
 		inputComponentPanel.setGestureDevicePanel(inputPanelInstance);
-		
-		//TODO zorgen dat dit niet nodig is
-		inputPanelInstance.setSize(new Dimension(INPUTAREA_SIZE,INPUTAREA_SIZE));
-		inputPanelInstance.setPreferredSize(new Dimension(INPUTAREA_SIZE,INPUTAREA_SIZE));
-		inputPanelInstance.setOpaque(true);
-		inputPanelInstance.setBackground(Color.WHITE);
-		inputPanelInstance.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-		
 		inputComponentPanel.add(inputPanelInstance);
+		
 		// buttons
 	    JPanel buttonPanel = new JPanel();
 	    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-	    buttonPanel.add(createAddSampleButton(device));//TODO
+	    buttonPanel.add(createAddSampleButton(device));
 	    buttonPanel.add(createClearSampleButton(device));
 	    
 	    inputComponentPanel.add(buttonPanel);	 

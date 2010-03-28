@@ -37,7 +37,6 @@ import org.ximtec.igesture.tool.explorer.ExplorerTreeController;
 import org.ximtec.igesture.tool.explorer.ExplorerTreeModel;
 import org.ximtec.igesture.tool.util.NodeInfoFactory;
 import org.ximtec.igesture.tool.view.MainModel;
-import org.ximtec.igesture.tool.view.devicemanager.IDeviceManager;
 
 
 public class TestSetController extends DefaultController {
@@ -51,15 +50,10 @@ public class TestSetController extends DefaultController {
 
    private ExplorerTreeController explorerTreeController;
 
-   // Device Manager
-   private IDeviceManager deviceManagerController;
-
-   public TestSetController(Controller parentController, IDeviceManager deviceManager) {
+   public TestSetController(Controller parentController) {
 	   super(parentController);
 	  mainModel = getLocator().getService(
 		         MainModel.IDENTIFIER, MainModel.class);
-	  
-	  deviceManagerController = deviceManager;
 	  
       initController();
    }
@@ -69,7 +63,7 @@ public class TestSetController extends DefaultController {
       testSetView = EdtProxy.newInstance(new TestSetView(this), ITestSetView.class);
 
       ExplorerTreeModel explorerModel = new ExplorerTreeModel(mainModel
-            .getTestSetList(), NodeInfoFactory.createTestSetNodeInfo(this, deviceManagerController));
+            .getTestSetList(), NodeInfoFactory.createTestSetNodeInfo(this));
       explorerTreeController = new ExplorerTreeController(this, testSetView,
             explorerModel);
       

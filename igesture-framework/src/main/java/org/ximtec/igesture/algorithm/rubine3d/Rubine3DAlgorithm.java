@@ -35,6 +35,7 @@ import org.sigtec.util.Constant;
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException;
+import org.ximtec.igesture.algorithm.SampleBasedAlgorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException.ExceptionType;
 import org.ximtec.igesture.algorithm.feature.F1;
 import org.ximtec.igesture.algorithm.feature.F10;
@@ -68,7 +69,7 @@ import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.SampleDescriptor3D;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
-public class Rubine3DAlgorithm implements Algorithm {
+public class Rubine3DAlgorithm extends SampleBasedAlgorithm/*implements Algorithm */{
 
 	private Rubine3DConfiguration rubine3dConfig;
 

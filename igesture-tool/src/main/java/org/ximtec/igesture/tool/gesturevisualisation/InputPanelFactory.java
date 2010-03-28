@@ -26,13 +26,14 @@
 
 package org.ximtec.igesture.tool.gesturevisualisation;
 
-import java.lang.reflect.Constructor;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.JPanel;
+import javax.swing.BorderFactory;
 
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
@@ -48,6 +49,8 @@ import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
  */
 public class InputPanelFactory {
 
+   private static final int INPUTAREA_SIZE = 200;
+   
    private static Map<Class< ? >, Class< ? extends GesturePanel>> gesturePanels;
    private static Map<Class< ? >, Class< ? extends InputPanel>> inputPanels;
 
@@ -130,7 +133,6 @@ public class InputPanelFactory {
    
    public static GestureDevicePanel createPanel(GestureDevice<?,?> gestureDevice)
    {
-	   //TODO config file
 	   GestureDevicePanel panel = null;
 	   if(gestureDevice != null)
 	   {
@@ -139,6 +141,11 @@ public class InputPanelFactory {
 			Method getPanelMethod = clazz.getMethod("getPanel");
 			getPanelMethod.setAccessible(true);
 			panel = (GestureDevicePanel) getPanelMethod.invoke(gestureDevice);
+			panel.setSize(new Dimension(INPUTAREA_SIZE,INPUTAREA_SIZE));
+			panel.setPreferredSize(new Dimension(INPUTAREA_SIZE,INPUTAREA_SIZE));
+			panel.setOpaque(true);
+			panel.setBackground(Color.WHITE);
+			panel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
