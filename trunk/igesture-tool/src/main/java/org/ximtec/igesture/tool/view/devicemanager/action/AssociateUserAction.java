@@ -20,12 +20,10 @@ import javax.swing.event.ListSelectionListener;
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.service.GuiBundleService;
-import org.ximtec.igesture.tool.view.devicemanager.Device;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerView;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceUserAssociation;
 import org.ximtec.igesture.tool.view.devicemanager.User;
-import org.ximtec.igesture.tool.view.devicemanager.temp.AbstractDevice;
 
 /**
  * Action to associate a user with a device. It extends {@link org.sigtec.graphix.widget.BasicAction} and implements the {@link javax.swing.event.ListSelectionListener} interface.
