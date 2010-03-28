@@ -232,6 +232,16 @@
                     <address>ueli@smartness.ch</address>
                 </configuration>
             </notifier>
+            <notifier>
+                <type>mail</type>
+                <sendOnError>true</sendOnError>
+                <sendOnFailure>true</sendOnFailure>
+                <sendOnWarning>true</sendOnWarning>
+                <sendOnSuccess>true</sendOnSuccess>
+                <configuration>
+                    <address>bpuype@vub.ac.be</address>
+                </configuration>
+            </notifier>
         </notifiers>
     </ciManagement>
 
