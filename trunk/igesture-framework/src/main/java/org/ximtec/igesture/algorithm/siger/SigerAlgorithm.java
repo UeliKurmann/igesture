@@ -54,8 +54,17 @@ public class SigerAlgorithm extends DefaultAlgorithm {
 
    private HashMap<ClassMatcher, GestureClass> gestures;
 
+   private static String DEFAULT_MIN_DISTANCE = "5";
+   
    public enum Config {
       MIN_DISTANCE
+   }
+   
+   static{
+	   /**
+	    * Parameter Default Values
+	    */
+	   DEFAULT_CONFIGURATION.put(Config.MIN_DISTANCE.name(), DEFAULT_MIN_DISTANCE);
    }
 
 

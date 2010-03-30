@@ -410,27 +410,31 @@ public class MainController extends DefaultController implements Service {
 		chooser.setCurrentDirectory(new File(properties
 				.getProperty(Property.WORKING_DIRECTORY)));
 
+		int result = 0;
 		if (isSaveDialog) {
-			chooser.showSaveDialog(null);
+			result = chooser.showSaveDialog(null);
 		} else {
-			chooser.showOpenDialog(null);
+			result = chooser.showOpenDialog(null);
 		}
 
-		file = chooser.getSelectedFile();
-
-		if (file != null) {
-			try {
-				ExtensionFileFilter fileFilter = (ExtensionFileFilter) chooser
-						.getFileFilter();
-				if (!fileFilter.accept(file)) {
-					file = new File(file.getAbsolutePath() + Constant.DOT
-							+ fileFilter.getExtension());
+		if(result == JFileChooser.APPROVE_OPTION)
+		{
+			file = chooser.getSelectedFile();
+	
+			if (file != null) {
+				try {
+					ExtensionFileFilter fileFilter = (ExtensionFileFilter) chooser
+							.getFileFilter();
+					if (!fileFilter.accept(file)) {
+						file = new File(file.getAbsolutePath() + Constant.DOT
+								+ fileFilter.getExtension());
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
+				properties
+						.setProperty(Property.WORKING_DIRECTORY, file.getParent());
 			}
-			properties
-					.setProperty(Property.WORKING_DIRECTORY, file.getParent());
 		}
 
 		return file;

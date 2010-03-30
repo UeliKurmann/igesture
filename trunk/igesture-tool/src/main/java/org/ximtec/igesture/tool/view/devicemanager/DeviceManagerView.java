@@ -1,24 +1,32 @@
 package org.ximtec.igesture.tool.view.devicemanager;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 
 import org.sigtec.graphix.GuiBundle;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicDialog;
+import org.sigtec.graphix.widget.BasicLabel;
 import org.ximtec.igesture.tool.GestureConstants;
+import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.view.devicemanager.action.AddDeviceAction;
 import org.ximtec.igesture.tool.view.devicemanager.action.AddUserAction;
 import org.ximtec.igesture.tool.view.devicemanager.action.AssociateUserAction;
@@ -95,12 +103,12 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 		userTable = new BasicTable<User>(headers);
 		userTable.addListSelectionListener(removeUserAction);
 		JScrollPane userPane = createScrollableTable(userTable, guiBundle.getWidth(key), TABLE_HEIGHT);
+		userPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY),"Users:"));
 		
 		/////////////////////// add components
-//		add(new BasicLabel(GestureConstants.USER_PANEL,guiBundle),0,0,1);
-		add(userPane,0,1,5);
-		add(createButton(addUserAction,BUTTON_WIDTH),0,2,1);
-		add(createButton(removeUserAction,BUTTON_WIDTH),1,2,1);
+		add(userPane,0,1,5,0);
+		add(createButton(addUserAction,BUTTON_WIDTH),0,2,1,0.5);
+		add(createButton(removeUserAction,BUTTON_WIDTH),1,2,1,0.5);
 		
 		
 		/********************************* Device Panel *******************************/
@@ -116,34 +124,37 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 		DisconnectDeviceAction disconnectDeviceAction = new DisconnectDeviceAction(deviceManagerController,this);
 		disconnectDeviceAction.setEnabled(false);
 		
+		reconnectDeviceAction.addAction(disconnectDeviceAction);
+		disconnectDeviceAction.addAction(reconnectDeviceAction);
+		
 		/////////////////////// device table
 		headers = new String[]{GestureConstants.DEVICE_NAME, GestureConstants.DEVICE_ID, GestureConstants.DEVICE_TYPE,
 									GestureConstants.DEVICE_USER, GestureConstants.DEVICE_CONNECTION, GestureConstants.DEVICE_CONNECTED};
 		
-	//	deviceTable = new BasicTable<AbstractDevice>(headers);
 		deviceTable = new BasicTable<DeviceUserAssociation>(headers);
 		deviceTable.addListSelectionListener(associateUserAction);
 		deviceTable.addListSelectionListener(removeDeviceAction);
 		deviceTable.addListSelectionListener(reconnectDeviceAction);
+		deviceTable.addListSelectionListener(disconnectDeviceAction);
 		
 		JScrollPane devicePane = createScrollableTable(deviceTable, guiBundle.getWidth(key), TABLE_HEIGHT);
-	
+		devicePane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY),"Devices:"));
+		
 		/////////////////////// add components
-//		add(new BasicLabel(GestureConstants.DEVICES_PANEL, guiBundle),0,3,1);
-		add(devicePane,0,4,5);
-		add(createButton(addDeviceAction,BUTTON_WIDTH),0,5,1);
-		add(createButton(associateUserAction,BUTTON_WIDTH),1,5,1);
-		add(createButton(removeDeviceAction,BUTTON_WIDTH),2,5,1);
-		add(createButton(reconnectDeviceAction,BUTTON_WIDTH),3,5,1);
-		add(createButton(disconnectDeviceAction,BUTTON_WIDTH),4,5,1);
+		add(devicePane,0,4,5,0);
+		add(createButton(addDeviceAction,BUTTON_WIDTH),0,5,1,0.5);
+		add(createButton(associateUserAction,BUTTON_WIDTH),1,5,1,0.5);
+		add(createButton(removeDeviceAction,BUTTON_WIDTH),2,5,1,0.5);
+		add(createButton(reconnectDeviceAction,BUTTON_WIDTH),3,5,1,0.5);
+		add(createButton(disconnectDeviceAction,BUTTON_WIDTH),4,5,1,0.5);
 		
 		/********************************* Bottom Panel *******************************/
 		/////////////////////// actions
 		SaveDeviceConfigurationAction saveDeviceConfigurationAction = new SaveDeviceConfigurationAction(deviceManagerController);
 		LoadDeviceConfigurationAction loadDeviceConfigurationAction = new LoadDeviceConfigurationAction(deviceManagerController);
 		
-		add(createButton(loadDeviceConfigurationAction,BUTTON_WIDTH),0,6,1);
-		add(createButton(saveDeviceConfigurationAction,BUTTON_WIDTH),1,6,1);
+		add(createButton(loadDeviceConfigurationAction,BUTTON_WIDTH),0,6,1,0.5);
+		add(createButton(saveDeviceConfigurationAction,BUTTON_WIDTH),1,6,1,0.5);
 		
 		//close button
 		JButton closeButton = new JButton("Close");
@@ -154,10 +165,7 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 				closeDialog();
 			}			
 		});
-//		closeButton.setPreferredSize(new Dimension(btnWidth,closeButton.getHeight()));
-		add(closeButton,2,6,1);
-		
-		
+		add(closeButton,4,6,1,0.5);
 		
 		pack();
 	}
@@ -169,12 +177,14 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 	 * @param gridy		The y position.
 	 * @param gridWidth	The width of the component in number of columns.
 	 */
-	private void add(JComponent component, int gridx, int gridy, int gridWidth)
+	private void add(JComponent component, int gridx, int gridy, int gridWidth, double weightx)
 	{
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = gridx;
 		c.gridy = gridy;
 		c.gridwidth = gridWidth;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = weightx;
 		add(component,c);		
 	}
 
@@ -217,8 +227,9 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 	 */
 	private BasicButton createButton(BasicAction action, int width)
 	{
-		BasicButton btn = new BasicButton(action); //TODO
-//		btn.setPreferredSize(new Dimension(width,btn.getHeight()));
+		BasicButton btn = new BasicButton(action);
+		Formatter.formatButton(btn);
+//		btn.setHorizontalAlignment(SwingConstants.CENTER);
 		return btn;		
 	}
 	

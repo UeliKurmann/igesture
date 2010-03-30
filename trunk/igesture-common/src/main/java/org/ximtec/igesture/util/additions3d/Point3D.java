@@ -25,7 +25,7 @@
 
 package org.ximtec.igesture.util.additions3d;
 
-public class Point3D {
+public class Point3D implements Cloneable{
 
 	private long timeStamp = 0;
 	private double x;
@@ -119,4 +119,16 @@ public class Point3D {
 		this.z = z;
 	}
 
+	/**
+	* Clones a point3D.
+    * @return the cloned point3D.
+    */
+   @Override
+   public Object clone() {
+      try {
+		return super.clone();
+	} catch (CloneNotSupportedException e) {
+		throw new InternalError();
+	}
+   } // clone
 }

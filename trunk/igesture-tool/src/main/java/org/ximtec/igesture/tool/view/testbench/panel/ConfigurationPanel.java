@@ -38,6 +38,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -199,7 +200,9 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
     builder.nextLine(2);
 
     Map<String, String> parameter = configuration.getParameters(algorithmName);
-    for (String parameterName : parameter.keySet()) {
+    ConcurrentSkipListMap<String, String> map = new ConcurrentSkipListMap<String,String>();
+    map.putAll(parameter);
+    for (String parameterName : map.keySet()) {
       builder.append(new JLabel(parameterName));
       JTextField paramTextField = new JTextField();
       new MapTextFieldBinding(paramTextField, configuration, parameterName, algorithmName);
@@ -207,8 +210,6 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
       builder.nextLine(2);
     }
     
-    
-
     JPanel panel = builder.getPanel();
     panel.setOpaque(true);
     panel.setBackground(Color.WHITE);

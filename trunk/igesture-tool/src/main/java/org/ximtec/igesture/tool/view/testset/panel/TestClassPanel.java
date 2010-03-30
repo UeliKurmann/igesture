@@ -38,7 +38,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -350,9 +349,9 @@ public class TestClassPanel extends AbstractPanel implements DeviceListPanelList
 		
 		// buttons
 	    JPanel buttonPanel = new JPanel();
-	    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-	    buttonPanel.add(createAddSampleButton(device));
-	    buttonPanel.add(createClearSampleButton(device));
+	    buttonPanel.setLayout(new BorderLayout());
+	    buttonPanel.add(createAddSampleButton(device),BorderLayout.NORTH);
+	    buttonPanel.add(createClearSampleButton(device),BorderLayout.CENTER);
 	    
 	    inputComponentPanel.add(buttonPanel);	 
 		

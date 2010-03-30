@@ -37,6 +37,7 @@ import javax.swing.BorderFactory;
 
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
+import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.io.GestureDevicePanel;
 import org.ximtec.igesture.io.mouseclient.SwingMouseReader;
@@ -57,6 +58,7 @@ public class InputPanelFactory {
    static {
       gesturePanels = new HashMap<Class< ? >, Class< ? extends GesturePanel>>();
       gesturePanels.put(GestureSample.class, NoteGesturePanel.class);
+      gesturePanels.put(GestureSample3D.class, RecordedGesture3DPanel.class);
       //TODO create one for Gesture3D
 
       //TODO load from config file

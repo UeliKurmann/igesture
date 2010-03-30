@@ -42,7 +42,6 @@ import java.util.Map;
 
 import javax.swing.Action;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -198,9 +197,7 @@ public class SampleDescriptorPanel extends DefaultDescriptorPanel<SampleDescript
 
   /**
    * Creates the input area to capture new gestures.
- * @param manager 
-   * 
-   * @param descriptor
+   * @param manager 
    */
   private void initInputSection(IDeviceManager manager) {
     JPanel basePanel = new JPanel();
@@ -357,9 +354,9 @@ public class SampleDescriptorPanel extends DefaultDescriptorPanel<SampleDescript
 		
 		// buttons
 	    JPanel buttonPanel = new JPanel();
-	    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-	    buttonPanel.add(createAddSampleButton(getDescriptor(),device));//TODO
-	    buttonPanel.add(createClearSampleButton(device));
+	    buttonPanel.setLayout(new BorderLayout());
+	    buttonPanel.add(createAddSampleButton(getDescriptor(),device),BorderLayout.NORTH);//TODO
+	    buttonPanel.add(createClearSampleButton(device),BorderLayout.CENTER);
 	    
 	    inputComponentPanel.add(buttonPanel);	 
 		

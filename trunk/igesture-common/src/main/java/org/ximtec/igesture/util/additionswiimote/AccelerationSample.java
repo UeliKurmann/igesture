@@ -31,7 +31,7 @@ package org.ximtec.igesture.util.additionswiimote;
  * @author vogelsar
  * 
  */
-public class AccelerationSample {
+public class AccelerationSample implements Cloneable{
 
 	private double xAcceleration;
 	private double yAcceleration;
@@ -157,4 +157,26 @@ public class AccelerationSample {
 		this.timeStamp = timeStamp;
 	}
 
+	/**
+	 * Returns true if the point has a timestamp, otherwise false
+	 * 
+	 * @return
+	 */
+	public boolean hasTimeStamp() {
+		return (timeStamp != 0);
+	}
+	
+	/**
+	* Clones a AccelerationSample.
+    * @return the cloned AccelerationSample.
+    */
+   @Override
+   public Object clone() {
+      try {
+		return super.clone();
+	} catch (CloneNotSupportedException e) {
+		throw new InternalError();
+	}
+   } // clone
+	
 }

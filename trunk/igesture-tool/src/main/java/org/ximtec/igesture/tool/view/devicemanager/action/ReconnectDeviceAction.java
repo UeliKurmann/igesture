@@ -1,6 +1,7 @@
 package org.ximtec.igesture.tool.view.devicemanager.action;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -21,6 +22,7 @@ public class ReconnectDeviceAction extends BasicAction implements ListSelectionL
 
 	private static final long serialVersionUID = 1L;
 	private DeviceManagerView view;
+	private ArrayList<BasicAction> actions;
 	
 	public ReconnectDeviceAction(DeviceManagerController controller, DeviceManagerView view)
 	{
@@ -33,6 +35,13 @@ public class ReconnectDeviceAction extends BasicAction implements ListSelectionL
 	            GuiBundleService.IDENTIFIER, GuiBundleService.class));
 		this.view = view;
 		setEnabled(enabled);
+		
+		actions = new ArrayList<BasicAction>();
+	}
+	
+	public void addAction(BasicAction action)
+	{
+		actions.add(action);
 	}
 	
 	@Override
@@ -44,6 +53,8 @@ public class ReconnectDeviceAction extends BasicAction implements ListSelectionL
 			//update model
 			view.updateDevice(true, DeviceManagerView.COL_DEVICE_CONNECTED, null);
 			setEnabled(false);
+			for(BasicAction action : actions)
+				action.setEnabled(true);
 		}
 	}
 	

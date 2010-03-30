@@ -48,7 +48,7 @@ public class DeviceListPanel extends JPanel implements ListSelectionListener{
 		DefaultListModel model = new DefaultListModel();
 		list.setModel(model);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setSelectedIndex(0);
+//		list.setSelectedIndex(0);
 		list.addListSelectionListener(this);
 		
 		JScrollPane scrollpane = new JScrollPane(list);

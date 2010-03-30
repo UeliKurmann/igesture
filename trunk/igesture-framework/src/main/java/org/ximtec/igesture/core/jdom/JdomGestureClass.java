@@ -32,6 +32,7 @@ import org.jdom.Element;
 import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.SampleDescriptor;
+import org.ximtec.igesture.core.SampleDescriptor3D;
 import org.ximtec.igesture.core.TextDescriptor;
 
 
@@ -61,8 +62,16 @@ public class JdomGestureClass extends Element {
          if (descriptor instanceof SampleDescriptor) {
             addContent(new JdomSampleDescriptor((SampleDescriptor)descriptor));
          }
+         else if(descriptor instanceof SampleDescriptor3D)
+         {
+        	addContent(new JdomSampleDescriptor3D((SampleDescriptor3D)descriptor));
+         }
          else if (descriptor instanceof TextDescriptor) {
             addContent(new JdomTextDescriptor((TextDescriptor)descriptor));
+         }
+         else
+         {
+        	 throw new RuntimeException("Could not save this descriptor type: "+descriptor.getType().getName());
          }
 
       }
@@ -83,6 +92,13 @@ public class JdomGestureClass extends Element {
                .unmarshal(descriptorElement);
          gestureClass.addDescriptor(sampleDescriptor);
       }
+      
+      for (final Element descriptorElement : (List<Element>)gestureClassElement
+              .getChildren(JdomSampleDescriptor3D.ROOT_TAG)) {
+           final SampleDescriptor3D sampleDescriptor = (SampleDescriptor3D)JdomSampleDescriptor3D
+                 .unmarshal(descriptorElement);
+           gestureClass.addDescriptor(sampleDescriptor);
+        }
 
       for (final Element descriptorElement : (List<Element>)gestureClassElement
             .getChildren(JdomTextDescriptor.ROOT_TAG)) {

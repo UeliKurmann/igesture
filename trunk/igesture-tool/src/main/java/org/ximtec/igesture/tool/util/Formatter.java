@@ -44,7 +44,7 @@ public class Formatter {
    
    public static void formatButton(JButton button){    
       button.setPreferredSize(new Dimension(160, 25));
-      button.setHorizontalAlignment(SwingConstants.LEFT);
+//      button.setHorizontalAlignment(SwingConstants.LEFT);
       button.setAlignmentX(Component.LEFT_ALIGNMENT);     
    }
    
