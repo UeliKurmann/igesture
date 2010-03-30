@@ -48,6 +48,7 @@ public class GestureConstants {
   public static final String GESTURE_SET_IMPORT = "ImportGestureSetAction";
   public static final String SAMPLE_DESCRIPTOR_ADD = "AddSampleDescriptorAction";
   public static final String SAMPLE_DESCRIPTOR_3D_ADD = "AddSampleDescriptor3DAction";
+  public static final String COMPOSITE_DESCRIPTOR_ADD = "AddCompositeDescriptorAction";
   public static final String TEXT_DESCRIPTOR_ADD = "AddTextDescriptorAction";
   public static final String GESTURE_SAMPLE_ADD = "AddGestureSampleAction";
   public static final String GESTURE_SAMPLE_DEL = "DelGestureSampleAction";
@@ -80,6 +81,8 @@ public class GestureConstants {
   public static final String GESTURE_CLASS_PANEL_NOD = "GestureClassPanelNod";
   public static final String GESTURE_CLASS_PANEL_DESCRIPTOR_NAME = "GestureClassPanelDescriptorName";
   public static final String SAMPLE_DESCRIPTOR_TITLE = "SampleDescriptorTitle";
+  public static final String SAMPLE_DESCRIPTOR_3D_TITLE = "SampleDescriptor3DTitle";
+  public static final String COMPOSITE_DESCRIPTOR_TITLE = "CompositeDescriptorTitle";
 
   public static final String ALGORITHM_LIST_NAME = "AlgorithmListName";
 

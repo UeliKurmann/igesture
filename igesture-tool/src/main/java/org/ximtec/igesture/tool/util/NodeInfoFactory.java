@@ -31,6 +31,7 @@ import java.util.List;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.configuration.Configuration;
+import org.ximtec.igesture.core.CompositeDescriptor;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
@@ -44,6 +45,7 @@ import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.explorer.NodeInfoImpl;
 import org.ximtec.igesture.tool.explorer.SeparatorAction;
 import org.ximtec.igesture.tool.explorer.core.NodeInfo;
+import org.ximtec.igesture.tool.view.admin.action.AddCompositeDescriptorAction;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureClassAction;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureSetAction;
 import org.ximtec.igesture.tool.view.admin.action.AddSampleDescriptor3DAction;
@@ -56,6 +58,7 @@ import org.ximtec.igesture.tool.view.admin.action.ImportGestureSetAction;
 import org.ximtec.igesture.tool.view.admin.action.RemoveDescriptorAction;
 import org.ximtec.igesture.tool.view.admin.action.RemoveGestureClassAction;
 import org.ximtec.igesture.tool.view.admin.action.RemoveGestureSetAction;
+import org.ximtec.igesture.tool.view.admin.panel.CompositeDescriptorPanel;
 import org.ximtec.igesture.tool.view.admin.panel.DefaultPanel;
 import org.ximtec.igesture.tool.view.admin.panel.GestureClassPanel;
 import org.ximtec.igesture.tool.view.admin.panel.GestureSetPanel;
@@ -111,6 +114,7 @@ public class NodeInfoFactory {
     List<Class<? extends BasicAction>> classActions = new ArrayList<Class<? extends BasicAction>>();
     classActions.add(AddSampleDescriptorAction.class);
     classActions.add(AddSampleDescriptor3DAction.class);
+    classActions.add(AddCompositeDescriptorAction.class);
     classActions.add(AddTextDescriptorAction.class);
     classActions.add(SeparatorAction.class);
     classActions.add(RemoveGestureClassAction.class);
@@ -128,6 +132,8 @@ public class NodeInfoFactory {
     nodeInfos.add(new NodeInfoImpl(controller, SampleDescriptor.class, "name", null, SampleDescriptorPanel.class,
         descriptorActions, GestureConstants.NODE_ICON_GESTURE_SAMPLE_DESCRIPTOR));
     nodeInfos.add(new NodeInfoImpl(controller, SampleDescriptor3D.class, "name", null, SampleDescriptor3DPanel.class,
+        descriptorActions, GestureConstants.NODE_ICON_GESTURE_SAMPLE_DESCRIPTOR));
+    nodeInfos.add(new NodeInfoImpl(controller, CompositeDescriptor.class, "name", null, CompositeDescriptorPanel.class,
         descriptorActions, GestureConstants.NODE_ICON_GESTURE_SAMPLE_DESCRIPTOR));
     nodeInfos.add(new NodeInfoImpl(controller, TextDescriptor.class, "name", null, TextDescriptorPanel.class,
         descriptorActions, GestureConstants.NODE_ICON_GESTURE_TEXT_DESCRIPTOR));

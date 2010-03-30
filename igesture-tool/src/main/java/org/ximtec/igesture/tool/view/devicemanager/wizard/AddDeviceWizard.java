@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import org.netbeans.api.wizard.WizardDisplayer;
 import org.netbeans.spi.wizard.Wizard;
+import org.netbeans.spi.wizard.WizardBranchController;
 import org.ximtec.igesture.io.AbstractGestureDevice;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
 import org.ximtec.igesture.tool.view.devicemanager.User;
@@ -18,12 +19,21 @@ import org.ximtec.igesture.tool.view.devicemanager.User;
 public class AddDeviceWizard {
 
 	private Wizard wizard;
+	private WizardBranchController brancher;
 	private DeviceManagerController controller;
 	
-	public AddDeviceWizard(DeviceManagerController controller)
+	public AddDeviceWizard(DeviceManagerController controller, boolean enableRecognisers)
 	{
-		AddDeviceWizardProvider provider = new AddDeviceWizardProvider(controller);
-		wizard = provider.createWizard();
+		if(!enableRecognisers)
+		{
+			AddDeviceWizardProvider provider = new AddDeviceWizardProvider(controller);
+			wizard = provider.createWizard();
+		}
+		else
+		{
+			AddDeviceWizardBranchController brancher = new AddDeviceWizardBranchController(controller);
+			wizard = brancher.createWizard();
+		}
 		this.controller = controller;
 	}
 	

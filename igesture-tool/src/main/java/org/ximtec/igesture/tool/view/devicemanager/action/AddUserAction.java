@@ -1,5 +1,6 @@
 package org.ximtec.igesture.tool.view.devicemanager.action;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -10,11 +11,13 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.sigtec.graphix.widget.BasicAction;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.service.GuiBundleService;
+import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
 import org.ximtec.igesture.tool.view.devicemanager.User;
 
@@ -38,17 +41,21 @@ public class AddUserAction extends BasicAction {
 	public void actionPerformed(ActionEvent e) {
 		final JDialog dlg = new JDialog();
 		dlg.setTitle("Add User");
-		dlg.setLayout(new GridBagLayout());
+//		dlg.setLayout(new GridBagLayout());
+		JPanel contentPanel = new JPanel();
+		contentPanel.setLayout(new GridBagLayout());
 		
 		// labels
-		add(new JLabel("Name:"),dlg,0,0,1);
-		add(new JLabel("Initials:"),dlg,0,1,1);
+		add(new JLabel("Name:"),contentPanel,0,0,1);
+		add(new JLabel("Initials:"),contentPanel,0,1,1);
 		
 		// text fields
-		final JTextField txtName = new JTextField(); 
-		add(txtName,dlg,1,0,2);
+		final JTextField txtName = new JTextField();
+		Formatter.formatTextField(txtName);
+		add(txtName,contentPanel,1,0,2);
 		final JTextField txtInitials = new JTextField();
-		add(txtInitials,dlg,1,1,2);
+		Formatter.formatTextField(txtInitials);
+		add(txtInitials,contentPanel,1,1,2);
 		
 		// buttons
 		JButton btnOK = new JButton("OK");
@@ -67,7 +74,8 @@ public class AddUserAction extends BasicAction {
 			}
 			
 		});
-		add(btnOK,dlg,1,2,1);
+		Formatter.formatButton(btnOK);
+		add(btnOK,contentPanel,1,2,1);
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener(){
@@ -79,10 +87,15 @@ public class AddUserAction extends BasicAction {
 			}
 			
 		});
-		add(btnCancel,dlg,2,2,1);
+		Formatter.formatButton(btnCancel);
+		add(btnCancel,contentPanel,2,2,1);
 		
+		dlg.setContentPane(contentPanel);
+		dlg.setPreferredSize(new Dimension(400,120));
+		dlg.setResizable(false);
 		dlg.pack();
 		dlg.setVisible(true);
+		
 	}
 
 	/**
@@ -93,10 +106,10 @@ public class AddUserAction extends BasicAction {
 	 * @param gridy		The y position.
 	 * @param gridwidth	The width of the component expressed in number of columns.
 	 */
-	private void add(JComponent component, JDialog dlg, int gridx, int gridy, int gridwidth)
+	private void add(JComponent component, JPanel dlg, int gridx, int gridy, int gridwidth)
 	{
 		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.gridx = gridx;
 		c.gridy = gridy;
 		c.gridwidth = gridwidth;

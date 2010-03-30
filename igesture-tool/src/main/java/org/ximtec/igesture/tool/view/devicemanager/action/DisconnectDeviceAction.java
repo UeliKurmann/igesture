@@ -4,6 +4,7 @@
 package org.ximtec.igesture.tool.view.devicemanager.action;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -22,7 +23,8 @@ import org.ximtec.igesture.tool.view.devicemanager.DeviceUserAssociation;
 public class DisconnectDeviceAction extends BasicAction implements
 		ListSelectionListener {
 
-private DeviceManagerView view;
+	private DeviceManagerView view;
+	private ArrayList<BasicAction> actions;
 	
 	public DisconnectDeviceAction(DeviceManagerController controller, DeviceManagerView view)
 	{
@@ -35,6 +37,13 @@ private DeviceManagerView view;
 	            GuiBundleService.IDENTIFIER, GuiBundleService.class));
 		this.view = view;
 		setEnabled(enabled);
+		
+		actions = new ArrayList<BasicAction>();
+	}
+	
+	public void addAction(BasicAction action)
+	{
+		actions.add(action);
 	}
 	
 	@Override
@@ -46,6 +55,8 @@ private DeviceManagerView view;
 			//update model
 			view.updateDevice(false, DeviceManagerView.COL_DEVICE_CONNECTED, null);
 			setEnabled(false);
+			for(BasicAction action : actions)
+				action.setEnabled(true);
 		}
 	}
 	

@@ -1,18 +1,24 @@
 package org.ximtec.igesture.tool.view.devicemanager.wizard;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -20,6 +26,11 @@ import org.netbeans.spi.wizard.Summary;
 import org.netbeans.spi.wizard.WizardController;
 import org.netbeans.spi.wizard.WizardException;
 import org.netbeans.spi.wizard.WizardPanelProvider;
+import org.ximtec.igesture.Recogniser;
+import org.ximtec.igesture.algorithm.Algorithm;
+import org.ximtec.igesture.algorithm.AlgorithmException;
+import org.ximtec.igesture.configuration.Configuration;
+import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.io.AbstractGestureDevice;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
 import org.ximtec.igesture.tool.view.devicemanager.discoveryservice.DeviceDiscoveryService;
@@ -34,13 +45,14 @@ public class AddDeviceWizardProvider extends WizardPanelProvider {
 	private int selectedIndexDevice = 0;
 	private DeviceManagerController manager;
 	private final Map<String, DeviceDiscoveryService> discoveryMapping;
-	
+
 	protected AddDeviceWizardProvider(DeviceManagerController manager)
 	{
-		super("Add Device ...", new String[]{"connection", "device", "user"}, new String[]{
+		super("Add Device ...", new String[]{"connection", "device", "user", "recogniser"}, new String[]{
 				"Choose a connection type",
 				"Choose a device to connect",
-				"Associate the device with a user"
+				"Associate the device with a user",
+				"Associate a recogniser"
 		});
 		this.manager = manager;
 		discoveryMapping = manager.getDiscoveryMapping();
@@ -51,60 +63,9 @@ public class AddDeviceWizardProvider extends WizardPanelProvider {
 		
 		if("connection".equals(id))// STEP 1
 		{
-			controller.setProblem("You must select a connection type");	
-			
-			JPanel panel = new JPanel();
-			ButtonGroup group = new ButtonGroup();
-			final ArrayList<JRadioButton> radioButtons = new ArrayList<JRadioButton>();
-			
-			//for all connection types, add a radiobutton
-			for(String connection : discoveryMapping.keySet())
-			{
-				JRadioButton rdb = new JRadioButton();
-				rdb.setText(connection);
-				rdb.setName(connection);
-				group.add(rdb);
-				panel.add(rdb);
-				radioButtons.add(rdb);
-			}
-			
-			//actionlistener for the radiobuttons
-			ActionListener l = new ActionListener(){
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					
-					boolean isSelected = false;
-					JRadioButton choice = null;
-					for(JRadioButton btn : radioButtons)
-					{
-						if(btn.isSelected())
-						{
-							isSelected = true;
-							choice = btn;
-							break;
-						}
-					}
-					if(!isSelected)//no next if nothing selected
-					{
-						controller.setProblem("You must select a connection type");
-					}
-					else
-					{
-						controller.setProblem(null);
-						//save the users choice
-						settings.put("connection", choice.getText());
-					}
-				}
-				
-			};
-			
-			for(JRadioButton rdb : radioButtons)
-			{
-				rdb.addActionListener(l);
-			}
-
-			return panel;
+			String problem = "You must select a connection type";
+			controller.setProblem(problem);	
+			return createRadioButtonsPanel(discoveryMapping.keySet(), "connection", problem, controller, settings);
 		}
 		else if("device".equals(id)) // STEP 2
 		{
@@ -154,7 +115,7 @@ public class AddDeviceWizardProvider extends WizardPanelProvider {
 			
 			return panel;
 		}
-		else // STEP 3
+		else if("user".equals(id)) // STEP 3
 		{
 			controller.setProblem("Associate the device with a user");
 			
@@ -185,7 +146,74 @@ public class AddDeviceWizardProvider extends WizardPanelProvider {
 			return panel;
 
 		}
+		else //if("choice".equals("id")) // STEP 4 (BRANCH)
+		{
+			String problem = "You must select a recogniser type";
+			controller.setProblem(problem);
+			Set<String> names = new HashSet<String>();
+			names.add("Existing Recogniser");
+			names.add("New Recogniser");
+			return createRadioButtonsPanel(names, "recogniser", problem, controller, settings);
+		}
 	}
+	
+	private JPanel createRadioButtonsPanel(Set<String> names, final String key, final String problem, final WizardController controller, final Map settings)
+	{	
+		JPanel panel = new JPanel();
+		ButtonGroup group = new ButtonGroup();
+		final ArrayList<JRadioButton> radioButtons = new ArrayList<JRadioButton>();
+		
+		for(String name : names)
+		{
+			JRadioButton rdb = new JRadioButton();
+			rdb.setText(name);
+			rdb.setName(name);
+			rdb.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+			group.add(rdb);
+			panel.add(rdb);
+			radioButtons.add(rdb);
+		}
+		
+		//actionlistener for the radiobuttons
+		ActionListener l = new ActionListener(){
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				boolean isSelected = false;
+				JRadioButton choice = null;
+				for(JRadioButton btn : radioButtons)
+				{
+					if(btn.isSelected())
+					{
+						isSelected = true;
+						choice = btn;
+						break;
+					}
+				}
+				if(!isSelected)//no next if nothing selected
+				{
+					controller.setProblem(problem);
+				}
+				else
+				{
+					controller.setProblem(null);
+					//save the users choice
+					settings.put(key, choice.getText());
+				}
+			}
+			
+		};
+		
+		for(JRadioButton rdb : radioButtons)
+		{
+			rdb.addActionListener(l);
+		}
+		
+		return panel;
+
+	}
+	
 
 	@Override
 	public Object finish(Map wizardData) throws WizardException {

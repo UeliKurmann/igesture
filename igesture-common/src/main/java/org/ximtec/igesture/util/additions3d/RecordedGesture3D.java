@@ -28,12 +28,18 @@ package org.ximtec.igesture.util.additions3d;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.sigtec.ink.input.TimestampedInputEvent;
 import org.sigtec.input.InputHandler;
 import org.ximtec.igesture.util.additionswiimote.WiiAccelerations;
 
 
 public class RecordedGesture3D implements Cloneable, InputHandler {
+	
+	private static final Logger LOGGER = Logger.getLogger(RecordedGesture3D.class.getName());
+	
 	private List<Point3D> points; // List of position data
 	private WiiAccelerations accelerations; // Accelerations list that comes
 
@@ -209,4 +215,32 @@ public class RecordedGesture3D implements Cloneable, InputHandler {
 	public void setPoints(List<Point3D> pointsList) {
 		this.points = pointsList;		
 	}
+	
+   /**
+    * Clones a recordedgesture3D.
+    * @return the cloned recordedgesture3D.
+    */
+   @Override
+   @SuppressWarnings("unchecked")
+   public Object clone() {
+      RecordedGesture3D clone = null;
+
+      try {
+         clone = (RecordedGesture3D)super.clone();
+         List<Point3D> clonedPoints = new Vector<Point3D>();
+
+         for (Point3D point : points) {
+        	 clonedPoints.add((Point3D)point.clone());
+         }
+
+         clone.points = clonedPoints;
+         clone.accelerations = (WiiAccelerations) accelerations.clone();
+      }
+      catch (CloneNotSupportedException e) {
+         LOGGER.log(Level.SEVERE, e.toString());
+      }
+
+      return clone;
+   } // clone
+
 }

@@ -27,7 +27,6 @@ import org.jdom.Element;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
-import org.ximtec.igesture.util.additions3d.jdom.JdomRecordedGesture3D;
 
 
 /**
@@ -38,7 +37,7 @@ import org.ximtec.igesture.util.additions3d.jdom.JdomRecordedGesture3D;
  */
 public class JdomGestureSample3D extends Element {
 
-   public static final String ROOT_TAG = "gesturesample3d";
+   public static final String ROOT_TAG = "sample";
 
    public static final String NAME_ATTRIBUTE = "name";
 

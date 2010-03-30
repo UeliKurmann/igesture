@@ -28,8 +28,14 @@ package org.ximtec.igesture.util.additionswiimote;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class WiiAccelerations {
+public class WiiAccelerations implements Cloneable{
+	
+	private static final Logger LOGGER = Logger.getLogger(WiiAccelerations.class.getName());
+	
 	private List<AccelerationSample> samples;
 
 	public WiiAccelerations() {
@@ -293,4 +299,30 @@ public class WiiAccelerations {
 	public List<AccelerationSample> getSamples() {
 		return samples;
 	}
+	
+	/**
+	 * Clone a WiiAccelerations
+	 * @return the cloned WiiAccelerations
+	 */
+   @Override
+   @SuppressWarnings("unchecked")
+   public Object clone() {
+      WiiAccelerations clone = null;
+
+      try {
+         clone = (WiiAccelerations)super.clone();
+         List<AccelerationSample> clonedSamples = new Vector<AccelerationSample>();
+
+         for (AccelerationSample sample : samples) {
+        	 clonedSamples.add((AccelerationSample)sample.clone());
+         }
+
+         clone.samples = clonedSamples;
+      }
+      catch (CloneNotSupportedException e) {
+         LOGGER.log(Level.SEVERE, e.toString());
+      }
+
+      return clone;
+   } // clone
 }

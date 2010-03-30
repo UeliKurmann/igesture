@@ -19,8 +19,8 @@ import java.util.Map;
 
 import javax.swing.Action;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -38,6 +38,7 @@ import org.ximtec.igesture.tool.gesturevisualisation.InputComponentPanel;
 import org.ximtec.igesture.tool.gesturevisualisation.InputPanelFactory;
 import org.ximtec.igesture.tool.service.DeviceManagerService;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
+import org.ximtec.igesture.tool.util.FontFactory;
 import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.view.DeviceListPanel;
 import org.ximtec.igesture.tool.view.DeviceListPanelListener;
@@ -195,11 +196,11 @@ public class SampleDescriptor3DPanel extends DefaultDescriptorPanel<SampleDescri
 		currentDevice = gestureDevice;
 		
 	    
-//	    JLabel title = getComponentFactory().createLabel(GestureConstants.SAMPLE_DESCRIPTOR_TITLE);
-//	    title.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-//	    title.setFont(FontFactory.getArialBold(18));
-//	    
-//	    basePanel.add(title, BorderLayout.NORTH);
+	    JLabel title = getComponentFactory().createLabel(GestureConstants.SAMPLE_DESCRIPTOR_3D_TITLE);
+	    title.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+	    title.setFont(FontFactory.getArialBold(18));
+	    
+	    basePanel.add(title, BorderLayout.NORTH);
 	    basePanel.add(cardPanel, BorderLayout.CENTER);
 	    
 	    devicePanel = new DeviceListPanel();
@@ -337,9 +338,9 @@ public class SampleDescriptor3DPanel extends DefaultDescriptorPanel<SampleDescri
 			
 			// buttons
 		    JPanel buttonPanel = new JPanel();
-		    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-		    buttonPanel.add(createAddSampleButton(getDescriptor(),device));//TODO
-		    buttonPanel.add(createClearSampleButton(device));
+		    buttonPanel.setLayout(new BorderLayout());
+		    buttonPanel.add(createAddSampleButton(getDescriptor(),device),BorderLayout.NORTH);//TODO
+		    buttonPanel.add(createClearSampleButton(device),BorderLayout.CENTER);
 		    
 		    inputComponentPanel.add(buttonPanel);	 
 			

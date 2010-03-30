@@ -46,6 +46,7 @@ import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.TestSet;
+import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 
 /**
@@ -201,6 +202,22 @@ public class GestureTool {
       note.paint(graphic);
       return bufferedImage;
    } // createNoteImage
+   
+   
+   /**
+    * @param gesture
+    * @param width
+    * @param height
+    * @return
+    */
+   public static BufferedImage createRecordedGesture3DImage(RecordedGesture3D gesture, int width, int height) {
+   		RecordedGesture3D record = (RecordedGesture3D)gesture.clone();
+   		BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+   		Graphics graphic = bufferedImage.getGraphics();
+   		graphic.setColor(Color.BLACK);
+   		graphic.drawString("TODO", width/2 , height/2 );
+   		return bufferedImage;
+   } //createRecordeGesture3DImage
 
 
    /**
