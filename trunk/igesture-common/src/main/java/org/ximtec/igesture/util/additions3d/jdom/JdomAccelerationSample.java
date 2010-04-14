@@ -1,12 +1,12 @@
 /**
  * 
  */
-package org.ximtec.igesture.core.jdom;
+package org.ximtec.igesture.util.additions3d.jdom;
 
 import org.jdom.Element;
 import org.sigtec.jdom.element.JdomDoubleElement;
 import org.sigtec.jdom.element.JdomLongElement;
-import org.ximtec.igesture.util.additionswiimote.AccelerationSample;
+import org.ximtec.igesture.util.additions3d.AccelerationSample;
 
 /**
  * Constructs an XML representation for a AccelerationSample object. The 'timestamp' element is optional.

@@ -26,6 +26,8 @@ package org.ximtec.igesture.util.additionswiimote;
 
 import org.ximtec.igesture.util.additions3d.Point3D;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.additions3d.AccelerationSample;
+import org.ximtec.igesture.util.additions3d.Accelerations;
 
 public class WiiMoteTools {
 
@@ -36,7 +38,7 @@ public class WiiMoteTools {
 	 * @param acc the acceleration data coming from the WiiMote controller
 	 * @return
 	 */
-	public static RecordedGesture3D accelerationsToTraces(WiiAccelerations acc){
+	public static RecordedGesture3D accelerationsToTraces(Accelerations acc){
 		//Variables
 		RecordedGesture3D gesture = new RecordedGesture3D();
 		double xVelocity = 0; 									//assume initial x velocity is zero
@@ -95,13 +97,4 @@ public class WiiMoteTools {
 		return gesture;
 	}
 	
-	
-	/** Main for test purposes
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
 }

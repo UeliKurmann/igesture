@@ -38,7 +38,7 @@ import org.ximtec.igesture.util.additions3d.Point3D;
  */
 public class JdomPoint3D extends Element {
 
-   public static final String ROOT_TAG = "point3d";
+   public static final String ROOT_TAG = "point3D";
    public static final String POINT_ELEMENT_X = "x";
    public static final String POINT_ELEMENT_Y = "y";
    public static final String POINT_ELEMENT_Z = "z";

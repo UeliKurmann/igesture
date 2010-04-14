@@ -19,6 +19,7 @@ import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.io.AbstractGestureDevice;
+import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.io.tuio.interfaces.AbstractTuioCursor;
 import org.ximtec.igesture.io.tuio.interfaces.AbstractTuioObject;
 import org.ximtec.igesture.io.tuio.tuio2D.TuioCursor;
@@ -85,7 +86,7 @@ public class TuioReader2D extends AbstractGestureDevice<Note, Point> implements 
 		
 		setDeviceID(String.valueOf(port));
 		setConnectionType("Tuio");
-		setDeviceType("2D");
+		setDimension(GestureDevice.DIMENSION_2D);
 		setName("Tuio Service on Port "+port);
 		
 		lastNoteAdded = new Note();

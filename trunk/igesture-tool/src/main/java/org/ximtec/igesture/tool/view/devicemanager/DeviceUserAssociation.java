@@ -47,8 +47,8 @@ public class DeviceUserAssociation extends DefaultDataObject implements Device{
 	}
 
 	@Override
-	public String getDeviceType() {
-		return device.getDeviceType();
+	public String getDimension() {
+		return device.getDimension();
 	}
 
 	@Override
@@ -82,8 +82,8 @@ public class DeviceUserAssociation extends DefaultDataObject implements Device{
 	}
 
 	@Override
-	public void setDeviceType(String deviceType) {
-		device.setDeviceType(deviceType);
+	public void setDimension(String dimension) {
+		device.setDimension(dimension);
 	}
 
 	@Override
@@ -170,6 +170,14 @@ public class DeviceUserAssociation extends DefaultDataObject implements Device{
 	public String toString()
 	{
 		return device.toString()+" - "+user.toString();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.ximtec.igesture.tool.view.devicemanager.Device#getDeviceType()
+	 */
+	@Override
+	public String getDeviceType() {
+		return device.getDeviceType();
 	}
 
 }

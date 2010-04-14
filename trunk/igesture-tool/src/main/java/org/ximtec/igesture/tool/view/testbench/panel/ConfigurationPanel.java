@@ -40,7 +40,6 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentSkipListMap;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -86,8 +85,10 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 public class ConfigurationPanel extends AbstractPanel implements DeviceListPanelListener, DeviceManagerListener {
 
-	private static final int INPUTAREA_SIZE = 200;
-	
+  private static final int INPUTAREA_SIZE = 200;
+
+  public static final String IDENTIFIER = "testbench";
+  
   private Configuration configuration;
 
   private GestureDevice<?, ?> gestureDevice;
@@ -100,6 +101,8 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
   private JPanel cardPanel; 
   
   private Map<String, InputComponentPanel> panelMapping;
+  
+  private Controller controller;
 
   public ConfigurationPanel(Controller controller, Configuration configuration) {
     super(controller);
@@ -109,6 +112,8 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
     
     DeviceManagerService manager = controller.getLocator().getService(DeviceManagerService.IDENTIFIER, DeviceManagerService.class);
     manager.addDeviceManagerListener(this);
+    
+    this.controller = controller;
     
     init(manager);
 
@@ -277,11 +282,12 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
 	{
 //		if(device.getDeviceType() == "2D")//TODO base this on algorithm that is configured
 		{
-			devicePanel.addDevice(device);
 			//add input panel
 			InputComponentPanel panel = createInputPanel(device);
 			panelMapping.put(device.toString(), panel);
 			cardPanel.add(panel,device.toString());
+			//add device to device list
+			devicePanel.addDevice(device);
 		}
 	}
 	
@@ -303,13 +309,18 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
 	public void updateDeviceListPanelListener(AbstractGestureDevice<?, ?> device) {
 
 		//remove listener from current device
-		currentDevice.removeGestureHandler(panelMapping.get(currentDevice.toString()).getGestureDevicePanel());
+		if(currentDevice != null)
+			currentDevice.removeGestureHandler(panelMapping.get(currentDevice.toString()).getGestureDevicePanel());
 		//change input panel
 		((CardLayout)cardPanel.getLayout()).show(cardPanel, device.toString());
 		currentDevice = device;
 		
+		controller.getLocator().setSharedDevice(IDENTIFIER, currentDevice);
+		
 		//add listener to new device
-		device.addGestureHandler(panelMapping.get(device.toString()).getGestureDevicePanel());	
+		device.addGestureHandler(panelMapping.get(device.toString()).getGestureDevicePanel());
+		
+		repaint();
 	}
 	
 	/* (non-Javadoc)

@@ -27,6 +27,7 @@ import org.jdom.Element;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.additions3d.jdom.JdomRecordedGesture3D;
 
 
 /**

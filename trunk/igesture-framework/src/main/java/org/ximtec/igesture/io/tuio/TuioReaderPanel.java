@@ -3,6 +3,7 @@
  */
 package org.ximtec.igesture.io.tuio;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.io.GestureDevicePanel;
+import org.ximtec.igesture.util.RecordedGesture3DTool;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 /**
@@ -61,14 +63,26 @@ public class TuioReaderPanel extends GestureDevicePanel {
 	@Override
 	public void paintComponent(Graphics g)
 	{
-
 		if(type == TYPE_2D)
 		{
-			g.drawString("2D", getWidth()/2, getHeight()/2);
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, getWidth(), getHeight());
+			g.setColor(Color.BLACK);
+			if(gestureSample != null)//gestureSample != new GestureSample("", new Note())
+			{
+				gestureSample.getGesture().scaleTo(getWidth()-10, getHeight()-10);
+				gestureSample.getGesture().moveTo(5,5);
+				gestureSample.getGesture().paint(g);
+			}
+				
+//			g.drawString("2D", getWidth()/2, getHeight()/2);
 		}
 		else if(type == TYPE_3D)
 		{
-			g.drawString("3D", getWidth()/2, getHeight()/2);
+			if(gestureSample3D != null) //gestureSample3D != new GestureSample3D("", new RecordedGesture3D())
+				RecordedGesture3DTool.paintGesture(gestureSample3D.getGesture(), g, getWidth(), getHeight(), true);
+			else
+				RecordedGesture3DTool.paintStructure(g, getWidth(), getHeight(), true);
 		}
 		else
 		{
@@ -100,7 +114,8 @@ public class TuioReaderPanel extends GestureDevicePanel {
 			gestureSample3D = (GestureSample3D) gesture;
 			type = TYPE_3D;
 		}
-		paintComponent(getGraphics());
+		if(getGraphics() != null)
+			paintComponent(getGraphics());
 	}
 
 }

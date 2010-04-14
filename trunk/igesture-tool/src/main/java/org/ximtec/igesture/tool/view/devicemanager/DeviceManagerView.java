@@ -128,7 +128,7 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 		disconnectDeviceAction.addAction(reconnectDeviceAction);
 		
 		/////////////////////// device table
-		headers = new String[]{GestureConstants.DEVICE_NAME, GestureConstants.DEVICE_ID, GestureConstants.DEVICE_TYPE,
+		headers = new String[]{GestureConstants.DEVICE_NAME, GestureConstants.DEVICE_ID, GestureConstants.DEVICE_DIMENSION,
 									GestureConstants.DEVICE_USER, GestureConstants.DEVICE_CONNECTION, GestureConstants.DEVICE_CONNECTED};
 		
 		deviceTable = new BasicTable<DeviceUserAssociation>(headers);

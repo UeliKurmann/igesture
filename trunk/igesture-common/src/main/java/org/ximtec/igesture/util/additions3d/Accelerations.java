@@ -23,7 +23,7 @@
  * 
  */
 
-package org.ximtec.igesture.util.additionswiimote;
+package org.ximtec.igesture.util.additions3d;
 
 import java.util.Iterator;
 import java.util.List;
@@ -32,13 +32,13 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class WiiAccelerations implements Cloneable{
+public class Accelerations implements Cloneable{
 	
-	private static final Logger LOGGER = Logger.getLogger(WiiAccelerations.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(Accelerations.class.getName());
 	
 	private List<AccelerationSample> samples;
 
-	public WiiAccelerations() {
+	public Accelerations() {
 		samples = new ArrayList<AccelerationSample>();
 	}
 
@@ -307,10 +307,10 @@ public class WiiAccelerations implements Cloneable{
    @Override
    @SuppressWarnings("unchecked")
    public Object clone() {
-      WiiAccelerations clone = null;
+      Accelerations clone = null;
 
       try {
-         clone = (WiiAccelerations)super.clone();
+         clone = (Accelerations)super.clone();
          List<AccelerationSample> clonedSamples = new Vector<AccelerationSample>();
 
          for (AccelerationSample sample : samples) {

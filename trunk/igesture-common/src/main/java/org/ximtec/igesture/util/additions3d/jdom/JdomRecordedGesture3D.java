@@ -30,6 +30,7 @@ import java.util.List;
 import org.jdom.Element;
 import org.ximtec.igesture.util.additions3d.Point3D;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.additions3d.jdom.JdomAccelerations;
 
 
 /**
@@ -39,7 +40,7 @@ import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
  */
 public class JdomRecordedGesture3D extends Element {
 
-   public static final String ROOT_TAG = "recordedgesture3d";
+   public static final String ROOT_TAG = "recordedGesture3D";
 
 
    public JdomRecordedGesture3D(RecordedGesture3D gesture) {
@@ -48,6 +49,8 @@ public class JdomRecordedGesture3D extends Element {
       for (Point3D point : gesture.getPoints()) {
          addContent(new JdomPoint3D(point));
       }
+      
+      addContent(new JdomAccelerations(gesture.getAccelerations()));
    }
 
 
@@ -58,6 +61,9 @@ public class JdomRecordedGesture3D extends Element {
       for (Element point : (List<Element>)gesture.getChildren(JdomPoint3D.ROOT_TAG)) {
          newGesture.add(JdomPoint3D.unmarshal(point));
       }
+      
+      Element acc = gesture.getChild(JdomAccelerations.ROOT_TAG);
+      newGesture.setAccelerations(JdomAccelerations.unmarshal(acc));
 
       return newGesture;
    } // unmarshal

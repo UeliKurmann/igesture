@@ -23,7 +23,7 @@
  * 
  */
 
-package org.ximtec.igesture.util.additionswiimote;
+package org.ximtec.igesture.util.additions3d;
 
 /**
  * Contains a sample of x- y- and z- acceleration

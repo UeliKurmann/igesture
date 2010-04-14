@@ -40,6 +40,7 @@ import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.SampleDescriptor;
+import org.ximtec.igesture.core.SampleDescriptor3D;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.binding.BindingFactory;
 import org.ximtec.igesture.tool.core.Controller;
@@ -48,6 +49,7 @@ import org.ximtec.igesture.tool.util.FormBuilder;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.util.GestureTool;
+import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 public class GestureClassPanel extends AbstractPanel {
   
@@ -123,6 +125,29 @@ public class GestureClassPanel extends AbstractPanel {
         formBuilder.addRight(getComponentFactory().createLabel(
             GestureConstants.GESTURE_CLASS_PANEL_NSA));
       }
+    }
+    else if(gestureClass.hasDescriptor(SampleDescriptor3D.class))
+    {
+    	Gesture<RecordedGesture3D> sample = null;
+    	
+    	SampleDescriptor3D descriptor = gestureClass.getDescriptor(SampleDescriptor3D.class);
+    	List<Gesture<RecordedGesture3D>> samples = descriptor.getSamples();
+    	
+    	if(samples.size() > 0)
+    		sample = descriptor.getSample(0);
+    	
+    	if(sample != null)
+    	{
+    		JLabel label = new JLabel(new ImageIcon(GestureTool.createRecordedGesture3DImage(
+    	            sample.getGesture(), 150, 150)));
+    	        label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+    	        formBuilder.addRight(label);
+    	}
+    	else
+    	{
+    		formBuilder.addRight(getComponentFactory().createLabel(
+    	            GestureConstants.GESTURE_CLASS_PANEL_NSA));
+    	}
     }
 
     return formBuilder.getPanel();

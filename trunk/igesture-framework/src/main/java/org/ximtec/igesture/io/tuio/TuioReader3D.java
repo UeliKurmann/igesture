@@ -19,14 +19,15 @@ import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.io.AbstractGestureDevice;
+import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.io.tuio.interfaces.AbstractTuioCursor;
 import org.ximtec.igesture.io.tuio.interfaces.AbstractTuioObject;
 import org.ximtec.igesture.io.tuio.tuio3D.TuioCursor3D;
 import org.ximtec.igesture.io.tuio.tuio3D.TuioObject3D;
+import org.ximtec.igesture.util.additions3d.AccelerationSample;
+import org.ximtec.igesture.util.additions3d.Accelerations;
 import org.ximtec.igesture.util.additions3d.Point3D;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
-import org.ximtec.igesture.util.additionswiimote.AccelerationSample;
-import org.ximtec.igesture.util.additionswiimote.WiiAccelerations;
 
 /**
  * Reader that initializes the TuioConnection and handles the events caused by the TuioConnection. There are three ways to use the TuioReader.
@@ -89,7 +90,7 @@ public class TuioReader3D extends AbstractGestureDevice<RecordedGesture3D, Point
 		
 		setDeviceID(String.valueOf(port));
 		setConnectionType("Tuio");
-		setDeviceType("3D");
+		setDimension(GestureDevice.DIMENSION_3D);
 		setName("Tuio Service on Port "+port);
 		
 		lastRecordedGesture3DAdded = new RecordedGesture3D();
@@ -232,7 +233,7 @@ public class TuioReader3D extends AbstractGestureDevice<RecordedGesture3D, Point
 			gesture.add(point);
 			
 			//create accelerations and an acceleration sample
-			WiiAccelerations accelerations = new WiiAccelerations();
+			Accelerations accelerations = new Accelerations();
 			AccelerationSample sample = createAccelerationSample(tcur.getXSpeed(),tcur.getYSpeed(),tcur.getZSpeed(),tcur.getMotionSpeed(),tcur.getMotionSpeed(),time);
 			//add sample to accelerations
 			accelerations.addSample(sample);
@@ -263,7 +264,7 @@ public class TuioReader3D extends AbstractGestureDevice<RecordedGesture3D, Point
 			Point3D point = new Point3D(tobj.getX(),tobj.getY(),tobj.getZ(),time);
 			gesture.add(point);
 			//create accelerations and an acceleration sample
-			WiiAccelerations accelerations = new WiiAccelerations();
+			Accelerations accelerations = new Accelerations();
 			AccelerationSample sample = createAccelerationSample(tobj.getXSpeed(),tobj.getYSpeed(),tobj.getZSpeed(),tobj.getMotionSpeed(),tobj.getMotionAccel(),time);
 			//add sample to accelerations
 			accelerations.addSample(sample);
@@ -355,7 +356,7 @@ public class TuioReader3D extends AbstractGestureDevice<RecordedGesture3D, Point
 			//add new acceleration sample to the recordedgesture3D's accelerations
 			AccelerationSample sample = createAccelerationSample(tcur.getXSpeed(),tcur.getYSpeed(),tcur.getZSpeed(),tcur.getMotionSpeed(),tcur.getMotionAccel(),time);
 			//add sample to accelerations
-			WiiAccelerations accelerations = gesture.getAccelerations(); 
+			Accelerations accelerations = gesture.getAccelerations(); 
 			accelerations.addSample(sample);
 			
 			//DEBUG
@@ -384,7 +385,7 @@ public class TuioReader3D extends AbstractGestureDevice<RecordedGesture3D, Point
 			//add new acceleration sample to the recordedgesture3D's accelerations
 			AccelerationSample sample = createAccelerationSample(tobj.getXSpeed(),tobj.getYSpeed(),tobj.getZSpeed(),tobj.getMotionSpeed(),tobj.getMotionAccel(),time);
 			//add sample to accelerations
-			WiiAccelerations accelerations = gesture.getAccelerations(); 
+			Accelerations accelerations = gesture.getAccelerations(); 
 			accelerations.addSample(sample);
 			
 			//DEBUG

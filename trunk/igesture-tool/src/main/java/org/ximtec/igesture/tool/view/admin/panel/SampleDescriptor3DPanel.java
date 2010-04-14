@@ -193,7 +193,7 @@ public class SampleDescriptor3DPanel extends DefaultDescriptorPanel<SampleDescri
 		cardPanel.setLayout(new CardLayout());
 		cardPanel.setSize(new Dimension(INPUTAREA_SIZE, INPUTAREA_SIZE));
 		
-		currentDevice = gestureDevice;
+		currentDevice = null;
 		
 	    
 	    JLabel title = getComponentFactory().createLabel(GestureConstants.SAMPLE_DESCRIPTOR_3D_TITLE);
@@ -315,17 +315,17 @@ public class SampleDescriptor3DPanel extends DefaultDescriptorPanel<SampleDescri
 		public void updateDeviceListPanelListener(AbstractGestureDevice<?, ?> device) {
 			
 			//remove listener from current device
-			if(!panelMapping.isEmpty())
+			if(currentDevice != null)//!panelMapping.isEmpty())
 				currentDevice.removeGestureHandler(panelMapping.get(currentDevice.toString()).getGestureDevicePanel());
 			//change input panel
 			((CardLayout)cardPanel.getLayout()).show(cardPanel, device.toString());
 			currentDevice = device;
 			
 			//add listener to new device
-			if(!panelMapping.isEmpty())
-				device.addGestureHandler(panelMapping.get(device.toString()).getGestureDevicePanel());
+			device.addGestureHandler(panelMapping.get(device.toString()).getGestureDevicePanel());
 			
 			repaint();
+//			paintAll(getGraphics());
 		}
 		
 		private InputComponentPanel createInputPanel(GestureDevice<?,?> device)
@@ -349,19 +349,20 @@ public class SampleDescriptor3DPanel extends DefaultDescriptorPanel<SampleDescri
 
 		private void addDevice(AbstractGestureDevice<?,?> device)
 		{
-			if(device.getDeviceType() == "3D")
+			if(device.getDimension() == GestureDevice.DIMENSION_3D)
 			{
-				devicePanel.addDevice(device);
 				//add input panel
 				InputComponentPanel panel = createInputPanel(device);
 				panelMapping.put(device.toString(), panel);
 				cardPanel.add(panel,device.toString());
+				//add device to device list
+				devicePanel.addDevice(device);
 			}
 		}
 		
 		private void removeDevice(AbstractGestureDevice<?,?> device)
 		{
-			if(device.getDeviceType() == "3D")
+			if(device.getDimension() == GestureDevice.DIMENSION_3D)
 			{
 				devicePanel.removeDevice(device);
 				//remove input panel
