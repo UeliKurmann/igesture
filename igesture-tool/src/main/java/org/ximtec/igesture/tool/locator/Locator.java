@@ -35,6 +35,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.ximtec.igesture.io.GestureDevice;
+
 
 /**
  * Implementation of the locator pattern. A locator provides access to services
@@ -51,9 +53,11 @@ public class Locator {
 
    private Map<String, Service> services;
 
-
+   private Map<String, GestureDevice<?,?>> sharedDevices;
+   
    public Locator() {
       services = new HashMap<String, Service>();
+      sharedDevices = new HashMap<String, GestureDevice<?,?>>();
    }
 
 
@@ -149,4 +153,14 @@ public class Locator {
       return defaultLocator;
    } // getDefault
 
+   public void setSharedDevice(String identifier, GestureDevice<?,?> device)
+   {
+	   sharedDevices.put(identifier, device);
+   }
+   
+   public GestureDevice<?,?> getSharedDevice(String identifier)
+   {
+	   return sharedDevices.get(identifier);
+   }
+   
 }

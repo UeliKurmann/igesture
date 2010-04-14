@@ -24,14 +24,10 @@
 
 package org.ximtec.igesture.core;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.sigtec.ink.Note;
-import org.sigtec.ink.Point;
-import org.sigtec.ink.Trace;
-import org.ximtec.igesture.util.additions3d.Point3D;
+import org.ximtec.igesture.util.RecordedGesture3DTool;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 public class GestureSample3D extends DefaultDataObject implements Cloneable,
@@ -105,37 +101,7 @@ public class GestureSample3D extends DefaultDataObject implements Cloneable,
 	 *         and then ZX.
 	 */
 	public List<Gesture<Note>> splitToPlanes() {
-		Iterator<Point3D> iterator = this.gesture.iterator(); // Iterator on the
-		// list of
-		// Point3D in
-		// gesture
-		Trace traceXY = new Trace(); // X plane Trace
-		Trace traceYZ = new Trace(); // Y plane Trace
-		Trace traceZX = new Trace(); // Z plane Trace
-		Point3D point3d; // Working variable
-		// Project all 3d points in gesture on planes
-		while (iterator.hasNext()) {
-			point3d = iterator.next();
-			// Add points to 2d traces
-			traceXY.add(new Point(point3d.getX(), point3d.getY(), point3d.getTimeStamp()));
-			traceYZ.add(new Point(point3d.getY(), point3d.getZ(), point3d.getTimeStamp()));
-			traceZX.add(new Point(point3d.getZ(), point3d.getX(), point3d.getTimeStamp()));
-		}
-		// Put traces into Notes
-		Note noteXY = new Note(); // X plane Note
-		Note noteYZ = new Note(); // Y plane Note
-		Note noteZX = new Note(); // Z plane Note
-		// Add planes to returnlist
-		noteXY.add(traceXY);
-		noteYZ.add(traceYZ);
-		noteZX.add(traceZX);
-		List<Gesture<Note>> returnList = new ArrayList<Gesture<Note>>(); // Return
-		// variable
-		returnList.add(new GestureSample("XY-plane", noteXY));
-		returnList.add(new GestureSample("YZ-plane", noteYZ));
-		returnList.add(new GestureSample("ZX-plane", noteZX));
-		// Return list with three planes
-		return returnList;
+		return RecordedGesture3DTool.splitToPlanes(getGesture());
 	}
 
 }

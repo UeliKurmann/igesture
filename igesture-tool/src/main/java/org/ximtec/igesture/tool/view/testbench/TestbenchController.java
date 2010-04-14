@@ -98,9 +98,8 @@ public class TestbenchController extends DefaultController {
 			// (SampleGesture.numberOfPoints
 			// > 5)
 			// are provided.
-
-			GestureDevice<?, ?> gestureDevice = getLocator().getService(SwingMouseReaderService.IDENTIFIER,
-							GestureDevice.class);
+			
+			GestureDevice<?, ?> gestureDevice = getLocator().getSharedDevice(ConfigurationPanel.IDENTIFIER);
 
 			if (gestureDevice.getGesture() != null) {
 

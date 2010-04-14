@@ -46,6 +46,7 @@ import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.io.AbstractGestureDevice;
+import org.ximtec.igesture.io.GestureDevice;
 
 /**
  * Comment
@@ -70,7 +71,7 @@ public class SwingMouseReader extends AbstractGestureDevice<Note, Point> {
 	  
 	  //MODIFY >
 	  setName("SwingMouseReader");
-	  setDeviceType("2D");
+	  setDimension(GestureDevice.DIMENSION_2D);
 	  setDeviceID("System Mouse");
 	  setConnectionType("USB");
 	  setIsConnected(true);

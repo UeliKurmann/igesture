@@ -32,7 +32,6 @@ import java.util.Set;
 import org.ximtec.igesture.core.Gesture;
 
 
-
 /**
  * Comment
  * @version 1.0 02.12.2008
@@ -43,7 +42,7 @@ public abstract class AbstractGestureDevice<E, F> implements GestureDevice<E, F>
    private Set<GestureEventListener> gestureListeners;
    
    private String connectionType;
-   private String deviceType;
+   private String dimension;
    private String id;
    private String name;
    private boolean isDefault = false;
@@ -90,6 +89,11 @@ public abstract class AbstractGestureDevice<E, F> implements GestureDevice<E, F>
    }
 
    //MODIFY >
+   
+   public void removeAllGestureHandler()
+   {
+	   removeAllListener();
+   }
    
    	@Override
 	public String getDeviceID() 
@@ -147,12 +151,12 @@ public abstract class AbstractGestureDevice<E, F> implements GestureDevice<E, F>
 	}
 	
    	@Override
-   	public String getDeviceType() {
-		return deviceType;
+   	public String getDimension() {
+		return dimension;
 	}
    	@Override
-	public void setDeviceType(String deviceType) {
-   		this.deviceType = deviceType;
+	public void setDimension(String dimension) {
+   		this.dimension = dimension;
 	}
 	
    	@Override
@@ -175,5 +179,11 @@ public abstract class AbstractGestureDevice<E, F> implements GestureDevice<E, F>
 	
 	public String toString() {
 		return getName() + " ("+getDeviceID()+")";
+	}
+	
+	@Override
+	public String getDeviceType()
+	{
+		return getClass().getSimpleName();
 	}
 }

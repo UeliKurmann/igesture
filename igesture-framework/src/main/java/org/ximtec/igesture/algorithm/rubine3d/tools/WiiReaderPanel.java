@@ -44,8 +44,8 @@ import org.sigtec.ink.Trace;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSample3D;
-import org.ximtec.igesture.util.additionswiimote.AccelerationSample;
-import org.ximtec.igesture.util.additionswiimote.WiiAccelerations;
+import org.ximtec.igesture.util.additions3d.AccelerationSample;
+import org.ximtec.igesture.util.additions3d.Accelerations;
 
 public class WiiReaderPanel extends JPanel {
 
@@ -101,7 +101,7 @@ public class WiiReaderPanel extends JPanel {
 		
 		if (gs != null) {
 
-			WiiAccelerations acc = gs.getGesture().getAccelerations();
+			Accelerations acc = gs.getGesture().getAccelerations();
 
 			//System.err.println("Accelerations: " + gs.getGesture().getAccelerations());
 			
@@ -153,7 +153,7 @@ public class WiiReaderPanel extends JPanel {
 	 * @param g
 	 *            The Graphics object on which the graph should be drawn
 	 */
-	private void drawAccelerationsGraph(WiiAccelerations acc, Rectangle field,
+	private void drawAccelerationsGraph(Accelerations acc, Rectangle field,
 			double spacePercentage, Graphics g) {
 		g.setColor(Color.BLACK);
 
@@ -210,7 +210,7 @@ public class WiiReaderPanel extends JPanel {
 	 *            A rectangle from which the size is used to scale into
 	 * @return A List of Lists of Points, cotaining the scaled data
 	 */
-	private List<List<Point>> scaleAccelerations(WiiAccelerations acc,
+	private List<List<Point>> scaleAccelerations(Accelerations acc,
 			Rectangle fieldSize) {
 		// Retrieve timestamp of first and last sample
 		long timeFirst = acc.getFirstSampleTime();

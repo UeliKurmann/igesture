@@ -32,7 +32,7 @@ import org.ximtec.igesture.tool.view.devicemanager.XMLParser;
 public abstract class AbstractTuioDeviceDiscoveryService implements
 		DeviceDiscoveryService {
 
-	private static final Logger LOGGER = Logger.getLogger(Tuio2DDeviceDiscoveryService.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(AbstractTuioDeviceDiscoveryService.class.getName());
 	/**
 	 * First port of range to scan
 	 */

@@ -46,6 +46,7 @@ import javax.swing.SwingUtilities;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.DataObject;
 import org.ximtec.igesture.core.DataObjectWrapper;
+import org.ximtec.igesture.io.AbstractGestureDevice;
 import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.storage.StorageEngineConverter;
 import org.ximtec.igesture.storage.StorageManager;
@@ -67,6 +68,7 @@ import org.ximtec.igesture.tool.util.ExtensionFileFilter;
 import org.ximtec.igesture.tool.util.FileType;
 import org.ximtec.igesture.tool.view.admin.AdminController;
 import org.ximtec.igesture.tool.view.batch.BatchController;
+import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
 import org.ximtec.igesture.tool.view.testbench.TestbenchController;
 import org.ximtec.igesture.tool.view.testset.TestSetController;
 import org.ximtec.igesture.tool.view.welcome.WelcomeController;
@@ -195,6 +197,16 @@ public class MainController extends DefaultController implements Service {
 				SwingMouseReaderService.IDENTIFIER, GestureDevice.class);
 		if (gestureDevice != null) {
 			gestureDevice.clear();
+		}
+		
+		/*
+		 * Only listeners for the current active tab are allowed. 
+		 * This way the performed gestures are only drawn on the current tab.
+		 * On change of tab remove all listeners.
+		 * */
+		for(AbstractGestureDevice<?,?> device : getLocator().getService(DeviceManagerService.IDENTIFIER,DeviceManagerController.class).getDevices())
+		{
+			device.removeAllGestureHandler();
 		}
 	}
 

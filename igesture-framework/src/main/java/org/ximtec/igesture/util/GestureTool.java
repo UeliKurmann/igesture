@@ -43,9 +43,11 @@ import org.sigtec.ink.TraceTool;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample;
+import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.TestSet;
+import org.ximtec.igesture.io.wiimote.WiiReaderPanel;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 
@@ -214,8 +216,7 @@ public class GestureTool {
    		RecordedGesture3D record = (RecordedGesture3D)gesture.clone();
    		BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
    		Graphics graphic = bufferedImage.getGraphics();
-   		graphic.setColor(Color.BLACK);
-   		graphic.drawString("TODO", width/2 , height/2 );
+   		RecordedGesture3DTool.paintGesture(record,graphic, width, height, false);
    		return bufferedImage;
    } //createRecordeGesture3DImage
 

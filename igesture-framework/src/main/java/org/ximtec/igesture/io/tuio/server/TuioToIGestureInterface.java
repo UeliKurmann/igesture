@@ -1,5 +1,10 @@
 package org.ximtec.igesture.io.tuio.server;
 
+/**
+ * 
+ * @author Björn Puype, bpuype@gmail.com
+ *
+ */
 public interface TuioToIGestureInterface {
 	
 	/** 

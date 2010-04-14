@@ -157,7 +157,7 @@ public class GestureConstants {
   public static final String USER_INITIALS = "Initials";
   public static final String DEVICE_NAME = "Name";
   public static final String DEVICE_ID = "DeviceID";
-  public static final String DEVICE_TYPE = "DeviceType";
+  public static final String DEVICE_DIMENSION = "Dimension";
   public static final String DEVICE_USER = "User";
   public static final String DEVICE_CONNECTION = "ConnectionType";
   public static final String DEVICE_CONNECTED = "Connected";

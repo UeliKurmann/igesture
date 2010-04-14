@@ -330,13 +330,16 @@ public class TestClassPanel extends AbstractPanel implements DeviceListPanelList
 	public void updateDeviceListPanelListener(AbstractGestureDevice<?, ?> device) {
 		
 		//remove listener from current device
-		currentDevice.removeGestureHandler(panelMapping.get(currentDevice.toString()).getGestureDevicePanel());
+		if(currentDevice != null)
+			currentDevice.removeGestureHandler(panelMapping.get(currentDevice.toString()).getGestureDevicePanel());
 		//change input panel
 		((CardLayout)cardPanel.getLayout()).show(cardPanel, device.toString());
 		currentDevice = device;
 		
 		//add listener to new device
 		device.addGestureHandler(panelMapping.get(device.toString()).getGestureDevicePanel());
+		
+		repaint();
 	}
 	
 	private InputComponentPanel createInputPanel(GestureDevice<?,?> device)
@@ -362,11 +365,12 @@ public class TestClassPanel extends AbstractPanel implements DeviceListPanelList
 	{
 //		if(device.getDeviceType() == "2D")
 		{
-			devicePanel.addDevice(device);
 			//add input panel
 			InputComponentPanel panel = createInputPanel(device);
 			panelMapping.put(device.toString(), panel);
 			cardPanel.add(panel,device.toString());
+			//add device to device list
+			devicePanel.addDevice(device);
 		}
 	}
 	

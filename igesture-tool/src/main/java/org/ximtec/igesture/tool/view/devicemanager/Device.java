@@ -64,16 +64,16 @@ public interface Device {
 		 */
 		void setIsConnected(boolean isConnected);
 		
-		//type of the device, e.g. 2D, 3D
+		//dimension of the device, e.g. 2D, 3D
 		/**
-		 * Get the device type of the device. (E.g. 2D or 3D)
+		 * Get the dimension of the device. (E.g. 2D or 3D)
 		 */
-		String getDeviceType();
+		String getDimension();
 		/**
-		 * Set the device type of the device. (E.g. 2D or 3D)
+		 * Set the dimension of the device. (E.g. 2D or 3D)
 		 * @param deviceType
 		 */
-		void setDeviceType(String deviceType);
+		void setDimension(String dimension);
 		
 		//type of the connection, e.g. USB, BlueTooth
 		/**
@@ -99,4 +99,13 @@ public interface Device {
 		
 		
 		String toString();
+
+		/**
+		 * Get the device type (E.g. SwingMouseReader, WiiReader, ...)
+		 * @return the device type.
+		 */
+		String getDeviceType();
+		
+		public static final String DIMENSION_2D = "2D";
+		public static final String DIMENSION_3D = "3D";
 }

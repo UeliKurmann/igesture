@@ -48,11 +48,11 @@ public class AddDeviceWizardProvider extends WizardPanelProvider {
 
 	protected AddDeviceWizardProvider(DeviceManagerController manager)
 	{
-		super("Add Device ...", new String[]{"connection", "device", "user", "recogniser"}, new String[]{
+		super("Add Device ...", new String[]{"connection", "device", "user"/*, "recogniser"*/}, new String[]{
 				"Choose a connection type",
 				"Choose a device to connect",
-				"Associate the device with a user",
-				"Associate a recogniser"
+				"Associate the device with a user"/*,
+				"Associate a recogniser"*/
 		});
 		this.manager = manager;
 		discoveryMapping = manager.getDiscoveryMapping();
@@ -115,7 +115,7 @@ public class AddDeviceWizardProvider extends WizardPanelProvider {
 			
 			return panel;
 		}
-		else if("user".equals(id)) // STEP 3
+		else //if("user".equals(id)) // STEP 3
 		{
 			controller.setProblem("Associate the device with a user");
 			
@@ -145,7 +145,7 @@ public class AddDeviceWizardProvider extends WizardPanelProvider {
 			
 			return panel;
 
-		}
+		}/*
 		else //if("choice".equals("id")) // STEP 4 (BRANCH)
 		{
 			String problem = "You must select a recogniser type";
@@ -154,7 +154,7 @@ public class AddDeviceWizardProvider extends WizardPanelProvider {
 			names.add("Existing Recogniser");
 			names.add("New Recogniser");
 			return createRadioButtonsPanel(names, "recogniser", problem, controller, settings);
-		}
+		}*/
 	}
 	
 	private JPanel createRadioButtonsPanel(Set<String> names, final String key, final String problem, final WizardController controller, final Map settings)

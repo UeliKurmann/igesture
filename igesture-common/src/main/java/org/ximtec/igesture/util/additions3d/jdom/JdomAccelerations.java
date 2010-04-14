@@ -1,24 +1,24 @@
 /**
  * 
  */
-package org.ximtec.igesture.core.jdom;
+package org.ximtec.igesture.util.additions3d.jdom;
 
 import java.util.List;
 
 import org.jdom.Element;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
-import org.ximtec.igesture.util.additionswiimote.AccelerationSample;
-import org.ximtec.igesture.util.additionswiimote.WiiAccelerations;
+import org.ximtec.igesture.util.additions3d.AccelerationSample;
+import org.ximtec.igesture.util.additions3d.Accelerations;
+import org.ximtec.igesture.util.additions3d.jdom.JdomAccelerationSample;
 
 /**
  * @author Björn Puype, bpuype@gmail.com
  *
  */
-public class JdomWiiAccelerations extends Element {
+public class JdomAccelerations extends Element {
 	
 	public static final String ROOT_TAG = "acceleration";
 	
-	public JdomWiiAccelerations(WiiAccelerations accelerations) {
+	public JdomAccelerations(Accelerations accelerations) {
 	      super(ROOT_TAG);
 
 	      for (AccelerationSample sample : accelerations.getSamples()) {
@@ -27,8 +27,8 @@ public class JdomWiiAccelerations extends Element {
 	   }
 
 	   @SuppressWarnings("unchecked")
-	   public static WiiAccelerations unmarshal(Element gesture) {
-		   WiiAccelerations newAccelerations = new WiiAccelerations();
+	   public static Accelerations unmarshal(Element gesture) {
+		   Accelerations newAccelerations = new Accelerations();
 
 	      for (Element sample : (List<Element>)gesture.getChildren(JdomAccelerationSample.ROOT_TAG)) {
 	         newAccelerations.addSample(JdomAccelerationSample.unmarshal(sample));

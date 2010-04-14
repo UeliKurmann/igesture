@@ -66,10 +66,10 @@ import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.io.AbstractGestureDevice;
+import org.ximtec.igesture.util.additions3d.AccelerationSample;
+import org.ximtec.igesture.util.additions3d.Accelerations;
 import org.ximtec.igesture.util.additions3d.Point3D;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
-import org.ximtec.igesture.util.additionswiimote.AccelerationSample;
-import org.ximtec.igesture.util.additionswiimote.WiiAccelerations;
 import org.ximtec.igesture.util.additionswiimote.WiiMoteTools;
 
 public class WiiReader extends
@@ -89,7 +89,7 @@ public class WiiReader extends
 	// The GestureSample3D that will contain recordedGesture
 	private GestureSample3D gesture;
 	// List of recorded accelerations from the wiimote
-	private WiiAccelerations accelerations;
+	private Accelerations accelerations;
 	// Indicator if accelerations recording is in progress
 	private boolean recording;
 	// Button that is used to start and stop recording
@@ -102,7 +102,7 @@ public class WiiReader extends
 	 */
 	public WiiReader() {
 
-		this.accelerations = new WiiAccelerations();
+		this.accelerations = new Accelerations();
 		this.currentPanel = new WiiReaderPanel(this);
 		this.recordedGesture = new RecordedGesture3D();
 		this.gesture = new GestureSample3D("", recordedGesture);

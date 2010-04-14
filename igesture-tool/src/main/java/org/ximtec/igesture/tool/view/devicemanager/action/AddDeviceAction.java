@@ -27,7 +27,7 @@ public class AddDeviceAction extends BasicAction{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//create a wizard and execute it.
-		AddDeviceWizard wizard = new AddDeviceWizard(controller,true);
+		AddDeviceWizard wizard = new AddDeviceWizard(controller,false);
 		wizard.execute();
 		
 	}

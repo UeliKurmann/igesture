@@ -123,12 +123,12 @@ public interface Gesture3DDevice<E, F> {
 		/**
 		 * Get the device type of the device. (E.g. 2D or 3D)
 		 */
-		String getDeviceType();
+		String getDimension();
 		/**
 		 * Set the device type of the device. (E.g. 2D or 3D)
 		 * @param deviceType
 		 */
-		void setDeviceType(String deviceType);
+		void setDimension(String deviceType);
 		
 		//type of the connection, e.g. USB, BlueTooth
 		/**

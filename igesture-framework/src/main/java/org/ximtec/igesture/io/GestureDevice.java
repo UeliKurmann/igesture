@@ -144,16 +144,16 @@ public interface GestureDevice<E, F> {
 	 */
 	void setIsConnected(boolean isConnected);
 	
-	//type of the device, e.g. 2D, 3D
+	//dimension of the device, e.g. 2D, 3D
 	/**
-	 * Get the device type of the device. (E.g. 2D or 3D)
+	 * Get the dimension of the device. (E.g. 2D or 3D)
 	 */
-	String getDeviceType();
+	String getDimension();
 	/**
-	 * Set the device type of the device. (E.g. 2D or 3D)
-	 * @param deviceType
+	 * Set the dimension of the device. (E.g. 2D or 3D)
+	 * @param dimension
 	 */
-	void setDeviceType(String deviceType);
+	void setDimension(String dimension);
 	
 	//type of the connection, e.g. USB, BlueTooth
 	/**
@@ -177,12 +177,16 @@ public interface GestureDevice<E, F> {
 	 */
 	void setDefaultDevice(boolean isDefault);	
 	
+	/**
+	 * Get the device type (E.g. SwingMouseReader, WiiReader, ...)
+	 * @return the device type.
+	 */
+	String getDeviceType();
+	
 	String toString();
 	
-//	public static final String DEVICE_TYPE_2D = "2D";
-//	public static final String DEVICE_TYPE_3D = "3D";
-//	public static final String DEVICE_TYPE_2D_3D = "2D3D";
-//	  
+	public static final String DIMENSION_2D = "2D";
+	public static final String DIMENSION_3D = "3D";
 //	public static final String DEVICE_CONNECTION_BLUETOOTH = "Bluetooth";
 //	public static final String DEVICE_CONNECTION_USB = "USB";
 //	public static final String DEVICE_CONNECTION_TUIO = "Tuio";
