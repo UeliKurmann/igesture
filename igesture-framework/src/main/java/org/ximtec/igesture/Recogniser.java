@@ -29,6 +29,7 @@ package org.ximtec.igesture;
 import java.io.File;
 import java.io.InputStream;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executor;
@@ -61,13 +62,19 @@ public class Recogniser {
 
    private static final int NUMBER_OF_THREADS = 6;
 
-   private static final Logger LOGGER = Logger.getLogger(Recogniser.class
-         .getName());
+   private static final Logger LOGGER = Logger.getLogger(Recogniser.class.getName());
 
    private List<Algorithm> algorithms;
 
-   Set<GestureHandler> gestureHandlers = new HashSet<GestureHandler>();
+   private Set<GestureHandler> gestureHandlers = new HashSet<GestureHandler>();
+   private Set<GestureHandler> multimodalGestureHandlers = new HashSet<GestureHandler>(); //multimodal gesture managers
 
+//   private boolean multimodalMode = false;
+   public static final int MIXED_MODE = 1;
+   public static final int MULTIMODAL_MODE = 2;
+   public static final int NORMAL_MODE = 0;
+   private int mode = NORMAL_MODE;
+  
 
    /**
     * Creates a new recogniser.
@@ -170,21 +177,32 @@ public class Recogniser {
     *            event.
     */
    protected void fireEvent(final ResultSet resultSet) {
-      Executor executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-      for (final GestureHandler gestureHandler : gestureHandlers) {
-         LOGGER.info("Handler: "+gestureHandler.getClass());
-         if (gestureHandler != null) {
-            executor.execute(new Runnable() {
-
-               @Override
-               public void run() {
-                  gestureHandler.handle(resultSet);
-               }
-               
-            });
-         }
-      }
-
+      
+	  Set<GestureHandler> set = new HashSet<GestureHandler>();
+	  switch(mode)
+	  {
+	  	case MULTIMODAL_MODE:
+	  		set.addAll(multimodalGestureHandlers);
+	  		break;
+	  	case MIXED_MODE:
+	  	case NORMAL_MODE:
+	  		set.addAll(gestureHandlers);
+	  }
+	  
+	  Executor executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+	  for (final GestureHandler gestureHandler : set) {
+	     LOGGER.info("Handler: "+gestureHandler.getClass());
+	     if (gestureHandler != null) {
+	        executor.execute(new Runnable() {
+	
+	           @Override
+	           public void run() {
+	              gestureHandler.handle(resultSet);
+	           }
+	           
+	        });
+	     }
+	  }
    } // fireEvent
 
 
@@ -201,7 +219,7 @@ public class Recogniser {
     * @return the result set containing the recognised gesture classes.
     */
    public ResultSet recognise(Gesture< ? > gesture, boolean recogniseAll) {
-      final ResultSet result = new ResultSet();
+      final ResultSet result = new ResultSet(this);
 
       for (final Algorithm algorithm : algorithms) {
 
@@ -220,6 +238,33 @@ public class Recogniser {
 
       }
       LOGGER.info(result.toString());
+      
+      //MODIFY >
+      
+      // based on the resultset, determine the gesture class of the gesture
+      List<Result> results = result.getResults();
+      Result maxResult = null;
+      double maxAccuracy = 0.0;
+		
+      for (Iterator<Result> iterator = results.iterator(); iterator.hasNext();) {
+    	  Result r = iterator.next();
+    	  if(r.getAccuracy() > maxAccuracy)
+    	  {
+    		  maxAccuracy = r.getAccuracy();
+    		  maxResult = r;
+    	  }
+      }
+      //set the name of the gesture to that of the gesture class
+      if(maxResult != null)
+      {
+    	  gesture.setName(maxResult.getGestureClassName()+":"+maxResult.getGestureClass().getId());
+//    	  fireEvent(result);
+      }
+      else
+    	  gesture.setName("");
+      //MODIFY <
+      
+      result.setGesture(gesture);
       fireEvent(result);
       return result;
    } // recognise
@@ -281,6 +326,54 @@ public class Recogniser {
       Configuration configuration = XMLTool.importConfiguration(new File(
             configFile));
       return new Recogniser(configuration, gestureSet);
+   }
+   
+   
+   /**
+    * Get the associated gesture handlers.
+    */
+   public Set<GestureHandler> getGestureHandlers()
+   {
+	   return gestureHandlers;
+   }
+   
+   /**
+    * Change the mode of this recogniser. 
+    * If the recogniser is in multimodal mode, the gestures are first sent to the multimodal 
+    * gesture manager that further handles the notification of interested listeners.
+    * If the recogniser is in normal mode, the gestures are fired immediately to the interested listeners.
+    * If the recogniser is in mixed mode, both behaviors are used.
+    * @param mode	The value to set
+    */
+   public void setMode(int mode)
+   {
+	   this.mode = mode;
+   }
+
+   /**
+    * Get the mode of this recogniser
+    * @return the mode
+    */
+   public int getMode() {
+	   return mode;
+   }
+   
+
+
+/**
+	* Add a multimodal gesture handler to the recogniser.
+    */
+   public void addMultimodalGestureHandler(GestureHandler handler)
+   {
+	   multimodalGestureHandlers.add(handler);
+   }
+   
+   /**
+    * Remove a multimodal gesture handler from the recogniser
+    */
+   public void removeMultimodalGestureHandler(GestureHandler handler)
+   {
+	   multimodalGestureHandlers.remove(handler);
    }
 
 }

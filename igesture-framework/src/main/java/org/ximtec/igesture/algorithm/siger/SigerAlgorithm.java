@@ -41,6 +41,7 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.core.TextDescriptor;
+import org.ximtec.igesture.util.Constant;
 
 
 /**
@@ -75,7 +76,6 @@ public class SigerAlgorithm extends DefaultAlgorithm {
    public void init(Configuration configuration) throws AlgorithmException {
       gestures = new HashMap<ClassMatcher, GestureClass>();
       final GestureSet gestureSet = configuration.getGestureSet();
-
       for (final GestureClass gestureClass : gestureSet.getGestureClasses()) {
          final TextDescriptor descriptor = gestureClass
                .getDescriptor(TextDescriptor.class);
@@ -98,7 +98,7 @@ public class SigerAlgorithm extends DefaultAlgorithm {
 
          StrokeInfo si = new StrokeInfo(note);
          List<Result> resultList = new ArrayList<Result>();
-         result.setGesture(note);
+         result.setGesture(gesture);
 
          for (final ClassMatcher regex : gestures.keySet()) {
             if (regex.isMatch(si)) {
@@ -114,5 +114,10 @@ public class SigerAlgorithm extends DefaultAlgorithm {
 
       return result;
    } // recognise
+
+	@Override
+	public String getType() {
+		return Constant.TYPE_2D;
+	}
 
 }

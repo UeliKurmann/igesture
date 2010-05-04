@@ -105,7 +105,7 @@ public class WiiReader extends
 		this.accelerations = new Accelerations();
 		this.currentPanel = new WiiReaderPanel(this);
 		this.recordedGesture = new RecordedGesture3D();
-		this.gesture = new GestureSample3D("", recordedGesture);
+		this.gesture = new GestureSample3D(this,"", recordedGesture);
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class WiiReader extends
 	@Override
 	public void clear() {
 		recordedGesture = new RecordedGesture3D();
-		gesture = new GestureSample3D("", recordedGesture);
+		gesture = new GestureSample3D(this,"", recordedGesture);
 		if (currentPanel != null) {
 			currentPanel.clear();
 		}
@@ -174,7 +174,7 @@ public class WiiReader extends
 		newGesture.setAccelerations(this.gesture.getGesture()
 				.getAccelerations());
 		newGesture.setPoints(this.gesture.getGesture().getPoints());
-		return new GestureSample3D(this.gesture.getName(), newGesture);
+		return new GestureSample3D(this,this.gesture.getName(), newGesture);
 	}
 
 	/**

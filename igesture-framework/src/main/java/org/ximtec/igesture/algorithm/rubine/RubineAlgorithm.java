@@ -129,7 +129,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
             throw new AlgorithmException(ExceptionType.Recognition);
          }
 
-         resultSet.setGesture(note);
+         resultSet.setGesture(gesture);
 
          if (resultSet.getResult() != null) {
             LOGGER.info(RESULT
@@ -339,5 +339,11 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    public String getDefaultParameterValue(String parameterName) {
       return RubineConfiguration.getDefaultConfiguration().get(parameterName);
    } // getDefaultParameterValue
+
+
+	@Override
+	public String getType() {
+		return org.ximtec.igesture.util.Constant.TYPE_2D;
+	}
 
 }

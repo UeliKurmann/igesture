@@ -12,18 +12,15 @@ import java.util.Set;
 
 import javax.swing.BorderFactory;
 
-import org.sigtec.ink.Note;
-import org.sigtec.util.Constant;
 import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.core.Gesture;
-import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.io.AbstractGestureDevice;
-import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.io.tuio.interfaces.AbstractTuioCursor;
 import org.ximtec.igesture.io.tuio.interfaces.AbstractTuioObject;
 import org.ximtec.igesture.io.tuio.tuio3D.TuioCursor3D;
 import org.ximtec.igesture.io.tuio.tuio3D.TuioObject3D;
+import org.ximtec.igesture.util.Constant;
 import org.ximtec.igesture.util.additions3d.AccelerationSample;
 import org.ximtec.igesture.util.additions3d.Accelerations;
 import org.ximtec.igesture.util.additions3d.Point3D;
@@ -90,11 +87,11 @@ public class TuioReader3D extends AbstractGestureDevice<RecordedGesture3D, Point
 		
 		setDeviceID(String.valueOf(port));
 		setConnectionType("Tuio");
-		setDimension(GestureDevice.DIMENSION_3D);
+		setDeviceType(Constant.TYPE_3D);
 		setName("Tuio Service on Port "+port);
 		
 		lastRecordedGesture3DAdded = new RecordedGesture3D();
-		gesture3D = new GestureSample3D("", lastRecordedGesture3DAdded);
+		gesture3D = new GestureSample3D(this,"", lastRecordedGesture3DAdded);
 	}
 	
 	/**
@@ -141,7 +138,7 @@ public class TuioReader3D extends AbstractGestureDevice<RecordedGesture3D, Point
 	@Override
 	public void clear() {
 		lastRecordedGesture3DAdded = new RecordedGesture3D();
-		gesture3D = new GestureSample3D("",lastRecordedGesture3DAdded);
+		gesture3D = new GestureSample3D(this,"",lastRecordedGesture3DAdded);
 		fireGestureEvent(gesture3D);
 	}
 
@@ -152,7 +149,7 @@ public class TuioReader3D extends AbstractGestureDevice<RecordedGesture3D, Point
 	public void dispose() {
 		removeAllListener();
 		lastRecordedGesture3DAdded = new RecordedGesture3D();
-		gesture3D = new GestureSample3D("",lastRecordedGesture3DAdded);
+		gesture3D = new GestureSample3D(this,"",lastRecordedGesture3DAdded);
 	}
 
 	/* (non-Javadoc)
@@ -168,7 +165,7 @@ public class TuioReader3D extends AbstractGestureDevice<RecordedGesture3D, Point
 	 */
 	@Override
 	public Gesture<RecordedGesture3D> getGesture() {
-		return new GestureSample3D(gesture3D.getName(),lastRecordedGesture3DAdded);
+		return new GestureSample3D(this,gesture3D.getName(),lastRecordedGesture3DAdded);
 	}
 
 	/* (non-Javadoc)
@@ -297,7 +294,7 @@ public class TuioReader3D extends AbstractGestureDevice<RecordedGesture3D, Point
 		if(recogniser != null)
 		{
 			//process recordedGesture3D by recognizing it and notifying listeners
-			recogniser.recognise(new GestureSample3D(Constant.EMPTY_STRING, lastRecordedGesture3DAdded),false);
+			recogniser.recognise(new GestureSample3D(this,org.sigtec.util.Constant.EMPTY_STRING, lastRecordedGesture3DAdded),false);
 					//recogniser automatically performs fireEvent which warns 
 					//gestureHandlers of new performed gestures
 		}
@@ -326,7 +323,7 @@ public class TuioReader3D extends AbstractGestureDevice<RecordedGesture3D, Point
 			if(recogniser != null)
 			{
 				//process recordedGesture3D by recognizing it and notifying listeners
-				recogniser.recognise(new GestureSample3D(Constant.EMPTY_STRING, gestures.get(tobj.getSessionID())),false);
+				recogniser.recognise(new GestureSample3D(this,org.sigtec.util.Constant.EMPTY_STRING, gestures.get(tobj.getSessionID())),false);
 						//recogniser automatically performs fireEvent which warns 
 						//gestureHandlers of new performed gestures
 			}

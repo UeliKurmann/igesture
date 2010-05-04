@@ -118,7 +118,7 @@ public class WiiReaderPanel extends JPanel {
 			for (int i = 0; i < traces.size(); i++) {
 				Note note = new Note();
 				note.add(traces.get(i));
-				Gesture<Note> gesture = new GestureSample("", note);
+				Gesture<Note> gesture = new GestureSample(reader,"", note);
 				notes.add(gesture);
 			}
 

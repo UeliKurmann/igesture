@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 
 import org.sigtec.ink.Note;
 import org.sigtec.util.Constant;
+import org.ximtec.igesture.io.GestureDevice;
 
 
 /**
@@ -57,6 +58,7 @@ public class GestureSample extends DefaultDataObject implements Cloneable,
 
    private String name;
 
+   private GestureDevice<?,?> source;
 
    /**
     * Constructs a new gesture sample.
@@ -69,7 +71,13 @@ public class GestureSample extends DefaultDataObject implements Cloneable,
       setName(name);
       setGesture(gesture);
    }
-
+   
+   public GestureSample(GestureDevice<?,?> device, String name, Note gesture)
+   {
+	   this(name,gesture);
+	   setSource(device);
+   }
+   
 
    /**
     * Sets the sample name.
@@ -147,4 +155,21 @@ public class GestureSample extends DefaultDataObject implements Cloneable,
       return name;
    } // toString
 
+
+	/* (non-Javadoc)
+	 * @see org.ximtec.igesture.core.Gesture#getSource()
+	 */
+	@Override
+	public GestureDevice<?, ?> getSource() {
+		return source;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.ximtec.igesture.core.Gesture#setSource(org.ximtec.igesture.io.GestureDevice)
+	 */
+	@Override
+	public void setSource(GestureDevice<?, ?> device) {
+		this.source = device;
+	}
+	
 }
