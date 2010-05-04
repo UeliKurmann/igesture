@@ -62,7 +62,7 @@ public class DrawEventHandler implements GestureAction {
 
    public void actionPerformed(ResultSet resultSet) {
       Result result = resultSet.getResult();
-      Note note = resultSet.getGesture();
+      Note note = (Note) resultSet.getGesture().getGesture();
       LOGGER.log(Level.INFO, GESTURE_CLASS_NAME + result.getGestureClassName());
       graphic.setStroke(style.getStroke());
       graphic.setColor(style.getColor());
