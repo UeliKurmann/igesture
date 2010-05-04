@@ -8,8 +8,8 @@ import org.netbeans.api.wizard.WizardDisplayer;
 import org.netbeans.spi.wizard.Wizard;
 import org.netbeans.spi.wizard.WizardBranchController;
 import org.ximtec.igesture.io.AbstractGestureDevice;
+import org.ximtec.igesture.io.User;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
-import org.ximtec.igesture.tool.view.devicemanager.User;
 
 /**
  * A wizard to add devices.

@@ -15,11 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.io.User;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
-import org.ximtec.igesture.tool.view.devicemanager.User;
 
 /**
  * Action to add a user. It extends {@link org.sigtec.graphix.widget.BasicAction}.

@@ -7,11 +7,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.io.DeviceUserAssociation;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerView;
-import org.ximtec.igesture.tool.view.devicemanager.DeviceUserAssociation;
 
 /**
  * Action to reconnect a device. It extends {@link org.sigtec.graphix.widget.BasicAction} and implements the {@link javax.swing.event.ListSelectionListener} interface.

@@ -18,12 +18,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.io.DeviceUserAssociation;
+import org.ximtec.igesture.io.IUser;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerView;
-import org.ximtec.igesture.tool.view.devicemanager.DeviceUserAssociation;
-import org.ximtec.igesture.tool.view.devicemanager.User;
 
 /**
  * Action to associate a user with a device. It extends {@link org.sigtec.graphix.widget.BasicAction} and implements the {@link javax.swing.event.ListSelectionListener} interface.
@@ -62,9 +62,9 @@ public class AssociateUserAction extends BasicAction implements ListSelectionLis
 		add(new JLabel("Select a user:"),dlg,0,0,1);
 		
 		// user list
-		Set<User> users = controller.getUsers();
-		final Map<String, User> map = new HashMap<String, User>();
-		for(User user : users)
+		Set<IUser> users = controller.getUsers();
+		final Map<String, IUser> map = new HashMap<String, IUser>();
+		for(IUser user : users)
 		{
 			map.put(user.toString(), user);
 		}
@@ -85,7 +85,7 @@ public class AssociateUserAction extends BasicAction implements ListSelectionLis
 						JOptionPane.showMessageDialog(dlg, "Please select a user.", "Warning", JOptionPane.WARNING_MESSAGE);
 					else
 					{
-						User user = map.get(list.getSelectedValues()[0]);
+						IUser user = map.get(list.getSelectedValues()[0]);
 						controller.associateUser(device.getDeviceItem(),user);
 						dlg.setVisible(false);
 						dlg.dispose();

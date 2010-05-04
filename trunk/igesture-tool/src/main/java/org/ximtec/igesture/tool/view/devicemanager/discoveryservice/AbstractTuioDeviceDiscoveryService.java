@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.ximtec.igesture.io.AbstractGestureDevice;
+import org.ximtec.igesture.io.DeviceDiscoveryService;
 import org.ximtec.igesture.io.tuio.TuioConstants;
 import org.ximtec.igesture.io.tuio.TuioReader2D;
 import org.ximtec.igesture.tool.GestureConstants;

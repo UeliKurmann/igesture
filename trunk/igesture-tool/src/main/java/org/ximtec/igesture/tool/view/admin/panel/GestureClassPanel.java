@@ -41,6 +41,8 @@ import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.SampleDescriptor3D;
+import org.ximtec.igesture.core.composite.CompositeDescriptor;
+import org.ximtec.igesture.core.composite.Constraint;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.binding.BindingFactory;
 import org.ximtec.igesture.tool.core.Controller;
@@ -148,6 +150,27 @@ public class GestureClassPanel extends AbstractPanel {
     		formBuilder.addRight(getComponentFactory().createLabel(
     	            GestureConstants.GESTURE_CLASS_PANEL_NSA));
     	}
+    }
+    else if(gestureClass.hasDescriptor(CompositeDescriptor.class))
+    {
+    	Constraint constraint = null;
+    	
+    	CompositeDescriptor descriptor = gestureClass.getDescriptor(CompositeDescriptor.class);
+    	constraint = descriptor.getConstraint();
+    	
+    	if(constraint != null)
+    	{
+    		JLabel label = new JLabel(new ImageIcon(GestureTool.createCompositeImage(constraint,150,150)));
+    		label.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+    		formBuilder.addRight(label);
+    	}
+    	else
+    	{
+    		formBuilder.addRight(getComponentFactory().createLabel(
+    	            GestureConstants.GESTURE_CLASS_PANEL_NCA));
+    	}
+    		
+    	
     }
 
     return formBuilder.getPanel();

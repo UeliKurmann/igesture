@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
@@ -12,19 +11,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
 
 import org.sigtec.graphix.GuiBundle;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.graphix.widget.BasicButton;
 import org.sigtec.graphix.widget.BasicDialog;
-import org.sigtec.graphix.widget.BasicLabel;
+import org.ximtec.igesture.io.DeviceUserAssociation;
+import org.ximtec.igesture.io.IDeviceManagerView;
+import org.ximtec.igesture.io.IUser;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.util.Formatter;
 import org.ximtec.igesture.tool.view.devicemanager.action.AddDeviceAction;
@@ -38,7 +36,7 @@ import org.ximtec.igesture.tool.view.devicemanager.action.RemoveUserAction;
 import org.ximtec.igesture.tool.view.devicemanager.action.SaveDeviceConfigurationAction;
 
 /**
- * This class is the view for the Device Manager. It implements the {@link org.ximtec.igesture.tool.view.devicemanage.IDeviceManagerView} interface and extends {@link import org.sigtec.graphix.widget.BasicDialog;}.
+ * This class is the view for the Device Manager. It implements the {@link org.ximtec.igesture.io.devicemanage.IDeviceManagerView} interface and extends {@link import org.sigtec.graphix.widget.BasicDialog;}.
  * @author Björn Puype, bpuype@gmail.com
  *
  */
@@ -64,7 +62,7 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 	private static final int TABLE_HEIGHT = 200;
 	private static final int BUTTON_WIDTH = 200;
 	
-	private BasicTable<User> userTable;
+	private BasicTable<IUser> userTable;
 	private BasicTable<DeviceUserAssociation> deviceTable;
 
 	/**
@@ -100,7 +98,7 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 		
 		/////////////////////// user table
 		String[] headers = new String[]{GestureConstants.USER_NAME,GestureConstants.USER_INITIALS};
-		userTable = new BasicTable<User>(headers);
+		userTable = new BasicTable<IUser>(headers);
 		userTable.addListSelectionListener(removeUserAction);
 		JScrollPane userPane = createScrollableTable(userTable, guiBundle.getWidth(key), TABLE_HEIGHT);
 		userPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY),"Users:"));
@@ -128,7 +126,7 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 		disconnectDeviceAction.addAction(reconnectDeviceAction);
 		
 		/////////////////////// device table
-		headers = new String[]{GestureConstants.DEVICE_NAME, GestureConstants.DEVICE_ID, GestureConstants.DEVICE_DIMENSION,
+		headers = new String[]{GestureConstants.DEVICE_NAME, GestureConstants.DEVICE_ID, GestureConstants.DEVICE_TYPE,
 									GestureConstants.DEVICE_USER, GestureConstants.DEVICE_CONNECTION, GestureConstants.DEVICE_CONNECTED};
 		
 		deviceTable = new BasicTable<DeviceUserAssociation>(headers);
@@ -239,7 +237,7 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 	}
 	
 	@Override
-	public void addUser(User user)
+	public void addUser(IUser user)
 	{
 		userTable.addItem(user);
 	}
@@ -287,7 +285,7 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 	}
 	
 	@Override
-	public User getSelectedUser()
+	public IUser getSelectedUser()
 	{
 		return userTable.getSelectedItem();
 	}

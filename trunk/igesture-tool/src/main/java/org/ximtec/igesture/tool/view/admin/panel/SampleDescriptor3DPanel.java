@@ -29,8 +29,10 @@ import org.sigtec.graphix.GridBagLayouter;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.SampleDescriptor3D;
 import org.ximtec.igesture.io.AbstractGestureDevice;
+import org.ximtec.igesture.io.DeviceManagerListener;
 import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.io.GestureDevicePanel;
+import org.ximtec.igesture.io.IDeviceManager;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.gesturevisualisation.GesturePanel;
@@ -45,8 +47,7 @@ import org.ximtec.igesture.tool.view.DeviceListPanelListener;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.action.RemoveGestureSampleAction;
-import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerListener;
-import org.ximtec.igesture.tool.view.devicemanager.IDeviceManager;
+import org.ximtec.igesture.util.Constant;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 /**
@@ -349,7 +350,7 @@ public class SampleDescriptor3DPanel extends DefaultDescriptorPanel<SampleDescri
 
 		private void addDevice(AbstractGestureDevice<?,?> device)
 		{
-			if(device.getDimension() == GestureDevice.DIMENSION_3D)
+			if(Constant.TYPE_3D.equals(device.getDeviceType()))
 			{
 				//add input panel
 				InputComponentPanel panel = createInputPanel(device);
@@ -362,7 +363,7 @@ public class SampleDescriptor3DPanel extends DefaultDescriptorPanel<SampleDescri
 		
 		private void removeDevice(AbstractGestureDevice<?,?> device)
 		{
-			if(device.getDimension() == GestureDevice.DIMENSION_3D)
+			if(Constant.TYPE_3D.equals(device.getDeviceType()))
 			{
 				devicePanel.removeDevice(device);
 				//remove input panel

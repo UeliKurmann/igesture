@@ -13,7 +13,7 @@ import org.sigtec.ink.Note;
 import org.sigtec.ink.Point;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.io.AbstractGestureDevice;
-import org.ximtec.igesture.io.GestureDevice;
+import org.ximtec.igesture.util.Constant;
 
 /**
  * Dummy BlueTooth Device
@@ -29,7 +29,7 @@ public class BlueToothReader extends AbstractGestureDevice<Note,Point>{
 		setName(name);
 		setDeviceID(address);
 		setConnectionType("Bluetooth");
-		setDimension(GestureDevice.DIMENSION_3D);
+		setDeviceType(Constant.TYPE_2D);
 		
 		this.device = device;
 	}

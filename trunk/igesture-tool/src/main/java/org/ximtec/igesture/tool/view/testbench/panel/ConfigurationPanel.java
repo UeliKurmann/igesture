@@ -49,12 +49,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import org.sigtec.graphix.widget.BasicButton;
+import org.ximtec.igesture.algorithm.Algorithm;
+import org.ximtec.igesture.algorithm.AlgorithmException;
+import org.ximtec.igesture.algorithm.AlgorithmFactory;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.io.AbstractGestureDevice;
+import org.ximtec.igesture.io.DeviceManagerListener;
 import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.io.GestureDevicePanel;
+import org.ximtec.igesture.io.IDeviceManager;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.binding.BindingFactory;
 import org.ximtec.igesture.tool.binding.MapTextFieldBinding;
@@ -70,8 +75,6 @@ import org.ximtec.igesture.tool.view.DeviceListPanel;
 import org.ximtec.igesture.tool.view.DeviceListPanelListener;
 import org.ximtec.igesture.tool.view.MainModel;
 import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
-import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerListener;
-import org.ximtec.igesture.tool.view.devicemanager.IDeviceManager;
 import org.ximtec.igesture.tool.view.testbench.action.RecogniseAction;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -90,6 +93,7 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
   public static final String IDENTIFIER = "testbench";
   
   private Configuration configuration;
+  private Algorithm algorithm = null;
 
   private GestureDevice<?, ?> gestureDevice;
   private GestureDevice<?, ?> currentDevice;
@@ -107,6 +111,12 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
   public ConfigurationPanel(Controller controller, Configuration configuration) {
     super(controller);
     this.configuration = configuration;
+    
+    try {
+		algorithm = AlgorithmFactory.createAlgorithm(configuration);
+	} catch (AlgorithmException e) {
+		e.printStackTrace();
+	}
     
     this.panelMapping = new HashMap<String, InputComponentPanel>();
     
@@ -280,7 +290,8 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
 
   private void addDevice(AbstractGestureDevice<?,?> device)
 	{
-//		if(device.getDeviceType() == "2D")//TODO base this on algorithm that is configured
+	  	//only devices that can provides input that can be recognised by the algorithm
+		if(algorithm != null && algorithm.getType().equals(device.getDeviceType()))
 		{
 			//add input panel
 			InputComponentPanel panel = createInputPanel(device);
@@ -293,7 +304,7 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
 	
 	private void removeDevice(AbstractGestureDevice<?,?> device)
 	{
-//		if(device.getDeviceType() == "2D")
+		if(algorithm != null && algorithm.getType().equals(device.getDeviceType()))
 		{
 			devicePanel.removeDevice(device);
 			//remove input panel
