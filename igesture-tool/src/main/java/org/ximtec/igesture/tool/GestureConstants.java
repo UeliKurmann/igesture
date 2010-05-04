@@ -79,6 +79,7 @@ public class GestureConstants {
   public static final String GESTURE_CLASS_PANEL_GESTURE = "GestureClassPanelGesture";
   public static final String GESTURE_CLASS_PANEL_NSA = "GestureClassPanelNsa";
   public static final String GESTURE_CLASS_PANEL_NOD = "GestureClassPanelNod";
+  public static final String GESTURE_CLASS_PANEL_NCA = "GestureClassPanelNca";
   public static final String GESTURE_CLASS_PANEL_DESCRIPTOR_NAME = "GestureClassPanelDescriptorName";
   public static final String SAMPLE_DESCRIPTOR_TITLE = "SampleDescriptorTitle";
   public static final String SAMPLE_DESCRIPTOR_3D_TITLE = "SampleDescriptor3DTitle";
@@ -89,6 +90,7 @@ public class GestureConstants {
   public static final String GESTURE_SET_PANEL_NAME = "GestureSetPanelName";
   public static final String GESTURE_SET_PANEL_NOGC = "GestureSetPanelNogc";
   public static final String GESTURE_SET_PANEL_NSA = "GestureSetPanelNsa";
+  public static final String GESTURE_SET_PANEL_NCA = "GestureSetPanelNca";
 
   public static final String GESTURE_SETS_PANEL_TITLE = "GestureSetsPanelTitle";
 
@@ -157,7 +159,7 @@ public class GestureConstants {
   public static final String USER_INITIALS = "Initials";
   public static final String DEVICE_NAME = "Name";
   public static final String DEVICE_ID = "DeviceID";
-  public static final String DEVICE_DIMENSION = "Dimension";
+  public static final String DEVICE_TYPE = "DeviceType";
   public static final String DEVICE_USER = "User";
   public static final String DEVICE_CONNECTION = "ConnectionType";
   public static final String DEVICE_CONNECTED = "Connected";
@@ -165,6 +167,11 @@ public class GestureConstants {
   public static final String XML_DISCOVERY = "connections.xml";
   public static final String XML_BLUETOOTH = "bluetoothdevices.xml";
   public static final String XML_TUIO = "tuiodevices.xml";
+
+  public static final String CONSTRAINT_CHOOSER = "ConstraintChooserDialog";
+  public static final String ADD_GESTURE_CLASS_TO_CONSTRAINT = "AddGestureClassToConstraintAction";
+  public static final String REMOVE_GESTURE_CLASS_FROM_CONSTRAINT = "RemoveGestureClassFromConstraintAction";
+  public static final String REMOVE_ALL_GESTURE_CLASSES_FROM_CONSTRAINT = "RemoveAllGestureClassesFromConstraintAction";
 
   
 }

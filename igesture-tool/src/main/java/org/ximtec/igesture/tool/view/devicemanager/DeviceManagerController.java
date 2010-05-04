@@ -20,6 +20,13 @@ import org.sigtec.graphix.GuiBundle;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.ximtec.igesture.io.AbstractGestureDevice;
+import org.ximtec.igesture.io.DeviceDiscoveryService;
+import org.ximtec.igesture.io.DeviceManagerListener;
+import org.ximtec.igesture.io.DeviceUserAssociation;
+import org.ximtec.igesture.io.GestureDevice;
+import org.ximtec.igesture.io.IDeviceManager;
+import org.ximtec.igesture.io.IUser;
+import org.ximtec.igesture.io.User;
 import org.ximtec.igesture.storage.IStorageManager;
 import org.ximtec.igesture.storage.StorageEngine;
 import org.ximtec.igesture.storage.StorageManager;
@@ -28,10 +35,9 @@ import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
-import org.ximtec.igesture.tool.view.devicemanager.discoveryservice.DeviceDiscoveryService;
 
 /**
- * This class is an implementation of the controller of the Device Manager. It implements the {@link org.ximtec.igesture.tool.view.devicemanager.IDeviceManager} interface.
+ * This class is an implementation of the controller of the Device Manager. It implements the {@link org.ximtec.igesture.io.IDeviceManager} interface.
  * It also extends {@link org.ximtec.igesture.tool.core.DefaultController} to allow easy instantion by the main controller of the workbench.
  * @author Björn Puype, bpuype@gmail.com
  *
@@ -44,14 +50,14 @@ public class DeviceManagerController extends DefaultController implements IDevic
 	 * device mapping: one user per device, what about tuio?
 	 * */
 	
-	private Set<User> users = new HashSet<User>();
+	private Set<IUser> users = new HashSet<IUser>();
 	private Set<AbstractGestureDevice<?,?>> devices = new HashSet<AbstractGestureDevice<?,?>>();
-	private Map<AbstractGestureDevice<?,?>, User> userMapping = new HashMap<AbstractGestureDevice<?,?>,User>();
+	private Map<AbstractGestureDevice<?,?>, IUser> userMapping = new HashMap<AbstractGestureDevice<?,?>,IUser>();
 	
 	private final Map<String, DeviceDiscoveryService> discoveryMapping = new HashMap<String,DeviceDiscoveryService>();
 	private boolean enableAddDevicesAction = true;
 	
-	private User defaultUser;
+	private IUser defaultUser;
 	private AbstractGestureDevice<?, ?> defaultDevice;
 	private DeviceManagerView view;
 
@@ -150,7 +156,7 @@ public class DeviceManagerController extends DefaultController implements IDevic
 	}
 
 	@Override
-	public void addDevice(AbstractGestureDevice<?,?> device, User user) {
+	public void addDevice(AbstractGestureDevice<?,?> device, IUser user) {
 		if(!devices.contains(device))
 		{
 			devices.add(device);
@@ -166,7 +172,7 @@ public class DeviceManagerController extends DefaultController implements IDevic
 	}
 
 	@Override
-	public void addUser(User user) {
+	public void addUser(IUser user) {
 		if(!users.contains(user))
 		{
 			users.add(user);
@@ -177,7 +183,7 @@ public class DeviceManagerController extends DefaultController implements IDevic
 	}
 
 	@Override
-	public User getDefaultUser() {
+	public IUser getDefaultUser() {
 		return defaultUser;
 	}
 
@@ -187,7 +193,7 @@ public class DeviceManagerController extends DefaultController implements IDevic
 	}
 
 	@Override
-	public Set<User> getUsers() {
+	public Set<IUser> getUsers() {
 		return users;
 	}
 
@@ -208,7 +214,7 @@ public class DeviceManagerController extends DefaultController implements IDevic
 	}
 
 	@Override
-	public void removeUser(User user) {
+	public void removeUser(IUser user) {
 		
 		
 		//TODO als actie luistert naar selecties, kan je hem disablen zodat nooit defaultuser wordt verwijderd
@@ -246,7 +252,7 @@ public class DeviceManagerController extends DefaultController implements IDevic
 	}
 
 	@Override
-	public void associateUser(AbstractGestureDevice<?,?> device, User user) {
+	public void associateUser(AbstractGestureDevice<?,?> device, IUser user) {
 		
 			view.updateDevice(user,DeviceManagerView.COL_DEVICE_USER, view.getSelectedDevice());
 			userMapping.put(device, user);
@@ -267,8 +273,8 @@ public class DeviceManagerController extends DefaultController implements IDevic
 		StorageEngine engine = StorageManager.createStorageEngine(file);
 		IStorageManager storageManager = new StorageManager(engine);
 		// save the users
-		for(User user : users)
-			storageManager.store(user);
+		for(IUser user : users)
+			storageManager.store((User)user);
 		//save the devices and association
 		for(DeviceUserAssociation ass : view.getDevices())
 			storageManager.store(ass);		
@@ -323,7 +329,7 @@ public class DeviceManagerController extends DefaultController implements IDevic
 				//TODO if SwingMouseReaderService is not referenced anywhere in hardcoded way this is not necessary anymore
 				// for system mouse, keep current SwingMouseReaderService
 				// if it was previously associated with the system user, use current system user object
-				User u = null;
+				IUser u = null;
 				if(ass.getUserItem().isDefaultUser())
 					u = defaultUser;
 				else // else use the associated user
@@ -373,5 +379,10 @@ public class DeviceManagerController extends DefaultController implements IDevic
 		{
 			listener.updateDeviceManagerListener(operation, device);
 		}
+	}
+
+	@Override
+	public IUser getAssociatedUser(GestureDevice<?, ?> device) {
+		return userMapping.get((AbstractGestureDevice<?,?>)device);
 	}
 }

@@ -16,9 +16,10 @@ import javax.bluetooth.RemoteDevice;
 import javax.bluetooth.ServiceRecord;
 
 import org.ximtec.igesture.io.AbstractGestureDevice;
+import org.ximtec.igesture.io.DeviceDiscoveryService;
 
 /**
- * A BlueTooth device discovery service. It implements the {@link org.ximtec.igesture.tool.view.devicemanager.discoveryservice.DeviceDiscoveryService} and {@link javax.bluetooth.DiscoveryListener} interfaces.
+ * A BlueTooth device discovery service. It implements the {@link org.ximtec.igesture.io.DeviceDiscoveryService} and {@link javax.bluetooth.DiscoveryListener} interfaces.
  * @author Björn Puype, bpuype@gmail.com
  *
  */

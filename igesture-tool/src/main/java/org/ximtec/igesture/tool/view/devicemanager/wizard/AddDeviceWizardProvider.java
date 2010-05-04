@@ -32,8 +32,8 @@ import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.configuration.Configuration;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.io.AbstractGestureDevice;
+import org.ximtec.igesture.io.DeviceDiscoveryService;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
-import org.ximtec.igesture.tool.view.devicemanager.discoveryservice.DeviceDiscoveryService;
 
 /**
  * GUI and logic implementation of the wizard. It extends {@link org.netbeans.spi.wizard.WizardPanelProvider}.

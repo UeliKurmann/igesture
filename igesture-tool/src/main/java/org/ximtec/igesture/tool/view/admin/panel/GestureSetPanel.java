@@ -44,6 +44,8 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.SampleDescriptor3D;
+import org.ximtec.igesture.core.composite.CompositeDescriptor;
+import org.ximtec.igesture.core.composite.Constraint;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.binding.BindingFactory;
 import org.ximtec.igesture.tool.core.Controller;
@@ -142,7 +144,23 @@ public class GestureSetPanel extends AbstractPanel {
           JLabel labelNsa = getComponentFactory().createLabel(GestureConstants.GESTURE_SET_PANEL_NSA);
           gesturePanel.add(labelNsa, BorderLayout.CENTER);
         }
-    }else{
+    } else if(gestureClass.hasDescriptor(CompositeDescriptor.class)){
+    	
+    	CompositeDescriptor descriptor = gestureClass.getDescriptor(CompositeDescriptor.class);
+    	
+    	if(descriptor.getConstraint() != null)
+    	{
+    		Constraint c = descriptor.getConstraint();
+    		JLabel label = new JLabel(new ImageIcon(GestureTool.createCompositeImage(c, size, size)));
+            gesturePanel.add(label, BorderLayout.CENTER);
+    	}
+    	else
+    	{
+    		JLabel labelNca = getComponentFactory().createLabel(GestureConstants.GESTURE_SET_PANEL_NCA);
+            gesturePanel.add(labelNca, BorderLayout.CENTER);
+    	}
+    	
+    } else{
       JLabel labelNsa = getComponentFactory().createLabel(GestureConstants.GESTURE_SET_PANEL_NSA);
       gesturePanel.add(labelNsa, BorderLayout.CENTER);
     }

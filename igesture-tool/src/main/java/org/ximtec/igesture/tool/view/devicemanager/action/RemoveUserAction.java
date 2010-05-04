@@ -6,11 +6,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.io.IUser;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.service.GuiBundleService;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerView;
-import org.ximtec.igesture.tool.view.devicemanager.User;
 
 /**
  * Action to remove a user. It extends {@link org.sigtec.graphix.widget.BasicAction} and implements the {@link javax.swing.event.ListSelectionListener} interface.
@@ -38,7 +38,7 @@ public class RemoveUserAction extends BasicAction implements ListSelectionListen
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		User user = view.getSelectedUser();
+		IUser user = view.getSelectedUser();
 		controller.removeUser(user);
 	}
 

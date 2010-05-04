@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <configuration>
+<!-- 
 	<inputdevices>
 		<device selected="false" name="MagicommPenSocket">
 			<class>org.ximtec.ipaper.io.MagicommPenSocket</class>
@@ -42,5 +43,51 @@
 			</component>
 		</tab>
 	</gui-state>
+ -->
+	<constraints>
+		<constraint>
+			<name>Concurrency</name>
+			<class>org.ximtec.igesture.core.composite.ConcurrencyConstraint</class>
+		</constraint>
+		<constraint>
+			<name>Sequence</name>
+			<class>org.ximtec.igesture.core.composite.SequenceConstraint</class>
+		</constraint>
+		<constraint>
+			<name>Interval</name>
+			<class>org.ximtec.igesture.core.composite.IntervalConstraint</class>
+		</constraint>
+		<constraint>
+			<name>Majority</name>
+			<class>org.ximtec.igesture.core.composite.MajorityConstraint</class>
+		</constraint>
+		<constraint>
+			<name>ProximityConcurrent</name>
+			<class>org.ximtec.igesture.core.composite.ProximityConcurrencyConstraint</class>
+		</constraint>
+		<constraint>
+			<name>ProximitySequence</name>
+			<class>org.ximtec.igesture.core.composite.ProximitySequenceConstraint</class>
+		</constraint>
+	</constraints>
+	<devices>
+		<device>
+			<name>SwingMouseReader</name>
+			<class>org.ximtec.igesture.tool.service.SwingMouseReaderService</class>
+			<!-- io.mouseclient.SwingMouseReader -->
+		</device>
+		<device>
+			<name>WiiReader</name>
+			<class>org.ximtec.igesture.io.wiimote.WiiReader</class>
+		</device>
+		<device>
+			<name>TuioReader2D</name>
+			<class>org.ximtec.igesture.io.tuio.TuioReader2D</class>
+		</device>
+		<device>
+			<name>TuioReader3D</name>
+			<class>org.ximtec.igesture.io.tuio.TuioReader3D</class>
+		</device>
+	</devices>
 </configuration>
 

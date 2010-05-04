@@ -53,8 +53,10 @@ import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.io.AbstractGestureDevice;
+import org.ximtec.igesture.io.DeviceManagerListener;
 import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.io.GestureDevicePanel;
+import org.ximtec.igesture.io.IDeviceManager;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.gesturevisualisation.GesturePanel;
@@ -69,8 +71,7 @@ import org.ximtec.igesture.tool.view.DeviceListPanelListener;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.action.RemoveGestureSampleAction;
-import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerListener;
-import org.ximtec.igesture.tool.view.devicemanager.IDeviceManager;
+import org.ximtec.igesture.util.Constant;
 
 public class SampleDescriptorPanel extends DefaultDescriptorPanel<SampleDescriptor> implements DeviceListPanelListener, DeviceManagerListener{
 
@@ -367,7 +368,7 @@ public class SampleDescriptorPanel extends DefaultDescriptorPanel<SampleDescript
 
 	private void addDevice(AbstractGestureDevice<?,?> device)
 	{
-		if(device.getDimension() == GestureDevice.DIMENSION_2D)
+		if(Constant.TYPE_2D.equals(device.getDeviceType()))
 		{
 			//add input panel
 			InputComponentPanel panel = createInputPanel(device);
@@ -380,7 +381,7 @@ public class SampleDescriptorPanel extends DefaultDescriptorPanel<SampleDescript
 	
 	private void removeDevice(AbstractGestureDevice<?,?> device)
 	{
-		if(device.getDimension() == GestureDevice.DIMENSION_2D)
+		if(Constant.TYPE_2D.equals(device.getDeviceType()))
 		{
 			devicePanel.removeDevice(device);
 			//remove input panel
