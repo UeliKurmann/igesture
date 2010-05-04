@@ -78,4 +78,10 @@ public class HWRecogniser extends DefaultAlgorithm {
       return RubineConfiguration.Config.values();
    } // getConfigParameters
 
+
+	@Override
+	public String getType() {
+		return "";
+	}
+
 }

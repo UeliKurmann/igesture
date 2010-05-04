@@ -40,7 +40,7 @@ import org.sigtec.util.Constant;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.io.AbstractGestureDevice;
-import org.ximtec.igesture.io.GestureDevice;
+import org.ximtec.igesture.io.Device;
 import org.ximtec.igesture.io.mouse.MouseHandler;
 import org.ximtec.igesture.io.mouse.MouseUtils;
 import org.ximtec.igesture.io.mouse.MouseUtils.MouseButton;
@@ -67,7 +67,7 @@ public class MouseReader extends AbstractGestureDevice<Note, Point> implements M
    public MouseReader() {
      super();
       setName("MouseReader");
-	  setDimension(GestureDevice.DIMENSION_2D);
+	  setDeviceType(org.ximtec.igesture.util.Constant.TYPE_2D);
 	  setDeviceID("System Mouse");
 	  setConnectionType("USB");
 	  setIsConnected(true);
@@ -123,7 +123,7 @@ public class MouseReader extends AbstractGestureDevice<Note, Point> implements M
    @Override
    public Gesture<Note> getGesture() {
 
-      return new GestureSample(Constant.EMPTY_STRING, note);
+      return new GestureSample(this,Constant.EMPTY_STRING, note);
    }
 
 

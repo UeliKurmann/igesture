@@ -79,4 +79,10 @@ public interface Algorithm {
     * @return the default value for the specified parameter.
     */
    public String getDefaultParameterValue(String parameterName);
+   
+   /**
+    * Get the type of algorithm
+    * @see org.ximtec.igesture.util.Constant
+    */
+   public String getType();
 }

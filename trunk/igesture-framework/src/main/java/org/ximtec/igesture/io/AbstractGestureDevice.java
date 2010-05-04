@@ -42,7 +42,7 @@ public abstract class AbstractGestureDevice<E, F> implements GestureDevice<E, F>
    private Set<GestureEventListener> gestureListeners;
    
    private String connectionType;
-   private String dimension;
+   private String deviceType;
    private String id;
    private String name;
    private boolean isDefault = false;
@@ -151,12 +151,12 @@ public abstract class AbstractGestureDevice<E, F> implements GestureDevice<E, F>
 	}
 	
    	@Override
-   	public String getDimension() {
-		return dimension;
+   	public String getDeviceType() {
+		return deviceType;
 	}
    	@Override
-	public void setDimension(String dimension) {
-   		this.dimension = dimension;
+	public void setDeviceType(String deviceType) {
+   		this.deviceType = deviceType;
 	}
 	
    	@Override
@@ -182,7 +182,7 @@ public abstract class AbstractGestureDevice<E, F> implements GestureDevice<E, F>
 	}
 	
 	@Override
-	public String getDeviceType()
+	public String getDeviceClass()
 	{
 		return getClass().getSimpleName();
 	}

@@ -36,6 +36,7 @@ import java.util.TreeSet;
 
 import org.sigtec.ink.Note;
 import org.sigtec.util.Constant;
+import org.ximtec.igesture.Recogniser;
 
 
 /**
@@ -53,8 +54,9 @@ public class ResultSet {
 
    private int maxSize;
 
-   private Note gesture;
+   private Gesture< ? > gesture;
 
+   private Recogniser source = null;
 
    /**
     * Constructs a new result set.
@@ -63,7 +65,16 @@ public class ResultSet {
       this(Integer.MAX_VALUE);
    }
 
-
+   /**
+    * Constructs a new result set.
+    * @param source	The source that created this resultset
+    */
+   public ResultSet(Recogniser source)
+   {
+	   this(Integer.MAX_VALUE);
+	   setSource(source);
+   }
+   
    /**
     * Constructs a new result set with a specific maximal size.
     * 
@@ -80,6 +91,18 @@ public class ResultSet {
             }));
 
       this.maxSize = maxSize;
+   }
+   
+   /**
+    * Constructs a new result set with a specific maximal size.
+    * 
+    * @param source		the source that created this ResultSet
+    * @param maxSize the maximal size of the result set.
+    */
+   public ResultSet(Recogniser source, int maxSize)
+   {
+	   this(maxSize);
+	   setSource(source);
    }
 
 
@@ -185,7 +208,7 @@ public class ResultSet {
     * 
     * @param gesture the gesture to be recognised.
     */
-   public void setGesture(Note gesture) {
+   public void setGesture(Gesture< ? > gesture) {
       this.gesture = gesture;
    } // setGesture
 
@@ -195,7 +218,7 @@ public class ResultSet {
     * 
     * @return the gesture to be recognised.
     */
-   public Note getGesture() {
+   public Gesture< ? > getGesture() {
       return gesture;
    } // getGesture
 
@@ -215,5 +238,23 @@ public class ResultSet {
       sb.append(Constant.CLOSE_ANGULAR_BRACKET);
       return sb.toString();
    } // toString 
+
+
+	/**
+	 * Get the source Recogniser that created this ResultSet
+	 * @return the source
+	 */
+	public Recogniser getSource() {
+		return source;
+	}
+	
+	
+	/**
+	 * Set the source Recogniser that created this ResultSet.
+	 * @param source the source to set
+	 */
+	public void setSource(Recogniser source) {
+		this.source = source;
+	}
 
 }

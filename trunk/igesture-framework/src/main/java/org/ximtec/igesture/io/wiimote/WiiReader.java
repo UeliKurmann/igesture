@@ -64,6 +64,7 @@ import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.io.AbstractGestureDevice;
 import org.ximtec.igesture.io.GestureDevice;
+import org.ximtec.igesture.util.Constant;
 import org.ximtec.igesture.util.additions3d.AccelerationSample;
 import org.ximtec.igesture.util.additions3d.Accelerations;
 import org.ximtec.igesture.util.additions3d.Point3D;
@@ -104,13 +105,13 @@ public class WiiReader extends
 		this.accelerations = new Accelerations();
 //		this.currentPanel = new WiiReaderPanel(this);//@
 		this.recordedGesture = new RecordedGesture3D();
-		this.gesture = new GestureSample3D("", recordedGesture);
+		this.gesture = new GestureSample3D(this,"", recordedGesture);
 
 		this.device = device;
 		
 		setDeviceID(address);
 		setName(name);
-		setDimension(GestureDevice.DIMENSION_3D);//TODO
+		setDeviceType(Constant.TYPE_3D);
 		setConnectionType("BlueTooth");
 	}
 
@@ -151,7 +152,7 @@ public class WiiReader extends
 	@Override
 	public void clear() {
 		recordedGesture = new RecordedGesture3D();
-		gesture = new GestureSample3D("", recordedGesture);
+		gesture = new GestureSample3D(this,"", recordedGesture);
 //		if (currentPanel != null) {//@
 //			currentPanel.clear();
 //		}
@@ -182,7 +183,7 @@ public class WiiReader extends
 		newGesture.setAccelerations(this.gesture.getGesture()
 				.getAccelerations());
 		newGesture.setPoints(this.gesture.getGesture().getPoints());
-		return new GestureSample3D(this.gesture.getName(), newGesture);
+		return new GestureSample3D(this,this.gesture.getName(), newGesture);
 	}
 
 	/**

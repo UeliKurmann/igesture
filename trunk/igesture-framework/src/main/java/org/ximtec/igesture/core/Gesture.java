@@ -27,6 +27,8 @@
 
 package org.ximtec.igesture.core;
 
+import org.ximtec.igesture.io.GestureDevice;
+
 /**
  * Gesture interface to be implemented by any gesture handling component.
  * 
@@ -62,5 +64,17 @@ public interface Gesture<T> {
     * @param visitor the visitor.
     */
    void accept(Visitor visitor);
+   
+   /**
+    * Get the source device of the gesture.
+    * @return		The source device.
+    */
+   GestureDevice<?,?> getSource();
+   
+   /**
+    * Set the source device of the gesture.
+    * @param device		The source device.
+    */
+   void setSource(GestureDevice<?,?> device);
 
 }

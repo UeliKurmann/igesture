@@ -33,7 +33,6 @@ import java.util.Vector;
 import org.sigtec.ink.Note;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.Recogniser;
-import org.ximtec.igesture.algorithm.Algorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.SampleBasedAlgorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException.ExceptionType;
@@ -503,6 +502,14 @@ public class Rubine3DAlgorithm extends SampleBasedAlgorithm/*implements Algorith
 			setZX.addGestureClass(classZX);
 		}
 
+	}
+
+	/* (non-Javadoc)
+	 * @see org.ximtec.igesture.algorithm.Algorithm#getType()
+	 */
+	@Override
+	public String getType() {
+		return org.ximtec.igesture.util.Constant.TYPE_3D;
 	}
 
 }

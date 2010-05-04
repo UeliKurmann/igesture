@@ -19,11 +19,11 @@ import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.io.AbstractGestureDevice;
-import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.io.tuio.interfaces.AbstractTuioCursor;
 import org.ximtec.igesture.io.tuio.interfaces.AbstractTuioObject;
 import org.ximtec.igesture.io.tuio.tuio2D.TuioCursor;
 import org.ximtec.igesture.io.tuio.tuio2D.TuioObject;
+import org.ximtec.igesture.util.Constant;
 
 /**
  * Reader that initializes the TuioConnection and handles the events caused by the TuioConnection. There are three ways to use the TuioReader.
@@ -86,11 +86,11 @@ public class TuioReader2D extends AbstractGestureDevice<Note, Point> implements 
 		
 		setDeviceID(String.valueOf(port));
 		setConnectionType("Tuio");
-		setDimension(GestureDevice.DIMENSION_2D);
+		setDeviceType(Constant.TYPE_2D);
 		setName("Tuio Service on Port "+port);
 		
 		lastNoteAdded = new Note();
-		gesture = new GestureSample("", lastNoteAdded);
+		gesture = new GestureSample(this,"", lastNoteAdded);
 	}
 	
 	/**
@@ -138,7 +138,7 @@ public class TuioReader2D extends AbstractGestureDevice<Note, Point> implements 
 	@Override
 	public void clear() {
 		lastNoteAdded = new Note();
-		gesture = new GestureSample("",lastNoteAdded);
+		gesture = new GestureSample(this,"",lastNoteAdded);
 		fireGestureEvent(gesture);
 	}
 
@@ -149,7 +149,7 @@ public class TuioReader2D extends AbstractGestureDevice<Note, Point> implements 
 	public void dispose() {
 		removeAllListener();
 		lastNoteAdded = new Note();
-		gesture = new GestureSample("",lastNoteAdded);
+		gesture = new GestureSample(this,"",lastNoteAdded);
 	}
 
 	/* (non-Javadoc)
@@ -165,7 +165,7 @@ public class TuioReader2D extends AbstractGestureDevice<Note, Point> implements 
 	 */
 	@Override
 	public Gesture<Note> getGesture() {
-		return new GestureSample(gesture.getName(),lastNoteAdded);
+		return new GestureSample(this,gesture.getName(),lastNoteAdded);
 	}
 
 	/* (non-Javadoc)

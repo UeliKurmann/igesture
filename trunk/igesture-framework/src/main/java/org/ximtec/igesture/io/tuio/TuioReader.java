@@ -3,18 +3,13 @@
  */
 package org.ximtec.igesture.io.tuio;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Point;
@@ -109,15 +104,15 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 		
 		setDeviceID(String.valueOf(port));
 		setConnectionType("Tuio");
-		setDimension("2D_3D");
+		setDeviceType("2D_3D");
 		setName("Tuio Service on Port "+port);
 		
 		//MODIFIED >
 		lastNoteAdded = new Note();
-		gesture = new GestureSample("", lastNoteAdded);
+		gesture = new GestureSample(this,"", lastNoteAdded);
 		
 		lastRecordedGesture3DAdded = new RecordedGesture3D();
-		gesture3D = new GestureSample3D("", lastRecordedGesture3DAdded);
+		gesture3D = new GestureSample3D(this,"", lastRecordedGesture3DAdded);
 		//MODIFIED <
 	}
 	
@@ -193,7 +188,7 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 	 */
 	@Override
 	public Gesture<Note> getGesture() {
-		return new GestureSample(gesture.getName(),lastNoteAdded);
+		return new GestureSample(this,gesture.getName(),lastNoteAdded);
 	}
 
 	/* (non-Javadoc)
@@ -202,7 +197,7 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 	@Override
 	public Gesture<RecordedGesture3D> getGesture3D()
 	{
-		return new GestureSample3D(gesture3D.getName(),lastRecordedGesture3DAdded);
+		return new GestureSample3D(this,gesture3D.getName(),lastRecordedGesture3DAdded);
 	}
 	
 	/* (non-Javadoc)
@@ -402,7 +397,7 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 			if(recogniser != null)
 			{
 				//process recordedGesture3D by recognizing it and notifying listeners
-				recogniser.recognise(new GestureSample3D(Constant.EMPTY_STRING, lastRecordedGesture3DAdded),false);
+				recogniser.recognise(new GestureSample3D(this,Constant.EMPTY_STRING, lastRecordedGesture3DAdded),false);
 						//recogniser automatically performs fireEvent which warns 
 						//gestureHandlers of new performed gestures
 			}
@@ -461,7 +456,7 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 				if(recogniser != null)
 				{
 					//process recordedGesture3D by recognizing it and notifying listeners
-					recogniser.recognise(new GestureSample3D(Constant.EMPTY_STRING, gestures.get(tobj.getSessionID())),false);
+					recogniser.recognise(new GestureSample3D(this,Constant.EMPTY_STRING, gestures.get(tobj.getSessionID())),false);
 							//recogniser automatically performs fireEvent which warns 
 							//gestureHandlers of new performed gestures
 				}

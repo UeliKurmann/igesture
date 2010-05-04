@@ -43,11 +43,10 @@ import org.sigtec.ink.TraceTool;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample;
-import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.TestSet;
-import org.ximtec.igesture.io.wiimote.WiiReaderPanel;
+import org.ximtec.igesture.core.composite.Constraint;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 
@@ -83,11 +82,11 @@ public class GestureTool {
     */
    public static GestureSet combine(List<GestureSet> sets) {
       final Set<GestureClass> gestureClasses = new HashSet<GestureClass>();
-
+      
       for (GestureSet set : sets) {
          gestureClasses.addAll(set.getGestureClasses());
       }
-
+      
       return new GestureSet(new ArrayList<GestureClass>(gestureClasses));
    } // combine
 
@@ -207,10 +206,11 @@ public class GestureTool {
    
    
    /**
-    * @param gesture
-    * @param width
-    * @param height
-    * @return
+    * Creates an image from the recordedgesture3d
+    * @param gesture the recordedgesture3d for which an image has to be created.
+    * @param width the width of the image.
+    * @param height the height of the image.
+    * @return the buffered image.
     */
    public static BufferedImage createRecordedGesture3DImage(RecordedGesture3D gesture, int width, int height) {
    		RecordedGesture3D record = (RecordedGesture3D)gesture.clone();
@@ -220,6 +220,25 @@ public class GestureTool {
    		return bufferedImage;
    } //createRecordeGesture3DImage
 
+
+
+	/**
+	 * Creates an image from the constraint
+	 * @param constraint the constraint for which an image has to be created.
+	 * @param width the width of the image.
+     * @param height the height of the image.
+     * @return the buffered image
+	 */
+	public static BufferedImage createCompositeImage(Constraint constraint, int width, int height) {
+		String name = constraint.getClass().getSimpleName();
+		int index = name.indexOf("Constraint");
+		BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		Graphics graphic = bufferedImage.getGraphics();
+		graphic.setColor(Color.BLACK);
+		graphic.drawString(name.substring(0, index), 5, height/2-5);
+		graphic.drawString("Constraint",5,height/2+5);
+		return bufferedImage;
+	}
 
    /**
     * Combines samples (SampleDescriptor) from different gesture sets.
@@ -267,7 +286,7 @@ public class GestureTool {
 
          for (Gesture<?> sample : gestureClass.getDescriptor(
                SampleDescriptor.class).getSamples()) {
-            testSet.add(new GestureSample(gestureClass.getName(), (Note)sample
+            testSet.add(new GestureSample(sample.getSource(),gestureClass.getName(), (Note)sample
                   .getGesture()));
          }
 
@@ -289,7 +308,7 @@ public class GestureTool {
 
          for (Gesture<?> sample : gestureClass.getDescriptor(
                SampleDescriptor.class).getSamples()) {
-            testSet.add(new GestureSample(TestSet.NOISE, (Note)sample.getGesture()));
+            testSet.add(new GestureSample(sample.getSource(),TestSet.NOISE, (Note)sample.getGesture()));
          }
 
       }

@@ -27,6 +27,7 @@ package org.ximtec.igesture.core;
 import java.util.List;
 
 import org.sigtec.ink.Note;
+import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.util.RecordedGesture3DTool;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
@@ -37,6 +38,8 @@ public class GestureSample3D extends DefaultDataObject implements Cloneable,
 	public static final String PROPERTY_GESTURE = "gesture";
 	private RecordedGesture3D gesture;
 	private String name;
+	
+	private GestureDevice<?,?> source;
 
 	/**
 	 * Constructs a new GestureSample3D.
@@ -44,12 +47,24 @@ public class GestureSample3D extends DefaultDataObject implements Cloneable,
 	 * @param name
 	 *            the name of the gesture sample.
 	 * @param note
-	 *            the note the sample note.
+	 *            the recordedgesture3d of the gesture sample.
 	 */
 	public GestureSample3D(String name, RecordedGesture3D gesture) {
 		super();
 		setName(name);
 		setGesture(gesture);
+	}
+	
+	/**
+	 * Constructs a new GestureSample3D.
+	 * @param device	the source device of the gesture sample
+	 * @param name		the name of the gesture sample
+	 * @param gesture	the recordedgesture3d of the gesture sample
+	 */
+	public GestureSample3D(GestureDevice<?,?> device, String name, RecordedGesture3D gesture)
+	{
+		this(name,gesture);
+		setSource(device);
 	}
 
 	/**
@@ -102,6 +117,22 @@ public class GestureSample3D extends DefaultDataObject implements Cloneable,
 	 */
 	public List<Gesture<Note>> splitToPlanes() {
 		return RecordedGesture3DTool.splitToPlanes(getGesture());
+	}
+
+	/* (non-Javadoc)
+	 * @see org.ximtec.igesture.core.Gesture#getSource()
+	 */
+	@Override
+	public GestureDevice<?, ?> getSource() {
+		return source;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.ximtec.igesture.core.Gesture#setSource(org.ximtec.igesture.io.GestureDevice)
+	 */
+	@Override
+	public void setSource(GestureDevice<?, ?> device) {
+		this.source = device;
 	}
 
 }

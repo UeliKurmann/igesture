@@ -150,7 +150,7 @@ public class SiGridAlgorithm extends SampleBasedAlgorithm {
                rasterSize, gridSize);
          
          
-         resultSet.setGesture(note);
+         resultSet.setGesture(gesture);
 
          final int numOfBits = input.getBitStringLength()
                * input.getNumberOfPoints();
@@ -230,5 +230,10 @@ public class SiGridAlgorithm extends SampleBasedAlgorithm {
    public Enum[] getConfigParameters() {
       return Config.values();
    } // getConfigParameters
+
+	@Override
+	public String getType() {
+		return org.ximtec.igesture.util.Constant.TYPE_2D;
+	}
 
 }
