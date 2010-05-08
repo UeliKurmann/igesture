@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
-import java.text.ParseException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -49,7 +49,6 @@ import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.signature.SiGridAlgorithm;
 import org.ximtec.igesture.configuration.Configuration;
-import org.ximtec.igesture.core.Descriptor;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
@@ -57,9 +56,6 @@ import org.ximtec.igesture.core.composite.CompositeDescriptor;
 import org.ximtec.igesture.core.composite.Constraint;
 import org.ximtec.igesture.core.composite.DefaultConstraint;
 import org.ximtec.igesture.core.composite.DefaultConstraintEntry;
-import org.ximtec.igesture.core.composite.IntervalConstraint;
-import org.ximtec.igesture.core.composite.ProximitySequenceConstraint;
-import org.ximtec.igesture.core.composite.SequenceConstraint;
 import org.ximtec.igesture.io.AbstractGestureDevice;
 import org.ximtec.igesture.io.DeviceManagerListener;
 import org.ximtec.igesture.io.GestureEventListener;
@@ -93,7 +89,7 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 	private JComboBox cmbSets, cmbGestures, cmbDevices;
 	private JCheckBox chkUser, chkDevices;
 	private JSpinner spinUser;
-	private JList devicesList, resultList;
+	private JList devicesList, gestureList;
 	private JButton btnRemove, btnClear, btnAdd;
 	
 //	private GuiBundleService guiBundle;
@@ -114,6 +110,7 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 //		mainModel = controller.getLocator().getService(MainModel.IDENTIFIER, MainModel.class);
 //		guiBundle = controller.getLocator().getService(GuiBundleService.IDENTIFIER, GuiBundleService.class);
 		constraint = descriptor.getConstraint();
+		((DefaultConstraint)constraint).addPropertyChangeListener(controller.getParent().getParent());
 		init();
 	}
 
@@ -134,36 +131,14 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
         .getGestureSets().toArray();
 		GestureSet simpleGestures = (GestureSet) objects[0];
 		
-//		GestureClass clazz = new GestureClass("sequence");
-//		Constraint constraint = new ProximitySequenceConstraint();
-//		Set<String> ids = new HashSet<String>();
-//		ids.add("3333");
-//		constraint.addGestureClass("square",0,TuioReader2D.class.getSimpleName(),ids);
-//		constraint.addGestureClass("line",0);
-//		try {
-//			((ProximitySequenceConstraint)constraint).setMinTime("00:00:01.000");
-//			((ProximitySequenceConstraint)constraint).setMaxTime("00:01:00.000");
-//			((ProximitySequenceConstraint)constraint).setDistanceUnit(Constant.MM);
-//			((ProximitySequenceConstraint)constraint).setMinDistance(0);
-//			((ProximitySequenceConstraint)constraint).setMaxDistance(100);
-//		} catch (ParseException e1) {
-//			e1.printStackTrace();
-//		}
-		
-		GestureClass clazz = new GestureClass("interval");
-		Constraint constraint = new IntervalConstraint();
-		constraint.addGestureClass("square");
-		constraint.addGestureClass("line");
-		try {
-			((IntervalConstraint)constraint).setDuration("00:00:30.000");
-		} catch (ParseException e1) {
-			e1.printStackTrace();
+		GestureSet compositeGestures = null;
+		for (int i = 0; i < objects.length; i++) {
+			if(((GestureSet)objects[i]).getName().equals("composites"))
+			{
+				compositeGestures = (GestureSet)objects[i];
+				break;
+			}
 		}
-		
-		Descriptor d = new CompositeDescriptor(constraint);
-		clazz.addDescriptor(d);
-		GestureSet compositeGestures = new GestureSet("composites");
-		compositeGestures.addGestureClass(clazz);		
 		
 		mmrecogniser = new MultimodalGestureRecogniser(compositeGestures,deviceManager);
 		//create manager
@@ -198,6 +173,9 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 		
 	}
 	
+	/**
+	 * Create the parameter section to configure the constraint parameters
+	 */
 	private void initParameterSection()
 	{		
 		JPanel panel = new JPanel();
@@ -211,7 +189,8 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 
 	    builder.append(getComponentFactory().createLabel(GestureConstants.CONFIGURATION_PANEL_PARAMETERS));
 	    builder.nextLine(2);
-
+	    
+	    // get the parameters from the constraint and add them to the panel
 	    Map<String, String> parameter = getDescriptor().getConstraint().getParameters();
 	    ConcurrentSkipListMap<String, String> map = new ConcurrentSkipListMap<String,String>();
 	    map.putAll(parameter);
@@ -235,7 +214,7 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 	}
 	
 	/**
-	 * Creates the input area to capture new gestures.
+	 * Creates the input area to add gestures to the constraint.
 	 * @param manager 
 	 */
 	private void initInputSection()
@@ -256,19 +235,20 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 		nodes.add("name");
 		nodes.add("class");
 		try {
-			parser.parse("/home/bjorn/develop/igesture/igesture-tool/src/main/resources/config.xml","device", nodes);
+			URL path = CompositeDescriptorPanel.class.getClassLoader().getResource("config.xml");
+			parser.parse(path.getFile(),"device", nodes);
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE,"Could not parse configuration file (config.xml - devices).",e);
 		};
 		
-		/* UI */
-		//choose gesture set and gesture
+		//*** UI ***//
+		/* choose gesture set */
 		JLabel lblSets = new JLabel("Gesture sets:");
 		cmbSets = new JComboBox(getController().getLocator().getService(MainModel.IDENTIFIER, MainModel.class)
 		        .getGestureSets().toArray());
 		cmbSets.insertItemAt("Select a set", 0);
 		cmbSets.setSelectedIndex(0);
-		
+		/* choose gesture from the set */
 		JLabel lblGestures = new JLabel("Gesture classes:");
 		cmbGestures = new JComboBox(new Object[]{"Select a gesture"});
 		cmbGestures.setEnabled(false);
@@ -277,6 +257,7 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// if a gesture set is selected, show the gestures of that set
 				
 				JComboBox source = (JComboBox) e.getSource();
 				
@@ -301,7 +282,7 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 			
 		});	
 		
-		// enable and specify user
+		/* enable and specify user */
 		chkUser = createCheckBox("User:",KeyEvent.VK_U);
 		spinUser = new JSpinner(new SpinnerNumberModel(0,0,100,1));
 		spinUser.setEnabled(false);
@@ -309,32 +290,38 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
+				//enable or disable user selection
 				JCheckBox source = (JCheckBox) e.getSource();
 				spinUser.setEnabled(source.isSelected());
 			}
 			
 		});		
 		
-		// enable devices and specify kind and specific devices
+		/* enable devices and specify kind and specific devices */
+		// device type list
 		chkDevices = createCheckBox("Device(s):", KeyEvent.VK_D);
 		cmbDevices = new JComboBox(deviceMapping.keySet().toArray());
 		cmbDevices.setEnabled(false);
 		cmbDevices.insertItemAt("Select a device type", 0);
 		cmbDevices.setSelectedIndex(0);
+		// specific device list
 		devicesList = new JList();
-		DefaultListModel model = new DefaultListModel();
-		devicesList.setModel(model);
+		DefaultListModel devicesModel = new DefaultListModel();
+		devicesList.setModel(devicesModel);
 		devicesList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		devicesList.setEnabled(false);
+		// make specific device list scrollable
 		final JScrollPane scrollDevicesList = new JScrollPane(devicesList);
 		scrollDevicesList.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY), 
 				"Devices"));		
 		scrollDevicesList.setPreferredSize(new Dimension(INPUTAREA_SIZE,INPUTAREA_SIZE/2));
 		scrollDevicesList.setEnabled(false);
+		
 		chkDevices.addItemListener(new ItemListener(){
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
+				// enable or disable device type and device selection
 				JCheckBox source = (JCheckBox)e.getSource();
 				boolean selected = source.isSelected();
 				cmbDevices.setEnabled(selected);
@@ -348,8 +335,10 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JComboBox source = (JComboBox)e.getSource();
-				if(source.getSelectedIndex() != 0)
+				//if the selected device type changed, update the device list ...
+				if(source.getSelectedIndex() != 0)//index 0: "select device type"
 				{
+					//... by getting devices of that type from the device manager
 					DefaultListModel model = new DefaultListModel();
 					for(Iterator<AbstractGestureDevice<?,?>> iterator = deviceManager.getDevices().iterator(); iterator.hasNext();)
 					{
@@ -366,7 +355,7 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 			}
 			
 		});
-		
+		// add components to the content panel
 		JPanel contentPanel = new JPanel();
 		contentPanel.setLayout(new GridBagLayout());
 		contentPanel.add(lblSets,createGridBagConstraints(0,0,1,1,0.5));
@@ -384,16 +373,17 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 				new AddGestureClassToConstraintAction(getController(),this),false);
 		btnRemove = createButton(
 				GestureConstants.REMOVE_GESTURE_CLASS_FROM_CONSTRAINT,
-				new RemoveGestureClassFromConstraintAction(getController(),this,getDescriptor()),false); 
+				new RemoveGestureClassFromConstraintAction(getController(),this),false); 
 		btnClear = createButton(
 				GestureConstants.REMOVE_ALL_GESTURE_CLASSES_FROM_CONSTRAINT,
-				new RemoveAllGestureClassesFromConstraintAction(getController(),this,getDescriptor()),false);
+				new RemoveAllGestureClassesFromConstraintAction(getController(),this),false);
 		
 		cmbGestures.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JComboBox source = (JComboBox)e.getSource();
+				// if a valid gesture was selected, allow adding the gesture to the constraint
 				if(source.getSelectedIndex() == 0)
 					btnAdd.setEnabled(false);
 				else
@@ -404,40 +394,50 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 		});
 		
 		contentPanel.add(btnAdd,createGridBagConstraints(1,2,1,1,0.5));
-		contentPanel.add(btnRemove,createGridBagConstraints(1,3,1,1,0.5));
+		contentPanel.add(btnRemove,createGridBagConstraints(0,4,1,1,0.5));
 		contentPanel.add(btnClear,createGridBagConstraints(1,4,1,1,0.5));
 			
 		JPanel basePanel = new JPanel();
 		basePanel.setLayout(new BorderLayout());
 		basePanel.add(contentPanel,BorderLayout.CENTER);
 
-		//output
-		resultList = new JList();
-		resultList.setModel(new DefaultListModel());
-		resultList.setEnabled(false);
+		// list that displays the composing gestures
+		gestureList = new JList();
+		DefaultListModel gesturesModel = new DefaultListModel();
+		gestureList.setModel(gesturesModel);
+		gestureList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
+		//if the constraint already contains composing gestures, ...
 		List<DefaultConstraintEntry> entries = getDescriptor().getConstraint().getGestureEntries(); 
 		if(entries != null && !entries.isEmpty())
 		{
+			//...add them to the list ...
 			for (Iterator iterator = entries.iterator(); iterator.hasNext();) {
 				DefaultConstraintEntry entry = (DefaultConstraintEntry) iterator.next();
-				printGestureClass(entry.getGesture(), entry.getUser(), entry.getDeviceType(), entry.getDevices());
+				gesturesModel.addElement(entry);
 			}
+			
+			//... and enable removal of the composing gestures
+			btnRemove.setEnabled(true);
+			btnClear.setEnabled(true);
 		}
 		
-		JScrollPane scrollResultList = new JScrollPane(resultList);
+		// make the gesture list scrollable
+		JScrollPane scrollResultList = new JScrollPane(gestureList);
 		scrollResultList.setPreferredSize(new Dimension(basePanel.getWidth(),INPUTAREA_SIZE/2));
 		basePanel.add(scrollResultList,BorderLayout.SOUTH);
 		
 		setBottom(basePanel);
 	}
 	
-	/*
+	/**
 	 * Create GridBagConstraint
 	 * @param component	The component to add.
 	 * @param gridx		The x position.
 	 * @param gridy		The y position.
 	 * @param gridWidth	The width of the component in number of columns.
+	 * @param gridHeight The height of the component in number of rows.
+	 * @param weightx	
 	 */
 	private GridBagConstraints createGridBagConstraints(int gridx, int gridy, int gridWidth, int gridHeight, double weightx)
 	{
@@ -451,6 +451,13 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 		return c;		
 	}
 	
+	/**
+	 * Create a button
+	 * @param key		key to look up in the guiBundle
+	 * @param action	action to bind to the button
+	 * @param enabled	true to enable the button
+	 * @return
+	 */
 	private JButton createButton(String key, Action action, boolean enabled)
 	{
 		JButton btn = getComponentFactory().createButton(key,action);
@@ -459,9 +466,12 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 		return btn;
 	}
 	
-	private JCheckBox createCheckBox(String title, int mnemonic)
+	/**
+	 * Create a checkbox
+	 */
+	private JCheckBox createCheckBox(String text, int mnemonic)
 	{
-		JCheckBox chk = new JCheckBox(title);
+		JCheckBox chk = new JCheckBox(text);
 		chk.setMnemonic(mnemonic);
 		return chk;
 	}
@@ -497,10 +507,19 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 		}
 	}
 	
+	/**
+	 * Remove the selected gesture class from the list and constraint
+	 */
 	public void removeGestureClass()
 	{
-		DefaultListModel model = (DefaultListModel)resultList.getModel();
-	    model.removeElementAt(model.getSize()-1);
+		// remove selected gesture class from model/list
+		DefaultListModel model = (DefaultListModel)gestureList.getModel();
+		DefaultConstraintEntry entry = (DefaultConstraintEntry) gestureList.getSelectedValue();
+	    model.removeElement(entry);
+	    // remove gesture class from constraint
+	    getDescriptor().getConstraint().removeGestureClass(entry);
+	    
+	    // if there are no elements left, disable remove actions
 	    if(model.getSize() == 0)
 	    {
 	    	btnRemove.setEnabled(false);
@@ -508,28 +527,44 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 	    }
 	}
 	
+	/**
+	 * Remove all gesture classes from the list and constraint
+	 */
 	public void removeAllGestureClasses()
 	{
-		DefaultListModel model = (DefaultListModel)resultList.getModel();
+		// remove all gesture classes from model/list
+		DefaultListModel model = (DefaultListModel)gestureList.getModel();
 		model.removeAllElements();
+		// remove all gesture classes from constraint
+		getDescriptor().getConstraint().removeAllGestureClasses();
+		
+		// disable remove actions
     	btnRemove.setEnabled(false);
     	btnClear.setEnabled(false);
 	}
 	
+	/**
+	 * Add a gesture class to the list and constraint
+	 */
 	public void addGestureClass()
 	{		
 		String gestureClass = null, deviceType = null;
 		int user = -1;
 		Set<String> devices = null;
 		
+		// get the name of the gesture class (name + uuid)
 		GestureClass gs = (GestureClass)cmbGestures.getSelectedItem();
 		gestureClass = gs.getName()+":"+gs.getId();
 		
+		// if user specified, get the user
 		if(chkUser.isSelected())
 			user = ((Integer)spinUser.getValue()).intValue();
+		
+		// if device type specified, get the device type
 		if(chkDevices.isSelected())
 		{
-			deviceType = cmbDevices.getSelectedItem().toString();		
+			deviceType = cmbDevices.getSelectedItem().toString();
+			// if specific devices were selected, get the IDs
 			if(!devicesList.isSelectionEmpty())
 			{
 				devices = new HashSet<String>();
@@ -541,6 +576,7 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 		}
 		try
 		{
+			// add the gesture class to the constraint
 			if(chkUser.isSelected() && chkDevices.isSelected())
 				getDescriptor().getConstraint().addGestureClass(gestureClass, user, deviceType, devices);
 			else if(chkUser.isSelected())
@@ -550,51 +586,22 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 			else
 				getDescriptor().getConstraint().addGestureClass(gestureClass);
 			
-			printGestureClass(gestureClass, user, deviceType, devices);
+			// get the last added gesture and display it in the list
+			List<DefaultConstraintEntry> entries = getDescriptor().getConstraint().getGestureEntries();
+			DefaultConstraintEntry entry = entries.get(entries.size()-1);			
+			DefaultListModel model = (DefaultListModel)gestureList.getModel();
+		    model.addElement(entry);
 		}
 		catch(IllegalArgumentException e)
 		{
+			// if an illegal argument was entered by the user, notify the user and allow correction
 			LOGGER.log(Level.SEVERE,"Constraint Configuration Error.",e);
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Constraint Configuration Error", JOptionPane.ERROR_MESSAGE);
 		}
 	    
+		// now that data was added, enable removal of gesture classes
 	    btnClear.setEnabled(true);
 	    btnRemove.setEnabled(true);
-	}
-	
-	public void printGestureClass(String gestureClass, int user, String deviceType, Set<String> deviceIDs)
-	{		
-		StringBuilder builder = new StringBuilder("Gesture: ");
-		builder.append(gestureClass);
-		
-		builder.append(", User: ");
-		if(user == -1)
-			builder.append("any");
-		else
-			builder.append(user);	
-		
-		builder.append(", Device Type: ");
-		if(deviceType != null)
-		{ 
-			builder.append(deviceType);
-			builder.append(", Device ID(s): ");
-			if(deviceIDs != null && !deviceIDs.isEmpty())
-			{
-				for (Iterator iterator = deviceIDs.iterator(); iterator.hasNext();) {
-					String id = (String) iterator.next();
-					builder.append(id);
-					if(iterator.hasNext())
-						builder.append(" - ");
-				}
-			}
-			else
-				builder.append("any");				
-		}
-		else
-			builder.append("any");
-		
-		DefaultListModel model = (DefaultListModel)resultList.getModel();
-	    model.addElement(builder.toString());
 	}
 
 	/* (non-Javadoc)
@@ -602,10 +609,9 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 	 */
 	@Override
 	public void updateDeviceManagerListener(int operation, AbstractGestureDevice<?, ?> device) {
-		if(cmbDevices.getSelectedIndex() != 0)
+		//if a valid device type is selected, update the device list if devices of that type are added or removed 
+		if(cmbDevices.getSelectedIndex() != 0) // index 0: "select a device type"
 		{
-			System.out.println(device.getClass().getSimpleName());
-			System.out.println(cmbDevices.getSelectedItem().toString());
 			if(operation == DeviceManagerListener.ADD && device.getClass().getSimpleName().equals(cmbDevices.getSelectedItem().toString()))
 			{
 				((DefaultListModel)devicesList.getModel()).addElement(device.getDeviceID());

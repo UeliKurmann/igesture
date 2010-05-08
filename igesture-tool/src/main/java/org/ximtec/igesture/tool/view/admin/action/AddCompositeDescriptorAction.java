@@ -6,6 +6,7 @@ package org.ximtec.igesture.tool.view.admin.action;
 import java.awt.event.ActionEvent;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,7 +54,7 @@ public class AddCompositeDescriptorAction extends TreePathAction {
 		constraintsMapping = new HashMap<String, String>();
 		
 		//read constraints from file
-//		URL path = CompositeDescriptorPanel.class.getClassLoader().getResource("config.xml");
+		URL path = getClass().getClassLoader().getResource("config.xml");
 		XMLParser parser = new XMLParser(){
 
 			@Override
@@ -68,7 +69,7 @@ public class AddCompositeDescriptorAction extends TreePathAction {
 		nodes.add("name");
 		nodes.add("class");
 		try {
-			parser.parse("/home/bjorn/develop/igesture/igesture-tool/src/main/resources/config.xml", "constraint", nodes);//TODO
+			parser.parse(path.getFile(), "constraint", nodes);
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE,"Could not parse configuration file (config.xml - constraints).",e);
 		}
