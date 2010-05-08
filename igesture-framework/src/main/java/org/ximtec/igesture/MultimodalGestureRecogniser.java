@@ -204,7 +204,7 @@ public class MultimodalGestureRecogniser {
 	 * @param queueElements 
 	 * 
 	 */
-	public void executeTasks(QueueElement[] queueElements) 
+	public void recognise(QueueElement[] queueElements) 
 	{
 		String text = getStringRepresentation(queueElements);
 		for(int i = 0; i < nrThreads; i++)

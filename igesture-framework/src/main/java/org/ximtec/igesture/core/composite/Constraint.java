@@ -44,61 +44,41 @@ public interface Constraint {
 	 */
 	public void addGestureClass(String gestureClass, int user, String deviceType, Set<String> devices) throws IllegalArgumentException;
 	/**
-	 * Removes the last added gesture class from the composite.
+	 * Removes the specified gesture class from the composite.
 	 */
-	public void removeGestureClass();
+	public void removeGestureClass(DefaultConstraintEntry entry);
 	/**
 	 * Remove all gesture classes from the composite.
 	 */
 	public void removeAllGestureClasses();
 	
-//	/**
-//	 * Set the user that performs the gesture <i>gestureClass</i>.
-//	 */
-//	public void setUser(String gestureClass, int user);
-//	/**
-//	 * Set the device type used to perform the gesture <i>gestureClass</i>
-//	 */
-//	public void setDeviceType(String gestureClass, String deviceType);
-//	
-//	/**
-//	 * Add a specific device that can be used to perform a gesture.
-//	 */
-//	public void addSpecificDevice(String gestureClass, String deviceID);
-//	/**
-//	 * Add specific devices that can be used to perform a gesture.
-//	 */
-//	public void addSpecificDevices(String gestureClass, Set<String> deviceIDs);
-//	
-//	/** 
-//	 * Get the user that performs the gesture <i>gestureClass</i>. 
-//	 * Returns -1 is user was not specified 
-//	 */
-//	public int getUser(String gestureClass);
-//	/** 
-//	 * Get the device type that is used to perform the gesture <i>gestureClass</i>
-//	 * Returns null if the device type was not specified. 
-//	 */
-//	public String getDeviceType(String gestureClass);
-//	/** 
-//	 * Get the specific devices that may be used to perform the gesture <i>gestureClass</i>
-//	 * Returns null if the devices were not specified.
-//	 */
-//	public Set<String> getDevices(String gestureClass);
-	
-	/** Get all the gesture classes that compose this composite gesture */
+	/** Get all the names of the gesture classes that compose this composite gesture */
 	public List<String> getGestureClasses();
 	/** Get the disctinct gesture classes that compose this composite gesture */
 	public Set<String> getDistinctGestureClasses();
 	/** Get the number of composing gestures */
 	public int getNumberOfGestures();
-	
+	/**
+	 * Get all gesture entries.
+	 */
 	public List<DefaultConstraintEntry> getGestureEntries();
-	
+	/**
+	 * Validate the constraint conditions.
+	 * @param gestures	Gestures that possibly compose the composite gesture.
+	 * @param manager	Device manager to check the associated users.
+	 * @return
+	 */
 	public boolean validateConditions(List<Gesture<?>> gestures, IDeviceManager manager);
 	
+	/**
+	 * Generate all possible string patterns that represent the composite gesture.
+	 * @param charMapping Mapping between the gesture class name and the character representation
+	 */
 	public Set<String> generatePatterns(Map<String, String> charMapping);
-	
+	/**
+	 * Determine the time window for each composing gesture.
+	 * @return Mapping between the gesture name and the corresponding time window.
+	 */
 	public Map<String, Calendar> determineTimeWindows();
 	
 	/**

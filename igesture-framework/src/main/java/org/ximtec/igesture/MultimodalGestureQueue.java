@@ -38,7 +38,7 @@ public class MultimodalGestureQueue {
 		//put in gesture queue
 		queue.add(new QueueElement(gesture,characterMapping.get(gesture.getName())));
 		//TODO
-		recogniser.executeTasks(getWindowOfQueue());
+		recogniser.recognise(getWindowOfQueue());
 	}
 	
 	public synchronized boolean remove()

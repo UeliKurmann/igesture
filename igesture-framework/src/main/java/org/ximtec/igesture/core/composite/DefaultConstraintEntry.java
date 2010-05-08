@@ -3,6 +3,7 @@
  */
 package org.ximtec.igesture.core.composite;
 
+import java.util.Iterator;
 import java.util.Set;
 
 import org.ximtec.igesture.core.DefaultDataObject;
@@ -96,6 +97,39 @@ public class DefaultConstraintEntry extends DefaultDataObject{
 		return devices;
 	}
 	
+	public String toString()
+	{
+		StringBuilder builder = new StringBuilder("Gesture: ");
+		builder.append(gesture);
+		
+		builder.append(", User: ");
+		if(user == -1)
+			builder.append("any");
+		else
+			builder.append(user);	
+		
+		builder.append(", Device Type: ");
+		if(deviceType != null)
+		{ 
+			builder.append(deviceType);
+			builder.append(", Device ID(s): ");
+			if(devices != null && !devices.isEmpty())
+			{
+				for (Iterator iterator = devices.iterator(); iterator.hasNext();) {
+					String id = (String) iterator.next();
+					builder.append(id);
+					if(iterator.hasNext())
+						builder.append(" - ");
+				}
+			}
+			else
+				builder.append("any");				
+		}
+		else
+			builder.append("any");
+		
+		return builder.toString();
+	}
 	
 	
 }

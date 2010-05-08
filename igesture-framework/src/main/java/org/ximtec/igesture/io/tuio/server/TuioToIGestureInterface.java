@@ -12,11 +12,11 @@ public interface TuioToIGestureInterface {
 	 * objects that are present at the beginning of the gesture. This way the client will know the begin position 
 	 * of the gesture.
 	 */
-	public abstract void sendFakeAdd();
+	public abstract void sendVirtualAdd();
 	/**
 	 * When only gesture data of the objects is sent to the tuio client, the client must be informed of the removal
 	 * of all present objects. This way the client will know the end postion of the gesture.
 	 */
-	public abstract void sendFakeRemove();
+	public abstract void sendVirtualRemove();
 
 }

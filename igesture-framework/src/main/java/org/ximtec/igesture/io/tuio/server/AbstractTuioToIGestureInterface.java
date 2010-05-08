@@ -28,10 +28,13 @@ public abstract class AbstractTuioToIGestureInterface implements TuioToIGestureI
 	 */
 	public void setGestureTrigger(boolean gestureTrigger) {
 		this.gestureTrigger = gestureTrigger;
-		if(this.gestureTrigger && inCompatibilityMode) //when activating the trigger
-			sendFakeAdd();
-		else if(!this.gestureTrigger && inCompatibilityMode) //when deactivating the trigger
-			sendFakeRemove();
+		if(inCompatibilityMode)
+		{
+			if(this.gestureTrigger) //when activating the trigger
+				sendVirtualAdd();
+			else //when deactivating the trigger
+				sendVirtualRemove();
+		}
 	}
 	/**
 	 * Returns true if the compatibility mode is activated.

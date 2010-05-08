@@ -13,7 +13,6 @@ public class User extends DefaultDataObject implements IUser {
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String initials;
-	private boolean isDefault;
 	
 	public User()
 	{
@@ -24,7 +23,6 @@ public class User extends DefaultDataObject implements IUser {
 	{
 		this.name = name;
 		this.initials = initials.toUpperCase();
-		this.isDefault = false;
 	}
 
 	@Override
@@ -52,15 +50,18 @@ public class User extends DefaultDataObject implements IUser {
 	{
 		return getName()+" ("+getInitials()+")";
 	}
-
+	
+	/**
+	 * Compare two Users. They are equal if they have the same name and initials.
+	 */
 	@Override
-	public boolean isDefaultUser() {
-		return isDefault;
-	}
-
-	@Override
-	public void setDefaultUser(boolean isDefault) {
-		this.isDefault = isDefault;		
+	public boolean equals(Object user)
+	{
+		IUser u = (IUser) user;
+		if(u.getName().equals(name) && u.getInitials().equals(initials))
+			return true;
+		else
+			return false;
 	}
 
 }
