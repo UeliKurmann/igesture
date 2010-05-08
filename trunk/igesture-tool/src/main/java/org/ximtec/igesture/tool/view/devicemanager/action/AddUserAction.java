@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.sigtec.graphix.widget.BasicAction;
+import org.ximtec.igesture.io.IUser;
 import org.ximtec.igesture.io.User;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.service.GuiBundleService;
@@ -67,9 +68,17 @@ public class AddUserAction extends BasicAction {
 					JOptionPane.showMessageDialog(dlg, "Please enter a username and initials.", "Warning", JOptionPane.WARNING_MESSAGE);
 				else
 				{
-					controller.addUser(new User(txtName.getText(),txtInitials.getText()));
-					dlg.setVisible(false);
-					dlg.dispose();
+					if(controller.areInitialsValid(txtInitials.getText()))
+					{
+						controller.addUser(new User(txtName.getText(),txtInitials.getText()));
+						dlg.setVisible(false);
+						dlg.dispose();
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(dlg, "The initials must be unique!\n" +
+								"Please enter other initials.", "Warning", JOptionPane.WARNING_MESSAGE);
+					}
 				}
 			}
 			

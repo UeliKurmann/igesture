@@ -57,6 +57,7 @@ public class DeviceManagerController extends DefaultController implements IDevic
 	private final Map<String, DeviceDiscoveryService> discoveryMapping = new HashMap<String,DeviceDiscoveryService>();
 	private boolean enableAddDevicesAction = true;
 	
+	/** The system user is the default user and cannot be removed from the device manager */
 	private IUser defaultUser;
 	private AbstractGestureDevice<?, ?> defaultDevice;
 	private DeviceManagerView view;
@@ -127,7 +128,6 @@ public class DeviceManagerController extends DefaultController implements IDevic
 		//instantiate the default user/system user
 		String userName = System.getProperty("user.name");
 		defaultUser = new User(userName,userName.substring(0, 1));
-		defaultUser.setDefaultUser(true);
 		defaultDevice = (AbstractGestureDevice<?, ?>) parentController.getLocator().getService(SwingMouseReaderService.IDENTIFIER);
 		
 		//add the default user and the mouse.
@@ -305,14 +305,14 @@ public class DeviceManagerController extends DefaultController implements IDevic
 		}
 		for(User user : users)
 		{
-			if(!user.isDefaultUser())
+			if(!user.equals(defaultUser))
 				removeUser(user);
 		}
 		
 		// load users
 		for(User user : users)
 		{
-			if(!user.isDefaultUser())
+			if(!user.equals(defaultUser))
 				addUser(user);
 		}
 		// load devices and association
@@ -330,7 +330,7 @@ public class DeviceManagerController extends DefaultController implements IDevic
 				// for system mouse, keep current SwingMouseReaderService
 				// if it was previously associated with the system user, use current system user object
 				IUser u = null;
-				if(ass.getUserItem().isDefaultUser())
+				if(!ass.getUserItem().equals(defaultUser))
 					u = defaultUser;
 				else // else use the associated user
 					u = ass.getUserItem();
@@ -384,5 +384,19 @@ public class DeviceManagerController extends DefaultController implements IDevic
 	@Override
 	public IUser getAssociatedUser(GestureDevice<?, ?> device) {
 		return userMapping.get((AbstractGestureDevice<?,?>)device);
+	}
+	
+	public boolean areInitialsValid(String initials)
+	{
+		boolean valid = true;
+		for(IUser user: users)
+		{
+			if(user.getInitials().equals(initials))
+			{
+				valid = false;
+				break;
+			}
+		}
+		return valid;
 	}
 }

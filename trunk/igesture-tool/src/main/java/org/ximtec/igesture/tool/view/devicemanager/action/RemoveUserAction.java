@@ -45,7 +45,9 @@ public class RemoveUserAction extends BasicAction implements ListSelectionListen
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		//enable the action when something was selected. Except if the user is a default user.
-		if( ( view.getSelectedUser() != null ) && ( !view.getSelectedUser().isDefaultUser() ) )
+		IUser user = view.getSelectedUser();
+		IUser defaultUser = controller.getDefaultUser();
+		if( ( user != null ) && !user.equals(defaultUser) )
 			setEnabled(true);
 		else
 			setEnabled(false);
