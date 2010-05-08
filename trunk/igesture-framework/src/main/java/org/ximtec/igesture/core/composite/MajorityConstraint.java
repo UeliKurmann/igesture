@@ -51,7 +51,11 @@ public class MajorityConstraint extends IntervalConstraint {
 	@Override
 	public void addGestureClass(String gestureClass) {
 		if(gestures.isEmpty())
-			gestures.add(new DefaultConstraintEntry(gestureClass));
+		{
+			DefaultConstraintEntry entry = new DefaultConstraintEntry(gestureClass); 
+			gestures.add(entry);
+			propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, gestures.indexOf(entry), null, entry);
+		}
 		else
 		{
 			IllegalArgumentException e = new IllegalArgumentException(ERROR_MESSAGE);
@@ -66,7 +70,11 @@ public class MajorityConstraint extends IntervalConstraint {
 	@Override
 	public void addGestureClass(String gestureClass, int user) {
 		if(gestures.isEmpty())
-			gestures.add(new DefaultConstraintEntry(gestureClass, user));
+		{
+			DefaultConstraintEntry entry = new DefaultConstraintEntry(gestureClass, user);
+			gestures.add(entry);
+			propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, gestures.indexOf(entry), null, entry);
+		}
 		else
 		{
 			IllegalArgumentException e = new IllegalArgumentException(ERROR_MESSAGE);
@@ -81,7 +89,11 @@ public class MajorityConstraint extends IntervalConstraint {
 	@Override
 	public void addGestureClass(String gestureClass, String deviceType, Set<String> devices) {
 		if(gestures.isEmpty())
-			gestures.add(new DefaultConstraintEntry(gestureClass, deviceType, devices));
+		{
+			DefaultConstraintEntry entry = new DefaultConstraintEntry(gestureClass, deviceType, devices); 
+			gestures.add(entry);
+			propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, gestures.indexOf(entry), null, entry);
+		}
 		else
 		{
 			IllegalArgumentException e = new IllegalArgumentException(ERROR_MESSAGE);
@@ -96,7 +108,11 @@ public class MajorityConstraint extends IntervalConstraint {
 	@Override
 	public void addGestureClass(String gestureClass, int user, String deviceType, Set<String> devices) {
 		if(gestures.isEmpty())
-			gestures.add(new DefaultConstraintEntry(gestureClass,user,deviceType,devices));
+		{
+			DefaultConstraintEntry entry = new DefaultConstraintEntry(gestureClass, deviceType, devices);
+			gestures.add(entry);
+			propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, gestures.indexOf(entry), null, entry);
+		}
 		else
 		{
 			IllegalArgumentException e = new IllegalArgumentException(ERROR_MESSAGE);

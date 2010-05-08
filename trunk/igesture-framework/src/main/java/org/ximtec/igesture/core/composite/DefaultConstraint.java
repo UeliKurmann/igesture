@@ -36,7 +36,8 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 	protected Map<String, String> DEFAULT_CONFIGURATION = new HashMap<String, String>();
 	protected Map<String, String> setterMapping = new HashMap<String, String>();
 	
-	protected List<DefaultConstraintEntry> gestures;	
+	protected List<DefaultConstraintEntry> gestures;
+	public static final String PROPERTY_GESTURES = "gestures";
 	
 	protected SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss.SSS");
 	
@@ -63,7 +64,9 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 	 */
 	@Override
 	public void addGestureClass(String gestureClass) {
-		gestures.add(new DefaultConstraintEntry(gestureClass));
+		DefaultConstraintEntry entry = new DefaultConstraintEntry(gestureClass); 
+		gestures.add(entry);
+		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, gestures.indexOf(entry), null, entry);
 	}
 
 	/* (non-Javadoc)
@@ -71,7 +74,9 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 	 */
 	@Override
 	public void addGestureClass(String gestureClass, int user) {
-		gestures.add(new DefaultConstraintEntry(gestureClass, user));
+		DefaultConstraintEntry entry = new DefaultConstraintEntry(gestureClass, user);
+		gestures.add(entry);
+		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, gestures.indexOf(entry), null, entry);
 	}
 
 	/* (non-Javadoc)
@@ -79,7 +84,9 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 	 */
 	@Override
 	public void addGestureClass(String gestureClass, String deviceType, Set<String> devices) {
-		gestures.add(new DefaultConstraintEntry(gestureClass, deviceType, devices));
+		DefaultConstraintEntry entry = new DefaultConstraintEntry(gestureClass, deviceType, devices); 
+		gestures.add(entry);
+		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, gestures.indexOf(entry), null, entry);
 	}
 
 	/* (non-Javadoc)
@@ -87,84 +94,10 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 	 */
 	@Override
 	public void addGestureClass(String gestureClass, int user, String deviceType, Set<String> devices) {
-		gestures.add(new DefaultConstraintEntry(gestureClass,user,deviceType,devices));
+		DefaultConstraintEntry entry = new DefaultConstraintEntry(gestureClass, deviceType, devices);
+		gestures.add(entry);
+		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, gestures.indexOf(entry), null, entry);
 	}
-
-//	/* (non-Javadoc)
-//	 * @see org.ximtec.igesture.core.composite.Constraint#addSpecificDevice(java.lang.String, java.lang.String)
-//	 */
-//	@Override
-//	public void addSpecificDevice(String gestureClass, String deviceID) {
-//		Set<String> dev = gestureDevicesMapping.getValues(gestureClass);
-//		if(dev == null)
-//		{
-//			Set<String> devs = new HashSet<String>();
-//			devs.add(deviceID);
-//			gestureDevicesMapping.add(gestureClass, devs);
-//		}
-//		else
-//			dev.add(deviceID);	
-//	}
-//
-//	/* (non-Javadoc)
-//	 * @see org.ximtec.igesture.core.composite.Constraint#addSpecificDevices(java.lang.String, java.util.Set)
-//	 */
-//	@Override
-//	public void addSpecificDevices(String gestureClass, Set<String> deviceIDs) {
-//		Set<String> dev = gestureDevicesMapping.get(gestureClass);
-//		if(dev == null)
-//		{
-//			Set<String> devs = new HashSet<String>();
-//			devs.addAll(deviceIDs);
-//			gestureDevicesMapping.add(gestureClass, devs);
-//		}
-//		else
-//			dev.addAll(deviceIDs);	
-//	}
-//
-//	/* (non-Javadoc)
-//	 * @see org.ximtec.igesture.core.composite.Constraint#setDeviceType(java.lang.String, java.lang.String)
-//	 */
-//	@Override
-//	public void setDeviceType(String gestureClass, String deviceType) {
-//		gestureDeviceTypeMapping.add(gestureClass, deviceType);
-//	}
-//
-//	/* (non-Javadoc)
-//	 * @see org.ximtec.igesture.core.composite.Constraint#setUser(java.lang.String, int)
-//	 */
-//	@Override
-//	public void setUser(String gestureClass, int user) {
-//		gestureUserMapping.add(gestureClass, user);
-//	}
-	
-//	/* (non-Javadoc)
-//	 * @see org.ximtec.igesture.core.composite.Constraint#getUser(java.lang.String)
-//	 */
-//	@Override
-//	public int getUser(String gestureClass) {
-//		Integer i = gestureUserMapping.getValues(gestureClass);
-//		if(i == null)
-//			return -1;
-//		else
-//			return i.intValue();
-//	}
-//
-//	/* (non-Javadoc)
-//	 * @see org.ximtec.igesture.core.composite.Constraint#getDeviceType(java.lang.String)
-//	 */
-//	@Override
-//	public String getDeviceType(String gestureClass) {
-//		return gestureDeviceTypeMapping.getValues(gestureClass);
-//	}
-//
-//	/* (non-Javadoc)
-//	 * @see org.ximtec.igesture.core.composite.Constraint#getDevices(java.lang.String)
-//	 */
-//	@Override
-//	public Set<String> getDevices(String gestureClass) {
-//		return gestureDevicesMapping.getValues(gestureClass);
-//	}
 
 	/* (non-Javadoc)
 	 * @see org.ximtec.igesture.core.composite.Constraint#getGestureClasses()
@@ -229,13 +162,16 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 				DefaultConstraintEntry entry = iterator.next();
 				GestureDevice<?,?> device = gesture.getSource();
 				
+				// if no device type specified, continue with next entry
 				if(entry.getDeviceType() == null)
 					continue;
-				
+				// check if device type matches
 				if(entry.getDeviceType().equals(device.getDeviceClass()))
 				{
+					// if specific devices were specified...
 					if(entry.getDevices() != null && !entry.getDevices().isEmpty())
 					{
+						// ... check if the gesture was created by a specified device (based on ID)
 						if(entry.getDevices().contains(device.getDeviceID()))
 							found = true;
 						else
@@ -405,15 +341,19 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 	 */
 	@Override
 	public void removeAllGestureClasses() {
+		DefaultConstraintEntry entry = gestures.get(0);
 		gestures.clear();
+		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, 0, entry, null);
 	}
 
 	/* (non-Javadoc)
-	 * @see org.ximtec.igesture.core.composite.Constraint#removeGestureClass()
+	 * @see org.ximtec.igesture.core.composite.Constraint#removeGestureClass(org.ximtec.igesture.core.composite.DefaultConstraintEntry entry)
 	 */
 	@Override
-	public void removeGestureClass() {
-		gestures.remove(gestures.size()-1);
+	public void removeGestureClass(DefaultConstraintEntry entry)
+	{
+		gestures.remove(entry);
+		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, gestures.indexOf(entry), entry, null);
 	}
 	
 	/* (non-Javadoc)

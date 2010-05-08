@@ -30,18 +30,6 @@ public interface IUser {
 	void setInitials(String initials);
 	
 	/**
-	 * True if this user is a default user of the system. Typically this is the active system user.
-	 * Default user cannot be removed from the device manager.
-	 * @return
-	 */
-	boolean isDefaultUser();
-	/**
-	 * Specify whether this user is the default user or not.
-	 * @param isDefault
-	 */
-	void setDefaultUser(boolean isDefault);
-	
-	/**
 	 * Get a String representation of the user.
 	 * @return	String representation of the user.
 	 */

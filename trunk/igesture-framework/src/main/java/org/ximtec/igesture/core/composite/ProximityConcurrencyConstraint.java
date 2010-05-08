@@ -90,7 +90,11 @@ public class ProximityConcurrencyConstraint extends ConcurrencyConstraint{
 	@Override
 	public void addGestureClass(String gestureClass, String deviceType, Set<String> devices) {
 		if(gestures.isEmpty() || (!gestures.isEmpty() && gestures.get(0).getDeviceType().equals(deviceType)))
-			gestures.add(new DefaultConstraintEntry(gestureClass, deviceType, devices));
+		{
+			DefaultConstraintEntry entry = new DefaultConstraintEntry(gestureClass, deviceType, devices); 
+			gestures.add(entry);
+			propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, gestures.indexOf(entry), null, entry);
+		}
 		else
 		{
 			IllegalArgumentException e = new IllegalArgumentException(ERROR_MESSAGE_WRONG_TYPE+gestures.get(0).getDeviceType());
@@ -105,7 +109,11 @@ public class ProximityConcurrencyConstraint extends ConcurrencyConstraint{
 	@Override
 	public void addGestureClass(String gestureClass, int user, String deviceType, Set<String> devices) {
 		if(gestures.isEmpty() || (!gestures.isEmpty() && gestures.get(0).getDeviceType().equals(deviceType)))
-			gestures.add(new DefaultConstraintEntry(gestureClass, user, deviceType, devices));
+		{
+			DefaultConstraintEntry entry = new DefaultConstraintEntry(gestureClass, deviceType, devices);
+			gestures.add(entry);
+			propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, gestures.indexOf(entry), null, entry);
+		}
 		else
 		{
 			IllegalArgumentException e = new IllegalArgumentException(ERROR_MESSAGE_WRONG_TYPE+gestures.get(0).getDeviceType());
