@@ -218,11 +218,14 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 			Set<Integer> definedKeys = defined.keySet();
 			Set<IUser> recognisedKeys = recognised.keySet();
 			
-			int matches = 0;
+//			int matches = 0;
 			
 			//check if for every defined (user,gestures) combination, there is an equivalent in the recognised set
 			for (Iterator<Integer> iterator = definedKeys.iterator(); iterator.hasNext();) {
 				Integer integer = iterator.next();
+				
+				// put all users that perform at least the required gestures (those that were defined)
+				Map<IUser, Integer> fittingKeys = new HashMap<IUser, Integer>();
 				
 				List<String> values = defined.getValues(integer);
 				for(Iterator<IUser> iter = recognisedKeys.iterator(); iter.hasNext();)
@@ -231,19 +234,41 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 					List<String> list = recognised.getValues(user);
 					if(list.containsAll(values))
 					{
-						recognised.removeKey(user);
-						matches += 1;
-						break;
+						fittingKeys.put(user, list.size());
 					}
 				}
 				
+				// if not match found...
+				if(fittingKeys.isEmpty())
+				{
+					conditionsValid = false; //... condition invalid
+					break;
+				}
+				else
+				{
+					// ...use the first found shortest fit
+					IUser shortestFittingKey = null;
+					int min = Integer.MAX_VALUE;
+					for(Iterator<IUser> iter = fittingKeys.keySet().iterator(); iter.hasNext();)
+					{
+						IUser user = iter.next();
+						if(fittingKeys.get(user).intValue() < min)
+						{
+							min = fittingKeys.get(user).intValue();
+							shortestFittingKey = user;
+						}
+					}
+//					matches += 1;
+					recognised.removeKey(shortestFittingKey);
+				}
+				
 			}
-			// defining the user that has to perform a gesture is optional
-			// this means that in most cases there will only be a partial mapping from the recognised gestures 
-			// to the defined ones (so !recognisedKeys.isEmpty() is not usable)
-			// so it is only necessary to have for each defined gesture a mapping in the recognised gestures
-			if(matches != definedKeys.size())
-				conditionsValid = false;
+//			// defining the user that has to perform a gesture is optional
+//			// this means that in most cases there will only be a partial mapping from the recognised gestures 
+//			// to the defined ones (so !recognisedKeys.isEmpty() is not usable)
+//			// so it is only necessary to have for each defined gesture a mapping in the recognised gestures
+//			if(matches != definedKeys.size())
+//				conditionsValid = false;
 		}
 		else if(manager == null)
 		{

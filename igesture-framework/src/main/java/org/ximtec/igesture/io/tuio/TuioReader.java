@@ -49,6 +49,8 @@ import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
  *     In case of Recogniser : set this TuioReaders recogniser
  *  4. set the modifiers/tuio messages to listen for
  *  
+ *  Note that this class is not fully compatible with the workbench.
+ *  
  * @author Björn Puype, bpuype@gmail.com
  * @see TuioConnection
  */

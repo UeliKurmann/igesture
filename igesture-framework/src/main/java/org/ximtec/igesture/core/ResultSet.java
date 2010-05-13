@@ -34,7 +34,6 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.sigtec.ink.Note;
 import org.sigtec.util.Constant;
 import org.ximtec.igesture.Recogniser;
 
