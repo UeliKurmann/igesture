@@ -21,7 +21,6 @@ import org.w3c.dom.NodeList;
 import org.ximtec.igesture.io.AbstractGestureDevice;
 import org.ximtec.igesture.io.DeviceDiscoveryService;
 import org.ximtec.igesture.io.tuio.TuioConstants;
-import org.ximtec.igesture.io.tuio.TuioReader2D;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.view.Property;
 import org.ximtec.igesture.tool.view.devicemanager.XMLParser;

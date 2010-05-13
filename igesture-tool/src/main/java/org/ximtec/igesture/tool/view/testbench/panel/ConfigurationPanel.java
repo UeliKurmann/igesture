@@ -130,18 +130,9 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
   }
 
   private void init(IDeviceManager manager) {
-    setTitle(TitleFactory.createDynamicTitle(configuration, Configuration.PROPERTY_NAME));
-
-    JPanel basePanel = new JPanel();
-   
-    basePanel.setLayout(new BorderLayout());
-    basePanel.add(createParameterPanel(), BorderLayout.NORTH);
-    basePanel.add(createWorkspace(manager), BorderLayout.CENTER);
-
-    basePanel.setOpaque(true);
-    basePanel.setBackground(Color.WHITE);
-    
-    setContent(basePanel);
+    setTitle(TitleFactory.createDynamicTitle(configuration, Configuration.PROPERTY_NAME));    
+    setContent(createParameterPanel());
+    setBottom(createWorkspace(manager));
   }
 
   /**
@@ -166,7 +157,8 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
 	cardPanel.setLayout(new CardLayout());
 	cardPanel.setSize(new Dimension(INPUTAREA_SIZE, INPUTAREA_SIZE));
 	
-	currentDevice = gestureDevice;
+//	currentDevice = gestureDevice;
+	currentDevice = null;
 	
 	basePanel.add(cardPanel, BorderLayout.CENTER);
 	
@@ -227,7 +219,7 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
     
     JPanel panel = builder.getPanel();
     panel.setOpaque(true);
-    panel.setBackground(Color.WHITE);
+    panel.setBackground(Color.WHITE);    
     return panel;
   }
 
