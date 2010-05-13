@@ -11,8 +11,11 @@ import java.util.PriorityQueue;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSample3D;
+import org.ximtec.igesture.core.ResultSet;
 
 /**
+ * This class represents the input queue of the multi-modal gesture recogniser.
+ * 
  * @author Björn Puype, bpuype@gmail.com
  *
  */
@@ -33,14 +36,22 @@ public class MultimodalGestureQueue {
 		recogniser = owner;
 	}
 	
-	public synchronized void push(Gesture<?> gesture)
+	/**
+	 * Push an element in the queue
+	 * @param resultSet	The recognised gesture as a ResultSet
+	 */
+	public synchronized void push(ResultSet resultSet)
 	{
 		//put in gesture queue
-		queue.add(new QueueElement(gesture,characterMapping.get(gesture.getName())));
-		//TODO
+		queue.add(new QueueElement(resultSet,characterMapping.get(resultSet.getGesture().getName())));
+		//execute a recognition step
 		recogniser.recognise(getWindowOfQueue());
 	}
 	
+	/**
+	 * Remove an element from the queue
+	 * @return true if the element was removed
+	 */
 	public synchronized boolean remove()
 	{
 		boolean sleep = false;
@@ -54,6 +65,28 @@ public class MultimodalGestureQueue {
 		return sleep;
 	}
 	
+	/**
+	 * Retrieves but does not remove the head of the queue, <i>null</i> if empty
+	 * @return
+	 */
+	public synchronized QueueElement peek()
+	{
+		return queue.peek();
+	}
+	
+	/**
+	 * Retrieves and removes the head of the queue, <i>null</i> if empty
+	 * @return
+	 */
+	public synchronized QueueElement poll()
+	{
+		return queue.poll();
+	}
+	
+	/**
+	 * Get a part of the queue that fits within the time window of element last put in the queue
+	 * @return
+	 */
 	private QueueElement[] getWindowOfQueue()
 	{
 		QueueElement[] arr = new QueueElement[1]; 
@@ -81,17 +114,27 @@ public class MultimodalGestureQueue {
 		return queue.isEmpty();
 	}
 	
+	/**
+	 * This class represents an element in the queue and encapsulates different information.
+	 * @author Björn Puype, bpuype@gmail.com
+	 *
+	 */
 	public class QueueElement implements Comparable<QueueElement>//TODO different locks
 	{
-		private int windows;
-		private boolean identified;
-		private Gesture<?> gs;
-		private String ch;
-		private long time;
+		private int windows; // the number of time windows overlapping this gesture
+		private boolean identified; // is the element part of a recognised and validated composite?
+		private Gesture<?> gs; // the gesture sample
+		private ResultSet result; // the resultset, is used to fire a single gesture if is not identified as part of a composite
+		private String ch; // the character representation of the gesture
+		private long time; // the start time stamp of the gesture
 		
-		public QueueElement(Gesture<?> gesture, String character)
+		/**
+		 * Constructor
+		 */
+		public QueueElement(ResultSet resultSet, String character)
 		{
-			gs = gesture;
+			result = resultSet;
+			gs = resultSet.getGesture();
 			windows = 0;
 			identified = false;
 			ch = character;
@@ -122,17 +165,24 @@ public class MultimodalGestureQueue {
 		}
 
 		/**
+		 * The number of time windows overlapping this gesture.
 		 * @return the windows
 		 */
 		public synchronized int getWindows() {
 			return windows;
 		}
 		
+		/**
+		 * Increment the number of time windows by 1.
+		 */
 		public synchronized void incrementWindows()
 		{
 			windows++;
 		}
 		
+		/**
+		 * Decrement the number of time windows by 1.
+		 */
 		public synchronized void decrementWindows()
 		{
 			windows--;
@@ -163,13 +213,18 @@ public class MultimodalGestureQueue {
 		 * @see java.lang.Comparable#compareTo(java.lang.Object)
 		 */
 		@Override
-		public int compareTo(QueueElement o) {
+		public int compareTo(QueueElement o) {// for the ordering in the priority queue, time based
 			if(getTime() > o.getTime())
 				return 1;
 			else if(getTime() < o.getTime())
 				return -1;
 			else
 				return 0; 
+		}
+		
+		public ResultSet getResultSet()
+		{
+			return result;
 		}
 	}
 }

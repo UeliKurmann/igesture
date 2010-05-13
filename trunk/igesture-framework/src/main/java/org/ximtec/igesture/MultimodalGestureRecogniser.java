@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package org.ximtec.igesture;
 
 import java.util.ArrayList;
@@ -30,6 +28,7 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.composite.CompositeDescriptor;
 import org.ximtec.igesture.core.composite.Constraint;
+import org.ximtec.igesture.event.GestureHandler;
 import org.ximtec.igesture.io.IDeviceManager;
 
 /**
@@ -85,7 +84,7 @@ public class MultimodalGestureRecogniser {
 	 */
 	public MultimodalGestureRecogniser(GestureSet set, IDeviceManager manager)
 	{
-		
+		//TODO fire simple gestures that were not used in a composite but are potentially part of a composite
 		//TODO use time windows
 		//TODO composite of composites
 		this.manager = manager;
@@ -375,9 +374,11 @@ public class MultimodalGestureRecogniser {
 						
 						//fire if gesture recognised
 						if(conditionsValid)
+						{
 							fireEvent(gestureClass);
+							identifyGestures(indexes);
+						}
 							//TODO fire resultset instead of string
-							//TODO remove from queue
 					}
 //					else
 //					{
@@ -401,10 +402,22 @@ public class MultimodalGestureRecogniser {
 			List<Gesture<?>> list = new ArrayList<Gesture<?>>();
 			for (Iterator<Integer> iterator = indexes.iterator(); iterator.hasNext();) {
 				Integer index = iterator.next();
-				elements[index].setIdentified(true);
 				list.add(elements[index].getGesture());			
 			}
 			return list;
+		}
+		
+		/**
+		 * A composite gesture has been identified and validated, mark queue elements
+		 * garbage thread will not fire the element as a single gesture
+		 * @param indexes
+		 */
+		private void identifyGestures(ArrayList<Integer> indexes)
+		{
+			for (Iterator<Integer> iterator = indexes.iterator(); iterator.hasNext();) {
+				Integer index = iterator.next();
+				elements[index].setIdentified(true);			
+			}
 		}
 		
 	}
@@ -432,9 +445,43 @@ public class MultimodalGestureRecogniser {
 				}
 				catch(InterruptedException e)
 				{}
+				
 				boolean next = true;
 				while(next)
-					next = queue.remove();
+				{
+					//get element
+					QueueElement elem = queue.peek();
+					//if queue not empty and element is not overlapped by time windows
+					if(elem != null && elem.getWindows() == 0)
+					{
+						//remove element from queue
+						final QueueElement e = queue.poll();
+						//if element not part of composite
+						if(!e.isIdentified())
+						{
+							//notify registered GestureHandlers from source recogniser
+							Executor executor = Executors.newFixedThreadPool(NR_THREADS);
+							for (final GestureHandler gestureHandler : e.getResultSet().getSource().getGestureHandlers()) {
+								LOGGER.info("Handler: "+gestureHandler.getClass());
+								if (gestureHandler != null) {
+									executor.execute(new Runnable() {
+							
+										@Override
+										public void run() {
+											gestureHandler.handle(e.getResultSet());
+										}
+							           
+									});
+								}
+						  	}
+						}
+						next = true; //continue removing from head
+					}
+					else // element overlapped by time windows, stop removing from head
+						next = false;
+				}
+				
+				
 			}
 			
 		}

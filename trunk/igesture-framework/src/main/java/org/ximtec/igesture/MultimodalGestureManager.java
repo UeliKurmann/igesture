@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package org.ximtec.igesture;
 
 import java.util.HashSet;
@@ -70,7 +68,7 @@ public class MultimodalGestureManager implements GestureHandler{
 		//if the gesture is a composing gesture send it to the multimodal recogniser by putting it in the queue
 		if(composingGestures.contains(resultSet.getGesture().getName()))
 		{
-			queue.push(resultSet.getGesture());
+			queue.push(resultSet);
 		}
 		else if(resultSet.getSource().getMode() != Recogniser.MIXED_MODE)//push it out
 		{
