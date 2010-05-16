@@ -61,7 +61,7 @@ public class TuioReader3D extends AbstractGestureDevice<RecordedGesture3D, Point
 	/** Recogniser to recognise the gestures */
 	private Recogniser recogniser;
 	
-	private boolean debug = true;
+	private boolean debug = false;
 
 	private GestureSample3D gesture3D;
 	private RecordedGesture3D lastRecordedGesture3DAdded;

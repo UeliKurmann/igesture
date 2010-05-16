@@ -60,7 +60,7 @@ public class TuioReader2D extends AbstractGestureDevice<Note, Point> implements 
 	/** Recogniser to recognise the gestures */
 	private Recogniser recogniser;
 	
-	private boolean debug = true;
+	private boolean debug = false;
 	
 	private GestureSample gesture;
 	private Note lastNoteAdded;
@@ -85,9 +85,9 @@ public class TuioReader2D extends AbstractGestureDevice<Note, Point> implements 
 		connection = new TuioConnection(port.intValue());
 		
 		setDeviceID(String.valueOf(port));
-		setConnectionType("Tuio");
+		setConnectionType("TUIO");
 		setDeviceType(Constant.TYPE_2D);
-		setName("Tuio Service on Port "+port);
+		setName("TUIO Service on Port "+port);
 		
 		lastNoteAdded = new Note();
 		gesture = new GestureSample(this,"", lastNoteAdded);
@@ -105,7 +105,7 @@ public class TuioReader2D extends AbstractGestureDevice<Note, Point> implements 
 	private void debug(String message)
 	{
 		if(debug)
-			System.out.println("[TUIO]: "+message);
+			System.out.println("["+getName()+"]: "+message);
 	}
 	
 	/* (non-Javadoc)

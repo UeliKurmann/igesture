@@ -43,6 +43,8 @@ public class MajorityConstraint extends IntervalConstraint {
 		DEFAULT_CONFIGURATION.put(Config.MAX_GESTURES.name(), MAX_GESTURES);
 		setterMapping.put(Config.MIN_GESTURES.name(), "setMinimumGestures");
 		setterMapping.put(Config.MAX_GESTURES.name(), "setMaximumGestures");
+		setMinimumGestures(MIN_GESTURES);
+		setMaximumGestures(MAX_GESTURES);
 	}
 	
 	/* (non-Javadoc)

@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -44,15 +45,29 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 	protected Calendar gestureTime;
 	protected Calendar processingTime;
 	
+	public enum Config{
+		GESTURE_TIME
+	}
+	
+	private static final String GESTURE_TIME = "00:00:10.000";
+	
 	public DefaultConstraint()
 	{
+		DEFAULT_CONFIGURATION.put(Config.GESTURE_TIME.name(), GESTURE_TIME);
+		setterMapping.put(Config.GESTURE_TIME.name(), "setGestureTime");
 		gestures = new ArrayList<DefaultConstraintEntry>();
 		df.setLenient(false);
 		try {
-			df.parse("00:00:03.000");
-			gestureTime = df.getCalendar();
-			df.parse("00:00:02.000");
-			processingTime = df.getCalendar();
+//			df.parse("00:00:10.000");
+//			gestureTime = df.getCalendar();
+//			df.parse("00:00:02.000");
+//			processingTime = df.getCalendar();
+			Date d = df.parse(GESTURE_TIME);
+			gestureTime = Calendar.getInstance();
+			gestureTime.setTime(d);
+			d = df.parse("00:00:02.000");
+			processingTime = Calendar.getInstance();
+			processingTime.setTime(d);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -128,6 +143,18 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 		return gestures.size();
 	}
 
+	public void setGestureTime(String time) throws ParseException
+	{
+		Date d = df.parse(time);
+		gestureTime = Calendar.getInstance();
+		gestureTime.setTime(d);
+	}
+	
+	public Calendar getGestureTime()
+	{
+		return gestureTime;
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.ximtec.igesture.core.composite.Constraint#generatePatterns(java.util.Map)
 	 */
@@ -346,7 +373,7 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 		DEFAULT_CONFIGURATION.put(property, value);
 		Class<?> clazz = this.getClass();
 		try {
-			Method m = clazz.getDeclaredMethod(setterMapping.get(property), String.class);
+			Method m = clazz.getMethod(setterMapping.get(property), String.class);//no getDeclaredMethod because setGestureTime in DefaultConstraint
 			m.invoke(this, value);
 		} catch (SecurityException e) {
 			e.printStackTrace();

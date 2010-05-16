@@ -36,6 +36,11 @@ public class IntervalConstraint extends DefaultConstraint {
 		super();
 		DEFAULT_CONFIGURATION.put(Config.DURATION.name(), DURATION);
 		setterMapping.put(Config.DURATION.name(), "setDuration");
+		try {
+			setDuration(DURATION);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
