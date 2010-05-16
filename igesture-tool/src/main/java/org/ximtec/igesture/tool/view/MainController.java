@@ -68,6 +68,7 @@ import org.ximtec.igesture.tool.util.ExtensionFileFilter;
 import org.ximtec.igesture.tool.util.FileType;
 import org.ximtec.igesture.tool.view.admin.AdminController;
 import org.ximtec.igesture.tool.view.batch.BatchController;
+import org.ximtec.igesture.tool.view.composite.CompositeController;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
 import org.ximtec.igesture.tool.view.testbench.TestbenchController;
 import org.ximtec.igesture.tool.view.testset.TestSetController;
@@ -100,7 +101,7 @@ public class MainController extends DefaultController implements Service {
 	// List of controllers (a project is active)
 	private static Class<?>[] activeControllers = new Class<?>[] {
 			AdminController.class, TestbenchController.class,
-			BatchController.class, TestSetController.class };
+			BatchController.class, TestSetController.class, CompositeController.class };
 
 	// List of controllers (no project active)
 	private static Class<?>[] passiveControllers = new Class<?>[] { WelcomeController.class };

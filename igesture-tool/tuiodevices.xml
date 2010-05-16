@@ -5,4 +5,9 @@
 		<name>TuioSimulator</name>
 		<type>2D,3D</type>
 	</device>
+	<device>
+		<port>3334</port>
+		<name>TuioSimulator2</name>
+		<type>2D</type>
+	</device>
 </devices>
