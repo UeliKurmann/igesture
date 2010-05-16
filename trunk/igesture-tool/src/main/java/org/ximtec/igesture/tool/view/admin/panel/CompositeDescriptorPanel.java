@@ -43,13 +43,6 @@ import javax.swing.SpinnerNumberModel;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.ximtec.igesture.MultimodalGestureManager;
-import org.ximtec.igesture.MultimodalGestureRecogniser;
-import org.ximtec.igesture.Recogniser;
-import org.ximtec.igesture.algorithm.AlgorithmException;
-import org.ximtec.igesture.algorithm.signature.SiGridAlgorithm;
-import org.ximtec.igesture.configuration.Configuration;
-import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.composite.CompositeDescriptor;
@@ -58,7 +51,6 @@ import org.ximtec.igesture.core.composite.DefaultConstraint;
 import org.ximtec.igesture.core.composite.DefaultConstraintEntry;
 import org.ximtec.igesture.io.AbstractGestureDevice;
 import org.ximtec.igesture.io.DeviceManagerListener;
-import org.ximtec.igesture.io.GestureEventListener;
 import org.ximtec.igesture.io.IDeviceManager;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.binding.ConstraintTextFieldBinding;
@@ -84,19 +76,13 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 	
 	private static final int INPUTAREA_SIZE = 200;
 	
-//	private MainModel mainModel;
-	
 	private JComboBox cmbSets, cmbGestures, cmbDevices;
 	private JCheckBox chkUser, chkDevices;
 	private JSpinner spinUser;
 	private JList devicesList, gestureList;
 	private JButton btnRemove, btnClear, btnAdd;
 	
-//	private GuiBundleService guiBundle;
-	
 	private IDeviceManager deviceManager;
-	private MultimodalGestureRecogniser mmrecogniser;
-	private MultimodalGestureManager mmmanager;
 	
 	private Map<String, String> deviceMapping;
 	
@@ -107,8 +93,6 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 		
 		deviceManager = controller.getLocator().getService(DeviceManagerService.IDENTIFIER, IDeviceManager.class);
 		deviceManager.addDeviceManagerListener(this);
-//		mainModel = controller.getLocator().getService(MainModel.IDENTIFIER, MainModel.class);
-//		guiBundle = controller.getLocator().getService(GuiBundleService.IDENTIFIER, GuiBundleService.class);
 		constraint = descriptor.getConstraint();
 		((DefaultConstraint)constraint).addPropertyChangeListener(controller.getParent().getParent());
 		init();
@@ -119,58 +103,6 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 		initTitle();		
 		initParameterSection();
 	    initInputSection();
-//		initMultimodalRecogniser();
-	}
-	
-	/**
-	 * 
-	 */
-	private void initMultimodalRecogniser() {
-		//create mm recogniser
-		Object[] objects = getController().getLocator().getService(MainModel.IDENTIFIER, MainModel.class)
-        .getGestureSets().toArray();
-		GestureSet simpleGestures = (GestureSet) objects[0];
-		
-		GestureSet compositeGestures = null;
-		for (int i = 0; i < objects.length; i++) {
-			if(((GestureSet)objects[i]).getName().equals("composites"))
-			{
-				compositeGestures = (GestureSet)objects[i];
-				break;
-			}
-		}
-		
-		mmrecogniser = new MultimodalGestureRecogniser(compositeGestures,deviceManager);
-		//create manager
-		mmmanager = new MultimodalGestureManager(mmrecogniser);
-		//subscribe recognisers
-		Configuration config = new Configuration();
-		config.addGestureSet(simpleGestures);
-		config.addAlgorithm(SiGridAlgorithm.class.getName());
-		
-		try {
-			final Recogniser recogniser = new Recogniser(config);
-			for(Iterator<AbstractGestureDevice<?,?>> iterator = deviceManager.getDevices().iterator();iterator.hasNext();)
-			{
-				AbstractGestureDevice<?,?> device = iterator.next();
-				device.addGestureHandler(new GestureEventListener(){
-
-					@Override
-					public void handleChunks(List<?> chunks) {
-					}
-
-					@Override
-					public void handleGesture(Gesture<?> gesture) {
-						recogniser.recognise(gesture);
-					}
-					
-				});
-			}
-			mmmanager.addRecogniser(recogniser, false);
-		} catch (AlgorithmException e) {
-			e.printStackTrace();
-		}
-		
 	}
 	
 	/**
@@ -474,37 +406,6 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 		JCheckBox chk = new JCheckBox(text);
 		chk.setMnemonic(mnemonic);
 		return chk;
-	}
-	
-	private class RecordButton extends JButton
-	{
-		private boolean recording;
-		
-		public RecordButton()
-		{
-			recording = false;
-			setText("Record");
-			addActionListener(new ActionListener(){
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					recording = !recording;
-					if(recording == true)
-					{
-						//TODO
-						setText("Stop");
-						mmrecogniser.start();
-					}
-					else
-					{
-						//TODO
-						setText("Record");
-						mmrecogniser.stop();
-					}					
-				}
-				
-			});
-		}
 	}
 	
 	/**

@@ -67,7 +67,7 @@ public abstract class AbstractTuioDeviceDiscoveryService implements
 		try {
 			properties.loadFromXML(new FileInputStream(GestureConstants.PROPERTIES));
 			startPort = Integer.parseInt(properties.getProperty(Property.TUIO_START_PORT));
-			endPort = Integer.parseInt(properties.getProperty(Property.TUIO_START_PORT));
+			endPort = Integer.parseInt(properties.getProperty(Property.TUIO_END_PORT));
 		} catch (Exception e) {
 			LOGGER.log(Level.WARNING,"Could not load the tuio port range property from file. Falling back on the default port: 3333.",e);
 			startPort = TuioConstants.DEFAULT_PORT;
