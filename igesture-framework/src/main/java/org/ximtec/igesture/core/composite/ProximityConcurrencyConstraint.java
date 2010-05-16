@@ -62,6 +62,9 @@ public class ProximityConcurrencyConstraint extends ConcurrencyConstraint{
 		setterMapping.put(Config.DISTANCE_UNIT.name(), "setDistanceUnit");
 		setterMapping.put(Config.MIN_DISTANCE.name(), "setMinDistance");
 		setterMapping.put(Config.MAX_DISTANCE.name(), "setMaxDistance");
+		setMinDistance(MIN_DISTANCE);
+		setMaxDistance(MAX_DISTANCE);
+		setDistanceUnit(DISTANCE_UNIT);
 	}
 	
 	/* (non-Javadoc)

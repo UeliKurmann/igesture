@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.ximtec.igesture.util.diff_match_patch;
@@ -70,6 +71,9 @@ public class MultimodalGestureRecogniser {
 	
 	/** queue to push composing gestures in */
 	private MultimodalGestureQueue queue;
+	
+	/** status of the multi-modal recogniser*/
+	private boolean running;
 	
 	/** handles threads */
 	private ExecutorService executor;
@@ -181,6 +185,8 @@ public class MultimodalGestureRecogniser {
 	
 	public void start()
 	{
+		running = true;
+		
 		/* start thread per ppt patterns */
 		//determine number of threads
 		double size = (double)patternsMapping.keySet().size();
@@ -190,13 +196,22 @@ public class MultimodalGestureRecogniser {
 		else
 			nrThreads = (int) (1 + size / patternsPerThread);
 		
-		System.out.println("threads: "+nrThreads);
+		LOGGER.log(Level.INFO,"Multi-modal Recogniser will use "+nrThreads+" thread(s).");
 		
 		executor = Executors.newFixedThreadPool(nrThreads);
+		LOGGER.log(Level.INFO, "Execution thread pool started.");
+		
+		//garbage collection thread
+		Thread t = new GarbageThread(queue);
+		t.start();
+		LOGGER.log(Level.INFO, "Garbage thread started.");
+	}
 	
-//		//TODO garbage collection thread
-//		Thread t = new GarbageThread(queue);
-//		t.start();
+	public void stop()
+	{
+		executor.shutdownNow();
+		running = false;
+		LOGGER.log(Level.INFO,"Execution thread pool stopped.");
 	}
 	
 	/**
@@ -223,13 +238,7 @@ public class MultimodalGestureRecogniser {
 			builder.append(queueElements[i].getCharacterRepresentation());
 		}
 		return builder.toString();
-	}
-
-	public void stop()
-	{
-		executor.shutdownNow();
-	}
-	
+	}	
 	
 	public Set<String> getComposingGestureClasses()
 	{
@@ -243,6 +252,11 @@ public class MultimodalGestureRecogniser {
 		return queue;
 	}
 	
+	public boolean isRunning()
+	{
+		return running;
+	}
+	
 	   /**
 	    * Fires an event and informs all registered gesture handlers.
 	    * 
@@ -251,7 +265,7 @@ public class MultimodalGestureRecogniser {
 	    */
 	   protected void fireEvent(final String result) {
 		   
-		  System.out.println("MMR result: "+result);
+		  LOGGER.log(Level.INFO,"MMR result: "+result);
 		  
 		  Executor executor = Executors.newFixedThreadPool(NR_THREADS);
 		  for (final MultimodalGestureHandler gestureHandler : gestureHandlers) {
@@ -424,12 +438,23 @@ public class MultimodalGestureRecogniser {
 	
 	class GarbageThread extends Thread
 	{
-
-		MultimodalGestureQueue queue;
+		private static final int SLEEP_TIME = 60000;
+		private static final int MIN_QUEUE_SIZE = 5;
+		
+		private MultimodalGestureQueue queue;
+		private int sleepTime;
+		private int minQueueSize;
 		
 		public GarbageThread(MultimodalGestureQueue queue)
 		{
+			this(queue, SLEEP_TIME, MIN_QUEUE_SIZE);
+		}
+		
+		public GarbageThread(MultimodalGestureQueue queue, int sleep, int queueSize)
+		{
 			this.queue = queue;
+			this.sleepTime = sleep;
+			this.minQueueSize = queueSize;
 		}
 		
 		/* (non-Javadoc)
@@ -441,52 +466,54 @@ public class MultimodalGestureRecogniser {
 			{
 				try
 				{
-					sleep(5000);
+					sleep(sleepTime);
 				}
 				catch(InterruptedException e)
 				{}
 				
 				boolean next = true;
-				while(next)
-				{
-					//get element
-					QueueElement elem = queue.peek();
-					//if queue not empty and element is not overlapped by time windows
-					if(elem != null && elem.getWindows() == 0)
+				if(queue.size() > minQueueSize)
+				{	
+					while(next)
 					{
-						//remove element from queue
-						final QueueElement e = queue.poll();
-						//if element not part of composite
-						if(!e.isIdentified())
+						//get element
+						QueueElement elem = queue.peek();
+						//if queue not empty and element is not overlapped by time windows
+						if(elem != null && elem.getWindows() == 0)
 						{
-							//notify registered GestureHandlers from source recogniser
-							Executor executor = Executors.newFixedThreadPool(NR_THREADS);
-							for (final GestureHandler gestureHandler : e.getResultSet().getSource().getGestureHandlers()) {
-								LOGGER.info("Handler: "+gestureHandler.getClass());
-								if (gestureHandler != null) {
-									executor.execute(new Runnable() {
+							//remove element from queue
+							final QueueElement e = queue.poll();
 							
-										@Override
-										public void run() {
-											gestureHandler.handle(e.getResultSet());
-										}
-							           
-									});
-								}
-						  	}
+							System.out.println("removed element "+e);
+							
+							//if element not part of composite
+							if(!e.isIdentified())
+							{
+								LOGGER.log(Level.INFO,"MMR simple result: "+e.getGesture().getName());
+								
+								//notify registered GestureHandlers from source recogniser
+								Executor executor = Executors.newFixedThreadPool(NR_THREADS);
+								for (final GestureHandler gestureHandler : e.getResultSet().getSource().getGestureHandlers()) {
+									
+									if (gestureHandler != null) {
+										executor.execute(new Runnable() {
+								
+											@Override
+											public void run() {
+												gestureHandler.handle(e.getResultSet());
+											}
+								           
+										});
+									}
+							  	}
+							}
+							next = true; //continue removing from head
 						}
-						next = true; //continue removing from head
+						else // element overlapped by time windows, stop removing from head
+							next = false;
 					}
-					else // element overlapped by time windows, stop removing from head
-						next = false;
-				}
-				
-				
-			}
-			
-		}
-		
+				}				
+			}			
+		}		
 	}
-
-
 }

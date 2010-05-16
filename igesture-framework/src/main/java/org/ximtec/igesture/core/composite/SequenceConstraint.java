@@ -41,6 +41,13 @@ public class SequenceConstraint extends DefaultConstraint {
 		DEFAULT_CONFIGURATION.put(Config.MAX_TIME.name(), MAX_TIME);
 		setterMapping.put(Config.MIN_TIME.name(), "setMinTime");
 		setterMapping.put(Config.MAX_TIME.name(), "setMaxTime");
+		try {
+			setMinTime(MIN_TIME);
+			setMaxTime(MAX_TIME);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	/**

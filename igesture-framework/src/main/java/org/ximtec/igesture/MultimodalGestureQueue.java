@@ -3,8 +3,10 @@
  */
 package org.ximtec.igesture;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.PriorityQueue;
 
@@ -21,8 +23,6 @@ import org.ximtec.igesture.core.ResultSet;
  */
 public class MultimodalGestureQueue {
 
-	//MARKING STRATEGY!!!!!!!!!
-		
 	private PriorityQueue<QueueElement> queue;
 	private Map<String, String> characterMapping;
 	private Map<String, Calendar> timeWindowMapping;
@@ -45,7 +45,12 @@ public class MultimodalGestureQueue {
 		//put in gesture queue
 		queue.add(new QueueElement(resultSet,characterMapping.get(resultSet.getGesture().getName())));
 		//execute a recognition step
-		recogniser.recognise(getWindowOfQueue());
+		if(recogniser.isRunning())
+		{
+			//avoid java.util.concurrent.RejectedExecutionException by asking the thread pool to execute something 
+			//if the pool is not running
+			recogniser.recognise(getWindowOfQueue());
+		}
 	}
 	
 	/**
@@ -91,12 +96,23 @@ public class MultimodalGestureQueue {
 	{
 		QueueElement[] arr = new QueueElement[1]; 
 		arr = queue.toArray(arr);
+	
+		// calculate time window
+		Calendar cal = timeWindowMapping.get(arr[arr.length-1].getGesture().getName());
+		int millis = cal.get(Calendar.MILLISECOND);
+		int seconds = cal.get(Calendar.SECOND);
+		int minutes = cal.get(Calendar.MINUTE);
+		int hours = cal.get(Calendar.HOUR);
+		millis += seconds*1000+minutes*60*1000+hours*60*60*1000;
+
+//		System.out.println(millis);
 		
-		long time = arr[arr.length-1].getTime() - timeWindowMapping.get(arr[arr.length-1].getGesture().getName()).getTimeInMillis();
-		
+		// calculate start time of window
+		long time = arr[arr.length-1].getTime() - millis;
 		
 		//TODO think that because of current time window implementation, there will not be a lot of correctly recognised gestures
 		
+		//get all gestures performed after time 'time'
 		int index = 0;
 		for (int i = 0; i < arr.length; i++) {
 			if(arr[i].getTime() >= time)
@@ -106,13 +122,28 @@ public class MultimodalGestureQueue {
 			}
 		}
 		
-		return Arrays.copyOfRange(arr, index, arr.length);
+		// remove all identified gestures
+//		List<QueueElement> list = Arrays.asList(Arrays.copyOfRange(arr, index, arr.length));
+		ArrayList<QueueElement> elements = new ArrayList<QueueElement>();
+		elements.addAll(Arrays.asList(Arrays.copyOfRange(arr, index, arr.length)));
+		for (Iterator iterator = elements.iterator(); iterator.hasNext();) {
+			QueueElement queueElement = (QueueElement) iterator.next();
+			if(queueElement.isIdentified())
+				iterator.remove();
+		}
+		return elements.toArray(new QueueElement[1]);
+		//return Arrays.copyOfRange(arr, index, arr.length);
 	}
 	
-	public boolean isEmpty()
+	public synchronized boolean isEmpty()
 	{
 		return queue.isEmpty();
 	}
+	
+	public synchronized int size()
+	{
+		return queue.size();
+	}	
 	
 	/**
 	 * This class represents an element in the queue and encapsulates different information.
@@ -225,6 +256,11 @@ public class MultimodalGestureQueue {
 		public ResultSet getResultSet()
 		{
 			return result;
+		}
+		
+		public String toString()
+		{
+			return "[QueueElement ["+gs.getName() + " "+ getTime()+"]]";
 		}
 	}
 }
