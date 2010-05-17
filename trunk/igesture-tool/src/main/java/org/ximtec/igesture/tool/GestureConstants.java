@@ -176,5 +176,5 @@ public class GestureConstants {
   public static final String COMPOSITE_TEST_BENCH_VIEW = "CompositeTestBenchView";
   public static final String COMPOSITE_ADD_RECOGNISER_ACTION = "CompositeAddRecogniserAction";
   public static final String COMPOSITE_RESET_ACTION = "CompositeResetAction";
-  public static final String COMPOSITE_RECORD_ACTION = "CompositeRecordAction";
+  public static final String COMPOSITE_RECOGNISE_ACTION = "CompositeRecogniseAction";
 }

@@ -16,10 +16,10 @@ public class CompositeController extends DefaultController {
 
 	private CompositeView compositeView;
 	
-	private boolean recording = false;
+	private boolean recognising = false;
 	
 	public static final String CMD_RESET = "reset";
-	public static final String CMD_RECORD = "record";
+	public static final String CMD_RECOGNISE = "recognise";
 	public static final String CMD_ADD_RECOGNISER = "addRecogniser";
 	
 	/**
@@ -45,11 +45,11 @@ public class CompositeController extends DefaultController {
 		 compositeView.reset();
 	 }
 	 
-	 @ExecCmd(name=CMD_RECORD)
-	 protected void record()
+	 @ExecCmd(name=CMD_RECOGNISE)
+	 protected void recognise()
 	 {
-		 recording = ! recording; 
-		 compositeView.record(recording);
+		 recognising = ! recognising; 
+		 compositeView.recognise(recognising);
 	 }
 	 
 	 @ExecCmd(name=CMD_ADD_RECOGNISER)

@@ -15,13 +15,13 @@ import org.ximtec.igesture.tool.view.composite.CompositeController;
  * @author Björn Puype, bpuype@gmail.com
  *
  */
-public class RecordAction extends LocateableAction {
+public class RecogniseAction extends LocateableAction {
 
 	private Controller controller;
 	
-	public RecordAction(Controller controller)
+	public RecogniseAction(Controller controller)
 	{
-		super(GestureConstants.COMPOSITE_RECORD_ACTION,controller.getLocator());
+		super(GestureConstants.COMPOSITE_RECOGNISE_ACTION,controller.getLocator());
 		this.controller = controller;
 	}
 		
@@ -30,7 +30,7 @@ public class RecordAction extends LocateableAction {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Command command = new Command(CompositeController.CMD_RECORD);
+		Command command = new Command(CompositeController.CMD_RECOGNISE);
 		controller.execute(command);
 	}
 
