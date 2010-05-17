@@ -58,7 +58,7 @@ import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.tool.view.MainModel;
 import org.ximtec.igesture.tool.view.composite.action.AddRecogniserAction;
-import org.ximtec.igesture.tool.view.composite.action.RecordAction;
+import org.ximtec.igesture.tool.view.composite.action.RecogniseAction;
 import org.ximtec.igesture.tool.view.composite.action.ResetAction;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
 
@@ -77,7 +77,7 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 	private List<Recogniser> recognisers;
 	private List<Connector> connectors;
 	
-	private JButton addRecogniserButton, btnRecord, btnReset;
+	private JButton addRecogniserButton, btnRecognise, btnReset;
 	private JComboBox cmbSets;
 	private JList deviceList, resultList, algList, setList;
 	
@@ -112,8 +112,8 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 		cmbSets.setSelectedIndex(0);
 		cmbSets.setEnabled(false);
 		
-		btnRecord = createButton(GestureConstants.COMPOSITE_RECORD_ACTION,
-				new RecordAction(getController()), false);
+		btnRecognise = createButton(GestureConstants.COMPOSITE_RECOGNISE_ACTION,
+				new RecogniseAction(getController()), false);
 		
 		btnReset = createButton(GestureConstants.COMPOSITE_RESET_ACTION,
 				new ResetAction(getController()), false);
@@ -127,7 +127,7 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 				if(source.getSelectedIndex() == 0)
 				{
 					// disable record
-					btnRecord.setEnabled(false);
+					btnRecognise.setEnabled(false);
 				}
 				else
 				{
@@ -137,12 +137,12 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 					if(validConfig)
 					{
 						// enable record
-						btnRecord.setEnabled(true);
+						btnRecognise.setEnabled(true);
 					}
 					else
 					{
 						JOptionPane.showMessageDialog(null,"Please select a set that contains composite gestures!","Error",JOptionPane.ERROR_MESSAGE);
-						btnRecord.setEnabled(false);
+						btnRecognise.setEnabled(false);
 					}
 
 				}				
@@ -152,7 +152,7 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 		
 		configPanel.add(lblSets);
 		configPanel.add(cmbSets);
-		configPanel.add(btnRecord);
+		configPanel.add(btnRecognise);
 		configPanel.add(btnReset);
 		
 		JPanel panel = new JPanel();
@@ -162,7 +162,7 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 		resultList = createList(null);
 		resultList.setEnabled(false);
 		JScrollPane scrollResultList = new JScrollPane(resultList);
-		scrollResultList.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY),"Resutls"));
+		scrollResultList.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY),"Results"));
 		panel.add(scrollResultList,BorderLayout.SOUTH);
 		
 		return panel;
@@ -385,7 +385,7 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 		//reset UI 
 		cmbSets.setSelectedIndex(0);
 		cmbSets.setEnabled(false);
-		btnRecord.setEnabled(false);
+		btnRecognise.setEnabled(false);
 		
 		algList.clearSelection();
 		algList.setEnabled(true);
@@ -393,6 +393,8 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 		setList.setEnabled(true);
 		deviceList.clearSelection();
 		deviceList.setEnabled(true);
+		
+		((DefaultListModel)resultList.getModel()).clear();
 		
 		//reset configuration
 		recognisers.clear();
@@ -407,13 +409,13 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 	}
 
 	/**
-	 * Record Command
-	 * @param recording true to start recording, false to stop recording
+	 * Recognise Command
+	 * @param startRecognising true to start recognising, false to stop recognising
 	 */
-	public void record(boolean recording) {
-		if(recording == true)
+	public void recognise(boolean startRecognising) {
+		if(startRecognising == true)
 		{
-			btnRecord.setText("Stop");
+			btnRecognise.setText("Stop");
 			mmrecogniser.start();
 			cmbSets.setEnabled(false);
 			
@@ -425,7 +427,7 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 		}
 		else
 		{
-			btnRecord.setText("Record");
+			btnRecognise.setText("Recognise");
 			mmrecogniser.stop();
 			cmbSets.setEnabled(true);
 			btnReset.setEnabled(true);
