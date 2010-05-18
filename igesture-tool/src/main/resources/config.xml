@@ -30,19 +30,23 @@
 		<device>
 			<name>SwingMouseReader</name>
 			<class>org.ximtec.igesture.tool.service.SwingMouseReaderService</class>
+			<type>2D</type>
 			<!-- io.mouseclient.SwingMouseReader -->
 		</device>
 		<device>
 			<name>WiiReader</name>
 			<class>org.ximtec.igesture.io.wiimote.WiiReader</class>
+			<type>3D</type>
 		</device>
 		<device>
 			<name>TuioReader2D</name>
 			<class>org.ximtec.igesture.io.tuio.TuioReader2D</class>
+			<type>2D</type>
 		</device>
 		<device>
 			<name>TuioReader3D</name>
 			<class>org.ximtec.igesture.io.tuio.TuioReader3D</class>
+			<type>3D</type>
 		</device>
 	</devices>
 </configuration>

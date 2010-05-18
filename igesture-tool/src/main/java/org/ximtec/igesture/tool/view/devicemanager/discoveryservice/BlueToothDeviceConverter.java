@@ -17,7 +17,7 @@ import org.w3c.dom.NodeList;
 import org.ximtec.igesture.io.AbstractGestureDevice;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.view.devicemanager.BlueToothReader;
-import org.ximtec.igesture.tool.view.devicemanager.XMLParser;
+import org.ximtec.igesture.util.XMLParser;
 
 /**
  * This class converts a found BlueTooth device to a {@link org.ximtec.igesture.io.AbstractGestureDevice}

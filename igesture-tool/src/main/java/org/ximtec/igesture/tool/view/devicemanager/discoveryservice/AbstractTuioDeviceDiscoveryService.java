@@ -23,7 +23,7 @@ import org.ximtec.igesture.io.DeviceDiscoveryService;
 import org.ximtec.igesture.io.tuio.TuioConstants;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.view.Property;
-import org.ximtec.igesture.tool.view.devicemanager.XMLParser;
+import org.ximtec.igesture.util.XMLParser;
 
 /**
  * @author Björn Puype, bpuype@gmail.com

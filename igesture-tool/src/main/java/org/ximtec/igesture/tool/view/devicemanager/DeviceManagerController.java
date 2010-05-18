@@ -35,6 +35,7 @@ import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
+import org.ximtec.igesture.util.XMLParser;
 
 /**
  * This class is an implementation of the controller of the Device Manager. It implements the {@link org.ximtec.igesture.io.IDeviceManager} interface.

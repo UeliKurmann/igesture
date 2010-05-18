@@ -172,9 +172,12 @@ public class GestureConstants {
   public static final String ADD_GESTURE_CLASS_TO_CONSTRAINT = "AddGestureClassToConstraintAction";
   public static final String REMOVE_GESTURE_CLASS_FROM_CONSTRAINT = "RemoveGestureClassFromConstraintAction";
   public static final String REMOVE_ALL_GESTURE_CLASSES_FROM_CONSTRAINT = "RemoveAllGestureClassesFromConstraintAction";
+  public static final String COMPOSITE_DESCRIPTOR_GESTURE_SETS = "CompositeDescriptorGestureSets";
+  public static final String COMPOSITE_DESCRIPTOR_GESTURE_CLASSES = "CompositeDescriptorGestureClasses";
 
   public static final String COMPOSITE_TEST_BENCH_VIEW = "CompositeTestBenchView";
   public static final String COMPOSITE_ADD_RECOGNISER_ACTION = "CompositeAddRecogniserAction";
   public static final String COMPOSITE_RESET_ACTION = "CompositeResetAction";
   public static final String COMPOSITE_RECOGNISE_ACTION = "CompositeRecogniseAction";
+  public static final String COMPOSITE_GESTURE_SET = "CompositeGestureSet";
 }

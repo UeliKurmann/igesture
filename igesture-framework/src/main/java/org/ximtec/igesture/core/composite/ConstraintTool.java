@@ -4,18 +4,56 @@
 package org.ximtec.igesture.core.composite;
 
 import java.awt.geom.Rectangle2D;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.NoteTool;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.ximtec.igesture.util.XMLParser;
 
 /**
  * @author Björn Puype, bpuype@gmail.com
  *
  */
 public class ConstraintTool {
+	
+	private static final Map<String, String> deviceMapping = new HashMap<String,String>(); 
+	
+	static{
+		
+		XMLParser parser = new XMLParser(){
+
+			@Override
+			public void execute(ArrayList<NodeList> nodeLists) {
+				String name = ((Node)nodeLists.get(0).item(0)).getNodeValue();
+				String type = ((Node)nodeLists.get(1).item(0)).getNodeValue();
+				deviceMapping.put(name, type);
+			}
+			
+		};
+		ArrayList<String> nodes = new ArrayList<String>();
+		nodes.add("name");
+		nodes.add("type");
+		try {
+			URL path = ConstraintTool.class.getClassLoader().getResource("config.xml");
+			parser.parse(path.getFile(),"device", nodes);
+		} catch (Exception e) {
+			e.printStackTrace();
+		};
+	}
+	
+	public static String getGestureType(String deviceType)
+	{
+		return deviceMapping.get(deviceType);
+	}
 
 	public static boolean isBoundsDiagonalValid(List<Note> notes, double minDistance, double maxDistance)
 	{

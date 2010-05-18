@@ -1,4 +1,4 @@
-package org.ximtec.igesture.tool.view.devicemanager;
+package org.ximtec.igesture.util;
 
 import java.io.File;
 import java.io.IOException;

@@ -61,7 +61,7 @@ import org.ximtec.igesture.tool.view.MainModel;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureClassToConstraintAction;
 import org.ximtec.igesture.tool.view.admin.action.RemoveAllGestureClassesFromConstraintAction;
 import org.ximtec.igesture.tool.view.admin.action.RemoveGestureClassFromConstraintAction;
-import org.ximtec.igesture.tool.view.devicemanager.XMLParser;
+import org.ximtec.igesture.util.XMLParser;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -75,6 +75,10 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 	private static final Logger LOGGER = Logger.getLogger(CompositeDescriptorPanel.class.getName());
 	
 	private static final int INPUTAREA_SIZE = 200;
+	
+	private static final String SELECT_SET = "Select a set";
+	private static final String SELECT_GESTURE = "Select a gesture";
+	private static final String SELECT_DEVICE_TYPE = "Select a device type";
 	
 	private JComboBox cmbSets, cmbGestures, cmbDevices;
 	private JCheckBox chkUser, chkDevices;
@@ -175,14 +179,14 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 		
 		//*** UI ***//
 		/* choose gesture set */
-		JLabel lblSets = new JLabel("Gesture sets:");
+		JLabel lblSets = getComponentFactory().createLabel(GestureConstants.COMPOSITE_DESCRIPTOR_GESTURE_SETS);
 		cmbSets = new JComboBox(getController().getLocator().getService(MainModel.IDENTIFIER, MainModel.class)
 		        .getGestureSets().toArray());
-		cmbSets.insertItemAt("Select a set", 0);
+		cmbSets.insertItemAt(SELECT_SET, 0);
 		cmbSets.setSelectedIndex(0);
 		/* choose gesture from the set */
-		JLabel lblGestures = new JLabel("Gesture classes:");
-		cmbGestures = new JComboBox(new Object[]{"Select a gesture"});
+		JLabel lblGestures = getComponentFactory().createLabel(GestureConstants.COMPOSITE_DESCRIPTOR_GESTURE_CLASSES);
+		cmbGestures = new JComboBox(new Object[]{SELECT_GESTURE});
 		cmbGestures.setEnabled(false);
 		
 		cmbSets.addActionListener(new ActionListener(){
@@ -194,7 +198,7 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 				JComboBox source = (JComboBox) e.getSource();
 				
 				cmbGestures.removeAllItems();
-				cmbGestures.addItem("Select a gesture");
+				cmbGestures.addItem(SELECT_GESTURE);
 				
 				if(source.getSelectedIndex() == 0)
 				{
@@ -234,7 +238,7 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 		chkDevices = createCheckBox("Device(s):", KeyEvent.VK_D);
 		cmbDevices = new JComboBox(deviceMapping.keySet().toArray());
 		cmbDevices.setEnabled(false);
-		cmbDevices.insertItemAt("Select a device type", 0);
+		cmbDevices.insertItemAt(SELECT_DEVICE_TYPE, 0);
 		cmbDevices.setSelectedIndex(0);
 		// specific device list
 		devicesList = new JList();
