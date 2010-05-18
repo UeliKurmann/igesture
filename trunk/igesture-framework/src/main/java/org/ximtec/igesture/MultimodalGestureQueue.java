@@ -57,18 +57,18 @@ public class MultimodalGestureQueue {
 	 * Remove an element from the queue
 	 * @return true if the element was removed
 	 */
-	public synchronized boolean remove()
-	{
-		boolean sleep = false;
-		//remove head from gesture queue
-		QueueElement elem = queue.peek();
-		if(elem != null && elem.getWindows() == 0)
-		{
-			queue.poll();
-			sleep = true;
-		}	
-		return sleep;
-	}
+//	public synchronized boolean remove()
+//	{
+//		boolean sleep = false;
+//		//remove head from gesture queue
+//		QueueElement elem = queue.peek();
+//		if(elem != null && elem.getWindows() == 0)
+//		{
+//			queue.poll();
+//			sleep = true;
+//		}	
+//		return sleep;
+//	}
 	
 	/**
 	 * Retrieves but does not remove the head of the queue, <i>null</i> if empty

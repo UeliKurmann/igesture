@@ -25,7 +25,7 @@ import org.ximtec.igesture.core.composite.Constraint;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.TreePathAction;
-import org.ximtec.igesture.tool.view.devicemanager.XMLParser;
+import org.ximtec.igesture.util.XMLParser;
 
 /**
  * @author Björn Puype, bpuype@gmail.com

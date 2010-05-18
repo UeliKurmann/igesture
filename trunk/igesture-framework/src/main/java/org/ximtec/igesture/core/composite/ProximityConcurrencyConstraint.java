@@ -37,10 +37,10 @@ public class ProximityConcurrencyConstraint extends ConcurrencyConstraint{
 	private static final String LOGGER_MESSAGE_NO_TYPE = "Proximity based constraints must specify the device type. " +
 								"The gesture class was not added.";
 
-	private static final String ERROR_MESSAGE_WRONG_TYPE = "The device type of this gesture does not match with the device type of the\n" +
-								"other gestures in the constraint. The device types must match!\n" +
-								"Please specify the following device type: ";
-	private static final String LOGGER_MESSAGE_WRONG_TYPE = "The device type of all composing gestures must match. The gesture class was not added.";
+	private static final String ERROR_MESSAGE_WRONG_TYPE = "The gestures created by a device of the specified type cannot be logically compared\n" +
+								"with the other gestures in the constraint!\n" +
+								"Please specify a device which creates gestures of type: ";
+	private static final String LOGGER_MESSAGE_WRONG_TYPE = "The gesture type (e.g. 2D, 3D) of all composing gestures must match. The gesture class was not added.";
 	
 	public enum Config{
 		MIN_DISTANCE, MAX_DISTANCE, DISTANCE_UNIT
@@ -92,7 +92,9 @@ public class ProximityConcurrencyConstraint extends ConcurrencyConstraint{
 	 */
 	@Override
 	public void addGestureClass(String gestureClass, String deviceType, Set<String> devices) {
-		if(gestures.isEmpty() || (!gestures.isEmpty() && gestures.get(0).getDeviceType().equals(deviceType)))
+		String myGestureType = ConstraintTool.getGestureType(deviceType);
+		
+		if(gestures.isEmpty() || (!gestures.isEmpty() && ConstraintTool.getGestureType(gestures.get(0).getDeviceType()).equals(myGestureType)))
 		{
 			DefaultConstraintEntry entry = new DefaultConstraintEntry(gestureClass, deviceType, devices); 
 			gestures.add(entry);
@@ -100,7 +102,7 @@ public class ProximityConcurrencyConstraint extends ConcurrencyConstraint{
 		}
 		else
 		{
-			IllegalArgumentException e = new IllegalArgumentException(ERROR_MESSAGE_WRONG_TYPE+gestures.get(0).getDeviceType());
+			IllegalArgumentException e = new IllegalArgumentException(ERROR_MESSAGE_WRONG_TYPE+ConstraintTool.getGestureType(gestures.get(0).getDeviceType()));
 			LOGGER.log(Level.SEVERE,LOGGER_MESSAGE_WRONG_TYPE,e);
 			throw e;
 		}
@@ -111,7 +113,9 @@ public class ProximityConcurrencyConstraint extends ConcurrencyConstraint{
 	 */
 	@Override
 	public void addGestureClass(String gestureClass, int user, String deviceType, Set<String> devices) {
-		if(gestures.isEmpty() || (!gestures.isEmpty() && gestures.get(0).getDeviceType().equals(deviceType)))
+		String myGestureType = ConstraintTool.getGestureType(deviceType);
+		
+		if(gestures.isEmpty() || (!gestures.isEmpty() && ConstraintTool.getGestureType(gestures.get(0).getDeviceType()).equals(myGestureType)))
 		{
 			DefaultConstraintEntry entry = new DefaultConstraintEntry(gestureClass, deviceType, devices);
 			gestures.add(entry);
@@ -119,7 +123,7 @@ public class ProximityConcurrencyConstraint extends ConcurrencyConstraint{
 		}
 		else
 		{
-			IllegalArgumentException e = new IllegalArgumentException(ERROR_MESSAGE_WRONG_TYPE+gestures.get(0).getDeviceType());
+			IllegalArgumentException e = new IllegalArgumentException(ERROR_MESSAGE_WRONG_TYPE+ConstraintTool.getGestureType(gestures.get(0).getDeviceType()));
 			LOGGER.log(Level.SEVERE,LOGGER_MESSAGE_WRONG_TYPE,e);
 			throw e;
 		}

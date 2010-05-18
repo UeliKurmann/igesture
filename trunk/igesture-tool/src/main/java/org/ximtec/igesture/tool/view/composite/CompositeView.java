@@ -105,7 +105,7 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 	private JPanel initMultimodalPanel() {
 		JPanel configPanel = new JPanel();
 		
-		JLabel lblSets = new JLabel("Gesture sets:");
+		JLabel lblSets = getComponentFactory().createLabel(GestureConstants.COMPOSITE_GESTURE_SET);
 		cmbSets = new JComboBox(getController().getLocator().getService(MainModel.IDENTIFIER, MainModel.class)
 		        .getGestureSets().toArray());
 		cmbSets.insertItemAt("Select a set", 0);
