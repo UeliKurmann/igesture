@@ -106,7 +106,7 @@ public class MainController extends DefaultController implements Service {
 	// List of controllers (no project active)
 	private static Class<?>[] passiveControllers = new Class<?>[] { WelcomeController.class };
 
-	private static final String IDENTIFIER = "mainController";
+	public static final String IDENTIFIER = "mainController";
 
 	// Services
 	private MainModel mainModel;
