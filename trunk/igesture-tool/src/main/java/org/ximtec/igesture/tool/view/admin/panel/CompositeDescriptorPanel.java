@@ -57,6 +57,7 @@ import org.ximtec.igesture.tool.binding.ConstraintTextFieldBinding;
 import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.service.DeviceManagerService;
 import org.ximtec.igesture.tool.util.Formatter;
+import org.ximtec.igesture.tool.view.MainController;
 import org.ximtec.igesture.tool.view.MainModel;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureClassToConstraintAction;
 import org.ximtec.igesture.tool.view.admin.action.RemoveAllGestureClassesFromConstraintAction;
@@ -98,7 +99,7 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 		deviceManager = controller.getLocator().getService(DeviceManagerService.IDENTIFIER, IDeviceManager.class);
 		deviceManager.addDeviceManagerListener(this);
 		constraint = descriptor.getConstraint();
-		((DefaultConstraint)constraint).addPropertyChangeListener(controller.getParent().getParent());
+		((DefaultConstraint)constraint).addPropertyChangeListener(controller.getLocator().getService(MainController.IDENTIFIER,MainController.class));
 		init();
 	}
 
