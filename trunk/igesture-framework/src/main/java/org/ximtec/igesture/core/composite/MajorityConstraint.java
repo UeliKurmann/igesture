@@ -4,10 +4,16 @@
 package org.ximtec.igesture.core.composite;
 
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.ximtec.igesture.core.Gesture;
+import org.ximtec.igesture.io.IDeviceManager;
+import org.ximtec.igesture.io.IUser;
 
 
 /**
@@ -25,7 +31,10 @@ public class MajorityConstraint extends IntervalConstraint {
 										"Please remove the existing gesture class from the constraint before adding a new one.";
 	private static final String LOGGER_MESSAGE = "A MajorityConstraint can only contain one gesture class. " +
 										"The gesture class was not added.";
-	
+	private static final String ERROR_MESSAGE_USER = "The user cannot be specified for a MajorityConstraint.\n" +
+			"The user field was not saved";
+	private static final String LOGGER_MESSAGE_USER = "The user cannot be specified for a MajorityConstraint.\n" +
+			"The gesture class was added without the user field.";
 	
 	public enum Config{
 		MIN_GESTURES, MAX_GESTURES
@@ -73,9 +82,12 @@ public class MajorityConstraint extends IntervalConstraint {
 	public void addGestureClass(String gestureClass, int user) {
 		if(gestures.isEmpty())
 		{
-			DefaultConstraintEntry entry = new DefaultConstraintEntry(gestureClass, user);
+			DefaultConstraintEntry entry = new DefaultConstraintEntry(gestureClass);
 			gestures.add(entry);
 			propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, gestures.indexOf(entry), null, entry);
+			IllegalArgumentException e = new IllegalArgumentException(ERROR_MESSAGE_USER);
+			LOGGER.log(Level.WARNING,LOGGER_MESSAGE_USER,e);
+			throw e;
 		}
 		else
 		{
@@ -95,6 +107,9 @@ public class MajorityConstraint extends IntervalConstraint {
 			DefaultConstraintEntry entry = new DefaultConstraintEntry(gestureClass, deviceType, devices); 
 			gestures.add(entry);
 			propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, gestures.indexOf(entry), null, entry);
+			IllegalArgumentException e = new IllegalArgumentException(ERROR_MESSAGE_USER);
+			LOGGER.log(Level.WARNING,LOGGER_MESSAGE_USER,e);
+			throw e;
 		}
 		else
 		{
@@ -174,6 +189,32 @@ public class MajorityConstraint extends IntervalConstraint {
 		}
 		
 		return patterns;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.ximtec.igesture.core.composite.DefaultConstraint#validateConditions(java.util.List)
+	 */
+	@Override
+	public boolean validateConditions(List<Gesture<?>> gestures, IDeviceManager manager) {
+		boolean conditionsValid = super.validateConditions(gestures, manager);
+		
+		if(conditionsValid) // if previous conditions hold
+		{
+			
+			Set<IUser> users = new HashSet<IUser>();
+			
+			//check if all gestures were created by different users
+			for (Iterator iterator = gestures.iterator(); iterator.hasNext();) {
+				Gesture<?> gesture = (Gesture<?>) iterator.next();
+				IUser user = manager.getAssociatedUser(gesture.getSource());
+				users.add(user);
+			}
+			
+			if(users.size() != gestures.size())
+				conditionsValid = false;
+		}
+		
+		return conditionsValid;
 	}
 
 	public String toString()
