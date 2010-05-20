@@ -189,7 +189,7 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 		panel.add(createScrollableList("Devices:", deviceList), createGridBagConstraints(2, 0, 1, 0.5));
 		addRecogniserButton = createButton(GestureConstants.COMPOSITE_ADD_RECOGNISER_ACTION,
 				new AddRecogniserAction(getController()), false); 
-		panel.add(addRecogniserButton, createGridBagConstraints(2, 5, 1, 0.5));
+		panel.add(addRecogniserButton, createGridBagConstraints(2, 2, 1, 0.5));
 		
 		ListSelectionListener listener = new ListSelectionListener(){
 
@@ -251,7 +251,7 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 		c.gridx = gridx;
 		c.gridy = gridy;
 		c.gridwidth = gridWidth;
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.weightx = weightx;
 		return c;		
 	}

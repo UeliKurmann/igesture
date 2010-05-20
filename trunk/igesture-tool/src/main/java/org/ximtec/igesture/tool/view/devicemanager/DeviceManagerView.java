@@ -104,9 +104,10 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 		userPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY),"Users:"));
 		
 		/////////////////////// add components
-		add(userPane,0,1,5,0);
-		add(createButton(addUserAction,BUTTON_WIDTH),0,2,1,0.5);
-		add(createButton(removeUserAction,BUTTON_WIDTH),1,2,1,0.5);
+		add(userPane,0,1,5,1,0);
+		System.out.println(userPane.getHeight());
+		add(createButton(addUserAction,BUTTON_WIDTH),0,2,1,1,0.5);
+		add(createButton(removeUserAction,BUTTON_WIDTH),1,2,1,1,0.5);
 		
 		
 		/********************************* Device Panel *******************************/
@@ -139,20 +140,20 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 		devicePane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY),"Devices:"));
 		
 		/////////////////////// add components
-		add(devicePane,0,4,5,0);
-		add(createButton(addDeviceAction,BUTTON_WIDTH),0,5,1,0.5);
-		add(createButton(associateUserAction,BUTTON_WIDTH),1,5,1,0.5);
-		add(createButton(removeDeviceAction,BUTTON_WIDTH),2,5,1,0.5);
-		add(createButton(reconnectDeviceAction,BUTTON_WIDTH),3,5,1,0.5);
-		add(createButton(disconnectDeviceAction,BUTTON_WIDTH),4,5,1,0.5);
+		add(devicePane,0,4,5,1,0);
+		add(createButton(addDeviceAction,BUTTON_WIDTH),0,5,1,1,0.5);
+		add(createButton(associateUserAction,BUTTON_WIDTH),1,5,1,1,0.5);
+		add(createButton(removeDeviceAction,BUTTON_WIDTH),2,5,1,1,0.5);
+		add(createButton(reconnectDeviceAction,BUTTON_WIDTH),3,5,1,1,0.5);
+		add(createButton(disconnectDeviceAction,BUTTON_WIDTH),4,5,1,1,0.5);
 		
 		/********************************* Bottom Panel *******************************/
 		/////////////////////// actions
 		SaveDeviceConfigurationAction saveDeviceConfigurationAction = new SaveDeviceConfigurationAction(deviceManagerController);
 		LoadDeviceConfigurationAction loadDeviceConfigurationAction = new LoadDeviceConfigurationAction(deviceManagerController);
 		
-		add(createButton(loadDeviceConfigurationAction,BUTTON_WIDTH),0,6,1,0.5);
-		add(createButton(saveDeviceConfigurationAction,BUTTON_WIDTH),1,6,1,0.5);
+		add(createButton(loadDeviceConfigurationAction,BUTTON_WIDTH),0,6,1,1,0.5);
+		add(createButton(saveDeviceConfigurationAction,BUTTON_WIDTH),1,6,1,1,0.5);
 		
 		//close button
 		JButton closeButton = new JButton("Close");
@@ -163,7 +164,7 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 				closeDialog();
 			}			
 		});
-		add(closeButton,4,6,1,0.5);
+		add(closeButton,4,6,1,1,0.5);
 		
 		pack();
 	}
@@ -175,13 +176,14 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 	 * @param gridy		The y position.
 	 * @param gridWidth	The width of the component in number of columns.
 	 */
-	private void add(JComponent component, int gridx, int gridy, int gridWidth, double weightx)
+	private void add(JComponent component, int gridx, int gridy, int gridWidth, int gridHeight, double weightx)
 	{
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = gridx;
 		c.gridy = gridy;
 		c.gridwidth = gridWidth;
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridheight = gridHeight;
+		c.fill = GridBagConstraints.BOTH;
 		c.weightx = weightx;
 		add(component,c);		
 	}
