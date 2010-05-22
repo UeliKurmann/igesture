@@ -13,6 +13,7 @@
  * Date				Who			Reason
  *
  * 05.01.2009		vogelsar	Initial Release
+ * 22.05.2010		bpuype		Code cleanup and bug fixes
  *
  * -----------------------------------------------------------------------
  *
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Logger;
 
 import org.sigtec.ink.Note;
 import org.sigtec.util.Constant;
@@ -36,26 +38,7 @@ import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.algorithm.AlgorithmException;
 import org.ximtec.igesture.algorithm.SampleBasedAlgorithm;
 import org.ximtec.igesture.algorithm.AlgorithmException.ExceptionType;
-import org.ximtec.igesture.algorithm.feature.F1;
-import org.ximtec.igesture.algorithm.feature.F10;
-import org.ximtec.igesture.algorithm.feature.F11;
-import org.ximtec.igesture.algorithm.feature.F12;
-import org.ximtec.igesture.algorithm.feature.F13;
-import org.ximtec.igesture.algorithm.feature.F14;
-import org.ximtec.igesture.algorithm.feature.F15;
-import org.ximtec.igesture.algorithm.feature.F16;
-import org.ximtec.igesture.algorithm.feature.F17;
-import org.ximtec.igesture.algorithm.feature.F18;
-import org.ximtec.igesture.algorithm.feature.F19;
-import org.ximtec.igesture.algorithm.feature.F2;
-import org.ximtec.igesture.algorithm.feature.F21;
-import org.ximtec.igesture.algorithm.feature.F3;
-import org.ximtec.igesture.algorithm.feature.F4;
-import org.ximtec.igesture.algorithm.feature.F5;
-import org.ximtec.igesture.algorithm.feature.F6;
-import org.ximtec.igesture.algorithm.feature.F7;
-import org.ximtec.igesture.algorithm.feature.F8;
-import org.ximtec.igesture.algorithm.feature.F9;
+import org.ximtec.igesture.algorithm.feature.Feature;
 import org.ximtec.igesture.algorithm.rubine.RubineAlgorithm;
 import org.ximtec.igesture.algorithm.rubine.RubineConfiguration;
 import org.ximtec.igesture.configuration.Configuration;
@@ -70,7 +53,13 @@ import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 public class Rubine3DAlgorithm extends SampleBasedAlgorithm/*implements Algorithm */{
 
+	private static final Logger LOGGER = Logger.getLogger(Rubine3DAlgorithm.class.getName());
+	
 	private Rubine3DConfiguration rubine3dConfig;
+	
+	private static final int PLANE_XY = 0;
+	private static final int PLANE_YZ = 1;
+	private static final int PLANE_ZX = 2;
 
 	// Plane gesture sets
 	private GestureSet setXY;
@@ -99,7 +88,7 @@ public class Rubine3DAlgorithm extends SampleBasedAlgorithm/*implements Algorith
 
 	@Override
 	public void init(Configuration configuration) throws AlgorithmException {
-		System.err.println("Rubine3DAlgorithm.init()");
+		LOGGER.info("Rubine3DAlgorithm.init()");
 		this.rubine3dConfig = new Rubine3DConfiguration(configuration);
 		// Split all gesture sets up into planes
 		Iterator<GestureSet> i = configuration.getGestureSets().iterator();
@@ -118,8 +107,7 @@ public class Rubine3DAlgorithm extends SampleBasedAlgorithm/*implements Algorith
 		if (gesture instanceof GestureSample3D) {
 			return this.recognise((GestureSample3D) gesture);
 		} else {
-			throw new AlgorithmException(ExceptionType.Recognition); // Is this
-			// correct?
+			throw new AlgorithmException(ExceptionType.Recognition);
 		}
 	}
 
@@ -141,9 +129,9 @@ public class Rubine3DAlgorithm extends SampleBasedAlgorithm/*implements Algorith
 		// Determine the weights of the planes
 		List<Double> weights = determinePlaneWeights();
 
-		Configuration configXY = createConfiguration("XY");
-		Configuration configYZ = createConfiguration("YZ");
-		Configuration configZX = createConfiguration("ZX");
+		Configuration configXY = createConfiguration(PLANE_XY);
+		Configuration configYZ = createConfiguration(PLANE_YZ);
+		Configuration configZX = createConfiguration(PLANE_ZX);
 		// Start recognition process
 		Recogniser recogniserXY = new Recogniser(configXY);
 		Recogniser recogniserYZ = new Recogniser(configYZ);
@@ -172,38 +160,37 @@ public class Rubine3DAlgorithm extends SampleBasedAlgorithm/*implements Algorith
 	 *            created
 	 * @return The configuration object for the recogniser of the plane
 	 */
-	private Configuration createConfiguration(String plane) {
+	private Configuration createConfiguration(int plane) {
 		// Configuration objects
 		Configuration recogniserConfig = new Configuration();
 		RubineConfiguration rubineConfig = null;
 
-		// System.err.println("PLANE: " + plane);
-
 		// Include the Rubine Algorithm
 		recogniserConfig.addAlgorithm(RubineAlgorithm.class.getName());
 		// Check for which plane the configuration should be
-		if (plane.equals("XY")) {
+		switch(plane)
+		{
+		case PLANE_XY:
 			// Add Gesture Set
 			recogniserConfig.addGestureSet(this.setXY);
 			rubineConfig = rubine3dConfig.getXyConfiguration();
-		}
-		if (plane.equals("YZ")) {
+			break;
+		case PLANE_YZ:
 			// Add Gesture Set
 			recogniserConfig.addGestureSet(this.setYZ);
 			rubineConfig = rubine3dConfig.getYzConfiguration();
-		}
-		if (plane.equals("ZX")) {
+			break;
+		case PLANE_ZX:
 			// Add Gesture Set
 			recogniserConfig.addGestureSet(this.setZX);
 			rubineConfig = rubine3dConfig.getZxConfiguration();
+			break;
+		default:
+			//LOGGER.severe("Rubine3DAlgorithm.createConfiguration(): Please provide a valid plane name.");
+			//return null;
 		}
-		// else {
-		// System.err
-		// .println("Rubine3DAlgorithm.createConfiguration(): Please provide a valid plane name.");
-		// return null;
-		// }
 
-		// System.err.println("RUBINE CONFIG: " + rubineConfig);
+		// LOGGER.info("RUBINE CONFIG: " + rubineConfig);
 
 		// Put parameters from rubineConfig into recogniserConfig
 		recogniserConfig.addParameter(RubineAlgorithm.class.getName(),
@@ -215,47 +202,16 @@ public class Rubine3DAlgorithm extends SampleBasedAlgorithm/*implements Algorith
 		recogniserConfig.addParameter(RubineAlgorithm.class.getName(),
 				RubineConfiguration.Config.PROBABILITY.name(), String
 						.valueOf(rubineConfig.getProbability()));
-		recogniserConfig.addParameter(RubineAlgorithm.class.getName(),
-				RubineConfiguration.Config.FEATURE_LIST.name(), F1.class
-						.getName()
-						+ Constant.COMMA
-						+ F2.class.getName()
-						+ Constant.COMMA
-						+ F3.class.getName()
-						+ Constant.COMMA
-						+ F4.class.getName()
-						+ Constant.COMMA
-						+ F5.class.getName()
-						+ Constant.COMMA
-						+ F6.class.getName()
-						+ Constant.COMMA
-						+ F7.class.getName()
-						+ Constant.COMMA
-						+ F8.class.getName()
-						+ Constant.COMMA
-						+ F9.class.getName()
-						+ Constant.COMMA
-						+ F10.class.getName()
-						+ Constant.COMMA
-						+ F11.class.getName()
-						+ Constant.COMMA
-						+ F12.class.getName()
-						+ Constant.COMMA
-						+ F13.class.getName()
-						+ Constant.COMMA
-						+ F14.class.getName()
-						+ Constant.COMMA
-						+ F15.class.getName()
-						+ Constant.COMMA
-						+ F16.class.getName()
-						+ Constant.COMMA
-						+ F17.class.getName()
-						+ Constant.COMMA
-						+ F18.class.getName()
-						+ Constant.COMMA
-						+ F19.class.getName()
-						+ Constant.COMMA
-						+ F21.class.getName());
+		
+		Feature[] features = rubineConfig.getFeatureList();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < features.length; i++) {
+			sb.append(features[i].getClass().getName());
+			sb.append(Constant.COMMA);
+		}
+
+		recogniserConfig.addParameter(RubineAlgorithm.class.getName(), 
+				RubineConfiguration.Config.FEATURE_LIST.name(), sb.toString());
 
 		// Return the configuration
 		return recogniserConfig;

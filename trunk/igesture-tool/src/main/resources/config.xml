@@ -14,8 +14,12 @@
 			<class>org.ximtec.igesture.core.composite.IntervalConstraint</class>
 		</constraint>
 		<constraint>
-			<name>Majority</name>
-			<class>org.ximtec.igesture.core.composite.MajorityConstraint</class>
+			<name>CardinalityDevice</name>
+			<class>org.ximtec.igesture.core.composite.CardinalityDeviceConstraint</class>
+		</constraint>
+		<constraint>
+			<name>CardinalityUser</name>
+			<class>org.ximtec.igesture.core.composite.CardinalityUserConstraint</class>
 		</constraint>
 		<constraint>
 			<name>ProximityConcurrent</name>

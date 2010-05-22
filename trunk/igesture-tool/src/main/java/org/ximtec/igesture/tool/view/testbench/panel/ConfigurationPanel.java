@@ -32,8 +32,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -253,18 +251,6 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
 	    });
 	    
 	    comboBox.setSelectedIndex(0);
-	
-	    comboBox.addMouseListener(new MouseAdapter() {
-	
-	      @Override
-	      public void mouseClicked(MouseEvent e) {
-	        configuration.removeAllGestureSets();
-	        GestureSet gestureSet = (GestureSet) comboBox.getSelectedItem();
-	        configuration.addGestureSet(gestureSet);
-	        recogniseAction.setEnabled(true);
-	      }
-	
-	    });
 	
 	    JButton clearButton = new BasicButton(new ClearGestureSampleAction(getController(), gestureDevice));
 	    //Formatter.formatButton(clearButton);

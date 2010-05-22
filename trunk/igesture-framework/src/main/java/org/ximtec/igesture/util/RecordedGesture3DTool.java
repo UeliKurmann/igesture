@@ -71,6 +71,9 @@ public class RecordedGesture3DTool {
 		// Draw acceleration graphs
 		drawAccelerationsGraph(acc, fields.get(3), 0.02, g);
 		
+		if(drawFieldTitles)
+			g.drawString(""+gs.size(), width/2-5, height/2+5);
+		
 		((Graphics2D)g).setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 	            RenderingHints.VALUE_ANTIALIAS_OFF);
   }

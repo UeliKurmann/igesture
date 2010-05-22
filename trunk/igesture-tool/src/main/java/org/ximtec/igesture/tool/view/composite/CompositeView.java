@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.Action;
 import javax.swing.BorderFactory;
@@ -31,6 +33,7 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.sigtec.graphix.GridBagLayouter;
 import org.ximtec.igesture.MultimodalGestureHandler;
 import org.ximtec.igesture.MultimodalGestureManager;
 import org.ximtec.igesture.MultimodalGestureRecogniser;
@@ -68,6 +71,8 @@ import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
  */
 public class CompositeView extends AbstractPanel implements TabbedView, DeviceManagerListener{
 
+	private static final Logger LOGGER = Logger.getLogger(CompositeView.class.getName());
+	
 	private Map<String, Class> algMapping;
 	
 	private IDeviceManager deviceManager;
@@ -182,14 +187,21 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 		}
 		
 		algList = createList(algMapping.keySet());
-		panel.add(createScrollableList("Algorithms:", algList),	createGridBagConstraints(0, 0, 1, 0.5));
+		GridBagLayouter.addComponent(panel, createScrollableList("Algorithms:", algList), 
+				0, 0, 1, 1, 0, 0, 0, 0, 0.5, 0.5, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		
 		setList = createList(getController().getLocator().getService(MainModel.IDENTIFIER, MainModel.class).getGestureSets()); 
-		panel.add(createScrollableList("Gesture Sets:", setList), createGridBagConstraints(1, 0, 1, 0.5));
+		GridBagLayouter.addComponent(panel, createScrollableList("Gesture Sets:", setList), 
+				1, 0, 1, 1, 0, 0, 0, 0, 0.7, 0.5, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		
 		deviceList = createList(getController().getLocator().getService(DeviceManagerService.IDENTIFIER, DeviceManagerController.class).getDevices());
-		panel.add(createScrollableList("Devices:", deviceList), createGridBagConstraints(2, 0, 1, 0.5));
+		GridBagLayouter.addComponent(panel, createScrollableList("Devices:", deviceList),  
+				2, 0, 1, 1, 0, 0, 0, 0, 0.2, 0.5, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		
 		addRecogniserButton = createButton(GestureConstants.COMPOSITE_ADD_RECOGNISER_ACTION,
-				new AddRecogniserAction(getController()), false); 
-		panel.add(addRecogniserButton, createGridBagConstraints(2, 2, 1, 0.5));
+				new AddRecogniserAction(getController()), false); 		
+		GridBagLayouter.addComponent(panel, addRecogniserButton, 
+				2, 2, 1, 1, 0, 0, 0, 0, 0.2, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
 		
 		ListSelectionListener listener = new ListSelectionListener(){
 
@@ -234,26 +246,6 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 			}
 		}
 		return list;
-	}
-	
-	/**
-	 * Create GridBagConstraint
-	 * @param component	The component to add.
-	 * @param gridx		The x position.
-	 * @param gridy		The y position.
-	 * @param gridWidth	The width of the component in number of columns.
-	 * @param gridHeight The height of the component in number of rows.
-	 * @param weightx	
-	 */
-	private GridBagConstraints createGridBagConstraints(int gridx, int gridy, int gridWidth, double weightx)
-	{
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = gridx;
-		c.gridy = gridy;
-		c.gridwidth = gridWidth;
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = weightx;
-		return c;		
 	}
 	
 	/**
@@ -382,6 +374,8 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 	 * Reset Command
 	 */
 	public void reset() {
+		
+		LOGGER.log(Level.INFO,"Resetting GUI and multi-modal recognition architecture.");
 		//reset UI 
 		cmbSets.setSelectedIndex(0);
 		cmbSets.setEnabled(false);
@@ -415,6 +409,7 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 	public void recognise(boolean startRecognising) {
 		if(startRecognising == true)
 		{
+			LOGGER.log(Level.INFO,"Multi-modal recognition process started.");
 			btnRecognise.setText("Stop");
 			mmrecogniser.start();
 			cmbSets.setEnabled(false);
@@ -427,6 +422,7 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 		}
 		else
 		{
+			LOGGER.log(Level.INFO,"Multi-modal recognition process stopped.");
 			btnRecognise.setText("Recognise");
 			mmrecogniser.stop();
 			cmbSets.setEnabled(true);
@@ -481,6 +477,8 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 			
 			cmbSets.setEnabled(true);
 			btnReset.setEnabled(true);
+			
+			LOGGER.log(Level.INFO,"Added Recogniser to multi-modal recognition architecture.");
 		} catch (AlgorithmException e1) {
 			e1.printStackTrace();
 		}
