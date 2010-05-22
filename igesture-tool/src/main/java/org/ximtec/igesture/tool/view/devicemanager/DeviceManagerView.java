@@ -12,10 +12,10 @@ import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import org.sigtec.graphix.GridBagLayouter;
 import org.sigtec.graphix.GuiBundle;
 import org.sigtec.graphix.widget.BasicAction;
 import org.sigtec.graphix.widget.BasicButton;
@@ -104,10 +104,12 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 		userPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY),"Users:"));
 		
 		/////////////////////// add components
-		add(userPane,0,1,5,1,0);
-		System.out.println(userPane.getHeight());
-		add(createButton(addUserAction,BUTTON_WIDTH),0,2,1,1,0.5);
-		add(createButton(removeUserAction,BUTTON_WIDTH),1,2,1,1,0.5);
+		GridBagLayouter.addComponent(this, userPane, 
+				0, 1, 5, 1, 0, 0, 0, 0, 0, 0.5, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		GridBagLayouter.addComponent(this, createButton(addUserAction,BUTTON_WIDTH), 
+				0, 2, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		GridBagLayouter.addComponent(this, createButton(removeUserAction,BUTTON_WIDTH), 
+				1, 2, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
 		
 		
 		/********************************* Device Panel *******************************/
@@ -140,20 +142,28 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 		devicePane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.GRAY),"Devices:"));
 		
 		/////////////////////// add components
-		add(devicePane,0,4,5,1,0);
-		add(createButton(addDeviceAction,BUTTON_WIDTH),0,5,1,1,0.5);
-		add(createButton(associateUserAction,BUTTON_WIDTH),1,5,1,1,0.5);
-		add(createButton(removeDeviceAction,BUTTON_WIDTH),2,5,1,1,0.5);
-		add(createButton(reconnectDeviceAction,BUTTON_WIDTH),3,5,1,1,0.5);
-		add(createButton(disconnectDeviceAction,BUTTON_WIDTH),4,5,1,1,0.5);
+		GridBagLayouter.addComponent(this, devicePane, 
+				0, 4, 5, 1, 0, 0, 0, 0, 0, 0.5, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		GridBagLayouter.addComponent(this, createButton(addDeviceAction,BUTTON_WIDTH), 
+				0, 5, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		GridBagLayouter.addComponent(this, createButton(associateUserAction,BUTTON_WIDTH), 
+				1, 5, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		GridBagLayouter.addComponent(this, createButton(removeDeviceAction,BUTTON_WIDTH), 
+				2, 5, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		GridBagLayouter.addComponent(this, createButton(reconnectDeviceAction,BUTTON_WIDTH), 
+				3, 5, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		GridBagLayouter.addComponent(this, createButton(disconnectDeviceAction,BUTTON_WIDTH), 
+				4, 5, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
 		
 		/********************************* Bottom Panel *******************************/
 		/////////////////////// actions
 		SaveDeviceConfigurationAction saveDeviceConfigurationAction = new SaveDeviceConfigurationAction(deviceManagerController);
 		LoadDeviceConfigurationAction loadDeviceConfigurationAction = new LoadDeviceConfigurationAction(deviceManagerController);
 		
-		add(createButton(loadDeviceConfigurationAction,BUTTON_WIDTH),0,6,1,1,0.5);
-		add(createButton(saveDeviceConfigurationAction,BUTTON_WIDTH),1,6,1,1,0.5);
+		GridBagLayouter.addComponent(this, createButton(loadDeviceConfigurationAction,BUTTON_WIDTH), 
+				0, 6, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		GridBagLayouter.addComponent(this, createButton(saveDeviceConfigurationAction,BUTTON_WIDTH), 
+				1, 6, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
 		
 		//close button
 		JButton closeButton = new JButton("Close");
@@ -164,28 +174,11 @@ public class DeviceManagerView extends BasicDialog implements IDeviceManagerView
 				closeDialog();
 			}			
 		});
-		add(closeButton,4,6,1,1,0.5);
+		GridBagLayouter.addComponent(this, closeButton, 
+				4, 6, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
 		
 		pack();
-	}
-	
-	/**
-	 * Add component to the GridBagLayout.
-	 * @param component	The component to add.
-	 * @param gridx		The x position.
-	 * @param gridy		The y position.
-	 * @param gridWidth	The width of the component in number of columns.
-	 */
-	private void add(JComponent component, int gridx, int gridy, int gridWidth, int gridHeight, double weightx)
-	{
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = gridx;
-		c.gridy = gridy;
-		c.gridwidth = gridWidth;
-		c.gridheight = gridHeight;
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = weightx;
-		add(component,c);		
+		repaint();
 	}
 
 	/**

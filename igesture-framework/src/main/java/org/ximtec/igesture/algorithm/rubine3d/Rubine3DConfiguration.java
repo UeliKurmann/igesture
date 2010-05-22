@@ -13,6 +13,7 @@
  * Date				Who			Reason
  *
  * 05.01.2009		vogelsar	Initial Release
+ * 22.05.2010		bpuype		Code cleanup and bug fixes
  *
  * -----------------------------------------------------------------------
  *
@@ -44,6 +45,7 @@ import org.ximtec.igesture.algorithm.feature.F17;
 import org.ximtec.igesture.algorithm.feature.F18;
 import org.ximtec.igesture.algorithm.feature.F19;
 import org.ximtec.igesture.algorithm.feature.F2;
+import org.ximtec.igesture.algorithm.feature.F20;
 import org.ximtec.igesture.algorithm.feature.F21;
 import org.ximtec.igesture.algorithm.feature.F3;
 import org.ximtec.igesture.algorithm.feature.F4;
@@ -60,7 +62,7 @@ public class Rubine3DConfiguration {
 
 	private static final Logger LOGGER = Logger
 			.getLogger(Rubine3DConfiguration.class.getName());
-
+	
 	private static final String DEFAULT_XY_WEIGHT = "0.2";
 	private static final String DEFAULT_YZ_WEIGHT = "0.6";
 	private static final String DEFAULT_ZX_WEIGHT = "0.2";
@@ -68,56 +70,14 @@ public class Rubine3DConfiguration {
 	private static final String DEFAULT_XY_MIN_DISTANCE = "2.0";
 	private static final String DEFAULT_XY_MAHALANOBIS_DISTANCE = "400.0";
 	private static final String DEFAULT_XY_PROBABILITY = "0.95";
-	public static final String DEFAULT_XY_FEATURE_LIST = F1.class.getName()
-			+ Constant.COMMA + F2.class.getName() + Constant.COMMA
-			+ F3.class.getName() + Constant.COMMA + F4.class.getName()
-			+ Constant.COMMA + F5.class.getName() + Constant.COMMA
-			+ F6.class.getName() + Constant.COMMA + F7.class.getName()
-			+ Constant.COMMA + F8.class.getName() + Constant.COMMA
-			+ F9.class.getName() + Constant.COMMA + F10.class.getName()
-			+ Constant.COMMA + F11.class.getName() + Constant.COMMA
-			+ F12.class.getName() + Constant.COMMA + F13.class.getName()
-			+ Constant.COMMA + F14.class.getName() + Constant.COMMA
-			+ F15.class.getName() + Constant.COMMA + F16.class.getName()
-			+ Constant.COMMA + F17.class.getName() + Constant.COMMA
-			+ F18.class.getName() + Constant.COMMA + F19.class.getName()
-			+ Constant.COMMA + F21.class.getName();
 
 	private static final String DEFAULT_YZ_MIN_DISTANCE = "3.0";
 	private static final String DEFAULT_YZ_MAHALANOBIS_DISTANCE = "800.0";
 	private static final String DEFAULT_YZ_PROBABILITY = "0.95";
-	private static final String DEFAULT_YZ_FEATURE_LIST = F1.class.getName()
-	+ Constant.COMMA + F2.class.getName() + Constant.COMMA
-	+ F3.class.getName() + Constant.COMMA + F4.class.getName()
-	+ Constant.COMMA + F5.class.getName() + Constant.COMMA
-	+ F6.class.getName() + Constant.COMMA + F7.class.getName()
-	+ Constant.COMMA + F8.class.getName() + Constant.COMMA
-	+ F9.class.getName() + Constant.COMMA + F10.class.getName()
-	+ Constant.COMMA + F11.class.getName() + Constant.COMMA
-	+ F12.class.getName() + Constant.COMMA + F13.class.getName()
-	+ Constant.COMMA + F14.class.getName() + Constant.COMMA
-	+ F15.class.getName() + Constant.COMMA + F16.class.getName()
-	+ Constant.COMMA + F17.class.getName() + Constant.COMMA
-	+ F18.class.getName() + Constant.COMMA + F19.class.getName()
-	+ Constant.COMMA + F21.class.getName();
 	
 	private static final String DEFAULT_ZX_MIN_DISTANCE = "1.0";
 	private static final String DEFAULT_ZX_MAHALANOBIS_DISTANCE = "400.0";
 	private static final String DEFAULT_ZX_PROBABILITY = "0.95";
-	private static final String DEFAULT_ZX_FEATURE_LIST = F1.class.getName()
-	+ Constant.COMMA + F2.class.getName() + Constant.COMMA
-	+ F3.class.getName() + Constant.COMMA + F4.class.getName()
-	+ Constant.COMMA + F5.class.getName() + Constant.COMMA
-	+ F6.class.getName() + Constant.COMMA + F7.class.getName()
-	+ Constant.COMMA + F8.class.getName() + Constant.COMMA
-	+ F9.class.getName() + Constant.COMMA + F10.class.getName()
-	+ Constant.COMMA + F11.class.getName() + Constant.COMMA
-	+ F12.class.getName() + Constant.COMMA + F13.class.getName()
-	+ Constant.COMMA + F14.class.getName() + Constant.COMMA
-	+ F15.class.getName() + Constant.COMMA + F16.class.getName()
-	+ Constant.COMMA + F17.class.getName() + Constant.COMMA
-	+ F18.class.getName() + Constant.COMMA + F19.class.getName()
-	+ Constant.COMMA + F21.class.getName();
 
 	protected static Map<String, String> DEFAULT_CONFIGURATION = new HashMap<String, String>();
 
@@ -143,6 +103,12 @@ public class Rubine3DConfiguration {
 		DEFAULT_CONFIGURATION.put(Config.YZ_WEIGHT.name(), DEFAULT_YZ_WEIGHT);
 		DEFAULT_CONFIGURATION.put(Config.ZX_WEIGHT.name(), DEFAULT_ZX_WEIGHT);
 
+		StringBuilder sb = new StringBuilder();
+	    for(Class<?> clazz:new Class<?>[]{F1.class, F2.class, F3.class/*, F4.class, F5.class, F6.class, F7.class, F8.class, F9.class, F10.class, F11.class, F12.class, F13.class, F14.class, F15.class, F16.class, F17.class, F18.class, F19.class, F20.class, F21.class*/}){
+	      sb.append(clazz.getName());
+	      sb.append(Constant.COMMA);
+	    }		
+		
 		DEFAULT_CONFIGURATION.put(Config.XY_MIN_DISTANCE.name(),
 				DEFAULT_XY_MIN_DISTANCE);
 		DEFAULT_CONFIGURATION.put(Config.XY_MAHALANOBIS_DISTANCE.name(),
@@ -150,7 +116,7 @@ public class Rubine3DConfiguration {
 		DEFAULT_CONFIGURATION.put(Config.XY_PROBABILITY.name(),
 				DEFAULT_XY_PROBABILITY);
 		DEFAULT_CONFIGURATION.put(Config.XY_FEATURE_LIST.name(),
-				DEFAULT_XY_FEATURE_LIST);
+				sb.toString());
 
 		DEFAULT_CONFIGURATION.put(Config.YZ_MIN_DISTANCE.name(),
 				DEFAULT_YZ_MIN_DISTANCE);
@@ -159,7 +125,7 @@ public class Rubine3DConfiguration {
 		DEFAULT_CONFIGURATION.put(Config.YZ_PROBABILITY.name(),
 				DEFAULT_YZ_PROBABILITY);
 		DEFAULT_CONFIGURATION.put(Config.YZ_FEATURE_LIST.name(),
-				DEFAULT_YZ_FEATURE_LIST);
+				sb.toString());
 
 		DEFAULT_CONFIGURATION.put(Config.ZX_MIN_DISTANCE.name(),
 				DEFAULT_ZX_MIN_DISTANCE);
@@ -168,7 +134,7 @@ public class Rubine3DConfiguration {
 		DEFAULT_CONFIGURATION.put(Config.ZX_PROBABILITY.name(),
 				DEFAULT_ZX_PROBABILITY);
 		DEFAULT_CONFIGURATION.put(Config.ZX_FEATURE_LIST.name(),
-				DEFAULT_ZX_FEATURE_LIST);
+				sb.toString());
 
 		LOGGER.setLevel(Level.SEVERE);
 	}
@@ -233,7 +199,7 @@ public class Rubine3DConfiguration {
 								parameters, DEFAULT_CONFIGURATION)));
 		String yzFeatureNames = AlgorithmTool.getParameterValue(
 				Config.YZ_FEATURE_LIST.name(), parameters,
-				DEFAULT_CONFIGURATION);
+				DEFAULT_CONFIGURATION);	
 		yzConf.addParameter(RubineAlgorithm.class.getCanonicalName(),
 				"FEATURE_LIST", yzFeatureNames);
 
@@ -255,7 +221,7 @@ public class Rubine3DConfiguration {
 								parameters, DEFAULT_CONFIGURATION)));
 		String zxFeatureNames = AlgorithmTool.getParameterValue(
 				Config.ZX_FEATURE_LIST.name(), parameters,
-				DEFAULT_CONFIGURATION);
+				DEFAULT_CONFIGURATION);	
 		zxConf.addParameter(RubineAlgorithm.class.getCanonicalName(),
 				"FEATURE_LIST", zxFeatureNames);
 
@@ -267,48 +233,24 @@ public class Rubine3DConfiguration {
 		return xyWeight;
 	}
 
-	public void setXyWeight(double xyWeight) {
-		this.xyWeight = xyWeight;
-	}
-
 	public double getYzWeight() {
 		return yzWeight;
-	}
-
-	public void setYzWeight(double yzWeight) {
-		this.yzWeight = yzWeight;
 	}
 
 	public double getZxWeight() {
 		return zxWeight;
 	}
 
-	public void setZxWeight(double zxWeight) {
-		this.zxWeight = zxWeight;
-	}
-
 	public RubineConfiguration getXyConfiguration() {
 		return xyConfiguration;
-	}
-
-	public void setXyConfiguration(RubineConfiguration xyConfiguration) {
-		this.xyConfiguration = xyConfiguration;
 	}
 
 	public RubineConfiguration getYzConfiguration() {
 		return yzConfiguration;
 	}
 
-	public void setYzConfiguration(RubineConfiguration yzConfiguration) {
-		this.yzConfiguration = yzConfiguration;
-	}
-
 	public RubineConfiguration getZxConfiguration() {
 		return zxConfiguration;
-	}
-
-	public void setZxConfiguration(RubineConfiguration zxConfiguration) {
-		this.zxConfiguration = zxConfiguration;
 	}
 
 	public static Map<String, String> getDefaultConfiguration() {

@@ -41,6 +41,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerNumberModel;
 
+import org.sigtec.graphix.GridBagLayouter;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.ximtec.igesture.core.GestureClass;
@@ -295,15 +296,24 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 		// add components to the content panel
 		JPanel contentPanel = new JPanel();
 		contentPanel.setLayout(new GridBagLayout());
-		contentPanel.add(lblSets,createGridBagConstraints(0,0,1,1,0.5));
-		contentPanel.add(cmbSets,createGridBagConstraints(1,0,1,1,0.5));
-		contentPanel.add(lblGestures,createGridBagConstraints(0,1,1,1,0.5));
-		contentPanel.add(cmbGestures,createGridBagConstraints(1,1,1,1,0.5));
-		contentPanel.add(chkUser,createGridBagConstraints(2,0,1,1,0.5));
-		contentPanel.add(spinUser,createGridBagConstraints(3,0,1,1,0.5));
-		contentPanel.add(chkDevices,createGridBagConstraints(2,1,1,1,0.5));
-		contentPanel.add(cmbDevices,createGridBagConstraints(3,1,1,1,0.5));
-		contentPanel.add(scrollDevicesList,createGridBagConstraints(3,2,1,3,0.5));
+		GridBagLayouter.addComponent(contentPanel, lblSets, 
+				0, 0, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		GridBagLayouter.addComponent(contentPanel, cmbSets, 
+				1, 0, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		GridBagLayouter.addComponent(contentPanel, lblGestures, 
+				0, 1, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		GridBagLayouter.addComponent(contentPanel, cmbGestures, 
+				1, 1, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		GridBagLayouter.addComponent(contentPanel, chkUser, 
+				2, 0, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		GridBagLayouter.addComponent(contentPanel, spinUser, 
+				3, 0, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		GridBagLayouter.addComponent(contentPanel, chkDevices, 
+				2, 1, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		GridBagLayouter.addComponent(contentPanel, cmbDevices, 
+				3, 1, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		GridBagLayouter.addComponent(contentPanel, scrollDevicesList, 
+				3, 2, 1, 3, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
 		
 		btnAdd = createButton(
 				GestureConstants.ADD_GESTURE_CLASS_TO_CONSTRAINT,
@@ -330,9 +340,12 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 			
 		});
 		
-		contentPanel.add(btnAdd,createGridBagConstraints(1,2,1,1,0.5));
-		contentPanel.add(btnRemove,createGridBagConstraints(0,4,1,1,0.5));
-		contentPanel.add(btnClear,createGridBagConstraints(1,4,1,1,0.5));
+		GridBagLayouter.addComponent(contentPanel, btnAdd, 
+				1, 2, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.CENTER, GridBagConstraints.BOTH);
+		GridBagLayouter.addComponent(contentPanel, btnRemove, 
+				0, 4, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.PAGE_END, GridBagConstraints.HORIZONTAL);
+		GridBagLayouter.addComponent(contentPanel, btnClear, 
+				1, 4, 1, 1, 0, 0, 0, 0, 0.5, 0, GridBagConstraints.PAGE_END, GridBagConstraints.HORIZONTAL);
 			
 		JPanel basePanel = new JPanel();
 		basePanel.setLayout(new BorderLayout());
@@ -365,27 +378,6 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 		basePanel.add(scrollResultList,BorderLayout.SOUTH);
 		
 		setBottom(basePanel);
-	}
-	
-	/**
-	 * Create GridBagConstraint
-	 * @param component	The component to add.
-	 * @param gridx		The x position.
-	 * @param gridy		The y position.
-	 * @param gridWidth	The width of the component in number of columns.
-	 * @param gridHeight The height of the component in number of rows.
-	 * @param weightx	
-	 */
-	private GridBagConstraints createGridBagConstraints(int gridx, int gridy, int gridWidth, int gridHeight, double weightx)
-	{
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = gridx;
-		c.gridy = gridy;
-		c.gridwidth = gridWidth;
-		c.gridheight = gridHeight;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = weightx;
-		return c;		
 	}
 	
 	/**

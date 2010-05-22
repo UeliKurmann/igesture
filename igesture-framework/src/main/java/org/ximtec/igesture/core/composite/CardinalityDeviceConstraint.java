@@ -12,28 +12,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.ximtec.igesture.core.Gesture;
+import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.io.IDeviceManager;
-import org.ximtec.igesture.io.IUser;
-
 
 /**
- * This class represents a majority constraint. A certain gesture has to be performed between a mimimum and a maximum number 
- * of times within a certain time interval. The name is derived from the main example for this kind of constraint, 
- * defining a majority.
+ * This class represents a cardinality constraint. A certain gesture has to be performed between a mimimum and a maximum number 
+ * of times within a certain time interval. The main example for this kind of constraint is defining a majority. 
+ * Each device has only one vote.
  * 
  * @author Björn Puype, bpuype@gmail.com
  *
  */
-public class MajorityConstraint extends IntervalConstraint {
+public class CardinalityDeviceConstraint extends IntervalConstraint {
 
-	private static final Logger LOGGER = Logger.getLogger(MajorityConstraint.class.getName());
-	private static final String ERROR_MESSAGE = "A MajorityConstraint can only contain one gesture class.\n" +
+	private static final Logger LOGGER = Logger.getLogger(CardinalityUserConstraint.class.getName());
+	private static final String ERROR_MESSAGE = "A cardinality based constraint can only contain one gesture class.\n" +
 										"Please remove the existing gesture class from the constraint before adding a new one.";
-	private static final String LOGGER_MESSAGE = "A MajorityConstraint can only contain one gesture class. " +
+	private static final String LOGGER_MESSAGE = "A cardinality based constraint can only contain one gesture class. " +
 										"The gesture class was not added.";
-	private static final String ERROR_MESSAGE_USER = "The user cannot be specified for a MajorityConstraint.\n" +
+	private static final String ERROR_MESSAGE_USER = "The user cannot be specified for a cardinality based constraint.\n" +
 			"The user field was not saved";
-	private static final String LOGGER_MESSAGE_USER = "The user cannot be specified for a MajorityConstraint.\n" +
+	private static final String LOGGER_MESSAGE_USER = "The user cannot be specified for a cardinality based constraint.\n" +
 			"The gesture class was added without the user field.";
 	
 	public enum Config{
@@ -46,7 +45,7 @@ public class MajorityConstraint extends IntervalConstraint {
 	private int minGestures;
 	private int maxGestures;
 
-	public MajorityConstraint() {
+	public CardinalityDeviceConstraint() {
 		super();
 		DEFAULT_CONFIGURATION.put(Config.MIN_GESTURES.name(), MIN_GESTURES);
 		DEFAULT_CONFIGURATION.put(Config.MAX_GESTURES.name(), MAX_GESTURES);
@@ -201,16 +200,16 @@ public class MajorityConstraint extends IntervalConstraint {
 		if(conditionsValid) // if previous conditions hold
 		{
 			
-			Set<IUser> users = new HashSet<IUser>();
+			Set<GestureDevice<?,?>> devs = new HashSet<GestureDevice<?,?>>();
 			
-			//check if all gestures were created by different users
+			//check if all gestures were created by different devices
 			for (Iterator iterator = gestures.iterator(); iterator.hasNext();) {
 				Gesture<?> gesture = (Gesture<?>) iterator.next();
-				IUser user = manager.getAssociatedUser(gesture.getSource());
-				users.add(user);
+				GestureDevice<?,?> dev = gesture.getSource();
+				devs.add(dev);
 			}
 			
-			if(users.size() != gestures.size())
+			if(devs.size() != gestures.size())
 				conditionsValid = false;
 		}
 		
@@ -219,7 +218,6 @@ public class MajorityConstraint extends IntervalConstraint {
 
 	public String toString()
 	{
-		return MajorityConstraint.class.getSimpleName();
+		return CardinalityDeviceConstraint.class.getSimpleName();
 	}
-	
 }
