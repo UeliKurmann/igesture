@@ -24,7 +24,7 @@ import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
 
 /**
  * Action to add a user. It extends {@link org.sigtec.graphix.widget.BasicAction}.
- * @author BjÃ¶rn Puype, bpuype@gmail.com
+ * @author Björn Puypeype, bpuype@gmail.com
  *
  */
 public class AddUserAction extends BasicAction {

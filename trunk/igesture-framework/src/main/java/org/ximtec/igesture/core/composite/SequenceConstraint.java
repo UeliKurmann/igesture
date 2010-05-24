@@ -20,7 +20,7 @@ import org.ximtec.igesture.io.IDeviceManager;
  * This class represents a sequence constraint. All gestures have to be performed in the order they were defined. A minimum 
  * and a maximum time interval between two consecutive gestures has to be defined.
  * 
- * @author BjÃ¶rn Puype, bpuype@gmail.com
+ * @author Björn Puypeype, bpuype@gmail.com
  *
  */
 public class SequenceConstraint extends DefaultConstraint {

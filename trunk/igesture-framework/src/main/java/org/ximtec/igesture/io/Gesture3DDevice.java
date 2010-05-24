@@ -8,7 +8,7 @@ import java.util.List;
 import org.ximtec.igesture.core.Gesture;
 
 /**
- * @author BjÃ¶rn Puype, bpuype@gmail.com
+ * @author Björn Puypeype, bpuype@gmail.com
  *
  */
 public interface Gesture3DDevice<E, F> {

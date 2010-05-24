@@ -5,7 +5,7 @@ import org.ximtec.igesture.core.DefaultDataObject;
 /**
  * This class represents a User for the device manager.
  * It implements the {@link org.ximtec.igesture.io.IUser} interface and extends {@link org.ximtec.igesture.core.DefaultDataObject}. The latter allows serialization of User objects.
- * @author BjÃ¶rn Puype, bpuype@gmail.com
+ * @author Björn Puypeype, bpuype@gmail.com
  *
  */
 public class User extends DefaultDataObject implements IUser {

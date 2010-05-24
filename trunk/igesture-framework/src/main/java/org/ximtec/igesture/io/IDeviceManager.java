@@ -7,7 +7,7 @@ import java.util.Set;
 
 /**
  * This interface defines the methods the controller of the device manager should support.
- * @author BjÃ¶rn Puype, bpuype@gmail.com
+ * @author Björn Puypeype, bpuype@gmail.com
  *
  */
 public interface IDeviceManager {

@@ -17,7 +17,7 @@ import org.xml.sax.SAXException;
 
 /**
  * This class helps with parsing of configuration files.
- * @author BjÃ¶rn Puype, bpuype@gmail.com
+ * @author Björn Puypeype, bpuype@gmail.com
  *
  */
 public abstract class XMLParser {

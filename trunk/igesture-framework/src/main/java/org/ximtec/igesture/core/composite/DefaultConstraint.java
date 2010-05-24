@@ -29,7 +29,7 @@ import org.ximtec.igesture.util.MultiValueMap;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 /**
- * @author BjÃ¶rn Puype, bpuype@gmail.com
+ * @author Björn Puypeype, bpuype@gmail.com
  *
  */
 public abstract class DefaultConstraint extends DefaultDataObject implements Constraint {

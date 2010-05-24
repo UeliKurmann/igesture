@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.ximtec.igesture.util.MultiValueMap;
 
 /**
- * @author BjÃ¶rn Puype, bpuype@gmail.com
+ * @author Björn Puypeype, bpuype@gmail.com
  *
  */
 public class TestMultiValueMap {

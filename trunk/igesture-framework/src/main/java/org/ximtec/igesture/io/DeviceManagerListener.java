@@ -5,7 +5,7 @@ package org.ximtec.igesture.io;
 
 
 /**
- * @author BjÃ¶rn Puype, bpuype@gmail.com
+ * @author Björn Puypeype, bpuype@gmail.com
  *
  */
 public interface DeviceManagerListener {

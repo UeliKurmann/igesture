@@ -42,7 +42,7 @@ import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
  *  3. In case of GestureEventListener : register as a listener
  *     In case of Recogniser : set this TuioReaders recogniser
  *  
- * @author BjÃ¶rn Puype, bpuype@gmail.com
+ * @author Björn Puypeype, bpuype@gmail.com
  * @see TuioConnection
  */
 public class TuioReader3D extends AbstractGestureDevice<RecordedGesture3D, Point3D> implements ITuioReader{
