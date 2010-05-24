@@ -27,7 +27,7 @@ import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerView;
 
 /**
  * Action to associate a user with a device. It extends {@link org.sigtec.graphix.widget.BasicAction} and implements the {@link javax.swing.event.ListSelectionListener} interface.
- * @author BjÃ¶rn Puype, bpuype@gmail.com
+ * @author Björn Puypeype, bpuype@gmail.com
  *
  */
 public class AssociateUserAction extends BasicAction implements ListSelectionListener{

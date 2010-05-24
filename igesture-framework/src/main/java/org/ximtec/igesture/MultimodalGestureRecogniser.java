@@ -35,7 +35,7 @@ import org.ximtec.igesture.io.IDeviceManager;
 /**
  * This class recognises composite gestures.
  * 
- * @author BjÃ¶rn Puype, bpuype@gmail.com
+ * @author Björn Puypeype, bpuype@gmail.com
  *
  */
 public class MultimodalGestureRecogniser {

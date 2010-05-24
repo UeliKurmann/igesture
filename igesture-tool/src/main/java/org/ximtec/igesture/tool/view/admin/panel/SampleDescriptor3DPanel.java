@@ -51,7 +51,7 @@ import org.ximtec.igesture.util.Constant;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 /**
- * @author BjÃ¶rn Puype, bpuype@gmail.com
+ * @author Björn Puypeype, bpuype@gmail.com
  *
  */
 public class SampleDescriptor3DPanel extends DefaultDescriptorPanel<SampleDescriptor3D> implements

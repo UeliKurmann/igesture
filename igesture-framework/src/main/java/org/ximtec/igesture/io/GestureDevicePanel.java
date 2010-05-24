@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import org.ximtec.igesture.core.Gesture;
 
 /**
- * @author BjÃ¶rn Puype, bpuype@gmail.com
+ * @author Björn Puypeype, bpuype@gmail.com
  *
  */
 public abstract class GestureDevicePanel extends JPanel implements

@@ -2,7 +2,7 @@ package org.ximtec.igesture.io;
 
 /**
  * This interface defines the methods users must implement.
- * @author BjÃ¶rn Puype, bpuype@gmail.com
+ * @author Björn Puypeype, bpuype@gmail.com
  *
  */
 public interface IUser {

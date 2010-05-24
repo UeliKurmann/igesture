@@ -43,7 +43,7 @@ import org.xml.sax.SAXException;
 
 /**
  * @author Martin Kaltenbrunner
- * @author BjÃ¶rn Puype, bpuype@gmail.com
+ * @author Björn Puypeype, bpuype@gmail.com
  * @version 1.4
  */ 
 public class TuioConnection implements OSCListener {

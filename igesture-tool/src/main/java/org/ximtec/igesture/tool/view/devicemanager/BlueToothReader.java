@@ -17,7 +17,7 @@ import org.ximtec.igesture.util.Constant;
 
 /**
  * Dummy BlueTooth Device
- * @author BjÃ¶rn Puype, bpuype@gmail.com
+ * @author Björn Puypeype, bpuype@gmail.com
  *
  */
 public class BlueToothReader extends AbstractGestureDevice<Note,Point>{

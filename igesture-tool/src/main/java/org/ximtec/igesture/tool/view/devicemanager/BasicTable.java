@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 /**
  * This class represents a table containing objects of type T.
  *  
- * @author BjÃ¶rn Puype, bpuype@gmail.com
+ * @author Björn Puypeype, bpuype@gmail.com
  *
  * @param <T>	kind of object the table contains
  */
@@ -222,7 +222,7 @@ public class BasicTable<T> extends JTable {
 	
 	/**
 	 * This class represents the model of the table.
-	 * @author BjÃ¶rn Puype, bpuype@gmail.com
+	 * @author Bjönöype, bpuype@gmail.com
 	 *
 	 */
 	class BasicTableModel extends DefaultTableModel
