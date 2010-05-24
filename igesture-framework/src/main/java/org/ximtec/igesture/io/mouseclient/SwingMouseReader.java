@@ -189,7 +189,7 @@ public class SwingMouseReader extends AbstractGestureDevice<Note, Point> {
         }
 
         try {
-          Thread.sleep(1000 / 20);
+          Thread.sleep(1000 / 100);
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
