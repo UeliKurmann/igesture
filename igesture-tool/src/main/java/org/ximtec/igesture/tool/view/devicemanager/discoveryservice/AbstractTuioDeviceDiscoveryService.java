@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.sigtec.util.Constant;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.ximtec.igesture.io.AbstractGestureDevice;
@@ -34,20 +35,24 @@ public abstract class AbstractTuioDeviceDiscoveryService implements
 
 	private static final Logger LOGGER = Logger
 			.getLogger(AbstractTuioDeviceDiscoveryService.class.getName());
+
 	/**
-	 * First port of range to scan
+	 * First port of range to be scanned.
 	 */
 	private int startPort;
+
 	/**
-	 * Last port of range to scan (inclusive)
+	 * Last port of range to be scanned (inclusive)
 	 */
 	private int endPort;
+
 	/**
-	 * created devices
+	 * List of created devices.
 	 */
 	private Set<AbstractGestureDevice<?, ?>> devices;
+
 	/**
-	 * Mapping between port and name
+	 * Mapping between port and name.
 	 */
 	private Map<Integer, String> map;
 
@@ -72,10 +77,8 @@ public abstract class AbstractTuioDeviceDiscoveryService implements
 					.getProperty(Property.TUIO_END_PORT));
 		} catch (Exception e) {
 			LOGGER
-					.log(
-							Level.WARNING,
-							"Could not load the TUIO port range property. Using the default port '3333'.",
-							e);
+					.log(Level.WARNING,
+							"Could not load the TUIO port range property. Using the default port '3333'.");
 			startPort = TuioConstants.DEFAULT_PORT;
 			endPort = startPort;
 		}
@@ -98,7 +101,7 @@ public abstract class AbstractTuioDeviceDiscoveryService implements
 					// read in the types
 					String type = ((Node) nodeLists.get(2).item(0))
 							.getNodeValue();
-					String[] types = type.split(",");
+					String[] types = type.split(Constant.COMMA);
 					for (String s : types) {
 						if (typeToDiscover.equals(s)) {
 							// put it in the map
@@ -109,16 +112,13 @@ public abstract class AbstractTuioDeviceDiscoveryService implements
 					}
 				} catch (NumberFormatException e) {
 					LOGGER
-							.log(
-									Level.WARNING,
-									"Invalid Port Number. The corresponding Tuio device type was not added.",
-									e);
+							.log(Level.WARNING,
+									"Invalid Port Number. The corresponding Tuio device type was not added.");
 				} catch (NullPointerException e) {
 					LOGGER
 							.log(
 									Level.WARNING,
-									"An empty node was encountered. The corresponding Tuio device type was not added.",
-									e);
+									"An empty node was encountered. The corresponding Tuio device type was not added.");
 				}
 			}
 
@@ -185,8 +185,9 @@ public abstract class AbstractTuioDeviceDiscoveryService implements
 
 		LOGGER.log(Level.INFO, "Device discovery completed!");
 
-		if (devices.isEmpty())
+		if (devices.isEmpty()) {
 			LOGGER.log(Level.INFO, "No devices discovered.");
+		}
 
 		return devices;
 	}
