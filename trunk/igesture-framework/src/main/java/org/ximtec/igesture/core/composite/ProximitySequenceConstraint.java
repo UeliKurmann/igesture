@@ -26,7 +26,7 @@ import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
  * cubic bounding space.
  * For the time constraint, the minimum and maximum time between two consecutive gestures has to be defined.
  * 
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public class ProximitySequenceConstraint extends SequenceConstraint {

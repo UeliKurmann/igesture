@@ -20,7 +20,7 @@ import org.ximtec.igesture.io.IDeviceManager;
  * of times within a certain time interval. The main example for this kind of constraint is defining a majority. 
  * Each device has only one vote.
  * 
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public class CardinalityDeviceConstraint extends IntervalConstraint {

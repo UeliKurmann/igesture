@@ -153,7 +153,7 @@ public class RubineAlgorithm extends SampleBasedAlgorithm {
    private void preprocess(GestureSet gestureSet) throws AlgorithmException {
       this.gestureSet = gestureSet;
       CountDownLatch latch = new CountDownLatch(gestureSet.size());
-
+      
       for (GestureClass gestureClass : gestureSet.getGestureClasses()) {
          GestureClassHelper helper = new GestureClassHelper(gestureClass,
                rubineConfig, latch);

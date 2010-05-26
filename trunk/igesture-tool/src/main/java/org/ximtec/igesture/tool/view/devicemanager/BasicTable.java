@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 /**
  * This class represents a table containing objects of type T.
  *  
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puype, bpuype@gmail.com
  *
  * @param <T>	kind of object the table contains
  */

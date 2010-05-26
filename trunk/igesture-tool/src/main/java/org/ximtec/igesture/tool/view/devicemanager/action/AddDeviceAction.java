@@ -10,7 +10,7 @@ import org.ximtec.igesture.tool.view.devicemanager.wizard.AddDeviceWizard;
 
 /**
  * Action to add a device. It extends {@link org.sigtec.graphix.widget.BasicAction}.
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public class AddDeviceAction extends BasicAction{

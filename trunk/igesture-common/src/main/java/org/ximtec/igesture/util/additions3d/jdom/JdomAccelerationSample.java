@@ -10,7 +10,7 @@ import org.ximtec.igesture.util.additions3d.AccelerationSample;
 
 /**
  * Constructs an XML representation for a AccelerationSample object. The 'timestamp' element is optional.
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public class JdomAccelerationSample extends Element {

@@ -13,7 +13,7 @@ import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
 
 /**
  * A wizard to add devices.
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public class AddDeviceWizard {

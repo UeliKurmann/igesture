@@ -28,7 +28,7 @@ import org.ximtec.igesture.tool.core.TreePathAction;
 import org.ximtec.igesture.util.XMLParser;
 
 /**
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public class AddCompositeDescriptorAction extends TreePathAction {

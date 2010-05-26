@@ -41,7 +41,7 @@ import org.ximtec.igesture.util.Constant;
  *  3. In case of GestureEventListener : register as a listener
  *     In case of Recogniser : set this TuioReaders recogniser
  *  
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  * @see TuioConnection
  */
 public class TuioReader2D extends AbstractGestureDevice<Note, Point> implements ITuioReader {
