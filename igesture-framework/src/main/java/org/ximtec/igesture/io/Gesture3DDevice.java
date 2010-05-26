@@ -76,7 +76,7 @@ public interface Gesture3DDevice<E, F> {
 		 * If the device can be uniquely identified by for example a MAC address, this function returns true else false.
 		 * @return
 		 */
-		boolean hasUniqueDeviceID();
+//		boolean hasUniqueDeviceID();
 		
 		// display name
 		/**
@@ -123,23 +123,23 @@ public interface Gesture3DDevice<E, F> {
 		/**
 		 * Get the device type of the device. (E.g. 2D or 3D)
 		 */
-		String getDeviceType();
+		int getDeviceType();
 		/**
 		 * Set the device type of the device. (E.g. 2D or 3D)
 		 * @param deviceType
 		 */
-		void setDeviceType(String deviceType);
+		void setDeviceType(int deviceType);
 		
 		//type of the connection, e.g. USB, BlueTooth
 		/**
 		 * Get the connection type of the device. (E.g. USB, BlueTooth)
 		 */
-		String getConnectionType();
+		int getConnectionType();
 		/**
 		 * Set the connection type of the device. (E.g. USB, BlueTooth)
 		 * @param connectionType
 		 */
-		void setConnectionType(String connectionType);
+		void setConnectionType(int connectionType);
 		
 		/**
 		 * Check whether the device is a default device.

@@ -85,7 +85,7 @@ public class TuioReader2D extends AbstractGestureDevice<Note, Point> implements 
 		connection = new TuioConnection(port.intValue());
 		
 		setDeviceID(String.valueOf(port));
-		setConnectionType("TUIO");
+		setConnectionType(Constant.CONNECTION_TUIO);
 		setDeviceType(Constant.TYPE_2D);
 		setName("TUIO Service on Port "+port);
 		

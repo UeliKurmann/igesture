@@ -28,7 +28,7 @@ public class BlueToothReader extends AbstractGestureDevice<Note,Point>{
 	{
 		setName(name);
 		setDeviceID(address);
-		setConnectionType("Bluetooth");
+		setConnectionType(Constant.CONNECTION_BLUETOOTH);
 		setDeviceType(Constant.TYPE_2D);
 		
 		this.device = device;
@@ -38,29 +38,29 @@ public class BlueToothReader extends AbstractGestureDevice<Note,Point>{
 	public void connect() {
 		
 //		String url = "btspp://"+device.getBluetoothAddress()+":1101;master=false";
-		String url = "btspp://localhost:1101;name=ANOTOSTREAMING";
-		
-		System.out.println("Connecting to " + url);
-		
-		StreamConnectionNotifier server;
-		try{
-			server = (StreamConnectionNotifier) Connector.open(url,Connector.READ);
-			System.out.println("Waiting for incoming connection...");
-	        StreamConnection conn = server.acceptAndOpen();
-	        System.out.println("Client Connected...");
-	        DataInputStream din   = new DataInputStream(conn.openInputStream());
-	        while(true){
-	            String cmd = "";
-	            char c;
-	            while (((c = din.readChar()) > 0) && (c!='\n') ){
-	                cmd = cmd + c;
-	            }
-	            System.out.println("Received " + cmd);
-	        }
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		String url = "btspp://localhost:1101;name=ANOTOSTREAMING";
+//		
+//		System.out.println("Connecting to " + url);
+//		
+//		StreamConnectionNotifier server;
+//		try{
+//			server = (StreamConnectionNotifier) Connector.open(url,Connector.READ);
+//			System.out.println("Waiting for incoming connection...");
+//	        StreamConnection conn = server.acceptAndOpen();
+//	        System.out.println("Client Connected...");
+//	        DataInputStream din   = new DataInputStream(conn.openInputStream());
+//	        while(true){
+//	            String cmd = "";
+//	            char c;
+//	            while (((c = din.readChar()) > 0) && (c!='\n') ){
+//	                cmd = cmd + c;
+//	            }
+//	            System.out.println("Received " + cmd);
+//	        }
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
         
 
 		

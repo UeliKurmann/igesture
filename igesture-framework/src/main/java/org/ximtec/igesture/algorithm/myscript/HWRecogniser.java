@@ -80,8 +80,8 @@ public class HWRecogniser extends DefaultAlgorithm {
 
 
 	@Override
-	public String getType() {
-		return "";
+	public int getType() {
+		return -1;
 	}
 
 }

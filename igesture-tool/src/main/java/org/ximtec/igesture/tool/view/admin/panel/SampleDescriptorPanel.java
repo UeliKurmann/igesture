@@ -368,7 +368,7 @@ public class SampleDescriptorPanel extends DefaultDescriptorPanel<SampleDescript
 
 	private void addDevice(AbstractGestureDevice<?,?> device)
 	{
-		if(Constant.TYPE_2D.equals(device.getDeviceType()))
+		if(Constant.TYPE_2D == device.getDeviceType())
 		{
 			//add input panel
 			InputComponentPanel panel = createInputPanel(device);
@@ -381,7 +381,7 @@ public class SampleDescriptorPanel extends DefaultDescriptorPanel<SampleDescript
 	
 	private void removeDevice(AbstractGestureDevice<?,?> device)
 	{
-		if(Constant.TYPE_2D.equals(device.getDeviceType()))
+		if(Constant.TYPE_2D == device.getDeviceType())
 		{
 			devicePanel.removeDevice(device);
 			//remove input panel

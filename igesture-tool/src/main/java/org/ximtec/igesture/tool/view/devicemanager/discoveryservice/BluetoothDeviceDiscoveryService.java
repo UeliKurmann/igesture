@@ -19,13 +19,13 @@ import org.ximtec.igesture.io.AbstractGestureDevice;
 import org.ximtec.igesture.io.DeviceDiscoveryService;
 
 /**
- * A BlueTooth device discovery service. It implements the {@link org.ximtec.igesture.io.DeviceDiscoveryService} and {@link javax.bluetooth.DiscoveryListener} interfaces.
+ * A Bluetooth device discovery service. It implements the {@link org.ximtec.igesture.io.DeviceDiscoveryService} and {@link javax.bluetooth.DiscoveryListener} interfaces.
  * @author Bjorn Puype, bpuype@gmail.com
  *
  */
-public class BlueToothDeviceDiscoveryService implements DeviceDiscoveryService, DiscoveryListener {
+public class BluetoothDeviceDiscoveryService implements DeviceDiscoveryService, DiscoveryListener {
 
-	private static final Logger LOGGER = Logger.getLogger(BlueToothDeviceDiscoveryService.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(BluetoothDeviceDiscoveryService.class.getName());
 	
 	private Object lock;
 	/**
@@ -36,17 +36,17 @@ public class BlueToothDeviceDiscoveryService implements DeviceDiscoveryService, 
 	 * created devices
 	 */
 	private Set<AbstractGestureDevice<?,?>> devices;
-	private BlueToothDeviceConverter convertor;
+	private BluetoothDeviceConverter convertor;
 	
 	/**
 	 * Constructor
 	 */
-	public BlueToothDeviceDiscoveryService()
+	public BluetoothDeviceDiscoveryService()
 	{
 		devices = new HashSet<AbstractGestureDevice<?,?>>();
 		remoteDevices = new Vector<RemoteDevice>();
 		lock = new Object();
-		convertor = new BlueToothDeviceConverter();
+		convertor = new BluetoothDeviceConverter();
 		
 	}
 	

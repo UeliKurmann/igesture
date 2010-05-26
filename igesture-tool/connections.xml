@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <connections>
 	<connection>
-		<name>BlueTooth</name>
-		<discoveryService>org.ximtec.igesture.tool.view.devicemanager.discoveryservice.BlueToothDeviceDiscoveryService</discoveryService>
+		<name>Bluetooth</name>
+		<discoveryService>org.ximtec.igesture.tool.view.devicemanager.discoveryservice.BluetoothDeviceDiscoveryService</discoveryService>
 	</connection>
 	<connection>
 		<name>Tuio 2D</name>

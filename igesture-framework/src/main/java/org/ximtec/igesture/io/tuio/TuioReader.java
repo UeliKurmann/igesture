@@ -105,8 +105,8 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 		connection = new TuioConnection(port);
 		
 		setDeviceID(String.valueOf(port));
-		setConnectionType("Tuio");
-		setDeviceType("2D_3D");
+		setConnectionType(org.ximtec.igesture.util.Constant.CONNECTION_TUIO);
+//		setDeviceType("2D_3D");
 		setName("Tuio Service on Port "+port);
 		
 		//MODIFIED >
@@ -589,4 +589,5 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 		panel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 		return panel;
 	}
+
 }

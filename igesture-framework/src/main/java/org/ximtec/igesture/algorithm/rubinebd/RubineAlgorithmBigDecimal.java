@@ -354,7 +354,7 @@ public class RubineAlgorithmBigDecimal extends SampleBasedAlgorithm {
 
 
 	@Override
-	public String getType() {
+	public int getType() {
 		return org.ximtec.igesture.util.Constant.TYPE_2D;
 	}
 

@@ -20,13 +20,13 @@ import org.ximtec.igesture.tool.view.devicemanager.BlueToothReader;
 import org.ximtec.igesture.util.XMLParser;
 
 /**
- * This class converts a found BlueTooth device to a {@link org.ximtec.igesture.io.AbstractGestureDevice}
+ * This class converts a found Bluetooth device to a {@link org.ximtec.igesture.io.AbstractGestureDevice}
  * @author Bjorn Puype, bpuype@gmail.com
  *
  */
-public class BlueToothDeviceConverter {
+public class BluetoothDeviceConverter {
 	
-	private static final Logger LOGGER = Logger.getLogger(BlueToothDeviceDiscoveryService.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(BluetoothDeviceDiscoveryService.class.getName());
 	
 	/**
 	 * Mapping between the device numbers and the appropriate {@link org.ximtec.igesture.io.AbstractGestureDevice} to instantiate.
@@ -34,7 +34,7 @@ public class BlueToothDeviceConverter {
 	private final Map<BTDeviceClass,Class<?>> map;
 	private XMLParser parser;
 	
-	public BlueToothDeviceConverter()
+	public BluetoothDeviceConverter()
 	{
 		//load the mapping between bluetooth devices and their classes
 		
@@ -172,7 +172,7 @@ public class BlueToothDeviceConverter {
 	
 	/**
 	 * This class is an encapsulation of the device class numbers of a particular type of device and a friendly name.
-	 * @author Bjönöype, bpuype@gmail.com
+	 * @author Bjï¿½nï¿½ype, bpuype@gmail.com
 	 *
 	 */
 	class BTDeviceClass

@@ -116,7 +116,7 @@ public class SigerAlgorithm extends DefaultAlgorithm {
    } // recognise
 
 	@Override
-	public String getType() {
+	public int getType() {
 		return Constant.TYPE_2D;
 	}
 
