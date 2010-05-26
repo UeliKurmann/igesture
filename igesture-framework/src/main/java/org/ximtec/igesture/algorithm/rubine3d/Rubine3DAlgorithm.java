@@ -27,8 +27,10 @@
 package org.ximtec.igesture.algorithm.rubine3d;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 import java.util.logging.Logger;
 
@@ -46,6 +48,7 @@ import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.GestureSet;
+import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.SampleDescriptor3D;
@@ -61,6 +64,8 @@ public class Rubine3DAlgorithm extends SampleBasedAlgorithm/*implements Algorith
 	private static final int PLANE_YZ = 1;
 	private static final int PLANE_ZX = 2;
 
+	private Map<GestureClass, GestureClass> gestureClassMapping;
+	
 	// Plane gesture sets
 	private GestureSet setXY;
 	private GestureSet setYZ;
@@ -73,6 +78,7 @@ public class Rubine3DAlgorithm extends SampleBasedAlgorithm/*implements Algorith
 		setXY = new GestureSet();
 		setYZ = new GestureSet();
 		setZX = new GestureSet();
+		gestureClassMapping = new HashMap<GestureClass,GestureClass>();
 	}
 
 	@Override
@@ -144,7 +150,13 @@ public class Rubine3DAlgorithm extends SampleBasedAlgorithm/*implements Algorith
 		// Combine sets to one ResultSet and return
 		try {
 			// return sets.get(0);
-			return combineResultSets(sets, weights);
+			ResultSet rs = combineResultSets(sets, weights); 
+			List<Result> results = rs.getResults();
+			for (Iterator iterator = results.iterator(); iterator.hasNext();) {
+				Result result = (Result) iterator.next();
+				result.setGestureClass(gestureClassMapping.get(result.getGestureClass()));
+			}
+			return rs; 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -426,8 +438,11 @@ public class Rubine3DAlgorithm extends SampleBasedAlgorithm/*implements Algorith
 		while (classIter.hasNext()) {
 			GestureClass tempClass = classIter.next();
 			GestureClass classXY = new GestureClass(tempClass.getName());
+			gestureClassMapping.put(classXY, tempClass);
 			GestureClass classYZ = new GestureClass(tempClass.getName());
+			gestureClassMapping.put(classYZ, tempClass);
 			GestureClass classZX = new GestureClass(tempClass.getName());
+			gestureClassMapping.put(classZX, tempClass);
 			// If the gesture class contains a sample descriptor
 			if (tempClass.getDescriptor(SampleDescriptor3D.class) != null) {		
 				SampleDescriptor descXY = new SampleDescriptor();
@@ -464,7 +479,7 @@ public class Rubine3DAlgorithm extends SampleBasedAlgorithm/*implements Algorith
 	 * @see org.ximtec.igesture.algorithm.Algorithm#getType()
 	 */
 	@Override
-	public String getType() {
+	public int getType() {
 		return org.ximtec.igesture.util.Constant.TYPE_3D;
 	}
 

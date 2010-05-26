@@ -88,6 +88,14 @@ public class Result {
 
 
    /**
+	 * @param gestureClass the gestureClass to set
+	 */
+	public void setGestureClass(GestureClass gestureClass) {
+		this.gestureClass = gestureClass;
+	}
+
+
+/**
     * Sets a user object. A user object enables an algorithm to return an
     * arbitrary object. However, the user is responsible for the correct handling
     * since no explicit type information is available.
