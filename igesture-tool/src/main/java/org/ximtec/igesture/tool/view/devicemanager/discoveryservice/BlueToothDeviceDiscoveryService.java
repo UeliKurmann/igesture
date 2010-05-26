@@ -20,7 +20,7 @@ import org.ximtec.igesture.io.DeviceDiscoveryService;
 
 /**
  * A BlueTooth device discovery service. It implements the {@link org.ximtec.igesture.io.DeviceDiscoveryService} and {@link javax.bluetooth.DiscoveryListener} interfaces.
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public class BlueToothDeviceDiscoveryService implements DeviceDiscoveryService, DiscoveryListener {

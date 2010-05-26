@@ -13,7 +13,7 @@ import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 /**
  * XML support for the SampleDescriptor3D class.
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public class JdomSampleDescriptor3D extends Element {

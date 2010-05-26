@@ -11,7 +11,7 @@ import org.ximtec.igesture.util.additions3d.Accelerations;
 import org.ximtec.igesture.util.additions3d.jdom.JdomAccelerationSample;
 
 /**
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public class JdomAccelerations extends Element {

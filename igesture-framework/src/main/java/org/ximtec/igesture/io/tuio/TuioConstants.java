@@ -2,7 +2,7 @@ package org.ximtec.igesture.io.tuio;
 
 /**
  * 
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public class TuioConstants {

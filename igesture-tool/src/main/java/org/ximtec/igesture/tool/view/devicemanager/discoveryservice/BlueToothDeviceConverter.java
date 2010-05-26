@@ -21,7 +21,7 @@ import org.ximtec.igesture.util.XMLParser;
 
 /**
  * This class converts a found BlueTooth device to a {@link org.ximtec.igesture.io.AbstractGestureDevice}
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public class BlueToothDeviceConverter {

@@ -12,7 +12,7 @@ import org.ximtec.igesture.tool.core.LocateableAction;
 import org.ximtec.igesture.tool.view.composite.CompositeController;
 
 /**
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public class AddRecogniserAction extends LocateableAction {

@@ -17,7 +17,7 @@ import org.ximtec.igesture.io.IDeviceManager;
  * If a composite gesture contains two or more times the same simple gestures, you MUST call the necessary 
  * add methods for one simple after each other to get correct results.
  * 
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public interface Constraint {

@@ -18,7 +18,7 @@ import org.ximtec.igesture.core.ResultSet;
 /**
  * This class represents the input queue of the multi-modal gesture recogniser.
  * 
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public class MultimodalGestureQueue {

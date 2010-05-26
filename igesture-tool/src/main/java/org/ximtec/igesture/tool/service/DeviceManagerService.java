@@ -9,7 +9,7 @@ import org.ximtec.igesture.tool.locator.Service;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
 
 /**
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public class DeviceManagerService extends DeviceManagerController implements

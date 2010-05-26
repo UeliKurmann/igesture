@@ -9,7 +9,7 @@ import org.ximtec.igesture.tool.core.ExecCmd;
 import org.ximtec.igesture.tool.core.TabbedView;
 
 /**
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public class CompositeController extends DefaultController {

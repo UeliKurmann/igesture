@@ -1,7 +1,7 @@
 package org.ximtec.igesture.io.tuio.server;
 
 /** 
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  * 
  * Extend this class to easily create gestures from tuio objects 
  * 

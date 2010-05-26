@@ -16,7 +16,7 @@ import org.ximtec.igesture.util.RecordedGesture3DTool;
 import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 /**
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public class TuioReaderPanel extends GestureDevicePanel {

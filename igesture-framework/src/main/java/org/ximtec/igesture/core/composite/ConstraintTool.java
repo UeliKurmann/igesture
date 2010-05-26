@@ -20,7 +20,7 @@ import org.w3c.dom.NodeList;
 import org.ximtec.igesture.util.XMLParser;
 
 /**
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public class ConstraintTool {

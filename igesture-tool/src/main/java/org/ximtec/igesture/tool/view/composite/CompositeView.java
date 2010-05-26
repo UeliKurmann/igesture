@@ -66,7 +66,7 @@ import org.ximtec.igesture.tool.view.composite.action.ResetAction;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
 
 /**
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public class CompositeView extends AbstractPanel implements TabbedView, DeviceManagerListener{

@@ -69,7 +69,7 @@ import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * @author Björn Puypeype, bpuype@gmail.com
+ * @author Björn Puypepuype@gmail.com
  *
  */
 public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDescriptor> implements DeviceManagerListener{
