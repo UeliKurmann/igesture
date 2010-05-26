@@ -9,7 +9,7 @@ import java.util.Set;
 import org.ximtec.igesture.core.DefaultDataObject;
 
 /**
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class DefaultConstraintEntry extends DefaultDataObject{

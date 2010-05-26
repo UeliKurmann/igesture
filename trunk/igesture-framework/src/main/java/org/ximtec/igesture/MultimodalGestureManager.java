@@ -11,7 +11,7 @@ import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.event.GestureHandler;
 
 /**
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class MultimodalGestureManager implements GestureHandler{

@@ -51,7 +51,7 @@ import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
  *  
  *  Note that this class is not fully compatible with the workbench.
  *  
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  * @see TuioConnection
  */
 public class TuioReader extends AbstractGestureDevice<Note,Point> implements TuioListener, Gesture3DDevice<RecordedGesture3D, Point3D>{

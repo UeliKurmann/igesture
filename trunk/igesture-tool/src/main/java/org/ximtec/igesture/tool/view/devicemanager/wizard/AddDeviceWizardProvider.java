@@ -37,7 +37,7 @@ import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
 
 /**
  * GUI and logic implementation of the wizard. It extends {@link org.netbeans.spi.wizard.WizardPanelProvider}.
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class AddDeviceWizardProvider extends WizardPanelProvider {

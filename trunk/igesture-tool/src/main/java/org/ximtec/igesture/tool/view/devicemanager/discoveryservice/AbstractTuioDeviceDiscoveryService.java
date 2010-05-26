@@ -27,7 +27,7 @@ import org.ximtec.igesture.tool.view.Property;
 import org.ximtec.igesture.util.XMLParser;
 
 /**
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  * 
  */
 public abstract class AbstractTuioDeviceDiscoveryService implements

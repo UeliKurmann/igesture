@@ -25,7 +25,7 @@ import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
  * of the rectangular bounding box of the gestures for 2D gestures, for 3D gestures it is the diagonal of each facet of a 
  * cubic bounding space.
  * 
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class ProximityConcurrencyConstraint extends ConcurrencyConstraint{

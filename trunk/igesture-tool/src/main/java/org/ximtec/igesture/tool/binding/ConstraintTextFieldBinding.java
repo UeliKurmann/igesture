@@ -9,7 +9,7 @@ import org.ximtec.igesture.core.composite.Constraint;
 import org.ximtec.igesture.core.composite.DefaultConstraint;
 
 /**
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class ConstraintTextFieldBinding extends DataBinding<JTextField> {

@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class MultiValueMap<T,S> {

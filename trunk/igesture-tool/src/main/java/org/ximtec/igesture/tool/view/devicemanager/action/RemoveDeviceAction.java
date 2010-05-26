@@ -14,7 +14,7 @@ import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerView;
 
 /**
  * Action to remove a device. It extends {@link org.sigtec.graphix.widget.BasicAction} and implements the {@link javax.swing.event.ListSelectionListener} interface.
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class RemoveDeviceAction extends BasicAction implements ListSelectionListener{

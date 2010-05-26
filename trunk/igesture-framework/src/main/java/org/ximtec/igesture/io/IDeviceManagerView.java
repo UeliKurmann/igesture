@@ -4,7 +4,7 @@ import java.util.Collection;
 
 /**
  * This interface defines the methods the view of the device manager should support.
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public interface IDeviceManagerView {

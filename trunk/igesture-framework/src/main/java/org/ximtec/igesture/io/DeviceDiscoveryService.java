@@ -5,7 +5,7 @@ import java.util.Set;
 
 /**
  * This interface defines the discovery services.
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public interface DeviceDiscoveryService {

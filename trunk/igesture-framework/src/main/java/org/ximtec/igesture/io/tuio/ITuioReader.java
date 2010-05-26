@@ -6,7 +6,7 @@ package org.ximtec.igesture.io.tuio;
 import java.awt.Dimension;
 
 /**
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public interface ITuioReader extends TuioListener {
