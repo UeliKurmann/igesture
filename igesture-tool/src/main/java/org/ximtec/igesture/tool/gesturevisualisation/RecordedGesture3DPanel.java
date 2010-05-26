@@ -14,7 +14,7 @@ import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.util.GestureTool;
 
 /**
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class RecordedGesture3DPanel implements GesturePanel {

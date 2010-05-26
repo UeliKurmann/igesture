@@ -25,7 +25,7 @@ import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.io.AbstractGestureDevice;
 
 /**
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class DeviceListPanel extends JPanel implements ListSelectionListener{

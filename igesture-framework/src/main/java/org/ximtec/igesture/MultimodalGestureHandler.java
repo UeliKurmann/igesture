@@ -4,7 +4,7 @@
 package org.ximtec.igesture;
 
 /**
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public interface MultimodalGestureHandler {

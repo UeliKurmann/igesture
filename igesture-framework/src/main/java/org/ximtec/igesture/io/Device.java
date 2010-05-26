@@ -2,7 +2,7 @@ package org.ximtec.igesture.io;
 
 /**
  * This interface defines all methods for devices, that can be managed by the device manager, must implement.
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public interface Device {

@@ -6,7 +6,7 @@ import org.ximtec.igesture.core.DefaultDataObject;
  * This class defines an association between a {@link org.ximtec.igesture.io.IUser} and a {@link org.ximtec.igesture.io.AbstractGestureDevice}. 
  * Both objects are saved in the association. It extends {@link org.ximtec.igesture.core.DefaultDataObject} so the association can be serialized.
  * It also implements the {@link org.ximtec.igesture.io.Device} interface.
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class DeviceUserAssociation extends DefaultDataObject implements Device{

@@ -17,7 +17,7 @@ import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerView;
 
 /**
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class DisconnectDeviceAction extends BasicAction implements

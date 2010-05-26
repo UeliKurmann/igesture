@@ -19,7 +19,7 @@ import org.ximtec.igesture.io.IUser;
  * of times within a certain time interval. The main example for this kind of constraint is defining a majority. 
  * Each user has only one vote.
  * 
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class CardinalityUserConstraint extends CardinalityDeviceConstraint {

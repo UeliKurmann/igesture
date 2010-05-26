@@ -40,7 +40,7 @@ import org.ximtec.igesture.util.XMLParser;
 /**
  * This class is an implementation of the controller of the Device Manager. It implements the {@link org.ximtec.igesture.io.IDeviceManager} interface.
  * It also extends {@link org.ximtec.igesture.tool.core.DefaultController} to allow easy instantion by the main controller of the workbench.
- * @author Björn Puype, bpuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class DeviceManagerController extends DefaultController implements IDeviceManager{

@@ -6,7 +6,7 @@ package org.ximtec.igesture.core.composite;
 import org.ximtec.igesture.core.DefaultDescriptor;
 
 /**
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class CompositeDescriptor extends DefaultDescriptor {

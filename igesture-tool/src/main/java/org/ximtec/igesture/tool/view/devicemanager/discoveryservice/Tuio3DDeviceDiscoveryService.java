@@ -9,7 +9,7 @@ import org.ximtec.igesture.io.tuio.TuioReader3D;
 
 /**
  * A Tuio 3D device discovery service. It extends {@link org.ximtec.igesture.tool.view.devicemanager.discoveryservice.AbstractTuioDeviceDiscoveryService}.
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class Tuio3DDeviceDiscoveryService extends AbstractTuioDeviceDiscoveryService{

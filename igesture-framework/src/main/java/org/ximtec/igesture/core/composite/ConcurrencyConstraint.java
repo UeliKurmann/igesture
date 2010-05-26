@@ -17,7 +17,7 @@ import org.ximtec.igesture.io.IDeviceManager;
  * This class represents a concurrency constraint, all gestures must be performed in parallel. This means all gestures must
  * have an overlapping time interval in common.
  * 
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class ConcurrencyConstraint extends DefaultConstraint {

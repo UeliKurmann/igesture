@@ -37,7 +37,7 @@ import org.ximtec.igesture.tool.view.devicemanager.action.SaveDeviceConfiguratio
 
 /**
  * This class is the view for the Device Manager. It implements the {@link org.ximtec.igesture.io.devicemanage.IDeviceManagerView} interface and extends {@link import org.sigtec.graphix.widget.BasicDialog;}.
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class DeviceManagerView extends BasicDialog implements IDeviceManagerView

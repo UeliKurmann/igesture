@@ -25,7 +25,7 @@ import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.util.additions3d.Point3D;
 
 /**
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class RecordedGesture3DTool {

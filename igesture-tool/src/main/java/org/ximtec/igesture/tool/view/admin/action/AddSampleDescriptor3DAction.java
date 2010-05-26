@@ -14,7 +14,7 @@ import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.TreePathAction;
 
 /**
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class AddSampleDescriptor3DAction extends TreePathAction {

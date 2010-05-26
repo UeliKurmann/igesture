@@ -32,7 +32,7 @@ import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
 import org.ximtec.igesture.Recogniser;
 
 /**
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class AddDeviceWizardBranchController extends WizardBranchController {

@@ -6,7 +6,7 @@ package org.ximtec.igesture.tool.view;
 import org.ximtec.igesture.io.AbstractGestureDevice;
 
 /**
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public interface DeviceListPanelListener {

@@ -11,7 +11,7 @@ import org.ximtec.igesture.tool.core.LocateableAction;
 import org.ximtec.igesture.tool.view.admin.panel.CompositeDescriptorPanel;
 
 /**
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class RemoveAllGestureClassesFromConstraintAction extends

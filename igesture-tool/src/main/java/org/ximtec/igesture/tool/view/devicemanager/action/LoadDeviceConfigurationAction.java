@@ -14,7 +14,7 @@ import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;
 
 /**
  * Action to load a user-device configuration from file. It extends {@link org.sigtec.graphix.widget.BasicAction}.
- * @author Björn Puypepuype@gmail.com
+ * @author Bjorn Puype, bpuype@gmail.com
  *
  */
 public class LoadDeviceConfigurationAction extends BasicAction {
