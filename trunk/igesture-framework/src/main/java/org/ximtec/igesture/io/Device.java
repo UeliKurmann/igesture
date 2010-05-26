@@ -21,7 +21,7 @@ public interface Device {
 		 * If the device can be uniquely identified by for example a MAC address, this function returns true else false.
 		 * @return
 		 */
-		boolean hasUniqueDeviceID();
+//		boolean hasUniqueDeviceID();
 		
 		// display name
 		/**
@@ -68,23 +68,23 @@ public interface Device {
 		/**
 		 * Get the type of the device. (E.g. 2D or 3D, voice)
 		 */
-		String getDeviceType();
+		int getDeviceType();
 		/**
 		 * Set the type of the device. (E.g. 2D or 3D, voice)
 		 * @param deviceType
 		 */
-		void setDeviceType(String deviceType);
+		void setDeviceType(int deviceType);
 		
 		//type of the connection, e.g. USB, BlueTooth
 		/**
 		 * Get the connection type of the device. (E.g. USB, BlueTooth)
 		 */
-		String getConnectionType();
+		int getConnectionType();
 		/**
 		 * Set the connection type of the device. (E.g. USB, BlueTooth)
 		 * @param connectionType
 		 */
-		void setConnectionType(String connectionType);
+		void setConnectionType(int connectionType);
 		
 		/**
 		 * Check whether the device is the default device.

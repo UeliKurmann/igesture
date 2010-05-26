@@ -63,7 +63,6 @@ import org.ximtec.igesture.Recogniser;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.io.AbstractGestureDevice;
-import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.util.Constant;
 import org.ximtec.igesture.util.additions3d.AccelerationSample;
 import org.ximtec.igesture.util.additions3d.Accelerations;
@@ -112,7 +111,7 @@ public class WiiReader extends
 		setDeviceID(address);
 		setName(name);
 		setDeviceType(Constant.TYPE_3D);
-		setConnectionType("BlueTooth");
+		setConnectionType(Constant.CONNECTION_BLUETOOTH);
 	}
 
 	/**

@@ -232,7 +232,7 @@ public class SiGridAlgorithm extends SampleBasedAlgorithm {
    } // getConfigParameters
 
 	@Override
-	public String getType() {
+	public int getType() {
 		return org.ximtec.igesture.util.Constant.TYPE_2D;
 	}
 

@@ -1,6 +1,7 @@
 package org.ximtec.igesture.io;
 
 import org.ximtec.igesture.core.DefaultDataObject;
+import org.ximtec.igesture.util.Constant;
 
 /**
  * This class defines an association between a {@link org.ximtec.igesture.io.IUser} and a {@link org.ximtec.igesture.io.AbstractGestureDevice}. 
@@ -9,7 +10,8 @@ import org.ximtec.igesture.core.DefaultDataObject;
  * @author Bjorn Puype, bpuype@gmail.com
  *
  */
-public class DeviceUserAssociation extends DefaultDataObject implements Device{
+public class DeviceUserAssociation extends DefaultDataObject //implements Device
+{
 
 	private AbstractGestureDevice<?,?> device;
 	private IUser user;
@@ -25,67 +27,67 @@ public class DeviceUserAssociation extends DefaultDataObject implements Device{
 		this.user = user;
 	}
 
-	@Override
+//	@Override
 	public void connect() {
 		device.connect();
 	}
 
-	@Override
+//	@Override
 	public void disconnect() {
 		device.disconnect();
 	}
 
-	@Override
+//	@Override
 	public String getConnectionType() {
-		return device.getConnectionType();
+		return Constant.getConnectionTypeName(device.getConnectionType());
 	}
 
-	@Override
+//	@Override
 	public String getDeviceID() {
 		return device.getDeviceID();
 	}
 
-	@Override
+//	@Override
 	public String getDeviceType() {
-		return device.getDeviceType();
+		return Constant.getDeviceTypeName(device.getDeviceType());
 	}
 
-	@Override
+//	@Override
 	public String getName() {
 		return device.getName();
 	}
 
-	@Override
-	public boolean hasUniqueDeviceID() {
-		return device.hasUniqueDeviceID();
-	}
+//	@Override
+//	public boolean hasUniqueDeviceID() {
+//		return device.hasUniqueDeviceID();
+//	}
 
-	@Override
+//	@Override
 	public boolean isConnectable() {
 		return device.isConnectable();
 	}
 
-	@Override
+//	@Override
 	public boolean isDisconnectable() {
 		return device.isDisconnectable();
 	}
 
-	@Override
+//	@Override
 	public void setConnectionType(String connectionType) {
-		device.setConnectionType(connectionType);
+		device.setConnectionType(Constant.getConnectionTypeValue(connectionType));
 	}
 
-	@Override
+//	@Override
 	public void setDeviceID(String id) {
 		device.setDeviceID(id);
 	}
 
-	@Override
-	public void setDeviceType(String deviceType) {
-		device.setDeviceType(deviceType);
-	}
+//	@Override
+//	public void setDeviceType(String deviceType) {
+//		device.setDeviceType(Constant.getTypeValue(deviceType));
+//	}
 
-	@Override
+//	@Override
 	public void setName(String name) {
 		device.setName(name);
 	}
@@ -125,22 +127,22 @@ public class DeviceUserAssociation extends DefaultDataObject implements Device{
 		return user;
 	}
 
-	@Override
+//	@Override
 	public boolean isDefaultDevice() {
 		return device.isDefaultDevice();
 	}
 
-	@Override
+//	@Override
 	public void setDefaultDevice(boolean isDefault) {
 		device.setDefaultDevice(isDefault);
 	}
 
-	@Override
+//	@Override
 	public boolean isConnected() {
 		return device.isConnected();
 	}
 
-	@Override
+//	@Override
 	public void setIsConnected(boolean isConnected) {
 		device.setIsConnected(isConnected);
 	}
@@ -174,7 +176,7 @@ public class DeviceUserAssociation extends DefaultDataObject implements Device{
 	/* (non-Javadoc)
 	 * @see org.ximtec.igesture.tool.view.devicemanager.Device#getDeviceType()
 	 */
-	@Override
+//	@Override
 	public String getDeviceClass() {
 		return device.getDeviceClass();
 	}

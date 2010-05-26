@@ -269,7 +269,7 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
   private void addDevice(AbstractGestureDevice<?,?> device)
 	{
 	  	//only devices that can provides input that can be recognised by the algorithm
-		if(algorithm != null && algorithm.getType().equals(device.getDeviceType()))
+		if(algorithm != null && algorithm.getType() == device.getDeviceType())
 		{
 			//add input panel
 			InputComponentPanel panel = createInputPanel(device);
@@ -282,7 +282,7 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
 	
 	private void removeDevice(AbstractGestureDevice<?,?> device)
 	{
-		if(algorithm != null && algorithm.getType().equals(device.getDeviceType()))
+		if(algorithm != null && algorithm.getType() == device.getDeviceType() )
 		{
 			devicePanel.removeDevice(device);
 			//remove input panel

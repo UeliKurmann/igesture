@@ -84,5 +84,5 @@ public interface Algorithm {
     * Get the type of algorithm
     * @see org.ximtec.igesture.util.Constant
     */
-   public String getType();
+   public int getType();
 }

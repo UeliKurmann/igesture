@@ -41,8 +41,8 @@ public abstract class AbstractGestureDevice<E, F> implements GestureDevice<E, F>
 
    private Set<GestureEventListener> gestureListeners;
    
-   private String connectionType;
-   private String deviceType;
+   private int connectionType;
+   private int deviceType;
    private String id;
    private String name;
    private boolean isDefault = false;
@@ -107,11 +107,11 @@ public abstract class AbstractGestureDevice<E, F> implements GestureDevice<E, F>
    		this.id = id;
    	}
    	
-   	@Override
-	public boolean hasUniqueDeviceID()
-   	{
-   		return true;
-   	}
+//   	@Override
+//	public boolean hasUniqueDeviceID()
+//   	{
+//   		return true;
+//   	}
 	
    	@Override
 	public String getName()
@@ -151,20 +151,20 @@ public abstract class AbstractGestureDevice<E, F> implements GestureDevice<E, F>
 	}
 	
    	@Override
-   	public String getDeviceType() {
+   	public int getDeviceType() {
 		return deviceType;
 	}
    	@Override
-	public void setDeviceType(String deviceType) {
+	public void setDeviceType(int deviceType) {
    		this.deviceType = deviceType;
 	}
 	
    	@Override
-   	public String getConnectionType() {
+   	public int getConnectionType() {
 		return connectionType;
 	}
    	@Override
-	public void setConnectionType(String connectionType) {
+	public void setConnectionType(int connectionType) {
    		this.connectionType = connectionType;
 	}
 	

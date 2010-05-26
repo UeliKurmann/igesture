@@ -86,7 +86,7 @@ public class TuioReader3D extends AbstractGestureDevice<RecordedGesture3D, Point
 		connection = new TuioConnection(port.intValue());
 		
 		setDeviceID(String.valueOf(port));
-		setConnectionType("Tuio");
+		setConnectionType(Constant.CONNECTION_TUIO);
 		setDeviceType(Constant.TYPE_3D);
 		setName("Tuio Service on Port "+port);
 		

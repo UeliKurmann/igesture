@@ -72,7 +72,7 @@ public class SwingMouseReader extends AbstractGestureDevice<Note, Point> {
 	  setName("SwingMouseReader");
 	  setDeviceType(org.ximtec.igesture.util.Constant.TYPE_2D);
 	  setDeviceID("System Mouse");
-	  setConnectionType("USB");
+	  setConnectionType(org.ximtec.igesture.util.Constant.CONNECTION_USB);
 	  setIsConnected(true);
 	  setDefaultDevice(true);
 	  //MODIFY <
