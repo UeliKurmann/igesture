@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Implementation: Multi-modal Recogniser</title>
+	</properties>
+	<body>
+		<section name="Implementation: Multi-modal Recogniser">
+			The
+			<tt>Multi-modal Recogniser</tt>
+			class shown in Figure
+			<p>
+				<div>
+					<div align="center">
+						<img src="images/implementation/recogniser.png" />
+						<center>
+							<br />
+							Figure 6: Recogniser class diagram
+							<br />
+						</center>
+					</div>
+				</div>
+			</p>
+		</section>
+	</body>
+</document>

@@ -8,11 +8,11 @@
 	<body>
 		<a name="cp:userguide"></a>
 		<h1>Framework</h1>
-
+		<h2>Simple Gestures</h2>
 		The use of the framework itself is demonstrated by a simple demo
 		application. This application knows three gestures, namely
 		LeftRight, DownRight and UpLeft as shown in Figure
-		<a href="#fig%3Aexamplegestures">16</a>
+		<a href="#fig%3Aexamplegestures">1</a>
 		. In the first part all configuration issues are done
 		programmatically. In a second step the use of XML files is
 		described.
@@ -23,12 +23,13 @@
 					<img src="images/userguide/examplegestures.png" />
 					<center>
 						<br />
-						Figure 16: Example Gestures
+						Figure 1: Example Gestures
 						<br />
 					</center>
 				</div>
 			</div>
 		</p>
+		<h3>Configuration in code</h3>
 		<p>
 			This example uses the SiGeR algorithm which needs a text
 			descriptor for each gesture class. The Listing
@@ -155,6 +156,7 @@ public void handleMouseUpEvent(InputDeviceEvent event) {
 				</center>
 			</div>
 		</p>
+		<h3>Configuration in XML</h3>
 		<p>
 			Alternatively to defining the gesture set and classes
 			programmatically it can be done in an XML file as
@@ -230,7 +232,36 @@ public void handleMouseUpEvent(InputDeviceEvent event) {
 				</center>
 			</div>
 		</p>
-
-
+		<h2>Composite Gestures</h2>
+		<p>
+			To initialise the <i>Multi-modal Recogniser</i>, a gesture set with composite gestures and an instance of a device manager should be passes as parameters.
+			The latter is needed to be able to check which user performed which gesture. <i>GestureHandlers</i> can be added so the appropriate actions can be taken 
+			when a particular gesture has been recognised.
+		</p>
+		<p>
+			Next, a <i>Multi-modal Manager</i> has to be created which takes the <i>Multi-modal Recogniser</i> as input. <i>Recognisers</i> can be added to this manager 
+			so there output, the recognition results, are handled by the manager from now on. Finally, the recognition process can be started.
+		</p>
+		<div>
+			<source>
+//create multi-modal recogniser
+MultimodalGestureRecogniser mmr 
+	= new MultimodalGestureRecogniser(compositeGestureSet, deviceManager);
+//add gesture handler(s)
+mmr.addGestureHandler(handler);
+//create multi-modal manager
+MultimodalGestureManager manager 
+	= new MultimodalGestureManager(mmr);
+//add recogniser(s)
+manager.addRecogniser(recogniser);
+//start recognising
+mmr.start();
+			</source>
+			<center>
+				<br/>
+				Listing 7: Creation and inialisation of the multi-modal recogniser
+				<br/>
+			</center>
+		</div>
 	</body>
 </html>

@@ -9,7 +9,7 @@
 			<p>
 				iGesture uses the
 				<tt>org.sigtec.ink.Note</tt>
-				class to represent gestures captured from an input
+				class to represent gestures captured from a 2D input
 				device. A
 				<tt>Note</tt>
 				consists of

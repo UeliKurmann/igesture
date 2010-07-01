@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>User Guide: iGesture Workbench - Tutorial</title>
+	</properties>
+	<body>
+		<a name="cp:userguide"></a>
+		<h1>User Guide: iGesture Workbench - Tutorial</h1>
+		<h2>Batch Processing Tab Tutorial</h2>
+		The <i>Batch Processing Tab</i> as shown in Figure <a href="#fig%3Abatch">1</a> can be used to find the most suitable parameter values for the recognition algorithms.
+		A batch configuration file has to be provided (more information can be found <a href="http://igesture.org/userguide_batch.html">here</a>), a gesture and test set have to
+		be selected. A directory to put the batch processing report can be specified as well. After the batch process, the report is shown below.
+		<p>
+			<a name="fig:batch"></a>
+			<div>
+				<div align="center">
+					<img src="images/userguide/screenshotBatch.png" />
+					<center>
+						<br />
+						Figure 1: Batch Processing Tab
+						<br />
+					</center>
+				</div>
+			</div>
+		</p>
+	</body>
+</document>

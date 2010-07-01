@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>User Guide: iGesture Workbench - Tutorial</title>
+	</properties>
+	<body>
+		<h1>User Guide: iGesture Workbench - Tutorial</h1>
+		<h2>Test Set Tab Tutorial</h2>
+		With the
+		<i>Test Set Tab</i>
+		test sets can be created. The sets can be managed in a similar way as the gesture sets 
+		as explained <a href="http://igesture.org/tutorial_gestureset.html">here</a>. 
+
+	</body>
+</document>

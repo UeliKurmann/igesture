@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>User Guide: iGesture Workbench - Tutorial</title>
+	</properties>
+	<body>
+		<a name="cp:userguide"></a>
+		<h1>User Guide: iGesture Workbench - Tutorial</h1>
+		<h2>Device Manager Tutorial</h2>
+		<subsection name="Add a device manually">
+			<p>
+				A wizard is used to add a device manually. The first step is to select the connection type. After
+				a discovery service detected the available devices, a device can be selected. The third step is to 
+				associate a user with the device. To finish a summary is displayed.
+			</p>
+			<p>
+				<div>
+					<div align="center">
+						<img
+							src="images/userguide/adddevice1.png" />
+						<img
+							src="images/userguide/adddevice2.png" />
+						<img
+							src="images/userguide/adddevice3.png" />
+						<img
+							src="images/userguide/adddevice4.png" />
+						<center>
+							<br/>
+							Figure 1: Add Device Wizard
+							<br/>
+						</center>
+					</div>
+				</div>
+			</p>
+		</subsection>
+
+	</body>
+</document>

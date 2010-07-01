@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>User Guide: iGesture Workbench - Tutorial</title>
+	</properties>
+	<body>
+		<a name="cp:userguide"></a>
+		<h1>User Guide: iGesture Workbench - Tutorial</h1>
+		<h2>Test Bench Tab Tutorial</h2>
+		The
+		<i>Test Bench Tab</i>
+		allows the manual test and creation of algorithm configurations.
+		Figure
+		<a href="#fig%3Atestbenchtab">1</a>
+		shows the list of available algorithms.
+		<p>
+			<a name="fig:testbenchtab"></a>
+			<div>
+				<div align="center">
+					<img src="images/userguide/testbenchtab.png" />
+					<center>
+						<br />
+						Figure 1: Test Bench Tab
+						<br />
+					</center>
+				</div>
+			</div>
+		</p>
+		<p>
+			Configurations can be created using the
+			context menu shown in Figure
+			<a href="#fig%3Aadd_configuration">2</a>, while Figure 
+			<a href="#fig%3Aalgorithm_contextmenu">3</a> shows how to remove
+			or export a configuration to an XML file whereas this file can be used
+			for the initialization of the recogniser.
+		</p>
+		<p>
+			<a name="fig:add_configuration"></a>
+			<div>
+				<div align="center">
+					<img
+						src="images/userguide/add_configuration.png" />
+					<center>
+						<br />
+						Figure 2: Add a configuration
+						<br />
+					</center>
+				</div>
+			</div>
+		</p>
+		<p>
+			<a name="fig:algorithm_contextmenu"></a>
+			<div>
+				<div align="center">
+					<img
+						src="images/userguide/algorithm_contextmenu.png" />
+					<center>
+						<br />
+						Figure 3: Manage configurations
+						<br />
+					</center>
+				</div>
+			</div>
+		</p>
+		<p>
+			The
+			<i>Algorithm</i>
+			view shown in Figure
+			<a href="#fig%3Aalgorithm_frame">4</a> shows the parameters
+			of the algorithm in the upper half of the view. The lower half
+			can test the recognition of a gesture shown in the capture
+			area. A gesture set has to be selected. After the recognition 
+			process has finished, the result list is shown on the bottom.
+		</p>
+		<p>
+			<a name="fig:algorithm_frame"></a>
+			<div>
+				<div align="center">
+					<img src="images/userguide/algorithm_frame.png" />
+					<center>
+						<br />
+						Figure 4: Configuration parameters and result of the recognition
+						<br />
+					</center>
+				</div>
+			</div>
+		</p>
+
+	</body>
+</document>

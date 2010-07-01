@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>User Guide: iGesture Workbench - Tutorial</title>
+	</properties>
+	<body>
+		<a name="cp:userguide"></a>
+		<h1>User Guide: iGesture Workbench - Tutorial</h1>
+		<h2>Composite Test Bench Tab Tutorial</h2>
+		The <i>Composite Test Bench</i> can be used to test the recognition of composite gestures. One or more <i>Recognisers</i> can be created by configuring
+		them with one or more algorithms, gesture sets and devices that send the captured input to the <i>Recogniser</i>. Then the <i>Multi-modal Recogniser</i> 
+		can be configured with a gesture set that contains composite gestures. After starting the recognition process, the recognition results are shown on the bottom.
+
+		<p>
+			<a name="fig:compositetab"></a>
+			<div>
+				<div align="center">
+					<img src="images/userguide/compositetestbench.png" />
+					<center>
+						<br />
+						Figure 1: Composite Test Bench Tab
+						<br />
+					</center>
+				</div>
+			</div>
+		</p>
+
+
+	</body>
+</document>

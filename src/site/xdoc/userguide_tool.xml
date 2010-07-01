@@ -1,16 +1,17 @@
-<html>
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
 	<properties>
 		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
-		<title>User Guide: iGesture Tool</title>
+		<title>User Guide: iGesture Workbench</title>
 	</properties>
 	<body>
 		<a name="cp:userguide"></a>
-		<h1>User Guide: iGesture Tool</h1>
-		<h2>Tool</h2>
+		<h1>User Guide: iGesture Workbench</h1>
+		<h2>Workbench</h2>
 		This chapter gives an overview of the graphical iGesture tool
 		shown in Figure
 		<a href="#fig%3Aitoolshot">1</a>
-		. The tool is started with the shell script located in the bin folder of the binary distribution available at <a href="http://sourceforge.net/projects/igesture">Sourceforge</a>.
+		. The workbench is started with the shell script located in the bin folder of the binary distribution available at <a href="http://sourceforge.net/projects/igesture">Sourceforge</a>.
 		<p>
 			<a name="fig:itoolshot"></a>
 			<div>
@@ -25,12 +26,12 @@
 			</div>
 		</p>
 		<h2>Capturing Gestures</h2>
-		On each tab there is a capture area as shown in Figure
+		Most tabs contain a capture area as shown in Figure
 		<a href="#fig%3Acapture_area">2</a>
 		. It displays the gesture that has been been captured most
-		recently by a specific input device. This gesture input can be
+		recently by a specific input device. The input device can be selected
+		from the list on the left-hand side. The gesture input can be
 		used for various tasks as described in the following sections.
-		Note that a click on the update button updates the gesture.
 		<p>
 			<a name="fig:capture_area"></a>
 			<div>
@@ -44,318 +45,178 @@
 				</div>
 			</div>
 		</p>
-		<h2>Managing Gesture Sets and Classes</h2>
-		The
-		<i>Admin Tab</i>
-		provides functionality to create and manage gesture classes and
-		sets. Classes and the related descriptors can be created and
-		summarised to gesture sets.
-		<h4>Create and Edit Gesture Classes</h4>
-		A new gesture class can be created from the context menu which
-		is reachable with a right mouse click in the
-		<i>Gesture Classes</i>
-		frame as shown in Figure
-		<a href="#fig%3Agc_create">3</a>
-		.
-		<p>
-			<a name="fig:gc_create"></a>
-			<div>
-				<div align="center">
-					<img src="images/userguide/gc_create.png" />
-					<center>
-						<br />
-						Figure 3: Create a new gesture class
-						<br />
-					</center>
-				</div>
-			</div>
-		</p>
-		<p>
-			After selecting
-			<i>Create new Gesture Class</i>
-			the new
-			<i>Gesture Class Edit</i>
-			frame appears and the gesture class can be named. The list
-			below the name shows the available descriptors of this
-			class. Right after the creation of a new gesture class no
-			descriptor is visible. A mouse click in the list with the
-			right button shows the context menu as outlined in Figure
-			<a href="#fig%3Agc_create_descriptor">4</a>
-			. The add button allows to create sample and text
-			descriptors. By the same menu descriptors can also be edited
-			and deleted.
-		</p>
-		<p>
-			<a name="fig:gc_create_descriptor"></a>
-			<div>
-				<div align="center">
-					<img
-						src="images/userguide/gc_create_descriptor.png" />
-					<center>
-						<br />
-						Figure 4: Create a new descriptor
-						<br />
-					</center>
-				</div>
-			</div>
-		</p>
-		<p>
-			Figure shows the two available descriptor frames. The
-			<i>Text Descriptor</i>
-			contains a text field where the description can be made. A
-			click on the
-			<tt>OK</tt>
-			button stores the description and closes the frame.
-		</p>
-		<p>
-			In the
-			<i>Sample Descriptor</i>
-			frame the gesture currently shown in the capturing area is
-			added as new sample with a mouse click on the
-			<tt>Add</tt>
-			button. Samples can be deleted by using the context menu of
-			the list showing the samples.
-		</p>
-		<p>
-			<a name="fig:text_descriptor"></a>
-			<div>
-				<div align="center">
-					[Text descriptor]
-					<img src="images/userguide/text_descriptor.png" />
-					[Sample descriptor]
-					<img src="images/userguide/sample_descriptor.png" />
-					<center>
-						<br />
-						Figure 5: Descriptors
-						<br />
-					</center>
-				</div>
-			</div>
-		</p>
-		<h3>Create and Edit Gesture Sets</h3>
-		Gesture sets are created and managed in the
-		<i>Gesture Sets</i>
-		frame as illustrated in Figure
-		<a href="#fig%3Acreate_gestureset">6</a>
-		. The sets and the related classes are shown in a tree
-		structure. Each level of the three has a context menu for
-		specific operations. A click on the root node allows the
-		creation of new gesture sets. Alternatively, existing sets can
-		be imported from an XML file.
-		<p>
-			<a name="fig:create_gestureset"></a>
-			<div>
-				<div align="center">
-					<img src="images/userguide/create_gestureset.png" />
-					<center>
-						<br />
-						Figure 6: Create a new gesture set
-						<br />
-					</center>
-				</div>
-			</div>
-		</p>
-		<p>
-			Figure
-			<a href="#fig%3Acreate_gestureset_dialog">7</a>
-			shows the window that appears when a new set is created. In
-			the text field the set can be named and it is added after a
-			click on the
-			<tt>Create</tt>
-			button.
-		</p>
-		<p>
-			<a name="fig:create_gestureset_dialog"></a>
-			<div>
-				<div align="center">
-					<img
-						src="images/userguide/create_gestureset_dialog.png" />
-					<center>
-						<br />
-						Figure 7: Set name of the gesture set
-						<br />
-					</center>
-				</div>
-			</div>
-		</p>
-		<p>
-			The context menu of the gesture set level shown in Figure
-			<a href="#fig%3Aadd_gestureclass">8</a>
-			allows to add classes, delete the set, export the set as XML
-			file or PDF document and create a test set out of the
-			gesture set.
-		</p>
-		<p>
-			<a name="fig:add_gestureclass"></a>
-			<div>
-				<div align="center">
-					<img src="images/userguide/add_gestureclass.png" />
-					<center>
-						<br />
-						Figure 8: Add a gesture class to the set
-						<br />
-					</center>
-				</div>
-			</div>
-		</p>
-		<p>
-			The window shown in Figure
-			<a href="#fig%3Aadd_gestureclasstoset">9</a>
-			allows to add gesture classes to the selected gesture set.
-			Multi-select is also possible and the marked classes are
-			added after a click on the Add button.
-		</p>
-		<p>
-			<a name="fig:add_gestureclasstoset"></a>
-			<div>
-				<div align="center">
-					<img
-						src="images/userguide/add_gestureclasses_to_set.png" />
-					<center>
-						<br />
-						Figure 9: Select gesture classes
-						<br />
-					</center>
-				</div>
-			</div>
-		</p>
-		<p>
-			Figure
-			<a href="#fig%3Aremove_gestureclass">10</a>
-			shows the context menu of the gesture class level. It allows
-			to remove selected classes from the gesture set.
-		</p>
-		<p>
-			<a name="fig:remove_gestureclass"></a>
-			<div>
-				<div align="center">
-					<img src="images/userguide/remove_gestureclass.png" />
-					<center>
-						<br />
-						Figure 10: Remove a gesture class
-						<br />
-					</center>
-				</div>
-			</div>
-		</p>
+		<h2>Tabs</h2>
+			<subsection name="Gesture Set Tab">
+				<p>
+					The
+					<i>Gesture Set Tab</i>
+					enables us to administrate gesture sets, classes and
+					descriptors. This view as shown in Figure
+					<a href="#fig%3AscreenShotAdmin">3</a>
+					has two main components which are always visible.
+					These are an area to define the gesture and a tree structure to manage
+					the gesture sets and classes.
+					<p>
+						<div>
+							<div align="center">
+								<img
+									src="images/userguide/screenshotAdminTab.png" />
+								<center>
+									<br />
+									Figure 3: Screenshot Gesture Set tab
+									<br />
+								</center>
+							</div>
+						</div>
+					</p>
+					<p>
+						Gesture classes can be created and
+						deleted in the list. These operations are
+						accessible over a context menu. For editing a
+						gesture class, select the descriptor of the gesture 
+						class and a new view opens visualising the descriptor.
+						The descriptors can be edited and deleted as well.
+					</p>
+					<p>
+						The tree representing the gesture sets and the
+						containing classes has several context menus for
+						the operations create, delete, export and import
+						a gesture set and to add gesture classes.
+					</p>
+					<p>
+						The export and import functionality of set level
+						allows creating and reading XML files containing
+						the set and the corresponding classes with their
+						descriptors. These files can be used for
+						initialising the recogniser and makes it
+						therefore independent of the storage manager.
+					</p>
+				</p>
+			</subsection>
+			<subsection name="Test Bench Tab">
+				<p>
+					The
+					<i>Test Bench Tab</i>
+					shown in Figure
+					<a href="#fig%3AscreenShotRecogniser">4</a>
+					provides functionality to acquire a gesture from the
+					input device and recognise it with the gesture set
+					and algorithm of the user&apos;s choice. This
+					enables a simple and quick test of specific
+					gestures. All gesture sets of the currently opened
+					database are available and the algorithms can be
+					selected.
+				</p>
+					<p>
+						<div>
+							<div align="center">
+								<img
+									src="images/userguide/screenshotRecogniser.png" />
+								<center>
+									<br />
+									Figure 4: Test Bench tab screenshot
+									<br />
+								</center>
+							</div>
+						</div>
+					</p>
+			</subsection>
+			<subsection name="Batch Processing Tab">
+				<p>
+					A batch process can be used to determine the most suitable values for the 
+					algorithm parameters. To run a batch process, a batch configuration must be 
+					provided, a gesture and test set has to be selected and an output directory 
+					for the batch process report can be specified. The report itself is also 
+					displayed at the bottom after the batch process has finished.
+				</p>	
+				<p>
+					<div>
+						<div align="center">
+							<img
+								src="images/userguide/screenshotBatch.png" />
+							<center>
+								<br />
+								Figure 5: Screenshot Batch Processing tab
+								<br />
+							</center>
+						</div>
+					</div>
+				</p>
+			</subsection>
+			<subsection name="Test Set Tab">
+				<p>
+					The
+					<i>Test Set Tab</i>
+					shown in Figure
+					<a href="#fig%3AscreenShotTest">6</a>
+					can be used to create test sets for testing
+					algorithms and their configuration (e.g. in a batch process). It also has a
+					capture component and a list of available test sets and classes.
+					<p>
+						<div>
+							<div align="center">
+								<img
+									src="images/userguide/screenshotTestTab.png" />
+								<center>
+									<br />
+									Figure 6: Screenshot Test Set tab
+									<br />
+								</center>
+							</div>
+						</div>
+					</p>
+					<p>
+						Test sets can be created, edited and deleted.
+						Furthermore, we provide functionality to export
+						and import test sets from the corresponding XML
+						representation.
+					</p>
+				</p>
+			</subsection>
+			<subsection name="Composite Test Bench Tab">
+				<p>
+					The <i>Composite Test Bench Tab</i> is used to test the recognition of composite gestures. One or more
+					<i>Recognisers</i> can be created by selecting one or more algorithms, gesture sets and devices that send 
+					their captured input to the <i>Recogniser</i>. Then the <i>Multi-modal Recogniser</i> can be configured with
+					a gesture set with composite gestures and the recognition process can be started. The recognition results are
+					displayed on the bottom.
+				</p>
+				<p>
+					<div>
+						<div align="center">
+							<img
+								src="images/userguide/screenshotComposite.png" />
+							<center>
+								<br />
+								Figure 7: Screenshot Composite Test Bench tab
+								<br />
+							</center>
+						</div>
+					</div>
+				</p>
+			</subsection>
+			<subsection name="Device Manager">
+				<p>
+					The <i>Device Manager</i> shown in Figure <a href="#fig%3Adevman">8</a> provides functionality
+					to add and remove users and devices. Devices can also be disconnected and reconnected manually. It 
+					is possible to associate a user with a device. If you have a fixed setup, it is possible to save this
+					setup to and load it from file. A wizard is used to add a device manually.
+				</p>
+				<p>
+					<div>
+						<div align="center">
+							<img
+								src="images/userguide/screenshotDeviceManager.png" />
+							<center>
+								<br />
+								Figure 8: Screenshot Device Manager
+								<br />
+							</center>
+						</div>
+					</div>
+				</p>
+			</subsection>
 
-		<h2>Test Bench</h2>
-		The
-		<i>Test Bench Tab</i>
-		allows the manual test and creation of algorithm configurations.
-		Figure
-		<a href="#fig%3Aalgorithm_frame">11</a>
-		shows the frame with the available configurations and a list of
-		parameters which can be edited.
-		<p>
-			<a name="fig:algorithm_frame"></a>
-			<div>
-				<div align="center">
-					<img src="images/userguide/algorithm_frame.png" />
-					<center>
-						<br />
-						Figure 11: Algorithm configuration
-						<br />
-					</center>
-				</div>
-			</div>
-		</p>
-		<p>
-			Configurations can be created, deleted and edited using the
-			context menu shown in Figure
-			<a href="#fig%3Aalgorithm_contextmenu">12</a>
-			. Another feature is the possibility to export a
-			configuration to an XML file whereas this file can be used
-			for the initialization of the recogniser.
-		</p>
-		<p>
-			<a name="fig:algorithm_contextmenu"></a>
-			<div>
-				<div align="center">
-					<img
-						src="images/userguide/algorithm_contextmenu.png" />
-					<center>
-						<br />
-						Figure 12: Manage configurations
-						<br />
-					</center>
-				</div>
-			</div>
-		</p>
-		<p>
-			The
-			<i>Algorithm</i>
-			frame shown in Figure
-			<a href="#fig%3Aalgorithm_result">13</a>
-			can test the recognition of a gesture shown in the capture
-			area. The configuration of the algorithm to be used for the
-			recognition needs to be open and a gesture set has to be
-			selected. Afterwards, the recognition process can be started
-			and the result list is shown.
-		</p>
-		<p>
-			<a name="fig:algorithm_result"></a>
-			<div>
-				<div align="center">
-					<img src="images/userguide/algorithm_result.png" />
-					<center>
-						<br />
-						Figure 13: Result of the recognition
-						<br />
-					</center>
-				</div>
-			</div>
-		</p>
-		<h2>Test Data</h2>
-		With the
-		<i>Test Data Tab</i>
-		test sets can be created. Figure
-		<a href="#fig%3Atestset_mgmt">14</a>
-		shows the frame for selecting the name of the captured gesture.
-		Additionally to the available class names there is an entry
-		called
-		<tt>None</tt>
-		. This option is used to declare test gestures which are not
-		part of the gesture set and should be rejected by the algorithm.
-		A click on the
-		<tt>Add</tt>
-		button copies the gesture to the opened test set.
-		<p>
-			<a name="fig:testset_mgmt"></a>
-			<div>
-				<div align="center">
-					<img src="images/userguide/testset_mgmt.png" />
-					<center>
-						<br />
-						Figure 14: Name test gestures
-						<br />
-					</center>
-				</div>
-			</div>
-		</p>
-		<p>
-			The upper part of the
-			<i>Testset List</i>
-			shown in Figure
-			<a href="#fig%3Atestset_list">15</a>
-			lists the available test set. Sets can be created, deleted,
-			edited and also imported and exported to an XML file. The
-			list below display the content of the selected test set.
-			Using the context menu of this list enables the deletion of
-			particular test gestures.
-		</p>
-		<p>
-			<a name="fig:testset_list"></a>
-			<div>
-				<div align="center">
-					<img src="images/userguide/testset_list.png" />
-					<center>
-						<br />
-						Figure 15: List of test sets
-						<br />
-					</center>
-				</div>
-			</div>
-		</p>
+
 	</body>
-</html>
+</document>

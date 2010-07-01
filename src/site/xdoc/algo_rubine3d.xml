@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Rubine 3D Algorithm</title>
+	</properties>
+	<body>
+		<section name="Rubine 3D Algorithm">
+			<p>
+				The Rubine 3D algorithm is based on the Rubine algorithm, which is executed on each plane. 
+			</p>
+			<subsection name="Parameters">
+				The parameters are the same as for the Rubine algorithm except that they have to be specified for each plane.
+			</subsection>
+			<subsection name="Example Configuration">
+				<source>
+&lt;configuration&gt;
+	&lt;algorithm 
+		name="org.ximtec.igesture.algorithm.rubine3d.Rubine3DAlgorithm"&gt;
+		&lt;parameter name="XY_MIN_DISTANCE"&gt;2.0&lt;/parameter&gt;		
+		&lt;parameter name="YZ_MIN_DISTANCE"&gt;3.0&lt;/parameter&gt;
+		&lt;parameter name="ZX_MIN_DISTANCE"&gt;1.0&lt;/parameter&gt;
+		&lt;parameter name="XY_PROBABILITY"&gt;0.95&lt;/parameter&gt;
+		&lt;parameter name="YZ_PROBABILITY"&gt;0.95&lt;/parameter&gt;
+		&lt;parameter name="ZX_PROBABILITY"&gt;0.95&lt;/parameter&gt;
+		&lt;parameter name="XY_MAHALANOBIS_DISTANCE"&gt;400.0&lt;/parameter&gt;
+		&lt;parameter name="YZ_MAHALANOBIS_DISTANCE"&gt;800.0&lt;/parameter&gt;
+		&lt;parameter name="ZX_MAHALANOBIS_DISTANCE"&gt;400.0&lt;/parameter&gt;
+		&lt;parameter name="XY_WEIGHT"&gt;0.2&lt;/parameter&gt;
+		&lt;parameter name="ZX_WEIGHT"&gt;0.2&lt;/parameter&gt;
+		&lt;parameter name="YZ_WEIGHT"&gt;0.6&lt;/parameter&gt;
+		&lt;parameter name="XY_FEATURE_LIST"&gt;
+			org.ximtec.igesture.algorithm.feature.F1,
+			org.ximtec.igesture.algorithm.feature.F2,
+			org.ximtec.igesture.algorithm.feature.F3,
+			org.ximtec.igesture.algorithm.feature.F4,
+			org.ximtec.igesture.algorithm.feature.F5,
+		&lt;/parameter&gt;
+		&lt;parameter name="YZ_FEATURE_LIST"&gt;
+			org.ximtec.igesture.algorithm.feature.F1,
+			org.ximtec.igesture.algorithm.feature.F2,
+			org.ximtec.igesture.algorithm.feature.F3,
+			org.ximtec.igesture.algorithm.feature.F4,
+			org.ximtec.igesture.algorithm.feature.F5
+		&lt;/parameter&gt;
+		&lt;parameter name="ZX_FEATURE_LIST"&gt;
+			org.ximtec.igesture.algorithm.feature.F1,
+			org.ximtec.igesture.algorithm.feature.F2,
+			org.ximtec.igesture.algorithm.feature.F3,
+			org.ximtec.igesture.algorithm.feature.F4,
+			org.ximtec.igesture.algorithm.feature.F5
+		&lt;/parameter&gt;
+	&lt;/algorithm&gt;
+&lt;/configuration&gt;
+				</source>
+			</subsection>
+		</section>
+	</body>
+
+
+</document>

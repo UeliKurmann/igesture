@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Implementation: org.ximtec.igesture.util.additions3d.Note3D</title>
+	</properties>
+	<body>
+		<section name="Implementation: org.ximtec.igesture.util.additions3d.Note3D">
+			<p>
+				iGesture uses the
+				<tt>org.ximtec.igesture.util.additions3d.Note3D</tt>
+				class to represent gestures captured from a 3D input
+				device. A
+				<tt>Note3D</tt>
+				consists of time stamped
+				<tt>Point3Ds</tt> and of <tt>AccelerationSamples</tt>
+				. Beside the timestamp, a point contains the coordinates.
+				The schema of the XML note
+				representation is shown in Listing.
+			</p>
+			
+			<source>
+			
+			</source>
+		</section>
+	</body>
+</document>

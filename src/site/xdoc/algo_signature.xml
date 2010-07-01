@@ -6,10 +6,21 @@
 	</properties>
 	<body>
 		<section name="Signature Algorithm">
+			<p>
+				The Signature algorithm was designed as part of a diploma thesis. The idea behind this algorithm is to approximate gestures 
+				with a signature whereas the signature is computed from example gestures as done in the Rubine algorithm. The signatures are 
+				compared based on distance functions leading to a classification.
+			</p>
+			<p>
+				For the creation of the signature we use a grid which consists of squares of the same size. Each square is identified with a bit 
+				string and two neighbouring squares always differ in exactly one bit.
+			</p>
+			<p>
+				During the preprocessing phase the gestures are stretched to a uniform size and mapped onto the grid. Each point of the gesture can 
+				now be represented with the bit string of its related square as shown in Figure 4.2. The full signature consists of the 
+				concatenation of these bit strings.
+			</p>
 			<subsection name="Parameters">
-
-
-
 				<table>
 					<tr>
 						<td>
@@ -43,7 +54,17 @@
 			</subsection>
 
 			<subsection name="Example Configuration">
-
+				<source>
+&lt;configuration&gt;
+	&lt;algorithm 
+		name="org.ximtec.igesture.algorithm.signature.SiGridAlgorithm"&gt;
+		&lt;parameter name="DISTANCE_FUNCTION"&gt;org.ximtec.igesture.algorithm.signature.HammingDistance&lt;/parameter&gt;
+		&lt;parameter name="RASTER_SIZE"&gt;120&lt;/parameter&gt;
+		&lt;parameter name="MIN_ACCURACY"&gt;0.5&lt;/parameter&gt;
+		&lt;parameter name="GRID_SIZE"&gt;8&lt;/parameter&gt;
+	&lt;/algorithm&gt;
+&lt;/configuration&gt;
+				</source>
 			</subsection>
 		</section>
 	</body>

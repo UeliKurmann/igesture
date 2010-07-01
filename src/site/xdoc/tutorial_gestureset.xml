@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>User Guide: iGesture Workbench - Tutorial</title>
+	</properties>
+	<body>
+		<a name="cp:userguide"></a>
+		<h1>User Guide: iGesture Workbench - Tutorial</h1>
+		<h2>Gesture Set Tab Tutorial</h2>
+		The
+		<i>Gesture Set Tab</i> as shown in Figure 1,
+		provides functionality to create and manage gesture classes and
+		sets.
+		<p>
+			<a name="fig:admintabshot"></a>
+			<div>
+				<div align="center">
+					<img src="images/userguide/admintab.png" />
+					<center>
+						<br />
+						Figure 1: Screenshot Gesture Set Tab
+						<br />
+					</center>
+				</div>
+			</div>
+		</p>
+
+
+		<h3>Create and Edit Gesture Sets</h3>
+		Gesture sets are created and managed in the
+		<i>Gesture Sets</i>
+		tree view as illustrated in Figure
+		<a href="#fig%3Acreate_gestureset">2</a>
+		. The sets and the related classes are shown in a tree
+		structure. Each level of the three has a context menu for
+		specific operations. A click on the root node allows the
+		creation of new gesture sets. Alternatively, existing sets can
+		be imported from an XML file.
+		<p>
+			<a name="fig:create_gestureset"></a>
+			<div>
+				<div align="center">
+					<img src="images/userguide/create_gestureset.png" />
+					<center>
+						<br />
+						Figure 2: Create a new gesture set
+						<br />
+					</center>
+				</div>
+			</div>
+		</p>
+		<p>
+			Figure
+			<a href="#fig%3Acreate_gestureset_dialog">3</a>
+			shows the view that appears when a new set is created. In
+			the text field the set can be named (e.g samples).
+		</p>
+		<p>
+			<a name="fig:create_gestureset_dialog"></a>
+			<div>
+				<div align="center">
+					<img
+						src="images/userguide/create_gestureset_dialog.png" />
+					<center>
+						<br />
+						Figure 3: Set name of the gesture set
+						<br />
+					</center>
+				</div>
+			</div>
+		</p>
+		<p>
+			The context menu of the gesture set level shown in Figure
+			<a href="#fig%3Aadd_gestureclass">4</a>
+			allows to add gesture classes, delete the set, export the set as XML
+			file or PDF document and create a test set out of the
+			gesture set.
+		</p>
+		<p>
+			<a name="fig:add_gestureclass"></a>
+			<div>
+				<div align="center">
+					<img src="images/userguide/add_gestureclass.png" />
+					<center>
+						<br />
+						Figure 4: Add a gesture class to the set
+						<br />
+					</center>
+				</div>
+			</div>
+		</p>
+
+
+		<h3>Create and Edit Gesture Classes</h3>
+		After selecting
+		<i>Add Gesture Class</i> option from the context menu in 
+		Figure 4, a new view appears where the gesture class can be named (e.g. line)
+		as shown in Figure 5.
+		<p>
+			<a name="fig:add_gestureclasstoset"></a>
+			<div>
+				<div align="center">
+					<img
+						src="images/userguide/add_gestureclasses_to_set.png" />
+					<center>
+						<br />
+						Figure 5: Set the name of the gesture classes
+						<br />
+					</center>
+				</div>
+			</div>
+		</p>
+
+		<p>
+			Right after the creation of a new gesture class no
+			descriptor is visible. A mouse click in the list with the
+			right button shows the context menu as outlined in Figure
+			<a href="#fig%3Agc_create_descriptor">6</a>
+			. A sample (2D or 3D), a text or a composite descriptor can be added.
+		</p>
+		<p>
+			<a name="fig:gc_create_descriptor"></a>
+			<div>
+				<div align="center">
+					<img
+						src="images/userguide/gc_create_descriptor.png" />
+					<center>
+						<br />
+						Figure 6: Create a new descriptor
+						<br />
+					</center>
+				</div>
+			</div>
+		</p>
+		<p>
+			Figure shows the two available descriptor frames. The
+			<i>Text Descriptor</i>
+			contains a text field where the description can be made.
+		</p>
+		<p>
+			In the
+			<i>(3D) Sample Descriptor</i>
+			view the gesture currently shown in the capturing area is
+			added as new sample with a mouse click on the
+			<tt>Add Gesture Sample</tt>
+			button.
+		</p>
+		<p>
+			<a name="fig:text_descriptor"></a>
+			<div>
+				<div align="center">
+					<img src="images/userguide/text_descriptor.png" />
+					<br/>
+					(a) Text Descriptor
+					<br/>
+					<img src="images/userguide/sample_descriptor.png" />
+					<br/>
+					(b) Sample Descriptor
+					<br/>
+					<img src="images/userguide/composite_descriptor.png" />
+					<br/>
+					(c) Composite Descriptor
+					<center>
+						<br />
+						Figure 7: Descriptors
+						<br />
+					</center>
+				</div>
+			</div>
+		</p>
+
+
+	</body>
+</document>

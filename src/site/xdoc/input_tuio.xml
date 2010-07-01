@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Input Device: TUIO</title>
+	</properties>
+
+	<body>
+		<section name="Input Device: TUIO">
+			<p>
+				<a href="http://www.tuio.org">TUIO</a> is an open protocol
+				for tangible and multi-touch interaction. Each touch device that
+				supports the TUIO protocol can send the captured data to the TUIO 
+				client integrated in the framework. 
+			</p>
+			<p>
+				<div>
+					<div align="center">
+						<img
+							src="images/implementation/tuio.png" />
+						<center>
+							<br/>
+							Figure 1: TUIO
+							<br/>
+						</center>
+					</div>
+				</div>
+			</p>
+			<p>
+				The TUIO server does have to 
+				implement the following interface in order to display the correct 
+				behaviour needed by the client.
+			</p>
+			<subsection name="Server Interface">
+				<source>
+public interface TuioToIGestureInterface {
+	
+	/** 
+	 * When only gesture data of the objects is sent to the tuio client, the client must be informed of all 
+	 * objects that are present at the beginning of the gesture. This way the client will know the begin position 
+	 * of the gesture.
+	 */
+	public abstract void sendVirtualAdd();
+	/**
+	 * When only gesture data of the objects is sent to the tuio client, the client must be informed of the removal
+	 * of all present objects. This way the client will know the end postion of the gesture.
+	 */
+	public abstract void sendVirtualRemove();
+
+}
+				</source>
+			</subsection>
+		</section>
+	</body>
+</document>
