@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Device Manager</title>
+	</properties>
+	<body>
+		<section name="Device Manager">
+			<p>
+				The <i>Device Manager</i> provides support for managing users and 
+				devices. A device can be manually added through a wizard. The first 
+				step is to select a connection type. The devices are detected by 
+				the corresponding discovery services. The following sections explain 
+				the different configuration files.
+			</p>
+			<subsection name="Connection Types Configuration">
+				<p>
+					Each connection has a name which is displayed in the wizard and 
+					a discovery service represented by the name of the class that 
+					implements the discovery service.
+				</p>
+				<source>
+&lt;connections&gt;
+	&lt;connection&gt;
+		&lt;name&gt;Bluetooth&lt;/name&gt;
+		&lt;discoveryService&gt;
+			org.ximtec.igesture.tool.view.devicemanager.discoveryservice.BluetoothDeviceDiscoveryService
+		&lt;/discoveryService&gt;
+	&lt;/connection&gt;
+	&lt;connection&gt;
+		&lt;name&gt;Tuio 2D&lt;/name&gt;
+		&lt;discoveryService&gt;
+			org.ximtec.igesture.tool.view.devicemanager.discoveryservice.Tuio2DDeviceDiscoveryService
+		&lt;/discoveryService&gt;
+	&lt;/connection&gt;
+	&lt;connection&gt;
+		&lt;name&gt;Tuio 3D&lt;/name&gt;
+		&lt;discoveryService&gt;
+			org.ximtec.igesture.tool.view.devicemanager.discoveryservice.Tuio3DDeviceDiscoveryService
+		&lt;/discoveryService&gt;
+	&lt;/connection&gt;
+&lt;/connections&gt;
+				</source>
+			</subsection>
+
+			<subsection name="Example Device Configuration">
+				<p>
+					Each connection type can support multiple devices. For example, different kinds of devices can be connected 
+					through a Bluetooth connection such as the Wii Remote, digital pens and mobile phones. Each kind of device 
+					can be implemented by a different class. In order to instantiate the right class if a device was detected by 
+					the discovery service a mapping must be defined.
+				</p>
+				<p>
+					The configuration below is used for Bluetooth devices. Most Bluetooth devices have a minor and major device class
+					to identify the type of device. An example major device class is a computer, while the minor device class corresponding 
+					to that major class can be desktop or laptop. However not all devices have been identified with a major and minor device 
+					class, therefore the name of the device is used instead. This does mean that all devices of that type should have the
+					same name or each device has to be added separately to that list. The class to instantiate is also mentionned.
+				</p>
+				<source>
+&lt;devices&gt;
+	&lt;device&gt;
+		&lt;minor&gt;4&lt;/minor&gt;
+		&lt;major&gt;1280&lt;/major&gt;
+		&lt;name&gt;Nintendo RVL-CNT-01&lt;/name&gt;
+		&lt;class&gt;org.ximtec.igesture.io.wiimote.WiiReader&lt;/class&gt;
+	&lt;/device&gt;
+	&lt;device&gt;
+		&lt;minor&gt;0&lt;/minor&gt;
+		&lt;major&gt;1536&lt;/major&gt;
+		&lt;name&gt;Pen LZ7064501GN&lt;/name&gt;
+		&lt;class&gt;org.ximtec.igesture.tool.view.devicemanager.BlueToothReader&lt;/class&gt;
+	&lt;/device&gt;
+	&lt;device&gt;
+		&lt;minor&gt;0&lt;/minor&gt;
+		&lt;major&gt;0&lt;/major&gt;
+		&lt;name&gt;DP-201&lt;/name&gt;
+		&lt;class&gt;org.ximtec.igesture.tool.view.devicemanager.BlueToothReader&lt;/class&gt;
+	&lt;/device&gt;
+&lt;/devices&gt;
+				</source>
+			</subsection>
+		</section>
+	</body>
+
+
+</document>

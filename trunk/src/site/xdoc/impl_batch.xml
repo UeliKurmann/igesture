@@ -13,7 +13,7 @@
 			comparison it allows us to test a specific algorithm with
 			different parameters to adjust them in the best possible way
 			for a given gesture set. Figure
-			<a href="#fig%3Abatchprocess">13</a>
+			<a href="#fig%3Abatchprocess">9</a>
 			shows the main classes belonging to the batch process
 			handling.
 			<p>
@@ -23,7 +23,7 @@
 							src="images/implementation/batchprocess.png" />
 						<center>
 							<br />
-							Figure 13: BatchProcess class diagram
+							Figure 9: BatchProcess class diagram
 							<br />
 						</center>
 					</div>

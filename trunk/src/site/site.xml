@@ -31,13 +31,19 @@
 		<menu name="iGesture">
 			<item name="Introduction" href="index.html" />
 			<item name="FAQ" href="faq.html" />
-			<item name="Download"
-				href="http://sourceforge.net/projects/igesture" />
+			<item name="Download" href="download.html" />
 			<item name="API Documentation" href="apidocs/index.html" />
 		</menu>
 		<menu name="iGesture Users">
 			<item name="User Guide" href="userguide.html">
-				<item name="iGesture Tool" href="userguide_tool.html" />
+				<item name="iGesture Workbench" href="userguide_tool.html" >
+					<item name="Gesture Set Tab Tutorial" href="tutorial_gestureset.html" />
+					<item name="Test Bench Tutorial" href="tutorial_testbench.html" />
+					<item name="Batch Processing Tab Tutorial" href="tutorial_batch.html" />
+					<item name="Test Set Tab Tutorial" href="tutorial_testset.html" />
+					<item name="Composite Test Bench Tab Tutorial" href="tutorial_composite.html" />
+					<item name="Device Manager Tutorial" href="tutorial_devman.html" />
+				</item>
 				<item name="Framework" href="userguide_framework.html" />
 				<item name="Evaluation" href="userguide_batch.html" />
 			</item>
@@ -67,21 +73,28 @@
 				<item name="Event Manager"
 					href="impl_eventmanager.html" />
 				<item name="Recogniser" href="impl_recogniser.html" />
+				<item name="Multi-modal Recogniser" href="impl_mmr.html" />
 				<item name="Persistence Mechanism"
 					href="impl_persistence.html" />
-				<item name="Management Console"
-					href="impl_management.html" />
+				<item name="iGesture Workbench" href="impl_management.html">
+					<item name="Device Manager" href="impl_devman.html" />
+				</item>
 				<item name="Batch Processing" href="impl_batch.html" />
 				<item name="Note" href="impl_note.html" />
+				<item name="Note3d" href="impl_note3d.html" />
+				<item name="Composite Gestures" href="impl_composites.html" />
 			</item>
 			<item name="Algorithm" href="algorithm.html">
 				<item name="Rubine" href="algo_rubine.html" />
+				<item name="Rubine 3D" href="algo_rubine3d.html" />
 				<item name="SiGeR" href="algo_siger.html" />
 				<item name="Signature" href="algo_signature.html" />
 			</item>
 			<item name="Input Devices" href="input_devices.html">
 				<item name="Mouse" href="input_mouse.html" />
 				<item name="Magicomm Pen" href="input_magicomm.html" />
+				<item name="TUIO Devices" href="input_tuio.html" />
+				<item name="Wii Remote" href="input_wiiremote.html" />
 			</item>
 		</menu>
 		<menu name="Publications" href="publications.html">

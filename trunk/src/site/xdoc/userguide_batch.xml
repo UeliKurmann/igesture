@@ -11,7 +11,7 @@
 		Our batch processing front end has a command line interface. It
 		is started with the batch.bat file located in the root directory
 		of iGesture. Starting the program without any parameters will
-		show a help screen as outlined in Figure fig:batchhelp. The
+		show a help screen as outlined in Figure 1. The
 		following table explains the possible parameters.
 		<p>
 			<table>
@@ -23,7 +23,7 @@
 						of this configuration file is described in the
 						implementation section and an example is given
 						in Listing
-						<a href="#lst%3AxmlBatchConfiguration">7</a>
+						<a href="#lst%3AxmlBatchConfiguration">1</a>
 						.
 						<br />
 					</td>
@@ -81,7 +81,7 @@
 					<img src="images/userguide/batchprocessing.png" />
 					<center>
 						<br />
-						Figure 17: Batch processing help screen
+						Figure 1: Batch processing help screen
 						<br />
 					</center>
 				</div>
@@ -115,7 +115,7 @@
 				</source>
 				<center>
 					<br />
-					Listing 7: XML Configuration
+					Listing 1: XML Configuration
 					<br />
 				</center>
 			</div>

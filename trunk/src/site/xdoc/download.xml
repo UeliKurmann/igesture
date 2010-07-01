@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="igesture@uelikurmann.ch">Ueli Kurmann</author>
+		<title>Download</title>
+	</properties>
+
+	<body>
+		We provide different builds of iGesture hosted on SourceForge.
+		<a href="http://sourceforge.net/projects/igesture/">
+			<img
+				src="http://sflogo.sourceforge.net/sflogo.php?group_id=188690&amp;type=2"
+				width="125" height="37" border="0" alt="SourceForge.net Logo" />
+		</a>
+		<section name="Stable Version">
+			<p>
+				If you are an iGesture newcomer we recommend to download the most recent stable version. 
+				It is a preconfigured eclipse project and contains all necessary third-party libraries as well as the sources of the framework, 
+				the tool, gesture sets and some demo applications. All demo applications should be runnable out of the box. 
+				The stable version can be downloaded <a href="http://sourceforge.net/projects/igesture/files/">here</a>. 
+				The source code, the tool and the libraries can be downloaded separately as well.
+			</p>
+			<p>
+				Demo gesture sets are also available at SourceForge in the iGesture 1.0 release 
+				(<a href="http://downloads.sourceforge.net/igesture/igesture-1.0-sample-data.zip">igesture-1.0-sample-data.zip</a>). 
+			</p>
+		</section>
+
+		<section name="Development Version">
+			<p>
+				For advanced users we recommend to use the sources available in the SVN repository hosted at Sourceforge. 
+				The sources and libraries are organised in a Maven project. Information about the SVN repository is 
+				available <a href="http://igesture.org/source-repository.html">here</a>.
+			</p>
+			<p>
+				Maven is a dependency management tool and can be used from the command line. The following table contains 
+				some of the most frequently used commands. More information about Maven can be found <a href="http://maven.apache.org/index.html">here</a>. 
+				An Eclipse plug-in for Maven can be found <a href="http://m2eclipse.sonatype.org/">here</a>
+			</p>
+			<p>
+				<div>
+					<table>
+						<tr>
+							<td>
+								Compile Maven project
+							</td>
+							<td>
+								mvn compile [-U]
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Clean Maven project
+							</td>
+							<td>
+								mvn clean
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Package Maven project to a jar
+							</td>
+							<td>
+								mvn package
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Install Maven project into local Maven repository
+							</td>
+							<td>
+								mvn install
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								Generate a project web site
+							</td>
+							<td>
+								mvn site
+							</td>
+						</tr>
+					</table>
+					<center>
+						<br/>
+						Table 1: Frequently used Maven commands
+						<br/>
+					</center>
+					
+				</div>	
+			</p>
+			<p>
+				
+			</p>		
+		</section>
+	</body>
+</document>

@@ -7,10 +7,93 @@
 
 	<body>
 		<section name="Introduction">
-			For each input device the following interface must be implemented.  
-		</section>
-		<section name="Interface">
+			For each input device the following interfaces must be implemented.
+			<subsection name="Device Interface">
+				<source>
+public interface Device {
+	
+	/** Get the unique identifier of the device. (e.g. MAC address) */
+	String getDeviceID();
+
+	/** Set the unique identifier of the device. (e.g. MAC address) */
+	void setDeviceID(String id);
+
+	/** Get the display name for the device. */
+	String getName();
+
+	/** Set the display name for the device. */
+	void setName(String name);
 		
+	/** Disconnect the device. */
+	void disconnect();
+
+	/** Connect the device. */
+	void connect();
+
+	/** Check whether the device is connected or not. */
+	boolean isConnected();
+
+	/** Change the connection status of the device. */
+	void setIsConnected(boolean isConnected);
+		
+	/** Get the type of the device. (E.g. 2D or 3D, voice) */
+	int getDeviceType();
+
+	/** Set the type of the device. (E.g. 2D or 3D, voice) */
+	void setDeviceType(int deviceType);
+		
+	/** Get the connection type of the device. (E.g. USB, BlueTooth) */
+	int getConnectionType();
+
+	/** Set the connection type of the device. (E.g. USB, BlueTooth) */
+	void setConnectionType(int connectionType);
+		
+	/** Check whether the device is a mandatory device. (A mandatory device cannot be disconnected) */
+	boolean isMandatoryDevice();
+
+	/** Set the default device status of the device. */
+	void setMandatoryDevice(boolean isMandatory);	
+		
+	String toString();
+
+	/** Get the device type (E.g. SwingMouseReader, WiiReader, ...) */
+	String getDeviceClass();
+}
+				</source>
+			</subsection>
+			<subsection name="GestureDevice Interface">
+				<source>
+public interface GestureDevice&lt;E, F&gt; extends Device{
+   /** Initializes the device. After executing this method, gestures can be captured. */
+   void init();
+
+   /**
+    * Disposes the device. After executing this method, gestures are not captured
+    * anymore and all dependent resources are released.
+    */
+   void dispose();
+
+   /** Returns the gestures. This method should block, if no gesture is available. */
+   Gesture&lt;E&gt; getGesture();
+
+   /** Deletes the current gesture. */
+   void clear();
+
+   /** Returns chunks of a gesture while drawing it. */
+   List&lt;F&gt; getChunks();
+
+   /** Add a gesture handler */
+   void addGestureHandler(GestureEventListener listener);
+
+   /** Remove a gesture handler */
+   void removeGestureHandler(GestureEventListener listener);
+
+}
+				</source>
+			</subsection>
+			<subsection name="Design Notes">
+				The timestamps given by the devices to points should be expressed in milliseconds.
+			</subsection>
 		</section>
 	</body>
 </document>

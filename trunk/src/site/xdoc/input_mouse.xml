@@ -9,9 +9,8 @@
 		<section name="Input Device: Mouse">
 			<p>
 				The usual computer mouse can be used as input device.
-				Gestures are captured while pressing the middle mouse
-				button. The input device is selected in the config.xml
-				file located in the root directory of the distribution.
+				Gestures are captured while pressing the left mouse
+				button.
 			</p>
 			<p>
 				Unfortunately, the support of the computer mouse is
@@ -20,8 +19,13 @@
 					href="http://johannburkard.de/software/nativecall/">
 					NativeCall
 				</a>
-				is used to access the Windows System libraries to
+				 is used to access the Windows System libraries to
 				capture the mouse position.
+			</p>
+			<p>
+				Note that if the <i>SwingMouseReader</i> is used, the other
+				operating system are supported if the gesture is performed 
+				on a Swing canvas element.
 			</p>
 		</section>
 	</body>

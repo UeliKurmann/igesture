@@ -47,16 +47,19 @@
 			<p>	
 				The iGesture framework is not limited to a specific input device. In addition
 				to traditional screen and mouse-based interaction, iGesture provides functionality
-				for handling digital pen and paper input.
+				for handling digital pen and paper input. iGesture also provides support for the 
+				Wii Remote and for <a href="http://www.tuio.org">TUIO</a> devices.
 			</p>
-			<a href="http://sourceforge.net/projects/igesture/">
-				<img
-					src="http://sflogo.sourceforge.net/sflogo.php?group_id=188690&amp;type=2"
-					width="125" height="37" border="0" alt="SourceForge.net Logo" />
-			</a>
+		</section>
 
+		<section
+			name="We would like to hear from you">
 
-
+			<p>
+				Are you using iGesture as part of your project? Then tell us about your project and how you are using iGesture. 
+				Feedback or suggestions are also welcome. Or are you interested in becoming an iGesture developer, then don't hesitate 
+				to contact us!
+			</p>
 		</section>
 
 

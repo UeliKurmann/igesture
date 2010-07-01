@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Composite Gestures</title>
+	</properties>
+	<body>
+		<section name="Composite Gestures">
+			<p>
+				For each gesture that forms part of a composite, it is possible to 
+				define by which user it should be performed, by what kind of device 
+				and even by what specific devices. Note that at the moment we only 
+				support composite gestures of one level deep.
+			</p>
+			<subsection name="Specified Composite Patterns">
+				<table>
+					<tr>
+						<td>
+							<b>Concurrency</b>
+						</td>
+						<td>
+							Two or more gestures are performed concurrently.
+							All gestures that are part of the composite must 
+							be performed with an overlap in time.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<b>Sequence</b>
+						</td>
+						<td>
+							Two or more gestures are performed in sequence.
+							The minimum and maximum gap time between two 
+							consecutive gestures must be specified.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<b>Interval</b>
+						</td>
+						<td>
+							Two or more gestures are performed within a 
+							certain time interval. As a parameter the time 
+							interval must be defined.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<b>Cardinality</b>
+						</td>
+						<td>
+							Within a certain time interval, a particular 
+							gesture must be performed between a minimum 
+							and maximum number of times. This pattern can
+							be used to define a threshold or a majority. 
+							Two versions are 
+							available, either each device has only one vote or
+							either each user has only one vote (a single user 
+							can use multiple devices). The device manager
+							is used to associate users with devices.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<b>Proximity Concurrency</b>
+						</td>
+						<td>
+							Two or more gestures are performed concurrently 
+							and close to each other. The minimum and maximum 
+							length of the diagonal of the (largest face of the) 
+							bounding box of the
+							different gestures has to be specified.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<b>Proximity Sequence</b>
+						</td>
+						<td>
+							Two or more gestures are performed in sequence 
+							and close to each other.The minimum and maximum 
+							length of the diagonal of the (largest face of the) 
+							bounding box of the
+							different gestures has to be specified.
+						</td>
+					</tr>
+
+				</table>
+
+			</subsection>
+
+			<subsection name="Design Guidelines">
+				<p>
+					When designing composite gestures, make sure that one composite 
+					cannot form part of another composite, e.g. a sequence can form 
+					part of an interval composite.
+				</p>
+			</subsection>
+		</section>
+	</body>
+
+
+</document>

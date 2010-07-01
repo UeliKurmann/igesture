@@ -7,7 +7,21 @@
 
 	<body>
 		<section name="Introduction">
-			...
+			<p>
+				iGesture provides different recognition algorithms. These algorithms can either be sample-based or signature-based.
+			</p>
+			<subsection name="Sample-based Algorithms">
+				<ul>
+					<li>Rubine algorithm</li>
+					<li>Rubine 3D algorithm</li>
+					<li>SiGrid algorithm</li>
+				</ul>
+			</subsection>
+			<subsection name="Signature-based Algorithms">
+				<ul>
+					<li>SiGeR algorithm</li>
+				</ul>
+			</subsection>
 		</section>
 	</body>
 </document>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+	<properties>
+		<author email="kurmannu@ethz.ch">Ueli Kurmann</author>
+		<title>Input Device: Wii Remote</title>
+	</properties>
+
+	<body>
+		<section name="Input Device: Wii Remote">
+			<p>
+				The Wii Remote can be used to perform 3D gestures.
+				Gestures are captured while pressing the <i>B</i> button on the backside of the Wii Remote.
+			</p>
+			<p>
+				<div>
+					<div align="center">
+						<img 
+							src="images/implementation/wiimote.png" />
+						<center>
+							<br/>
+							Figure 1: Wii Remote
+							<br/>
+						</center>
+					</div>
+				</div>
+			</p>
+			<subsection name="Important Notes">
+				A Bluetooth stack that supports the L2CAP protocol is needed to be able to communicate with and use the Wii Remote. 
+				The Microsoft Bluetooth stack does NOT support this protocol.
+			</subsection>
+		</section>
+	</body>
+</document>
