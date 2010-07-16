@@ -3,6 +3,7 @@ package org.ximtec.igesture.tool.view.devicemanager.discoveryservice;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +15,7 @@ import javax.bluetooth.RemoteDevice;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.ximtec.igesture.core.composite.ConstraintTool;
 import org.ximtec.igesture.io.AbstractGestureDevice;
 import org.ximtec.igesture.tool.GestureConstants;
 import org.ximtec.igesture.tool.view.devicemanager.BlueToothReader;
@@ -72,17 +74,19 @@ public class BluetoothDeviceConverter {
 		};
 		// the text nodes to read
 		ArrayList<String> nodes = new ArrayList<String>();
-		nodes.add("minor");
-		nodes.add("major");
-		nodes.add("name");
-		nodes.add("class");
+		nodes.add(GestureConstants.XML_NODE_MINOR);
+		nodes.add(GestureConstants.XML_NODE_MAJOR);
+		nodes.add(GestureConstants.XML_NODE_NAME);
+		nodes.add(GestureConstants.XML_NODE_CLASS);
 		//parse the XML file
 		try {
-			parser.parse(System.getProperty("user.dir")+System.getProperty("file.separator")+GestureConstants.XML_BLUETOOTH, "device", nodes);
+			URL path = ConstraintTool.class.getClassLoader().getResource(GestureConstants.XML_DEVICES);
+			parser.parse(path.getFile(),GestureConstants.XML_DEVICES_BT_NODE, nodes);
+//			parser.parse(System.getProperty("user.dir")+System.getProperty("file.separator")+GestureConstants.XML_BLUETOOTH, "device", nodes);
 		} catch (IOException e) {
-			LOGGER.log(Level.SEVERE,"Could not find "+GestureConstants.XML_BLUETOOTH+". Falling back to default BlueTooth devices.",e);//TODO
+			LOGGER.log(Level.SEVERE,"Could not find "+GestureConstants.XML_DEVICES+". Falling back to default BlueTooth devices.",e);//TODO
 		} catch (Exception e){
-			LOGGER.log(Level.SEVERE,"Could not parse "+GestureConstants.XML_BLUETOOTH+". Falling back to default BlueTooth devices.",e);//TODO
+			LOGGER.log(Level.SEVERE,"Could not parse "+GestureConstants.XML_DEVICES+". Falling back to default BlueTooth devices.",e);//TODO
 		}
 	}
 

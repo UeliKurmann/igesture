@@ -1,21 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <devices>
-	<device>
+	
+	<!-- TUIO DEVICES -->
+	
+	<tuiodevice>
+		<port>3333</port>
+		<name>TuioSimulator</name>
+		<type>2D,3D</type>
+	</tuiodevice>
+	<tuiodevice>
+		<port>3334</port>
+		<name>TuioSimulator2</name>
+		<type>2D</type>
+	</tuiodevice>
+	
+	<!-- BLUETOOTH DEVICES -->
+	
+	<btdevice>
 		<minor>4</minor>
 		<major>1280</major>
 		<name>Nintendo RVL-CNT-01</name>
 		<class>org.ximtec.igesture.io.wiimote.WiiReader</class>
-	</device>
-	<device>
+	</btdevice>
+	<btdevice>
 		<minor>0</minor>
 		<major>1536</major>
 		<name>Pen LZ7064501GN</name>
 		<class>org.ximtec.igesture.tool.view.devicemanager.BlueToothReader</class>
-	</device>
-	<device>
+	</btdevice>
+	<btdevice>
 		<minor>0</minor>
 		<major>0</major>
 		<name>DP-201</name>
 		<class>org.ximtec.igesture.tool.view.devicemanager.BlueToothReader</class>
-	</device>
+	</btdevice>
+	
 </devices>

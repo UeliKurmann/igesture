@@ -1,24 +1,19 @@
 package org.ximtec.igesture.tool.view.devicemanager.wizard;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.DefaultListModel;
-import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -26,11 +21,6 @@ import org.netbeans.spi.wizard.Summary;
 import org.netbeans.spi.wizard.WizardController;
 import org.netbeans.spi.wizard.WizardException;
 import org.netbeans.spi.wizard.WizardPanelProvider;
-import org.ximtec.igesture.Recogniser;
-import org.ximtec.igesture.algorithm.Algorithm;
-import org.ximtec.igesture.algorithm.AlgorithmException;
-import org.ximtec.igesture.configuration.Configuration;
-import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.io.AbstractGestureDevice;
 import org.ximtec.igesture.io.DeviceDiscoveryService;
 import org.ximtec.igesture.tool.view.devicemanager.DeviceManagerController;

@@ -150,7 +150,7 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
     
     recogniseAction = new RecogniseAction(getController(), configuration);
     recogniseAction.setEnabled(false);
-
+    
     cardPanel = new JPanel();
 	cardPanel.setLayout(new CardLayout());
 	cardPanel.setSize(new Dimension(INPUTAREA_SIZE, INPUTAREA_SIZE));
@@ -226,7 +226,7 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
   }
   
   private InputComponentPanel createInputPanel(GestureDevice<?,?> device)
-	{
+  {
 		InputComponentPanel inputComponentPanel = new InputComponentPanel();
 		inputComponentPanel.setLayout(new FlowLayout());
 		GestureDevicePanel inputPanelInstance = InputPanelFactory.createPanel(device);
@@ -234,8 +234,8 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
 		inputComponentPanel.add(inputPanelInstance);
 		
 	    // buttons
-	    JPanel buttonPanel = ComponentFactory.createBorderLayoutPanel();
-	
+	    JPanel buttonPanel = ComponentFactory.createBorderLayoutPanel();  
+	    
 	    final JComboBox comboBox = new JComboBox(getController().getLocator().getService(MainModel.IDENTIFIER, MainModel.class)
 	        .getGestureSets().toArray());
 
@@ -252,12 +252,10 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
 	    
 	    comboBox.setSelectedIndex(0);
 	
-	    JButton clearButton = new BasicButton(new ClearGestureSampleAction(getController(), gestureDevice));
-	    //Formatter.formatButton(clearButton);
 	    JButton recogniseButton = new BasicButton(recogniseAction);
 	    //Formatter.formatButton(recogniseButton);
 	    
-	    buttonPanel.add(clearButton, BorderLayout.NORTH);
+	    buttonPanel.add(createClearSampleButton(device), BorderLayout.NORTH);
 	    buttonPanel.add(recogniseButton, BorderLayout.CENTER);
 	    buttonPanel.add(comboBox, BorderLayout.SOUTH);
 	    
@@ -266,7 +264,15 @@ public class ConfigurationPanel extends AbstractPanel implements DeviceListPanel
 		return inputComponentPanel;
 	}
 
-  private void addDevice(AbstractGestureDevice<?,?> device)
+	private JButton createClearSampleButton(GestureDevice<?,?> gestureDevice) 
+	{
+	    JButton clearSampleButton = getComponentFactory().createButton(GestureConstants.GESTURE_SAMPLE_CLEAR,
+	        new ClearGestureSampleAction(getController(), gestureDevice));
+//	    Formatter.formatButton(clearSampleButton);
+	    return clearSampleButton;
+	}
+
+  	private void addDevice(AbstractGestureDevice<?,?> device)
 	{
 	  	//only devices that can provides input that can be recognised by the algorithm
 		if(algorithm != null && algorithm.getType() == device.getDeviceType())

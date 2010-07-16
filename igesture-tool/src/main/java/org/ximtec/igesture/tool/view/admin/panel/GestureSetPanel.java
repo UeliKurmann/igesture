@@ -54,7 +54,7 @@ import org.ximtec.igesture.tool.util.FormBuilder;
 import org.ximtec.igesture.tool.util.TitleFactory;
 import org.ximtec.igesture.tool.view.AbstractPanel;
 import org.ximtec.igesture.util.GestureTool;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.additions3d.Note3D;
 
 public class GestureSetPanel extends AbstractPanel {
   
@@ -137,8 +137,8 @@ public class GestureSetPanel extends AbstractPanel {
     	SampleDescriptor3D descriptor = gestureClass.getDescriptor(SampleDescriptor3D.class);
         
         if (descriptor.getSamples().size() > 0 && descriptor.getSample(0) != null) {
-          Gesture<RecordedGesture3D> sample = descriptor.getSample(0);
-          JLabel label = new JLabel(new ImageIcon(GestureTool.createRecordedGesture3DImage(sample.getGesture(), size, size)));
+          Gesture<Note3D> sample = descriptor.getSample(0);
+          JLabel label = new JLabel(new ImageIcon(GestureTool.createNote3DImage(sample.getGesture(), size, size)));
           gesturePanel.add(label, BorderLayout.CENTER);
         } else {
           JLabel labelNsa = getComponentFactory().createLabel(GestureConstants.GESTURE_SET_PANEL_NSA);

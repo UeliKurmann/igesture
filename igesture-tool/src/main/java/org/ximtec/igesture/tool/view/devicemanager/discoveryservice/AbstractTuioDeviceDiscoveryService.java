@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
 import org.sigtec.util.Constant;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.ximtec.igesture.core.composite.ConstraintTool;
 import org.ximtec.igesture.io.AbstractGestureDevice;
 import org.ximtec.igesture.io.DeviceDiscoveryService;
 import org.ximtec.igesture.io.tuio.TuioConstants;
@@ -124,19 +126,21 @@ public abstract class AbstractTuioDeviceDiscoveryService implements
 
 		};
 		ArrayList<String> textNodes = new ArrayList<String>();
-		textNodes.add("port");
-		textNodes.add("name");
-		textNodes.add("type");
+		textNodes.add(GestureConstants.XML_NODE_PORT);
+		textNodes.add(GestureConstants.XML_NODE_NAME);
+		textNodes.add(GestureConstants.XML_NODE_TYPE);
 		try {
-			parser.parse(System.getProperty("user.dir")
-					+ System.getProperty("file.separator")
-					+ GestureConstants.XML_TUIO, "device", textNodes);
+			URL path = ConstraintTool.class.getClassLoader().getResource(GestureConstants.XML_DEVICES);
+			parser.parse(path.getFile(),GestureConstants.XML_DEVICES_TUIO_NODE, textNodes);
+//			parser.parse(System.getProperty("user.dir")
+//					+ System.getProperty("file.separator")
+//					+ GestureConstants.XML_TUIO, "device", textNodes);
 		} catch (IOException e) {
 			LOGGER.log(Level.SEVERE, "Could not find "
-					+ GestureConstants.XML_TUIO, e);// TODO
+					+ GestureConstants.XML_DEVICES, e);// TODO
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "Could not parse "
-					+ GestureConstants.XML_TUIO, e);// TODO
+					+ GestureConstants.XML_DEVICES, e);// TODO
 		}
 	}
 

@@ -54,7 +54,7 @@ public class AddCompositeDescriptorAction extends TreePathAction {
 		constraintsMapping = new HashMap<String, String>();
 		
 		//read constraints from file
-		URL path = getClass().getClassLoader().getResource("config.xml");
+		URL path = getClass().getClassLoader().getResource(GestureConstants.XML_CONFIG);
 		XMLParser parser = new XMLParser(){
 
 			@Override
@@ -66,12 +66,12 @@ public class AddCompositeDescriptorAction extends TreePathAction {
 			
 		};
 		ArrayList<String> nodes = new ArrayList<String>();
-		nodes.add("name");
-		nodes.add("class");
+		nodes.add(GestureConstants.XML_NODE_NAME);
+		nodes.add(GestureConstants.XML_NODE_CLASS);
 		try {
-			parser.parse(path.getFile(), "constraint", nodes);
+			parser.parse(path.getFile(), GestureConstants.XML_CONFIG_CONSTRAINT_NODE, nodes);
 		} catch (Exception e) {
-			LOGGER.log(Level.SEVERE,"Could not parse configuration file (config.xml - constraints).",e);
+			LOGGER.log(Level.SEVERE,"Could not parse configuration file ("+GestureConstants.XML_CONFIG+" - constraints).",e);
 		}
 	}
 

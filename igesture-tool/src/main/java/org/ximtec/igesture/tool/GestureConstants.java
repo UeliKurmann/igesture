@@ -40,6 +40,8 @@ public class GestureConstants {
   public static final String TEST_SET_EXPORT = "ExportCreateTestSetAction";
   public static final String GESTURE_SET_EXPORT = "ExportGestureSetAction";
   public static final String GESTURE_CLASS_DEL = "RemoveGestureClassAction";
+  public static final String GESTURE_CLASS_MOVE = "MoveGestureClassAction";
+  public static final String GESTURE_CLASS_COPY = "CopyGestureClassAction";
   public static final String GESTURE_SET_DEL = "DeleteGestureSetAction";
   public static final String GESTURE_SET_PDF = "ExportPDFGestureSetAction";
   public static final String GESTURE_SET_TEST_SET = "CreateTestSet";
@@ -143,6 +145,8 @@ public class GestureConstants {
   public static final String TESTCLASS_NAME = "TestClassName";
   public static final String TEXT_DESCRIPTOR_TEXT = "TextDescriptorText";
 
+  // device manager actions
+  
   public static final String ADD_USER = "AddUserAction";
   public static final String ADD_DEVICE = "AddDeviceAction";
   public static final String ASSOCIATE_USER = "AssociateUserAction";
@@ -155,6 +159,8 @@ public class GestureConstants {
   public static final String SAVE_DEVICE_CONFIGURATION="SaveDeviceConfigurationAction";
   public static final String LOAD_DEVICE_CONFIGURATION="LoadDeviceConfigurationAction";
   
+  // device manager table headers
+  
   public static final String USER_NAME = "Name";
   public static final String USER_INITIALS = "Initials";
   public static final String DEVICE_NAME = "Name";
@@ -164,10 +170,25 @@ public class GestureConstants {
   public static final String DEVICE_CONNECTION = "ConnectionType";
   public static final String DEVICE_CONNECTED = "Connected";
 
-  public static final String XML_DISCOVERY = "connections.xml";
-  public static final String XML_BLUETOOTH = "bluetoothdevices.xml";
-  public static final String XML_TUIO = "tuiodevices.xml";
+  // XML File names and node names
+  
+  public static final String XML_DEVICES = "devices.xml";
+  public static final String XML_DEVICES_TUIO_NODE = "tuiodevice";
+  public static final String XML_DEVICES_BT_NODE = "btdevice";
+  public static final String XML_NODE_PORT = "port";
+  public static final String XML_NODE_TYPE = "type";
+  public static final String XML_NODE_NAME = "name";
+  public static final String XML_NODE_MAJOR = "major";
+  public static final String XML_NODE_MINOR = "minor";
+  public static final String XML_NODE_CLASS = "class";
+  
+  public static final String XML_CONFIG = "config.xml";
+  public static final String XML_CONFIG_CONSTRAINT_NODE = "constraint";
+  public static final String XML_CONFIG_CONNECTION_NODE = "connection";
+  public static final String XML_NODE_DISCOVERY_SERVICE = "discoveryService";
 
+  // Composite view actions
+  
   public static final String CONSTRAINT_CHOOSER = "ConstraintChooserDialog";
   public static final String ADD_GESTURE_CLASS_TO_CONSTRAINT = "AddGestureClassToConstraintAction";
   public static final String REMOVE_GESTURE_CLASS_FROM_CONSTRAINT = "RemoveGestureClassFromConstraintAction";
