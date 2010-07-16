@@ -69,11 +69,11 @@ import org.ximtec.igesture.io.AbstractGestureDevice;
 import org.ximtec.igesture.util.additions3d.AccelerationSample;
 import org.ximtec.igesture.util.additions3d.Accelerations;
 import org.ximtec.igesture.util.additions3d.Point3D;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.additions3d.Note3D;
 import org.ximtec.igesture.util.additionswiimote.WiiMoteTools;
 
 public class WiiReader extends
-		AbstractGestureDevice<RecordedGesture3D, Point3D> implements
+		AbstractGestureDevice<Note3D, Point3D> implements
 		ButtonListener, AccelerationListener {
 
 	private static final Logger LOGGER = Logger.getLogger(WiiReader.class.getName());
@@ -84,8 +84,8 @@ public class WiiReader extends
 	private WiimoteWiigee wiigee;
 	// The WiiMote this listener is listening to
 	private Wiimote wiimote;
-	// The RecordedGesture3D that will contain the position data
-	private RecordedGesture3D recordedGesture;
+	// The Note3D that will contain the position data
+	private Note3D recordedGesture;
 	// The GestureSample3D that will contain recordedGesture
 	private GestureSample3D gesture;
 	// List of recorded accelerations from the wiimote
@@ -104,7 +104,7 @@ public class WiiReader extends
 
 		this.accelerations = new Accelerations();
 		this.currentPanel = new WiiReaderPanel(this);
-		this.recordedGesture = new RecordedGesture3D();
+		this.recordedGesture = new Note3D();
 		this.gesture = new GestureSample3D(this,"", recordedGesture);
 	}
 
@@ -143,7 +143,7 @@ public class WiiReader extends
 	 */
 	@Override
 	public void clear() {
-		recordedGesture = new RecordedGesture3D();
+		recordedGesture = new Note3D();
 		gesture = new GestureSample3D(this,"", recordedGesture);
 		if (currentPanel != null) {
 			currentPanel.clear();
@@ -169,8 +169,8 @@ public class WiiReader extends
 	 * Returns a copy of the recorded gesture in a GestureSample3D
 	 */
 	@Override
-	public Gesture<RecordedGesture3D> getGesture() {
-		RecordedGesture3D newGesture = new RecordedGesture3D();
+	public Gesture<Note3D> getGesture() {
+		Note3D newGesture = new Note3D();
 		newGesture.setAccelerations(this.gesture.getGesture()
 				.getAccelerations());
 		newGesture.setPoints(this.gesture.getGesture().getPoints());

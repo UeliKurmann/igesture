@@ -21,4 +21,7 @@ public class TuioConstants {
 	
 	
 	public static final String XML_TUIO_PROFILES = "tuioprofiles.xml";
+	public static final String XML_TUIO_PROFILES_NODE = "association";
+	public static final String XML_NODE_PROFILE = "profile";
+	public static final String XML_NODE_HANDLER = "handler";
 }

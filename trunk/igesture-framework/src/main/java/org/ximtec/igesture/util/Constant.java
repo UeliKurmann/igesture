@@ -6,8 +6,6 @@ package org.ximtec.igesture.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sun.jna.TypeMapper;
-
 /**
  * @author Bjorn Puype, bpuype@gmail.com
  *
@@ -36,6 +34,11 @@ public class Constant {
 	public static final String CONNECTION_TUIO_TEXT = "TUIO";
 	public static final String CONNECTION_USB_TEXT = "USB";
 	
+	public static final String XML_DEVICEMAPPINGS = "devicemappings.xml";
+	public static final String XML_DEVICEMAPPINGS_NODE = "mapping";
+	public static final String XML_NODE_NAME = "name";
+	public static final String XML_NODE_CLASS = "class";
+	public static final String XML_NODE_TYPE = "type";
 	
 	static{
 		toDeviceTypeTextMapping.put(TYPE_2D, TYPE_2D_TEXT);

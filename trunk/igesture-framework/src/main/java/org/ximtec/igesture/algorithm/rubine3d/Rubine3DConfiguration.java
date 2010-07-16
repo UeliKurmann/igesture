@@ -104,7 +104,7 @@ public class Rubine3DConfiguration {
 		DEFAULT_CONFIGURATION.put(Config.ZX_WEIGHT.name(), DEFAULT_ZX_WEIGHT);
 
 		StringBuilder sb = new StringBuilder();
-	    for(Class<?> clazz:new Class<?>[]{F1.class, F2.class, F3.class/*, F4.class, F5.class, F6.class, F7.class, F8.class, F9.class, F10.class, F11.class, F12.class, F13.class, F14.class, F15.class, F16.class, F17.class, F18.class, F19.class, F20.class, F21.class*/}){
+	    for(Class<?> clazz:new Class<?>[]{F1.class, F2.class, F3.class, F4.class, F5.class/*, F6.class, F7.class, F8.class, F9.class, F10.class, F11.class, F12.class, F13.class, F14.class, F15.class, F16.class, F17.class, F18.class, F19.class, F20.class, F21.class*/}){
 	      sb.append(clazz.getName());
 	      sb.append(Constant.COMMA);
 	    }		

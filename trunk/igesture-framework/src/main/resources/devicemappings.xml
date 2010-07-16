@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings>
+	<!-- DEVICE MAPPINGS -->
+	
+	<mapping>
+		<name>SwingMouseReader</name>
+		<class>org.ximtec.igesture.tool.service.SwingMouseReaderService</class>
+		<type>2D</type>
+		<!-- io.mouseclient.SwingMouseReader -->
+	</mapping>
+	<mapping>
+		<name>WiiReader</name>
+		<class>org.ximtec.igesture.io.wiimote.WiiReader</class>
+		<type>3D</type>
+	</mapping>
+	<mapping>
+		<name>TuioReader2D</name>
+		<class>org.ximtec.igesture.io.tuio.TuioReader2D</class>
+		<type>2D</type>
+	</mapping>
+	<mapping>
+		<name>TuioReader3D</name>
+		<class>org.ximtec.igesture.io.tuio.TuioReader3D</class>
+		<type>3D</type>
+	</mapping>
+
+</mappings>

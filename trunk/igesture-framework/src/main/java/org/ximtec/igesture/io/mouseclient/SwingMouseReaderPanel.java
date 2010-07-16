@@ -31,8 +31,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JPanel;
-
 import org.sigtec.ink.Note;
 import org.sigtec.ink.Trace;
 import org.ximtec.igesture.core.Gesture;

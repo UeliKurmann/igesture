@@ -89,6 +89,7 @@ public class XMLTool {
 
    public static final String ROOT_TAG = "sets";
    public static final String TEST_SETS_TAG = "testSets";
+   public static final String XSI_NAMESPACE = "http://www.w3.org/2001/XMLSchema-instance";
 
 
    /**

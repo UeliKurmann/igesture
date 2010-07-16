@@ -52,7 +52,7 @@ import org.ximtec.igesture.core.Result;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.SampleDescriptor3D;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.additions3d.Note3D;
 
 public class Rubine3DAlgorithm extends SampleBasedAlgorithm/*implements Algorithm */{
 
@@ -449,7 +449,7 @@ public class Rubine3DAlgorithm extends SampleBasedAlgorithm/*implements Algorith
 				SampleDescriptor descYZ = new SampleDescriptor();
 				SampleDescriptor descZX = new SampleDescriptor();
 				// Iterate through samples
-				Iterator<Gesture<RecordedGesture3D>> sampleIter = tempClass
+				Iterator<Gesture<Note3D>> sampleIter = tempClass
 						.getDescriptor(SampleDescriptor3D.class).getSamples()
 						.iterator();
 				while (sampleIter.hasNext()) {

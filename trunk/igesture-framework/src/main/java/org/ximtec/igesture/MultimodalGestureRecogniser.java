@@ -165,6 +165,7 @@ public class MultimodalGestureRecogniser {
 			}
 		}
 		Set<String> s = patternsMapping.keySet();
+		System.out.println(patternsMapping.toString());
 		patterns = new String[s.size()];
 		int i = 0;
 		for (Iterator<String> iterator = s.iterator(); iterator.hasNext();i++) {
@@ -203,7 +204,7 @@ public class MultimodalGestureRecogniser {
 		
 		//garbage collection thread
 		Thread t = new GarbageThread(queue);
-		t.start();
+		t.start();//without firing
 		LOGGER.log(Level.INFO, "Garbage thread started.");
 	}
 	
@@ -220,6 +221,7 @@ public class MultimodalGestureRecogniser {
 	 */
 	public void recognise(QueueElement[] queueElements) 
 	{
+		System.out.println("MMR recognising...");
 		String text = getStringRepresentation(queueElements);
 		for(int i = 0; i < nrThreads; i++)
 		{
@@ -340,8 +342,10 @@ public class MultimodalGestureRecogniser {
 				String pattern = patterns[i];
 				ArrayList<Integer> indexes = new ArrayList<Integer>();
 							
+//				System.out.println(pattern);
+				
 				if(pattern == null || pattern.length() > text.length())
-					break;
+					continue; //break;
 				
 				//search potential match
 				int loc = dmp.match_main(text, pattern, 0);
@@ -387,11 +391,13 @@ public class MultimodalGestureRecogniser {
 						boolean conditionsValid = c.validateConditions(gestures, manager);
 						
 						//fire if gesture recognised
-						if(conditionsValid)
-						{
-							fireEvent(gestureClass);
-							identifyGestures(indexes);
+						//fire if gesture recognised
+						if(conditionsValid && identifyGestures(indexes))
+						{					
+							System.out.println("CONDITIONS VALID");
+							fireEvent(gestureClass);							
 						}
+
 							//TODO fire resultset instead of string
 					}
 //					else
@@ -426,12 +432,20 @@ public class MultimodalGestureRecogniser {
 		 * garbage thread will not fire the element as a single gesture
 		 * @param indexes
 		 */
-		private void identifyGestures(ArrayList<Integer> indexes)
+		private boolean identifyGestures(ArrayList<Integer> indexes)
 		{
+			for (Iterator iterator = indexes.iterator(); iterator.hasNext();) {
+				Integer index = (Integer) iterator.next();
+				if(elements[index].isIdentified())
+					return false;//if identified in the meantime by another thread, do not identify or a collision occurs
+			}
+			
 			for (Iterator<Integer> iterator = indexes.iterator(); iterator.hasNext();) {
 				Integer index = iterator.next();
 				elements[index].setIdentified(true);			
 			}
+			
+			return true;
 		}
 		
 	}
@@ -486,28 +500,31 @@ public class MultimodalGestureRecogniser {
 							
 							System.out.println("removed element "+e);
 							
-							//if element not part of composite
-							if(!e.isIdentified())
-							{
-								LOGGER.log(Level.INFO,"MMR simple result: "+e.getGesture().getName());
-								
-								//notify registered GestureHandlers from source recogniser
-								Executor executor = Executors.newFixedThreadPool(NR_THREADS);
-								for (final GestureHandler gestureHandler : e.getResultSet().getSource().getGestureHandlers()) {
-									
-									if (gestureHandler != null) {
-										executor.execute(new Runnable() {
-								
-											@Override
-											public void run() {
-												gestureHandler.handle(e.getResultSet());
-											}
-								           
-										});
-									}
-							  	}
-							}
-							next = true; //continue removing from head
+//							//if element not part of composite
+//							if(!e.isIdentified())
+//							{
+//								LOGGER.log(Level.INFO,"MMR simple result: "+e.getGesture().getName());
+//								
+//								//notify registered GestureHandlers from source recogniser
+//								Executor executor = Executors.newFixedThreadPool(NR_THREADS);
+//								for (final GestureHandler gestureHandler : e.getResultSet().getSource().getGestureHandlers()) {
+//									
+//									if (gestureHandler != null) {
+//										executor.execute(new Runnable() {
+//								
+//											@Override
+//											public void run() {
+//												gestureHandler.handle(e.getResultSet());
+//											}
+//								           
+//										});
+//									}
+//							  	}
+//							}
+							if(queue.size() > minQueueSize)//always minimum number of items in queue
+								next = true; //continue removing from head
+							else
+								next = false;
 						}
 						else // element overlapped by time windows, stop removing from head
 							next = false;

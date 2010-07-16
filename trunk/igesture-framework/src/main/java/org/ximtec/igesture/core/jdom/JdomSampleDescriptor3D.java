@@ -9,7 +9,7 @@ import org.jdom.Element;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.SampleDescriptor3D;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.additions3d.Note3D;
 
 /**
  * XML support for the SampleDescriptor3D class.
@@ -30,7 +30,7 @@ public class JdomSampleDescriptor3D extends Element {
 		setAttribute(TYPE_ATTRIBUTE, descriptor.getType().getName());
 	    setAttribute(UUID_ATTRIBUTE, descriptor.getId());
 	    
-	    for (final Gesture<RecordedGesture3D> sample : descriptor.getSamples()) {
+	    for (final Gesture<Note3D> sample : descriptor.getSamples()) {
 	         addContent(new JdomGestureSample3D(sample));
 	    }
 	}

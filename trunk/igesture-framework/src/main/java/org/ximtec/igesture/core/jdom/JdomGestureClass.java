@@ -34,6 +34,8 @@ import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.SampleDescriptor3D;
 import org.ximtec.igesture.core.TextDescriptor;
+import org.ximtec.igesture.core.composite.CompositeDescriptor;
+import org.ximtec.igesture.core.composite.jdom.JdomCompositeDescriptor;
 
 
 /**
@@ -68,6 +70,9 @@ public class JdomGestureClass extends Element {
          }
          else if (descriptor instanceof TextDescriptor) {
             addContent(new JdomTextDescriptor((TextDescriptor)descriptor));
+         }
+         else if(descriptor instanceof CompositeDescriptor) {
+        	 addContent(new JdomCompositeDescriptor((CompositeDescriptor)descriptor));
          }
          else
          {
@@ -107,6 +112,13 @@ public class JdomGestureClass extends Element {
          gestureClass.addDescriptor(textDescriptor);
       }
 
+      for (final Element descriptorElement : (List<Element>)gestureClassElement
+            .getChildren(JdomCompositeDescriptor.ROOT_TAG)) {
+         final CompositeDescriptor compositeDescriptor = (CompositeDescriptor)JdomCompositeDescriptor
+               .unmarshal(descriptorElement);
+         gestureClass.addDescriptor(compositeDescriptor);
+      }
+      
       return gestureClass;
    } // unmarshal
 

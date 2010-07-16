@@ -28,15 +28,15 @@ import java.util.List;
 
 import org.sigtec.ink.Note;
 import org.ximtec.igesture.io.GestureDevice;
-import org.ximtec.igesture.util.RecordedGesture3DTool;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.Note3DTool;
+import org.ximtec.igesture.util.additions3d.Note3D;
 
 public class GestureSample3D extends DefaultDataObject implements Cloneable,
-		Gesture<RecordedGesture3D> {
+		Gesture<Note3D> {
 
 	public static final String PROPERTY_NAME = "name";
 	public static final String PROPERTY_GESTURE = "gesture";
-	private RecordedGesture3D gesture;
+	private Note3D gesture;
 	private String name;
 	
 	private GestureDevice<?,?> source;
@@ -47,9 +47,9 @@ public class GestureSample3D extends DefaultDataObject implements Cloneable,
 	 * @param name
 	 *            the name of the gesture sample.
 	 * @param note
-	 *            the recordedgesture3d of the gesture sample.
+	 *            the note3d of the gesture sample.
 	 */
-	public GestureSample3D(String name, RecordedGesture3D gesture) {
+	public GestureSample3D(String name, Note3D gesture) {
 		super();
 		setName(name);
 		setGesture(gesture);
@@ -59,9 +59,9 @@ public class GestureSample3D extends DefaultDataObject implements Cloneable,
 	 * Constructs a new GestureSample3D.
 	 * @param device	the source device of the gesture sample
 	 * @param name		the name of the gesture sample
-	 * @param gesture	the recordedgesture3d of the gesture sample
+	 * @param gesture	the note3d of the gesture sample
 	 */
-	public GestureSample3D(GestureDevice<?,?> device, String name, RecordedGesture3D gesture)
+	public GestureSample3D(GestureDevice<?,?> device, String name, Note3D gesture)
 	{
 		this(name,gesture);
 		setSource(device);
@@ -92,8 +92,8 @@ public class GestureSample3D extends DefaultDataObject implements Cloneable,
 	 * @param gesture
 	 *            the gesture to be set.
 	 */
-	public void setGesture(RecordedGesture3D gesture) {
-		RecordedGesture3D oldValue = this.gesture;
+	public void setGesture(Note3D gesture) {
+		Note3D oldValue = this.gesture;
 		this.gesture = gesture;
 		propertyChangeSupport.firePropertyChange(PROPERTY_GESTURE, oldValue,
 				gesture);
@@ -102,12 +102,12 @@ public class GestureSample3D extends DefaultDataObject implements Cloneable,
 	/**
 	 * Returns the gesture sample.
 	 */
-	public RecordedGesture3D getGesture() {
+	public Note3D getGesture() {
 		return this.gesture;
 	}
 
 	/**
-	 * Splits RecordedGesture3D gesture into three 2D planes. The XY-Plane is
+	 * Splits Note3D gesture into three 2D planes. The XY-Plane is
 	 * defined as the plane in 3D space where z=0. The YZ-Plane is defined as
 	 * the plane in 3D space where x=0. The ZX-Plane is defined as the plane in
 	 * 3D space where y=0.
@@ -116,7 +116,7 @@ public class GestureSample3D extends DefaultDataObject implements Cloneable,
 	 *         and then ZX.
 	 */
 	public List<Gesture<Note>> splitToPlanes() {
-		return RecordedGesture3DTool.splitToPlanes(getGesture());
+		return Note3DTool.splitToPlanes(getGesture());
 	}
 
 	/* (non-Javadoc)
