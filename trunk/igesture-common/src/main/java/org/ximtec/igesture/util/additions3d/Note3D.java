@@ -1,5 +1,5 @@
 /*
- * @(#)$Id: RecordedGesture3D.java
+ * @(#)$Id: Note3D.java
  *
  * Author       :   Arthur Vogels, arthur.vogels@gmail.com
  *
@@ -34,9 +34,9 @@ import java.util.logging.Logger;
 import org.sigtec.ink.input.TimestampedInputEvent;
 import org.sigtec.input.InputHandler;
 
-public class RecordedGesture3D implements Cloneable, InputHandler {
+public class Note3D implements Cloneable, InputHandler {
 	
-	private static final Logger LOGGER = Logger.getLogger(RecordedGesture3D.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(Note3D.class.getName());
 	
 	private List<Point3D> points; // List of position data
 	private Accelerations accelerations; // Accelerations list that comes
@@ -46,7 +46,7 @@ public class RecordedGesture3D implements Cloneable, InputHandler {
 	/**
 	 * Constructor
 	 */
-	public RecordedGesture3D() {
+	public Note3D() {
 		points = new Vector<Point3D>();
 	}
 
@@ -55,9 +55,9 @@ public class RecordedGesture3D implements Cloneable, InputHandler {
 	 * 
 	 * @param points
 	 *            A list of Point3D to be set as the position data of this
-	 *            RecordedGesture3D
+	 *            Note3D
 	 */
-	public RecordedGesture3D(List<Point3D> points) {
+	public Note3D(List<Point3D> points) {
 		this();
 		if (points != null) {
 			this.points = points;
@@ -215,16 +215,16 @@ public class RecordedGesture3D implements Cloneable, InputHandler {
 	}
 	
    /**
-    * Clones a recordedgesture3D.
-    * @return the cloned recordedgesture3D.
+    * Clones a note3D.
+    * @return the cloned note3D.
     */
    @Override
    @SuppressWarnings("unchecked")
    public Object clone() {
-      RecordedGesture3D clone = null;
+      Note3D clone = null;
 
       try {
-         clone = (RecordedGesture3D)super.clone();
+         clone = (Note3D)super.clone();
          List<Point3D> clonedPoints = new Vector<Point3D>();
 
          for (Point3D point : points) {

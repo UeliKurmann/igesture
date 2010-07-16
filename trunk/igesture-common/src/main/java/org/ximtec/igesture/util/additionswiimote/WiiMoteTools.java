@@ -25,7 +25,7 @@
 package org.ximtec.igesture.util.additionswiimote;
 
 import org.ximtec.igesture.util.additions3d.Point3D;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.additions3d.Note3D;
 import org.ximtec.igesture.util.additions3d.AccelerationSample;
 import org.ximtec.igesture.util.additions3d.Accelerations;
 
@@ -33,14 +33,14 @@ public class WiiMoteTools {
 
 
 	/** 
-	 * Converts the acceleration data from the WiiMote into timestamped 3D positions in a RecordedGesture3D object
+	 * Converts the acceleration data from the WiiMote into timestamped 3D positions in a Note3D object
 	 * 
 	 * @param acc the acceleration data coming from the WiiMote controller
 	 * @return
 	 */
-	public static RecordedGesture3D accelerationsToTraces(Accelerations acc){
+	public static Note3D accelerationsToTraces(Accelerations acc){
 		//Variables
-		RecordedGesture3D gesture = new RecordedGesture3D();
+		Note3D gesture = new Note3D();
 		double xVelocity = 0; 									//assume initial x velocity is zero
 		double yVelocity = 0; 									//assume initial y velocity is zero
 		double zVelocity = 0; 									//assume initial z velocity is zero

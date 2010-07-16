@@ -3,7 +3,7 @@
  *
  * Author       :   Arthur Vogels, arthur.vogels@gmail.com
  *
- * Purpose      :	A timestamped point in 3D space. A RecordedGesture3D
+ * Purpose      :	A timestamped point in 3D space. A Note3D
  * 					contains a list of these.
  *
  * -----------------------------------------------------------------------
