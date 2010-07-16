@@ -31,6 +31,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 import org.sigtec.graphix.SplashScreen;
 import org.sigtec.util.FileHandler;
@@ -102,6 +104,23 @@ public class Geco {
     * @param args
     */
    public static void main(String[] args) {
+	   try {
+    	  /* see http://java.sun.com/docs/books/tutorial/uiswing/lookandfeel/nimbus.html */
+    	  for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+    	        if ("Nimbus".equals(info.getName())) {
+    	            UIManager.setLookAndFeel(info.getClassName());
+    	            break;
+    	        }
+    	    }
+      }
+      catch (Exception e) {
+         try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+         }
+         catch (Exception e1) {
+            e1.printStackTrace();
+         }
+      }
       try {
          new Geco(args);
       }

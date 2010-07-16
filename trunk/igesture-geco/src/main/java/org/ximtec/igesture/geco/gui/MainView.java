@@ -50,6 +50,7 @@ import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -122,14 +123,25 @@ public class MainView extends JFrame implements WindowListener {
     * Initialises the main view (create an empty frame).
     */
    private void createVoidDialog() {
-      try {
-         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+	   try {
+    	  /* see http://java.sun.com/docs/books/tutorial/uiswing/lookandfeel/nimbus.html */
+    	  for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+    	        if ("Nimbus".equals(info.getName())) {
+    	            UIManager.setLookAndFeel(info.getClassName());
+    	            break;
+    	        }
+    	    }
       }
       catch (Exception e) {
-         LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e);
+         try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+         }
+         catch (Exception e1) {
+        	 LOGGER.log(Level.SEVERE, Constant.EMPTY_STRING, e1);
+         }
       }
-
-      this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+	   
+	  this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
       GridBagLayout gbl = new GridBagLayout();
       this.getContentPane().setLayout(gbl);
       setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
