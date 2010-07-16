@@ -316,8 +316,12 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 				compositeGestures.addGestureClass(gestureClass);
 		}
 		
+		System.out.println("Composite gesture set size: "+compositeGestures.size()+" with descriptor");
+		
 		if(compositeGestures.size()>0)
 		{
+			LOGGER.info("Composite gesture set contains gestures with a composite descriptor");
+		
 			mmrecogniser = new MultimodalGestureRecogniser(compositeGestures,deviceManager);
 			
 			mmrecogniser.addGestureHandler(new MultimodalGestureHandler(){
@@ -340,7 +344,10 @@ public class CompositeView extends AbstractPanel implements TabbedView, DeviceMa
 			return true;
 		}
 		else
+		{
+			LOGGER.warning("Composite gesture set does not contain gestures with a composite descriptor");
 			return false;
+		}
 
 	}
 

@@ -48,7 +48,7 @@ public class CompositeController extends DefaultController {
 	 @ExecCmd(name=CMD_RECOGNISE)
 	 protected void recognise()
 	 {
-		 recognising = ! recognising; 
+		 recognising = (recognising ? false : true); 
 		 compositeView.recognise(recognising);
 	 }
 	 
