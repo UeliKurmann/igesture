@@ -29,21 +29,21 @@ import java.util.List;
 
 import org.jdom.Element;
 import org.ximtec.igesture.util.additions3d.Point3D;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.additions3d.Note3D;
 import org.ximtec.igesture.util.additions3d.jdom.JdomAccelerations;
 
 
 /**
- * Constructs an XML representation of a RecordedGesture3D represented by a list of Point3D's.
+ * Constructs an XML representation of a Note3D represented by a list of Point3D's.
  * @version 1.0, Jan 2009
  * @author Arthur Vogels, arthur.vogels@gmail.com
  */
-public class JdomRecordedGesture3D extends Element {
+public class JdomNote3D extends Element {
 
-   public static final String ROOT_TAG = "recordedGesture3D";
+   public static final String ROOT_TAG = "note3D";
 
 
-   public JdomRecordedGesture3D(RecordedGesture3D gesture) {
+   public JdomNote3D(Note3D gesture) {
       super(ROOT_TAG);
 
       for (Point3D point : gesture.getPoints()) {
@@ -55,8 +55,8 @@ public class JdomRecordedGesture3D extends Element {
 
 
    @SuppressWarnings("unchecked")
-   public static RecordedGesture3D unmarshal(Element gesture) {
-      RecordedGesture3D newGesture = new RecordedGesture3D();
+   public static Note3D unmarshal(Element gesture) {
+      Note3D newGesture = new Note3D();
 
       for (Element point : (List<Element>)gesture.getChildren(JdomPoint3D.ROOT_TAG)) {
          newGesture.add(JdomPoint3D.unmarshal(point));
