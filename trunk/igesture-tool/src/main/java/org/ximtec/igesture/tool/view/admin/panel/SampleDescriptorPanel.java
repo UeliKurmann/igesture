@@ -332,7 +332,7 @@ public class SampleDescriptorPanel extends DefaultDescriptorPanel<SampleDescript
 	 */
 	@Override
 	public void updateDeviceListPanelListener(AbstractGestureDevice<?, ?> device) {
-		System.out.println("update");
+//		System.out.println("update");
 		
 		//remove listener from current device
 		if(currentDevice != null)

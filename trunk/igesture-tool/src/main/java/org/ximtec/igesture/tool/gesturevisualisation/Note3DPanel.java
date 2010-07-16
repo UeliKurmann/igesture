@@ -17,7 +17,7 @@ import org.ximtec.igesture.util.GestureTool;
  * @author Bjorn Puype, bpuype@gmail.com
  *
  */
-public class RecordedGesture3DPanel implements GesturePanel {
+public class Note3DPanel implements GesturePanel {
 
 	Gesture< ? > gesture;
 	
@@ -29,7 +29,7 @@ public class RecordedGesture3DPanel implements GesturePanel {
 		JPanel panel = null;
 
 	      if (gesture != null) {
-	         JLabel label = new JLabel(new ImageIcon(GestureTool.createRecordedGesture3DImage(
+	         JLabel label = new JLabel(new ImageIcon(GestureTool.createNote3DImage(
 	        		 ((GestureSample3D)gesture).getGesture(), dimension.width, dimension.height)));
 			
 	         panel = new JPanel();

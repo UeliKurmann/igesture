@@ -50,6 +50,7 @@ import org.ximtec.igesture.core.composite.CompositeDescriptor;
 import org.ximtec.igesture.core.composite.Constraint;
 import org.ximtec.igesture.core.composite.DefaultConstraint;
 import org.ximtec.igesture.core.composite.DefaultConstraintEntry;
+import org.ximtec.igesture.core.composite.IllegalUserArgumentException;
 import org.ximtec.igesture.io.AbstractGestureDevice;
 import org.ximtec.igesture.io.DeviceManagerListener;
 import org.ximtec.igesture.io.IDeviceManager;
@@ -63,6 +64,7 @@ import org.ximtec.igesture.tool.view.MainModel;
 import org.ximtec.igesture.tool.view.admin.action.AddGestureClassToConstraintAction;
 import org.ximtec.igesture.tool.view.admin.action.RemoveAllGestureClassesFromConstraintAction;
 import org.ximtec.igesture.tool.view.admin.action.RemoveGestureClassFromConstraintAction;
+import org.ximtec.igesture.util.Constant;
 import org.ximtec.igesture.util.XMLParser;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -81,6 +83,9 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 	private static final String SELECT_SET = "Select a set";
 	private static final String SELECT_GESTURE = "Select a gesture";
 	private static final String SELECT_DEVICE_TYPE = "Select a device type";
+	
+	private static final String INPUT_ERROR = "Input Error";
+	private static final String INPUT_ERROR_MESSAGE = "Please select a valid device type.";
 	
 	private JComboBox cmbSets, cmbGestures, cmbDevices;
 	private JCheckBox chkUser, chkDevices;
@@ -170,13 +175,13 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 			
 		};
 		ArrayList<String> nodes = new ArrayList<String>();
-		nodes.add("name");
-		nodes.add("class");
+		nodes.add(Constant.XML_NODE_NAME);
+		nodes.add(Constant.XML_NODE_CLASS);
 		try {
-			URL path = CompositeDescriptorPanel.class.getClassLoader().getResource("config.xml");
-			parser.parse(path.getFile(),"device", nodes);
+			URL path = CompositeDescriptorPanel.class.getClassLoader().getResource(Constant.XML_DEVICEMAPPINGS);
+			parser.parse(path.getFile(),Constant.XML_DEVICEMAPPINGS_NODE, nodes);
 		} catch (Exception e) {
-			LOGGER.log(Level.SEVERE,"Could not parse configuration file (config.xml - devices).",e);
+			LOGGER.log(Level.SEVERE,"Could not parse configuration file ("+Constant.XML_DEVICEMAPPINGS+").",e);
 		};
 		
 		//*** UI ***//
@@ -462,6 +467,13 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 		if(chkDevices.isSelected())
 		{
 			deviceType = cmbDevices.getSelectedItem().toString();
+			//
+			if(SELECT_DEVICE_TYPE.equals(deviceType))
+			{
+				JOptionPane.showMessageDialog(this, INPUT_ERROR_MESSAGE, INPUT_ERROR, JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
 			// if specific devices were selected, get the IDs
 			if(!devicesList.isSelectionEmpty())
 			{
@@ -484,20 +496,31 @@ public class CompositeDescriptorPanel extends DefaultDescriptorPanel<CompositeDe
 			else
 				getDescriptor().getConstraint().addGestureClass(gestureClass);
 			
-			// get the last added gesture and display it in the list
-			List<DefaultConstraintEntry> entries = getDescriptor().getConstraint().getGestureEntries();
-			DefaultConstraintEntry entry = entries.get(entries.size()-1);			
-			DefaultListModel model = (DefaultListModel)gestureList.getModel();
-		    model.addElement(entry);
+			addToGestureList();
+		}
+		catch(IllegalUserArgumentException ue)
+		{
+			LOGGER.log(Level.WARNING,"Constraint Configuration Error.",ue);
+			JOptionPane.showMessageDialog(this, ue.getMessage(), "Constraint Configuration Error", JOptionPane.WARNING_MESSAGE);
+			addToGestureList();
 		}
 		catch(IllegalArgumentException e)
 		{
 			// if an illegal argument was entered by the user, notify the user and allow correction
 			LOGGER.log(Level.SEVERE,"Constraint Configuration Error.",e);
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Constraint Configuration Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Constraint Configuration Error", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	
+	private void addToGestureList()
+	{
+		// get the last added gesture and display it in the list
+		List<DefaultConstraintEntry> entries = getDescriptor().getConstraint().getGestureEntries();
+		DefaultConstraintEntry entry = entries.get(entries.size()-1);			
+		DefaultListModel model = (DefaultListModel)gestureList.getModel();
+	    model.addElement(entry);
 	    
-		// now that data was added, enable removal of gesture classes
+	    // now that data was added, enable removal of gesture classes
 	    btnClear.setEnabled(true);
 	    btnRemove.setEnabled(true);
 	}

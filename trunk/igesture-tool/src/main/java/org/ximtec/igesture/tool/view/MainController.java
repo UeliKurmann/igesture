@@ -37,6 +37,7 @@ import java.io.FileOutputStream;
 import java.lang.reflect.Constructor;
 import java.util.Date;
 import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -241,6 +242,14 @@ public class MainController extends DefaultController implements Service {
       getAction(CMD_LOAD).setEnabled(true);
 
       mainView.setTitlePostfix(null);
+      
+      // remove all gesture handlers from all devices
+//      DeviceManagerService devman = getLocator().getService(DeviceManagerService.IDENTIFIER, DeviceManagerService.class);
+//      Set<AbstractGestureDevice<?,?>> devices = devman.getDevices();
+//      for (AbstractGestureDevice<?, ?> device : devices)
+//      {
+//    	  device.removeAllGestureHandler();
+//      }
 
    } // execLoadCommand
 

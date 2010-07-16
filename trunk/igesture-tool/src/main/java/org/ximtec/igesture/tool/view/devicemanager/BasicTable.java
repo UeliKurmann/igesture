@@ -222,7 +222,6 @@ public class BasicTable<T> extends JTable {
 	
 	/**
 	 * This class represents the model of the table.
-	 * @author Bjönöype, bpuype@gmail.com
 	 *
 	 */
 	class BasicTableModel extends DefaultTableModel

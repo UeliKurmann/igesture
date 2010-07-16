@@ -51,10 +51,12 @@ import org.ximtec.igesture.tool.view.admin.action.AddGestureSetAction;
 import org.ximtec.igesture.tool.view.admin.action.AddSampleDescriptor3DAction;
 import org.ximtec.igesture.tool.view.admin.action.AddSampleDescriptorAction;
 import org.ximtec.igesture.tool.view.admin.action.AddTextDescriptorAction;
+import org.ximtec.igesture.tool.view.admin.action.CopyGestureClassAction;
 import org.ximtec.igesture.tool.view.admin.action.CreateTestSetStructureAction;
 import org.ximtec.igesture.tool.view.admin.action.ExportGestureSetAction;
 import org.ximtec.igesture.tool.view.admin.action.ExportPDFGestureSetAction;
 import org.ximtec.igesture.tool.view.admin.action.ImportGestureSetAction;
+import org.ximtec.igesture.tool.view.admin.action.MoveGestureClassAction;
 import org.ximtec.igesture.tool.view.admin.action.RemoveDescriptorAction;
 import org.ximtec.igesture.tool.view.admin.action.RemoveGestureClassAction;
 import org.ximtec.igesture.tool.view.admin.action.RemoveGestureSetAction;
@@ -117,6 +119,8 @@ public class NodeInfoFactory {
     classActions.add(AddCompositeDescriptorAction.class);
     classActions.add(AddTextDescriptorAction.class);
     classActions.add(SeparatorAction.class);
+    classActions.add(MoveGestureClassAction.class);
+    classActions.add(CopyGestureClassAction.class);
     classActions.add(RemoveGestureClassAction.class);
 
     List<Class<? extends BasicAction>> descriptorActions = new ArrayList<Class<? extends BasicAction>>();

@@ -48,7 +48,7 @@ import org.ximtec.igesture.tool.view.admin.action.AddGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.action.ClearGestureSampleAction;
 import org.ximtec.igesture.tool.view.admin.action.RemoveGestureSampleAction;
 import org.ximtec.igesture.util.Constant;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.additions3d.Note3D;
 
 /**
  * @author Bjorn Puype, bpuype@gmail.com
@@ -64,7 +64,7 @@ public class SampleDescriptor3DPanel extends DefaultDescriptorPanel<SampleDescri
 	private GestureDevice<?, ?> gestureDevice;
 	private GestureDevice<?, ?> currentDevice;
 	
-	private Map<Gesture<RecordedGesture3D>, JPanel> sampleCache;
+	private Map<Gesture<Note3D>, JPanel> sampleCache;
 	  
 	private DeviceListPanel devicePanel;
 	private JPanel cardPanel; 
@@ -79,7 +79,7 @@ public class SampleDescriptor3DPanel extends DefaultDescriptorPanel<SampleDescri
 	public SampleDescriptor3DPanel(Controller controller, final SampleDescriptor3D descriptor) {
 		super(controller, descriptor);
 		
-		this.sampleCache = new HashMap<Gesture<RecordedGesture3D>, JPanel>();
+		this.sampleCache = new HashMap<Gesture<Note3D>, JPanel>();
 	    this.panelMapping = new HashMap<String, InputComponentPanel>();
 	    
 	    // component listener to handle resize actions
@@ -122,7 +122,7 @@ public class SampleDescriptor3DPanel extends DefaultDescriptorPanel<SampleDescri
 	   * @param sample
 	   * @return
 	   */
-	  private synchronized JPanel createSampleIcon(final Gesture<RecordedGesture3D> sample) {
+	  private synchronized JPanel createSampleIcon(final Gesture<Note3D> sample) {
 
 	    if (sampleCache.containsKey(sample)) {
 	      return sampleCache.get(sample);
@@ -218,7 +218,7 @@ public class SampleDescriptor3DPanel extends DefaultDescriptorPanel<SampleDescri
 	   * in a row are computed dynamically. Between two gesture elements a space
 	   * element is placed.
 	   */
-	  private synchronized void initSampleSection(List<Gesture<RecordedGesture3D>> samples) {
+	  private synchronized void initSampleSection(List<Gesture<Note3D>> samples) {
 
 	    JPanel panel = new JPanel();
 
@@ -239,7 +239,7 @@ public class SampleDescriptor3DPanel extends DefaultDescriptorPanel<SampleDescri
 	      GridBagLayouter.addComponent(panel, createSpacerPanel(SPACE_SIZE), 0, 0);
 
 	      // iterate over all the samples
-	      for (final Gesture<RecordedGesture3D> sample : samples) {
+	      for (final Gesture<Note3D> sample : samples) {
 	        GridBagLayouter.addComponent(panel, createSampleIcon(sample), x, y);
 	        GridBagLayouter.addComponent(panel, createSpacerPanel(SPACE_SIZE), x + 1, y);
 	        if (x + 1 >= elementsPerRow) {

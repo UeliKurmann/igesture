@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -35,6 +36,7 @@ import org.ximtec.igesture.tool.core.Controller;
 import org.ximtec.igesture.tool.core.DefaultController;
 import org.ximtec.igesture.tool.core.TabbedView;
 import org.ximtec.igesture.tool.service.SwingMouseReaderService;
+import org.ximtec.igesture.util.Constant;
 import org.ximtec.igesture.util.XMLParser;
 
 /**
@@ -111,15 +113,16 @@ public class DeviceManagerController extends DefaultController implements IDevic
 			
 		};
 		ArrayList<String> nodes = new ArrayList<String>();
-		nodes.add("name");
-		nodes.add("discoveryService");
+		nodes.add(GestureConstants.XML_NODE_NAME);
+		nodes.add(GestureConstants.XML_NODE_DISCOVERY_SERVICE);
 		try {
-			parser.parse(System.getProperty("user.dir")+System.getProperty("file.separator")+GestureConstants.XML_DISCOVERY, "connection", nodes);
+			URL path = DeviceManagerController.class.getClassLoader().getResource(GestureConstants.XML_CONFIG);
+			parser.parse(path.getFile(), GestureConstants.XML_CONFIG_CONNECTION_NODE, nodes);
 		} catch (IOException e) {
-			LOGGER.log(Level.SEVERE,"Could not find "+GestureConstants.XML_DISCOVERY +". Adding devices will be disabled",e);
+			LOGGER.log(Level.SEVERE,"Could not find "+GestureConstants.XML_CONFIG +". Adding devices will be disabled",e);
 			enableAddDevicesAction = false;
 		} catch (Exception e) {
-			LOGGER.log(Level.SEVERE,"Could not parse "+GestureConstants.XML_DISCOVERY +". Adding devices will be disabled",e);
+			LOGGER.log(Level.SEVERE,"Could not parse "+GestureConstants.XML_CONFIG +". Adding devices will be disabled",e);
 			enableAddDevicesAction = false;
 		}
 		

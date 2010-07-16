@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
-import javax.swing.DefaultListSelectionModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -19,9 +18,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.sigtec.ink.Note;
-import org.sigtec.ink.Point;
-import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.io.AbstractGestureDevice;
 
 /**
