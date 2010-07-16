@@ -33,7 +33,7 @@ import java.util.List;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.io.GestureDevicePanel;
-import org.ximtec.igesture.util.RecordedGesture3DTool;
+import org.ximtec.igesture.util.Note3DTool;
 
 public class WiiReaderPanel extends GestureDevicePanel {
 
@@ -60,11 +60,11 @@ public class WiiReaderPanel extends GestureDevicePanel {
 		
 		if(gs != null)
 		{
-			RecordedGesture3DTool.paintGesture(gs.getGesture(), g, getWidth(), getHeight(), true);
+			Note3DTool.paintGesture(gs.getGesture(), g, getWidth(), getHeight(), true);
 		}
 		else
 		{
-			RecordedGesture3DTool.paintStructure(g, getWidth(), getHeight(), true);
+			Note3DTool.paintStructure(g, getWidth(), getHeight(), true);
 		}
 	}
 
@@ -86,18 +86,18 @@ public class WiiReaderPanel extends GestureDevicePanel {
 	public void setGesture(GestureSample3D gs) {
 		//System.err.println("SAMPLE : " + gs.getName());
 		this.gs = gs;
-		if(gs != null){
-			System.err.println("WiiReaderPanel.setGesture() Displaying: " + gs.getName());
-		}
-		else {
-			System.err.println("WiiReaderPanel.setGesture() Displaying: null gesture");
-		}
+//		if(gs != null){
+//			System.err.println("WiiReaderPanel.setGesture() Displaying: " + gs.getName());
+//		}
+//		else {
+//			System.err.println("WiiReaderPanel.setGesture() Displaying: null gesture");
+//		}
 		this.paintComponent(this.getGraphics());
 	}
 	
 	public void clear()
 	{
-		System.out.println("clearing");
+//		System.out.println("clearing");
 		paintComponent(getGraphics());
 	}
 

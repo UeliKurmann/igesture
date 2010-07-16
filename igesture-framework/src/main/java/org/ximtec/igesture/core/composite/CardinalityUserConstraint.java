@@ -22,7 +22,7 @@ import org.ximtec.igesture.io.IUser;
  * @author Bjorn Puype, bpuype@gmail.com
  *
  */
-public class CardinalityUserConstraint extends CardinalityDeviceConstraint {
+public class CardinalityUserConstraint extends CardinalityConstraint {
 
 	private static final Logger LOGGER = Logger.getLogger(CardinalityUserConstraint.class.getName());
 

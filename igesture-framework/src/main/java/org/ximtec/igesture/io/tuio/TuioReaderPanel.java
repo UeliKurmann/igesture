@@ -12,8 +12,8 @@ import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.io.GestureDevicePanel;
-import org.ximtec.igesture.util.RecordedGesture3DTool;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.Note3DTool;
+import org.ximtec.igesture.util.additions3d.Note3D;
 
 /**
  * @author Bjorn Puype, bpuype@gmail.com
@@ -33,21 +33,21 @@ public class TuioReaderPanel extends GestureDevicePanel {
 	public TuioReaderPanel()
 	{
 		gestureSample = new GestureSample("", new Note());
-		gestureSample3D = new GestureSample3D("", new RecordedGesture3D());
+		gestureSample3D = new GestureSample3D("", new Note3D());
 	}
 	
 	public TuioReaderPanel(ITuioReader device, int type)
 	{
 		reader = device;
 		gestureSample = new GestureSample("", new Note());
-		gestureSample3D = new GestureSample3D("", new RecordedGesture3D());
+		gestureSample3D = new GestureSample3D("", new Note3D());
 		this.type = type;
 	}
 	
 	public void clear()
 	{
 		gestureSample = new GestureSample("", new Note());
-		gestureSample3D = new GestureSample3D("", new RecordedGesture3D());
+		gestureSample3D = new GestureSample3D("", new Note3D());
 	}
 	
 	public GestureSample getGesture()
@@ -79,10 +79,10 @@ public class TuioReaderPanel extends GestureDevicePanel {
 		}
 		else if(type == TYPE_3D)
 		{
-			if(gestureSample3D != null) //gestureSample3D != new GestureSample3D("", new RecordedGesture3D())
-				RecordedGesture3DTool.paintGesture(gestureSample3D.getGesture(), g, getWidth(), getHeight(), true);
+			if(gestureSample3D != null) //gestureSample3D != new GestureSample3D("", newNote3D())
+				Note3DTool.paintGesture(gestureSample3D.getGesture(), g, getWidth(), getHeight(), true);
 			else
-				RecordedGesture3DTool.paintStructure(g, getWidth(), getHeight(), true);
+				Note3DTool.paintStructure(g, getWidth(), getHeight(), true);
 		}
 		else
 		{

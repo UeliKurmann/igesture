@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.Map;
 
 import org.ximtec.igesture.core.Gesture;
+import org.ximtec.igesture.core.composite.parameter.IConstraintParameter;
 import org.ximtec.igesture.io.IDeviceManager;
 
 /**
@@ -93,4 +94,7 @@ public interface Constraint {
 	public void setParameter(String property, String value);
 	
 	public String toString();
+	public void addConstraintParameters(IConstraintParameter param);
+	public void removeAllConstraintParameters();
+	public Set<IConstraintParameter> getConstraintParameters();
 }

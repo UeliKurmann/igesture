@@ -30,7 +30,7 @@ import org.ximtec.igesture.io.tuio.tuio3D.TuioObject3D;
 import org.ximtec.igesture.util.additions3d.AccelerationSample;
 import org.ximtec.igesture.util.additions3d.Accelerations;
 import org.ximtec.igesture.util.additions3d.Point3D;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.additions3d.Note3D;
 
 /**
  * Reader that initializes the TuioConnection and handles the events caused by the TuioConnection. There are three ways to use the TuioReader.
@@ -54,7 +54,7 @@ import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
  * @author Bjorn Puype, bpuype@gmail.com
  * @see TuioConnection
  */
-public class TuioReader extends AbstractGestureDevice<Note,Point> implements TuioListener, Gesture3DDevice<RecordedGesture3D, Point3D>{
+public class TuioReader extends AbstractGestureDevice<Note,Point> implements TuioListener, Gesture3DDevice<Note3D, Point3D>{
 
 	
 	//*******************************************************************************************************************
@@ -63,8 +63,8 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 	
 	/** List of Notes (2D gestures) */
 	private Hashtable<Long,Note> notes = new Hashtable<Long,Note>();
-	/** List of RecordedGesture3D (3D gestures) */
-	private Hashtable<Long,RecordedGesture3D> gestures = new Hashtable<Long,RecordedGesture3D>();
+	/** List of Note3D (3D gestures) */
+	private Hashtable<Long,Note3D> gestures = new Hashtable<Long,Note3D>();
 	
 	/** List of AbstractTuioObject */
 	private Hashtable<Long,AbstractTuioObject> objectList = new Hashtable<Long,AbstractTuioObject>();
@@ -82,7 +82,7 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 	protected GestureSample gesture;
 	protected Note lastNoteAdded;
 	protected GestureSample3D gesture3D;
-	protected RecordedGesture3D lastRecordedGesture3DAdded;
+	protected Note3D lastNote3DAdded;
 	
 	/**
 	 * Default Constructor
@@ -113,8 +113,8 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 		lastNoteAdded = new Note();
 		gesture = new GestureSample(this,"", lastNoteAdded);
 		
-		lastRecordedGesture3DAdded = new RecordedGesture3D();
-		gesture3D = new GestureSample3D(this,"", lastRecordedGesture3DAdded);
+		lastNote3DAdded = new Note3D();
+		gesture3D = new GestureSample3D(this,"", lastNote3DAdded);
 		//MODIFIED <
 	}
 	
@@ -157,7 +157,7 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 	@Override
 	public void clear() {
 		lastNoteAdded = new Note();
-		lastRecordedGesture3DAdded = new RecordedGesture3D();
+		lastNote3DAdded = new Note3D();
 	}
 
 	/* (non-Javadoc)
@@ -197,9 +197,9 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 	 * @see org.ximtec.igesture.io.Gesture3DDevice#getGesture3D()
 	 */
 	@Override
-	public Gesture<RecordedGesture3D> getGesture3D()
+	public Gesture<Note3D> getGesture3D()
 	{
-		return new GestureSample3D(this,gesture3D.getName(),lastRecordedGesture3DAdded);
+		return new GestureSample3D(this,gesture3D.getName(),lastNote3DAdded);
 	}
 	
 	/* (non-Javadoc)
@@ -281,8 +281,8 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 				//OR
 				//long time = tcur.getTuioTime().getTotalMilliseconds();
 				
-				//create new recordedgesture3D and add first point to it
-				RecordedGesture3D gesture = new RecordedGesture3D();
+				//create new note3D and add first point to it
+				Note3D gesture = new Note3D();
 				Point3D point = new Point3D(tcur.getX(),tcur.getY(),tcur.getZ(),time);
 				gesture.add(point);
 				
@@ -293,7 +293,7 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 				accelerations.addSample(sample);
 				//set the gesture accelerations
 				gesture.setAccelerations(accelerations);
-				//save recordedgesture3D
+				//save note3D
 				gestures.put(tcur.getSessionID(), gesture);
 			}	 
 			debug("add cur "+tcur.getCursorID()+" ("+tcur.getSessionID()+") "+tcur.getX()+" "+tcur.getY()+" "+tcur.getZ());
@@ -338,8 +338,8 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 				//calculate timestamp
 				long time = tobj.getTuioTime().add(tobj.getStartTime()).getTotalMilliseconds();
 				
-				//create new recordedgesture3D and add first point to it
-				RecordedGesture3D gesture = new RecordedGesture3D();
+				//create new note3D and add first point to it
+				Note3D gesture = new Note3D();
 				Point3D point = new Point3D(tobj.getX(),tobj.getY(),tobj.getZ(),time);
 				gesture.add(point);
 				//create accelerations and an acceleration sample
@@ -349,7 +349,7 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 				accelerations.addSample(sample);
 				//set the gesture accelerations
 				gesture.setAccelerations(accelerations);
-				//save recordedgesture3D
+				//save note3D
 				gestures.put(tobj.getSessionID(), gesture);
 
 			}
@@ -394,12 +394,12 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 			TuioCursor3D tcur = (TuioCursor3D)atcur;
 			cursorList.remove(tcur.getSessionID());	
 			
-			lastRecordedGesture3DAdded = gestures.get(tcur.getSessionID());
+			lastNote3DAdded = gestures.get(tcur.getSessionID());
 			fireGestureEvent(gesture3D);
 			if(recogniser != null)
 			{
-				//process recordedGesture3D by recognizing it and notifying listeners
-				recogniser.recognise(new GestureSample3D(this,Constant.EMPTY_STRING, lastRecordedGesture3DAdded),false);
+				//process note3D by recognizing it and notifying listeners
+				recogniser.recognise(new GestureSample3D(this,Constant.EMPTY_STRING, lastNote3DAdded),false);
 						//recogniser automatically performs fireEvent which warns 
 						//gestureHandlers of new performed gestures
 			}
@@ -448,16 +448,16 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 			TuioObject3D tobj = (TuioObject3D)atobj;
 			objectList.remove(tobj.getSessionID());	
 			
-			RecordedGesture3D record = gestures.get(tobj.getSessionID());
+			Note3D record = gestures.get(tobj.getSessionID());
 			//if the recorded gesture contains more than one point3D, then the object was used to perform a gesture
 			//otherwise not, so no recognition is TuioCursor tcur = (TuioCursor)atcur;needed.
 			if(record.size() > 1)
 			{
-				lastRecordedGesture3DAdded = record;
+				lastNote3DAdded = record;
 				fireGestureEvent(getGesture3D());
 				if(recogniser != null)
 				{
-					//process recordedGesture3D by recognizing it and notifying listeners
+					//process note3D by recognizing it and notifying listeners
 					recogniser.recognise(new GestureSample3D(this,Constant.EMPTY_STRING, gestures.get(tobj.getSessionID())),false);
 							//recogniser automatically performs fireEvent which warns 
 							//gestureHandlers of new performed gestures
@@ -504,11 +504,11 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 				//calculate timestamp
 				long time = tcur.getTuioTime().add(tcur.getStartTime()).getTotalMilliseconds();
 				
-				//add new point to the corresponding recordedgesture3D
+				//add new point to the corresponding note3D
 				Point3D p = new Point3D(tcur.getX(),tcur.getY(),tcur.getZ(),time);
-				RecordedGesture3D gesture = gestures.get(tcur.getSessionID());
+				Note3D gesture = gestures.get(tcur.getSessionID());
 				gesture.add(p);
-				//add new acceleration sample to the recordedgesture3D's accelerations
+				//add new acceleration sample to the note3D's accelerations
 				AccelerationSample sample = createAccelerationSample(tcur.getXSpeed(),tcur.getYSpeed(),tcur.getZSpeed(),tcur.getMotionSpeed(),tcur.getMotionAccel(),time);
 				//add sample to accelerations
 				Accelerations accelerations = gesture.getAccelerations(); 
@@ -556,11 +556,11 @@ public class TuioReader extends AbstractGestureDevice<Note,Point> implements Tui
 				//calculate timestamp
 				long time = tobj.getTuioTime().add(tobj.getStartTime()).getTotalMilliseconds();
 				
-				//add new point to the corresponding recordedgesture3D
+				//add new point to the corresponding note3D
 				Point3D p = new Point3D(tobj.getX(),tobj.getY(),tobj.getZ(),time);
-				RecordedGesture3D gesture = gestures.get(tobj.getSessionID());
+				Note3D gesture = gestures.get(tobj.getSessionID());
 				gesture.add(p);
-				//add new acceleration sample to the recordedgesture3D's accelerations
+				//add new acceleration sample to the note3D's accelerations
 				AccelerationSample sample = createAccelerationSample(tobj.getXSpeed(),tobj.getYSpeed(),tobj.getZSpeed(),tobj.getMotionSpeed(),tobj.getMotionAccel(),time);
 				//add sample to accelerations
 				Accelerations accelerations = gesture.getAccelerations(); 

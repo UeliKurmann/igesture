@@ -47,7 +47,7 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.SampleDescriptor;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.core.composite.Constraint;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.additions3d.Note3D;
 
 
 /**
@@ -206,19 +206,19 @@ public class GestureTool {
    
    
    /**
-    * Creates an image from the recordedgesture3d
-    * @param gesture the recordedgesture3d for which an image has to be created.
+    * Creates an image from the note3d
+    * @param gesture the note3d for which an image has to be created.
     * @param width the width of the image.
     * @param height the height of the image.
     * @return the buffered image.
     */
-   public static BufferedImage createRecordedGesture3DImage(RecordedGesture3D gesture, int width, int height) {
-   		RecordedGesture3D record = (RecordedGesture3D)gesture.clone();
+   public static BufferedImage createNote3DImage(Note3D gesture, int width, int height) {
+   		Note3D record = (Note3D)gesture.clone();
    		BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
    		Graphics graphic = bufferedImage.getGraphics();
-   		RecordedGesture3DTool.paintGesture(record,graphic, width, height, false);
+   		Note3DTool.paintGesture(record,graphic, width, height, false);
    		return bufferedImage;
-   } //createRecordeGesture3DImage
+   } //createNote3DImage
 
 
 

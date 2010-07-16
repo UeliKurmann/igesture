@@ -26,7 +26,7 @@
 
 package org.ximtec.igesture.core;
 
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.additions3d.Note3D;
 
 /**
  * Describes a gesture by a set of gesture samples.
@@ -35,7 +35,7 @@ import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
  * @author Ueli Kurmann, igesture@uelikurmann.ch
  * @author Beat Signer, signer@inf.ethz.ch
  */
-public class SampleDescriptor3D extends DefaultSampleDescriptor<RecordedGesture3D> {
+public class SampleDescriptor3D extends DefaultSampleDescriptor<Note3D> {
   @Override
   public String getName() {
     return SampleDescriptor3D.class.getSimpleName();

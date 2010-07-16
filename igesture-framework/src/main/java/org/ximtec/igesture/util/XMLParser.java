@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -31,7 +32,7 @@ public abstract class XMLParser {
 	 * @throws SAXException
 	 * @throws IOException
 	 */
-	public void parse(String fileName, String nodeName, ArrayList<String> textNodes) throws ParserConfigurationException, SAXException, IOException
+	public void parse(String fileName, String nodeName, List<String> textNodes) throws ParserConfigurationException, SAXException, IOException
 	{
 		//location of the XML file
 		File file = new File(fileName);

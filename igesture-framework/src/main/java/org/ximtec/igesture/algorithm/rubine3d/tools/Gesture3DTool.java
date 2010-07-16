@@ -42,7 +42,7 @@ import org.ximtec.igesture.core.GestureSet;
 import org.ximtec.igesture.core.ResultSet;
 import org.ximtec.igesture.core.SampleDescriptor3D;
 import org.ximtec.igesture.storage.StorageManager;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.additions3d.Note3D;
 
 public class Gesture3DTool {
 
@@ -214,11 +214,11 @@ public class Gesture3DTool {
 	 *            The name of the gesture class to look in
 	 * @return The list of found gesture samples
 	 */
-	public List<Gesture<RecordedGesture3D>> getGestureSamples(String setName, String className) {
+	public List<Gesture<Note3D>> getGestureSamples(String setName, String className) {
 		System.err.println("getGestureSamples() for GestureSet " + setName
 				+ " and GestureClass " + className + ".");
 		// Create return variable
-		List<Gesture<RecordedGesture3D>> returnList = new Vector<Gesture<RecordedGesture3D>>();
+		List<Gesture<Note3D>> returnList = new Vector<Gesture<Note3D>>();
 		// If there is a gesture set with name setName
 		if (storage.load(GestureSet.class, "name", setName).size() > 0) {
 			GestureSet tempSet = storage

@@ -3,13 +3,8 @@
  */
 package org.ximtec.igesture.core.composite;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -17,16 +12,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.sigtec.ink.Note;
 import org.ximtec.igesture.core.DefaultDataObject;
 import org.ximtec.igesture.core.Gesture;
-import org.ximtec.igesture.core.GestureSample;
-import org.ximtec.igesture.core.GestureSample3D;
+import org.ximtec.igesture.core.composite.parameter.IConstraintParameter;
 import org.ximtec.igesture.io.GestureDevice;
 import org.ximtec.igesture.io.IDeviceManager;
 import org.ximtec.igesture.io.IUser;
 import org.ximtec.igesture.util.MultiValueMap;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 
 /**
  * @author Bjorn Puype, bpuype@gmail.com
@@ -35,44 +27,33 @@ import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
 public abstract class DefaultConstraint extends DefaultDataObject implements Constraint {
 	
 	protected Map<String, String> DEFAULT_CONFIGURATION = new HashMap<String, String>();
-	protected Map<String, String> setterMapping = new HashMap<String, String>();
+	protected Map<String, IConstraintParameter> parameterMapping = new HashMap<String, IConstraintParameter>();
 	
 	protected List<DefaultConstraintEntry> gestures;
 	public static final String PROPERTY_GESTURES = "gestures";
+	public static final String PROPERTY_CONSTRAINT_PARAMETER_VALUE = "constraintParameterValue";
 	
-	protected SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss.SSS");
+	protected Set<IConstraintParameter> parameters = new HashSet<IConstraintParameter>(); 
 	
-	protected Calendar gestureTime;
-	protected Calendar processingTime;
-	
-	public enum Config{
-		GESTURE_TIME
-	}
-	
-	private static final String GESTURE_TIME = "00:00:10.000";
 	
 	public DefaultConstraint()
 	{
-		DEFAULT_CONFIGURATION.put(Config.GESTURE_TIME.name(), GESTURE_TIME);
-		setterMapping.put(Config.GESTURE_TIME.name(), "setGestureTime");
-		gestures = new ArrayList<DefaultConstraintEntry>();
-		df.setLenient(false);
-		try {
-//			df.parse("00:00:10.000");
-//			gestureTime = df.getCalendar();
-//			df.parse("00:00:02.000");
-//			processingTime = df.getCalendar();
-			Date d = df.parse(GESTURE_TIME);
-			gestureTime = Calendar.getInstance();
-			gestureTime.setTime(d);
-			d = df.parse("00:00:02.000");
-			processingTime = Calendar.getInstance();
-			processingTime.setTime(d);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
+		gestures = new ArrayList<DefaultConstraintEntry>();	
 	}
+	
+	/* (non-Javadoc)
+	 * @see org.ximtec.igesture.core.composite.Constraint#addConstraintParameters(org.ximtec.igesture.core.composite.parameter.IConstraintParameter)
+	 */
+	public void addConstraintParameters(IConstraintParameter param)
+	{
+		parameters.add(param);
+		DEFAULT_CONFIGURATION.putAll(param.getParameters());
+		for(String key : param.getParameters().keySet())
+		{
+			parameterMapping.put(key, param);
+		}
+	}
+	
 	
 	/* (non-Javadoc)
 	 * @see org.ximtec.igesture.core.composite.Constraint#addGestureClass(java.lang.String)
@@ -80,8 +61,7 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 	@Override
 	public void addGestureClass(String gestureClass) {
 		DefaultConstraintEntry entry = new DefaultConstraintEntry(gestureClass); 
-		gestures.add(entry);
-		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, gestures.indexOf(entry), null, entry);
+		addGesture(entry);
 	}
 
 	/* (non-Javadoc)
@@ -90,8 +70,7 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 	@Override
 	public void addGestureClass(String gestureClass, int user) {
 		DefaultConstraintEntry entry = new DefaultConstraintEntry(gestureClass, user);
-		gestures.add(entry);
-		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, gestures.indexOf(entry), null, entry);
+		addGesture(entry);
 	}
 
 	/* (non-Javadoc)
@@ -100,8 +79,7 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 	@Override
 	public void addGestureClass(String gestureClass, String deviceType, Set<String> devices) {
 		DefaultConstraintEntry entry = new DefaultConstraintEntry(gestureClass, deviceType, devices); 
-		gestures.add(entry);
-		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, gestures.indexOf(entry), null, entry);
+		addGesture(entry);
 	}
 
 	/* (non-Javadoc)
@@ -110,6 +88,11 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 	@Override
 	public void addGestureClass(String gestureClass, int user, String deviceType, Set<String> devices) {
 		DefaultConstraintEntry entry = new DefaultConstraintEntry(gestureClass, deviceType, devices);
+		addGesture(entry);
+	}
+	
+	private void addGesture(DefaultConstraintEntry entry)
+	{
 		gestures.add(entry);
 		propertyChangeSupport.fireIndexedPropertyChange(PROPERTY_GESTURES, gestures.indexOf(entry), null, entry);
 	}
@@ -142,25 +125,43 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 	public int getNumberOfGestures() {
 		return gestures.size();
 	}
-
-	public void setGestureTime(String time) throws ParseException
-	{
-		Date d = df.parse(time);
-		gestureTime = Calendar.getInstance();
-		gestureTime.setTime(d);
-	}
-	
-	public Calendar getGestureTime()
-	{
-		return gestureTime;
-	}
 	
 	/* (non-Javadoc)
 	 * @see org.ximtec.igesture.core.composite.Constraint#generatePatterns(java.util.Map)
 	 */
 	@Override
-	public abstract Set<String> generatePatterns(Map<String, String> charMapping);
+	public Set<String> generatePatterns(Map<String, String> charMapping)
+	{
+		Set<String> patterns = new HashSet<String>();
+		
+		for (Iterator<IConstraintParameter> iterator = parameters.iterator(); iterator.hasNext();) {
+			IConstraintParameter param = iterator.next();
+			Set<String> subSet = param.generatePatterns(charMapping, gestures);
+			if(subSet != null && !subSet.isEmpty())
+				patterns.addAll(subSet);
+		}
+		return patterns;
+	}
 
+	/* (non-Javadoc)
+	 * @see org.ximtec.igesture.core.composite.Constraint#determineTimeWindows()
+	 */
+	@Override
+	public Map<String, Calendar> determineTimeWindows()
+	{
+		Map<String, Calendar> map = new HashMap<String, Calendar>();
+		
+		for (Iterator<IConstraintParameter> iterator = parameters.iterator(); iterator.hasNext();) {
+			IConstraintParameter param = iterator.next();
+			Map<String, Calendar> subMap = param.determineTimeWindows(gestures);
+			if(subMap != null && !subMap.isEmpty())
+			{
+				map.putAll(subMap);
+			}
+		}
+		return map;
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.ximtec.igesture.core.composite.Constraint#validateConditions(java.util.List)
 	 */
@@ -168,6 +169,15 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 	public boolean validateConditions(List<Gesture<?>> gestures, IDeviceManager manager)
 	{
 		boolean conditionsValid = true;
+		Iterator<IConstraintParameter> paramiterator = parameters.iterator();
+		while(conditionsValid && paramiterator.hasNext())
+		{
+			IConstraintParameter param = paramiterator.next();
+			conditionsValid = param.validateConditions(gestures, manager);
+		}		
+		
+		//TODO move
+		
 		Map<Gesture<?>,GestureDevice<?,?>> map = new HashMap<Gesture<?>,GestureDevice<?,?>>();
 		
 		/* device checks */
@@ -297,49 +307,27 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 //			if(matches != definedKeys.size())
 //				conditionsValid = false;
 		}
-		else if(manager == null)
+		else if(conditionsValid && manager == null)
 		{
-			conditionsValid = false;
+			// if no manager was passed, return true if no users have been specified otherwise return false
+			boolean userSpecified = true;
+			for (Iterator<DefaultConstraintEntry> iter = this.gestures.iterator(); iter.hasNext();) {
+				DefaultConstraintEntry entry = iter.next();
+				if(entry.getUser() > -1)
+				{
+					userSpecified = false;
+					break;
+				}
+			}	
+			
+			conditionsValid = (conditionsValid && userSpecified);
+		}
+		else
+		{
+			conditionsValid =  false;
 		}
 		
 		return conditionsValid;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.ximtec.igesture.core.composite.Constraint#determineTimeWindows()
-	 */
-	@Override
-	public abstract Map<String, Calendar> determineTimeWindows();
-	
-	/**
-	 * Get the start or end timestamp of a gesture.
-	 * @param gesture	the gesture from which to get the timestamp
-	 * @param start		true to get the start timestamp, false to get the end timestamp
-	 * @return	timestamp
-	 */
-	protected long getTimeStamp(Gesture<?> gesture, boolean start)
-	{
-		long timestamp = 0;
-		if(gesture instanceof GestureSample)
-		{
-			Note note = ((GestureSample)gesture).getGesture();
-			if(start)
-				timestamp = note.getStartPoint().getTimestamp();
-			else
-				timestamp = note.getEndPoint().getTimestamp();
-		}
-		else if(gesture instanceof GestureSample3D)
-		{
-			RecordedGesture3D record = ((GestureSample3D)gesture).getGesture();
-			if(start)
-				timestamp = record.getStartPoint().getTimeStamp();
-			else
-				timestamp = record.getEndPoint().getTimeStamp();
-		}
-		else
-			;//TODO error
-		
-		return timestamp;
 	}
 	
 	public String toString()
@@ -371,21 +359,8 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 	public void setParameter(String property, String value)
 	{
 		DEFAULT_CONFIGURATION.put(property, value);
-		Class<?> clazz = this.getClass();
-		try {
-			Method m = clazz.getMethod(setterMapping.get(property), String.class);//no getDeclaredMethod because setGestureTime in DefaultConstraint
-			m.invoke(this, value);
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		}
+		parameterMapping.get(property).setParameter(property, value);
+		propertyChangeSupport.firePropertyChange(PROPERTY_CONSTRAINT_PARAMETER_VALUE, null, value);
 	}
 	
 	/* (non-Javadoc)
@@ -417,4 +392,17 @@ public abstract class DefaultConstraint extends DefaultDataObject implements Con
 		return gestures;
 	}
 	
+	public Set<IConstraintParameter> getConstraintParameters()
+	{
+		Set<IConstraintParameter> params = new HashSet<IConstraintParameter>();
+		params.addAll(parameterMapping.values());
+		return params;
+	}
+	
+	public void removeAllConstraintParameters()
+	{
+		parameterMapping.clear();
+		parameters.clear();
+		DEFAULT_CONFIGURATION.clear();
+	}
 }

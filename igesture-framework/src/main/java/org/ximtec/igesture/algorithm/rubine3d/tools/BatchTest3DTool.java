@@ -44,7 +44,7 @@ import org.ximtec.igesture.core.SampleDescriptor3D;
 import org.ximtec.igesture.core.TestClass;
 import org.ximtec.igesture.core.TestSet;
 import org.ximtec.igesture.util.XMLTool;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.additions3d.Note3D;
 
 public class BatchTest3DTool {
 
@@ -126,7 +126,7 @@ public class BatchTest3DTool {
 			// Create new TestClass
 			TestClass tempTestClass = new TestClass(tempGestureClass.getName());
 			// Add gesture samples from the gesture class to the test class
-			Iterator<Gesture<RecordedGesture3D>> sampleIter = tempGestureClass
+			Iterator<Gesture<Note3D>> sampleIter = tempGestureClass
 					.getDescriptor(SampleDescriptor3D.class).getSamples()
 					.iterator();
 			while (sampleIter.hasNext()) {
@@ -193,7 +193,7 @@ public class BatchTest3DTool {
 			SampleDescriptor yzDescriptor = new SampleDescriptor();
 			SampleDescriptor zxDescriptor = new SampleDescriptor();
 			// Iterate through samples
-			Iterator<Gesture<RecordedGesture3D>> sampleIter = tempClass
+			Iterator<Gesture<Note3D>> sampleIter = tempClass
 					.getDescriptor(SampleDescriptor3D.class).getSamples()
 					.iterator();
 			while (sampleIter.hasNext()) {

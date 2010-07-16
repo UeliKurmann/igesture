@@ -25,6 +25,7 @@ import com.illposed.osc.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.SocketException;
+import java.net.URL;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,6 +39,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.ximtec.igesture.io.tuio.handler.AbstractTuioHandler;
+import org.ximtec.igesture.util.XMLParser;
 import org.xml.sax.SAXException;
 
 
@@ -124,46 +126,42 @@ public class TuioConnection implements OSCListener {
 	 * @throws IOException
 	 */
 	private void initProfiles() throws ParserConfigurationException, SAXException, IOException
-	{
-		//location of the profiles file
-		File file = new File(System.getProperty("user.dir")+System.getProperty("file.separator")+TuioConstants.XML_TUIO_PROFILES);
-			//TODO it should get the file from the framework not the tool
+	{	
 		//create a XML parser
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		DocumentBuilder db;
-		db = dbf.newDocumentBuilder();
-		//parse the XML file and create a DOM tree
-		Document doc = db.parse(file);
-		
-		doc.getDocumentElement().normalize();
-		//get all the association elements
-		NodeList nodeList = doc.getElementsByTagName("association");
+		XMLParser parser = new XMLParser(){
 
-		//for all associations, create the mapping TUIO profile on TUIO handler
-		for (int i = 0; i < nodeList.getLength(); i++) 
+			@Override
+			public void execute(ArrayList<NodeList> nodeLists) {
+				String profile = ((Node)nodeLists.get(0).item(0)).getNodeValue();
+				String handler = ((Node)nodeLists.get(1).item(0)).getNodeValue();
+				
+				try {
+					//use reflection to create an instance through the class name
+				    Class c = Class.forName(handler);
+					//for all associations, create the mapping TUIO profile on TUIO handler
+				    profileToHandler.put(profile, (AbstractTuioHandler) c.newInstance());
+			    } 
+			    catch (Exception e) {
+			    	LOGGER.log(Level.SEVERE,"Could not find class: "+ handler,e);
+			    }
+			}
+			
+		};
+		//location of the profiles file
+		URL p = TuioConnection.class.getClassLoader().getResource(TuioConstants.XML_TUIO_PROFILES);
+		List<String> textNodes = new ArrayList<String>();
+		textNodes.add(TuioConstants.XML_NODE_PROFILE);
+		textNodes.add(TuioConstants.XML_NODE_HANDLER);
+		//parse the profiles file
+		try
 		{
-		    Node node = nodeList.item(i);
-		    
-		    if (node.getNodeType() == Node.ELEMENT_NODE) 
-		    {
-		      NodeList profiles = ((Element)node).getElementsByTagName("profile");
-		      NodeList p = ((Element) profiles.item(0)).getChildNodes();
-//		      System.out.println("Profile : "  + ((Node) p.item(0)).getNodeValue());
-		      
-		      NodeList handlers = ((Element)node).getElementsByTagName("handler");
-		      NodeList h = ((Element) handlers.item(0)).getChildNodes();
-//		      System.out.println("Handler : " + ((Node) h.item(0)).getNodeValue());
-		      
-		      try {
-		    	  //use reflection to create an instance through the class name
-			      Class c = Class.forName(((Node) h.item(0)).getNodeValue());
-			      profileToHandler.put(((Node) p.item(0)).getNodeValue(), (AbstractTuioHandler) c.newInstance());
-		      } 
-		      catch (Exception e) {
-				LOGGER.log(Level.SEVERE,"Could not find class: "+((Node) h.item(0)).getNodeValue(),e);
-		      }
-		    }	    
+			parser.parse(p.getFile(), TuioConstants.XML_TUIO_PROFILES_NODE, textNodes);
 		}
+		catch(Exception e)
+		{
+			LOGGER.log(Level.SEVERE,"Could not parse configuration file ("+TuioConstants.XML_TUIO_PROFILES+").",e);
+		}
+		
 	}
 	
 	/**

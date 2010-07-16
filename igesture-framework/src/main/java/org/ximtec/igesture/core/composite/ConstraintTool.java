@@ -5,19 +5,24 @@ package org.ximtec.igesture.core.composite;
 
 import java.awt.geom.Rectangle2D;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
 
 import org.sigtec.ink.Note;
 import org.sigtec.ink.NoteTool;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.ximtec.igesture.core.Gesture;
+import org.ximtec.igesture.core.GestureSample;
+import org.ximtec.igesture.core.GestureSample3D;
+import org.ximtec.igesture.util.Constant;
 import org.ximtec.igesture.util.XMLParser;
+import org.ximtec.igesture.util.additions3d.Note3D;
 
 /**
  * @author Bjorn Puype, bpuype@gmail.com
@@ -26,7 +31,7 @@ import org.ximtec.igesture.util.XMLParser;
 public class ConstraintTool {
 	
 	private static final Map<String, String> deviceMapping = new HashMap<String,String>(); 
-	
+
 	static{
 		
 		XMLParser parser = new XMLParser(){
@@ -40,14 +45,20 @@ public class ConstraintTool {
 			
 		};
 		ArrayList<String> nodes = new ArrayList<String>();
-		nodes.add("name");
-		nodes.add("type");
+		nodes.add(Constant.XML_NODE_NAME);
+		nodes.add(Constant.XML_NODE_TYPE);
 		try {
-			URL path = ConstraintTool.class.getClassLoader().getResource("config.xml");
-			parser.parse(path.getFile(),"device", nodes);
+			URL path = ConstraintTool.class.getClassLoader().getResource(Constant.XML_DEVICEMAPPINGS);
+			parser.parse(path.getFile(),Constant.XML_DEVICEMAPPINGS_NODE, nodes);
 		} catch (Exception e) {
 			e.printStackTrace();
 		};
+	}
+	
+	private static final SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss.SSS");
+	
+	static{
+		df.setLenient(false);
 	}
 	
 	public static String getGestureType(String deviceType)
@@ -95,5 +106,41 @@ public class ConstraintTool {
 		        }
 		    }
 		}
+	}
+	
+	/**
+	 * Get the start or end timestamp of a gesture.
+	 * @param gesture	the gesture from which to get the timestamp
+	 * @param start		true to get the start timestamp, false to get the end timestamp
+	 * @return	timestamp
+	 */
+	public static long getTimeStamp(Gesture<?> gesture, boolean start)
+	{
+		long timestamp = 0;
+		if(gesture instanceof GestureSample)
+		{
+			Note note = ((GestureSample)gesture).getGesture();
+			if(start)
+				timestamp = note.getStartPoint().getTimestamp();
+			else
+				timestamp = note.getEndPoint().getTimestamp();
+		}
+		else if(gesture instanceof GestureSample3D)
+		{
+			Note3D record = ((GestureSample3D)gesture).getGesture();
+			if(start)
+				timestamp = record.getStartPoint().getTimeStamp();
+			else
+				timestamp = record.getEndPoint().getTimeStamp();
+		}
+		else
+			;//TODO error
+		
+		return timestamp;
+	}
+	
+	public static SimpleDateFormat getDateFormatter()
+	{
+		return df;
 	}
 }

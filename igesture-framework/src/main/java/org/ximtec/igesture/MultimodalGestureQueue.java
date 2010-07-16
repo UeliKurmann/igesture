@@ -132,7 +132,7 @@ public class MultimodalGestureQueue {
 				iterator.remove();
 		}
 		return elements.toArray(new QueueElement[1]);
-		//return Arrays.copyOfRange(arr, index, arr.length);
+//		return Arrays.copyOfRange(arr, index, arr.length);
 	}
 	
 	public synchronized boolean isEmpty()
@@ -147,7 +147,7 @@ public class MultimodalGestureQueue {
 	
 	/**
 	 * This class represents an element in the queue and encapsulates different information.
-	 * @author Bjönöype, bpuype@gmail.com
+	 * @author Bjï¿½nï¿½ype, bpuype@gmail.com
 	 *
 	 */
 	public class QueueElement implements Comparable<QueueElement>//TODO different locks

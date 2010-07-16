@@ -43,14 +43,14 @@ import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureClass;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.core.GestureSet;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.additions3d.Note3D;
 
 public class Gesture3DToolUI extends JFrame {
 
 	private String setName;
 	private String className;
 	private int currentSampleNumber;
-	private List<Gesture<RecordedGesture3D>> samples;
+	private List<Gesture<Note3D>> samples;
 
 	private boolean started;
 	

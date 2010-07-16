@@ -19,7 +19,7 @@ import org.sigtec.ink.Note;
 import org.sigtec.ink.Trace;
 import org.ximtec.igesture.util.additions3d.AccelerationSample;
 import org.ximtec.igesture.util.additions3d.Accelerations;
-import org.ximtec.igesture.util.additions3d.RecordedGesture3D;
+import org.ximtec.igesture.util.additions3d.Note3D;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample;
 import org.ximtec.igesture.util.additions3d.Point3D;
@@ -28,9 +28,9 @@ import org.ximtec.igesture.util.additions3d.Point3D;
  * @author Bjorn Puype, bpuype@gmail.com
  *
  */
-public class RecordedGesture3DTool {
+public class Note3DTool {
 
-	public static void paintGesture(RecordedGesture3D gs, Graphics g, int width, int height, boolean drawFieldTitles)
+	public static void paintGesture(Note3D gs, Graphics g, int width, int height, boolean drawFieldTitles)
 	{		
 	   List<Rectangle> fields = paintStructure(g,width,height, drawFieldTitles);
 
@@ -507,7 +507,7 @@ public class RecordedGesture3DTool {
 	}
   
 	/**
-	 * Splits RecordedGesture3D gesture into three 2D planes. The XY-Plane is
+	 * Splits Note3D gesture into three 2D planes. The XY-Plane is
 	 * defined as the plane in 3D space where z=0. The YZ-Plane is defined as
 	 * the plane in 3D space where x=0. The ZX-Plane is defined as the plane in
 	 * 3D space where y=0.
@@ -516,7 +516,7 @@ public class RecordedGesture3DTool {
 	 * @return The list of 2D gestures that are the planes. First XY, then YZ
 	 *         and then ZX.
 	 */
-	public static List<Gesture<Note>> splitToPlanes(RecordedGesture3D gs) {//comes from GestureSample3D
+	public static List<Gesture<Note>> splitToPlanes(Note3D gs) {//comes from GestureSample3D
 		Iterator<Point3D> iterator = gs.iterator(); // Iterator on the
 		// list of
 		// Point3D in
