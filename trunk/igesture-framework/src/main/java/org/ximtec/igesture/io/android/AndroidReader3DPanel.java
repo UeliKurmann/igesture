@@ -7,7 +7,6 @@ import java.util.List;
 import org.ximtec.igesture.core.Gesture;
 import org.ximtec.igesture.core.GestureSample3D;
 import org.ximtec.igesture.io.GestureDevicePanel;
-import org.ximtec.igesture.io.wiimotionplus.WiiMotionPlusReader;
 import org.ximtec.igesture.util.Note3DTool;
 
 public class AndroidReader3DPanel extends GestureDevicePanel {
