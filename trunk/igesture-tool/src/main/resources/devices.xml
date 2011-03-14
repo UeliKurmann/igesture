@@ -35,4 +35,11 @@
 		<class>org.ximtec.igesture.tool.view.devicemanager.BlueToothReader</class>
 	</btdevice>
 	
+	<!-- ANDROID DEVICES -->
+	<androiddevice>
+		<name>Android</name>
+		<type>3D</type>
+		<class>org.ximtec.igesture.io.android.AndroidReader3D</class>
+	</androiddevice>
+	
 </devices>
