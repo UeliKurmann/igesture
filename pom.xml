@@ -119,22 +119,6 @@
  	
 	<reporting>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>
-					maven-project-info-reports-plugin
-				</artifactId>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>dependencies</report>
-							<report>project-team</report>
-							<report>license</report>
-							<report>scm</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -240,6 +224,16 @@
                 <sendOnSuccess>true</sendOnSuccess>
                 <configuration>
                     <address>bpuype@vub.ac.be</address>
+                </configuration>
+            </notifier>
+            <notifier>
+                <type>mail</type>
+                <sendOnError>true</sendOnError>
+                <sendOnFailure>true</sendOnFailure>
+                <sendOnWarning>true</sendOnWarning>
+                <sendOnSuccess>true</sendOnSuccess>
+                <configuration>
+                    <address>johan.bas@groept.be</address>
                 </configuration>
             </notifier>
         </notifiers>
