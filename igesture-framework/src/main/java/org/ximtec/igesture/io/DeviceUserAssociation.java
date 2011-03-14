@@ -27,67 +27,46 @@ public class DeviceUserAssociation extends DefaultDataObject //implements Device
 		this.user = user;
 	}
 
-//	@Override
 	public void connect() {
 		device.connect();
 	}
 
-//	@Override
 	public void disconnect() {
 		device.disconnect();
 	}
 
-//	@Override
 	public String getConnectionType() {
 		return Constant.getConnectionTypeName(device.getConnectionType());
 	}
 
-//	@Override
 	public String getDeviceID() {
 		return device.getDeviceID();
 	}
 
-//	@Override
 	public String getDeviceType() {
 		return Constant.getDeviceTypeName(device.getDeviceType());
 	}
 
-//	@Override
 	public String getName() {
 		return device.getName();
 	}
 
-//	@Override
-//	public boolean hasUniqueDeviceID() {
-//		return device.hasUniqueDeviceID();
-//	}
-
-//	@Override
 	public boolean isConnectable() {
 		return device.isConnectable();
 	}
 
-//	@Override
 	public boolean isDisconnectable() {
 		return device.isDisconnectable();
 	}
 
-//	@Override
 	public void setConnectionType(String connectionType) {
 		device.setConnectionType(Constant.getConnectionTypeValue(connectionType));
 	}
 
-//	@Override
 	public void setDeviceID(String id) {
 		device.setDeviceID(id);
 	}
 
-//	@Override
-//	public void setDeviceType(String deviceType) {
-//		device.setDeviceType(Constant.getTypeValue(deviceType));
-//	}
-
-//	@Override
 	public void setName(String name) {
 		device.setName(name);
 	}
@@ -127,22 +106,18 @@ public class DeviceUserAssociation extends DefaultDataObject //implements Device
 		return user;
 	}
 
-//	@Override
 	public boolean isDefaultDevice() {
 		return device.isDefaultDevice();
 	}
 
-//	@Override
 	public void setDefaultDevice(boolean isDefault) {
 		device.setDefaultDevice(isDefault);
 	}
 
-//	@Override
 	public boolean isConnected() {
 		return device.isConnected();
 	}
 
-//	@Override
 	public void setIsConnected(boolean isConnected) {
 		device.setIsConnected(isConnected);
 	}
@@ -176,7 +151,6 @@ public class DeviceUserAssociation extends DefaultDataObject //implements Device
 	/* (non-Javadoc)
 	 * @see org.ximtec.igesture.tool.view.devicemanager.Device#getDeviceType()
 	 */
-//	@Override
 	public String getDeviceClass() {
 		return device.getDeviceClass();
 	}

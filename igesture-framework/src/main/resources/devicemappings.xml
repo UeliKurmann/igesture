@@ -23,5 +23,9 @@
 		<class>org.ximtec.igesture.io.tuio.TuioReader3D</class>
 		<type>3D</type>
 	</mapping>
-
+	<mapping>
+		<name>Android</name>
+		<class>org.ximtec.igesture.io.android.AndroidReader3D</class>
+		<type>3D</type>
+	</mapping>
 </mappings>

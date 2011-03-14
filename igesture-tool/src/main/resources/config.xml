@@ -49,6 +49,10 @@
 			<name>Tuio 3D</name>
 			<discoveryService>org.ximtec.igesture.tool.view.devicemanager.discoveryservice.Tuio3DDeviceDiscoveryService</discoveryService>
 		</connection>
+		<connection>
+			<name>IP</name>
+			<discoveryService>org.ximtec.igesture.tool.view.devicemanager.discoveryservice.Android3DDeviceDiscoveryService</discoveryService>
+		</connection>
 	</connections>
 	
 </configuration>

@@ -29,10 +29,12 @@ public class Constant {
 	public static final int CONNECTION_BLUETOOTH = 0;
 	public static final int CONNECTION_TUIO = 1;
 	public static final int CONNECTION_USB = 2;
+	public static final int CONNECTION_IP = 3;
 	
 	public static final String CONNECTION_BLUETOOTH_TEXT = "Bluetooth";
 	public static final String CONNECTION_TUIO_TEXT = "TUIO";
 	public static final String CONNECTION_USB_TEXT = "USB";
+	public static final String CONNECTION_IP_TEXT = "IP";
 	
 	public static final String XML_DEVICEMAPPINGS = "devicemappings.xml";
 	public static final String XML_DEVICEMAPPINGS_NODE = "mapping";
@@ -52,10 +54,12 @@ public class Constant {
 		toConnectionTypeTextMapping.put(CONNECTION_BLUETOOTH, CONNECTION_BLUETOOTH_TEXT);
 		toConnectionTypeTextMapping.put(CONNECTION_USB, CONNECTION_USB_TEXT);
 		toConnectionTypeTextMapping.put(CONNECTION_TUIO, CONNECTION_TUIO_TEXT);
+		toConnectionTypeTextMapping.put(CONNECTION_IP, CONNECTION_IP_TEXT);
 		
 		toConnectionTypeValueMapping.put(CONNECTION_BLUETOOTH_TEXT, CONNECTION_BLUETOOTH);
 		toConnectionTypeValueMapping.put(CONNECTION_USB_TEXT, CONNECTION_USB);
 		toConnectionTypeValueMapping.put(CONNECTION_TUIO_TEXT, CONNECTION_TUIO);
+		toConnectionTypeValueMapping.put(CONNECTION_IP_TEXT, CONNECTION_IP);
 	}
 	
 	public static String getDeviceTypeName(int type)
