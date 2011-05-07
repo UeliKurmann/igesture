@@ -28,14 +28,19 @@ public class AndroidStreamer extends Thread {
 					recording = false;
 				} else {
 					if(recording) {
-						String[] coordinated = inputLine.split(";");
-
-						double x = Double.parseDouble(coordinated[0]);
-						double y = Double.parseDouble(coordinated[1]);
-						double z = Double.parseDouble(coordinated[2]);
-						long time = Long.parseLong(coordinated[3]);
-					
-						this.device.addCoordinates(x,y,z,time);
+						if(inputLine.startsWith("I")) {
+							// idle state
+						} else if(inputLine.startsWith("P")) {
+							inputLine = inputLine.replaceFirst("P - ", "");
+							String[] coordinated = inputLine.split(";");
+	
+							double x = Double.parseDouble(coordinated[0]);
+							double y = Double.parseDouble(coordinated[1]);
+							double z = Double.parseDouble(coordinated[2]);
+							long time = Long.parseLong(coordinated[3]);
+						
+							this.device.addCoordinates(x,y,z,time);
+						}
 					}
 				}
 			}
