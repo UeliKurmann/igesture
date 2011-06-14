@@ -2,7 +2,7 @@
 <configuration>
 	<algorithm
 		name="org.ximtec.igesture.algorithm.rubine.RubineAlgorithm">
-		<parameter name="MAHALANOBIS_DISTANCE">2000</parameter>
+		<parameter name="MAHALANOBIS_DISTANCE">20000</parameter>
 		<parameter name="PROPABILITY">0.95</parameter>
 		<parameter name="FEATURE_LIST">
 			org.ximtec.igesture.algorithm.feature.F1,org.ximtec.igesture.algorithm.feature.F2,
