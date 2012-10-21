@@ -31,37 +31,6 @@
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 		</license>
 	</licenses>
-
-	<developers>
-		<developer>
-			<id>D\signerb</id>
-			<name>Beat Signer</name>
-			<email>signer@inf.ethz.ch</email>
-			<url>http://www.globis.ethz.ch/people/signerb/</url>
-			<organization>
-				Global Information Systems Group, ETH Zurich
-			</organization>
-			<organizationUrl>
-				http://www.globis.ethz.ch/
-			</organizationUrl>
-			<roles>
-				<role>Developer</role>
-			</roles>
-			<timezone>+1</timezone>
-		</developer>
-		<developer>
-			<id>D\kurmannu</id>
-			<name>Ueli Kurmann</name>
-			<email>kurmannu@users.sourceforge.net</email>
-			<url />
-			<organization>ETH Zurich</organization>
-			<organizationUrl>http://www.ethz.ch/</organizationUrl>
-			<roles>
-				<role>Developer</role>
-			</roles>
-			<timezone>+1</timezone>
-		</developer>
-	</developers>
 	
 	<modules>
 		<module>igesture-db-msApplicationGestures-common</module>
