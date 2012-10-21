@@ -1,7 +1,7 @@
 /*
  * @(#)$Id$
  *
- * Author		:	Beat Signer, signer@inf.ethz.ch
+ * Author		:	Beat Signer, bsigner@vub.ac.be
  *
  * Purpose		: 
  *
@@ -32,8 +32,7 @@ import org.sigtec.graphix.GuiTool;
 /**
  * Comment
  * @version 1.0 25.06.2008
- * @author Beat Signer, signer@inf.ethz.ch
- */
+ * @author Beat Signer, bbsigner@vub.ac.be */
 public class GuiBundleTool {
 
    /**

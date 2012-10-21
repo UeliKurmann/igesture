@@ -36,7 +36,7 @@ import org.ximtec.igesture.geco.gui.MainView;
  * Provides access to available actions. Each action is instantiated only once.
  * @version 0.9, Nov 22, 2007
  * @author Michele Croci, mcroci@gmail.com
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Beat Signer, bsigner@vub.ac.be
  */
 public class ActionHandler {
 

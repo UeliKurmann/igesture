@@ -1,7 +1,7 @@
 /*
  * @(#)$Id: WorkspaceTool.java 456 2008-11-11 09:54:06Z D\signerb $
  *
- * Author		:	Beat Signer, signer@inf.ethz.ch
+ * Author		:	Beat Signer, bsigner@vub.ac.be
  *
  * Purpose		:   Special type of service which can be started and
  *                  stopped.
@@ -30,8 +30,7 @@ package org.ximtec.igesture.tool.locator;
  * Special type of service which can be started and stopped.
  * @version 1.0 Oct 29, 2008
  * @author Ueli Kurmann, igesture@uelikurmann.ch
- * @author Beat Signer, signer@inf.ethz.ch
- */
+ * @author Beat Signer, bbsigner@vub.ac.be */
 public interface RunnableService extends Service {
 
    /**

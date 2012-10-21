@@ -35,7 +35,7 @@ import org.ximtec.igesture.core.ResultSet;
  * 
  * @version 1.0 18.06.2008
  * @author Ueli Kurmann
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Beat Signer, bsigner@vub.ac.be
  */
 public interface GestureHandler {
 

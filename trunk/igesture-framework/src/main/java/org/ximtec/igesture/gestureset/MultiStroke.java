@@ -1,7 +1,7 @@
 /*
  * @(#)$Id$
  *
- * Author		:	Beat Signer, signer@inf.ethz.ch
+ * Author		:	Beat Signer, bsigner@vub.ac.be
  *
  * Purpose		:   Some constants for the multi-stroke gesture set.
  *
@@ -28,8 +28,7 @@ package org.ximtec.igesture.gestureset;
 /**
  * Some constants for the multi-stroke gesture set.
  * @version 1.0 May 1, 2007
- * @author Beat Signer, signer@inf.ethz.ch
- */
+ * @author Beat Signer, bbsigner@vub.ac.be */
 public class MultiStroke {
 
    public static final String GESTURE_SET = "gestureSets/multistroke_gestures.xml";

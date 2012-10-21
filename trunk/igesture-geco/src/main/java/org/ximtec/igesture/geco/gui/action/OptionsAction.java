@@ -37,7 +37,7 @@ import org.ximtec.igesture.geco.util.GuiBundleTool;
  * Action to show options.
  * @version 0.9, Dec 2007
  * @author Michele Croci, mcroci@gmail.com
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Beat Signer, bsigner@vub.ac.be
  */
 
 public class OptionsAction extends BasicAction {

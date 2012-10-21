@@ -50,7 +50,7 @@ import org.ximtec.igesture.io.mouse.MouseUtils.MouseButton;
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, igesture@uelikurmann.ch
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Beat Signer, bsigner@vub.ac.be
  */
 public class MouseReader extends AbstractGestureDevice<Note, Point> implements MouseHandler{
 

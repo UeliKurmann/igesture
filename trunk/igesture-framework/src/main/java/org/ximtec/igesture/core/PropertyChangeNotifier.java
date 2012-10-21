@@ -37,7 +37,7 @@ import java.beans.PropertyChangeListener;
  * 
  * @version 1.0 25.03.2008
  * @author Ueli Kurmann
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Beat Signer, bsigner@vub.ac.be
  */
 public interface PropertyChangeNotifier {
 

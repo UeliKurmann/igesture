@@ -39,7 +39,7 @@ import org.ximtec.igesture.event.GestureAction;
  * 
  * @version 1.0, Dec 2006
  * @author Ueli Kurmann, igesture@uelikurmann.ch
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Beat Signer, bsigner@vub.ac.be
  */
 public class CloseApplication implements GestureAction {
 

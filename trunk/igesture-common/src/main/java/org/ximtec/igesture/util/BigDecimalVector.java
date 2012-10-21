@@ -37,7 +37,7 @@ import org.sigtec.util.Constant;
  * 
  * @version 1.0, Oct 2008
  * @author Ueli Kurmann, ueli.kurmann@bbv.ch
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Beat Signer, bsigner@vub.ac.be
  */
 public class BigDecimalVector extends ArrayList<BigDecimal> {
 

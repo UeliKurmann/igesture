@@ -37,7 +37,7 @@ import org.ximtec.igesture.event.GestureAction;
  * Class encapsulating the execution of a command.
  * @version 0.9, Dec 6, 2007
  * @author Michele Croci, mcroci@gmail.com
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Beat Signer, bsigner@vub.ac.be
  */
 public class CommandExecutor implements GestureAction {
 

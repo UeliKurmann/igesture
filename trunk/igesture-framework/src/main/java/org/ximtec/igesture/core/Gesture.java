@@ -34,7 +34,7 @@ import org.ximtec.igesture.io.GestureDevice;
  * 
  * @version 1.0 11.04.2008
  * @author Ueli Kurmann
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Beat Signer, bsigner@vub.ac.be
  */
 public interface Gesture<T> {
 

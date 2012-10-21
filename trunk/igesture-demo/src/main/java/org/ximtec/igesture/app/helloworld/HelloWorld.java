@@ -49,7 +49,7 @@ import org.ximtec.igesture.io.mouseclient.MouseReader;
 /**
  * @version 1.0 Nov 2006
  * @author Ueli Kurmann, igesture@uelikurmann.ch
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Beat Signer, bsigner@vub.ac.be
  */
 public class HelloWorld implements GestureEventListener {
 

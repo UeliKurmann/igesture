@@ -35,7 +35,7 @@ import java.util.List;
  * 
  * @version 1.0 26.03.2008
  * @author Ueli Kurmann
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Beat Signer, bsigner@vub.ac.be
  */
 public interface DataObjectWrapper {
 
