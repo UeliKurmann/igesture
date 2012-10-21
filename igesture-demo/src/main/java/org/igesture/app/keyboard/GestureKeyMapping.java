@@ -35,7 +35,7 @@ import org.ximtec.igesture.io.keyboard.Key;
  * 
  * @version 1.0 Mar 2007
  * @author Ueli Kurmann, igesture@uelikurmann.ch
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Beat Signer, bsigner@vub.ac.be
  */
 public class GestureKeyMapping {
 

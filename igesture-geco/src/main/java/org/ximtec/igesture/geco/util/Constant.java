@@ -31,7 +31,7 @@ package org.ximtec.igesture.geco.util;
  * 
  * @version 0.9, Nov 15, 2007
  * @author Michele Croci, mcroci@gmail.com
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Beat Signer, bsigner@vub.ac.be
  */
 public class Constant extends org.sigtec.util.Constant {
 

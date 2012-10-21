@@ -43,7 +43,7 @@ import org.ximtec.igesture.geco.util.SystemTray;
  * 
  * @version 0.9, Nov 2007
  * @author Michele Croci, mcroci@gmail.com
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Beat Signer, bsigner@vub.ac.be
  */
 
 public class ExitApplicationAction extends BasicAction {

@@ -62,7 +62,7 @@ import org.ximtec.igesture.configuration.Configuration;
  * 
  * @version 1.0 11.06.2008
  * @author Ueli Kurmann
- * @author Beat Signer, signer@inf.ethz.ch
+ * @author Beat Signer, bsigner@vub.ac.be
  */
 public class RubineConfiguration {
 
