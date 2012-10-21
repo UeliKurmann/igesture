@@ -14,7 +14,7 @@
 	<version>1.2-SNAPSHOT</version>
 	<inceptionYear>2007</inceptionYear>
 	<description>
-		iGesture: a general gesture recognition framework.
+		iGesture: A General Gesture Recognition Framework.
 	</description> 
    
 	<name>igesture</name> 
@@ -37,9 +37,9 @@
 			<id>D\signerb</id>
 			<name>Beat Signer</name>
 			<email>bsigner@vub.ac.be</email>
-			<url>http://www.inf.ethz.ch/personal/signer/</url>
+			<url>http://www.beatsigner.com</url>
 			<organization>Vrije Universiteit Brussel</organization>
-			<organizationUrl>http://www.vub.ac.be</organizationUrl>
+			<organizationUrl>http://wise.vub.ac.be</organizationUrl>
 			<roles>
 				<role>Developer</role>
 			</roles>
@@ -50,8 +50,8 @@
 			<name>Ueli Kurmann</name>
 			<email>kurmannu@users.sourceforge.net</email>
 			<url />
-			<organization>ETH Zurich</organization>
-			<organizationUrl>http://www.ethz.ch/</organizationUrl>
+			<organization>bbv Software Services AG</organization>
+			<organizationUrl>http://www.bbv.ch</organizationUrl>
 			<roles>
 				<role>Developer</role>
 			</roles>
@@ -203,7 +203,7 @@
                 <sendOnWarning>true</sendOnWarning>
                 <sendOnSuccess>true</sendOnSuccess>
                 <configuration>
-                    <address>signer@inf.ethz.ch</address>
+                    <address>bsigner@vub.ac.be</address>
                 </configuration>
             </notifier>
             <notifier>
