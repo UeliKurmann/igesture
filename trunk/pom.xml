@@ -151,7 +151,7 @@
 						<link>http://java.sun.com/javase/6/docs/api/</link>
 					</links>
 					<stylesheetfile>javadoc.css</stylesheetfile>
-					<additionalparam>-header '&lt;table border=0 cellpadding=0&gt;&lt;tr&gt;&lt;td align=center&gt;&lt;img src=http://www.igesture.org/resources/images/igesture.png /&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td align=center&gt;&lt;font size=1&gt;&amp;copy; 2006-2007 ETH Zurich&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;'</additionalparam>
+					<additionalparam>-header '<script type="text/javascript"><!-- google_ad_client = "ca-pub-9036390130680414"; /* iGesture Javadoc */ google_ad_slot = "0977728826"; google_ad_width = 234; google_ad_height = 60; //--></script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>'</additionalparam>
 				</configuration>
 			</plugin>
 
